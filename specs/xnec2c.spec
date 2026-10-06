@@ -1,6 +1,6 @@
 Name:           xnec2c
 Version:        4.4.16
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GTK based graphical wrapper for nec2c
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -24,7 +24,6 @@ Requires:       nec2c%{?_isa}
 # For BLAS acceleration.  Really these are suggested, but strongly
 # recommended for performance.  xnec2c detects available BLAS
 # libraries at runtime:
-Recommends: atlas
 Recommends: openblas-serial
 Recommends: openblas-threads
 Recommends: openblas-openmp
@@ -141,6 +140,9 @@ EOF
 
 
 %changelog
+* Mon Oct 05 2026 Jakub Martisko <jamartis@redhat.com> - 4.4.16-9
+- Remove the atlas dependency (atlas is going to be deprecated)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.16-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

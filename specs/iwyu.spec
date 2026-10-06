@@ -1,6 +1,6 @@
 %global appname include-what-you-use
 %global toolchain clang
-%global llvm_ver 22
+%global llvm_ver 23
 
 %global __cc_clang clang-%{llvm_ver}
 %global __cxx_clang clang++-%{llvm_ver}
@@ -12,18 +12,13 @@
 %undefine _include_frame_pointers
 
 Name: iwyu
-Version: 0.26
+Version: 0.27
 Release: %autorelease
 
 License: NCSA
 Summary: C/C++ source files #include analyzer based on clang
 URL: https://github.com/%{appname}/%{appname}
 Source0: %{url}/archive/%{version}/%{appname}-%{version}.tar.gz
-
-# https://github.com/include-what-you-use/include-what-you-use/pull/1964
-Patch100: iwyu-0.26-fix-libraries.patch
-# https://github.com/include-what-you-use/include-what-you-use/pull/1965
-Patch101: iwyu-0.26-packaged-gtest.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

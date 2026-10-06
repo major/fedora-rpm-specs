@@ -20,11 +20,6 @@ for Python distributions. It utilizes the benefits of pyproject-rpm-macros.
 %prep
 %autosetup -p1 -n pyp2spec-%{version}
 
-# Remove the compat shims when Fedora 42 is EOL
-# Older setuptools can't deal with the PEP 639 metadata declaration
-sed -i "s/license = \"MIT AND MIT-0\"/license.text = \"MIT AND MIT-0\"/" pyproject.toml
-sed -i "/license-files/d" pyproject.toml
-
 
 %generate_buildrequires
 %pyproject_buildrequires -t

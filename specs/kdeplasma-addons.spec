@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
 Version: 6.7.91
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global source_licenses %{shrink:
     BSD-3-Clause AND
@@ -41,6 +41,12 @@ URL:     https://invent.kde.org/plasma/%{name}
 
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz.sig
+
+# Manually created patch for downstream crate metadata changes
+# * kameleon: update qmk-via-api dependency from 0.8 to 0.10,
+#   https://invent.kde.org/plasma/kdeplasma-addons/-/merge_requests/1130; still
+#   allow 0.8/0.9 for now (EPEL10.3 compat)
+Patch:   kdeplasma-addons-fix-metadata.diff
 
 ExcludeArch: %{ix86}
 
@@ -221,6 +227,9 @@ cd ../../../../
 %{_libdir}/cmake/PlasmaWeather/
 
 %changelog
+* Mon Oct 05 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 6.7.91-2
+- Allow, and rebuild with, qmk-via-api 0.10
+
 * Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
 - 6.7.91
 

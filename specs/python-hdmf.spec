@@ -32,10 +32,10 @@ Documentation of HDMF can be found at https://hdmf.readthedocs.io}
 # number can be read from
 # src/hdmf/common/hdmf-common-schema/common/namespace.yaml, in
 # ['namespaces'][0]['version'].
-%global schema_version 1.8.0
+%global schema_version 1.10.0
 
 Name:           python-hdmf
-Version:        4.3.1
+Version:        6.2.0
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 
@@ -48,10 +48,6 @@ URL:            %forgeurl
 Source0:        %forgesource
 # Man page hand-written for Fedora in groff_man(7) format based on help output
 Source1:        validate_hdmf_spec.1
-# Accept pandas Series/ExtensionArray for Data; lift pandas<3 cap (#1469)
-# https://github.com/hdmf-dev/hdmf/commit/744cf1971f92f34673c41b55376952f8ffe4707f
-# Backported to 4.3.1, without modifications to CHANGELOG.md
-Patch:          0001-Accept-pandas-Series-ExtensionArray-for-Data-lift-pa.patch
 
 BuildArch:      noarch
 
@@ -75,6 +71,7 @@ Summary:        %{summary}
 BuildRequires:  hdmf-common-schema = %{schema_epoch}:%{schema_version}
 Requires:       hdmf-common-schema = %{schema_epoch}:%{schema_version}
 %if %{without zarr}
+# Since F44; upgrade path can be dropped after F46
 Obsoletes:      python3-hdmf+zarr < 4.1.0-2
 %endif
 
@@ -88,8 +85,6 @@ rm -vrf src/hdmf/common/hdmf-common-schema/
 # Upstream pins numcodecs because “numcodecs 0.16.0 is not compatible with
 # zarr<3,” but we cannot respect this.
 %pyproject_patch_dependency numcodecs:drop_upper
-# Allow pandas 3
-%pyproject_patch_dependency pandas:set_upper:4.0
 
 %generate_buildrequires
 %pyproject_buildrequires -x tqdm%{?with_zarr:,zarr},sparse%{?with_termset:,termset}
@@ -120,10 +115,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 # symbolic link
 %{python3_sitelib}/hdmf/common/hdmf-common-schema
-
-# A backed-up bundled schema directory from a previous upgrade (from Fedora 38
-# or older) may be present; if so, we should continue to own it.
-%ghost %{python3_sitelib}/hdmf/common/hdmf-common-schema.rpmmoved
 
 %changelog
 %autochangelog

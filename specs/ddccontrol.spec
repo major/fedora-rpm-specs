@@ -1,10 +1,17 @@
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
-Version:          3.3.0
-Release:          2%{?dist}
+Version:          3.4.0
+Release:          1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 BuildRequires:    cargo
+BuildRequires:    cargo-rpm-macros
+BuildRequires:    rust-ciborium-devel
+BuildRequires:    rust-sha2-devel
+BuildRequires:    rust-roxmltree-devel
+BuildRequires:    rust-encoding_rs-devel
+BuildRequires:    rust-libc-devel
+BuildRequires:    rust-const-oid-devel
 BuildRequires:    gcc
 BuildRequires:    gtk3-devel
 BuildRequires:    pkgconfig
@@ -21,6 +28,7 @@ BuildRequires:    docbook-style-xsl
 BuildRequires:    gettext-devel
 BuildRequires:    intltool
 BuildRequires:    make
+BuildRequires:    libtool
 BuildRequires:    systemd
 BuildRequires:    systemd-rpm-macros
 Requires:         ddccontrol-db
@@ -28,11 +36,13 @@ Requires:         dbus-common
 Requires:         /sbin/modprobe
 Requires(post):   /sbin/modprobe
 Summary:          Control your monitor by software using the DDC/CI protocol
-#Source0:          https://github.com/ddccontrol/%%{name}/releases/download/%%{version}/%%{name}-%%{version}.tar.bz2
+Source0:          https://github.com/ddccontrol/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # Created with: cargo vendor --locked vendor
-Source0:          %{url}/releases/download/%{version}/%{name}-%{version}-vendor.tar.gz
+#Source0:          %%{url}/releases/download/%%{version}/%%{name}-%%{version}.tar.gz
 # no monitors on s390(x)
 ExcludeArch:      s390 s390x
+# https://github.com/ddccontrol/ddccontrol/issues/344
+Patch:            ddccontrol-3.4.0-relax-deps.patch
 
 %description
 DDCcontrol is a program to control monitor parameters, like brightness and
@@ -64,19 +74,21 @@ Development files for ddccontrol.
 
 %prep
 %autosetup -p1
+
 mkdir -p .cargo
 cat > .cargo/config.toml <<'EOF'
 [source.crates-io]
-replace-with = "vendored-sources"
+replace-with = "local-registry"
 
-[source.vendored-sources]
-directory = "vendor"
+[source.local-registry]
+directory = "/usr/share/cargo/registry"
 
 [net]
 offline = true
 EOF
 
 %build
+autoreconf -fi
 %configure --enable-doc --disable-rpath
 
 # kill rpaths
@@ -86,10 +98,16 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 # use as-needed to remove unused-direct-shlib-dependency
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 
-make %{?_smp_mflags}
+# rebuild the lock file to update version references
+rm -f Cargo.lock
+cargo update --offline
+
+%make_build
+
+cargo build --release -p ddccontrol-dbgen
 
 %install
-make install DESTDIR=%{buildroot} libdir=%{_libdir}
+%make_install
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/gddccontrol.desktop
 
@@ -108,6 +126,8 @@ rm -f %{buildroot}%{_libdir}/{*.a,*.la}
 
 # remove Bluecurve icon (duplicate of the hicolor one)
 rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
+
+install -p -m 0755 target/release/ddccontrol-dbgen %{buildroot}%{_bindir}/ddccontrol-dbgen
 
 %find_lang %{name}
 
@@ -128,6 +148,7 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %exclude %{_docdir}/%{name}/html
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/ddccontrol.DDCControl.conf
 %{_bindir}/ddccontrol
+%{_bindir}/ddccontrol-scanmonitor
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/ddccontrol_service
 %{_prefix}/lib/modules-load.d/%{name}-i2c-dev.conf
@@ -136,6 +157,7 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %{_datadir}/dbus-1/system-services/ddccontrol.DDCControl.service
 %{_datadir}/%{name}/90-nvidia-i2c.conf
 %{_mandir}/man1/ddccontrol.1*
+%{_mandir}/man1/ddccontrol-scanmonitor.1*
 %{_unitdir}/%{name}.service
 
 %files gtk
@@ -148,11 +170,16 @@ rm -rf %{buildroot}%{_datadir}/icons/Bluecurve
 %doc %{_docdir}/%{name}/html
 
 %files devel
+%{_bindir}/ddccontrol-dbgen
 %{_includedir}/%{name}
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Oct 05 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.4.0-1
+- New version
+  Resolves: rhbz#2542543
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.3.0-2
 - Rebuilt for libxml-2.5.4
 

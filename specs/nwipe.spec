@@ -1,5 +1,5 @@
 Name:           nwipe
-Version:        0.42
+Version:        0.43
 Release:        %autorelease
 Summary:        Securely erase disks using a variety of recognized methods
 
@@ -22,6 +22,7 @@ BuildRequires:  libconfig-devel
 BuildRequires:  make
 BuildRequires:  ncurses-devel
 BuildRequires:  parted-devel
+BuildRequires:  libnvme-devel
 
 # Runtime dependencies
 Requires:       coreutils

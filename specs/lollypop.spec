@@ -3,12 +3,13 @@
 %global provider org.gnome.Lollypop
 
 Name:           lollypop
-Version:        1.4.45
-Release:        4%{?dist}
+Version:        1.4.46
+Release:        1%{?dist}
 Summary:        Music player for GNOME
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/lollypop
 Source0:        https://adishatz.org/lollypop/%{name}-%{version}.tar.xz
+Patch0:         %{name}-python-3.15-comp.patch
 
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  desktop-file-utils
@@ -51,7 +52,6 @@ Lollypop is a new GNOME music playing application.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
-sed -i -e 's|libsoup-2.4|libsoup-3.0|' meson.build
 
 %build
 %meson
@@ -87,6 +87,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Oct 05 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.4.46-1
+- Add %{name}-python-3.15-comp.patch
+- Update to 1.4.46
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.45-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 Name:           %{target}-binutils-cs
 Epoch:          1
 Version:        2.45
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GNU Binutils for cross-compilation for %{target} target
 # Most of the sources are licensed under GPLv3+ with these exceptions:
 # LGPLv2+ bfd/hosts/x86-64linux.h, include/demangle.h, include/xregex2.h,
@@ -22,6 +22,7 @@ Source1:        README.fedora
 Patch1:         binutils-2.45-cve-2025-11081.patch
 Patch2:         binutils-2.45-cve-2025-11082.patch
 Patch3:         binutils-2.45-cve-2025-11083.patch
+Patch4:         binutils-2.45-CVE-2026-19582.patch
 BuildRequires:  gcc flex bison ppl-devel cloog
 BuildRequires:  autoconf
 BuildRequires:  texinfo texinfo-tex perl-podlators
@@ -110,6 +111,9 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Mon Oct 05 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.45-5
+- fix CVE-2026-19582: a potential buffer overflow in rsrc_resource_name (rhbz#2519352)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.45-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

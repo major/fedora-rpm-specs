@@ -1,3 +1,17 @@
+# Not yet packaged:
+#   https://pypi.org/project/linkml-runtime/
+#   https://pypi.org/project/schemasheets/
+#   https://pypi.org/project/oaklib/
+%bcond termset 0
+# [Feature]: Support zarr-python v3
+# https://github.com/hdmf-dev/hdmf-zarr/issues/202
+# Incompatible with Zarr 3
+# https://bugzilla.redhat.com/show_bug.cgi?id=2338926
+#
+# Also, since 4.1.1, this would require https://pypi.org/project/hdmf-zarr/ to
+# be packaged as python-hdmf-zarr.
+%bcond zarr 0
+
 # Run test suites upstream runs by default. Tests disabled here are
 # optional and not run when running `test.py` without any arguments.
 # Tests are listed in the order they appear in `test.py`.
@@ -23,7 +37,7 @@
 %bcond test_validation_module 0
 
 Name:           python-pynwb
-Version:        3.1.3
+Version:        4.2.0
 Release:        %autorelease
 Summary:        Package for working with Neurodata stored in the NWB format
 
@@ -40,16 +54,6 @@ Source0:        %{pypi_source pynwb}
 # Man page hand-written for Fedora in groff_man(7) format from --help output
 Source1:        pynwb-validate.1
 
-# In test_import_structure, don’t check dunder names
-# https://github.com/NeurodataWithoutBorders/pynwb/pull/2207
-#
-# Fixes:
-#
-# python-pynwb fails to build with Python 3.15: test_outer_import_structure:
-# AssertionError: '__cached__' not found in ...
-# https://bugzilla.redhat.com/show_bug.cgi?id=2453852
-Patch:          %{url}/pull/2207.patch
-
 BuildArch:      noarch
 
 %global desc %{expand:
@@ -62,12 +66,18 @@ https://pynwb.readthedocs.io/en/latest/}
 %package -n python3-pynwb
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-# Required for tests, not listed in requirements*.txt
+# Required for tests, only listed as a doc dependency
 BuildRequires:  python3-matplotlib
 
 %description -n python3-pynwb %{desc}
+
+%if %{with zarr}
+%pyproject_extras_subpkg -n python3-pynwb zarr
+%endif
+%if %{with termset}
+%pyproject_extras_subpkg -n python3-pynwb termset
+%endif
 
 %prep
 %autosetup -n pynwb-%{version} -p1
@@ -78,9 +88,6 @@ find src -type f -name .codespellrc -print -delete
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's@"coverage", "run", "-p"@"%{python3}"@' \
     tests/validation/test_validate.py
-
-sed -r -i 's/==.*//' requirements.txt | tee requirements-unpinned.txt
-#sed -i -e "s/h5py>.*'/h5py'/" -e "s/numpy>.*'/numpy'/" -e "s/pandas>.*'/pandas'/" setup.py
 
 # TODO: Why does this happen? It seems like it is an issue with our test
 # environment rather than a real bug.
@@ -106,7 +113,7 @@ do
 done
 
 %generate_buildrequires
-%pyproject_buildrequires requirements-unpinned.txt
+%pyproject_buildrequires %{?with_zarr:-x zarr} %{?with_termset:-x termset}
 
 %build
 %pyproject_wheel

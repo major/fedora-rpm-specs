@@ -33,6 +33,8 @@ Recommends:     (kmscon-freetype if freetype)
 
 # Upstream patch to prevent running kmscon.service when VTs are enabled
 Patch1: systemd-prevent-kmscon.service-to-run-if-dev-tty0-is.patch
+# Upstream patch, prevent crash on kernel 7.3+
+Patch2: drm_shared-Fix-crash-if-a-plane-has-no-properties.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).

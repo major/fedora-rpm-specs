@@ -1,20 +1,31 @@
 %global         altname         Aegisub
 
 Name:           aegisub
-Version:        3.5.0~beta
+Version:        3.5.0
 Release:        %autorelease
 Summary:        Tool for creating and modifying subtitles
 License:        BSD-3-Clause AND ISC AND MIT
 # BSD-3-Clause license except the following file:
 # ISC:
-# ./tools/* except the following BSD-3-Clause:
+# ./tools/* retained after source cleanup, except the following BSD-3-Clause:
 # - ./tools/combine-config.py
 # - ./tools/respack.py
-# ./tests/*
+# - ./tools/version.sh
+# - ./tools/macos-build-fftw.sh
+# - ./tools/macos-verify-deployment-target.py
+# ./tests/* except the following BSD-3-Clause:
+# - ./tests/lua/sibling/moonscript.lua
+# - ./tests/setup.sh
+# - ./tests/support/tests_pre.h
+# - ./tests/tests/language_match.cpp
+# - ./tests/tests/luajit_52.c
 # ./libaegisub/* except the following BSD-3-Clause:
 # - ./libaegisub/common/cajun/{elements,reader}.cpp
 # - ./libaegisub/include/libaegisub/cajun/{elements,reader,visitor}.h
 # - ./libaegisub/include/lagi_pre(_c).h
+# - ./libaegisub/ass/string_codec.cpp
+# - ./libaegisub/include/libaegisub/ass/string_codec.h
+# - ./libaegisub/include/libaegisub/exception.h
 # ./automation/autoload/select-overlaps.moon
 # ./automation/autoload/strip-tags.lua
 # ./automation/include/aegisub/* except ../unicode.moon BSD-3-Clause
@@ -45,9 +56,8 @@ License:        BSD-3-Clause AND ISC AND MIT
 # ./src/colour_button.h
 # ./src/command/command.cpp
 # ./src/command/command.h
+# ./src/command/export.{cpp,h}
 # ./src/command/vis_tool.cpp
-# ./src/compat.cpp
-# ./src/compat.h
 # ./src/context.cpp
 # ./src/crash_writer_minidump.cpp
 # ./src/crash_writer.cpp
@@ -115,8 +125,6 @@ License:        BSD-3-Clause AND ISC AND MIT
 # ./src/project.cpp
 # ./src/project.h
 # ./src/res/res.rc
-# ./src/res/strings_utf8.rc
-# ./src/res/strings.rc
 # ./src/resolution_resampler.cpp
 # ./src/resolution_resampler.h
 # ./src/search_replace_engine.cpp
@@ -145,7 +153,6 @@ License:        BSD-3-Clause AND ISC AND MIT
 # ./src/thesaurus.cpp
 # ./src/thesaurus.h
 # ./src/toolbar.cpp
-# ./src/tooltip_binding.{cpp,h}
 # ./src/validators.cpp
 # ./src/validators.h
 # ./src/value_event.h
@@ -187,6 +194,9 @@ License:        BSD-3-Clause AND ISC AND MIT
 #
 # Licensed to BSDL with permission from the author:
 # ./src/MatroskaParser.{c,h}
+#
+# Public domain (Windows-only, not included in the binary package):
+# ./src/res/strings{,_utf8}.rc
 
 %global upstream_version %{gsub %{version} ~ -}
 %global upstream_package_version %{gsub %{version} %~.*$ %{quote:}}

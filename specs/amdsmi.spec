@@ -292,8 +292,10 @@ if [ -e %{buildroot}%{pkg_prefix}/share/tests ]; then
   mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 fi
 
+%if %{without compat}
 #ERROR   0002: file '/usr/lib/python3.14/site-packages/amdsmi/libamd_smi.so' contains an invalid runpath '/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build' in [/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build:]
 chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/lib%{pkg_library_name}.so
+%endif
 
 %if 0%{?suse_version}
 %files

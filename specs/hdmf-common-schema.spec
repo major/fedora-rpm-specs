@@ -3,7 +3,7 @@
 # package.
 
 Name:           hdmf-common-schema
-Version:        1.8.0
+Version:        1.10.0
 Epoch:          1
 Release:        %autorelease
 Summary:        Specifications for pre-defined data structures provided by HDMF

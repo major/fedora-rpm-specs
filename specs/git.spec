@@ -86,8 +86,8 @@
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.55.0
-Release:        2%{?dist}
+Version:        2.56.0
+Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -138,7 +138,11 @@ Patch3:         0003-t-lib-git-svn-try-harder-to-find-a-port.patch
 
 # Configurates Apache test server to use `DavLockDBType sdbm`
 # Prevents t5540 failures on i686, s390x and ppc64le
-Patch5:         git-test-apache-davlockdbtype-config.patch
+Patch4:         git-test-apache-davlockdbtype-config.patch
+
+# http: handle curl stripping creds from effective url (curl >= 8.23.0)
+# https://lore.kernel.org/git/20260928040149.GA498186@coredump.intra.peff.net/
+Patch5:         git-2.56.0-http-strip-creds-effective-url.patch
 
 %if %{with docs}
 # pod2man is needed to build Git.3pm
@@ -257,6 +261,7 @@ BuildRequires:  perl(CGI::Carp)
 BuildRequires:  perl(CGI::Util)
 BuildRequires:  perl(DBD::SQLite)
 BuildRequires:  perl(Digest::MD5)
+BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Copy)
@@ -1048,6 +1053,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Mon Oct 05 2026 Ondřej Pohořelský <opohorel@redhat.com> - 2.56.0-1
+- update to 2.56.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.55.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

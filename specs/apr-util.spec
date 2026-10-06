@@ -37,7 +37,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Apache-2.0:  everything
 # RSA-MD:      https://gitlab.com/fedora/legal/fedora-legal-docs/-/merge_requests/187
 #              include\apr_md5.h, passwd\apr_md5.c, crypto\apr_md4.c, include\apr_md4.h
@@ -53,6 +53,7 @@ Patch2: apr-util-1.4.1-private.patch
 Patch3: apr-util-1.6.3-lmdb-support.patch
 Patch4: apr-util-1.6.3-drop-engine-headers.patch
 Patch5: apr-util-1.6.3-r1928729.patch
+Patch6: apr-util-1.6.5-noengine.patch
 BuildRequires: gcc
 BuildRequires: autoconf, apr-devel >= 1.3.0
 BuildRequires: %{dbdep}, expat-devel, libuuid-devel
@@ -280,6 +281,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Mon Oct 05 2026 Joe Orton  <jorton@redhat.com> - 1.6.5-2
+- fix compatibility with OpenSSL 4 (#2545511)
+
 * Mon Aug 10 2026 Luboš Uhliarik <luhliari@redhat.com> - 1.6.5-1
 - new version 1.6.5
 

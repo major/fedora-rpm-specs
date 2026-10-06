@@ -3,7 +3,7 @@
 
 Name:           falkon
 Version:        26.08.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modern web browser
 
 # Files in src/lib/opensearch and src/lib/3rdparty are GPLv2+
@@ -15,6 +15,9 @@ Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version
 
 # reenable native scrollbars by default (upstream disabled them in 2.1.2)
 Patch0:         falkon-3.1.0-native-scrollbars.patch
+
+# expose additional Chromium flags in Preferences
+Patch1:         falkon-chromium-flags-preference.patch
 
 ## upstream patches
 
@@ -181,6 +184,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fa
 
 
 %changelog
+* Mon Oct 05 2026 Karel Volný <kvolny@redhat.com> - 26.08.1-2
+- Add a Preferences dialog for additional Chromium flags (rhbz#2545869)
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

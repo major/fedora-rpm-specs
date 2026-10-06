@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/smallsemi
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        0.7.2
+Version:        0.7.3
 Release:        %autorelease
 Summary:        GAP library of small semigroups
 
@@ -18,6 +18,7 @@ BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2019.04.10
 BuildRequires:  gap-devel >= 4.10
+BuildRequires:  gap-pkg-io-doc
 
 Requires:       gap-core >= 4.10
 
@@ -39,6 +40,7 @@ License:        GFDL-1.1-no-invariants-or-later AND Knuth-CTAN AND GPL-1.0-or-la
 Summary:        Small semigroups documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
+Requires:       gap-pkg-io-doc
 
 %description doc
 This package contains documentation for gap-pkg-%{gap_pkgname}.

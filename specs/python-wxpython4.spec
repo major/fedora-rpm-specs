@@ -12,7 +12,7 @@ specific code.
 
 Name:           python-wxpython4
 Version:        4.2.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 # wxPython is licensed under the wxWidgets license.  The only exception is
 # the pubsub code in wx/lib/pubsub which is BSD licensed.  Note: wxPython
@@ -24,6 +24,7 @@ License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1 AND BSD-2-Clause
 URL:            https://www.wxpython.org/
 Source0:        https://files.pythonhosted.org/packages/source/w/%{srcname}/wxpython-%{version}.tar.gz
 Patch:          fix-ftbfs-doxygen-1.15.0.patch
+Patch:          fix-ftbfs-doxygen-1.18.0.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -157,6 +158,9 @@ xvfb-run -a %{__python3} build.py test --pytest_timeout=60 --extra_pytest="-k $S
 
 
 %changelog
+* Mon Oct 05 2026 Scott Talbert <swt@techie.net> - 4.2.5-5
+- Fix FTBFS with doxygen 1.18.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.2.5-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

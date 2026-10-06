@@ -14,8 +14,8 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 
 Name:           kiwi
-Version:        11.0.2
-Release:        1%{?dist}
+Version:        11.1.1
+Release:        2%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -119,6 +119,20 @@ Obsoletes:      %{name}-tools < %{version}-%{release}
 This metapackage installs the necessary system dependencies
 to run KIWI.
 
+%package systemdeps-boxbuild
+Summary:        KIWI - host requirements for building in a self contained box
+Requires:       %{name}-systemdeps-core = %{version}-%{release}
+Supplements:    (kiwi-cli and qemu-kvm)
+Requires:       qemu-kvm
+Recommends:     sshfs
+Recommends:     virtiofsd >= 1.10
+Recommends:     podman
+
+%description systemdeps-boxbuild
+Host setup helper to pull in all packages required/useful on
+the build host to build images in a self contained virtual
+machine or container via the kiwi-ng system boxbuild command
+
 %if 0%{?fedora}
 %package systemdeps-pkgmgr-zypper
 Summary:        KIWI - Zypper package manager support
@@ -150,6 +164,23 @@ Requires:       appx-util
 %description systemdeps-containers
 Host setup helper to pull in all packages required/useful on
 the build host to build container images e.g docker, wsl.
+%endif
+
+%ifnarch ppc64 %{ix86}
+# buildah isn't available on ppc64 or x86_32
+%package systemdeps-stackbuild
+Summary:        KIWI - host requirements for building based on containers
+Requires:       %{name}-systemdeps-core = %{version}-%{release}
+Requires:       kiwi-systemdeps-containers = %{version}-%{release}
+Supplements:    (kiwi-cli and kiwi-systemdeps-containers)
+Requires:       podman
+Requires:       rsync
+
+%description systemdeps-stackbuild
+Host setup helper to pull in all packages required/useful on
+the build host to store image root trees as containers and
+to build images based on containers via the kiwi-ng system
+stash and kiwi-ng system stackbuild commands
 %endif
 
 %if 0%{?fedora}
@@ -323,10 +354,12 @@ languages
 %package systemdeps
 Summary:        KIWI - Host system dependencies
 Requires:       kiwi-systemdeps-core = %{version}-%{release}
+Recommends:     kiwi-systemdeps-boxbuild = %{version}-%{release}
 Requires:       kiwi-systemdeps-bootloaders = %{version}-%{release}
 %ifnarch ppc64 %{ix86}
 # buildah isn't available on ppc64 or x86_32
 Requires:       kiwi-systemdeps-containers = %{version}-%{release}
+Recommends:     kiwi-systemdeps-stackbuild = %{version}-%{release}
 %endif
 Requires:       kiwi-systemdeps-filesystems = %{version}-%{release}
 Requires:       kiwi-systemdeps-disk-images = %{version}-%{release}
@@ -353,6 +386,14 @@ Recommends:     kiwi-systemdeps = %{version}-%{release}
 # Enable support for alternative markups
 Recommends:     python%{python3_version}dist(anymarkup-core) >= 0.8.0
 Recommends:     python%{python3_version}dist(xmltodict) >= 0.12.0
+# The boxbuild command was provided by the kiwi_boxed_plugin
+Provides:       python3-kiwi-boxed-plugin = 0.2.60-2
+Obsoletes:      python3-kiwi-boxed-plugin < 0.2.60-2
+Conflicts:      python3-kiwi-boxed-plugin < 0.2.60-2
+# The stackbuild and stash commands were provided by the kiwi_stackbuild_plugin
+Provides:       python3-kiwi-stackbuild-plugin = 1.0.14-2
+Obsoletes:      python3-kiwi-stackbuild-plugin < 1.0.14-2
+Conflicts:      python3-kiwi-stackbuild-plugin < 1.0.14-2
 
 BuildArch:      noarch
 %{?python_provide:%python_provide python3-%{name}}
@@ -482,12 +523,20 @@ runs properly under an environment with SELinux enabled.
 
 %package cli
 Summary:        Flexible operating system appliance image builder
-Provides:       kiwi-schema = 8.2
+Provides:       kiwi-schema = 8.5
 # So we can reference it by the source package name while permitting this to be noarch
 Provides:       %{name} = %{version}-%{release}
 Requires:       python3-%{name} = %{version}-%{release}
 Requires:       (%{name}-selinux = %{version}-%{release} if selinux-policy)
 Requires:       bash-completion
+# The boxbuild command was provided by the kiwi_boxed_plugin
+Provides:       kiwi-boxed-plugin = 0.2.60-2
+Obsoletes:      kiwi-boxed-plugin < 0.2.60-2
+Conflicts:      kiwi-boxed-plugin < 0.2.60-2
+# The stackbuild command was provided by the kiwi_stackbuild_plugin
+Provides:       kiwi-stackbuild-plugin = 1.0.14-2
+Obsoletes:      kiwi-stackbuild-plugin < 1.0.14-2
+Conflicts:      kiwi-stackbuild-plugin < 1.0.14-2
 BuildArch:      noarch
 
 %description cli %{desc}
@@ -636,6 +685,9 @@ popd
 %files systemdeps-core
 # Empty metapackage
 
+%files systemdeps-boxbuild
+# Empty metapackage
+
 %if 0%{?fedora}
 %files systemdeps-pkgmgr-zypper
 # Empty metapackage
@@ -646,6 +698,9 @@ popd
 
 %ifnarch ppc64 %{ix86}
 %files systemdeps-containers
+# Empty metapackage
+
+%files systemdeps-stackbuild
 # Empty metapackage
 %endif
 
@@ -671,6 +726,12 @@ popd
 
 
 %changelog
+* Tue Oct 06 2026 Neal Gompa <ngompa@fedoraproject.org> - 11.1.1-2
+- Fix dep on systemdeps-stackbuild subpackage
+
+* Mon Oct 05 2026 Neal Gompa <ngompa@fedoraproject.org> - 11.1.1-1
+- Update to 11.1.1
+
 * Thu Sep 17 2026 Neal Gompa <ngompa@fedoraproject.org> - 11.0.2-1
 - Rebase to 11.0.2
 

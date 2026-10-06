@@ -52,8 +52,8 @@
 
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
-Version: 19beta1
-Release: 8%{?dist}
+Version: 19beta4
+Release: 1%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -103,8 +103,6 @@ Source22: https://github.com/pgvector/pgvector/archive/refs/tags/v0.8.3.tar.gz#/
 # postgres-decoderbufs extension
 Source23: https://github.com/debezium/postgres-decoderbufs/archive/refs/tags/v3.6.2.Final.tar.gz#/postgres-decoderbufs-3.6.2.tar.gz
 
-# Fix pgaudit compilation with PostgreSQL 19 (VARSIZE_ANY_EXHDR API change)
-Patch20: pgaudit-pg19-compat.patch
 # Enable in-tree builds for PGXS-based extensions
 Patch21: pg_repack-intree-build.patch
 Patch22: pgvector-intree-build.patch
@@ -668,7 +666,6 @@ EOF
 tar xzf %{SOURCE20}
 mv pgaudit-main contrib/pgaudit
 pushd contrib/pgaudit
-%patch 20 -p1
 popd
 %endif
 
@@ -1589,6 +1586,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Fri Oct 02 2026 Pavol Sloboda <psloboda@redhat.com> - 19beta4-1
+- Rebase to 19beta4
+
 * Wed Sep 30 2026 Pavol Sloboda <psloboda@redhat.com> - 19beta1-8
 - Start building postgresql19-decoderbufs again
 

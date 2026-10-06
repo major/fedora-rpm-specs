@@ -22,6 +22,7 @@ Source10:       tokei.1
 #   allow 0.11,
 #   https://github.com/XAMPPRocky/tokei/pull/1253#issuecomment-3471595554
 # * Update colored to 3.0, downstream-only for MSRV reasons
+# * Allow clap-cargo 0.19: https://github.com/XAMPPRocky/tokei/pull/1386
 Patch:          tokei-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

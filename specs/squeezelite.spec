@@ -1,10 +1,10 @@
 %global forgeurl https://github.com/ralph-irving/squeezelite/
-%global commit   de709765072a1ef270f63956370c5b25a1ea1159
+%global commit   ab20df3dff76122b9e4f426cffd0346e752b93da
 %forgemeta
 
 
 Name:            squeezelite
-Version:         2.0.0.1586
+Version:         2.0.0.1609
 Release:         %autorelease
 Summary:         Headless music player for streaming from Lyrion Music Server
 

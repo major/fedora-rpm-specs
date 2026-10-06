@@ -1,7 +1,7 @@
 %bcond gpu_demo %{undefined rhel}
 
 Name:           harfbuzz
-Version:        14.5.0
+Version:        14.6.0
 Release:        1%{?dist}
 Summary:        Text shaping library
 
@@ -167,6 +167,12 @@ This package contains Harfbuzz Vector support library.
 %{_libdir}/libharfbuzz-gpu.so.0*
 
 %changelog
+* Tue Oct 06 2026 Parag Nemade <pnemade AT redhat DOT com> - 14.6.0-1
+- Update to 14.6.0 version (#2546215)
+
+* Mon Oct 05 2026 Parag Nemade <pnemade AT redhat DOT com> - 14.5.1-1
+- Update to 14.5.1 version (#2544396)
+
 * Mon Sep 21 2026 Parag Nemade <pnemade AT redhat DOT com> - 14.5.0-1
 - Update to 14.5.0 version (#2537300)
 

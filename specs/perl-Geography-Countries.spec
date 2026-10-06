@@ -1,6 +1,6 @@
 Name:           perl-Geography-Countries
 Version:        2009041301
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        2-letter, 3-letter, and numerical codes for countries
 License:        MIT
 URL:            https://metacpan.org/release/Geography-Countries
@@ -8,11 +8,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Geography/Geography-
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
@@ -30,12 +29,11 @@ codes, as defined by the ISO-3166 maintenance agency, and defined by the UNSD.
 %setup -q -n Geography-Countries-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -47,6 +45,9 @@ make test
 %{_mandir}/man3/Geography::Countries.3*
 
 %changelog
+* Mon Oct  5 2026 Paul Howarth <paul@city-fan.org> - 2009041301-46
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2009041301-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

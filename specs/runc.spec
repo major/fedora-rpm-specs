@@ -4,7 +4,7 @@
 # https://github.com/opencontainers/runc
 %global goipath github.com/opencontainers/runc
 Epoch:          2
-Version:        1.5.1
+Version:        1.5.2
 %global tag     v%{gsub %{version} ~ -}
 
 %gometa -L -f
@@ -22,8 +22,10 @@ Source0:        %{gosource}
 Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
+BuildRequires:  fdupes
 BuildRequires:  go-vendor-tools
 BuildRequires:  go-md2man
+BuildRequires:  libpathrs-devel
 BuildRequires:  pkgconfig(libseccomp)
 
 Provides:       oci-runtime
@@ -42,12 +44,17 @@ specification.
 %goprep -p1
 tar -xf %{S:1}
 
+# remove shebang in bash completion file
+%global runccomp ./contrib/completions/bash/runc
+sed -i "1c\\# bash completion for runc                                -*- shell-script -*-" %{runccomp}
+
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
 
 %build
 %global gomodulesmode GO111MODULE=on
-export  GO_BUILDTAGS="seccomp urfave_cli_no_docs"
+export  GO_BUILDTAGS="seccomp libpathrs"
+export  GO_LDFLAGS=" -X main.gitCommit=%{release} "
 %gobuild -o %{gobuilddir}/bin/runc %{goipath}
 
 # generate man files
@@ -61,9 +68,13 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 # install man pages
 install -d -p                           %{buildroot}%{_mandir}/man8
 install -m 0644 -vp man/man8/*.8        %{buildroot}%{_mandir}/man8/.
+
 # install bash completion
-install -m 0755 -vd                     %{buildroot}/%{bash_completions_dir}
-install -m 0644 -vp contrib/completions/bash/%{name} %{buildroot}/%{bash_completions_dir}
+install -d -m 0755                      %{buildroot}%{bash_completions_dir}
+install -D -m 0644 -t                   %{buildroot}%{bash_completions_dir} %{runccomp}
+
+# remove duplicate license files
+%fdupes %{buildroot}%{_datadir}/licenses/runc
 
 %check
 %go_vendor_license_check -c %{S:2}

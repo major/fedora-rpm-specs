@@ -1,7 +1,7 @@
 
 Name:		console-setup
-Version:	1.248
-Release:	2%{?dist}
+Version:	1.249
+Release:	1%{?dist}
 Summary:	Tools for configuring the console using X Window System key maps
 
 # For a breakdown of the licensing, see COPYRIGHT, copyright, copyright.fonts and copyright.xkb
@@ -46,7 +46,7 @@ not wasted but used for another symbol.
 
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}
 %autopatch -p1
 
 cp -a --remove-destination debian/copyright COPYRIGHT
@@ -94,6 +94,10 @@ cp -a Fonts/fontsets Fonts/*.equivalents Fonts/*.set \
 
 
 %changelog
+* Mon Oct 05 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.249-1
+- Update to latest upstream version
+  Resolves: #2511884
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.248-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

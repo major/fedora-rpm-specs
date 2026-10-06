@@ -22,6 +22,8 @@ Source10:       https://github.com/obi1kenobi/cargo-semver-checks/archive/v%{ver
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2454122
 # * Allow older v0.5 of dev-dependency bugreport for now;
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2450149
+# * Allow clap-cargo 0.19:
+#   https://github.com/obi1kenobi/cargo-semver-checks/pull/1750
 Patch:          cargo-semver-checks-fix-metadata.diff
 
 # The build runs out of memory on i686. This could probably be worked around by

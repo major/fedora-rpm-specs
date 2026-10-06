@@ -1,6 +1,6 @@
 Name:           meld
-Version:        3.24.0
-Release:        2%{?dist}
+Version:        3.24.1
+Release:        1%{?dist}
 Summary:        Visual diff and merge tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -83,6 +83,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{python3_sitelib}/meld/
 
 %changelog
+* Mon Oct 05 2026 Dominic Hopf <dmaphy@fedoraproject.org> - 3.24.1-1
+- New upstream release 3.24.1 (RHBZ#2545782)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

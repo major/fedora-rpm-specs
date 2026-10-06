@@ -1,5 +1,5 @@
 Name:           python-tox-uv
-Version:        1.36.0
+Version:        1.36.1
 Release:        %autorelease
 Summary:        Integration of uv with tox
 

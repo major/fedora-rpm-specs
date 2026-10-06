@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	83%{?dist}
+Release:	85%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -37,12 +37,8 @@ Source11:	grub.patches
 Source12:	sbat.csv.in
 Source13:	gen_grub_cfgstub
 Source14:	95-set-boot-entry.install
-Source15:	grub-cc.macros
-Source16:	grub-cc.cfg
-Source17:	grub-cc-prefix-embedded.cfg
 
 %include %{SOURCE1}
-%include %{SOURCE15}
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -159,9 +155,6 @@ This subpackage provides tools for support of all platforms.
 
 %if 0%{with_efi_arch}
 %{expand:%define_efi_variant %%{package_arch} -o}
-%if 0%{with_efi_cc}
-%{expand:%define_efi_cc_variant %%{package_arch} -o}
-%endif
 %endif
 %if 0%{with_alt_efi_arch}
 %{expand:%define_efi_variant %%{alt_package_arch}}
@@ -249,9 +242,6 @@ git commit -m "After making subdirs"
 %build
 %if 0%{with_efi_arch}
 %{expand:%do_primary_efi_build %%{grubefiarch} %%{grubefiname} %%{grubeficdname} %%{_target_platform} %%{efi_target_cflags} %%{efi_host_cflags}}
-%if 0%{with_efi_cc}
-%{expand:%do_primary_efi_cc_build %%{grubefiarch} %%{grubeficcname} %%{grubeficccdname} %%{_target_platform} %%{efi_target_cflags} %%{efi_host_cflags}}
-%endif
 %endif
 %if 0%{with_alt_efi_arch}
 %{expand:%do_alt_efi_build %%{grubaltefiarch} %%{grubaltefiname} %%{grubalteficdname} %%{_alt_target_platform} %%{alt_efi_target_cflags} %%{alt_efi_host_cflags}}
@@ -287,9 +277,6 @@ rm -fr $RPM_BUILD_ROOT
 %do_common_install
 %if 0%{with_efi_arch}
 %{expand:%do_efi_install %%{grubefiarch} %%{grubefiname} %%{grubeficdname}}
-%if 0%{with_efi_cc}
-%{expand:%do_efi_cc_install %%{grubefiarch} %%{grubeficcname} %%{grubeficccdname}}
-%endif
 %endif
 %if 0%{with_alt_efi_arch}
 %{expand:%do_alt_efi_install %%{grubaltefiarch} %%{grubaltefiname} %%{grubalteficdname}}
@@ -674,9 +661,6 @@ fi
 
 %if 0%{with_efi_arch}
 %{expand:%define_efi_variant_files %%{package_arch} %%{grubefiname} %%{grubeficdname} %%{grubefiarch} %%{target_cpu_name} %%{grub_target_name}}
-%if 0%{with_efi_cc}
-%{expand:%define_efi_cc_variant_files %%{package_arch} %%{grubeficcname} %%{grubeficccdname} %%{grubefiarch} %%{target_cpu_name} %%{grub_target_name}}
-%endif
 %endif
 %if 0%{with_alt_efi_arch}
 %{expand:%define_efi_variant_files %%{alt_package_arch} %%{grubaltefiname} %%{grubalteficdname} %%{grubaltefiarch} %%{alt_target_cpu_name} %%{alt_grub_target_name}}
@@ -702,6 +686,13 @@ fi
 %endif
 
 %changelog
+* Fri Oct 02 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-85
+- Remove grub-cc sub-package
+
+* Fri Oct 02 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-84
+- Include chain module on aarch64, arm and riscv64 platforms
+- Resolves: #2545182
+
 * Tue Sep 29 2026 Josue Hernandez <josherna@redhat.com> - 2.12-83
 - Fix /usr/lib/efi folders ownership
 - Resolves: #2528260

@@ -26,6 +26,8 @@ BuildRequires:  systemd-rpm-macros
 Requires:       dbus
 Requires:       dbus-common
 Requires:       xdg-desktop-portal >= %{xdg_desktop_portal_version}
+# oo7 implementation of the org.freedesktop.impl.portal.Secret interface
+Requires:       oo7-portal
 Supplements:    gnome-shell
 
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764

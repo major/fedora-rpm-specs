@@ -5,7 +5,7 @@
 %global crate qmk-via-api
 
 Name:           rust-qmk-via-api
-Version:        0.8.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        VIA api implementation for QMK-based keyboards
 
@@ -54,6 +54,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+hidapi-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+hidapi-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "hidapi" feature of the "%{crate}" crate.
+
+%files       -n %{name}+hidapi-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

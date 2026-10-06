@@ -54,6 +54,10 @@ Patch:          0007-Unpin-tracing-subcriber.patch
 # (without changes to Cargo.lock)
 # https://github.com/rust-lang/rustup/commit/4d7b4b68b9736aa1dccf43c4b6df0976e88b3c8a
 Patch:          0008-Upgrade-to-rustls-platform-verifier-0.7.patch
+# fix(deps): update rust crate clap-cargo to 0.19.0
+# (without changes to Cargo.lock)
+# https://github.com/rust-lang/rustup/commit/831470a7345dd1cb5d77b2efb48e5e4c13c527f4
+Patch:          0009-fix-deps-update-rust-crate-clap-cargo-to-0.19.0.patch
 
 ExcludeArch:    %{ix86}
 

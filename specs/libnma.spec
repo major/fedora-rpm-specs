@@ -11,7 +11,12 @@ License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/libnma/
 Source0:        https://download.gnome.org/sources/libnma/1.10/%{name}-%{version}.tar.xz
 
-Patch1:         0001-nm-applet-no-notifications.patch
+Patch0:         0001-nm-applet-no-notifications.patch
+# Fix some build warnings
+# https://gitlab.gnome.org/GNOME/libnma/-/commit/9b6165f00ddbcde0d327399945030c2663998f64
+# https://gitlab.gnome.org/GNOME/libnma/-/commit/68cc85767b2aad7356f1a733b0f98ca53c74d95c
+Patch1:         %{url}/-/commit/9b6165f00ddbcde0d327399945030c2663998f64.patch#/Fix_header_includes.patch
+Patch2:         %{url}/-/commit/68cc85767b2aad7356f1a733b0f98ca53c74d95c.patch#/Fix_more_header_includes.patch
 
 BuildSystem:    meson
 BuildOption(conf): -Dgcr=true

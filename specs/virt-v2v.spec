@@ -44,8 +44,8 @@ ExclusiveArch: x86_64
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.13.7
-Release:       2%{?dist}
+Version:       2.13.8
+Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -369,6 +369,9 @@ done
 
 
 %changelog
+* Mon Oct 05 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.13.8-1
+- New upstream development version 2.13.8
+
 * Fri Oct 02 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.13.7-2
 - Re-enable ntfs test
 

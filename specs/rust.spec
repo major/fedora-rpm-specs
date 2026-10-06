@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.98.1
+Version:        1.99.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -9,9 +9,9 @@ URL:            https://www.rust-lang.org
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.97.1
-%global bootstrap_channel 1.97.1
-%global bootstrap_date 2026-07-16
+%global bootstrap_version 1.98.0
+%global bootstrap_channel 1.98.0
+%global bootstrap_date 2026-08-20
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -23,7 +23,7 @@ URL:            https://www.rust-lang.org
 # We need CRT files for *-wasi targets, at least as new as the commit in
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-%global wasi_libc_ref wasi-sdk-33
+%global wasi_libc_ref wasi-sdk-34
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -41,16 +41,16 @@ URL:            https://www.rust-lang.org
 # See src/bootstrap/src/core/build_steps/llvm.rs, fn check_llvm_version
 # See src/llvm-project/cmake/Modules/LLVMVersion.cmake for bundled version.
 %global min_llvm_version 21.0.0
-%global bundled_llvm_version 22.1.8
+%global bundled_llvm_version 23.1.1
 #global llvm_compat_version 21
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
 
 # Requires stable libgit2 1.9, and not the next minor soname change.
 # This needs to be consistent with the bindings in vendor/libgit2-sys.
-%global min_libgit2_version 1.9.4
+%global min_libgit2_version 1.9.6
 %global next_libgit2_version 1.10.0~
-%global bundled_libgit2_version 1.9.4
+%global bundled_libgit2_version 1.9.6
 %if 0%{?fedora} >= 41
 %bcond_with bundled_libgit2
 %else
@@ -116,7 +116,7 @@ Source10:        %{wasi_libc_source}
 Patch1:         0001-Use-lld-provided-by-system.patch
 
 # Set a substitute-path in rust-gdb for standard library sources.
-Patch2:         rustc-1.70.0-rust-gdb-substitute-path.patch
+Patch2:         rustc-1.99.0-rust-gdb-substitute-path.patch
 
 # Override default target CPUs to match distro settings
 # TODO: upstream this ability into the actual build configuration
@@ -129,7 +129,7 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.98.0-unbundle-sqlite.patch
+Patch6:         rustc-1.99.0-unbundle-sqlite.patch
 
 # stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
 Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
@@ -137,6 +137,12 @@ Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
 # https://fedoraproject.org/wiki/Changes/ShadowStack
 # This patch enables `-Zcf-protection=return` for SHSTK by default
 Patch8:         0001-Enable-SHSTK-by-default-on-x86_64-unknown-linux-gnu.patch
+
+# Ensure llvm worker threads have sufficient stack space. Backport of #163289.
+Patch9:		0001-Ensure-llvm-worker-threads-have-sufficient-stack-spa.patch
+
+# Fix for #160827, uefi targets failing to link due to missing wcslen builtin.
+Patch10:	0001-Add-wcslen-builtin.patch
 
 ### RHEL-specific patches below ###
 
@@ -147,7 +153,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.98.0-disable-libssh2.patch
+Patch100:       rustc-1.99.0-disable-libssh2.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -717,6 +723,8 @@ test "$(cut -d' ' -f1 ./version)" = "%{lua: print((rpm.expand('%version'):gsub('
 %endif
 %patch -P7 -p1
 %patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -763,6 +771,10 @@ rm -rf src/tools/rustc-perf/collector/*-benchmarks/
 %if %with disabled_libssh2
 rm -rf vendor/libssh2-sys*/
 %endif
+
+# (hopefully) minimize security scanners picking up false javascript positives by
+# removing references to unused npm packages.
+find '(' -name package-lock.json -or -name yarn.lock ')' -delete -print
 
 # This only affects the transient rust-installer, but let it use our dynamic xz-libs
 sed -i.lzma -e '/LZMA_API_STATIC/d' src/bootstrap/src/core/build_steps/tool.rs
@@ -911,6 +923,7 @@ test -r "%{optimized_builtins}"
   --set build.jobs=%_smp_build_ncpus \
   --set build.build-stage=2 \
   --set build.doc-stage=2 \
+  --set build.gdb="discover" \
   --set build.install-stage=2 \
   --set build.test-stage=2 \
   --set build.optimized-compiler-builtins=false \

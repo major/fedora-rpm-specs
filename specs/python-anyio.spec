@@ -6,12 +6,16 @@ of either asyncio or trio.  It implements trio-like structured concurrency (SC)
 on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
-Version:        4.14.2
-Release:        2%{?dist}
+Version:        4.15.1
+Release:        1%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
 Source:         %{pypi_source %{srcname}}
+
+# Add the `network` marker to `test_sourceless_install`
+# https://github.com/agronholm/anyio/pull/1377
+Patch:          %{url}/pull/1377.patch
 
 BuildArch:      noarch
 
@@ -70,6 +74,9 @@ tomcli set pyproject.toml lists delitem \
 
 
 %changelog
+* Sat Oct 03 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.15.1-1
+- Update to 4.15.1 (close RHBZ#2527800)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
