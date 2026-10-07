@@ -1,13 +1,10 @@
 Name:           perl-Net-DNS-SEC
-Version:        1.27
-Release:        4%{?dist}
+Version:        1.28
+Release:        1%{?dist}
 Summary:        DNSSEC modules for Perl
 License:        HPND-MIT-disclaimer
 URL:            https://metacpan.org/release/Net-DNS-SEC
 Source0:        https://cpan.metacpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-SEC-%{version}.tar.gz
-# Adapt tests to a crypto policy without SHA-1, proposed to the upstream,
-# bug #2299447, CPAN RT#154526
-Patch0:         Net-DNS-SEC-1.25-Skip-SHA-1-signature-tests-if-OpenSSL-errors.patch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  gcc
@@ -135,6 +132,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 06 2026 Petr Pisar <ppisar@redhat.com> - 1.28-1
+- 1.28 bump
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.27-4
 - Perl 5.44 rebuild
 

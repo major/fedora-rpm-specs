@@ -1,6 +1,6 @@
 Name:           perl-Mixin-ExtraFields
-Version:        0.140003
-Release:        10%{?dist}
+Version:        0.140004
+Release:        1%{?dist}
 Summary:        Add extra stashes of data to your objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mixin-ExtraFields
@@ -17,10 +17,11 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Params::SomeUtil)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(String::RewritePrefix)
-BuildRequires:  perl(Sub::Exporter) => 0.972
+BuildRequires:  perl(Sub::Exporter) >= 0.972
 BuildRequires:  perl(Sub::Install)
 # Tests:
 BuildRequires:  perl(base)
@@ -82,13 +83,18 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Mixin
+%{perl_vendorlib}/Mixin/ExtraFields.pm
+%{perl_vendorlib}/Mixin/ExtraFields/Driver*
+%{_mandir}/man3/Mixin::ExtraFields*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 06 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.140004-1
+- 0.140004 bump (rhbz#2545927)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.140003-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

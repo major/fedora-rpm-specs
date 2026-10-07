@@ -13,7 +13,7 @@
 %global rubygems_uri_version 1.1.1
 
 # Requires versions
-%global bundler_version 4.0.21
+%global bundler_version 4.0.22
 %global psych_version 5.3.1
 %global rdoc_version 7.0.3
 
@@ -37,7 +37,7 @@
 
 Summary: The Ruby standard for packaging ruby libraries
 Name: rubygems
-Version: 4.0.21
+Version: 4.0.22
 Release: 1%{?dist}
 # BSD-2-Clause OR Ruby:
 #   lib/rubygems/net-http/
@@ -320,6 +320,9 @@ ruby %{SOURCE12}
 
 
 %changelog
+* Tue Oct 06 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.22-1
+- Update to RubyGems 4.0.22
+
 * Thu Sep 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.21-1
 - Update to RubyGems 4.0.21
 

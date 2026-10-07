@@ -1,14 +1,14 @@
-# Generated using the scripts at # Generated using the scripts at https://forge.fedoraproject.org/cosmic/cosmic-packaging/src/branch/main/scripts
+# Generated using the scripts at https://forge.fedoraproject.org/cosmic/cosmic-packaging/src/branch/main/scripts
 
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
 %global commit 343c007f37cd71716e68f01c43ecf2764b7f7c47
 %global commitdatestring 2026-08-31 17:53:00 -0400
-%global cosmic_minver 1.8.0
+%global cosmic_minver 1.9.0
 
 Name:           cosmic-icon-theme
-Version: 1.8.0
+Version: 1.9.0
 Release:        %autorelease
 Summary:        Icon theme for the COSMIC Desktop Environment
 

@@ -1261,16 +1261,8 @@ Source0:    README
 %obsolete elements-devel 6.3.4-7
 %obsolete enki 22.08.0-16
 %obsolete fts-rest-client 3.14.2-6
-%obsolete matrix-synapse 1.147.1-2
-%obsolete matrix-synapse+cache_memory 1.147.1-2
-%obsolete matrix-synapse+jwt 1.147.1-2
-%obsolete matrix-synapse+matrix-synapse-ldap3 1.147.1-2
-%obsolete matrix-synapse+oidc 1.147.1-2
-%obsolete matrix-synapse+postgres 1.147.1-2
-%obsolete matrix-synapse+sentry 1.147.1-2
-%obsolete matrix-synapse+systemd 1.147.1-2
-%obsolete matrix-synapse+url_preview 1.147.1-2
-%obsolete matrix-synapse+user-search 1.137.0-3
+%obsolete hexchat 2.16.2-12
+%obsolete hexchat-devel 2.16.2-12
 %obsolete menulibre 2.3.2-13
 %obsolete mkdocs-material+git 9.7.1-3
 %obsolete mkdocs-material+recommended 9.7.1-3
@@ -1309,7 +1301,6 @@ Source0:    README
 %obsolete python3-XStatic-Angular-lrdragndrop 1.0.2.2-38
 %obsolete python3-XStatic-Bootstrap-Datepicker 1.3.1.0-39
 %obsolete python3-XStatic-D3 3.5.17.0-33
-%obsolete python3-XStatic-DataTables 1.10.15.1-35
 %obsolete python3-XStatic-FileSaver 1.3.2.0-29
 %obsolete python3-XStatic-Font-Awesome 6.2.1.1-14
 %obsolete python3-XStatic-Hogan 2.0.0.2-40
@@ -1321,7 +1312,6 @@ Source0:    README
 %obsolete python3-XStatic-Jasmine 2.4.1.1-31
 %obsolete python3-XStatic-Json2yaml 0.1.1.0-29
 %obsolete python3-XStatic-Magic-Search 0.2.5.1-35
-%obsolete python3-XStatic-Patternfly 3.21.0.1-35
 %obsolete python3-XStatic-Patternfly-Bootstrap-Treeview 2.1.3.2-35
 %obsolete python3-XStatic-QUnit 1.14.0.2-39
 %obsolete python3-XStatic-Rickshaw 1.5.0.0-41
@@ -1400,6 +1390,7 @@ Source0:    README
 %obsolete python3-gcsfs 2025.9.0-3
 %obsolete python3-gcsfs+crc 2025.9.0-3
 %obsolete python3-gcsfs+gcsfuse 2025.9.0-3
+%obsolete python3-ginga+qt5 5.5.1-3
 %obsolete python3-graphene 3.0b6-19
 %obsolete python3-grpc-google-iam-v1 0.13.0-13
 %obsolete python3-hdf5storage 0.1.18-21
@@ -1505,6 +1496,7 @@ Source0:    README
 %obsolete python3-pyxdf-examples 1.17.0-7
 %obsolete python3-pyxid 1.1-0.37
 %obsolete python3-pyxs 0.4.1-34
+%obsolete python3-qutepart 3.3.3-18
 %obsolete python3-rabbitvcs 0.19-12
 %obsolete python3-ratelimitingfilter 1.5-18
 %obsolete python3-ratinabox 1.15.3-9
@@ -1571,6 +1563,7 @@ Source0:    README
 %obsolete python3-totpcgi 0.6.0-0.28
 %obsolete python3-typepy 1.3.2-8
 %obsolete python3-typepy+datetime 1.3.2-8
+%obsolete python3-uc-micro-py 2.0.0-2
 %obsolete python3-vconnector 0.6.0-23
 %obsolete python3-vevents 0.1.0-0.23
 %obsolete python3-vpoller 0.7.3-31
@@ -1598,6 +1591,7 @@ Source0:    README
 %obsolete totpcgi 0.6.0-0.28
 %obsolete totpcgi-provisioning 0.6.0-0.28
 %obsolete totpcgi-selinux 0.6.0-0.28
+%obsolete vimiv 0.9.1-35
 %obsolete vpoller 0.7.3-31
 %obsolete wult 1.12.48-3
 %obsolete xcat 1.0.4-22

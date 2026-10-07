@@ -10,8 +10,8 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	6.1.1
-Release:	2%{?dist}
+Version:	6.2.0
+Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib AND Apache-2.0 AND MPL-2.0
 URL:		https://xrootd.web.cern.ch
@@ -24,6 +24,12 @@ Patch0:		0001-Unbundle-tinyxml.patch
 Patch1:		0001-Unbundle-gtest.patch
 #		Make documentation self-contained
 Patch2:		0001-Make-documentation-self-contained.patch
+#		https://github.com/xrootd/xrootd/pull/2969
+Patch3:		0001-Tests-Do-not-hardcode-the-name-of-the-build-director.patch
+#		https://github.com/xrootd/xrootd/pull/2970
+Patch4:		0001-Python-Fix-parsing-of-enum-arguments-in-python-bindi.patch
+Patch5:		0002-Python-Fix-parsing-of-timeout-arguments-in-python-bi.patch
+Patch6:		0003-Python-Fix-parsing-of-uint64_t-arguments-in-python-b.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -79,6 +85,7 @@ BuildRequires:	krb5-server
 BuildRequires:	krb5-workstation
 BuildRequires:	openssl
 BuildRequires:	procps
+BuildRequires:	python3-pytest
 BuildRequires:	sqlite
 
 Requires:	%{name}-server%{?_isa} = %{epoch}:%{version}-%{release}
@@ -270,10 +277,13 @@ This package contains the API documentation of the xrootd libraries.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
 
 # Delete bundled dependencies
 rm src/XrdXml/tinyxml/tiny*
-rm -r vendor/bats
 rm -r vendor/googletest
 %if %{?fedora}%{!?fedora:0}
 # picojson not in RHEL/EPEL
@@ -410,6 +420,8 @@ done
 # The badredir test fails when there is no network - exclude
 # The posix test is broken for 32 bit archs ...
 # https://github.com/xrootd/xrootd/issues/2559
+# XrdCl::tpc-http-bigfiles and XrdCl::tpc-http-timeout broken on 32 bit
+# https://github.com/xrootd/xrootd/issues/2972
 
 touch testfile
 if ( setfattr -n user.testattr -v testvalue testfile ) ; then
@@ -417,6 +429,8 @@ if ( setfattr -n user.testattr -v testvalue testfile ) ; then
 XRootD::badredir\|\
 %ifarch %{ix86} %{arm}
 XRootD::posix\|\
+XrdCl::tpc-http-bigfiles\|\
+XrdCl::tpc-http-timeout\|\
 %endif
 XrdCl::FileSystemTest.PlugInTest\|\
 XrdCl::FileTest.PlugInTest
@@ -676,6 +690,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Oct 06 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.2.0-1
+- Update to version 6.2.0
+
 * Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:6.1.1-2
 - Rebuilt for libxml-2.5.4
 

@@ -19,10 +19,10 @@ Summary: Emacs VM mail reader
 Summary(sv): Emacs postläsare VM
 Name: emacs-vm
 %global forgeurl https://gitlab.com/emacs-vm/vm/
-%global version0 8.3.2
-%global commit edecae201ca7261e0d5adedded25cea0bbaea432
+%global version0 9.0.0
+%global commit ebd19da89884f9513ea4e3a074f27a4784a8b9b8
 %forgemeta
-Version: %forgeversion
+Version: %forgeversion -p
 Release: %autorelease
 License: GPL-1.0-or-later AND GPL-2.0-or-later
 URL: %forgeurl
@@ -81,11 +81,11 @@ install -d %{buildroot}%{_datadir}/metainfo
 cp -p %{SOURCE1} %{buildroot}%{_datadir}/metainfo
 
 %check
+# make test-no-opt
 appstream-util validate-relax --nonet \
 	       %{buildroot}%{_datadir}/metainfo/%{name}.metainfo.xml
 
 %files
-%doc README.headers-only
 %doc %{_infodir}/*
 %license COPYING
 %{pkgdir}

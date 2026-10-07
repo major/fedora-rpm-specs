@@ -20,7 +20,7 @@
 %global luajit_libdir %{_libdir}/luajit/%{luajit_version}
 %global luajit_builddir obj-luajit
 
-%global real_version 1.52.1
+%global real_version 1.53.0
 %global extra_version 0
 
 %if 0%{?rhel} && 0%{?rhel} < 9

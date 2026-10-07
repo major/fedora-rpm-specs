@@ -3,8 +3,8 @@
 %bcond perl_Clone_enables_optional_test %[%{undefined rhel} && %{undefined perl_bootstrap}]
 
 Name:           perl-Clone
-Version:        0.50
-Release:        3%{?dist}
+Version:        0.51
+Release:        1%{?dist}
 Summary:        Recursively copy perl data types
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Clone
@@ -133,6 +133,29 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Oct  4 2026 Paul Howarth <paul@city-fan.org> - 0.51-1
+- Update to 0.51
+  - Fix: Clone deep hash and mixed array/hash structures past MAX_DEPTH without
+    C stack growth (GH#121, GH#146)
+  - Fix: Support cloning Perl 5.38+ class instances (SVt_PVOBJ)
+  - Fix: Count nesting depth, not call count, in rdepth
+  - Fix: Honour depth==0 when rdepth exceeds MAX_DEPTH on wide structures
+  - Fix: Preserve shared RV identity in rv_clone_iterative
+  - Fix: Guard rv_clone_iterative against scalar-ref cycles past MAX_DEPTH
+  - Fix: Share non-cloneable leaves in rv_clone_iterative
+  - Fix: Preserve blessings in iterative array chain walking (GH#121)
+  - Fix: Deep-copy leaf scalars past MAX_DEPTH instead of aliasing
+  - Fix: Release cloned mg_obj refcount after sv_magic (memory leak)
+  - Fix: Remove leaked Newxz buffer in magic mg_ptr cloning
+  - Fix: Use SAVEFREESV for exception-safe hseen/weakrefs cleanup
+  - Fix: Avoid shell in ps invocation for MacPorts / sandboxed macOS (GH#122)
+  - Refactor: Extract magic cloning to clone_magic() helper
+  - Refactor: Fix TRACEME debug infrastructure for 64-bit and MSVC
+  - Chore: Update ppport.h from 3.68 to 3.73
+  - Test: Add coverage for clone($ref, $depth), edge cases, class objects
+  - Docs: Fix duplicate Synopsis header and update LIMITATIONS section
+  - CI: Add macOS, refresh Linux distro matrix, fix Windows build step
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.50-3
 - Perl 5.44 rebuild
 

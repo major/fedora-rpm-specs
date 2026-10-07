@@ -3,7 +3,7 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:		gperftools
-Version:	2.18.90
+Version:	2.18.91
 Release:	1%{?dist}
 License:	BSD-3-Clause
 Summary:	Very fast malloc and performance analysis tools
@@ -123,6 +123,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/INSTALL
 %{_libdir}/*.so.*
 
 %changelog
+* Tue Oct  6 2026 Tom Callaway <spot@fedoraproject.org> - 2.18.91-1
+- update to 2.18.91
+
 * Fri Sep 25 2026 Tom Callaway <spot@fedoraproject.org> - 2.18.90-1
 - update to 2.18.90
 

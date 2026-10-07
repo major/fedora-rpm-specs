@@ -22,7 +22,7 @@
 %global ver_major    14
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.4.0
+Version:        14.4.1
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -47,9 +47,9 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.9.0  with php-composer(nikic/php-parser)                   < 6)
 # temp for RPM_NIKIC_PHP_PARSER_VERSION
 BuildRequires:   php-nikic-php-parser5 >= 5.8.0-3
-BuildRequires:  (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
+BuildRequires:  (php-composer(phpunit/php-text-template)          >= 6.0.1  with php-composer(phpunit/php-text-template)          < 7)
 BuildRequires:  (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
-BuildRequires:  (php-composer(sebastian/environment)              >= 9.3.2  with php-composer(sebastian/environment)              < 10)
+BuildRequires:  (php-composer(sebastian/environment)              >= 9.3.3  with php-composer(sebastian/environment)              < 10)
 BuildRequires:  (php-composer(sebastian/git-state)                >= 1.0    with php-composer(sebastian/git-state)                < 2)
 BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 5.0.2  with php-composer(sebastian/lines-of-code)            < 6)
 BuildRequires:  (php-composer(sebastian/version)                  >= 7.0    with php-composer(sebastian/version)                  < 8)
@@ -73,9 +73,9 @@ BuildRequires:  php-xdebug
 #        "ext-mbstring": "*",
 #        "ext-xmlwriter": "*",
 #        "nikic/php-parser": "^5.9.0",
-#        "phpunit/php-text-template": "^6.0",
+#        "phpunit/php-text-template": "^6.0.1",
 #        "sebastian/complexity": "^6.0",
-#        "sebastian/environment": "^9.3.2",
+#        "sebastian/environment": "^9.3.3",
 #        "sebastian/git-state": "^1.0",
 #        "sebastian/lines-of-code": "^5.0.2",
 #        "sebastian/version": "^7.0",
@@ -86,9 +86,9 @@ Requires:       php-libxml
 Requires:       php-mbstring
 Requires:       php-xmlwriter
 Requires:       (php-composer(nikic/php-parser)                   >= 5.9.0  with php-composer(nikic/php-parser)                   < 6)
-Requires:       (php-composer(phpunit/php-text-template)          >= 6.0    with php-composer(phpunit/php-text-template)          < 7)
+Requires:       (php-composer(phpunit/php-text-template)          >= 6.0.1  with php-composer(phpunit/php-text-template)          < 7)
 Requires:       (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
-Requires:       (php-composer(sebastian/environment)              >= 9.3.2  with php-composer(sebastian/environment)              < 10)
+Requires:       (php-composer(sebastian/environment)              >= 9.3.3  with php-composer(sebastian/environment)              < 10)
 Requires:       (php-composer(sebastian/git-state)                >= 1.0    with php-composer(sebastian/git-state)                < 2)
 Requires:       (php-composer(sebastian/lines-of-code)            >= 5.0.2  with php-composer(sebastian/lines-of-code)            < 6)
 Requires:       (php-composer(sebastian/version)                  >= 7.0    with php-composer(sebastian/version)                  < 8)
@@ -154,9 +154,6 @@ cp -pr src %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}
 
 %if %{with tests}
 %check
-if ! php -v | grep Xdebug
-then EXT="-d zend_extension=xdebug.so -d xdebug.mode=coverage"
-fi
 export XDEBUG_MODE=coverage
 
 %{_bindir}/phpab \
@@ -192,7 +189,7 @@ for cmd in php php84 php85; do
       -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php \
         %{_bindir}/phpunit13 \
           --filter "^((?!(testCanBeCreatedFromDefaults)).)*$" \
-          || ret=1
+          --do-not-warn-when-php-is-not-configured-for-development || ret=1
   fi
 done
 exit $ret
@@ -208,6 +205,11 @@ exit $ret
 
 
 %changelog
+* Sun Oct  4 2026 Remi Collet <remi@remirepo.net> - 14.4.1-1
+- update to 14.4.1
+- raise dependency on phpunit/php-text-template 6.0.1
+- raise dependency on sebastian/environment 9.3.3
+
 * Thu Oct  1 2026 Remi Collet <remi@remirepo.net> - 14.4.0-1
 - update to 14.4.0
 

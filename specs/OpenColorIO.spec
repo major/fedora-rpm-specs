@@ -1,15 +1,12 @@
 Name:           OpenColorIO
-Version:        2.5.2
-Release:        4%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        Enables color transforms and image display across graphics apps
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://opencolorio.org/
 Source0:        https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v%{version}/%{name}-%{version}.tar.gz
-# Change MZ_VERSION_BUILD to hex
-# https://github.com/AcademySoftwareFoundation/OpenColorIO/pull/1954
-Patch0:         OpenColorIO-mzver.patch
 
 # OpenVDB no longer builds on i686
 ExcludeArch:    i686
@@ -171,6 +168,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Tue Oct 06 2026 Richard Shaw <hobbes1069@gmail.com> - 2.6.0-1
+- Update to 2.6.0.
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.5.2-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

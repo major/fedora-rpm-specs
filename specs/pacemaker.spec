@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.3
-%global baserelease 1
+%global baserelease 2
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit 7052efa194a519292349a0634fd08e1b653d0ab6
@@ -206,10 +206,10 @@ BuildRequires: %{python_name}-devel
 # as setup.py isn't yet built from setup.py.in when
 # pyproject_buildrequires is run use it with -N option
 # and require the tools manually for now
-BuildRequires: %{python_name}-wheel
+# pyproject-rpm-macros RFE: https://bugzilla.redhat.com/2543102
 BuildRequires: %{python_name}-pip
 BuildRequires: %{python_name}-setuptools
-BuildRequires: pyproject-rpm-macros
+BuildRequires: (%{python_name}-wheel if %{python_name}-setuptools < 71)
 
 # Pacemaker requires a minimum libqb functionality
 Requires:      libqb >= 1.0.1
@@ -482,9 +482,7 @@ export LDFLAGS_HARDENED_LIB="%{?_hardening_ldflags}"
 
 make %{_smp_mflags} V=1
 
-pushd python
-%pyproject_wheel
-popd
+%pyproject_wheel -d python
 
 %check
 make %{_smp_mflags} check
@@ -503,11 +501,9 @@ make install \
   DESTDIR=%{buildroot} V=1 docdir=%{pcmk_docdir} \
   %{?_python_bytecompile_extra:%{?py_byte_compile:am__py_compile=true}}
 
-pushd python
 %pyproject_install
 # take care of the license-files manually for now
-%pyproject_save_files -L "*"
-popd
+%pyproject_save_files -L pacemaker
 
 mkdir -p %{buildroot}%{_datadir}/pacemaker/nagios/plugins-metadata
 for file in $(find %{nagios_name}-%{nagios_hash}/metadata -type f); do
@@ -774,7 +770,10 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
-* Tue Sep 08 2026 Klaus Wenninger <kwenning@redhat.com> - 3.0.3-1
+* Tue Sep 29 2026 Miro Hrončok <miro@hroncok.cz> - 3.0.3-2
+- Drop redundant BuildRequires for python3-wheel
+
+* Thu Sep 17 2026 Klaus Wenninger <kwenning@redhat.com> - 3.0.3-1
 - Update for new upstream release tarball: Pacemaker-3.0.3,
   for full details, see included ChangeLog.md file or
   https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-3.0.3

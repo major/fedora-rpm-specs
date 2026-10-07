@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.1.18.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -205,6 +205,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Oct 06 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.18.1-2
+- Rebuilt for OpenColorIO 2.6.
+
 * Mon Oct 05 2026 Richard Shaw <hobbes1069@gmail.com> - 1:3.1.18.1-1
 - Update to 3.1.18.1.
 

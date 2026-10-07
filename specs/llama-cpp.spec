@@ -37,7 +37,7 @@ Name:           llama-cpp
 # This is the main license
 
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-Version:        b10630
+Version:        b11232
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/llama.cpp
@@ -262,10 +262,9 @@ rm -rf %{buildroot}%{_libdir}/lib*.a
 %if %{with check}
 %check
 # cpu results
-#   14 - test-tokenizers-ggml-vocabs (Failed)              main
-# rocm 7.2 gfx1100 results
-#   14 - test-tokenizers-ggml-vocabs (Failed)              main
-#   36 - test-backend-ops (Subprocess aborted)             main
+#   16 - test-tokenizers-ggml-vocabs (Failed)              main
+# rocm 10.0 gfx1100 results
+#   16 - test-tokenizers-ggml-vocabs (Failed)              main
 export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bin
 %ctest
 %endif

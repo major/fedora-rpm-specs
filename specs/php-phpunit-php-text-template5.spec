@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-phpunit-php-text-template5
 #
-# SPDX-FileCopyrightText:  Copyright 2010-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2010-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -9,11 +9,8 @@
 
 %bcond_without       tests
 
-%global gh_commit    e1367a453f0eda562eedb4f659e13aa900d66c53
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-text-template
-%global gh_date      2025-02-07
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   %{gh_project}
@@ -24,14 +21,14 @@
 %global ver_major    5
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        5.0.0
-Release:        5%{?dist}
+Version:        5.0.1
+Release:        1%{?dist}
 Summary:        Simple template engine, version %{ver_major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 BuildArch:      noarch
@@ -39,8 +36,8 @@ BuildRequires:  php(language) >= 8.3
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # From composer.json, require-dev
-#        "phpunit/phpunit": "^12.0"
-BuildRequires:  phpunit12
+#        "phpunit/phpunit": "^12.5.37"
+BuildRequires:  phpunit12  >= 12.5.37
 %endif
 
 # From composer.json
@@ -60,7 +57,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
@@ -81,7 +78,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php83 php84; do
+for cmd in php php83 php84 php85 php86; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php \
       %{_bindir}/phpunit12 || ret=1
@@ -100,6 +97,9 @@ exit $ret
 
 
 %changelog
+* Sun Oct  4 2026 Remi Collet <remi@remirepo.net> - 5.0.1-1
+- update to 5.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

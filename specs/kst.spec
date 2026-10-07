@@ -1,33 +1,37 @@
 Name:       kst
-Version:    2.0.8
-Release:    64%{?dist}
+%global rtld_name org.kde.kst
+
+Version:    3.0.0
+Release:    1%{?dist}
 Summary:    A data viewing program
 
 License:    GPL-3.0-only
 URL:        http://kst-plot.kde.org/
-Source0:    http://downloads.sourceforge.net/%{name}/Kst-%{version}.tar.gz
-# Fix calls to set_target_properties in KstMacros.cmake
-# https://bugs.kde.org/show_bug.cgi?id=322286
-Patch0:     kst-properties.patch
-# Upstream patch to fix qreal for arm
-# https://bugs.kde.org/show_bug.cgi?id=342642
-# https://bugzilla.redhat.com/show_bug.cgi?id=1180348
-Patch1:     kst-qreal.patch
-Patch2:     kst-gsl21.patch
-Patch3:     nest.patch
+Source0:    http://downloads.sourceforge.net/%{name}/kst-plot-%{version}.tar.gz
 
-BuildRequires: gsl-devel cmake
-BuildRequires: cfitsio-devel
-BuildRequires: pkgconf
-%if 0%{?fedora} >= 17
-BuildRequires:  netcdf-cxx-devel
-%else
-BuildRequires:  netcdf-devel
-%endif
-BuildRequires: getdata-devel muParser-devel
-BuildRequires: matio-devel
+BuildRequires: cmake
 BuildRequires: desktop-file-utils
-BuildRequires: qt4-devel
+BuildRequires: gcc-c++
+BuildRequires: libappstream-glib
+
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Concurrent)
+BuildRequires: cmake(Qt6Designer)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: pkgconfig(cfitsio)
+BuildRequires: pkgconfig(getdata)
+BuildRequires: pkgconfig(gsl)
+BuildRequires: pkgconfig(hdf5)
+BuildRequires: pkgconfig(matio)
+BuildRequires: pkgconfig(netcdf)
+BuildRequires: pkgconfig(libtiff-4)
+
+Obsoletes: %{name}-libcdf < 3.0.0
 
 %description
 Kst is a real-time data viewing and plotting tool with basic data analysis 
@@ -90,76 +94,76 @@ Requires:   %{name}%{?_isa} = %{version}-%{release}
 A plugin allowing kst to open and read data in getdata (dirfile) format.
 
 %prep
-%setup -q -n Kst-%{version}
-%patch -P0 -p1 -b .properties
-%patch -P1 -p1 -b .qreal
-%patch -P2 -p0 -b .gsl21
-%patch -P3 -p0 -b .nest
+%setup -q -n kst-plot-%{version}
 
 %build
-# -Dkst_merge_files=1 is failing for now
-# https://bugs.kde.org/show_bug.cgi?id=322289
-%cmake -Dkst_merge_files=0 -Dkst_rpath=0 \
+%cmake -Dkst_merge_files=1 -Dkst_rpath=0 \
   -Dkst_install_prefix=%{_prefix} -Dkst_install_libdir=%{_lib} \
-  -Dkst_test=1 -Dkst_release=1 -Dkst_verbose=1 -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-%cmake_build --target kst2
-
-%check
-#make test
+  -Dkst_test=1 -Dkst_release=1 -Dkst_verbose=1
+%cmake_build
 
 %install
 %cmake_install
 rm -f %{buildroot}%{_bindir}/test_*
 # omit deprecated kde3-era stuff -- rex
 rm -frv %{buildroot}%{_datadir}/{applnk,mimelink}/
-%find_lang %{name}_common --with-qt
+
+%check
+%ctest
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.metainfo.xml
 
 %ldconfig_scriptlets
 
-%files -f %{name}_common.lang
+%files
 %doc INSTALL AUTHORS README COPYING COPYING-DOCS COPYING.LGPL 
 
 #binaries
 %{_bindir}/kst*
-%{_libdir}/libkst*so.*
-%dir %{_libdir}/kst2
-%dir %{_libdir}/kst2/plugins
-%{_libdir}/kst2/plugins/libkst2_dataobject*so
-%{_libdir}/kst2/plugins/libkst2_fi*so
 
-%{_datadir}/applications/kst2.desktop
+%dir %{_libdir}/kst
+%{_libdir}/kst/libdataobject*.so
+%{_libdir}/kst/libfi*.so
 
-%{_libdir}/kst2/plugins/libkst2_datasource_ascii.so
+%{_libdir}/kst/libdatasource_ascii.so
+%{_libdir}/kst/libdatasource_hdf5.so
+%{_libdir}/kst/libdatasource_matlab.so
+%{_libdir}/kst/libdatasource_qimagesource.so
+%{_libdir}/kst/libdatasource_sourcelist.so
+%{_libdir}/kst/libdatasource_tiff16source.so
 
-%{_libdir}/kst2/plugins/libkst2_datasource_qimagesource.so
-
-%{_libdir}/kst2/plugins/libkst2_datasource_matlab.so
-
-%{_libdir}/kst2/plugins/libkst2_datasource_sampledatasource.so
-
-%{_libdir}/kst2/plugins/libkst2_datasource_sourcelist.so
-
-%{_datadir}/icons/hicolor/*/apps/*.png
-%{_datadir}/icons/hicolor/*/apps/*.svg
-%{_mandir}/man1/kst2.1.gz
+%{_datadir}/applications/%{rtld_name}.desktop
+%{_datadir}/icons/hicolor/*/apps/kst.png
+%{_datadir}/icons/hicolor/*/apps/kst.svg
+%{_datadir}/icons/hicolor/*/mimetypes/application-x-kst.png
+%{_datadir}/icons/hicolor/*/mimetypes/application-x-kst.svg
+%{_datadir}/mime/packages/x-kst.xml
+%{_mandir}/man1/kst.1*
+%{_metainfodir}/%{rtld_name}.metainfo.xml
+%{_libdir}/kst/libKst6App.*
+%{_libdir}/kst/libKst6Core.*
+%{_libdir}/kst/libKst6Math.*
+%{_libdir}/kst/libKst6Widgets.*
 
 %files devel
-%{_libdir}/libkst*a
-%{_libdir}/libkst*so
+%{_includedir}/Kst6App/
+%{_includedir}/Kst6Core/
+%{_includedir}/Kst6Math/
+%{_includedir}/Kst6Widgets/
 
 %files docs
 #%{_datadir}/apps/kst/tutorial/gyrodata.dat
 
 %files fits
-%{_libdir}/kst2/plugins/libkst2_datasource_fitsimage.so
-
-%files netcdf
-%{_libdir}/kst2/plugins/libkst2_datasource_netcdf.so
+%{_libdir}/kst/libdatasource_fitsimage.so
 
 %files getdata
-%{_libdir}/kst2/plugins/libkst2_datasource_dirfilesource.so
+%{_libdir}/kst/libdatasource_dirfilesource.so
 
 %changelog
+* Wed Sep 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.0-1
+- Update to v3.0.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-64
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

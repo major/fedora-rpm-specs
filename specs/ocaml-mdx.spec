@@ -1,7 +1,7 @@
 %global giturl  https://github.com/realworldocaml/mdx
 
 Name:           ocaml-mdx
-Version:        2.6.0
+Version:        2.7.0
 Release:        %autorelease
 Summary:        Executable code blocks inside markdown files
 
@@ -9,8 +9,6 @@ License:        ISC
 URL:            https://realworldocaml.github.io/mdx/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/mdx-%{version}.tbz
-# Adapt to pathname changes in dune 3.24
-Patch:          %{name}-dune-3.24.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}

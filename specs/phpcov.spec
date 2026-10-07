@@ -22,7 +22,7 @@
 
 
 Name:           %{pk_project}
-Version:        13.1.1
+Version:        13.2.0
 Release:        1%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
@@ -38,29 +38,29 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.4.1
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 14.3.5 with php-composer(phpunit/php-code-coverage) < 15)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 14.4.1 with php-composer(phpunit/php-code-coverage) < 15)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 7.0.2  with php-composer(phpunit/php-file-iterator) < 8)
 BuildRequires:  (php-composer(sebastian/cli-parser)      >= 5.0.1  with php-composer(sebastian/cli-parser)      < 6)
 BuildRequires:  (php-composer(sebastian/diff)            >= 9.0.1  with php-composer(sebastian/diff)            < 10)
-BuildRequires:  (php-composer(sebastian/version)         >= 7.0.0  with php-composer(sebastian/version)         < 8)
+BuildRequires:  (php-composer(sebastian/version)         >= 7.0.1  with php-composer(sebastian/version)         < 8)
 BuildRequires:  php-pecl(Xdebug) >= 3
 # from composer.json, require-dev
-BuildRequires:  phpunit13 >= 13.3.3
+BuildRequires:  phpunit13 >= 13.4.0
 %endif
 
 # from composer.json
 #        "php": ">=8.4",
-#        "phpunit/php-code-coverage": "^14.3.5",
+#        "phpunit/php-code-coverage": "^14.4.1",
 #        "phpunit/php-file-iterator": "^7.0.2",
 #        "sebastian/cli-parser": "^5.0.1",
 #        "sebastian/diff": "^9.0.1",
-#        "sebastian/version": "^7.0.0"
+#        "sebastian/version": "^7.0.1"
 Requires:       php(language) >= 8.4
-Requires:       (php-composer(phpunit/php-code-coverage) >= 14.3.5 with php-composer(phpunit/php-code-coverage) < 15)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 14.4.1 with php-composer(phpunit/php-code-coverage) < 15)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 7.0.2  with php-composer(phpunit/php-file-iterator) < 8)
 Requires:       (php-composer(sebastian/cli-parser)      >= 5.0.1  with php-composer(sebastian/cli-parser)      < 6)
 Requires:       (php-composer(sebastian/diff)            >= 9.0.1  with php-composer(sebastian/diff)            < 10)
-Requires:       (php-composer(sebastian/version)         >= 7.0.0  with php-composer(sebastian/version)         < 8)
+Requires:       (php-composer(sebastian/version)         >= 7.0.1  with php-composer(sebastian/version)         < 8)
 # from phpcompatinfo report for version 4.0.0
 # none
 
@@ -110,10 +110,6 @@ install -D -p -m 755 %{pk_project} %{buildroot}%{_bindir}/%{pk_project}
 mkdir vendor
 ln -s %{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}/autoload.php vendor/autoload.php
 
-if ! php -v | grep Xdebug
-then EXT="-d zend_extension=xdebug.so"
-fi
-
 # test with hardcoded path in data
 rm tests/end-to-end/composer/merge/mismatching-code-coverage-driver-do-not-require.phpt
 rm tests/end-to-end/composer/merge/mismatching-git-information-do-not-require.phpt
@@ -129,7 +125,9 @@ rm tests/end-to-end/composer/merge/valid-directory-with-html-report-and-class-vi
 ret=0
 for cmd in php php84 php85; do
   if which $cmd; then
-    $cmd $EXT -d xdebug.mode=coverage %{_bindir}/phpunit13 --testsuite end-to-end || ret=1
+    $cmd -d xdebug.mode=coverage %{_bindir}/phpunit13 \
+       --testsuite end-to-end \
+       --do-not-warn-when-php-is-not-configured-for-development || ret=1
   fi
 done
 exit $ret;
@@ -147,6 +145,11 @@ exit $ret;
 
 
 %changelog
+* Tue Oct  6 2026 Remi Collet <remi@remirepo.net> - 13.2.0-1
+- update to 13.2.0
+- raise dependency on phpunit/php-code-coverage 14.4.1
+- raise dependency on sebastian/version 7.0.1
+
 * Thu Oct  1 2026 Remi Collet <remi@remirepo.net> - 13.1.1-1
 - update to 13.1.1
 - raise dependency on phpunit/php-code-coverage 14.3.5

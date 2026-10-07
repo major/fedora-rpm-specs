@@ -1,7 +1,7 @@
 %global app_id com.toolstack.Folio
 
 Name:           folio
-Version:        25.02
+Version:        26.01
 Release:        %autorelease
 Summary:        A markdown note-taking app for GNOME
 

@@ -20,7 +20,7 @@
 %global ver_minor    6
 
 Name:           %{pk_project}%{ver_major}
-Version:        9.6.37
+Version:        9.6.38
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -250,6 +250,9 @@ exit $ret
 
 
 %changelog
+* Tue Oct  6 2026 Remi Collet <remi@remirepo.net> - 9.6.38-1
+- update to 9.6.38 (no change)
+
 * Wed Sep 23 2026 Remi Collet <remi@remirepo.net> - 9.6.37-1
 - update to 9.6.37
 

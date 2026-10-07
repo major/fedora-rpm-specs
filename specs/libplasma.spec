@@ -119,8 +119,10 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %license LICENSES/*.txt
 %{_kf6_datadir}/plasma/
 %{_kf6_datadir}/qlogging-categories6/*plasma*
-%{_libdir}/libPlasma.so.*
-%{_libdir}/libPlasmaQuick.so.*
+%{_libdir}/libPlasma.so.%{version}
+# Hardcoded, so we can easily spot soname changes in the future
+# Some gear apps and libraries need to be rebuilt when this changes
+%{_libdir}/libPlasmaQuick.so.8
 %{_kf6_plugindir}/kirigami/
 %{_kf6_plugindir}/packagestructure
 %{_kf6_qmldir}/org/kde/plasma/

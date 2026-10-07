@@ -5,7 +5,7 @@
 %global crate jiff
 
 Name:           rust-jiff
-Version:        0.2.37
+Version:        0.2.38
 Release:        %autorelease
 Summary:        Date-time library that encourages you to jump into the pit of success
 
@@ -63,6 +63,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/COPYING
 %license %{crate_instdir}/LICENSE-MIT
 %license %{crate_instdir}/UNLICENSE
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

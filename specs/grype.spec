@@ -3,7 +3,7 @@
 
 # https://github.com/anchore/grype
 %global goipath         github.com/anchore/grype
-Version:                0.118.0
+Version:                0.120.0
 
 %gometa -L -f
 
@@ -21,9 +21,6 @@ Source0:        %{gosource}
 Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 
-# Resolve the test/build repo root via go.mod instead of shelling out to git,
-# so fingerprint-based unit tests work from a VCS-less release tarball.
-Patch0:         grype-repoutil-nogit-root.patch
 
 BuildRequires:  git-core
 BuildRequires:  go-rpm-macros
@@ -38,7 +35,6 @@ distributions, language-specific packages, and more.
 %prep
 %goprep -A
 %setup -q -T -D -a1 %{forgesetupargs}
-%patch -P0 -p1
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}

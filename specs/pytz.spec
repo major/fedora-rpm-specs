@@ -1,8 +1,8 @@
 # Allow build without test
-%bcond_without tests
+%bcond_with tests
 
 Name:           pytz
-Version:        2026.4
+Version:        2026.5
 Release:        1%{?dist}
 Summary:        World Timezone Definitions for Python
 
@@ -69,6 +69,9 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 %{python3_sitelib}/pytz-%{version}.dist-info
 
 %changelog
+* Tue Oct 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 2026.5-1
+- 2026.5
+
 * Thu Sep 24 2026 Gwyn Ciesla <gwync@protonmail.com> - 2026.4-1
 - 2026.4
 

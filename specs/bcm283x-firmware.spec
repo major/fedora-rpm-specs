@@ -5,11 +5,11 @@
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
 # tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf LICENCE.broadcom COPYING.linux overlays/
-%define gitshort b76effd
-%define dtbver 6.18.48
+%define gitshort cdb0453
+%define dtbver 6.18.55
 
 Name:          bcm283x-firmware
-Version:       20260907
+Version:       20261005
 Release:       1.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
@@ -131,6 +131,10 @@ install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 %{efi_esp_root}/bcm2712*
 
 %changelog
+* Tue Oct 06 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20261005-1.cdb0453
+- Update to the latest firmware
+- Update to 6.18.55 DT and overlay fixes
+
 * Tue Sep 08 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20260907-1.b76effd
 - Update to the latest firmware
 - Update to 6.18.48 DT and overlay fixes

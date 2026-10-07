@@ -1,6 +1,6 @@
 Summary: Text file format converters
 Name: dos2unix
-Version: 7.5.6
+Version: 7.5.7
 Release: 1%{?dist}
 License: BSD-3-Clause
 URL: https://waterlander.net/dos2unix/
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man1/*.1*
 
 %changelog
+* Tue Oct 06 2026 Than Ngo <than@redhat.com> - 7.5.7-1
+- Fix rhbz#2525289, update to 7.5.7
+
 * Wed Aug 05 2026 Than Ngo <than@redhat.com> - 7.5.6-1
 - Fix rhbz#2483487, update to 7.5.6
 

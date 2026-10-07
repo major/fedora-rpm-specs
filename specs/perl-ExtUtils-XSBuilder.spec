@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-XSBuilder
 Version:        0.28
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Modules that parse C header files and create XS glue code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-XSBuilder
@@ -12,7 +12,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
@@ -49,12 +49,11 @@ of the time you only have to rerun XSBuilder to get your new Perl API.
 find . -type f | xargs chmod -c -x
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -71,6 +70,9 @@ make test
 %{_mandir}/man3/ExtUtils::xsbuilder.osc2002.3*
 
 %changelog
+* Tue Oct  6 2026 Paul Howarth <paul@city-fan.org> - 0.28-53
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

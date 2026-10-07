@@ -9,8 +9,8 @@
 
 Summary: Printer Application Framework (PAPPL)
 Name: pappl
-Version: 1.4.9
-Release: 5%{?dist}
+Version: 1.4.12
+Release: 1%{?dist}
 License: Apache-2.0 WITH LLVM-exception
 Source: https://github.com/michaelrsweet/pappl/releases/download/v%{version}/pappl-%{version}.tar.gz
 Url: https://www.msweet.org/pappl
@@ -111,6 +111,9 @@ make test
 %{_mandir}/man3/pappl-system.3.gz
 
 %changelog
+* Sat Oct  3 2026 Dick Marinus <dick@mrns.nl> - 1.4.12-1
+- 1.4.12
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

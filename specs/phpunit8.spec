@@ -20,7 +20,7 @@
 %global ver_minor    5
 
 Name:           %{pk_project}%{ver_major}
-Version:        8.5.55
+Version:        8.5.56
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -232,6 +232,9 @@ exit $ret
 
 
 %changelog
+* Tue Oct  6 2026 Remi Collet <remi@remirepo.net> - 8.5.56-1
+- update to 8.5.56 (no change)
+
 * Wed Sep 23 2026 Remi Collet <remi@remirepo.net> - 8.5.55-1
 - update to 8.5.55
 

@@ -10,17 +10,18 @@
 %define			_cgibin			/var/www/cgi-bin
 
 Name:			squidGuard
-Version:		1.4
-Release:		53%{?dist}
+Version:		1.6.0
+Release:		1%{?dist}
 Summary:		Filter, redirector and access controller plugin for squid
 
 License:		GPL-2.0-only
 
-Source0:		http://www.squidguard.org/Downloads/squidGuard-%{version}.tar.gz
+# Take sources from what Debian watches, squidguard.org is dead
+Source0:		https://www.joonet.de/sources/squidguard/squidguard-%{version}.tar.gz
+
 Source1:		squidGuard.logrotate
 Source2:		http://squidguard.mesd.k12.or.us/blacklists.tgz
 Source3:		http://cuda.port-aransas.k12.tx.us/squid-getlist.html
-Source4:		squidGuard-1.4-patch-20150201.tar.gz
 
 # K12LTSP stuff
 Source100:		squidGuard.conf
@@ -43,22 +44,24 @@ Patch3:			squidGuard-perlwarning.patch
 #Patch4:			squidGuard-sed.patch
 Patch5:			squidGuard-makeinstall.patch
 #Patch6:			squidGuard-1.3-SG-2008-06-13.patch
-Patch7:			squidGuard-1.4-20091015.patch
-Patch8:			squidGuard-1.4-20091019.patch
-Patch9:			squidGuard-1.4-db5.patch
-Patch10:		squidGuard-1.4-helper-protocol.patch
-Patch11:                squidGuard-1.4-setuserinfo.patch
-Patch12:                squidGuard-configure-c99.patch
-Patch13:                squidGuard-htunescape-c99.patch
 Patch14:                squidGuard-1.4-declarations.patch
+# https://sources.debian.org/src/squidguard/1.6.0-6/debian/patches/11_fix-configure-check.patch
+Patch15:                squidGuard-1.6.0-fix-configure-check.patch
 
 URL:			http://www.squidguard.org/
 
-BuildRequires:	make
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	bison
+BuildRequires:	byacc
+BuildRequires:	flex
 BuildRequires:	gcc
-BuildRequires:	bison, byacc, openldap-devel, flex, libdb-devel
+BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	systemd
+
+BuildRequires:	openldap-devel
+BuildRequires:	libdb-devel
 
 Requires:		squid
 Requires(post): systemd-units
@@ -90,7 +93,7 @@ Neither squidGuard nor Squid can be used to
   VBscript inside HTML
 
 %prep
-%setup -q
+%setup -q -n squidguard-%{version}
 %{__cp} %{SOURCE3} .
 #%patch0 -p1
 #%patch1 -p1 -b .paths
@@ -99,23 +102,14 @@ Neither squidGuard nor Squid can be used to
 #%patch4 -p1
 %patch -P5	-p1
 #%patch6 -p0
-%patch -P7 -p0
-%patch -P8 -p0
-%patch -P9 -p1
-%patch -P10 -p1
-%patch -P11 -p1
-%patch -P12 -p1
-%patch -P13 -p1
 %patch -P14 -p1
+%patch -P15 -p1
 
 %{__cp} %{SOURCE100} ./squidGuard.conf.k12ltsp.template
 %{__cp} %{SOURCE101} ./update_squidguard_blacklists.k12ltsp.sh
 
 %build
-# LDAP_DEPRECATED ensures that ldap_init is declared in <ldap.h>.
-%set_build_flags
-CFLAGS="$CFLAGS -DLDAP_DEPRECATED"
-
+./autogen.sh
 %configure \
 	--with-sg-config=%{_sysconfdir}/squid/squidGuard.conf \
 	--with-sg-logdir=%{_var}/log/squidGuard \
@@ -129,12 +123,8 @@ pushd contrib
 %{__make} %{?_smp_mflags}
 popd
 
-#Apply squidGuard-1.4-patch-20150201.tar.gz
-tar -xzf %{SOURCE4} --overwrite -C samples/ --strip-components=1
 
 %install
-%{__rm} -rf $RPM_BUILD_ROOT
-
 #%{__make} DESTDIR=$RPM_BUILD_ROOT install
 # This broke as of 1.2.1.
 %{__install} -p -D -m 0755 src/squidGuard $RPM_BUILD_ROOT%{_bindir}/squidGuard
@@ -264,6 +254,12 @@ fi
 %attr(0755,squid,squid) %{_localstatedir}/log/squid/squidGuard.log
 
 %changelog
+* Tue Oct 06 2026 Bojan Smojver <bojan@rexursive.com> - 1.6.0-1
+- Use original source URL
+
+* Mon Oct 05 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.6.0-1
+- Update to v1.6.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

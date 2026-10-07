@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Package-Stash-XS
-Version:	0.30
-Release:	15%{?dist}
+Version:	0.32
+Release:	1%{?dist}
 Summary:	Faster and more correct implementation of the Package::Stash API
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Package-Stash-XS
@@ -20,7 +20,7 @@ BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
@@ -30,10 +30,12 @@ BuildRequires:	perl(B)
 BuildRequires:	perl(base)
 BuildRequires:	perl(blib)
 BuildRequires:	perl(constant)
+BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(Symbol)
+BuildRequires:	perl(Term::ANSIColor)
 BuildRequires:	perl(Test::Fatal)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Needs)
@@ -58,12 +60,11 @@ installed, and should be preferred in all environments with a compiler.
 %setup -q -n Package-Stash-XS-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} -c %{buildroot}
 
@@ -78,6 +79,12 @@ make test
 %{_mandir}/man3/Package::Stash::XS.3*
 
 %changelog
+* Tue Oct  6 2026 Paul Howarth <paul@city-fan.org> - 0.32-1
+- Update to 0.32
+  - Potential fix for crash when using sort and Package::Stash's
+    list_all_symbols (https://github.com/Perl/perl5/issues/24845)
+- Use %%{make_build} and %%{make_install}
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.30-15
 - Perl 5.44 rebuild
 

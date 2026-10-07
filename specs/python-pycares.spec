@@ -3,8 +3,8 @@
 
 
 Name:           python-pycares
-Version:        5.0.1
-Release:        5%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Python interface for c-ares
 
 License:        MIT
@@ -105,6 +105,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/html/.buildinfo
 
 
 %changelog
+* Tue Oct 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.1.0-1
+- 5.1.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 5.0.1-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

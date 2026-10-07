@@ -13,7 +13,7 @@ Name:           variety
 Version:        0.9.0
 Release:        0.3.beta1%{?dist}
 %else
-Version:        0.9.1
+Version:        0.9.2
 Release:        1%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
@@ -49,6 +49,7 @@ BuildRequires:  gettext
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  %{py3_dist beautifulsoup4}
+BuildRequires:  %{py3_dist setuptools-gettext}
 BuildRequires:  python3-cairo
 Requires:       python3-dbus
 Requires:       hicolor-icon-theme
@@ -159,6 +160,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Oct 06 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.9.2-1
+- Update to 0.9.2-1
+- Add python3dist(setuptools-gettext)
+
 * Tue Sep 01 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.9.1-1
 - Update to 0.9.1-1
 

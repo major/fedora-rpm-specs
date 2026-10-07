@@ -197,7 +197,7 @@ fi
 #################################################################################
 Name:		ceph
 Version:	21.1.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -1306,7 +1306,7 @@ Summary:	Ceph Object Storage Daemon (crimson)
 Group:		System/Filesystems
 %endif
 Requires:	ceph-osd = %{_epoch_prefix}%{version}-%{release}
-Obsoletes:	ceph-osd = %{_epoch_prefix}%{version}-%{release}
+Obsoletes:	ceph-osd < %{_epoch_prefix}%{version}-%{release}
 Requires:	binutils
 Requires:	protobuf
 Requires(posttrans):	%{_sbindir}/update-alternatives
@@ -2799,7 +2799,7 @@ if [ $1 -eq 0 ]; then
 fi
 %endif
 
-+%posttrans osd-classic
+%posttrans osd-classic
 %{_sbindir}/update-alternatives --install %{_bindir}/ceph-osd ceph-osd \
     %{_bindir}/ceph-osd-classic 100
 
@@ -3213,6 +3213,11 @@ exit 0
 %endif
 
 %changelog
+* Mon Oct 5 2026 Tomasz Torcz <ttorcz@fedoraproject.org> - 2:21.1.1-3
+- ceph-osd-crimson: obsolete only older ceph-osd, fixes uninstallable ceph-osd
+- ceph-osd-classic: fix posttrans scriptlet so the ceph-osd alternative gets registered
+- rhbz#2545827
+
 * Fri Oct 2 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.1-2
 - ceph-21.1.1, rebuild with thrift-0.25.0 (f46-build-side-153920)
 

@@ -1,11 +1,11 @@
 Name:		fedora-third-party
-Version:	0.10
+Version:	0.11
 Release:	%autorelease
 Summary:	Tool for handling third-party RPM and Flatpak repositories in Fedora
 
 License:	MIT
 URL:		https://forge.fedoraproject.org/fesco/fedora-third-party
-Source0:	fedora-third-party-%{version}.tar.gz
+Source:		%{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
 
@@ -13,13 +13,15 @@ BuildRequires:	systemd
 BuildRequires:	polkit
 BuildRequires:	python3-click
 BuildRequires:	python3-devel
-BuildRequires:  python3-gobject-base
+BuildRequires:	python3-gobject-base
+BuildRequires:	python3-libdnf5 >= 5.4.3.0
 BuildRequires:	python3-pytest
 BuildRequires:	python3-setuptools
 BuildRequires:	golang-github-cpuguy83-md2man
 
 Requires: python3-click
 Requires: python3-gobject-base
+Requires: python3-libdnf5 >= 5.4.3.0
 
 %description
 fedora-third-party is a tool for handling third-party RPM and Flatpak
@@ -29,7 +31,7 @@ adds/removes Flatpak repositories as necessary.
 
 
 %prep
-%autosetup -p1
+%autosetup -C -p1
 
 
 %build

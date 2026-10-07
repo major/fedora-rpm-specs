@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.3
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -75,7 +75,7 @@ core_font_package_list = {
 else
 core_font_package_list = {
   default={
-    sans={ "abattis-cantarell-vf-fonts", "google-noto-sans-vf-fonts" },
+    sans={ "google-noto-sans-vf-fonts" },
     serif={ "google-noto-serif-vf-fonts" },
     mono={ "google-noto-sans-mono-vf-fonts" },
     emoji={ "google-noto-emoji-color-fonts" },
@@ -125,7 +125,8 @@ local langpacks_package_list = {
                 sans="google-noto-sans-arabic-vf-fonts",
                 serif="google-noto-naskh-arabic-vf-fonts",
                 mono="" },
-   recommends={ "paktype-naqsh-fonts",
+   recommends={ "google-noto-sans-arabic-ui-vf-fonts",
+                "paktype-naqsh-fonts",
                 "paktype-tehreer-fonts",
                 "kacst-art-fonts",
                 "kacst-book-fonts",
@@ -1774,6 +1775,11 @@ DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.default-fo
 DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.langpacks-fonts.xml
 
 %changelog
+* Tue Oct 06 2026 Parag Nemade <panemade AT redhat DOT com> - 4.3-4
+- langpacks-fonts-ar: add google-noto-sans-arabic-ui-vf-fonts to Recommends
+  Resolves: rhbz#2453024
+- default-fonts-core-sans: Drop abattis-cantarell-vf-fonts
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

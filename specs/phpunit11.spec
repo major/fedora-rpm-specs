@@ -28,8 +28,8 @@
 %global ver_minor    5
 
 Name:           %{pk_project}%{ver_major}
-Version:        11.5.56
-Release:        2%{?dist}
+Version:        11.5.57
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -43,7 +43,7 @@ Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.2
-BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.4            with php-composer(myclabs/deep-copy) <  2)
+BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.14.0            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
 BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 11.0.12   with php-composer(phpunit/php-code-coverage) < 12)
@@ -80,7 +80,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "ext-libxml": "*",
 #        "ext-mbstring": "*",
 #        "ext-xmlwriter": "*",
-#        "myclabs/deep-copy": "^1.13.4",
+#        "myclabs/deep-copy": "^1.14.0",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
 #        "phpunit/php-code-coverage": "^11.0.12",
@@ -107,7 +107,7 @@ Requires:       php-json
 Requires:       php-libxml
 Requires:       php-mbstring
 Requires:       php-xmlwriter
-Requires:       (php-composer(myclabs/deep-copy) >= 1.13.4            with php-composer(myclabs/deep-copy) <  2)
+Requires:       (php-composer(myclabs/deep-copy) >= 1.14.0            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
 Requires:       (php-composer(phpunit/php-code-coverage) >= 11.0.12   with php-composer(phpunit/php-code-coverage) < 12)
@@ -292,6 +292,10 @@ exit $ret
 
 
 %changelog
+* Tue Oct  6 2026 Remi Collet <remi@remirepo.net> - 11.5.57-1
+- update to 11.5.57
+- raise dependency on myclabs/deep-copy 1.14.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.56-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           anaconda-webui
-Version:        87
-Release:        2%{?dist}
+Version:        88
+Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
@@ -147,6 +147,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Oct 06 2026 Packit <hello@packit.dev> - 88-1
+- storage: match btrfs subvolumes by type and parent volume (Resolves: rhbz#254485)
+
 * Thu Oct 01 2026 Packit <hello@packit.dev> - 87-1
 - storage: Reset partitioning on init to fix remote installation refresh
   (Related: rhbz#2543869)

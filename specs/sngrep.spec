@@ -1,5 +1,5 @@
 Name:           sngrep
-Version:        1.8.4
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Ncurses SIP Messages flow viewer
 License:        GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
@@ -8,7 +8,6 @@ VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/v%{version}.tar.gz.asc
 Source2:        69100FFB90E87A320DF8643CBEC39009E8321A61.gpg
-Patch:          0001-fix-prevent-stack-buffer-overflow-in-SIP-attribute-f.patch
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  pkgconfig(libpcap)
@@ -17,7 +16,7 @@ BuildRequires:  pkgconfig(libssl)
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(zlib)
 BuildSystem:    cmake
-BuildOption(conf): -DWITH_OPENSSL=ON -DWITH_PCRE2=ON -DWITH_ZLIB=ON -DWITH_NCURSES=ON -DWITH_UNICODE=ON -DUSE_IPV6=ON -DUSE_EEP=ON
+BuildOption(conf): -DWITH_OPENSSL=ON -DWITH_PCRE2=ON -DWITH_ZLIB=ON -DWITH_NCURSES=ON -DWITH_UNICODE=ON -DUSE_IPV6=ON -DUSE_EEP=ON -DCMAKE_INSTALL_SYSCONFDIR=/etc
 
 %description
 sngrep is a tool for displaying SIP calls message flows from terminal. It

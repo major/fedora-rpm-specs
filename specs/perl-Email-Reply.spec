@@ -1,6 +1,6 @@
 Name:           perl-Email-Reply
 Version:        1.204
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Reply to an email message
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Reply
@@ -8,11 +8,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Email/Email-Reply-%{
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Email::Abstract) >= 2.01
 BuildRequires:  perl(Email::Address) >= 1.80
@@ -36,12 +35,11 @@ This package provides a simple way to reply to email messages.
 %setup -q -n Email-Reply-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -54,6 +52,9 @@ make test
 %{_mandir}/man3/Email::Reply.3*
 
 %changelog
+* Tue Oct  6 2026 Paul Howarth <paul@city-fan.org> - 1.204-32
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.204-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

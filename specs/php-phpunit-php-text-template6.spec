@@ -9,11 +9,8 @@
 
 %bcond_without       tests
 
-%global gh_commit    a47af19f93f76aa3368303d752aa5272ca3299f4
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   php-text-template
-%global gh_date      2026-02-06
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   %{gh_project}
@@ -24,14 +21,14 @@
 %global ver_major    6
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        6.0.0
-Release:        3%{?dist}
+Version:        6.0.1
+Release:        1%{?dist}
 Summary:        Simple template engine, version %{ver_major}
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 BuildArch:      noarch
@@ -60,7 +57,7 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
@@ -81,10 +78,11 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php84 php85; do
+for cmd in php php84 php85 php86; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php \
-      %{_bindir}/phpunit13 || ret=1
+      %{_bindir}/phpunit13 \
+        --do-not-warn-when-php-is-not-configured-for-development || ret=1
   fi
 done
 exit $ret
@@ -100,6 +98,9 @@ exit $ret
 
 
 %changelog
+* Sun Oct  4 2026 Remi Collet <remi@remirepo.net> - 6.0.1-1
+- update to 6.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

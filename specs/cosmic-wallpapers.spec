@@ -1,14 +1,14 @@
-# Generated using the scripts at # Generated using the scripts at https://forge.fedoraproject.org/cosmic/cosmic-packaging/src/branch/main/scripts
+# Generated using the scripts at https://forge.fedoraproject.org/cosmic/cosmic-packaging/src/branch/main/scripts
 
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
 %global commit d6c60281508ef6b20db712612dad256d0b44b4fb
 %global commitdatestring 2026-08-21 11:49:16 -0600
-%global cosmic_minver 1.8.0
+%global cosmic_minver 1.9.0
 
 Name:           cosmic-wallpapers
-Version: 1.8.0
+Version: 1.9.0
 Release:        %autorelease
 Summary:        Default wallpapers for the COSMIC Desktop Environment
 

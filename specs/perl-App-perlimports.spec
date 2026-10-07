@@ -1,5 +1,5 @@
 Name:           perl-App-perlimports
-Version:        0.000064
+Version:        0.000066
 Release:        %autorelease
 Summary:        A command line utility for cleaning up imports in your Perl code
 
@@ -20,6 +20,7 @@ BuildRequires:  perl(Cpanel::JSON::XS)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Data::UUID)
 BuildRequires:  perl(DateTime)
+BuildRequires:  perl(Env)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)

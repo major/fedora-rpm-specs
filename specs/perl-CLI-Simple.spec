@@ -1,5 +1,5 @@
 Name:           perl-CLI-Simple
-Version:        2.2.3
+Version:        2.2.5
 Release:        1%{?dist}
 Summary:        Minimalist object oriented base class for CLI applications
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -20,7 +20,7 @@ BuildRequires:  perl(File::Which) >= 1.27
 BuildRequires:  perl(IO::Interactive)
 BuildRequires:  perl(IO::Pager)
 BuildRequires:  perl(JSON) >= 4.10
-BuildRequires:  perl(List::Util) >= 1.56
+BuildRequires:  perl(List::Util) >= 1.33
 BuildRequires:  perl(Readonly) >= 2.05
 BuildRequires:  perl(Role::Tiny) >= 2.002004
 BuildRequires:  perl(Test::Exit) >= 0.11
@@ -86,8 +86,11 @@ make test
 %{_bindir}/create-modulino
 
 %changelog
+* Tue Oct 06 2026 Xavier Bachelot <xavier@bachelot.org> 2.2.5-1
+- Update to 2.2.5 (RHBZ#2544370)
+
 * Wed Sep 30 2026 Xavier Bachelot <xavier@bachelot.org> 2.2.3-1
-- Update to 2.2.2 (RHBZ#2540853)
+- Update to 2.2.3 (RHBZ#2540853)
 
 * Thu Sep 10 2026 Xavier Bachelot <xavier@bachelot.org> 2.2.2-1
 - Update to 2.2.2 (RHBZ#2526243,RHBZ#2526281)

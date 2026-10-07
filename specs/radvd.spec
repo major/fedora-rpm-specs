@@ -23,7 +23,7 @@ BuildRequires: systemd-rpm-macros
 %{?systemd_requires}
 BuildRequires: autoconf
 BuildRequires: automake
-BuildRequires: gpgverify
+BuildRequires: openpgpverify
 
 %description
 radvd is the router advertisement daemon for IPv6.  It listens to router
@@ -37,7 +37,7 @@ Install radvd if you are setting up IPv6 network and/or Mobile IPv6
 services.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 for F in CHANGES; do

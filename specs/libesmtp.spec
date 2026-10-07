@@ -1,18 +1,18 @@
-%define plugindir %{_libdir}/esmtp-plugins
-
 Summary:        SMTP client library
 Name:           libesmtp
-Version:        1.0.6
-Release:        37%{?dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
-Source:         http://www.stafford.uklinux.net/libesmtp/%{name}-%{version}.tar.bz2
-URL:            http://www.stafford.uklinux.net/libesmtp/
+Version:        1.1.0
+Release:        1%{?dist}
+License:        LGPL-2.1-or-later
+Source:         https://github.com/libesmtp/libESMTP/archive/v%{version}/libESMTP-%{version}.tar.gz
+URL:            https://libesmtp.github.io/
 BuildRequires:  gcc
-BuildRequires:  openssl-devel pkgconfig autoconf automake libtool
-BuildRequires: make
-Patch0: libesmtp-1.0.6-openssl-1.1.patch
-Patch1: libesmtp-configure-c99.patch
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  meson
+# Fix build with OpenSSL 4.0 opaque ASN1_STRING
+Patch:          https://github.com/libesmtp/libESMTP/pull/34.patch
+# Debian patches
+Patch:          1001-meson-build-soname.patch
+Patch:          1003-default-source.patch
 
 %description
 LibESMTP is a library to manage posting (or submission of) electronic
@@ -24,8 +24,7 @@ functionality is not the program's primary purpose.
 %package devel
 Summary: Headers and development libraries for libESMTP
 # example file is under the GPLv2+
-# Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-or-later
+License: LGPL-2.1-or-later AND GPL-2.0-or-later
 Requires: %{name} = %{version}-%{release}, openssl-devel
 
 %description devel
@@ -36,68 +35,41 @@ Exim.
 The libesmtp-devel package contains headers and development libraries
 necessary for building programs against libesmtp.
 
-%prep 
-%setup -q
-%patch -P0 -p1 -b .openssl-1.1
-%patch -P1 -p1
-
-autoreconf -fi
-
-# Keep rpmlint happy about libesmtp-debuginfo...
-chmod a-x htable.c
+%prep
+%autosetup -n libESMTP-%{version} -p1
 
 %build
+%meson
+%meson_build
 
-if pkg-config openssl ; then
-  export CFLAGS="$CFLAGS $RPM_OPT_FLAGS `pkg-config --cflags openssl`"
-  export LDFLAGS="$LDFLAGS `pkg-config --libs-only-L openssl`"
-fi
-%configure --with-auth-plugin-dir=%{plugindir} --enable-pthreads \
-  --enable-require-all-recipients --enable-debug \
-  --enable-etrn --disable-isoc --disable-more-warnings --disable-static
-make %{?_smp_mflags}
-cat << "EOF" > libesmtp.pc
-prefix=%{_prefix}
-exec_prefix=%{_prefix}
-libdir=%{_libdir}
-includedir=%{_includedir}
-
-Name: libESMTP
-Version: %{version}
-Description: SMTP client library.
-Requires: openssl
-Libs: -pthread -L${libdir} -lesmtp
-Cflags:
-EOF
-
+# deprecated; still used by esmtp
 cat << "EOF" > libesmtp-config
 #! /bin/sh
-exec pkg-config "$@" libesmtp
+exec pkg-config "$@" libesmtp-1.0
 EOF
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install INSTALL='install -p'
-rm $RPM_BUILD_ROOT/%{_libdir}/*.la
-rm $RPM_BUILD_ROOT/%{_libdir}/esmtp-plugins/*.la
-install -p -m644 -D libesmtp.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libesmtp.pc
-
-
-%ldconfig_scriptlets
+%meson_install
+install -p -m755 -D -t %{buildroot}%{_bindir} libesmtp-config
 
 %files
-%doc AUTHORS COPYING.LIB NEWS Notes README
-%{_libdir}/libesmtp.so.*
-%{plugindir}
+%doc README.md
+%license LICENSE
+%{_libdir}/libesmtp.so.6{,.*}
+%{_libdir}/esmtp-plugins-6.*
 
 %files devel
-%doc examples COPYING
+%doc examples
+%license COPYING.GPL
 %{_bindir}/libesmtp-config
 %{_prefix}/include/*
 %{_libdir}/libesmtp.so
-%{_libdir}/pkgconfig/libesmtp.pc
+%{_libdir}/pkgconfig/libesmtp-1.0.pc
 
 %changelog
+* Fri Aug 28 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.1.0-1
+- Update to 1.1.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -22,8 +22,8 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.5.7
-Release:        2%{?dist}
+Version:        12.5.8
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -40,8 +40,8 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.3
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
-BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
-BuildRequires:  (php-composer(phpunit/php-text-template)          >= 5.0    with php-composer(phpunit/php-text-template)          < 6)
+BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.9.0  with php-composer(nikic/php-parser)                   < 6)
+BuildRequires:  (php-composer(phpunit/php-text-template)          >= 5.0.1  with php-composer(phpunit/php-text-template)          < 6)
 BuildRequires:  (php-composer(sebastian/complexity)               >= 5.0    with php-composer(sebastian/complexity)               < 6)
 BuildRequires:  (php-composer(sebastian/environment)              >= 8.1.2  with php-composer(sebastian/environment)              < 9)
 BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 4.0.1  with php-composer(sebastian/lines-of-code)            < 5)
@@ -53,8 +53,8 @@ BuildRequires:  php-libxml
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^12.5.28"
-BuildRequires:  phpunit12 >= 12.5.28
+#        "phpunit/phpunit": "^12.5.37"
+BuildRequires:  phpunit12  >= 12.5.37
 BuildRequires:  php-xdebug
 %endif
 
@@ -63,8 +63,8 @@ BuildRequires:  php-xdebug
 #        "ext-dom": "*",
 #        "ext-libxml": "*",
 #        "ext-xmlwriter": "*",
-#        "nikic/php-parser": "^5.7.0",
-#        "phpunit/php-text-template": "^5.0",
+#        "nikic/php-parser": "^5.9.0",
+#        "phpunit/php-text-template": "^5.0.1",
 #        "sebastian/complexity": "^5.0",
 #        "sebastian/environment": "^8.1.2",
 #        "sebastian/lines-of-code": "^4.0.1",
@@ -74,8 +74,8 @@ Requires:       php(language) >= 8.3
 Requires:       php-dom
 Requires:       php-libxml
 Requires:       php-xmlwriter
-Requires:       (php-composer(nikic/php-parser)                   >= 5.7.0  with php-composer(nikic/php-parser)                   < 6)
-Requires:       (php-composer(phpunit/php-text-template)          >= 5.0    with php-composer(phpunit/php-text-template)          < 6)
+Requires:       (php-composer(nikic/php-parser)                   >= 5.9.0  with php-composer(nikic/php-parser)                   < 6)
+Requires:       (php-composer(phpunit/php-text-template)          >= 5.0.1  with php-composer(phpunit/php-text-template)          < 6)
 Requires:       (php-composer(sebastian/complexity)               >= 5.0    with php-composer(sebastian/complexity)               < 6)
 Requires:       (php-composer(sebastian/environment)              >= 8.1.2  with php-composer(sebastian/environment)              < 9)
 Requires:       (php-composer(sebastian/lines-of-code)            >= 4.0.1  with php-composer(sebastian/lines-of-code)            < 5)
@@ -180,6 +180,11 @@ exit $ret
 
 
 %changelog
+* Sun Oct  4 2026 Remi Collet <remi@remirepo.net> - 12.5.8-1
+- update to 12.5.8
+- raise dependency on nikic/php-parser 5.9.0
+- raise dependency on phpunit/php-text-template 5.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12.5.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

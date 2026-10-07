@@ -1,5 +1,5 @@
 Name:           libresidfp
-Version:        1.2.2
+Version:        1.2.3
 Release:        1%{?dist}
 Summary:        Cycle exact SID emulation
 License:        GPL-2.0-or-later
@@ -71,5 +71,8 @@ autoreconf -ivf
 
 
 %changelog
+* Tue Oct 06 2026 Karel Volný <kvolny@redhat.com> - 1.2.3-1
+- update to 1.2.3 (rhbz#2545308)
+
 * Wed Sep 23 2026 Karel Volný <kvolny@redhat.com> - 1.2.2-1
 - initial Fedora package

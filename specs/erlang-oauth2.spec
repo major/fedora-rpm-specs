@@ -1,14 +1,14 @@
 %global srcname oauth2
 
 Name:       erlang-%{srcname}
-Version:    1.0.9
+Version:    1.0.10
 Release:    %autorelease
 BuildArch:  noarch
 License:    MIT
 Summary:    An Oauth2 implementation for Erlang
 URL:        https://github.com/kivra/%{srcname}
 VCS:        git:%{url}.git
-Source0:    %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+Source:     %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 BuildRequires: erlang-meck
 BuildRequires: erlang-proper
 BuildSystem:   rebar3

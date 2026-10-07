@@ -27,6 +27,7 @@ BuildRequires: zlib-devel
 
 Patch1: 0001-cve-2026-35535.patch
 Patch2: 0002-Fix-OpenSSL-4.0-compatibility.patch
+Patch3: 0003-cve-2026-96512.patch
 
 %description
 Sudo (superuser do) allows a system administrator to give certain
@@ -55,8 +56,9 @@ BuildRequires:  openssl-devel
 
 
 %description    logsrvd
-%{name}-logsrvd is a high-performance log server that accepts event and I/O logs from sudo.
-It can be used to implement centralized logging of sudo logs.
+%{name}-logsrvd is a high-performance log server that accepts event and
+I/O logs from sudo. It can be used to implement centralized logging of
+sudo logs.
 
 %package        python-plugin
 Summary:        Python plugin for %{name}
@@ -204,9 +206,11 @@ EOF
 %{_mandir}/man5/sudoers_timestamp.5.gz
 %dir %{_pkgdocdir}/
 %{_pkgdocdir}/*
-%{!?_licensedir:%global license %%doc}
 %license LICENSE.md
+%exclude %{_pkgdocdir}/LICENSE.md
 %exclude %{_pkgdocdir}/ChangeLog
+%attr(0711,root,root) %ghost /run/sudo
+%attr(0700,root,root) %ghost /run/sudo/ts
 
 %files devel
 %doc plugins/sample/sample_plugin.c

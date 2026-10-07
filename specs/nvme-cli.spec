@@ -5,7 +5,7 @@
 
 Name:           nvme-cli
 Version:        2.16
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPL-2.0-only
@@ -16,6 +16,7 @@ Source2:        99-nvme-nbft-no-ignore-carrier.conf
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2501829
 Patch0:         format-sigint.patch
+Patch1:         0001-Backport-resv-plugin-size-the-resv-report-from-the-r.patch
 
 BuildRequires:  meson >= 0.53
 BuildRequires:  gcc gcc-c++
@@ -122,6 +123,9 @@ fi
 
 
 %changelog
+* Tue Sep 28 2026 Jesse Taube <jtaubepe@redhat.com> - 2.16-6
+- Fix nvme resv report missing registrations
+
 * Tue Aug 18 2026 Tomas Bzatek <tbzatek@redhat.com> - 2.16-5
 - Fix ignored interruption in format command (#2501829)
 

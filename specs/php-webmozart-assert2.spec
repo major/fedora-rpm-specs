@@ -31,8 +31,8 @@
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Summary:       Assertions to validate method input/output with nice error messages
 License:       MIT
-Version:       2.4.1
-Release:       2%{?dist}
+Version:       2.5.0
+Release:       1%{?dist}
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
 # GitHub export does not include tests.
@@ -108,7 +108,7 @@ BOOTSTRAP
 : Upstream tests
 RETURN_CODE=0
 PHPUNIT=$(which %{phpunit_exec})
-for PHP_EXEC in php82 php83 php84 php85; do
+for PHP_EXEC in php82 php83 php84 php85 php86; do
     if [ -z "$PHP_EXEC" ] || which $PHP_EXEC; then
         $PHP_EXEC \
             -d auto_prepend_file=%{buildroot}%{phpdir}/Webmozart/Assert%{major}/autoload.php \
@@ -132,6 +132,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Oct  6 2026 Remi Collet <remi@remirepo.net> - 2.5.0-1
+- update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           kea
-Version:        3.2.0
+Version:        3.2.1
 Release:        %autorelease
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 License:        MPL-2.0 AND BSL-1.0
@@ -40,8 +40,7 @@ Source14:       systemd-tmpfiles.conf
 Source15:       systemd-sysusers.conf
 
 Patch1:         kea-sd-daemon.patch
-# Fix build with OpenSSL 4.0
-Patch2:         kea-add-const-qualifiers-to-OpenSSL-X509-pointers.patch
+Patch2:         kea-fix-const-openssl-x509-name-check.patch
 
 BuildRequires: boost-devel
 # %%meson -D crypto=openssl
@@ -349,30 +348,30 @@ fi
 %license COPYING
 # find `rpm --eval %%{_topdir}`/BUILD/kea-*/BUILDROOT/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
 %{_libdir}/libkea-asiodns.so.75*
-%{_libdir}/libkea-asiolink.so.105*
+%{_libdir}/libkea-asiolink.so.106*
 %{_libdir}/libkea-cc.so.98*
 %{_libdir}/libkea-cfgrpt.so.3*
 %{_libdir}/libkea-config.so.98*
-%{_libdir}/libkea-cryptolink.so.76*
-%{_libdir}/libkea-d2srv.so.75*
+%{_libdir}/libkea-cryptolink.so.77*
+%{_libdir}/libkea-d2srv.so.76*
 %{_libdir}/libkea-database.so.88*
-%{_libdir}/libkea-dhcp_ddns.so.82*
-%{_libdir}/libkea-dhcp.so.129*
-%{_libdir}/libkea-dhcpsrv.so.149*
-%{_libdir}/libkea-dns.so.84*
-%{_libdir}/libkea-eval.so.97*
+%{_libdir}/libkea-dhcp_ddns.so.83*
+%{_libdir}/libkea-dhcp.so.130*
+%{_libdir}/libkea-dhcpsrv.so.150*
+%{_libdir}/libkea-dns.so.85*
+%{_libdir}/libkea-eval.so.98*
 %{_libdir}/libkea-exceptions.so.55*
-%{_libdir}/libkea-hooks.so.139*
+%{_libdir}/libkea-hooks.so.140*
 %{_libdir}/libkea-http.so.100*
 %{_libdir}/libkea-log-interprocess.so.4*
 %{_libdir}/libkea-log.so.86*
-%{_libdir}/libkea-mysql.so.106*
+%{_libdir}/libkea-mysql.so.107*
 %{_libdir}/libkea-pgsql.so.105*
 %{_libdir}/libkea-process.so.105*
 %{_libdir}/libkea-stats.so.64*
-%{_libdir}/libkea-tcp.so.45*
+%{_libdir}/libkea-tcp.so.46*
 %{_libdir}/libkea-util-io.so.12*
-%{_libdir}/libkea-util.so.118*
+%{_libdir}/libkea-util.so.119*
 
 %files keama
 %license COPYING

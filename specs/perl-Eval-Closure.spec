@@ -7,7 +7,7 @@
 
 Name:           perl-Eval-Closure
 Version:        0.14
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Safely and cleanly create closures via string eval
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Eval-Closure
@@ -15,11 +15,10 @@ Source0:        https://cpan.metacpan.org/authors/id/D/DO/DOY/Eval-Closure-%{ver
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
@@ -68,12 +67,11 @@ is to work properly).
 %setup -q -n Eval-Closure-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -86,6 +84,9 @@ make test
 %{_mandir}/man3/Eval::Closure.3*
 
 %changelog
+* Tue Oct  6 2026 Paul Howarth <paul@city-fan.org> - 0.14-29
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

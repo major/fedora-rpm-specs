@@ -559,6 +559,11 @@ Patch2402: 0001-24-Workaround-a-bug-in-ORC-on-ppc64le.patch
 # With the introduction of --gcc-include-dir in the clang config file,
 # this might no longer be needed.
 Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
+
+# Add support for riscv64 triples.
+# https://github.com/llvm/llvm-project/pull/228450
+Patch2202: 228450-llvm22.patch
+Patch2302: 228450.patch
 #endregion CLANG patches
 
 # Fix lit tests for Python 3.15+ https://bugzilla.redhat.com/show_bug.cgi?id=2448969
@@ -618,6 +623,10 @@ Patch2306: 223681.patch
 # Fix an illegal zext from combined loads (rhbz#2512927)
 # https://github.com/llvm/llvm-project/pull/207229
 Patch2207: 0001-AggressiveInstCombine-Fix-crash-when-folding-consecu.patch
+
+# Skip a test that should not run on riscv64.
+# https://github.com/llvm/llvm-project/pull/227851
+Patch2307: 227851.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
@@ -2957,14 +2966,6 @@ export LIT_XFAIL="$LIT_XFAIL;offloading/thread_state_2.c"
 # The following tests are flaky and we'll filter them out.
 test_list_filter_out+=("libomp :: affinity/kmp-affinity.c")
 test_list_filter_out+=("libomp :: affinity/omp-places.c")
-
-# The following tests fail due to an issue downstream.
-export LIT_XFAIL="$LIT_XFAIL;transform/fuse/do-looprange.f90"
-export LIT_XFAIL="$LIT_XFAIL;transform/fuse/do.f90"
-export LIT_XFAIL="$LIT_XFAIL;transform/tile/do.F90"
-export LIT_XFAIL="$LIT_XFAIL;transform/tile/do_2d.f90"
-export LIT_XFAIL="$LIT_XFAIL;transform/tile/do_2d_varsizes.f90"
-export LIT_XFAIL="$LIT_XFAIL;transform/unroll/heuristic_do.f90"
 %endif
 
 adjust_lit_filter_out test_list_filter_out

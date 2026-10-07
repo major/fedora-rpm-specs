@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name: guidelines-support-library
-Version: 5.0.0
+Version: 5.0.1
 Release: %autorelease
 
 License: MIT

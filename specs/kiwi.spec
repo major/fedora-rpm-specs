@@ -6,12 +6,7 @@ The KIWI Image System provides an operating system image builder \
 for Linux supported hardware platforms as well as for virtualization \
 and cloud systems like Xen, KVM, VMware, EC2 and more.
 
-%if 0%{?rhel} && 0%{?rhel} < 10
-%bcond check 0
-%else
 %bcond check 1
-%endif
-
 
 Name:           kiwi
 Version:        11.1.1
@@ -321,7 +316,7 @@ Obsoletes:      kiwi-image-vmx-requires < %{version}-%{release}
 Requires:       kiwi-systemdeps-filesystems = %{version}-%{release}
 Requires:       kiwi-systemdeps-bootloaders = %{version}-%{release}
 Requires:       kiwi-systemdeps-iso-media = %{version}-%{release}
-Requires:       gdisk
+Requires:       gdisk >= 1.0.9
 Requires:       lvm2
 Requires:       kpartx
 Requires:       cryptsetup
@@ -428,7 +423,7 @@ Requires:       device-mapper
 Requires:       dialog
 Requires:       dracut
 Requires:       e2fsprogs
-Requires:       gdisk
+Requires:       gdisk >= 1.0.9
 Requires:       grep
 Requires:       kpartx
 Requires:       lvm2

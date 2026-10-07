@@ -57,10 +57,11 @@
 Summary: A subset of LAPACK routines redesigned for heterogeneous computing
 Name: scalapack
 Version: 2.2.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/scalapack/
 Source0: https://github.com/Reference-ScaLAPACK/scalapack/archive/v%{version}.tar.gz
+Patch:   scalapack-2.2.3-fix-pkgconfig.patch
 BuildRequires: cmake
 %if %{with optimized_blas}
 BuildRequires: %{blaslib}-devel
@@ -338,6 +339,7 @@ This package contains static libraries for ScaLAPACK, compiled against openmpi3.
 
 %prep
 %setup -q -c -n %{name}-%{version}
+%patch -P0 -p1 -b .fix-pkgconfig
 
 for i in %{?with_mpich:mpich} %{?with_openmpi:openmpi} %{?with_openmpi3:openmpi3}; do
   cp -a %{name}-%{version} %{name}-%{version}-$i
@@ -487,6 +489,9 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 %endif
 
 %changelog
+* Wed Sep 30 2026 Cristian Le <fedora@lecris.me> - 2.2.3-2
+- Fix .pc file generation
+
 * Mon Sep 28 2026 Tom Callaway <spot@fedoraproject.org> - 2.2.3-1
 - update to 2.2.3
 

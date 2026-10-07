@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: readline
 Version: 8.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # * Main sources are GPL-3.0-or-later
 # * examples/rlfe are GPL-2.0-or-later
@@ -90,6 +90,10 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %{_libdir}/libhistory.a
 
 %changelog
+* Tue Oct 06 2026 Siteshwar Vashisht <svashisht@redhat.com> - 8.3-7
+- Update to readline-8.3 patchlevel 6
+  Resolves: #2546278
+
 * Fri Aug 07 2026 Siteshwar Vashisht <svashisht@redhat.com> - 8.3-6
 - Rebuild with updated readline-8.3 tarball
   Related: #2376216
