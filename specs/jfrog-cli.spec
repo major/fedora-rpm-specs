@@ -3,7 +3,7 @@
 
 # https://github.com/jfrog/jfrog-cli
 %global goipath         github.com/jfrog/jfrog-cli
-Version:                2.124.0
+Version:                2.126.0
 
 %gometa -L -f
 
@@ -41,11 +41,12 @@ find . -path ./vendor -prune -o -name '*_test.go' -print |
       rm -v "${test}"
     fi
   done
-# These do not configure serverDetails themselves, but use helpers defined in the files removed above:
-rm -v \
-  apt_test.go \
-  artifactorybulkrepository_test.go \
-  metrics_visibility_test.go
+# These do not configure serverDetails themselves, but use main package helpers defined in the files removed above:
+for test in *_test.go; do
+  if grep -qE 'initArtifactoryTest|createJfrogHomeConfig|cleanTestsHomeEnv|clearAgentEnvVarsForTest' "${test}"; then
+    rm -v "${test}"
+  fi
+done
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}

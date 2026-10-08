@@ -5,13 +5,21 @@
 %global crate gvdb
 
 Name:           rust-gvdb
-Version:        0.9.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        Implementation of the glib gvdb file format
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gvdb
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * gvdb: Update quick-xml to 0.42:
+#   https://github.com/felinira/gvdb-rs/pull/135,
+#   https://github.com/felinira/gvdb-rs/commit/9c42952e80754ee57a6361183d5e61a78aa4a79a
+Patch:          gvdb-fix-metadata.diff
+# * Source-code patch for quick-xml 0.42, from
+#   https://github.com/felinira/gvdb-rs/pull/135
+Patch10:        quick-xml-0.42.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

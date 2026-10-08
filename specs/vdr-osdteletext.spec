@@ -1,25 +1,13 @@
-%global pname   osdteletext
+%global sname   osdteletext
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
-
 %global commit0 cae4629f84886015b0619af6fdb1084853b80f93
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gitdate 20211217
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
-
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        2.3.2
-Release:        0.9.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.10.%{gitdate}git%{shortcommit0}%{?dist}
 # Release:        21%%{?dist}
 Summary:        OSD teletext plugin for VDR
 
@@ -34,7 +22,7 @@ Patch0:         Fix_DrawMessage.patch
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description
@@ -43,9 +31,9 @@ display, with sound and video from the current channel playing in the
 background.
 
 %prep
-#%%autosetup -p1 -n vdr-plugin-%%{pname}-%%{version}
-%autosetup -p1 -n vdr-plugin-%{pname}-%{commit0}
-sed -i -e 's|/var/cache/vdr/vtx|%{vdr_rundir}/%{pname}|g' \
+#%%autosetup -p1 -n vdr-plugin-%%{sname}-%%{version}
+%autosetup -p1 -n vdr-plugin-%{sname}-%{commit0}
+sed -i -e 's|/var/cache/vdr/vtx|%{vdr_rundir}/%{sname}|g' \
     osdteletext.c README README.DE rootdir.c
 
 %build
@@ -54,30 +42,33 @@ sed -i -e 's|/var/cache/vdr/vtx|%{vdr_rundir}/%{pname}|g' \
 %install
 %make_install
 
-install -dm 755 $RPM_BUILD_ROOT%{vdr_rundir}/%{pname}
+install -dm 755 $RPM_BUILD_ROOT%{vdr_rundir}/%{sname}
 install -dm 755 $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d
-install -dm 755 $RPM_BUILD_ROOT%{_datadir}/fonts/vdr%{pname}
-echo "d %{vdr_rundir}/%{pname} 0755 %{vdr_user} root -" > \
+install -dm 755 $RPM_BUILD_ROOT%{_datadir}/fonts/vdr%{sname}
+echo "d %{vdr_rundir}/%{sname} 0755 %{vdr_user} root -" > \
   $RPM_BUILD_ROOT%{_prefix}/lib/tmpfiles.d/%{name}.conf
 
 install -Dpm 644 %{SOURCE1} \
-  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
+  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
 
 install -Dpm 644 teletext2.ttf \
-  $RPM_BUILD_ROOT%{_datadir}/fonts/vdr%{pname}/teletext2.ttf
+  $RPM_BUILD_ROOT%{_datadir}/fonts/vdr%{sname}/teletext2.ttf
 
 %find_lang %{name}
 
 %files -f %{name}.lang
 %license COPYING
 %doc HISTORY README*
-%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
+%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
 %{_datadir}/fonts/vdrosdteletext/teletext2.ttf
-%{vdr_plugindir}/libvdr-%{pname}.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 %{_prefix}/lib/tmpfiles.d/%{name}.conf
-%attr(-,%{vdr_user},root) %{vdr_rundir}/%{pname}/
+%attr(-,%{vdr_user},root) %{vdr_rundir}/%{sname}/
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.3.2-0.10.20211217gitcae4629
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-0.9.20211217gitcae4629
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

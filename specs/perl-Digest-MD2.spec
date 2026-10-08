@@ -1,7 +1,7 @@
 Summary:	Perl interface to the MD2 Algorithm
 Name:		perl-Digest-MD2
 Version:	2.04
-Release:	41%{?dist}
+Release:	42%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Digest-MD2
 Source0:	https://cpan.metacpan.org/authors/id/G/GA/GAAS/Digest-MD2-%{version}.tar.gz
@@ -14,7 +14,7 @@ BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(DynaLoader)
 BuildRequires:	perl(Exporter)
@@ -44,13 +44,11 @@ Digest::MD5.
 %patch -P 0 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-rm -rf %{buildroot}
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -a -empty -delete
 %{_fixperms} %{buildroot}
 
@@ -64,6 +62,9 @@ make test
 %{_mandir}/man3/Digest::MD2.3*
 
 %changelog
+* Wed Oct  7 2026 Paul Howarth <paul@city-fan.org> - 2.04-42
+- Use %%{make_build} and %%{make_install}
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.04-41
 - Perl 5.44 rebuild
 

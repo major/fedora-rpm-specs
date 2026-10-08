@@ -1,25 +1,14 @@
-%global pname   epgsearch
+%global sname   epgsearch
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
 %global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
 
 %global commit0  76d2b108bf17fde2a98e021c8bbfecb1a9a7e92e
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gitdate 20220201
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
-
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        2.4.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Release:        0.12.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Summary:        Powerful schedules menu replacement plugin for VDR
 
@@ -39,7 +28,7 @@ BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  perl-Pod-Checker
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description
@@ -49,8 +38,8 @@ adds several functions, such as additional commands for EPG entries,
 reusable queries which can be used as dynamic "search timers" etc.
 
 %prep
-%setup -q -n vdr-plugin-%{pname}-%{version}
-#%%setup -qn vdr-plugin-%{pname}-%%{commit0}
+%setup -q -n vdr-plugin-%{sname}-%{version}
+#%%setup -qn vdr-plugin-%{sname}-%%{commit0}
 sed -e 's|__VARDIR__|%{vdr_vardir}|g' %{PATCH0} | %{__patch} -p1 --fuzz=0
 for f in scripts/epgsearchcmds-french.conf conf/epgsearchcats.conf-tvm2vdr* ; do
     iconv -f iso-8859-1 -t utf-8 -o $f.utf8 $f ; mv $f.utf8 $f
@@ -64,7 +53,7 @@ chmod -x scripts/*
 %install
 %make_install
 install -Dpm 644 %{SOURCE1} \
-  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
+  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
 install -Dpm 644 %{SOURCE2} \
   $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/epgsearchonly.conf
 install -Dpm 644 %{SOURCE3} \
@@ -87,7 +76,7 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/epgsearch
 %lang(de) %doc HISTORY
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/*.conf
 %{_bindir}/createcats
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-*.so.%{vdr_apiversion}
 %{_mandir}/man[145]/*.[145]*
 %defattr(-,%{vdr_user},root,-)
 %config(noreplace) %{vdr_configdir}/plugins/epgsearch/
@@ -95,6 +84,9 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/epgsearch
 %defattr(-,root,root,-)
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.4.6-4
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

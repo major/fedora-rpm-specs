@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 10.0
+%global rocm_release 10.1
 %global rocm_patch 0
 %else
 %global rocm_release 10.0

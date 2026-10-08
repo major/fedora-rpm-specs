@@ -5,7 +5,7 @@
 Summary: NAnt is a build tool for Mono and .NET
 Name: nant
 Version: 0.92
-Release: 42%{?dist}
+Release: 43%{?dist}
 Epoch: 1
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -37,6 +37,8 @@ ExclusiveArch: %mono_arches
 # nunit2 fails to build on armv7hl. Mono crashes. see bug 1923663
 # it is too much work to switch to nunit (version 3) at the moment.
 ExcludeArch:    armv7hl
+# no i686 dotnet means no log4net build
+ExcludeArch:	i686
 
 %if 0%{bootstrap}
 # In bootstrap mode, filter requires of the prebuilt DLLs. Some of these
@@ -165,6 +167,9 @@ test "%{_libdir}" = "%{_prefix}/lib" || mv $RPM_BUILD_ROOT/%{_prefix}/lib/pkgcon
 %{_libdir}/pkgconfig/nant.pc
 
 %changelog
+* Wed Oct  7 2026 Tom Callaway <spot@fedoraproject.org> - 1:0.92-43
+- rebuild for new log4net
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.92-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:       Free Music Instrument Tuner
 Name:          fmit
-Version:       1.2.14
-Release:       15%{?dist}
+Version:       1.4.6
+Release:       1%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://gillesdegottex.github.io/fmit/
@@ -9,13 +9,13 @@ Source0:       https://github.com/gillesdegottex/%{name}/archive/v%{version}/%{n
 
 BuildRequires: gcc-c++
 BuildRequires: libappstream-glib
-BuildRequires: qt5-linguist
-BuildRequires: pkgconfig(Qt5Core)
-BuildRequires: pkgconfig(Qt5Gui)
-BuildRequires: pkgconfig(Qt5OpenGL)
-BuildRequires: pkgconfig(Qt5Multimedia)
-BuildRequires: pkgconfig(Qt5Svg)
-BuildRequires: pkgconfig(Qt5Widgets)
+BuildRequires: qt6-linguist
+BuildRequires: pkgconfig(Qt6Core)
+BuildRequires: pkgconfig(Qt6Gui)
+BuildRequires: pkgconfig(Qt6OpenGL)
+BuildRequires: pkgconfig(Qt6Multimedia)
+BuildRequires: pkgconfig(Qt6Svg)
+BuildRequires: pkgconfig(Qt6Widgets)
 BuildRequires: gettext
 BuildRequires: itstool
 BuildRequires: freeglut-devel
@@ -43,8 +43,8 @@ sed -i 's/^\(CONFIG += acs_qt\)/# \1/g' fmit.pro
 
 
 %build
-%{qmake_qt5} PREFIX=%{_prefix} CONFIG+="acs_alsa acs_jack acs_portaudio"
-lrelease-qt5 %{name}.pro
+%{qmake_qt6} PREFIX=%{_prefix} CONFIG+="acs_alsa acs_jack acs_portaudio"
+lrelease-qt6 %{name}.pro
 %make_build
 
 
@@ -79,6 +79,9 @@ rm -f %{buildroot}%{_datadir}/%{name}/tr/*.ts
 
 
 %changelog
+* Tue Oct 06 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.4.6-1
+- Update to v1.4.6
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

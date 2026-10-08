@@ -12,6 +12,8 @@
 
 # Keep AX on a known-compatible LLVM stream when explicitly enabled.
 %global llvm_compat 20
+# OpenVDB is exceptionally memory-intensive on some secondary architectures.
+%global _smp_tasksize_proc 12288
 
 %global _description %{expand:
 OpenVDB is an Academy Award-winning open-source C++ library comprising a novel
@@ -265,8 +267,7 @@ printf '%s\n' 'cmake(GTest)'
 %endif
     %{nil}
 
-# OpenVDB is exceptionally memory-intensive on some secondary architectures.
-%cmake_build %limit_build -m 12288
+%cmake_build
 
 
 %install

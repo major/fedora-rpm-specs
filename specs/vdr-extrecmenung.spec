@@ -1,32 +1,21 @@
-%global pname   extrecmenung
-%global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
+%global sname   extrecmenung
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
-
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        2.0.15
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Powerful next generation recordings menu replacement plugin for VDR
 
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/kamel5/extrecmenung
-Source0:        %{url}/-/archive/v%{version}/%{pname}-v%{version}.tar.bz2
+Source0:        %{url}/-/archive/v%{version}/%{sname}-v%{version}.tar.bz2
 Source1:        %{name}.conf
 
 BuildRequires:  make
 BuildRequires:  gettext
 BuildRequires:  gcc-c++
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description
@@ -36,7 +25,7 @@ adds several functions, such as additional commands for "rename" and "move"
 This is the next generation version based on the original "extrecmenu"
 
 %prep
-%autosetup -p1 -n %{pname}-v%{version}
+%autosetup -p1 -n %{sname}-v%{version}
 iconv -f iso-8859-1 -t utf-8 HISTORY > HISTORY.utf8 ; mv HISTORY.utf8 HISTORY
 
 %build
@@ -46,7 +35,7 @@ iconv -f iso-8859-1 -t utf-8 HISTORY > HISTORY.utf8 ; mv HISTORY.utf8 HISTORY
 %make_install
 
 install -Dpm 644 %{SOURCE1} \
-  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
+  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
 
 %find_lang %{name} --all-name --with-man
 
@@ -54,9 +43,12 @@ install -Dpm 644 %{SOURCE1} \
 %license COPYING
 %doc HISTORY
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/*.conf
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.0.15-9
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

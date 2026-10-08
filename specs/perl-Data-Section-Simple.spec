@@ -1,6 +1,6 @@
 Name:		perl-Data-Section-Simple
 Version:	0.07
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Read data from __DATA__
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Data-Section-Simple
@@ -8,11 +8,10 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Data/Data-Section-Simple-%{
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(warnings)
 # Module
 BuildRequires:	perl(base)
@@ -21,9 +20,7 @@ BuildRequires:	perl(strict)
 # Test Suite
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More) >= 0.88
-%if 0%{?fedora} || 0%{?rhel} > 6
 BuildRequires:	perl(Test::Pod) >= 1.41
-%endif
 # Dependencies
 # (none)
 
@@ -35,20 +32,15 @@ section of the file.
 %setup -q -n Data-Section-Simple-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
-%if 0%{?fedora} || 0%{?rhel} > 6
 make test RELEASE_TESTING=1
-%else
-make test
-%endif
 
 %files
 %license LICENSE
@@ -57,6 +49,10 @@ make test
 %{_mandir}/man3/Data::Section::Simple.3*
 
 %changelog
+* Wed Oct  7 2026 Paul Howarth <paul@city-fan.org> - 0.07-36
+- Use %%{make_build} and %%{make_install}
+- Run pod test unconditionally
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

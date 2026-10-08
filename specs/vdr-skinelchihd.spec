@@ -2,23 +2,13 @@
 %global commit0 56fc1731410f32d6f13507b8548c9d955af35759
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gitdate 20241008
-
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-skinelchihd
 Version:        1.3.0
 # Release:        0.8.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Elchi based skin with True Color support for the Video Disc Recorder
 License:        GPL-2.0-or-later
 URL:            https://github.com/FireFlyVDR/vdr-plugin-skinelchihd
@@ -34,7 +24,7 @@ BuildRequires:  pkgconfig(GraphicsMagick++)
 %else
 BuildRequires:  ImageMagick-c++-devel
 %endif
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description
@@ -43,7 +33,7 @@ skin. It is based on the Elchi skin with major re-factoring to make use of newer
 VDR features like True Color support.
 
 %prep
-%autosetup -n vdr-plugin-%{sname}-%%{version}
+%autosetup -n vdr-plugin-%{sname}-%{version}
 #%%autosetup -n vdr-plugin-%%{sname}-%%{commit0}
 
 %build
@@ -71,10 +61,13 @@ install -Dpm 644 %{SOURCE1} \
 %doc HISTORY* README*
 %license COPYING
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/skinelchihd.conf
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 %{vdr_vardir}/themes/ElchiHD-*.theme
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.3.0-3
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

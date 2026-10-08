@@ -1,21 +1,10 @@
-%global pname   remote
+%global sname   remote
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
-
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        0.7.0
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Extended remote control plugin for VDR
 License:        GPL-1.0-or-later
 URL:            http://www.escape-edv.de/endriss/vdr/
@@ -42,7 +31,7 @@ This plugin extends VDR's remote control capabilities, adding support
 for Linux input devices, keyboards (tty), TCP connections, and LIRC.
 
 %prep
-%autosetup -n %{pname}-%{version} -p1
+%autosetup -n %{sname}-%{version} -p1
 
 patch -p1 -i debian/patches/02_no_abort.dpatch
 sed -i \
@@ -61,7 +50,7 @@ done
 %install
 %make_install
 install -Dpm 644 %{SOURCE1} \
-    %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
+    %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
 install -Dpm 644 %{SOURCE2} \
     %{buildroot}/%{_udevrulesdir}/52-%{name}.rules
 %find_lang %{name}
@@ -72,11 +61,14 @@ usermod -a -G input %{vdr_user} || :
 %files -f %{name}.lang
 %license COPYING
 %doc CONTRIBUTORS FAQ HISTORY README
-%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
+%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
 %config(noreplace) %{_udevrulesdir}/*-%{name}.rules
-%{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-48
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

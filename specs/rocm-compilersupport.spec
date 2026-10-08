@@ -23,7 +23,7 @@
 # For building earlier snapshots of the compiler
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 10.0
+%global rocm_release 10.1
 %global rocm_patch 0
 %else
 %global rocm_release 10.0
@@ -36,7 +36,7 @@
 %global comgr_maj_api_ver 3
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %if %{with preview}
-%global llvm_maj_ver 23
+%global llvm_maj_ver 24
 %else
 %global llvm_maj_ver 23
 %endif
@@ -172,7 +172,11 @@ Patch4:         0001-rocm-compilersupport-simplify-use-runtime-wrapper-ch.patch
 Patch5:         0001-lld-workaround-.gnu.version-change.patch
 # When clang bungles the rocm install path, it gets the linking of libamdhip64 wrong
 # Convert from an absolute path <path-to>/libamdhip64.so to using -lamdhip64
+%if %{with preview}
+Patch6:         0001-clang-24-link-libamdhip64.patch
+%else
 Patch6:         0001-clang-23-link-libamdhip64.patch
+%endif
 Patch7:         0001-libcxx-noinline-workaround.patch
 Patch8:         0001-rocm-llvm-workaround-__noinline__.patch
 Patch9:         0001-hipcc-fix-path.patch 
@@ -206,7 +210,11 @@ ExclusiveArch:  x86_64
 %endif
 
 %ifarch x86_64
+%if %{with preview}
+%global targets_to_build "X86;AMDGPU;SPIRV"
+%else
 %global targets_to_build "X86;AMDGPU"
+%endif
 %endif
 %ifarch aarch64
 %global targets_to_build "AArch64;AMDGPU"
@@ -572,7 +580,7 @@ p=$PWD
  -DCOMPILER_RT_BUILD_LIBFUZZER=OFF \\\
  -DCOMPILER_RT_BUILD_MEMPROF=OFF \\\
  -DCOMPILER_RT_BUILD_ORC=OFF \\\
- -DCOMPILER_RT_BUILD_PROFILE=OFF \\\
+ -DCOMPILER_RT_BUILD_PROFILE=ON \\\
  -DCOMPILER_RT_BUILD_SANITIZERS=OFF \\\
  -DCOMPILER_RT_BUILD_XRAY=OFF \\\
  -DENABLE_LINKER_BUILD_ID=ON \\\
@@ -809,7 +817,12 @@ sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0%{llvm_version_suffix}@libLLVMCore.a@' 
 # Remove libclang-cpp.so from link
 sed -i -e 's/[^ ]*libclang-cpp[^ ]*//g' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Add libraries to cover the removal
+%if %{with preview}
+sed -i -e 's@-lc -ldl@-lclangAST -lLLVMCore -lclangSema -lLLVMCodeGen -lLLVMAnalysis -lLLVMSupport -lclangCodeGen -lLLVMAMDGPUCodeGen -lclangBasic -lLLVMSelectionDAG -lLLVMMC -lclangStaticAnalyzerCore -lLLVMTransformUtils -lclangDriver -lLLVMGlobalISel -lclangStaticAnalyzerCheckers -lLLVMDebugInfoPDB -llldELF -lLLVMVectorize -lLLVMObject -lLLVMX86CodeGen -lLLVMAMDGPUUtils -lclangLex -lLLVMAsmPrinter -lLLVMDebugInfoCodeView -lclangParse -lLLVMipo -lLLVMSPIRVCodeGen -lLLVMOrcJIT -lLLVMDebugInfoDWARF -lclangFrontend -llldMachO -lLLVMX86Desc -lclangSerialization -lLLVMTargetParser -llldCOFF -lLLVMDebugInfoLogicalView -lclangAnalysis -lLLVMScalarOpts -llldWasm -lLLVMSandboxIR -lLLVMProfileData -lLLVMJITLink -lLLVMTableGen -lLLVMBinaryFormat -lLLVMInstCombine -lclangTidyBugproneModule -lLLVMCAS -lclangTidyUtils -lLLVMFrontendOpenMP -lclangASTMatchers -lLLVMTableGenCommon -lclangScalableStaticAnalysisCore -lLLVMAMDGPUDesc -lclangExtractAPI -lLLVMTextAPI -lclangAnalysisFlowSensitive -lclangFormat -lLLVMObjCopy -lLLVMDebugInfoGSYM -lclangTidy -lLLVMInstrumentation -lclangTidyModernizeModule -lLLVMOrcShared -lLLVMObjectYAML -lLLVMDWARFLinkerParallel -lLLVMMCA -lLLVMRuntimeDyld -lclangTidyReadabilityModule -llldCommon -lclangAnalysisLifetimeSafety -lclangDynamicASTMatchers -lLLVMUBAwareInterpreter -lLLVMMCParser -lLLVMOption -lclangTooling -lLLVMTarget -lclangAPINotes -lLLVMCoroutines -lLLVMPasses -lclangDoc -lLLVMDemangle -lLLVMLTO -lclangInterpreter -lLLVMSPIRVDesc -lLLVMCGData -lclangTransformer -lLLVMBitReader -lLLVMExecutionEngine -lclangScalableStaticAnalysisAnalyses -lclangTidyAbseilModule -lclangTidyCppCoreGuidelinesModule -lclangTidyMiscModule -lclangIndex -lclangDependencyScanning -lclangTidyPerformanceModule -lLLVMObjCARCOpts -lLLVMRemarks -lLLVMXRay -lclangToolingCore -lclangToolingRefactoring -lLLVMBitWriter -lclangIncludeCleaner -lclangToolingSyntax -lclangTidyAndroidModule -lLLVMFrontendHLSL -lLLVMMIRParser -lLLVMOrcTargetProcess -lclangRewrite -lruntimes_gtest -lLLVMAsmParser -lLLVMDWARFLinkerClassic -lLLVMHTTP -lLLVMFuzzMutate -lclangEdit -lclangInstallAPI -lclangRewriteFrontend -lclangStaticAnalyzerFrontend -lclangTidyGoogleModule -lLLVMCFIVerify -lLLVMDebugInfoMSF -lLLVMCoverage -lclangTidyLLVMModule -lclangTidyPortabilityModule -lLLVMABI -lLLVMSymbolize -lclangToolingInclusions -lfindAllSymbols -lLLVMDiff -lLLVMMCDisassembler -lLLVMWindowsDriver -lclangCrossTU -lLLVMDebugInfoDWARFLowLevel -lclangQuery -lclangTidyObjCModule -lLLVMDTLTO -lclangAnalysisFlowSensitiveModels -lLLVMTableGenBasic -lclangTidyFuchsiaModule -lclangToolingInclusionsStdlib -lclangOptions -lLLVMInterpreter -lLLVMLinker -lLLVMOptDriver -lclangSupport -lclangTidyAlteraModule -lLLVMBitstreamReader -lLLVMDebugInfoBTF -lLLVMInterfaceStub -lLLVMSPIRVAnalysis -lLLVMWindowsManifest -lclangIncludeFixer -lclangScalableStaticAnalysisSourceTransformation -lclangTidyLLVMLibcModule -lLLVMAMDGPUInfo -lLLVMCFGuard -lLLVMDWARFCFIChecker -lLLVMIRPrinter -lLLVMIRReader -lLLVMOrcDebugging -lLLVMSPIRVInfo -lclangReorderFields -lLLVMCodeGenTypes -lLLVMDWP -lLLVMFrontendAtomic -lLLVMFrontendDriver -lLLVMHipStdPar -lLLVMX86Info -lclangMove -lclangTidyBoostModule -lclangTidyConcurrencyModule -lclangTidyDarwinModule -lclangTidyMPIModule -lclangTidyOpenMPModule -lclangUnifiedSymbolResolution -lLLVMAggressiveInstCombine -lLLVMDWARFLinker -lLLVMFrontendOffloading -lLLVMSupportLSP -lclangDirectoryWatcher -lclangDocSupport -lclangScalableStaticAnalysisFrontend -lclangTidyLinuxKernelModule -lLLVMAMDGPUAsmParser -lLLVMDebuginfod -lLLVMFrontendDirective -lLLVMLibDriver -lLLVMPlugins -lLLVMTextAPIBinaryReader -lLLVMX86AsmParser -lclangFrontendTool -lclangTidyCERTModule -lLLVMAMDGPUDisassembler -lLLVMAMDGPUTargetMCA -lLLVMDlltoolDriver -lLLVMExtensions -lLLVMFileCheck -lLLVMFrontendOpenACC -lLLVMFuzzerCLI -lLLVMIREmbUtils -lLLVMLineEditor -lLLVMMCJIT -lLLVMMIREmbUtils -lLLVMTelemetry -lLLVMX86Disassembler -lLLVMX86TargetMCA -lclangApplyReplacements -lclangChangeNamespace -lclangIncludeFixerPlugin -lclangIndexSerialization -lclangScalableStaticAnalysisTool -lclangTidyMain -lclangTidyPlugin -lclangToolingASTDiff -lc -ldl@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+
+%else
 sed -i -e 's@-lrt -lm@-lclangAST -lLLVMCore -lclangSema -lLLVMCodeGen -lLLVMAnalysis -lLLVMSupport -lclangCodeGen -lLLVMAMDGPUCodeGen -lclangBasic -lLLVMSelectionDAG -lLLVMMC -lclangStaticAnalyzerCore -lclangDriver -lLLVMTransformUtils -lLLVMGlobalISel -lclangStaticAnalyzerCheckers -lLLVMDebugInfoPDB -lLLVMX86CodeGen -llldELF -lLLVMObject -lLLVMAMDGPUUtils -lclangLex -lLLVMVectorize -lLLVMAsmPrinter -lLLVMDebugInfoCodeView -lclangParse -lLLVMipo -lLLVMOrcJIT -lLLVMDebugInfoDWARF -lclangFrontend -llldMachO -lLLVMX86Desc -lclangSerialization -llldCOFF -lclangAnalysis -lLLVMDebugInfoLogicalView -lLLVMScalarOpts -llldWasm -lLLVMTargetParser -lLLVMSandboxIR -lLLVMProfileData -lLLVMTableGen -lLLVMJITLink -lLLVMBinaryFormat -lLLVMInstCombine -lclangTidyBugproneModule -lLLVMCAS -lLLVMFrontendOpenMP -lclangTidyUtils -lclangASTMatchers -lLLVMTableGenCommon -lLLVMAMDGPUDesc -lclangExtractAPI -lLLVMOrcShared -lLLVMTextAPI -lclangAnalysisFlowSensitive -lclangFormat -lLLVMObjCopy -lLLVMDebugInfoGSYM -lclangTidy -lclangTidyModernizeModule -lLLVMInstrumentation -lclangScalableStaticAnalysisFrameworkCore -lLLVMDWARFLinkerParallel -lLLVMMCA -lLLVMRuntimeDyld -llldCommon -lclangTidyReadabilityModule -lLLVMObjectYAML -lclangDynamicASTMatchers -lLLVMMCParser -lclangAnalysisLifetimeSafety -lLLVMOption -lclangTooling -lLLVMUBAwareInterpreter -lclangDoc -lLLVMPasses -lLLVMCoroutines -lLLVMLTO -lLLVMTarget -lclangInterpreter -lLLVMDemangle -lLLVMCGData -lclangDependencyScanning -lclangTransformer -lLLVMBitReader -lclangAPINotes -lLLVMExecutionEngine -lclangTidyAbseilModule -lclangTidyCppCoreGuidelinesModule -lclangTidyMiscModule -lclangIndex -lclangScalableStaticAnalysisFrameworkAnalyses -lLLVMObjCARCOpts -lLLVMRemarks -lLLVMXRay -lclangTidyPerformanceModule -lclangToolingCore -lclangToolingRefactoring -lLLVMBitWriter -lclangIncludeCleaner -lclangToolingSyntax -lclangTidyAndroidModule -lLLVMMIRParser -lLLVMFrontendHLSL -lLLVMOrcTargetProcess -lclangRewrite -lruntimes_gtest -lLLVMAsmParser -lLLVMDWARFLinkerClassic -lLLVMHTTP -lLLVMFuzzMutate -lclangEdit -lclangInstallAPI -lclangRewriteFrontend -lclangStaticAnalyzerFrontend -lclangTidyGoogleModule -lLLVMCFIVerify -lLLVMDebugInfoMSF -lLLVMCoverage -lclangTidyLLVMModule -lclangTidyPortabilityModule -lLLVMSymbolize -lclangToolingInclusions -lfindAllSymbols -lLLVMDiff -lLLVMMCDisassembler -lLLVMWindowsDriver -lclangCrossTU -lLLVMDebugInfoDWARFLowLevel -lclangQuery -lclangTidyObjCModule -lclangAnalysisFlowSensitiveModels -lclangTidyFuchsiaModule -lclangToolingInclusionsStdlib -lLLVMABI -lLLVMDTLTO -lLLVMInterpreter -lLLVMLinker -lLLVMOptDriver -lLLVMTableGenBasic -lclangOptions -lclangSupport -lclangTidyAlteraModule -lLLVMBitstreamReader -lLLVMDebugInfoBTF -lLLVMInterfaceStub -lLLVMWindowsManifest -lclangIncludeFixer -lclangTidyLLVMLibcModule -lLLVMCFGuard -lLLVMDWARFCFIChecker -lLLVMIRPrinter -lLLVMIRReader -lLLVMOrcDebugging -lclangReorderFields -lLLVMAMDGPUInfo -lLLVMCodeGenTypes -lLLVMDWP -lLLVMFrontendAtomic -lLLVMFrontendDriver -lLLVMHipStdPar -lLLVMX86Info -lclangMove -lclangTidyBoostModule -lclangTidyConcurrencyModule -lclangTidyDarwinModule -lclangTidyMPIModule -lclangTidyOpenMPModule -lclangUnifiedSymbolResolution -lLLVMAggressiveInstCombine -lLLVMDWARFLinker -lLLVMFrontendOffloading -lLLVMSupportLSP -lclangDirectoryWatcher -lclangDocSupport -lclangTidyLinuxKernelModule -lLLVMAMDGPUAsmParser -lLLVMDebuginfod -lLLVMFrontendDirective -lLLVMLibDriver -lLLVMPlugins -lLLVMTextAPIBinaryReader -lLLVMX86AsmParser -lclangFrontendTool -lclangScalableStaticAnalysisFrameworkFrontend -lclangTidyCERTModule -lclangTidyZirconModule -lLLVMAMDGPUDisassembler -lLLVMAMDGPUTargetMCA -lLLVMDlltoolDriver -lLLVMExtensions -lLLVMFileCheck -lLLVMFrontendOpenACC -lLLVMFuzzerCLI -lLLVMIREmbUtils -lLLVMLineEditor -lLLVMMCJIT -lLLVMMIREmbUtils -lLLVMTelemetry -lLLVMX86Disassembler -lLLVMX86TargetMCA -lclangApplyReplacements -lclangChangeNamespace -lclangIncludeFixerPlugin -lclangIndexSerialization -lclangScalableStaticAnalysisFrameworkTool -lclangTidyMain -lclangTidyPlugin -lclangToolingASTDiff -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+%endif
 
 %endif
 

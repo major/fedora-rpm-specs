@@ -1,5 +1,5 @@
 Name:           perl-Imager
-Version:        1.037
+Version:        1.038
 Release:        1%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -54,6 +54,7 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(B)
 BuildRequires:  perl(bignum)
 BuildRequires:  perl(blib)
+BuildRequires:  perl(Errno)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::More)
@@ -123,6 +124,9 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Wed Oct 07 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.038-1
+- 1.038 bump (rhbz#2547402)
+
 * Thu Oct 01 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.037-1
 - 1.037 bump (rhbz#2543929)
 - Fix CVE-2026-102504 (RAW buffer overflow via raw_datachannels)

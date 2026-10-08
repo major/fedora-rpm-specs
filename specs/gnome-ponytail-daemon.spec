@@ -2,8 +2,8 @@
 %global libname ponytail
 
 Name:           gnome-ponytail-daemon
-Version:        0.0.11
-Release:        11%{?dist}
+Version:        0.0.12
+Release:        1%{?dist}
 Summary:        Sort of a bridge for dogtail for GNOME on Wayland
 
 License:        GPL-2.0-or-later
@@ -73,6 +73,9 @@ Python module for D-BUS interactions with gnome-ponytail-daemon interfaces.
 %{python3_sitelib}/%{libname}/
 
 %changelog
+* Wed Oct 07 2026 Olivier Fourdan <ofourdan@redhat.com> - 0.0.12-1
+- Version 0.0.12
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

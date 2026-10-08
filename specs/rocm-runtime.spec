@@ -23,7 +23,11 @@
 %global upstreamname rocr-runtime
 
 %bcond_with preview
+%if %{with preview}
+%global rocm_release 10.1
+%else
 %global rocm_release 10.0
+%endif
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 

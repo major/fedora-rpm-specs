@@ -19,7 +19,12 @@ Requires:       python3
 Requires:       cmake-rpm-macros
 # the %%getdeps_vendor_license_* macros wrap go_vendor_license and licensecheck
 Requires:       go-vendor-tools
+# licensecheck is Fedora-only (no EPEL build of it); without it the check
+# macro's -f pass reports that it is unavailable and verifies the License tag
+# against the license files alone, which is what EPEL builds get.
+%if 0%{?fedora}
 Requires:       licensecheck
+%endif
 # the %%folly_toolchain macro and its subpackage were dropped in 46; nothing used them
 Obsoletes:      folly-srpm-macros < 46
 

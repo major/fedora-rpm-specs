@@ -1,10 +1,10 @@
 Name:           perl-Devel-CallParser
-Version:        0.005
+Version:        0.006
 Release:        1%{?dist}
 Summary:        Custom parsing attached to subroutines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-CallParser
-Source0:        https://cpan.metacpan.org/modules/by-module/Devel/Devel-CallParser-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/L/LN/LNATION/Devel-CallParser-%{version}.tar.gz
 # Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -77,6 +77,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Devel::CallParser.3*
 
 %changelog
+* Wed Oct 07 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.006-1
+- 0.006 bump (rhbz#2546169)
+
 * Mon Sep 21 2026 Paul Howarth <paul@city-fan.org> - 0.005-1
 - Update to 0.005 (rhbz#2537324)
   - Restore the pad name list as well as the pad when a keyword is declined on

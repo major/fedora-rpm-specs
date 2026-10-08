@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 10.0
+%global rocm_release 10.1
 %else
 %global rocm_release 10.0
 %endif
@@ -266,8 +266,10 @@ sed -i -e "s@-parallel-jobs=\${num_linker_jobs}@-parallel-jobs=${LINK_JOBS}@" CM
 # Switch to bfd
 sed -i -e 's@target_link_libraries(rccl PRIVATE   -fgpu-rdc)@target_link_libraries(rccl PRIVATE   -fgpu-rdc -fuse-ld=bfd)@' CMakeLists.txt
 
+%if %{without preview}
 # need iostream to use std::cerr
 sed -i '/#include <cuda_runtime.h>/a #include <iostream>' src/ipc_init.cu
+%endif
 # need std::map
 sed -i '/#include <mutex>/a #include <map>' src/transport/net.cc
 
@@ -324,6 +326,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %files test
 %{pkg_prefix}/bin/rccl-UnitTests*
 %{pkg_prefix}/bin/rccl/*.cmake
+%if %{with preview}
+%{pkg_prefix}/bin/librccl-test*.so
+%endif
 %endif
 
 %changelog

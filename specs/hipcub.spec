@@ -24,7 +24,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 10.0
+%global rocm_release 10.1
 %else
 %global rocm_release 10.0
 %endif
@@ -155,11 +155,13 @@ Precompiled self-tests for %{name}
 %prep
 %autosetup -p1 -n %{upstreamname}
 
+%if %{without preview}
 #
 # The ROCMExportTargetsHeaderOnly.cmake file
 # generates a files that reference the install location of other files
 # Make this change so they match
 sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR share/' cmake/ROCMExportTargetsHeaderOnly.cmake
+%endif
 
 # simplify the source for licensing when not testing
 %if %{without test}

@@ -9,7 +9,7 @@
 # Cargo.toml version (hyphen); RPM Version uses tilde for ordering.
 %global upstream_version 3.0.0-dev
 # Forge snapshot; bump for manual SRPMs (Packit/Copr sets this from HEAD).
-%global commit ba34e85da10f73b118dcf6d11db66b2b9b05662e
+%global commit 3f6f404dbf92bc66380000cc03e60e724f4e52ce
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 # Build environment toggles.
@@ -19,7 +19,7 @@
 
 Name:           %{repo}
 Version:        %(echo %{upstream_version} | sed 's/-/~/')
-Release:        4.20260916094957753737.main.58.gba34e8%{?dist}
+Release:        5.20261007092403828293.main.69.g3f6f404%{?dist}
 Summary:        OCI container runtime monitor (v3)
 
 SourceLicense:  Apache-2.0

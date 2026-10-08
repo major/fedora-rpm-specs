@@ -174,7 +174,6 @@ BuildRequires:  xtensor-devel
 %endif
 %if 0%{?with_opencl} || 0%{?with_nvk} || 0%{?with_asahi} || 0%{?with_panfrost}
 BuildRequires:  clang-devel
-BuildRequires:  pkgconfig(libclc)
 BuildRequires:  pkgconfig(SPIRV-Tools)
 BuildRequires:  pkgconfig(LLVMSPIRVLib)
 %endif
@@ -188,6 +187,7 @@ BuildRequires:  cargo-rpm-macros
 %endif
 %if 0%{?with_opencl}
 BuildRequires:  libstdc++-static
+BuildRequires:  pkgconfig(libclc)
 %endif
 %if 0%{?with_nvk}
 BuildRequires:  cbindgen

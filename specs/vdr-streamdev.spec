@@ -1,21 +1,10 @@
-%global pname     streamdev
+%global sname     streamdev
 # If this variable is set the spec file assumes it's building a git snapshot
 # Also see info below on generating snapshots
 %global gitver    b84b7d858cf4f6f3473ba72d456326c048946cb0
 %global gitshort  %(echo %gitver | awk '{print substr($0,1,8)}')
-%global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
-
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 %if 0%{?gitver:0}
   # Use vdr-streamdev-snapshot.sh contained in the source of the package to
@@ -27,15 +16,15 @@
 %else
   # URL for original source file when not using git snapshots
   %global srcfile   https://github.com/vdr-projects/vdr-plugin-streamdev/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-  %global setuppath %{pname}-%{version}
+  %global setuppath %{sname}-%{version}
 %endif
 
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        0.6.5
 %if 0%{?gitver:0}
-Release:        0.54%{?gitver:.git%{gitshort}}%{?dist}
+Release:        0.55%{?gitver:.git%{gitshort}}%{?dist}
 %else
-Release:        4%{?dist}
+Release:        5%{?dist}
 %endif
 Summary:        Streaming plug-in for VDR
 License:        GPL-1.0-or-later AND GPL-2.0-or-later
@@ -52,7 +41,7 @@ Source3:        %{name}-snapshot.sh
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 
 %description
 The streamdev plug-in adds streaming capabilities to your VDR.
@@ -97,26 +86,29 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_configdir}/plugins/streamdev-server
 install -Dpm 644 streamdev-server/streamdevhosts.conf $RPM_BUILD_ROOT%{vdr_configdir}/plugins/streamdev-server/streamdevhosts.conf
 install -Dpm 755 streamdev-server/externremux.sh $RPM_BUILD_ROOT%{_libdir}/vdr/bin/externremux.sh 
 install -Dpm 644 %{SOURCE1} \
-  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}-server.conf
+  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}-server.conf
 install -Dpm 644 %{SOURCE2} \
-  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}-client.conf
+  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}-client.conf
 %find_lang %{name}-server
 %find_lang %{name}-client
 
 %files server -f %{name}-server.lang
 %doc CONTRIBUTORS COPYING HISTORY PROTOCOL README
-%{vdr_plugindir}/libvdr-%{pname}-server.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}-server.so.%{vdr_apiversion}
 %{_libdir}/vdr/bin/externremux.sh
-%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}-server.conf
+%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}-server.conf
 %dir %{vdr_configdir}/plugins/streamdev-server
 %config(noreplace) %{vdr_configdir}/plugins/streamdev-server/streamdevhosts.conf
 
 %files client -f %{name}-client.lang
 %doc CONTRIBUTORS COPYING HISTORY PROTOCOL README
-%{vdr_plugindir}/libvdr-%{pname}-client.so.%{vdr_apiversion}
-%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}-client.conf
+%{vdr_libdir}/libvdr-%{sname}-client.so.%{vdr_apiversion}
+%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}-client.conf
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.6.5-5
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

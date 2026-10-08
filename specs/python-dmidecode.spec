@@ -13,7 +13,7 @@
 Name: python-dmidecode
 Summary: Python module to access DMI data
 Version: 3.12.3
-Release: 20%{date}%{shortcommit}%{?dist}
+Release: 21%{date}%{shortcommit}%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/nima/python-dmidecode
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -55,7 +55,7 @@ Requires: python3-lxml
 # we need the setup.py file in PWD to make the setuptools build backend see it
 mv src/setup*.py .
 
-%if 0%{?fedora} > 45
+%if 0%{?fedora} > 44
 %patch 1 -p1 -b .libxml2
 %endif
 
@@ -87,6 +87,9 @@ export CXX=g++
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Oct 07 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.12.3-21
+- Porting libxml2 patch in Fedora 45
+
 * Tue Sep 29 2026 Antonio Trande <sagitter@fedoraproject.org> - 3.12.3-20
 - Patched for libxml2-2.15.4
 

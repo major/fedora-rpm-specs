@@ -5,13 +5,13 @@
 
 # Ensure we are not built and installed with a too-old the_Foundation
 # grep the_Foundation lagrange-*.*.*/cmake/Depends.cmake | grep find_package
-%global min_foundation_ver 1.10.1
+%global min_foundation_ver 1.12.0
 
 # this seems buggy on Wayland: see https://github.com/skyjake/lagrange/issues/575
 %bcond_with x11_xlib
 
 Name:           lagrange
-Version:        1.19.3
+Version:        1.21.2
 Release:        %autorelease
 Summary:        A Beautiful Gemini Client
 

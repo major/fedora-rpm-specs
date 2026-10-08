@@ -1,24 +1,14 @@
-# https://github.com/MarkusEh/vdr-plugin-live/commit/d97160abc63d0f040aa7f530b75796a4de34adfc
 %global commit0 d97160abc63d0f040aa7f530b75796a4de34adfc
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gitdate 20260415
-
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
+%global sname   live
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-live
 Version:        3.5.7
 # Release:        0.1.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
 
 # The entire source code is GPL-2.0-or-later except live/js/mootools/ which is LicenseRef-Callaway-MIT
@@ -86,12 +76,15 @@ install -Dpm 644 %{SOURCE1} \
 %license COPYING
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/live.conf
 %config(noreplace) %{_sysconfdir}/vdr/plugins/live/ffmpeg.conf
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 
 %files data
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.7-2
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Wed Aug 26 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.7-1
 - Update to 3.5.7-1
 

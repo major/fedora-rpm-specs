@@ -1,7 +1,7 @@
 Summary:	Simple date object for perl
 Name:		perl-Date-Simple
 Version:	3.03
-Release:	56%{?dist}
+Release:	57%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Date-Simple
 Source0:	https://cpan.metacpan.org/authors/id/I/IZ/IZUT/Date-Simple-%{version}.tar.gz
@@ -13,7 +13,7 @@ BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	sed
 # Module Runtime
 BuildRequires:	perl(base)
@@ -52,12 +52,11 @@ rm -f lib/Date/Simple/NoXS.pm
 sed -i -e '/^lib\/Date\/Simple\/NoXS\.pm$/d' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -a -empty -delete
 %{_fixperms} -c %{buildroot}
 
@@ -75,6 +74,9 @@ make test
 %{_mandir}/man3/Date::Simple::ISO.3*
 
 %changelog
+* Wed Oct  7 2026 Paul Howarth <paul@city-fan.org> - 3.03-57
+- Use %%{make_build} and %%{make_install}
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.03-56
 - Perl 5.44 rebuild
 

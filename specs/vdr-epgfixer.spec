@@ -1,24 +1,14 @@
-%global pname   epgfixer
-%global __provides_exclude_from ^%{vdr_plugindir}/
+%global sname   epgfixer
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 %global commit  9bbf438eb031ef377ca2b8e08376be9368a8df0f
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global gitdate 20260112
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
 
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
-
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        0.3.1
-Release:        48.%{gitdate}git%{shortcommit}%{?dist}
+Release:        49.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        VDR plugin for doing extra fixing of EPG data
 
 License:        GPL-2.0-or-later
@@ -31,7 +21,7 @@ Source1:        %{name}.conf
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 BuildRequires:  pcre2-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
@@ -42,7 +32,7 @@ conversions, blacklists, cloning EPG data, removing HTML tags, and
 editing all settings through setup menu.
 
 %prep
-%autosetup -p1 -n vdr-plugin-%{pname}-%{commit}
+%autosetup -p1 -n vdr-plugin-%{sname}-%{commit}
 
 %build
 %make_build CFLAGS="%{optflags} -fPIC" CXXFLAGS="%{optflags} -fPIC" \
@@ -50,24 +40,27 @@ editing all settings through setup menu.
 
 %install
 %make_install
-install -dm 755 %{buildroot}%{vdr_configdir}/plugins/%{pname}
+install -dm 755 %{buildroot}%{vdr_configdir}/plugins/%{sname}
 install -pm 644 epgfixer/{blacklist,charset,epgclone,regexp}.conf \
-    %{buildroot}%{vdr_configdir}/plugins/%{pname}
+    %{buildroot}%{vdr_configdir}/plugins/%{sname}
 install -Dpm 644 %{SOURCE1} \
-    %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
+    %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
 
 %find_lang %{name}
 
 %files -f %{name}.lang
 %license COPYING
 %doc HISTORY README
-%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
-%{vdr_plugindir}/libvdr-%{pname}*.so.%{vdr_apiversion}
+%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 %defattr(-,%{vdr_user},root,-)
-%config(noreplace) %{vdr_configdir}/plugins/%{pname}/
+%config(noreplace) %{vdr_configdir}/plugins/%{sname}/
 %defattr(-,root,root,-)
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.3.1-49.20260112git9bbf438
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-48.20260112git9bbf438
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

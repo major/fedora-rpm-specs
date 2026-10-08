@@ -1,6 +1,8 @@
 %bcond_without opencl
 
 %global blend_version 2.11.0
+# Use the manifest ID as the directory name in the system extension repository.
+%global blendluxcore_dir %{blender_extensions}/blendluxcore
 
 Name:           luxcorerender
 Version:        2.11.2
@@ -19,11 +21,15 @@ ExclusiveArch:  x86_64
 BuildRequires:  cmake >= 3.29
 BuildRequires:  gcc-c++
 BuildRequires:  appstream
-BuildRequires:	blender
+BuildRequires:  blender
 BuildRequires:  blender-rpm-macros
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  python3-devel
+# Generate upstream Python metadata without a second CMake build.
+BuildRequires:  python3dist(scikit-build-core) >= 0.10
+BuildRequires:  python3dist(tomli-w)
+BuildRequires:  python3dist(packaging)
 
 BuildRequires:  boost-devel
 BuildRequires:  boost-iostreams
@@ -82,6 +88,7 @@ Summary:        Blender 4.2+ integration extension
 License:        GPL-3.0-or-later
 BuildArch:      noarch
 Requires:       blender >= 4.2
+Requires:       %{name} = %{version}-%{release}
 Obsoletes:      %{name}-blender < %{blend_version}
 Provides:       %{name}-blender = %{blend_version}-%{release}
 
@@ -89,7 +96,9 @@ Provides:       %{name}-blender = %{blend_version}-%{release}
 Blender extension for exporting scenes and materials to LuxCore Renderer.
 Supports Cycles material conversion and interactive rendering.
 
-The extension uses the system-provided LuxCore Python bindings.
+The extension is installed in Blender's system extension repository and is
+available to all users. Enable BlendLuxCore in Blender's Add-ons preferences.
+It uses the system-provided LuxCore Python bindings.
 
 %package devel
 Summary:        Development headers and libraries
@@ -99,12 +108,44 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Header files and build configuration for developing LuxCore-based applications.
 
 %prep
+# Require the corrected blender-rpm-macros path; older macros use addons_core.
+if [ "%{blender_extensions}" != "%{blender_datadir}/extensions/system" ]; then
+    echo "blender-rpm-macros must define blender_extensions as %{blender_datadir}/extensions/system" >&2
+    exit 1
+fi
 %autosetup -p1 -a1 -n LuxCore-wheels-v%{version}
 
 # Fedora provides the Python bindings as part of the main package.  Do not let
 # the Blender extension download and install a second copy from PyPI at runtime.
 sed -i 's/luxloader\.ensure_pyluxcore()/# Use the system-provided Python bindings./' \
     BlendLuxCore-%{blend_version}/__init__.py
+
+# Match the Python distribution metadata to Fedora's CMake installation.
+# CUDA is disabled and the wheel-only Python tools are not installed here.
+# Use the RPM version rather than upstream's SKVERSION file.
+%{python3} - <<'PYTHON'
+from pathlib import Path
+import tomllib
+import tomli_w
+from packaging.requirements import Requirement
+from packaging.utils import canonicalize_name
+
+path = Path("pyproject.toml")
+data = tomllib.loads(path.read_text())
+project = data["project"]
+assert project["name"] == "pyluxcore"
+project["version"] = "%{version}"
+project["dynamic"] = [field for field in project.get("dynamic", [])
+                      if field != "version"]
+data["tool"]["scikit-build"].get("metadata", {}).pop("version", None)
+project["dependencies"] = [
+    requirement for requirement in project.get("dependencies", [])
+    if canonicalize_name(Requirement(requirement).name) != "nvidia-cuda-nvrtc-cu12"
+]
+project.pop("scripts", None)
+project.pop("gui-scripts", None)
+path.write_text(tomli_w.dumps(data))
+PYTHON
 
 # Fix detection for Blosc2 and OIDN (upstream naming mismatches)
 sed -i 's/c-blosc/Blosc2/g' CMakeLists.txt
@@ -241,6 +282,20 @@ sed -i 's|DESTINATION pyluxcore|DESTINATION %{python3_sitearch}|' \
     %{cuda_flags}
 %cmake_build
 
+# The PEP 517 metadata hook uses the upstream backend, without compiling again.
+%{python3} - <<'PYTHON'
+from pathlib import Path
+from scikit_build_core.build import prepare_metadata_for_build_wheel
+
+metadata_root = Path(".pyluxcore-metadata")
+metadata_root.mkdir(exist_ok=True)
+dist_info = prepare_metadata_for_build_wheel(
+    str(metadata_root),
+    config_settings={"wheel.cmake": "false", "wheel.platlib": "true"},
+)
+assert dist_info == "pyluxcore-%{version}.dist-info", dist_info
+PYTHON
+
 # Build the BlendLuxCore Blender extension
 pushd BlendLuxCore-%{blend_version}
 %{_bindir}/blender --command extension build --source-dir . \
@@ -251,6 +306,10 @@ popd
 # Install the main LuxCore libraries
 %cmake_install
 
+# Install backend-generated metadata beside the CMake-installed extension.
+cp -a .pyluxcore-metadata/pyluxcore-%{version}.dist-info \
+    %{buildroot}%{python3_sitearch}/
+
 # Upstream does not install its public C++ headers yet.
 install -d %{buildroot}%{_includedir}
 cp -a include/{luxcore,luxrays,slg} %{buildroot}%{_includedir}/
@@ -259,15 +318,59 @@ install -Dpm 0644 %{__cmake_builddir}/generated/include/luxcore/cfg.h \
 install -Dpm 0644 %{__cmake_builddir}/generated/include/luxrays/cfg.h \
     %{buildroot}%{_includedir}/luxrays/cfg.h
 
-# Install the Blender extension system-wide
-mkdir -p %{buildroot}%{blender_extensions}
-install -Dpm 0644 BlendLuxCore-%{blend_version}/BlendLuxCore.zip \
-    %{buildroot}%{blender_extensions}/BlendLuxCore.zip
+# Unpack the validated extension into the system repository. Blender discovers
+# installed directories containing a manifest, rather than ZIP archives.
+install -d %{buildroot}%{blendluxcore_dir}
+%{python3} -m zipfile -e BlendLuxCore-%{blend_version}/BlendLuxCore.zip \
+    %{buildroot}%{blendluxcore_dir}
+# The repository is managed by RPM and remains read-only for ordinary users.
+find %{buildroot}%{blendluxcore_dir} -type d -exec chmod 0755 {} +
+find %{buildroot}%{blendluxcore_dir} -type f -exec chmod 0644 {} +
 
 # Install the AppStream metadata
 install -Dpm 644 %{SOURCE3} %{buildroot}%{_metainfodir}/org.%{name}.blendluxcore.metainfo.xml
 
 %check
+# Test the staged RPM files, so an already-installed binding cannot hide errors.
+LD_LIBRARY_PATH=%{buildroot}%{_libdir}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH} \
+%{python3} - <<'PYTHON'
+from pathlib import Path
+import sys
+from importlib.metadata import distribution, version
+from packaging.requirements import Requirement
+from packaging.utils import canonicalize_name
+
+sitearch = Path("%{buildroot}%{python3_sitearch}").resolve()
+sys.path.insert(0, str(sitearch))
+import pyluxcore
+
+assert Path(pyluxcore.__file__).resolve().parent == sitearch
+assert version("pyluxcore") == "%{version}"
+dist = distribution("pyluxcore")
+assert Path(dist.locate_file("")).resolve() == sitearch
+assert not dist.entry_points
+assert all(canonicalize_name(Requirement(req).name) != "nvidia-cuda-nvrtc-cu12"
+           for req in (dist.requires or []))
+print("PyLuxCore:", pyluxcore.__file__)
+print("PyLuxCore distribution version:", dist.version)
+PYTHON
+
+# Check the installed extension layout and manifest, not just the build ZIP.
+%{python3} - <<'PYTHON'
+from pathlib import Path
+import tomllib
+
+extension_dir = Path("%{buildroot}%{blendluxcore_dir}")
+manifest = tomllib.loads((extension_dir / "blender_manifest.toml").read_text())
+assert manifest["id"] == extension_dir.name == "blendluxcore"
+assert manifest["version"] == "%{blend_version}"
+assert manifest["type"] == "add-on"
+assert not manifest.get("wheels")
+assert (extension_dir / "__init__.py").is_file()
+assert "luxloader.ensure_pyluxcore()" not in (extension_dir / "__init__.py").read_text()
+PYTHON
+%{_bindir}/blender --command extension validate %{buildroot}%{blendluxcore_dir}
+
 appstreamcli validate --no-net %{buildroot}%{_metainfodir}/*.xml
 
 %files
@@ -276,12 +379,13 @@ appstreamcli validate --no-net %{buildroot}%{_metainfodir}/*.xml
 %{_bindir}/luxcore*
 %{_libdir}/liblux*.so.*
 %{python3_sitearch}/pyluxcore*.so
+%{python3_sitearch}/pyluxcore-%{version}.dist-info/
 
 %files -n blender-%{name}
 %license BlendLuxCore-%{blend_version}/LICENSE
 %doc BlendLuxCore-%{blend_version}/{AUTHORS.txt,readme.md}
 %{_metainfodir}/org.%{name}.*.xml
-%{blender_extensions}/BlendLuxCore.zip
+%{blendluxcore_dir}/
 
 %files devel
 %doc README.md

@@ -5,16 +5,13 @@
 %global crate gvdb-macros
 
 Name:           rust-gvdb-macros
-Version:        0.1.15
+Version:        0.1.16
 Release:        %autorelease
 Summary:        Convenience macros for gvdb
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gvdb-macros
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump litrs dependency from 0.5 to 1.0
-Patch:          gvdb-macros-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

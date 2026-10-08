@@ -1,25 +1,15 @@
 # https://github.com/horchi/scraper2vdr/commit/d9f6cb454ebbc951af5d1a4aa7fcc31e772f3bca
 %global commit0 d9f6cb454ebbc951af5d1a4aa7fcc31e772f3bca
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global pname   scraper2vdr
+%global sname   scraper2vdr
 %global gitdate 20190128
-
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-scraper2vdr
 Version:        1.1.3
 #Release:        15.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A client plugin which provides scraped metadata from EPGD to other plugins
 License:        GPL-1.0-or-later
 URL:            https://github.com/horchi/scraper2vdr
@@ -38,7 +28,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  mariadb-connector-c-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  imlib2-devel
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description 
@@ -52,8 +42,8 @@ themoviedb.org API for movies. Check the websites of both services for
 the terms of use.
 
 %prep
-#%%autosetup -p0 -n %%{pname}-%%{commit0}
-%autosetup -p1 -n %{pname}-%{version}
+#%%autosetup -p0 -n %%{sname}-%%{commit0}
+%autosetup -p1 -n %{sname}-%{version}
 iconv -f iso-8859-1 -t utf-8 README > README.utf8 ; mv README.utf8 README
 
 # fedora specific
@@ -74,11 +64,14 @@ install -Dpm 644 %{SOURCE1} \
 
 %files -f %{name}.lang
 %doc COPYING HISTORY* README*
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/scraper2vdr.conf
-%config(noreplace) %{vdr_configdir}/plugins/%{pname}/epg.dat
+%config(noreplace) %{vdr_configdir}/plugins/%{sname}/epg.dat
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.1.3-23
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

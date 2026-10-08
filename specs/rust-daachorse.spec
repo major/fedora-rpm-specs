@@ -5,7 +5,7 @@
 %global crate daachorse
 
 Name:           rust-daachorse
-Version:        1.0.1
+Version:        3.0.3
 Release:        %autorelease
 Summary:        Daachorse: Double-Array Aho-Corasick
 

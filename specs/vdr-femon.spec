@@ -1,21 +1,10 @@
-%global pname   femon
+%global sname   femon
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
-
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        2.4.0
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        DVB frontend status monitor plugin for VDR
 License:        GPL-2.0-or-later
 URL:            https://github.com/rofafor/vdr-plugin-femon
@@ -27,7 +16,7 @@ Patch1:         0002-femon-Removal-of-deprecated-interface-functions.patch
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description
@@ -46,16 +35,19 @@ also available in advanced display modes.
 %install
 %make_install
 install -Dpm 644 %{SOURCE1} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
+    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
 %find_lang %{name}
 
 %files -f %{name}.lang
 %license COPYING
 %doc HISTORY README
-%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
-%{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
+%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 2.4.0-44
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

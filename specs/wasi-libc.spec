@@ -1,6 +1,6 @@
 Name:       wasi-libc
 Summary:    C library implementation for WebAssembly System Interface
-Version:    33
+Version:    34
 Release:    %autorelease
 
 License:    Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND BSD-2-Clause
@@ -11,7 +11,7 @@ Source1:    smoke-test.c
 # Compatibility patches from upstream main
 
 # This contains parts of the musl C library; specify as bundled so we get notified about potential vulnerabilities
-%global     musl_version 1.2.5
+%global     musl_version 1.2.6
 
 # Although these packages provide binary files, they are not targeted
 # for the build platform, but for wasm32-wasi.

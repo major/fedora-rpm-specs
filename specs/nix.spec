@@ -5,9 +5,13 @@
 # and missing rapidcheck
 %bcond tests 0
 
-# doesn't seem to work
+# works for mimalloc 3.5 but not 2.2
 # https://github.com/NixOS/nix/issues/16153
-%bcond mimalloc 0
+%bcond mimalloc %[0%{?fedora} >= 46]
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2536840
+# nix repl history doesn't work with readline
+%bcond readline 0
 
 Name:           nix
 Version:        2.35.2
@@ -75,7 +79,11 @@ BuildRequires:  openssl-devel
 %if %{with tests}
 #BuildRequires:  rapidcheck-devel
 %endif
+%if %{with readline}
 BuildRequires:  readline-devel
+%else
+BuildRequires:  editline-devel
+%endif
 BuildRequires:  sqlite-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  toml11-devel
@@ -202,7 +210,9 @@ MESON_OPTS=(
     --localstatedir=/nix/var
     --libexecdir=%{_libexecdir}
     -Ddoc-gen=%[%{with docs}?"true":"false"]
+%if %{with readline}
     -Dlibcmd:readline-flavor=readline
+%endif
     -Dlibstore:sandbox-shell=%{_bindir}/busybox
     -Dnix:profile-dir=%{_sysconfdir}/profile.d
     -Dunit-tests=%[%{with tests}?"true":"false"]

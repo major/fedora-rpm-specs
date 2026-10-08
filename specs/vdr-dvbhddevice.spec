@@ -15,7 +15,7 @@
 
 Name:           vdr-%{pname}
 Version:        2.2.0^%{snapdate}git%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          1
 Summary:        VDR output device plugin for TechnoTrend S2-6400 DVB cards
 
@@ -73,6 +73,9 @@ nm -D --defined-only %{buildroot}%{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversi
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:2.2.0^20260823git945eaa1a7d0b-4
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Sep 18 2026 Martin Gansser <martinkg@fedoraproject.org> - 1:2.2.0^20260823git945eaa1a7d0b-3
 - remove duplicate BR binutils
 

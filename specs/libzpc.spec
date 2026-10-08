@@ -1,11 +1,12 @@
 Name:		libzpc
-Version:	2.0.1
+Version:	2.1.0
 Release:	%autorelease
 Summary:	Open Source library for the IBM Z Protected-key crypto feature
 
 License:	MIT
 Url:		https://github.com/opencryptoki/libzpc
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source1:	zpcpkcs11.conf
 
 BuildRequires:	cmake
 BuildRequires:	gcc
@@ -15,6 +16,7 @@ BuildRequires:	clang-tools-extra
 BuildRequires:	pandoc
 BuildRequires:	json-c-devel
 BuildRequires:	openssl-devel
+BuildRequires:	p11-kit-devel
 
 
 %description
@@ -32,6 +34,14 @@ Summary:	OpenSSL provider module for %{name}
 %description	provider
 The %{name}-provider package contains a provider module for OpenSSL v3.0 (and
 later), interfacing to the protected key feature of z/Architecture.
+
+%package	pkcs11
+Summary:	PKCS#11 module for %{name}
+Requires:	%{name}-provider
+
+%description	pkcs11
+The %{name}-pkcs11 package contains a PKCS#11 module for using protected key
+origins.
 %endif
 
 
@@ -47,6 +57,7 @@ persistent protected key origins, from which protected keys can be (re-)derived.
 %prep
 %autosetup -p1
 %global modulesdir %(pkg-config --variable=modulesdir libcrypto)
+%global p11modulesdir %(pkg-config --variable=p11_module_path p11-kit-1)
 
 %build
 %cmake
@@ -57,6 +68,8 @@ persistent protected key origins, from which protected keys can be (re-)derived.
 %ifarch s390x
 install -m644 %_vpath_builddir/hbkzpcprovider.conf \
         -D -t $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/openssl.d/
+install -m644 %{SOURCE1} \
+        -D -t $RPM_BUILD_ROOT/%{_sysconfdir}/zpcpkcs11/
 %endif
 
 %check
@@ -71,6 +84,14 @@ install -m644 %_vpath_builddir/hbkzpcprovider.conf \
 %{_mandir}/man5/hbkzpcprovider.conf.5*
 %{_mandir}/man7/hbkzpcprovider.7*
 %config(noreplace) %{_sysconfdir}/pki/tls/openssl.d/hbkzpcprovider.conf
+
+%files pkcs11
+%doc README.md CHANGES.md
+%license LICENSE
+%{p11modulesdir}/zpcpkcs11.so
+%{_mandir}/man5/zpcpkcs11.conf.5*
+%{_mandir}/man7/zpcpkcs11.7*
+%config(noreplace) %{_sysconfdir}/zpcpkcs11/zpcpkcs11.conf
 %endif
 
 %files tools

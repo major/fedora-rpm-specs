@@ -1,6 +1,6 @@
 Name:           sidplayfp
-Version:        3.2.0
-Release:        2%{?dist}
+Version:        3.2.1
+Release:        1%{?dist}
 Summary:        SID chip music module player
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -19,7 +19,7 @@ and compatibles.
 
 
 %prep
-%setup -q
+%autosetup
 # Regenerate autofoo stuff, it is better to always build this from source
 #the following does't work because rpm can't cope with the exclamation mark:
 # rm aclocal.m4 build-aux/!(config.rpath)
@@ -31,11 +31,15 @@ autoreconf -ivf
 
 %build
 %configure --with-system-fmt
-make %{?_smp_mflags}
+%make_build
 
 
 %install
 %make_install
+
+
+%check
+%make_build check
 
 
 %files
@@ -48,6 +52,11 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Wed Oct 07 2026 Karel Volný <kvolny@redhat.com> - 3.2.1-1
+- Update to 3.2.1 (rhbz#2545403)
+- See the upstream changes at https://github.com/libsidplayfp/sidplayfp/releases
+- Spec cleanup, add %%check
+
 * Tue Sep 22 2026 Karel Volný <kvolny@redhat.com> - 3.2.0-2
 - Rebuild for libsidplayfp 3.x
 

@@ -3,9 +3,9 @@
 %undefine _py3_shebang_s
 
 %global forgeurl https://github.com/PyCQA/pylint
-%global basever 4.0.10
+%global basever 4.1.2
 #%%global prever b0
-Version:        4.0.10
+Version:        4.1.2
 %forgemeta
 
 Name:           pylint
@@ -16,22 +16,6 @@ URL:            https://github.com/pylint-dev/pylint
 Source0:        %{forgeurl}/archive/v%{basever}/pylint-%{basever}.tar.gz
 #Patch0:         7829.patch apply when rebased then re-enable tests
 Patch:          pep639.patch
-# Astroid version dep bumps, backported to 4.0.5
-# Upstream 83741dd1d6344924088e7a81652f35988fc364f2
-Patch:          0001-Bump-astroid-to-4.0.3.patch
-# Upstream 40817ce1a1b62a41486d81eff5b2db3bd9c23755
-Patch:          0002-Bump-astroid-to-4.1.1-10843.patch
-# Upstream e525835b22b36f95d209d73a16341b35846cf9db
-Patch:          0003-Bump-astroid-from-4.1.1-to-4.3.1.patch
-# Fix test failures with Python 3.15
-# https://github.com/pylint-dev/pylint/issues/10982
-Patch:          python315.patch
-# Fix test compatibility with pytest >= 9.1 (non-Collection parametrize)
-# Extracted from upstream merge commit 50cd472
-Patch:          fix-pytest-9.1-parametrize.patch
-# Fix compatibility with astroid >= 4.3.0 (removal of asname parameter from infer)
-# Opened upstream PR for review https://github.com/pylint-dev/pylint/pull/11298
-Patch:          fix-astroid-4.3-compatibility.patch
 
 BuildArch:      noarch
 
@@ -41,6 +25,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-GitPython
 BuildRequires:  python3-pytest-xdist
 BuildRequires:  python3-typing-extensions
+BuildRequires:  python3-pytest-remaster
 BuildRequires:  graphviz
 
 # For the main pylint package
@@ -100,7 +85,8 @@ done
   --deselect=tests/test_functional.py::test_functional[unspecified_encoding_py38] \
   --deselect=tests/test_functional.py::test_functional[bad_open_mode] \
   --deselect=tests/lint/unittest_lint.py::test_enable_message_block \
-  --deselect=tests/test_functional.py::test_functional[unused_argument]
+  --deselect=tests/test_functional.py::test_functional[unused_argument] \
+  --deselect=tests/test_functional.py::test_functional[no_name_in_module]
 
 %files
 %doc CONTRIBUTORS.txt

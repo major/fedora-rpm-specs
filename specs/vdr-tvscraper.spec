@@ -1,20 +1,10 @@
-%global pname   tvscraper
+%global sname   tvscraper
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
-
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        1.2.15
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
 License:        GPL-2.0-or-later AND MIT
@@ -32,7 +22,7 @@ BuildRequires:  gumbo-parser-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  jansson-devel
-BuildRequires:  vdr-devel >= %{vdr_version} 
+BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description 
@@ -55,7 +45,7 @@ Additionally you are invited to contribute to the used web services with
 providing missing data for your favorite movies and series.
 
 %prep
-%autosetup -p1 -n vdr-plugin-%{pname}-%{version}
+%autosetup -p1 -n vdr-plugin-%{sname}-%{version}
 
 # disable plugin examples
 sed -i -e 's|install: install-lib install-i18n install-conf install-plugins|install: install-lib install-i18n install-conf|g' Makefile
@@ -67,22 +57,25 @@ sed -i -e 's|install: install-lib install-i18n install-conf install-plugins|inst
 %make_install
 install -Dpm 644 %{SOURCE1} \
     %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d/tvscraper.conf
-install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
+install -dm 755 %{buildroot}%{vdr_cachedir}/%{sname}
 
 %find_lang %{name}
 
 %files -f %{name}.lang
 %license COPYING
 %doc HISTORY README.md
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
-%dir %{vdr_configdir}/plugins/%{pname}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
+%dir %{vdr_configdir}/plugins/%{sname}
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/tvscraper.conf
-%config(noreplace) %{vdr_configdir}/plugins/%{pname}/override.conf
-%config(noreplace) %{_datadir}/vdr/plugins/%{pname}/override_tvs.conf
-%config(noreplace) %{_datadir}/vdr/plugins/%{pname}/networks.json
-%attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
+%config(noreplace) %{vdr_configdir}/plugins/%{sname}/override.conf
+%config(noreplace) %{_datadir}/vdr/plugins/%{sname}/override_tvs.conf
+%config(noreplace) %{_datadir}/vdr/plugins/%{sname}/networks.json
+%attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{sname}/
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.15-9
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Wed Sep 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.2.15-8
 - gumbo-parser rebuild
 
@@ -240,7 +233,7 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 
 * Mon Aug 08 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.1.1-2
 - Update to 1.1.1-1
-- Added %%dir %%{vdr_configdir}/plugins/%%{pname} because it's owned by the package
+- Added %%dir %%{vdr_configdir}/plugins/%%{sname} because it's owned by the package
 
 * Tue Jun 21 2022 Martin Gansser <martinkg@fedoraproject.org> - 1.0.4-1
 - initial release

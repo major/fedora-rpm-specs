@@ -7,7 +7,7 @@
 #
 %global wp_content %{_datadir}/wordpress/wp-content
 
-%global upstream_version 7.1.2
+%global upstream_version 7.1.3
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -245,6 +245,9 @@ end
 
 
 %changelog
+* Wed Oct  7 2026 Remi Collet <remi@remirepo.net> -7.1.3-1
+- WordPress 7.1.3 Maintenance and Security Release
+
 * Wed Sep 23 2026 Remi Collet <remi@remirepo.net> -7.1.2-1
 - WordPress 7.1.2 Security Release
 

@@ -5,7 +5,7 @@
 %bcond matplotlib 1
 
 Name:           python-shapely
-Version:        2.1.2
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Manipulation and analysis of geometric objects in the Cartesian plane
 
@@ -20,11 +20,18 @@ Source:         %{pypi_source shapely}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildSystem:            pyproject
-BuildOption(install):   -l shapely
-BuildOption(generate_buildrequires): -x test
+BuildSystem:    pyproject
+BuildOption(install): --assert-license shapely
+BuildOption(generate_buildrequires): --pyproject-dependencies
+BuildOption(generate_buildrequires): --dependency-groups build
+BuildOption(generate_buildrequires): --dependency-groups tests
+BuildOption(build): -Ccompile-args=-j%{?_smp_build_ncpus}
+BuildOption(build): -Ccompile-args=--verbose
+BuildOption(check): --exclude 'shapely.tests*'
+%if %{without matplotlib}
+BuildOption(check): --exclude shapely.plotting
+%endif
 
-BuildRequires:  tomcli
 BuildRequires:  gcc
 BuildRequires:  geos-devel
 
@@ -62,39 +69,37 @@ Provides:       bundled(klib-kvec) = 0.1.0
 %prep -a
 # Currently, the PyPI sdist does not ship with pre-generated Cython C sources.
 # We preventively check for them anyway, as they must be removed if they do
-# appear. Note that C sources in src/ are not generated.
-find shapely -type f -name '*.c' -print -delete
-
-# Patch out coverage analysis from the “test” extra.
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-tomcli set pyproject.toml lists delitem \
-    project.optional-dependencies.test pytest-cov
+# appear. Note that C sources in src/shapely/lib/ are not generated.
+rm --verbose --force src/shapely/*.c
 
 %if %{without doctests}
-tomcli set pyproject.toml lists delitem \
-    project.optional-dependencies.test scipy-doctest
+%pyproject_patch_dependency scipy-doctest:ignore
 %endif
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+%pyproject_patch_dependency pytest-cov:ignore
 
 
-%check
-# Ensure the “un-built” package is not imported. Otherwise compiled extensions
-# cannot be tested.
-mkdir empty
-cd empty
-ln -s ../shapely/tests/
-
-%pyproject_check_import -e 'shapely.tests*' %{?!with_matplotlib:-e shapely.plotting}
-%pytest -rs -v
+%check -a
+%pytest -rs --verbose '%{buildroot}%{python3_sitearch}/shapely'
 
 %if %{with doctests}
-# Doctest shapely.constructive.maximum_inscribed_circle fails
-# https://github.com/shapely/shapely/issues/2391
-dtk="${dtk-}${dtk+ and }not shapely.constructive.maximum_inscribed_circle"
+%if 0%{?fedora} > 44
+# Several doctest failures with GEOS 3.15.0
+# https://github.com/shapely/shapely/issues/2527
+dtk="${dtk-}${dtk+ and }not shapely._coverage.coverage_clean"
+dtk="${dtk-}${dtk+ and }not shapely.constructive.make_valid"
+dtk="${dtk-}${dtk+ and }not shapely.constructive.voronoi_polygons"
+dtk="${dtk-}${dtk+ and }not shapely.set_operations.difference"
+dtk="${dtk-}${dtk+ and }not shapely.set_operations.intersection"
+dtk="${dtk-}${dtk+ and }not shapely.set_operations.symmetric_difference"
+dtk="${dtk-}${dtk+ and }not shapely.set_operations.union"
+dtk="${dtk-}${dtk+ and }not shapely.set_operations.union_all"
+%endif
 
 %pytest --doctest-modules --doctest-only-doctests=true \
     '%{buildroot}%{python3_sitearch}/shapely' \
     --ignore='%{buildroot}%{python3_sitearch}/shapely/tests' \
-    -k="${dtk-}" -v
+    -k="${dtk-}" --verbose
 %endif
 
 

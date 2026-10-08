@@ -1,18 +1,13 @@
 Name:		ndisc6
-Version:	1.0.8
-Release:	6%{?dist}
+Version:	1.0.9
+Release:	1%{?dist}
 Summary:	IPv6 diagnostic tools
 
 License:	GPL-2.0-only OR GPL-3.0-only
 URL:		https://www.remlab.net/ndisc6/
 Source0:	https://www.remlab.net/files/ndisc6/ndisc6-%{version}.tar.bz2
-Source1:	https://www.remlab.net/files/ndisc6/ndisc6-%{version}.tar.bz2.asc
-# gpg2 --recv-key 0x772D56C80CA8ABF9C475FCA34E3557690BEE0224
-# gpg2 --export --export-options export-minimal 0x772D56C80CA8ABF9C475FCA34E3557690BEE0224 > 772D56C80CA8ABF9C475FCA34E3557690BEE0224.gpg
-Source2:	772D56C80CA8ABF9C475FCA34E3557690BEE0224.gpg
 BuildRequires: make
 BuildRequires:  gcc
-BuildRequires:	gnupg2
 BuildRequires:	perl-generators
 
 %description
@@ -25,7 +20,6 @@ This package gathers a few diagnostic tools for IPv6 networks:
 - tcpspray6, a TCP/IP Discard/Echo bandwidth meter.
 
 %prep
-%{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %setup -q
 
 %build
@@ -65,6 +59,10 @@ This package gathers a few diagnostic tools for IPv6 networks:
 %doc %{_mandir}/man8/tracert6.8.gz
 
 %changelog
+* Tue Oct 6 2026 Michele Baldessari <michele@acksyn.org> - 1.0.9-1
+- New upstream
+- Drop gpg signature check as it is not supported any longer
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

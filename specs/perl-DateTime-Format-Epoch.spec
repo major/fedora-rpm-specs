@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-Epoch
 Version:        0.16
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Convert DateTimes to/from epoch seconds
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Epoch
@@ -47,10 +47,10 @@ find -type f -print0 | xargs -0 sed -i 's/\r$//'
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=true NO_PERLLOCAL=true
-make %{?_smp_mflags}
+%{make_build}
 
 %install
-make install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/DateTime::Format::Epoch::Unix.3*
 
 %changelog
+* Wed Oct  7 2026 Paul Howarth <paul@city-fan.org> - 0.16-33
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

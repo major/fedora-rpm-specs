@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 23
 %global min_ver 1
-%global patch_ver 2
+%global patch_ver 3
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -587,7 +587,6 @@ Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch
 Patch2214: 0001-ELF-Simplify-AArch64-relocateAlloc.-NFC.patch
 Patch2215: 0001-LLD-AArch64-Make-adrp-ldr-relaxation-per-symbol-all-.patch
 Patch2216: 0001-lld-ELF-Concatenate-.gnu.build.attributes.-sections-.patch
-Patch2304: 224946.patch
 #endregion LLD patches
 
 #region polly patches

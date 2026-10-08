@@ -1,30 +1,20 @@
-%global pname   screenshot
+%global sname   screenshot
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
-
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        0.0.16
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        VDR plugin: Takes screenshots
 License:        GPL-1.0-or-later
 URL:            https://github.com/jowi24/vdr-screenshot
 Source:         %{name}-%{version}.tar.gz
 # https://www.linuxtv.org/pipermail/vdr/2017-June/029280.html
-Patch0:         %{pname}.fullhd.patch
+Patch0:         %{sname}.fullhd.patch
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 
@@ -50,7 +40,7 @@ iconv -f iso-8859-1 -t utf-8 HISTORY > HISTORY.utf8 ; mv HISTORY.utf8 HISTORY
 %install
 install -dm 755 $RPM_BUILD_ROOT%{vdr_plugindir}
 install -dm 755 $RPM_BUILD_ROOT%{vdr_cachedir}/screenshot
-install -pm 755 libvdr-*.so.%{vdr_apiversion} $RPM_BUILD_ROOT%{vdr_plugindir}
+install -pm 755 libvdr-*.so.%{vdr_apiversion} $RPM_BUILD_ROOT%{vdr_libdir}
 
 # Locale
 install -dm 755 $RPM_BUILD_ROOT%{_datadir}/locale
@@ -60,10 +50,13 @@ cp -pR locale/* $RPM_BUILD_ROOT%{_datadir}/locale
 %files -f %{name}.lang
 %doc HISTORY README
 %license COPYING
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/screenshot/
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.0.16-53
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.16-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -199,7 +192,7 @@ cp -pR locale/* $RPM_BUILD_ROOT%{_datadir}/locale
 
 * Tue Jun 27 2017 Martin Gansser <martinkg@fedoraproject.org> - 0.0.16-8
 - Add screenshot.fullhd.patch
-- Dropped %%{pname}.patch
+- Dropped %%{sname}.patch
 
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.16-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild

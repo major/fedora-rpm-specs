@@ -1,25 +1,15 @@
-%global pname   skinenigmang
+%global sname   skinenigmang
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
-
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        0.1.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A skin for VDR based on the Enigma text2skin add on
 
 License:        GPL-1.0-or-later
 URL:            https://github.com/vdr-projects/vdr-plugin-skinenigmang
-Source0:        %url/archive/refs/tags/%{version}.tar.gz#/%{pname}-%{version}.tar.gz
+Source0:        %url/archive/refs/tags/%{version}.tar.gz#/%{sname}-%{version}.tar.gz
 Source1:        http://andreas.vdr-developer.org/enigmang/download/skinenigmang-logos-xpm-hi-20070702.tgz
 Source2:        %{name}.conf
 Patch0:         %{name}-config.patch
@@ -29,11 +19,11 @@ BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  freetype-devel
 BuildRequires:  GraphicsMagick-c++-devel
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 
 %description 
-VDR plugin: %{pname} - %{summary}
+VDR plugin: %{sname} - %{summary}
  
 %prep
 %autosetup -p1 -n vdr-plugin-skinenigmang-%{version} -a 1
@@ -47,12 +37,12 @@ mv skinenigmang/README README.logos
 
 %install
 install -dm 755 $RPM_BUILD_ROOT%{vdr_plugindir}
-install -pm 755 libvdr-%{pname}.so \
-    $RPM_BUILD_ROOT%{vdr_plugindir}/libvdr-%{pname}.so.%{vdr_apiversion}
+install -pm 755 libvdr-%{sname}.so \
+    $RPM_BUILD_ROOT%{vdr_plugindir}/libvdr-%{sname}.so.%{vdr_apiversion}
 
 # skinenigmang.conf
 install -Dpm 644 %{SOURCE2} \
-    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
+    $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
 
 # themes
 install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/themes
@@ -65,13 +55,16 @@ cp -a skinenigmang/{flags,icons} $RPM_BUILD_ROOT%{vdr_resdir}
 %files
 %doc HISTORY* README*
 %license COPYING
-%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}.conf
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+%config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{sname}.conf
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 %{vdr_vardir}/themes/EnigmaNG-*.theme
 %{vdr_resdir}/flags
 %{vdr_resdir}/icons
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.1.5-14
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

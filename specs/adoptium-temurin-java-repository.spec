@@ -1,5 +1,5 @@
 %global     reponame   %{name}.repo
-%global     repodir    %{_sysconfdir}/yum.repos.d
+%global     repodir    %{_datadir}/dnf5/repos.d
 %global     thirdparty %{_prefix}/lib/fedora-third-party/conf.d
 
 %define obsoleteLine() %{expand:
@@ -48,7 +48,7 @@ Source3:    README.md
 
 BuildArch:  noarch
 # fedora-third-party contains tools to work with 3rd party repos and owns fedora-third-party/conf.d/ directory
-Requires:   fedora-third-party
+Requires:   fedora-third-party >= 0.11
 
 #dont forget to update the lua list in pre and bash list in post
 %{obsoleteJdk -- 1.8.0}
@@ -175,7 +175,7 @@ fi
 %files
 %license LICENSE
 %{thirdparty}/*
-%config(noreplace) %{repodir}/%{reponame}
+%{repodir}/%{reponame}
 %doc README.md
 
 %changelog

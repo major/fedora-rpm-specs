@@ -1,6 +1,6 @@
 Name:           perl-Devel-Cycle
 Version:        1.12
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Find memory cycles in objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Cycle
@@ -9,11 +9,10 @@ Patch0:         Devel-Cycle-1.11-512.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
@@ -40,12 +39,11 @@ based memory management, circular references will cause memory leaks.
 %patch -P 0 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -57,6 +55,9 @@ make test
 %{_mandir}/man3/Devel::Cycle.3*
 
 %changelog
+* Wed Oct  7 2026 Paul Howarth <paul@city-fan.org> - 1.12-35
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

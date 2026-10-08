@@ -3,10 +3,11 @@
 
 Name:           atlas
 Version:        3.10.3
+Provides: deprecated()
 %if "%{?enable_native_atlas}" != "0"
 %define dist .native
 %endif
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Automatically Tuned Linear Algebra Software
 
 License:        BSD-3-Clause
@@ -103,6 +104,7 @@ Requires:       %{name} = %{version}-%{release}
 Obsoletes:	%name-header <= %version-%release
 Requires(posttrans):	/usr/sbin/alternatives
 Requires(postun):	/usr/sbin/alternatives
+Provides: deprecated()
 
 %ifarch x86_64
 Obsoletes:      atlas-sse3-devel < 3.10.3-1
@@ -129,6 +131,7 @@ Summary:        Static libraries for ATLAS
 Requires:       %{name}-devel = %{version}-%{release}
 Requires(posttrans):	/usr/sbin/alternatives
 Requires(postun):	/usr/sbin/alternatives
+Provides: deprecated()
 
 %ifarch x86_64
 Obsoletes:      atlas-sse3-static < 3.10.3-1
@@ -161,6 +164,7 @@ Linear Algebra Software).
 
 %package corei2-static
 Summary:        ATLAS libraries for Corei2 (Ivy/Sandy bridge) CPUs
+Provides: deprecated()
 
 %description corei2-static
 This package contains the ATLAS (Automatically Tuned Linear Algebra
@@ -169,6 +173,7 @@ CPUs. The base ATLAS builds for the x86_64 architecture are made for the hammer6
 
 %package corei2
 Summary:        ATLAS libraries for Corei2 (Ivy/Sandy bridge) CPUs
+Provides: deprecated()
 
 %description corei2
 This package contains the ATLAS (Automatically Tuned Linear Algebra
@@ -181,6 +186,7 @@ Requires:       %{name}-corei2 = %{version}-%{release}
 Obsoletes:	%name-header <= %version-%release
 Requires(posttrans):	/usr/sbin/alternatives
 Requires(postun):	/usr/sbin/alternatives
+Provides: deprecated()
 
 %description corei2-devel
 This package contains shared and static versions of the ATLAS
@@ -199,6 +205,7 @@ optimizations for the corei2 (Ivy/Sandy bridge) CPUs.
 %package z14
 Summary:        ATLAS libraries for z14
 Group:          System Environment/Libraries
+Provides: deprecated()
 
 %description z14
 This package contains ATLAS (Automatically Tuned Linear Algebra Software)
@@ -211,6 +218,7 @@ Requires:       %{name}-z14 = %{version}-%{release}
 Obsoletes:	%name-header <= %version-%release
 Requires(posttrans):	chkconfig
 Requires(postun):	chkconfig
+Provides: deprecated()
 
 %description z14-devel
 This package contains shared and static versions of the ATLAS
@@ -223,6 +231,7 @@ Group:          Development/Libraries
 Requires:       %{name}-z14-devel = %{version}-%{release}
 Requires(posttrans):	chkconfig
 Requires(postun):	chkconfig
+Provides: deprecated()
 
 %description z14-static
 This package contains the ATLAS (Automatically Tuned Linear Algebra
@@ -233,6 +242,7 @@ CPUs.
 %package z15
 Summary:        ATLAS libraries for z15
 Group:          System Environment/Libraries
+Provides: deprecated()
 
 %description z15
 This package contains ATLAS (Automatically Tuned Linear Algebra Software)
@@ -245,6 +255,7 @@ Requires:       %{name}-z15 = %{version}-%{release}
 Obsoletes:	%name-header <= %version-%release
 Requires(posttrans):	chkconfig
 Requires(postun):	chkconfig
+Provides: deprecated()
 
 %description z15-devel
 This package contains shared and static versions of the ATLAS
@@ -257,6 +268,7 @@ Group:          Development/Libraries
 Requires:       %{name}-z15-devel = %{version}-%{release}
 Requires(posttrans):	chkconfig
 Requires(postun):	chkconfig
+Provides: deprecated()
 
 %description z15-static
 This package contains the ATLAS (Automatically Tuned Linear Algebra
@@ -270,6 +282,7 @@ CPUs.
 
 %package power8
 Summary:        ATLAS libraries for Power 8
+Provides: deprecated()
 
 %description power8
 This package contains ATLAS (Automatically Tuned Linear Algebra Software)
@@ -282,6 +295,7 @@ Requires:       %{name}-power8 = %{version}-%{release}
 Obsoletes:	%name-header <= %version-%release
 Requires(posttrans):	/usr/sbin/alternatives
 Requires(postun):	/usr/sbin/alternatives
+Provides: deprecated()
 
 %description power8-devel
 This package contains shared and static versions of the ATLAS
@@ -293,6 +307,7 @@ Summary:        Static libraries for ATLAS for Power 8
 Requires:       %{name}-power8-devel = %{version}-%{release}
 Requires(posttrans):	/usr/sbin/alternatives
 Requires(postun):	/usr/sbin/alternatives
+Provides: deprecated()
 
 %description power8-static
 This package contains the ATLAS (Automatically Tuned Linear Algebra
@@ -301,6 +316,7 @@ CPUs. The base ATLAS builds for the ppc64 architecture are made for the Power 5 
 
 %package power7
 Summary:        ATLAS libraries for Power 7
+Provides: deprecated()
 
 %description power7
 This package contains ATLAS (Automatically Tuned Linear Algebra Software)
@@ -313,6 +329,7 @@ Requires:       %{name}-power7 = %{version}-%{release}
 Obsoletes:	%name-header <= %version-%release
 Requires(posttrans):	/usr/sbin/alternatives
 Requires(postun):	/usr/sbin/alternatives
+Provides: deprecated()
 
 %description power7-devel
 This package contains shared and static versions of the ATLAS
@@ -324,6 +341,7 @@ Summary:        Static libraries for ATLAS for Power 7
 Requires:       %{name}-power7-devel = %{version}-%{release}
 Requires(posttrans):	/usr/sbin/alternatives
 Requires(postun):	/usr/sbin/alternatives
+Provides: deprecated()
 
 %description power7-static
 This package contains the ATLAS (Automatically Tuned Linear Algebra
@@ -783,6 +801,9 @@ fi
 %endif
 
 %changelog
+* Wed Oct 07 2026 Jakub Martisko <jamartis@redhat.com> - 3.10.3-38
+- Deprecate the package and the subpackages
+
 * Tue Sep 15 2026 Jakub Martisko <jamartis@redhat.com> - 3.10.3-37
 - The build on i686 can still fail -> disabling the checks on i686
 - Add the SSE1 to corei2 build (another ftbfs)

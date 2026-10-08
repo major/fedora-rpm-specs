@@ -5,7 +5,7 @@
 %global crate tokenizers
 
 Name:           rust-tokenizers
-Version:        0.23.1
+Version:        0.23.2
 Release:        %autorelease
 Summary:        Implementation of today's most used tokenizers in Rust
 
@@ -18,7 +18,7 @@ Source:         %{crates_source}
 # * Update fancy-regex dependency to 0.18:
 #   https://github.com/huggingface/tokenizers/pull/2243; also allow older 0.16,
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2321464
-# * Drop criterion dev-dependency
+# * Drop unused, benchmark-only criterion dev-dependency
 Patch:          tokenizers-fix-metadata.diff
 # * Downstream-only: don’t run doctests that require data files
 Patch10:        0001-Downstream-only-don-t-run-doctests-that-require-data.patch
@@ -128,6 +128,18 @@ This package contains library source intended for building other packages which
 use the "onig" feature of the "%{crate}" crate.
 
 %files       -n %{name}+onig-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+parity-aware-bpe-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+parity-aware-bpe-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "parity-aware-bpe" feature of the "%{crate}" crate.
+
+%files       -n %{name}+parity-aware-bpe-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+progressbar-devel

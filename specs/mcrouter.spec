@@ -8,6 +8,12 @@
 # the autotools days). Enable once a mock run shows what it needs.
 %bcond_with check
 
+# Run the license check and stop, without the (hours long) compile: the fast
+# way to find out whether a new vendor tarball needs a different License tag.
+# The build then fails on purpose, so this is for local runs only, never CI.
+#   mock -r fedora-rawhide-aarch64-getdeps --with license_check_only ...
+%bcond_with license_check_only
+
 # Upstream cuts a weekly tag, vYYYY.MM.DD.NN; Version is the tag without its
 # v. For a snapshot past the tag, also paste the two %%global lines
 # ./snapshot.sh prints (the commit and its distance from the tag): Version
@@ -123,7 +129,7 @@ Patch4:         0006-getdeps-record-the-checked-out-commit-in-getdeps-vendor.txt
 # builds on ppc64le with the same patch.
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
-BuildRequires:  folly-rpm-macros >= 46-3
+BuildRequires:  folly-rpm-macros >= 46-9
 %if %{with toolchain_clang}
 BuildRequires:  clang
 %else
@@ -165,6 +171,7 @@ rm -rf mcrouter/m4
 # vendor_checked_sha512 above.
 # -L: liboqs's LICENSE.txt sits in a versioned subdirectory of its tree
 %getdeps_vendor_license_check -c %{SOURCE2} -L %{?with_license_full_check:-f}
+%{?with_license_check_only: echo "license check only: stopping before the build"; exit 1}
 %getdeps_build %{?with_check:-t}
 
 

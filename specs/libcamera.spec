@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.7.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -140,7 +140,7 @@ export CXXFLAGS="%{optflags} -Wno-deprecated-declarations --param=max-devirt-tar
     %{?__debug_package:%{__debug_install_post}} \
     %{__arch_install_post} \
     %{__os_install_post} \
-    %{_builddir}/%{name}-v%{version}/src/ipa/ipa-sign-install.sh %{_builddir}/%{name}-v%{version}/%{_vpath_builddir}/src/ipa-priv-key.pem %{buildroot}/%{_libdir}/libcamera/ipa_*.so \
+    %{_builddir}/%{name}-v%{version}/src/ipa/ipa-sign-install.sh %{_builddir}/%{name}-v%{version}/%{_vpath_builddir}/src/ipa-priv-key.pem %{buildroot}/%{_libdir}/libcamera/ipa/ipa_*.so \
 %{nil}
 
 %install
@@ -198,6 +198,9 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Wed Oct 07 2026 Milan Zamazal <mzamazal@redhat.com> - 0.7.2-5
+- Fix IPA signing path (rhbz#2547048)
+
 * Thu Aug 27 2026 Milan Zamazal <mzamazal@redhat.com> - 0.7.2-4
 - Fix ov01a10 flickering (rhbz#2483190)
 

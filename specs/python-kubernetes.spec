@@ -17,8 +17,8 @@
 
 Name:       python-%{library}
 Epoch:      1
-Version:    36.0.3
-Release:    2%{?dist}
+Version:    37.0.0
+Release:    1%{?dist}
 Summary:    Python client for the kubernetes API.
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0
@@ -97,6 +97,10 @@ sed -i 's/^py>.*//g' test-requirements.txt
 sed -i 's/websocket-client.*/websocket-client>=0.43.0/g' requirements.txt
 %endif
 
+#At the time this was added 2026.7.22 was not yet build in rawhide.
+#If the newer dependency can be satisfied this can be removed.
+sed -i 's/certifi.*/certifi>=2026.1.4/g' requirements.txt
+
 %build
 %pyproject_wheel
 
@@ -143,6 +147,9 @@ cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 %{python3_sitelib}/%{library}/e2e_test
 
 %changelog
+* Wed Oct 07 2026 Jason Montleon <jason@montleon.com> - 1:37.0.0-1
+- Update to 37.0.0 (#2430280)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:36.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

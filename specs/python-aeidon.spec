@@ -1,8 +1,8 @@
 %global pypi_name aeidon
 
 Name:           python-%{pypi_name}
-Version:        1.15
-Release:        31%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        Subtitle file manipulation library
 
 License:        GPL-3.0-or-later
@@ -30,16 +30,7 @@ text-based subtitle files.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
-# FIXME in upstream
-sed -i '14i shutil.copytree("data/ui", "aeidon/data/ui")' setup-aeidon.py
-
-# we want to package aeidon, not gaupol
-# the setup.py file is for gaupol
-mv setup.py setup_gaupol.py
-sed 's/from setup import/from setup_gaupol import/' setup-aeidon.py > setup.py
-
 %generate_buildrequires
-rm -rf aeidon/data/{headers,patterns,ui}  # setup.py fails if this was already created
 %pyproject_buildrequires
 
 %build
@@ -53,9 +44,12 @@ rm -rf aeidon/data/{headers,patterns,ui}  # setup.py fails if this was already c
 %pyproject_check_import
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.md
+%doc README.aeidon.md
 
 %changelog
+* Tue Sep 29 2026 Manish Tiwari <matiwari@redhat.com> - 2.0.1-1
+- Update to release 2.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        85.0.0
+Version:        86.0.0
 
 %gometa
 
@@ -11,7 +11,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -22,7 +22,6 @@ License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC-BY-SA-4.0 AN
 
 URL:            %{gourl}
 Source0:        https://github.com/osbuild/image-builder/releases/download/v%{version}/image-builder-%{version}.tar.gz
-Patch0:         2735.patch
 
 
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
@@ -147,7 +146,7 @@ Provides: bundled(golang(github.com/oklog/ulid)) = 1.3.1
 Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.33.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.34.0
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/planetscale/vtprotobuf)) = 0393e58
@@ -216,7 +215,6 @@ Requires:   osbuild-depsolve-dnf >= %{min_osbuild_version}
 %forgeautosetup -p1
 %else
 %goprep -k
-%autopatch -p1
 %endif
 
 %build
@@ -274,6 +272,44 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Wed Oct 07 2026 Packit <hello@packit.dev> - 86.0.0-1
+Changes with 86.0.0
+----------------
+  - Add fstab=no to PXE testing and documentation (HMS-11074) (#2732)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - Update osbuild dependency commit ID (#2739)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - agents: introduction (#2729)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - bib: update readme (HMS-10586) (#2741)
+    - Author: Lucas Garfield, Reviewers: Brian C. Lane, Simon de Vlieger
+  - boot-aws: add --instance-type (#2726)
+    - Author: Tomáš Koscielniak, Reviewers: Brian C. Lane, Simon de Vlieger
+  - cloud/azure: create v2 storage accounts (HMS-11442) (#2744)
+    - Author: Ondřej Budai, Reviewers: Ondřej Ezr, Sanne Raymaekers
+  - cmd/image-builder: enable olog on --verbose (#2728)
+    - Author: Andrew G. Dunn, Reviewers: Anna Vítová, Simon de Vlieger
+  - contributing: mention `./tools/prepare-source.sh` (#2748)
+    - Author: Simon de Vlieger, Reviewers: Loris Fauster
+  - contributing: minor update (#2736)
+    - Author: Simon de Vlieger, Reviewers: Sanne Raymaekers
+  - defs: simple templates for iso customizations (HMS-11426) (#2743)
+    - Author: Simon de Vlieger, Reviewers: Loris Fauster, Lucas Garfield
+  - distro: rhel10: add AMI with Nvidia software stack (#2715)
+    - Author: Loris Fauster, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - doc: add bib migration guide (HMS-10586) (#2731)
+    - Author: Lucas Garfield, Reviewers: Ondřej Budai, Simon de Vlieger
+  - fedora: allow `customizations.iso` (#2735)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová, Brian C. Lane
+  - manifest: world-readable `/images/pxetree` (#2747)
+    - Author: Simon de Vlieger, Reviewers: Loris Fauster, Sanne Raymaekers
+  - osinfo: default LUKS pbkdf memory and parallelism, log the disk.yaml found (#2727)
+    - Author: Andrew G. Dunn, Reviewers: Anna Vítová, Simon de Vlieger
+  - sysext: relabel in prep pipeline (#2740)
+    - Author: Simon de Vlieger, Reviewers: Sanne Raymaekers
+
+— Somewhere on the Internet, 2026-10-07
+
 * Fri Oct 02 2026 Simon de Vlieger <cmdr@supakeen.com> - 85.0.0-2
 - Backport upstream PR 2735 to allow ISO customization.
 

@@ -1,21 +1,11 @@
 %global pname   SkinNopacity
 %global sname   skinnopacity
-
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-skinnopacity
 Version:        1.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A highly customizable native true color skin for the Video Disc Recorder
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/kamel5/SkinNopacity
@@ -30,7 +20,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  freetype-devel
 BuildRequires:  pkgconfig(GraphicsMagick++)
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 Requires:       vdr(abi)%{?_isa} = %{vdr_apiversion}
 Requires:       %{name}-data = %{version}-%{release}
 
@@ -72,7 +62,7 @@ install -Dpm 644 %{SOURCE1} \
 %doc COPYING HISTORY* README*
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/skinnopacity.conf
 %config(noreplace) %{_sysconfdir}/vdr/plugins/%{sname}/themeconfigs/theme-*.conf
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 %{vdr_vardir}/themes/nOpacity-*.theme
 
 
@@ -80,6 +70,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/skinnopacity/icons/
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.1-3
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

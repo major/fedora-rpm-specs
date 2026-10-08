@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.84
+Version:        0.0.85
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -159,17 +159,17 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev 11aaa39f84c0c44bdfb4c9cc21e4038c6f74c00a
-%global ruff_baseversion 0.16.8
-%global ruff_snapdate 20260924
+%global ruff_rev 19cb997763936be5bd7f3f791965366a99b3989b
+%global ruff_baseversion 0.16.10
+%global ruff_snapdate 20261006
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 76b8c9f83b8bb876e841248b638f3728da3f86fe
+%global typeshed_rev b932d8ce0f893d7d9ef167f0379dcaf9f48bf70b
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20260914
+%global typeshed_snapdate 20261001
 
 # Downstream patch: always find the system-wide ty executable
 #
@@ -181,7 +181,7 @@ Patch:          0001-Downstream-patch-always-find-the-system-wide-ty-exec.patch
 
 # Downstream patches for ruff, copied from the ruff package
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
-Patch102:          0002-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
+Patch102:       0002-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license ty

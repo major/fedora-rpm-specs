@@ -1,4 +1,4 @@
-Version:        0.66.0
+Version:        0.67.0
 Name:           lfortran
 Release:        1%{?dist}
 Summary:        A modern Fortran compiler
@@ -122,6 +122,9 @@ This package contains the jupyter kernel for %{name}.
 
 %install
 %cmake_install
+# remove libasr runtime ieaders
+rm -rf %{buildroot}/%{_prefix}/libasr/runtime
+rmdir %{buildroot}/%{_prefix}/libasr
 
 %check
 %ctest
@@ -159,6 +162,10 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Wed Oct 07 2026 Christoph Junghans <junghans@votca.org> - 0.67.0-1
+- Update to version 0.67.0
+- Resolves: rhbz#2547287
+
 * Tue Sep 15 2026 Christoph Junghans <junghans@votca.org> - 0.66.0-1
 - Update to version 0.66.0
 - Resolves: rhbz#2532852

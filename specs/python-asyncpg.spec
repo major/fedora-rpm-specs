@@ -3,7 +3,7 @@
 
 Name:           python-asyncpg
 Summary:        A fast PostgreSQL Database Client Library for Python/asyncio
-Version:        0.31.0
+Version:        0.32.0
 Release:        %autorelease
 
 # The entire source is Apache-2.0, except:
@@ -18,13 +18,6 @@ Release:        %autorelease
 License:        Apache-2.0 AND 0BSD AND PSF-2.0
 URL:            https://github.com/MagicStack/asyncpg
 Source:         %{pypi_source asyncpg}
-
-# Drop the Cython version check from setup.py
-# https://github.com/MagicStack/asyncpg/pull/1314
-#
-# This removes a dependency on pkg_resources, which is removed from setuptools
-# 82+; see https://fedoraproject.org/wiki/Changes/Setuptools_82+.
-Patch:          %{url}/pull/1314.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license asyncpg
@@ -112,28 +105,6 @@ export ASYNCPG_BUILD_CYTHON_ALWAYS=1
 
 
 %check -a
-# It is not clear why the tests always import asyncpg as ../asyncpg/__init__.py
-# even if we set PYTHONPATH to the installed sitearch directory. This
-# workaround is ugly, but there is nothing actually wrong with it, as the
-# install is already done by the time the check section runs:
-rm --recursive asyncpg
-ln --symbolic %{buildroot}%{python3_sitearch}/asyncpg/
-
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-k="${k-}${k+ and }not TestFlake8"
-
-# Test failure in test_executemany_server_failure_during_writes
-# https://github.com/MagicStack/asyncpg/issues/1099
-# This may be flaky and/or arch-dependent.
-k="${k-}${k+ and }not test_executemany_server_failure_during_writes"
-
-%if v"0%{?python3_version}" >= v"3.15"
-# Test failure in test_pool_handles_transaction_exit_in_asyncgen_2 with Python
-# 3.15.0a5, PYTHONASYNCIODEBUG=1
-# https://github.com/MagicStack/asyncpg/issues/1300
-k="${k-}${k+ and }not (TestPool and test_pool_handles_transaction_exit_in_asyncgen_2)"
-%endif
-
 # See the “test” target in the Makefile:
 PYTHONASYNCIODEBUG=1 %pytest -k "${k-}"
 %pytest -k "${k-}"

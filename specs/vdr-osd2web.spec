@@ -1,24 +1,13 @@
 ## This macro activates/deactivates debug option
 %bcond_with debug
-%global pname   osd2web
+%global sname   osd2web
 %global rname   vdr-plugin-osd2web
-%global __provides_exclude_from ^%{vdr_plugindir}/.*\\.so.*$
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
-
-Name:           vdr-%{pname}
+Name:           vdr-%{sname}
 Version:        0.3.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        VDR skin interface for the browser
 License:        GPL-2.0-or-later
 URL:            https://github.com/horchi/vdr-plugin-osd2web
@@ -28,7 +17,7 @@ Source1:        %{name}.conf
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 BuildRequires:  libwebsockets-devel
 BuildRequires:  zlib-devel
 BuildRequires:  tinyxml2-devel
@@ -66,11 +55,11 @@ install -Dpm 644 %{SOURCE1} \
   %{buildroot}%{_sysconfdir}/sysconfig/vdr-plugins.d/%{name}.conf
 
 # fix the perm due W: unstripped-binary-or-object
-chmod 0755 %{buildroot}/%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+chmod 0755 %{buildroot}/%{vdr_libdir}/libvdr-*.so.%{vdr_apiversion}
 
 # install executable to %%{vdr_plugindir} due E: executable-marked-as-config-file
 rm -rf %{buildroot}/%{vdr_configdir}/plugins/osd2web/startBrowser.sh
-install -Dpm 755 scripts/startBrowser.sh %{buildroot}%{vdr_plugindir}/bin/startBrowser.sh
+install -Dpm 755 scripts/startBrowser.sh %{buildroot}%{vdr_libdir}/bin/startBrowser.sh
 
 %find_lang %{name}
 
@@ -79,11 +68,14 @@ install -Dpm 755 scripts/startBrowser.sh %{buildroot}%{vdr_plugindir}/bin/startB
 %doc README
 %dir %{vdr_configdir}/plugins/osd2web/
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{name}.conf
-%{vdr_plugindir}/libvdr-%{pname}.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 %config(noreplace) %{vdr_configdir}/plugins/osd2web/*
 %{vdr_plugindir}/bin/startBrowser.sh
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.3.2-28
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

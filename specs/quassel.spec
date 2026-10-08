@@ -1,4 +1,9 @@
 %global quassel_data_dir    %{_var}/lib/quassel
+%if 0%{?epel} != 0
+# we don't have kf5-rpm-macros on EL10, so define the necessary dirs manually
+%global _kf5_datadir %_datadir
+%global _kf5_bindir %_prefix/bin
+%endif
 
 Name:    quassel
 Summary: A modern distributed IRC system
@@ -11,9 +16,11 @@ URL:     https://quassel-irc.org/
 Source0: https://quassel-irc.org/pub/quassel-%{version}.tar.bz2
 
 BuildRequires: cmake
-BuildRequires: dbusmenu-qt5-devel
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
+
+%if 0%{?epel} == 0
+BuildRequires: dbusmenu-qt5-devel
 BuildRequires: kf5-kconfigwidgets-devel
 BuildRequires: kf5-kcoreaddons-devel
 BuildRequires: kf5-knotifications-devel
@@ -23,14 +30,16 @@ BuildRequires: kf5-kwidgetsaddons-devel
 BuildRequires: kf5-kwindowsystem-devel
 BuildRequires: kf5-kxmlgui-devel
 BuildRequires: kf5-rpm-macros
+BuildRequires: phonon-qt5-devel
+BuildRequires: qt5-qtwebkit-devel
+%endif
+
 BuildRequires: openssl-devel
 BuildRequires: perl-generators
-BuildRequires: phonon-qt5-devel
 BuildRequires: qca-qt5-devel
 BuildRequires: qt5-linguist
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-qtscript-devel
-BuildRequires: qt5-qtwebkit-devel
 BuildRequires: qt5-qtmultimedia-devel
 BuildRequires: openldap-devel
 BuildRequires: boost-devel
@@ -92,8 +101,14 @@ Quassel client
 %autosetup -p0 -n %{name}-%{version}
 
 %build
+%if 0%{?epel} == 0
 %cmake_kf5 \
   -DWANT_MONO=1 -DUSE_QT5=1 -DWITH_KDE=1 -DHAVE_SSL=1 -DENABLE_SHARED=OFF
+%else
+# we don't have KDE/kf5 on EL10, so do a QT-only build instead
+%cmake \
+  -DWANT_MONO=1 -DUSE_QT5=1 -DHAVE_SSL=1 -DENABLE_SHARED=OFF
+%endif
 
 %cmake_build
 
@@ -141,7 +156,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %files common
 %doc README.md
 %license COPYING gpl-2.0.txt gpl-3.0.txt
+%if 0%{?epel} == 0
 %{_kf5_datadir}/knotifications5/quassel.notifyrc
+%endif
 %{_kf5_datadir}/quassel/
 %{_kf5_datadir}/icons/hicolor/*/*/*
 

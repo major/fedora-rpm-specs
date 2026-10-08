@@ -7,8 +7,8 @@ It provides functions to correctly split strings by words, sentences, or
 grapheme clusters according to Unicode Standard Annex #29.}
 
 Name:           python-%{pypi_name}
-Version:        0.2.4
-Release:        4%{?dist}
+Version:        0.3.3
+Release:        1%{?dist}
 Summary:        Unicode segmentation and width for Python using Rust
 
 # The source is MIT (except for certain non-code files licensed CC0-1.0 that do
@@ -21,15 +21,6 @@ Summary:        Unicode segmentation and width for Python using Rust
 License:        MIT AND (MIT OR Apache-2.0)
 URL:            https://github.com/WeblateOrg/unicode-segmentation-rs
 Source0:        https://files.pythonhosted.org/packages/source/u/%{srcname}/%{srcname}-%{version}.tar.gz
-
-# fix(deps): update rust crate pyo3 to 0.29.0 (#243)
-# https://github.com/WeblateOrg/unicode-segmentation-rs/commit/b9ee42956f1c95561fa09fe99a46441532729ac5
-#
-# fix(deps): don’t depend on deprecated pyo3/generate-import-lib feature
-# https://github.com/WeblateOrg/unicode-segmentation-rs/pull/271
-#
-# Backported to v0.2.4.
-Patch:          unicode_segmentation_rs-0.2.4-pyo3-0.29.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  gcc
@@ -46,7 +37,6 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{srcname}-%{version}
 
-sed -i 's/maturin>=1.10/maturin>=1.9/' pyproject.toml
 
 %cargo_prep
 
@@ -74,6 +64,9 @@ sed -i 's/maturin>=1.10/maturin>=1.9/' pyproject.toml
 %doc README.md
 
 %changelog
+* Tue Sep 29 2026 Manish Tiwari <matiwari@redhat.com> - 0.3.3-1
+- Update to version 0.3.3 (close RHBZ#2500824)
+
 * Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 0.2.4-4
 - Rebuild with latest Rust compiler to enable SHSTK support
 

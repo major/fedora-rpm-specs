@@ -1,6 +1,6 @@
 Name:		perl-Digest-MD5-File
 Version:	0.08
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	Perl extension for getting MD5 sums for files and URLs
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Digest-MD4
@@ -8,11 +8,10 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Digest/Digest-MD5-File-%{ve
 BuildArch:	noarch
 # Module Install
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Digest::MD5)
@@ -25,7 +24,6 @@ BuildRequires:	perl(Test::More)
 # Perl version anchor
 # Not picked up by rpm (required rather than used)
 Requires:	perl(Encode)
-Requires:	perl(Exporter)
 Requires:	perl(File::Spec)
 
 %description
@@ -35,12 +33,11 @@ Get MD5 sums for files of a given path or content of a given URL.
 %setup -q -n Digest-MD5-File-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -52,6 +49,9 @@ make test
 %{_mandir}/man3/Digest::MD5::File.3*
 
 %changelog
+* Wed Oct  7 2026 Paul Howarth <paul@city-fan.org> - 0.08-41
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit bfb2745176e3fd0824e008d3efb2b37bce5ae0db
 %global commitdatestring 2026-09-26 16:43:49 -0600
-%global cosmic_minver 1.9.1
+%global cosmic_minver 1.9.0
 
 Name:           cosmic-greeter
 Version: 1.9.1

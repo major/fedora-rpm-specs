@@ -1,12 +1,13 @@
 Name:           perl-DateTime-Event-ICal
 Version:        0.13
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Perl DateTime extension for computing rfc2445 recurrences
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Event-ICal
 Source0:        https://cpan.metacpan.org/authors/id/F/FG/FGLOCK/DateTime-Event-ICal-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -26,7 +27,8 @@ BuildRequires:  perl(vars)
 # Test suite
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 This module provides convenience methods that let you easily create
@@ -41,7 +43,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -49,10 +51,15 @@ make test
 %files
 %license LICENSE
 %doc Changes README TODO
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/DateTime/
+%{_mandir}/man3/DateTime::Event::ICal.3*
 
 %changelog
+* Wed Oct  7 2026 Paul Howarth <paul@city-fan.org> - 0.13-31
+- Spec tidy-up
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

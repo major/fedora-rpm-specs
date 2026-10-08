@@ -10,7 +10,7 @@ Source0:	%url/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	https://github.com/intel/level-zero-npu-extensions/archive/f9ad3bf89c2418d714aef2e6b96a5aafb12a1971/level-zero-npu-extensions-f9ad3bf.tar.gz
 Source2:	https://github.com/openvinotoolkit/npu_compiler_elf/archive/a301d97e0717fb797c79ec51f8cdc13152878700/npu_compiler_elf-a301d97.tar.gz
 
-%if 0%{?fedora} > 44
+%if 0%{?fedora} > 44 || 0%{?eln}
 Patch0:         add-initializer-umd-level_zero_driver-ze_device.patch
 %endif
 

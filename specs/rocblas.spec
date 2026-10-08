@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 10.0
+%global rocm_release 10.1
 %else
 %global rocm_release 10.0
 %endif
@@ -189,6 +189,7 @@ Patch3:         0003-improve-fallback-name-to-handle-generics.patch
 Patch4:         0004-generic-arches-need-a-solution-index.patch
 Patch5:         0005-rocblas-add-rocblas_internal_get_generic_arch_name.patch
 Patch6:         0006-rocblas-generalize-finding-tensile-for-generics.patch
+Patch7:         0001-tensile-add-gfx1170.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -362,6 +363,9 @@ cd tensile
 %patch -P2 -p3
 %patch -P3 -p3
 %patch -P4 -p3
+%if %{with preview}
+%patch -P7 -p3
+%endif
 
 #Fix a few things:
 chmod 755 Tensile/Configs/miopen/convert_cfg.py

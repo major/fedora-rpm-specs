@@ -5,14 +5,13 @@
 %global tarball_name %{name}-%{version}
 
 Name: libabigail
-Version: 2.10
-Release: 4%{?dist}
+Version: 3.0
+Release: 1%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache-2.0 WITH LLVM-exception
 URL: https://sourceware.org/libabigail/
 Source0: http://mirrors.kernel.org/sourceware/libabigail/%{tarball_name}.tar.xz
-Patch1: 0001-tests-mockfedabipkgdiff.in-Fix-python-module-loading.patch
 
 BuildRequires: git
 BuildRequires: libbpf-devel
@@ -146,8 +145,8 @@ time make %{?_smp_mflags} check-self-compare || (cat tests/test-suite.log && exi
 %if %{with abidb}
 %{_bindir}/abidb
 %endif
-%{_libdir}/libabigail.so.9
-%{_libdir}/libabigail.so.9.0.0
+%{_libdir}/libabigail.so.10
+%{_libdir}/libabigail.so.10.0.0
 %{_libdir}/libabigail/default.abignore
 %doc README AUTHORS ChangeLog
 %license LICENSE.txt license-change-2020.txt
@@ -171,6 +170,14 @@ time make %{?_smp_mflags} check-self-compare || (cat tests/test-suite.log && exi
 %endif
 
 %changelog
+* Wed Oct 7 2026 Dodji Seketeli <dodji@seketeli.org> - 3.0-1
+- Update to new upstream 3.0 tarball
+- Build with no full parallel processing because elfutils 0.196 was not built with --enable-thread-safety
+  There might still be some parallel processing performed because C++17 allows us to
+  perform type sorting in parallel if need be.
+- Remove patch 0001-tests-mockfedabipkgdiff.in-Fix-python-module-loading.patch
+  That patch is comprised in the 3.0 release anyway.
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.10-4
 - Rebuilt for libxml-2.5.4
 

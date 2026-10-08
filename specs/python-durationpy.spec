@@ -1,5 +1,5 @@
 Name:           python-durationpy
-Version:        0.9
+Version:        0.11
 Release:        %autorelease
 Summary:        Module for converting between datetime.timedelta and Go's Duration strings
 

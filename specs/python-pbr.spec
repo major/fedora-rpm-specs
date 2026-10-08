@@ -5,7 +5,7 @@
 %bcond tests %[%{defined fedora} && %{without bootstrap}]
 
 Name:           python-%{pypi_name}
-Version:        7.1.1
+Version:        7.1.3
 Release:        %autorelease
 Summary:        Python Build Reasonableness
 

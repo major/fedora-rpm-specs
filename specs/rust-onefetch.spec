@@ -34,6 +34,12 @@ Patch:          onefetch-fix-metadata.diff
 # * Downstream-only: revert the source-code change for gix 0.86+ so we can
 #   temporarily keep using gix 0.85.
 Patch10:        0001-Revert-chore-deps-Update-Rust-crate-gix-to-0.86.0-18.patch
+# * fix: strip control characters from info field values:
+#   https://github.com/o2sh/onefetch/pull/1829
+# * Fixes: Info field values aren't stripped of terminal escape sequences:
+#   https://github.com/o2sh/onefetch/issues/1828, CVE-2026-100866, RHBZ#2542292,
+#   RHBZ#2542294
+Patch11:        https://github.com/o2sh/onefetch/pull/1829.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  help2man

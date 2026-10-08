@@ -4,25 +4,26 @@
 %global _monogacdir %{_monodir}/gac
 %endif
 
+# This is a mono package
+%define debug_package %{nil}
+
 Name:	 	log4net
 URL:		http://logging.apache.org/log4net/
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:	Apache-2.0
-Version:	2.0.8
-Release:	25%{?dist}
+Version:	3.5.0
+Release:	1%{?dist}
 Summary:	A .NET framework for logging
-Source:		http://mirror.reverse.net/pub/apache/logging/log4net/source/%{name}-%{version}-src.zip
-Patch0:		log4net-2.0.8-xmlconfigurator.patch
-
-BuildRequires:	dos2unix
+Source:		https://downloads.apache.org/logging/log4net/%{version}/apache-log4net-source-%{version}.zip
+Patch0:		RollingFileAppender-count-assignment.patch
+# Remove build-only NuGet dependencies (SourceLink + analyzers) so a net462-only
+# build restores offline against Mono's reference assemblies only.
+Patch1:		log4net-remove-build-only-deps.patch
+BuildRequires:	dotnet-host, dotnet-sdk-10.0
 BuildRequires:	mono-data-sqlite
 BuildRequires:	mono-devel
 
-# Mono only available on these:
-ExclusiveArch: %mono_arches
-
-# %define debug_package %{nil}
-# This is a mono package
+# DotNet SDK not available on i686
+ExcludeArch:	i686
 
 %description
 log4net is a tool to help the programmer output log statements to a
@@ -40,30 +41,51 @@ variety of output targets. log4net is a port of the excellent log4j
 framework to the .NET runtime
 
 %prep
-%setup -q
-dos2unix src/Config/XmlConfigurator.cs
+%setup -q -c
 %patch -P0 -p1
+%patch -P1 -p1
+# Force a fully offline NuGet restore: no package sources are permitted, so the
+# build cannot reach the network. Reference assemblies come from Mono (see %%build),
+# not from NuGet, so no packages need to be restored at all.
+cat > nuget.config <<'EOF'
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <config>
+    <add key="globalPackagesFolder" value="packages-cache" />
+  </config>
+  <packageSources>
+    <clear />
+  </packageSources>
+</configuration>
+EOF
 sed -i 's/\r//' NOTICE
-sed -i 's/\r//' README.txt
+sed -i 's/\r//' README.md
 sed -i 's/\r//' LICENSE
 # Remove prebuilt dll files
 rm -rf bin/
 
-# mv src/Layout/XMLLayout.cs src/Layout/XmlLayout.cs
-# mv src/Layout/XMLLayoutBase.cs src/Layout/XmlLayoutBase.cs
-
-# Fix for mono 4
-find . -name "*.sln" -print -exec sed -i 's/Format Version 10.00/Format Version 11.00/g' {} \;
-find . -name "*.csproj" -print -exec sed -i 's#ToolsVersion="3.5"#ToolsVersion="4.0"#g; s#<TargetFrameworkVersion>.*</TargetFrameworkVersion>##g; s#<PropertyGroup>#<PropertyGroup><TargetFrameworkVersion>v4.5</TargetFrameworkVersion>#g' {} \;
-
-# Use system mono.snk key
-sed -i -e 's!"..\\..\\..\\log4net.snk")]!"/etc/pki/mono/mono.snk")]!' src/AssemblyInfo.cs
-sed -i -e 's!|| SSCLI)!|| SSCLI || MONO)!' src/AssemblyInfo.cs
-
-
 %build
-# ASF recommend using nant to build log4net
-xbuild /property:Configuration=Debug /property:DefineConstants=DEBUG,MONO,STRONG src/log4net.vs2010.csproj
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export DOTNET_NOLOGO=1
+# Build net462 only (the assembly that is installed into the Mono GAC).
+#  - TargetFrameworks=net462 (plural) collapses the restore graph to the single
+#    target, avoiding the netstandard2.0 NuGet chain.
+#  - AutomaticallyUseReferenceAssemblyPackages=false stops the SDK from trying to
+#    restore the proprietary Microsoft.NETFramework.ReferenceAssemblies package.
+#  - FrameworkPathOverride points the compiler at Mono's (FOSS) reference
+#    assemblies shipped by mono-devel.
+#  - GeneratePackageOnBuild=false: we want the DLL, not a .nupkg.
+#  - PublicSign=true: embed the strong-name public key (preserving the assembly
+#    identity / public key token) WITHOUT computing the RSA strong-name signature.
+#    Real strong-name signing uses SHA-1 RSA via OpenSSL, which fails under the
+#    FIPS/crypto-policy restrictions of the mock build root
+#    ("error:03000098 ... invalid digest"). Public signing avoids that crypto call.
+dotnet build src/log4net/log4net.csproj -c Release \
+    -p:TargetFrameworks=net462 \
+    -p:AutomaticallyUseReferenceAssemblyPackages=false \
+    -p:FrameworkPathOverride=/usr/lib/mono/4.7.1-api \
+    -p:GeneratePackageOnBuild=false \
+    -p:PublicSign=true
 
 %install
 # install pkgconfig file
@@ -78,19 +100,28 @@ mkdir -p $RPM_BUILD_ROOT/%{_libdir}/pkgconfig
 cp %{name}.pc $RPM_BUILD_ROOT/%{_libdir}/pkgconfig
 mkdir -p $RPM_BUILD_ROOT/%{_monogacdir}
 
-#gacutil -i bin/mono/*/release/log4net.dll -f -package log4net -root ${RPM_BUILD_ROOT}/%{_prefix}/lib
-gacutil -i build/bin/net/*/debug/log4net.dll -f -package log4net -root ${RPM_BUILD_ROOT}/%{_prefix}/lib
+# The assembly was public-signed during %%build (the Roslyn SHA-1 RSA strong-name
+# signing fails under the mock crypto policy). Complete the strong name here with
+# Mono's own sn tool, which does not use the restricted OpenSSL path. gacutil
+# refuses to install a delay/public-signed assembly ("Strong name cannot be
+# verified for delay-signed assembly"); after this it verifies and installs.
+sn -R build/Release/net462/log4net.dll log4net.snk
+
+gacutil -i build/Release/net462/log4net.dll -f -package log4net -root ${RPM_BUILD_ROOT}/%{_prefix}/lib
 
 %files
 %{_monogacdir}/log4net
 %{_monodir}/log4net
-%doc NOTICE README.txt
+%doc NOTICE README.md
 %license LICENSE
 
 %files devel
 %{_libdir}/pkgconfig/log4net.pc
 
 %changelog
+* Wed Oct  7 2026 Tom Callaway <spot@fedoraproject.org> 3.5.0-1
+- update to 3.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

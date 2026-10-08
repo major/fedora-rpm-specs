@@ -2,7 +2,7 @@
 %global         forgeurl https://github.com/dvarrazzo/py-setproctitle
 
 Name:           python-%{pypi_name}
-Version:        1.3.7
+Version:        1.3.8
 %global tag     version-%{version}
 %forgemeta
 Release:        %{autorelease}
@@ -11,10 +11,6 @@ Summary:        Python module to customize a process title
 License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-
-# Fix segfault happening with Python 3.15.0a1
-# https://github.com/dvarrazzo/py-setproctitle/pull/158
-Patch:          158.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -48,11 +44,10 @@ It's based on PostgreSQL implementation which has proven to be portable.
 
 
 %prep
-%forgesetup
-%patch -p1 0
+%forgeautosetup -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -x test
 
 
 %build
@@ -65,7 +60,8 @@ It's based on PostgreSQL implementation which has proven to be portable.
 
 
 %check
-%tox
+%pyproject_check_import
+%pytest -v tests
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

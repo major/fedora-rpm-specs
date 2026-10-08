@@ -1,18 +1,10 @@
-# Set vdr_version based on Fedora version
-# Default
-%global vdr_version 2.7.7
-
-%if 0%{?fedora} == 43
-%global vdr_version 2.7.7
-%elif 0%{?fedora} == 44
-%global vdr_version 2.8.1
-%elif 0%{?fedora} > 44
-%global vdr_version 2.8.2
-%endif
+%global sname   epg2vdr
+# The plugin ABI is expressed through vdr(abi); don't export private .so provides.
+%global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-epg2vdr
 Version:        1.2.17
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A plugin to retrieve EPG data from a mysql database into VDR
 
 License:        GPL-1.0-or-later
@@ -32,7 +24,7 @@ BuildRequires:  libxml2-devel
 BuildRequires:  tinyxml2-devel
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  imlib2-devel
-BuildRequires:  vdr-devel >= %{vdr_version}
+BuildRequires:  vdr-devel
 BuildRequires:  python3-devel
 BuildRequires:  jansson-devel
 BuildRequires:  libarchive-devel
@@ -65,9 +57,12 @@ chmod 0755 %{buildroot}/%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 %license COPYING
 %doc HISTORY* README*
 %config(noreplace) %{vdr_configdir}/plugins/epg2vdr/epg.dat
-%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
+%{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 
 %changelog
+* Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.17-18
+- Rebuilt for new VDR 2.8.3 API version 14
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.2.17-17
 - Rebuilt for Python 3.15.0b4 ABI change
 

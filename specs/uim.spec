@@ -1,11 +1,11 @@
 %global inst_xinput %{_sbindir}/update-alternatives --install %{_sysconfdir}/X11/xinit/xinputrc xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf 50
 %global uninst_xinput %{_sbindir}/update-alternatives --remove xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf
-%global srcver	1.9.8
+%global srcver	1.9.9
 
 %bcond_with	canna
 
 Name:		uim
-Version:	1.9.8
+Version:	1.9.9
 Release:	%autorelease
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
@@ -28,7 +28,9 @@ BuildRequires:	qt6-qtbase-devel qt6-qtbase-private-devel
 BuildRequires:	libedit-devel sqlite-devel expat-devel
 BuildRequires:	m17n-lib-devel m17n-db-devel
 BuildRequires:	m17n-db m17n-db-extras
+BuildRequires:	ibus-devel
 BuildRequires:	emacs libtool automake autoconf intltool
+BuildRequires:	protobuf3-devel
 %if 0%{?fedora} < 36
 BuildRequires:	xemacs
 %endif
@@ -86,6 +88,11 @@ Summary:	CLI tools for Uim
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 Requires:	%{name}-common = %{version}-%{release}
 Conflicts:	%{name} < 1.9.3-1
+
+%package	-n ibus-%{name}
+Summary:	Uim engine for IBus platform
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+Requires:	%{name}-common = %{version}-%{release}
 
 %package	wayland
 Summary:	Wayland support for Uim
@@ -170,6 +177,14 @@ Requires(post):	/usr/bin/uim-module-manager
 Requires(postun): /usr/bin/uim-module-manager
 Recommends:	m17n-db-extras
 
+%package	mozc
+Summary:	Mozc support for Uim
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+Requires:	%{name}-common = %{version}-%{release}
+Requires(post):	/usr/bin/uim-module-manager
+Requires(postun): /usr/bin/uim-module-manager
+Requires:	mozc
+
 
 %global		common_desc	%{expand:
 Uim is a multilingual input method library. Uim aims to
@@ -210,6 +225,11 @@ This package contains shared files for other uim sub packages.
 %{common_desc}
 
 This package contains CLI executables.
+
+%description	-n ibus-%{name}
+%{common_desc}
+
+This package contains the uim engine for IBus.
 
 %description	wayland
 %{common_desc}
@@ -274,6 +294,11 @@ This package provides support for SKK, a Japanese input method.
 This package provides support for m17n-lib, which allows input of
 many languages using the input table map from m17n-db.
 
+%description	mozc
+%{common_desc}
+
+This package provides support for Mozc, a Japanese input method.
+
 
 %prep
 %autosetup -p1 -n uim-%{srcver}
@@ -286,9 +311,11 @@ autoconf
 %if %{with canna}
 	--with-canna \
 %endif
+	--with-ibus \
 	--without-anthy \
 	--with-anthy-utf8 \
 	--with-m17nlib \
+	--with-mozc \
 	--with-eb --with-eb-conf=%{_libdir}/eb.conf \
 	--without-scim \
 	--with-wayland \
@@ -434,6 +461,14 @@ if [ "$1" = "0" ]; then
 	/usr/bin/uim-module-manager --path %{_localstatedir}/lib/uim --unregister m17nlib > /dev/null 2>&1 || :
 fi
 
+%post mozc
+/usr/bin/uim-module-manager --path %{_localstatedir}/lib/uim --register mozc > /dev/null 2>&1 || :
+
+%postun mozc
+if [ "$1" = "0" ]; then
+	/usr/bin/uim-module-manager --path %{_localstatedir}/lib/uim --unregister uim > /dev/null 2>&1 || :
+fi
+
 
 %files
 %doc AUTHORS NEWS README
@@ -459,6 +494,7 @@ fi
 %{_libdir}/uim/plugin/libuim-process.so
 %{_libdir}/uim/plugin/libuim-socket.so
 %{_libdir}/uim/plugin/libuim-sqlite3.so
+%{_libdir}/uim/plugin/libuim-tutcode.so
 %{_libexecdir}/uim-helper-server
 
 %files wayland
@@ -494,13 +530,13 @@ fi
 %dir %{_localstatedir}/lib/uim
 %{_datadir}/uim/byeoru-data/byeoru-dict
 %{_datadir}/uim/helperdata
-%{_datadir}/uim/tables/*.table
 %verify(not md5 size mtime) %{_datadir}/uim/installed-modules.scm
 %verify(not md5 size mtime) %{_datadir}/uim/loader.scm
 %ghost %{_localstatedir}/lib/uim/*.scm
 %exclude %{_datadir}/uim/anthy*.scm
 %exclude %{_datadir}/uim/canna*.scm
 %exclude %{_datadir}/uim/m17nlib.scm
+%exclude %{_datadir}/uim/mozc*.scm
 %exclude %{_datadir}/uim/skk*.scm
 %exclude %{_datadir}/uim/wnn*.scm
 ## pixmaps are licensed under BSD or LGPLv2
@@ -528,6 +564,12 @@ fi
 %{_includedir}/uim/
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*
+
+%files -n ibus-%{name}
+%doc AUTHORS NEWS README
+%license COPYING
+%{_libexecdir}/ibus-engine-uim
+%{_datadir}/ibus/component/uim.xml
 
 %files	gtk3
 %doc AUTHORS NEWS README
@@ -620,6 +662,12 @@ fi
 # BSD or LGPLv2
 %{_datadir}/uim/pixmaps/m17n*png
 %dir %{_datadir}/uim
+
+%files mozc
+%doc AUTHORS NEWS README
+%license COPYING
+%{_bindir}/uim-mozc-helper
+%{_datadir}/uim/mozc*.scm
 
 %changelog
 %autochangelog

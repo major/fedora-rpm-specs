@@ -12,7 +12,7 @@
 
 Name:           python-meson-python
 Summary:        The Python build backend for Meson projects
-Version:        0.22.0
+Version:        0.22.1
 Release:        %autorelease
 
 # SPDX

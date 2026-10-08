@@ -2,7 +2,7 @@
 %global srcname ipmi
 
 Name:           python-%{srcname}
-Version:        0.5.8
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Pure python IPMI library
 License:        LGPL-2.1-or-later

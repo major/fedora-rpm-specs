@@ -13,7 +13,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.5
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -25,6 +25,9 @@ Patch9: nut-2.6.5-rmpidf.patch
 Patch15: nut-c99-strdup.patch
 Patch16: nut-2.8-rhinoname.patch
 Patch17: nut-2.8.5-nutuser.patch
+# from upstream, for <= 2.8.5, rhbz#2539831
+# https://github.com/networkupstools/nut/commit/3e675fedbbec7f8a38b477e20bb85f00d9a42226
+Patch18: nut-2.8.5-3e675fed.patch
 
 Requires(post): coreutils systemd
 Requires(preun): systemd
@@ -141,6 +144,7 @@ necessary to develop NUT client applications.
 #patch -P 15 -p1
 %patch -P 16 -p2 -b .rhinoname
 %patch -P 17 -p2 -b .nutuser
+%patch -P 18 -p1 -b .3e675fed
 
 sed -i 's|LIBSSL_LDFLAGS|LIBSSL_LIBS|' lib/libupsclient-config.in
 sed -i 's|LIBSSL_LDFLAGS|LIBSSL_LIBS|' lib/libupsclient.pc.in
@@ -536,6 +540,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Wed Oct 07 2026 Michal Hlavinka <mhlavink@redhat.com> - 2.8.5-9
+- fix nut monitor spin CPU after upsd closed connection (rhbz#2539831)
+
 * Tue Aug 25 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2.8.5-8.2
 - Explicitly set no rpath options for ldflags in pkg-config files
 

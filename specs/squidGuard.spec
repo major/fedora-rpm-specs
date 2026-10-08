@@ -1,75 +1,60 @@
-%define _hardened_build 1
 %define _default_patch_fuzz 2
-# $Id: squidGuard.spec,v 1.22 2009/10/26 13:30:17 limb Exp $
 
 # GCC 10 uses -fno-common by default, turn it off for now
 %define _legacy_common_support 1
 
-%define			_dbtopdir		%{_var}/%{name}
-%define			_dbhomedir		%{_var}/%{name}/blacklists
-%define			_cgibin			/var/www/cgi-bin
+%global dbtopdir  %{_var}/%{name}
+%global dbhomedir %{_var}/%{name}/blacklists
+%global cgibin    /var/www/cgi-bin
 
-Name:			squidGuard
-Version:		1.6.0
-Release:		1%{?dist}
-Summary:		Filter, redirector and access controller plugin for squid
+Name:           squidGuard
+Version:        1.6.0
+Release:        2%{?dist}
+Summary:        Filter, redirector and access controller plugin for squid
 
-License:		GPL-2.0-only
+License:        GPL-2.0-only
+URL:            http://www.squidguard.org/
 
 # Take sources from what Debian watches, squidguard.org is dead
-Source0:		https://www.joonet.de/sources/squidguard/squidguard-%{version}.tar.gz
+Source0:        https://www.joonet.de/sources/squidguard/squidguard-%{version}.tar.gz
 
-Source1:		squidGuard.logrotate
-Source2:		http://squidguard.mesd.k12.or.us/blacklists.tgz
-Source3:		http://cuda.port-aransas.k12.tx.us/squid-getlist.html
+Source1:        squidGuard.logrotate
+Source2:        http://squidguard.mesd.k12.or.us/blacklists.tgz
+Source3:        http://cuda.port-aransas.k12.tx.us/squid-getlist.html
 
 # K12LTSP stuff
-Source100:		squidGuard.conf
-Source101:		update_squidguard_blacklists
-#Source102:		squidguard
-#Source103:		transparent-proxying
-Source104:		squidGuard.service
-Source105:		transparent-proxying.service
-Source106:		squidGuard-helper
-Source107:		transparent-proxying-helper
+Source100:      squidGuard.conf
+Source101:      update_squidguard_blacklists
+Source104:      squidGuard.service
+Source105:      transparent-proxying.service
+Source106:      squidGuard-helper
+Source107:      transparent-proxying-helper
 
-# SELinux (taken from K12LTSP package)
-#Source200:		squidGuard.te
-#Source201:		squidGuard.fc
-
-#Patch0:			squidGuard-upstream.patch
-#Patch1:			squidGuard-paths.patch
-Patch2:			squid-getlist.html.patch
-Patch3:			squidGuard-perlwarning.patch
-#Patch4:			squidGuard-sed.patch
-Patch5:			squidGuard-makeinstall.patch
-#Patch6:			squidGuard-1.3-SG-2008-06-13.patch
-Patch14:                squidGuard-1.4-declarations.patch
+Patch2:         squid-getlist.html.patch
+Patch3:         squidGuard-perlwarning.patch
+Patch5:         squidGuard-makeinstall.patch
+Patch14:        squidGuard-1.4-declarations.patch
 # https://sources.debian.org/src/squidguard/1.6.0-6/debian/patches/11_fix-configure-check.patch
-Patch15:                squidGuard-1.6.0-fix-configure-check.patch
+Patch15:        squidGuard-1.6.0-fix-configure-check.patch
 
-URL:			http://www.squidguard.org/
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  bison
+BuildRequires:  byacc
+BuildRequires:  flex
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  perl-generators
+BuildRequires:  systemd-rpm-macros
 
-BuildRequires:	autoconf
-BuildRequires:	automake
-BuildRequires:	bison
-BuildRequires:	byacc
-BuildRequires:	flex
-BuildRequires:	gcc
-BuildRequires:	make
-BuildRequires:	perl-generators
-BuildRequires:	systemd
+BuildRequires:  openldap-devel
+BuildRequires:  libdb-devel
 
-BuildRequires:	openldap-devel
-BuildRequires:	libdb-devel
-
-Requires:		squid
-Requires(post): systemd-units
-Requires(preun): systemd-units
-Requires(postun): systemd-units
+Requires:       squid
+%{?systemd_requires}
 
 %description
-squidGuard can be used to 
+squidGuard can be used to
 - limit the web access for some users to a list of accepted/well known
   web servers and/or URLs only.
 - block access to some listed or blacklisted web servers and/or URLs
@@ -85,175 +70,107 @@ squidGuard can be used to
 - have different access rules based on time of day, day of the week,
   date etc.
 - have different rules for different user groups.
-- and much more.. 
+- and much more..
 
 Neither squidGuard nor Squid can be used to
-- filter/censor/edit text inside documents 
+- filter/censor/edit text inside documents
 - filter/censor/edit embeded scripting languages like JavaScript or
   VBscript inside HTML
 
 %prep
 %setup -q -n squidguard-%{version}
-%{__cp} %{SOURCE3} .
-#%patch0 -p1
-#%patch1 -p1 -b .paths
+cp -p %{SOURCE3} .
 %patch -P2 -p0
 %patch -P3 -p2
-#%patch4 -p1
-%patch -P5	-p1
-#%patch6 -p0
+%patch -P5 -p1
 %patch -P14 -p1
 %patch -P15 -p1
 
-%{__cp} %{SOURCE100} ./squidGuard.conf.k12ltsp.template
-%{__cp} %{SOURCE101} ./update_squidguard_blacklists.k12ltsp.sh
+cp -p %{SOURCE100} ./squidGuard.conf.k12ltsp.template
+cp -p %{SOURCE101} ./update_squidguard_blacklists.k12ltsp.sh
 
 %build
 ./autogen.sh
 %configure \
-	--with-sg-config=%{_sysconfdir}/squid/squidGuard.conf \
-	--with-sg-logdir=%{_var}/log/squidGuard \
-	--with-sg-dbhome=%{_dbhomedir} \
-	--with-ldap=yes
-	
-#%{__make} %{?_smp_mflags}
-%{__make}
+    --with-sg-config=%{_sysconfdir}/squid/squidGuard.conf \
+    --with-sg-logdir=%{_var}/log/squidGuard \
+    --with-sg-dbhome=%{dbhomedir} \
+    --with-ldap=yes
+
+%make_build
 
 pushd contrib
-%{__make} %{?_smp_mflags}
+%make_build
 popd
 
-
 %install
-#%{__make} DESTDIR=$RPM_BUILD_ROOT install
-# This broke as of 1.2.1.
-%{__install} -p -D -m 0755 src/squidGuard $RPM_BUILD_ROOT%{_bindir}/squidGuard
+# "make install" is broken since 1.2.1, install by hand
+install -p -D -m 0755 src/squidGuard %{buildroot}%{_bindir}/squidGuard
 
-%{__install} -p -D -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/squidGuard
-%{__install} -p -D -m 0644 samples/sample.conf $RPM_BUILD_ROOT%{_sysconfdir}/squid/squidGuard.conf
-%{__install} -p -D -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_dbtopdir}/blacklists.tar.gz
+install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/logrotate.d/squidGuard
+install -p -D -m 0644 samples/sample.conf %{buildroot}%{_sysconfdir}/squid/squidGuard.conf
+install -p -D -m 0644 %{SOURCE2} %{buildroot}%{dbtopdir}/blacklists.tar.gz
 
-# Don't use SOURCE3, but use the allready patched one #165689
-%{__install} -p -D -m 0755 squid-getlist.html $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily/squidGuard
+# Don't use SOURCE3, but use the already patched one #165689
+install -p -D -m 0755 squid-getlist.html %{buildroot}%{_sysconfdir}/cron.daily/squidGuard
 
-#%{__install} -p -D %{SOURCE200} $RPM_BUILD_ROOT%{_sysconfdir}/selinux/targeted/src/policy/domains/program/squidGuard.te
-#%{__install} -p -D %{SOURCE201} $RPM_BUILD_ROOT%{_sysconfdir}/selinux/targeted/src/policy/file_contexts/program/squidGuard.fc
+install -p -d %{buildroot}%{cgibin}
+install -p -m 0755 samples/squid*cgi %{buildroot}%{cgibin}
+install -p -m 0644 samples/babel.* %{buildroot}%{cgibin}
 
-%{__install} -p -d $RPM_BUILD_ROOT%{_cgibin}
-%{__install} samples/squid*cgi $RPM_BUILD_ROOT%{_cgibin}
+install -p -m 0755 contrib/hostbyname/hostbyname %{buildroot}%{_bindir}
+install -p -m 0755 contrib/sgclean/sgclean %{buildroot}%{_bindir}
 
-%{__install} contrib/hostbyname/hostbyname $RPM_BUILD_ROOT%{_bindir}
-%{__install} contrib/sgclean/sgclean $RPM_BUILD_ROOT%{_bindir}
+install -p -D -m 0644 %{SOURCE104} %{buildroot}%{_unitdir}/squidGuard.service
+install -p -D -m 0644 %{SOURCE105} %{buildroot}%{_unitdir}/transparent-proxying.service
 
-#%{__install} -p -D -m 0755 %{SOURCE102} $RPM_BUILD_ROOT%{_initrddir}/squidGuard
-#%{__install} -p -D -m 0755 %{SOURCE103} $RPM_BUILD_ROOT%{_initrddir}/transparent-proxying
+install -p -D -m 0744 %{SOURCE106} %{buildroot}%{_bindir}/squidGuard-helper
+install -p -D -m 0744 %{SOURCE107} %{buildroot}%{_bindir}/transparent-proxying-helper
 
-%{__install} -p -D -m 0644 %{SOURCE104} $RPM_BUILD_ROOT%{_unitdir}/squidGuard.service
-%{__install} -p -D -m 0644 %{SOURCE105} $RPM_BUILD_ROOT%{_unitdir}/transparent-proxying.service
+sed -i "s,dest/adult/,blacklists/porn/,g" %{buildroot}%{_sysconfdir}/squid/squidGuard.conf
 
-%{__install} -p -D -m 0744 %{SOURCE106} $RPM_BUILD_ROOT%{_bindir}/squidGuard-helper
-%{__install} -p -D -m 0744 %{SOURCE107} $RPM_BUILD_ROOT%{_bindir}/transparent-proxying-helper
-
-#pushd $RPM_BUILD_ROOT%{_dbhomedir}
-tar xfz $RPM_BUILD_ROOT%{_dbtopdir}/blacklists.tar.gz
-#popd
-
-sed -i "s,dest/adult/,blacklists/porn/,g" $RPM_BUILD_ROOT%{_sysconfdir}/squid/squidGuard.conf
-
-%{__install} -p -D -m 0644 samples/babel.* $RPM_BUILD_ROOT%{_cgibin}
-
-mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log/squidGuard
-mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log/squid
-ln -s ../squidGuard/squidGuard.log  $RPM_BUILD_ROOT%{_localstatedir}/log/squid/squidGuard.log
+mkdir -p %{buildroot}%{_localstatedir}/log/squidGuard
+mkdir -p %{buildroot}%{_localstatedir}/log/squid
+ln -s ../squidGuard/squidGuard.log %{buildroot}%{_localstatedir}/log/squid/squidGuard.log
 
 %post
-# fix SELinux bits
-#%{_bindir}/chcon -R system_u:object_r:squid_cache_t /var/squidGuard >/dev/null 2>&1
-#%{_bindir}/chcon -R system_u:object_r:squid_log_t /var/log/squidGuard >/dev/null 2>&1
-
-## do we need a new config file?
-#if [ -s %{_sysconfdir}/squid/squidGuard.conf ]; then
-#	CONFFILE="%{_sysconfdir}/squid/squidGuard.conf.rpmnew"
-#    echo "/etc/squid/squidGuard.conf created as /etc/squid/squidGuard.conf.rpmnew"
-#else
-#	CONFFILE="/etc/squid/squidGuard.conf"
-#fi
-#cat %{_docdir}/%{name}-%{version}/squidGuard.conf.k12ltsp.template | \
-#	sed s/SERVERNAME/$HOSTNAME/g > $CONFFILE
-
-#/sbin/chkconfig --add squidGuard
-#/sbin/chkconfig --add transparent-proxying
-if [ $1 -eq 1 ] ; then 
-    # Initial installation 
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
-
-
-# reload SELinux policies
-#echo "Loading new SELinux policy"
-#pushd %{_sysconfdir}/selinux/targeted/src/policy/
-#%{__make} load &> /dev/null
-#popd
-
-#### End of %post
+%systemd_post squidGuard.service transparent-proxying.service
 
 %preun
-#if [ $1 = 0 ] ; then
-#    service squidGuard stop >/dev/null 2>&1
-#    /sbin/chkconfig --del squidGuard
-#	/sbin/chkconfig --del transparent-proxying
-#fi
-if [ $1 -eq 0 ] ; then
-    # Package removal, not upgrade
-    /bin/systemctl --no-reload disable squidGuard.service > /dev/null 2>&1 || :
-    /bin/systemctl stop squidGuard.service > /dev/null 2>&1 || :
-    /bin/systemctl --no-reload disable transparent-proxying.service > /dev/null 2>&1 || :
-    /bin/systemctl stop transparent-proxying.service > /dev/null 2>&1 || :
-fi
+%systemd_preun squidGuard.service transparent-proxying.service
 
 %postun
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    /bin/systemctl try-restart squidGuard.service >/dev/null 2>&1 || :
-    /bin/systemctl try-restart transparent-proxying.service >/dev/null 2>&1 || :
-fi
-
-%triggerun -- squidGuard < 1.4-13
-# Save the current service runlevel info
-# User must manually run systemd-sysv-convert --apply squidGuard
-# and systemd-sysv-convert --apply transparent-proxying
-# to migrate them to systemd targets
-/usr/bin/systemd-sysv-convert --save squidGuard >/dev/null 2>&1 ||:
-/usr/bin/systemd-sysv-convert --save transparent-proxying >/dev/null 2>&1 ||:
-
-# Run these because the SysV package being removed won't do them
-/sbin/chkconfig --del squidGuard >/dev/null 2>&1 || :
-/sbin/chkconfig --del transparent-proxying >/dev/null 2>&1 || :
-/bin/systemctl try-restart squidGuard.service >/dev/null 2>&1 || :
-/bin/systemctl try-restart transparent-proxying.service >/dev/null 2>&1 || :
+%systemd_postun_with_restart squidGuard.service transparent-proxying.service
 
 %files
 %doc samples/*.conf
 %doc samples/*.cgi
 %doc samples/dest/blacklists.tar.gz
-%doc COPYING GPL 
+%doc COPYING GPL
 %doc doc/*.txt doc/*.html doc/*.gif
 %doc squidGuard.conf.k12ltsp.template
 %{_bindir}/*
 %config(noreplace) %{_sysconfdir}/squid/squidGuard.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/squidGuard
-%config(noreplace) %{_sysconfdir}/cron.daily/squidGuard
-%{_dbtopdir}/
-%attr(0755,root,root) %{_cgibin}/*.cgi
-%config(noreplace) %{_cgibin}/squidGuard.cgi
-%{_cgibin}/babel.*
+%{_sysconfdir}/cron.daily/squidGuard
+%{dbtopdir}/
+%attr(0755,root,root) %{cgibin}/squidGuard-simple*.cgi
+%attr(0755,root,root) %config(noreplace) %{cgibin}/squidGuard.cgi
+%{cgibin}/babel.*
 %{_unitdir}/squidGuard.service
 %{_unitdir}/transparent-proxying.service
 %attr(0755,squid,squid) %{_localstatedir}/log/squidGuard
-%attr(0755,squid,squid) %{_localstatedir}/log/squid/squidGuard.log
+%{_localstatedir}/log/squid/squidGuard.log
 
 %changelog
+* Tue Oct 06 2026 Bojan Smojver <bojan@rexursive.com> - 1.6.0-2
+- Spec cleanup: drop obsolete _hardened_build, use %%make_build, plain
+  install/cp and %%{buildroot} instead of %%{__*} macros
+- Use systemd scriptlet macros, drop obsolete %%triggerun
+- Fix duplicate %%files entry for squidGuard.cgi and %%attr on symlink
+- Drop stray tar extraction from %%install
+- Drop dead commented-out code
+
 * Tue Oct 06 2026 Bojan Smojver <bojan@rexursive.com> - 1.6.0-1
 - Use original source URL
 
@@ -434,12 +351,12 @@ fi
 - Update to 1.3.
 - Dropped paths, sed patches, applied upstream.
 - New SG-2008-06-13 patch.
- 
+
 * Wed Feb 11 2009 Jon Ciesla <limb@jcomserv.net> - 1.2.1-2
 - Fix sg-2008-06-13, BZ 452467.
 
 * Wed Feb 11 2009 Jon Ciesla <limb@jcomserv.net> - 1.2.1-1
-- Update to 1.2.1,  BZ 245377.
+- Update to 1.2.1, BZ 245377.
 - Dropped upstream patch.
 - Updated blacklists.
 
@@ -447,22 +364,22 @@ fi
 - Autorebuild for GCC 4.3
 
 * Wed Dec 05 2007 Release Engineering <rel-eng at fedoraproject dot org> - 1.2.0-17
- - Rebuild for deps
+- Rebuild for deps
 
 * Fri Nov 16 2007 John Berninger <john at ncphotography dot com> 1.2.0-16
 - Fix perms on cgi-bin files
 
-* Mon Mar 26 2007 John Berninger <jwb at redhat dot com>	1.2.0-15
+* Mon Mar 26 2007 John Berninger <jwb at redhat dot com> 1.2.0-15
 - Assert ownership of /var/squidGuard - bz 233915
 
-* Tue Aug 29 2006 John Berninger <jwb at redhat dot com>	1.2.0-14
+* Tue Aug 29 2006 John Berninger <jwb at redhat dot com> 1.2.0-14
 - Bump release 'cause I forgot to add a patch file that's required
 
-* Tue Aug 29 2006 John Berninger <jwb at redhat dot com>	1.2.0-13
+* Tue Aug 29 2006 John Berninger <jwb at redhat dot com> 1.2.0-13
 - general updates to confirm build on FC5/FC6
 - updates to BuildRequires
 
-* Fri Sep 09 2005 Oliver Falk <oliver@linux-kernel.at>		- 1.2.0-12
+* Fri Sep 09 2005 Oliver Falk <oliver@linux-kernel.at> - 1.2.0-12
 - Make it K12LTSP compatible, so a possible upgrade doesn't break
   anything/much...
   - Add SELinux stuff
@@ -474,46 +391,46 @@ fi
 - Remove questionable -ldb from make
 - Remove questionable db version check
 
-* Tue Sep 06 2005 Oliver Falk <oliver@linux-kernel.at>		- 1.2.0-11
+* Tue Sep 06 2005 Oliver Falk <oliver@linux-kernel.at> - 1.2.0-11
 - More bugs from Bug #165689
   Install cron script with perm 755
   Don't use SOURCE3 in install section, we need to use the patched one
-  
-* Mon Sep 05 2005 Oliver Falk <oliver@linux-kernel.at>		- 1.2.0-10
+
+* Mon Sep 05 2005 Oliver Falk <oliver@linux-kernel.at> - 1.2.0-10
 - Include GPL in doc section
 
-* Mon Sep 05 2005 Oliver Falk <oliver@linux-kernel.at>		- 1.2.0-9
+* Mon Sep 05 2005 Oliver Falk <oliver@linux-kernel.at> - 1.2.0-9
 - More 'bugs' from Bug #165689
   Make changed on squid-getlist.html a patch, as sources should
   match upstream sources, so they are wget-able...
 
-* Mon Sep 05 2005 Oliver Falk <oliver@linux-kernel.at>		- 1.2.0-8
+* Mon Sep 05 2005 Oliver Falk <oliver@linux-kernel.at> - 1.2.0-8
 - Bug #165689
 
-* Thu May 19 2005 Oliver Falk <oliver@linux-kernel.at>		- 1.2.0-7
+* Thu May 19 2005 Oliver Falk <oliver@linux-kernel.at> - 1.2.0-7
 - Update blacklists
 - Cleanup specfile
 
-* Fri Apr 08 2005 Oliver Falk <oliver@linux-kernel.at>		- 1.2.0-6
+* Fri Apr 08 2005 Oliver Falk <oliver@linux-kernel.at> - 1.2.0-6
 - Fix build on RH 8 with db 4.0.14, by not applying the db4 patch
 
-* Mon Feb 21 2005 Oliver Falk <oliver@linux-kernel.at> 		- 1.2.0-5
+* Mon Feb 21 2005 Oliver Falk <oliver@linux-kernel.at> - 1.2.0-5
 - Specfile cleaning
 - Make it build with db4 again, by adding the db4-patch
 
-* Fri Apr 12 2002 Oliver Pitzeier <oliver@linux-kernel.at>	- 1.2.0-4
+* Fri Apr 12 2002 Oliver Pitzeier <oliver@linux-kernel.at> - 1.2.0-4
 - Tweaks
 
-* Mon Apr 08 2002 Oliver Pitzeier <oliver@linux-kernel.at> 	- 1.2.0-3
+* Mon Apr 08 2002 Oliver Pitzeier <oliver@linux-kernel.at> - 1.2.0-3
 - Rebuild
 
-* Mon Apr 08 2002 Oliver Pitzeier <oliver@linux-kernel.at> 	- 1.2.0-2
+* Mon Apr 08 2002 Oliver Pitzeier <oliver@linux-kernel.at> - 1.2.0-2
 - Updated the blacklists and put it into the right place
   I also descompress them
 - Added a new "forbidden" script - the other ones are too
-  old and don't work.  
+  old and don't work.
 
-* Fri Apr 05 2002 Oliver Pitzeier <oliver@linux-kernel.at> 	- 1.2.0-1
+* Fri Apr 05 2002 Oliver Pitzeier <oliver@linux-kernel.at> - 1.2.0-1
 - Update to version 1.2.0
 
 * Fri Jun  1 2001 Enrico Scholz <enrico.scholz@informatik.tu-chemnitz.de>

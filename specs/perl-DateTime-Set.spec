@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Set
 Version:        0.3900
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Datetime sets and set math
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Set
@@ -8,8 +8,9 @@ Source0:        https://cpan.metacpan.org/authors/id/F/FG/FGLOCK/DateTime-Set-%{
 Patch0:         DateTime-Set-0.32-version.patch
 BuildArch:      noarch
 # Build
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 # Runtime
@@ -24,6 +25,8 @@ BuildRequires:  perl(vars)
 # Test Suite
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
+# Dependencies
+# (none)
 
 %description
 DateTime::Set is a module for datetime sets. It can be used to handle two
@@ -43,12 +46,12 @@ time", or "every Wednesday between 2003-03-05 and 2004-01-07".
 %patch -P0
 
 %build
-perl Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install destdir="%{buildroot}" create_packlist=0
-%{_fixperms} %{buildroot}
+./Build install --destdir="%{buildroot}" --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
@@ -56,10 +59,21 @@ perl Build.PL installdirs=vendor
 %files
 %license LICENSE
 %doc Changes README TODO
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/DateTime/
+%{perl_vendorlib}/Set/
+%{_mandir}/man3/DateTime::Set.3*
+%{_mandir}/man3/DateTime::Span.3*
+%{_mandir}/man3/DateTime::SpanSet.3*
+%{_mandir}/man3/Set::Infinite::_recurrence.3*
 
 %changelog
+* Wed Oct  7 2026 Paul Howarth <paul@city-fan.org> - 0.3900-29
+- Spec tidy-up
+  - Specify all build dependencies
+  - Use "--" with options for "Build"
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3900-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

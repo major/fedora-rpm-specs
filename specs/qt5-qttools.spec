@@ -13,7 +13,7 @@
 Summary: Qt5 - QtTool components
 Name:    qt5-qttools
 Version: 5.15.18
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -496,6 +496,9 @@ fi
 
 
 %changelog
+* Thu Oct 08 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.15.18-7
+- Rebuilt for LLVM 23
+
 * Wed Aug 12 2026 Than Ngo <than@redhat.com> - 5.15.18-6
 - Fix rhbz#2501765, qtdiag crash
 

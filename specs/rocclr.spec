@@ -25,7 +25,7 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_major 10
-%global rocm_minor 0
+%global rocm_minor 1
 %else
 %global rocm_major 10
 %global rocm_minor 0

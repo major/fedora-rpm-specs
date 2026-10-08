@@ -1,6 +1,6 @@
 Name:		perl-Data-Tumbler
 Version:	0.010
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Dynamic generation of nested combinations
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Data-Tumbler
@@ -8,11 +8,10 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Data/Data-Tumbler-%{version
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Storable)
@@ -24,6 +23,8 @@ BuildRequires:	perl(List::Util)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Most) >= 0.11
 BuildRequires:	perl(Time::HiRes)
+# Dependencies
+# (none)
 
 %description
 The tumble() method calls a sequence of 'provider' code references, each of
@@ -47,12 +48,11 @@ are only visible within the scope of the generated sub-tree.
 %setup -q -n Data-Tumbler-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/Data::Tumbler.3*
 
 %changelog
+* Wed Oct  7 2026 Paul Howarth <paul@city-fan.org> - 0.010-34
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

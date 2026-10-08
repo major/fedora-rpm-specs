@@ -1,16 +1,15 @@
 %bcond tests 1
 
 Name:           python-wcwidth
-Version:        0.7.0
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Measures number of Terminal column cells of wide-character codes
 
-# part of the code is under HPND-Markus-Kuhn
+# The original code was derived from wcwidth.c under an HPND license
 License:        MIT AND HPND-Markus-Kuhn
 URL:            https://github.com/jquast/wcwidth
 Source:         %{pypi_source wcwidth}
 
-BuildArch:      noarch
 
 %description
 This API is mainly for Terminal Emulator implementors, or those writing programs
@@ -20,6 +19,7 @@ printable width of a string on a Terminal.
 %package -n     python3-wcwidth
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  gcc
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
@@ -47,8 +47,11 @@ sed -i -e 's|--cov[^[:space:]]*||g' tox.ini
 %check
 %pyproject_check_import
 %if %{with tests}
-%pytest -v
+export PYTHONSAFEPATH=1
+%pytest -v --import-mode=importlib tests
 %endif
+# Check to make sure C extension loads
+%{py3_test_envvars} %{python3} -c "import wcwidth; assert wcwidth.HAS_C_EXTENSION"
 
 %files -n python3-wcwidth -f %{pyproject_files}
 %doc docs/*.rst
