@@ -1,6 +1,10 @@
 %global blender_api 5.2
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %global _without_bundled_deps 1
+# current dies in debuginfo exceed the distro wide 50000000 and the x86_64 110000000
+%global _dwz_max_die_limit             200000000
+%global _dwz_max_die_limit_x86_64      200000000
+
 
 # Build conditionals
 %bcond clang      0   # Enable Blender's Clang library integration

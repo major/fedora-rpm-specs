@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.9
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
@@ -171,18 +171,20 @@ Requires: gawk
 Requires: gzip
 Requires: iproute
 Requires: iputils
+# lftp is unwanted in ELN
+# https://github.com/fedora-eln/eln/issues/637
+%if 0%{?rhel} < 11
 Requires: lftp
+%endif
 Requires: openssl
 Requires: parted
 # For REAR_INITRD_OVERLAY
 Requires: squashfs-tools
 Requires: tar
+Requires: util-linux
 # No ISO image support on s390x (may change when we add support for LPARs)
 %ifnarch s390x
 Requires: xorriso
-%endif
-%if 0%{?rhel}
-Requires: util-linux
 %endif
 
 %description
@@ -250,6 +252,10 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Thu Oct 08 2026 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-11
+- do not require lftp in ELN because it is unwanted
+- require util-linux everywhere
+
 * Thu Oct 01 2026 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-10
 - fix EXCLUDE_COMPONENTS being ignored for partition tables unsupported by ReaR
 - mark ISO filesystem labels as write protected

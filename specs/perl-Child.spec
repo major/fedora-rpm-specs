@@ -1,6 +1,6 @@
 Name:           perl-Child
 Version:        0.013
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Object oriented simple interface to fork()
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Child
@@ -8,11 +8,10 @@ Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Child-%{versio
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -40,12 +39,11 @@ you just have a pile of things nobody wants to think about.
 %setup -q -n Child-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -68,6 +66,9 @@ make test
 %{_mandir}/man3/Child::Util.3*
 
 %changelog
+* Thu Oct  8 2026 Paul Howarth <paul@city-fan.org> - 0.013-30
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

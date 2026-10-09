@@ -42,7 +42,7 @@ Summary:        %{summary}
 %build
 # build script can't handle multiarch wrapper for gpgme.h used on some archs
 %ifarch %{ix86} x86_64 ia64 ppc ppc64 s390 s390x %{sparc}
-sed -i "s|^gpgme_h = ''|gpgme_h = '%{_includedir}/gpgme-%{__isa_bits}.h'|" setup.py.in
+sed -i "s|^gpgme_h = ''|gpgme_h = '/usr/include/gpgme-%{__isa_bits}.h'|" setup.py.in
 %endif
 %configure
 mv src gpg

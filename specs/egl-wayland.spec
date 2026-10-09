@@ -1,5 +1,5 @@
 Name:           egl-wayland
-Version:        1.1.23
+Version:        1.1.24
 Release:        %autorelease
 Summary:        EGLStream-based Wayland external platform
 License:        MIT

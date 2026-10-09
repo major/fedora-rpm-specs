@@ -7,7 +7,7 @@
 Summary:	Tools for monitoring SMART capable hard disks
 Name:		smartmontools
 Version:	7.5
-Release:	9%{?dist}
+Release:	10%{?dist}
 Epoch:		1
 License:	GPL-2.0-or-later
 URL:		https://www.smartmontools.org/
@@ -175,6 +175,9 @@ fi
 
 
 %changelog
+* Thu Oct 08 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:7.5-10
+- update smartdnotify to avoid some selinux errors (#2542445)
+
 * Sat Aug 15 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:7.5-9
 - use notify-send for notification for users with graphical sessions
 - smartd notify for all SMARTD_FAILTYPEs

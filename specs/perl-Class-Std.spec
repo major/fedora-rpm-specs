@@ -1,18 +1,16 @@
 Name:           perl-Class-Std
 Version:        0.013
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Support for creating standard "inside-out" classes
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Std
 Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-Std-%{version}.tar.gz
-# Recode to UTF-8
 Patch0:         Class-Std-0.013-POD-encoding.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -24,7 +22,7 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
 # Test Suite
 BuildRequires:  perl(Test::More)
-# Runtime
+# Dependencies
 Requires:       perl(Data::Dumper)
 
 %description
@@ -33,16 +31,17 @@ class structure in a convenient and standard way.
 
 %prep
 %setup -q -n Class-Std-%{version}
+
+# Recode to UTF-8
 %patch -P0 -p1
 
 %build
-perl Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-rm -rf %{buildroot}
-./Build install destdir=%{buildroot} create_packlist=0
-%{_fixperms} %{buildroot}
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
@@ -50,9 +49,12 @@ rm -rf %{buildroot}
 %files
 %doc Changes README
 %{perl_vendorlib}/Class/
-%{_mandir}/man3/Class::Std.3pm*
+%{_mandir}/man3/Class::Std.3*
 
 %changelog
+* Thu Oct  8 2026 Paul Howarth <paul@city-fan.org> - 0.013-32
+- Cosmetic spec file update
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -66,7 +68,7 @@ rm -rf %{buildroot}
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Mon Aug 05 2024 Miroslav Suchý <msuchy@redhat.com> - 0.013-27
-- convert license to SPDX
+- Convert license to SPDX
 
 * Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

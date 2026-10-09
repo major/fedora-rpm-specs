@@ -8,12 +8,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 9b5a9490e60966ebf0565267ce0e9fca368dfbd1
-%global commitdatestring 2026-09-15 21:53:38 +0200
-%global cosmic_minver 1.9.0
+%global commit 8b025bc9eec4844d8c01fb238e5298b3db920b3f
+%global commitdatestring 2026-10-06 21:17:17 +0200
+%global cosmic_minver 1.10.0
 
 Name:           cosmic-initial-setup
-Version: 1.9.0
+Version: 1.10.0
 Release:        %autorelease
 Summary:        Initial setup application for the COSMIC desktop environment
 
@@ -37,9 +37,6 @@ Source0:        cosmic-initial-setup-%{version_no_tilde}.tar.gz
 Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
-
-# Downgrade aws-lc-rs and aws-lc-sys to fix build
-Patch1: 0001-Downgrade-aws-lc-rs-sys-to-fix-rpm-build.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc

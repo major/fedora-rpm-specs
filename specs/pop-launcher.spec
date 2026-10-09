@@ -8,12 +8,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 6390080a98a4a59b4e8196d28de97d3cb4d138ec
-%global commitdatestring 2026-08-24 10:46:26 -0600
-%global cosmic_minver 1.9.0
+%global commit 8a09fa50a9fbbe66a97afe3865b5e61dd1d0432c
+%global commitdatestring 2026-09-30 09:56:55 -0600
+%global cosmic_minver 1.10.0
 
 Name:           pop-launcher
-Version: 1.9.0
+Version: 1.10.0
 Epoch: 1
 Release:        %autorelease
 Summary:        Modular IPC-based desktop launcher service

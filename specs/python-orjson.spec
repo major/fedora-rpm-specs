@@ -10,7 +10,7 @@
 %bcond pendulum %{undefined el10}
 
 Name:           python-orjson
-Version:        3.12.0
+Version:        3.13.0
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
@@ -40,10 +40,6 @@ Source0:        orjson-%{version}-filtered.tar.xz
 # ./get_source ${COMMIT} (or ${TAG})
 Source1:        get_source
 
-# Update to PyO3 0.29; fixes RUSTSEC-2026-0194 and RUSTSEC-2026-0195.
-# Downstream-only because upstream no longer accepts issues or pull requests.
-Patch:          orjson-3.12.0-pyo3-0.29.patch
-
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest-forked}
@@ -72,7 +68,6 @@ datetimes, and numpy}
 Summary:        %{summary}
 # Output of %%{cargo_license_summary}:
 #
-# (Apache-2.0 OR MIT) AND BSD-3-Clause
 # Apache-2.0 OR MIT
 # BSL-1.0
 # MIT
@@ -84,7 +79,6 @@ Summary:        %{summary}
 # which are all in the first line of the expresion below.
 License:        %{shrink:
                 MPL-2.0 AND (Apache-2.0 OR MIT) AND MIT AND
-                BSD-3-Clause AND
                 BSL-1.0 AND
                 (Unlicense OR MIT)
                 }

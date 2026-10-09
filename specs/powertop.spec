@@ -1,5 +1,5 @@
 Name:             powertop
-Version:          2.16
+Version:          2.16.1
 Release:          1%{?dist}
 Summary:          Power consumption monitor
 
@@ -67,6 +67,10 @@ touch %{_localstatedir}/cache/powertop/{saved_parameters.powertop,saved_results.
 %{_datadir}/bash-completion/completions/powertop
 
 %changelog
+* Thu Oct 08 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.16.1-1
+- New version
+  Resolves: rhbz#2547748
+
 * Tue Aug 18 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.16-1
 - New version
   Resolves: rhbz#2513571

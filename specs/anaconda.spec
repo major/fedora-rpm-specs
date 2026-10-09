@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 45.27
+Version: 46.1
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -528,6 +528,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 08 2026 Packit <hello@packit.dev> - 46.1-1
+- fix: Fix pylint warning suppressions for pylint 4.1.2 (kkoukiou)
+- fix: Remove stale pylint false positives for s390, NM, OSTree, and GTK
+  (kkoukiou)
+- fix: Import JIRAError in the method that uses it (kkoukiou)
+- storage: report a clear error when UEFI variables are unavailable (tfratrik)
+- payload: run bootc install finalize before reboot teardown (k.koukiou)
+- storage: remove redhat-release parsing, use only os-release (k.koukiou)
+- liveinst: Skip polkit auth dialog for active console sessions (kkoukiou)
+  Resolves: rhbz#2541004
+- docs: Document the /webui-test PR comment trigger (adamkankovsky)
+- Add support for Web UI testing to update_iso script (mkolman)
+
 * Tue Sep 22 2026 Packit <hello@packit.dev> - 45.27-1
 - bootloader: don't call grub2-mkconfig on s390x (lfauster)
 - bootloader: install bootloader only after creating BLS entries (lfauster)

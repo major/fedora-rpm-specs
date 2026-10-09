@@ -13,7 +13,7 @@
 %global debug_package %{nil}
 %endif
 
-Version:        0.3.0
+Version:        0.3.1
 
 %gometa -L -f
 
@@ -29,6 +29,7 @@ Source0:        %{gosource}
 Source1:        %{archivename}-vendor.tar.bz2
 
 BuildRequires:  go-rpm-macros
+BuildRequires:  go-md2man
 BuildRequires:  pkgconfig(ostree-1)
 
 %description
@@ -49,6 +50,8 @@ cp vendor/LICENSE-BREAKDOWN.txt modules.txt
 export GOEXPERIMENT="nodwarf5"
 
 %gobuild -o %{gobuilddir}/bin/oci-delta -tags "%{gobuildtags}" .
+
+go-md2man -in docs/man/oci-delta.1.md -out docs/man/oci-delta.1
 
 %install
 install -m 0755 -vd %{buildroot}%{_bindir}

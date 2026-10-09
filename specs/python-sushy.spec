@@ -1,63 +1,60 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 
 %global with_doc 1
 %global sname sushy
 
-%global common_desc %{expand:
-Sushy is a Python library to communicate with Redfish based systems (http://redfish.dmtf.org)}
+%global _description %{expand:
+Python library to communicate with Redfish based systems 
 
-%global common_desc_tests Tests for Sushy
+(http://redfish.dmtf.org)}
+
 
 Name: python-%{sname}
-Version: 5.13.0
-Release: %autorelease
-Summary: Sushy is a Python library to communicate with Redfish based systems
-License: Apache-2.0
-URL: http://launchpad.net/%{sname}/
+Version:       5.14.0
+Release:       %autorelease
+Summary:       Python library to communicate with Redfish based systems
+License:       Apache-2.0
+URL:           http://launchpad.net/%{sname}/
 
-Source0: http://tarballs.openstack.org/%{sname}/%{sname}-%{version}.tar.gz
+Source0:       http://tarballs.openstack.org/%{sname}/%{sname}-%{version}.tar.gz
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-Source101:        http://tarballs.openstack.org/%{sname}/%{sname}-%{version}.tar.gz.asc
-Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
+Source101:     http://tarballs.openstack.org/%{sname}/%{sname}-%{version}.tar.gz.asc
+Source102:     https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 BuildRequires: git-core
 BuildRequires: python3-devel
 
-BuildArch: noarch
+BuildArch:     noarch
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-BuildRequires:  gpgverify
+BuildRequires: gpgverify
 %endif
 
+
 %description
-%{common_desc}
+%{_description}
+
 
 %package -n python3-%{sname}
-Summary: Sushy is a Python library to communicate with Redfish based systems
+Summary: %{summary}
+# Drop the -tests RPM in the era F45
+Provides:      python3-%{sname}-tests = %{version}-%{release}
+Obsoletes:     python3-%{sname}-tests < 5.13.0-2
 
 
 %description -n python3-%{sname}
-%{common_desc}
+%{_description}
 
-
-%package -n python3-%{sname}-tests
-Summary: Sushy tests
-Requires: python3-%{sname} = %{version}-%{release}
-
-
-%description -n python3-%{sname}-tests
-%{common_desc_tests}
 
 %if 0%{?with_doc}
 %package -n python-%{sname}-doc
-Summary: Sushy documentation
+Summary:       %{summary}
 
 
-%description -n python-%{sname}-doc
-Documentation for Sushy
+%description -n python-%{sname}-doc %_description
 %endif
 
 
@@ -67,15 +64,12 @@ Documentation for Sushy
 %endif
 %autosetup -n %{sname}-%{version} -S git
 
-
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
 
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency reno:ignore
 
-sed -i \
-    -e "/^coverage[[:space:]]*[><=]/d" \
-    -e "/^reno[[:space:]]*[><=]/d" \
-    test-requirements.txt doc/requirements.txt
 
 # Automatic BR generation
 %generate_buildrequires
@@ -100,6 +94,7 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %check
 %tox -e %{default_toxenv}
 
+
 %install
 %pyproject_install
 
@@ -108,12 +103,6 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 
 %files -n python3-%{sname} -f %{pyproject_files}
 %license LICENSE ChangeLog
-%exclude %{python3_sitelib}/%{sname}/tests
-
-
-%files -n python3-%{sname}-tests
-%license LICENSE
-%{python3_sitelib}/%{sname}/tests
 
 
 %if 0%{?with_doc}

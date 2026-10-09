@@ -3,7 +3,7 @@
 
 # https://github.com/projectdiscovery/subfinder
 %global goipath         github.com/projectdiscovery/subfinder/v2
-Version:                2.16.0
+Version:                2.17.0
 
 %gometa -L -f
 

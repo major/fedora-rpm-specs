@@ -11,7 +11,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -22,6 +22,7 @@ License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC-BY-SA-4.0 AN
 
 URL:            %{gourl}
 Source0:        https://github.com/osbuild/image-builder/releases/download/v%{version}/image-builder-%{version}.tar.gz
+Patch0:         2750.patch
 
 
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
@@ -215,6 +216,7 @@ Requires:   osbuild-depsolve-dnf >= %{min_osbuild_version}
 %forgeautosetup -p1
 %else
 %goprep -k
+%autopatch -p1
 %endif
 
 %build
@@ -272,6 +274,9 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Thu Oct 08 2026 Simon de Vlieger <cmdr@supakeen.com> - 86.0.0-2
+- Backport upstream PR 2750 to bump disk size for atomics.
+
 * Wed Oct 07 2026 Packit <hello@packit.dev> - 86.0.0-1
 Changes with 86.0.0
 ----------------

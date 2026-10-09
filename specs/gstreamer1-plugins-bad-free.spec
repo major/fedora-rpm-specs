@@ -29,8 +29,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.28.7
-Release:        3%{?dist}
+Version:        1.28.8
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # main code is LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -930,6 +930,9 @@ EOF
 
 
 %changelog
+* Thu Oct 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.8-1
+- 1.28.8
+
 * Thu Sep 24 2026 Sandro Mani <manisandro@gmail.com> - 1.28.7-3
 - Bump
 

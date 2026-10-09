@@ -7,7 +7,7 @@
 %global crate onefetch
 
 Name:           rust-onefetch
-Version:        2.28.1
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Command-line Git information tool
 
@@ -18,28 +18,24 @@ Source:         %{crates_source}
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
-# * Use older gix 0.85 (upstream wants 0.87):
+# * Use older gix 0.85 (upstream wants 0.88):
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2506441. We must carry a
 #   downstream patch reverting the source-code change from
 #   https://github.com/o2sh/onefetch/commit/f43b0cb3ad4076974e942b54751ee462ce2a6ca5;
-#   this patch must be removed when we are ready to update to gix 0.86+.
+#   this patch must be removed when we are ready to update to gix 0.86+. Note
+#   that we also must drop the dependency on the anyhow feature, introduced in
+#   gix 0.88.
 # * Patch out tests/repo.rs, which requires gix-testtools, and remove the
 #   dev-dependency on gix-testtools. In theory, we could package gix-testtools,
 #   but the maintainer of the gix stack in Fedora does not intend to do so,
 #   reasonably citing upstream discouragement in
 #   https://github.com/Byron/gitoxide/discussions/900.
-# * chore(deps): Update tokei to version 15:
-#   https://github.com/o2sh/onefetch/pull/1862
+# * Allow older rstest 0.26 for now,
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2529211
 Patch:          onefetch-fix-metadata.diff
 # * Downstream-only: revert the source-code change for gix 0.86+ so we can
 #   temporarily keep using gix 0.85.
 Patch10:        0001-Revert-chore-deps-Update-Rust-crate-gix-to-0.86.0-18.patch
-# * fix: strip control characters from info field values:
-#   https://github.com/o2sh/onefetch/pull/1829
-# * Fixes: Info field values aren't stripped of terminal escape sequences:
-#   https://github.com/o2sh/onefetch/issues/1828, CVE-2026-100866, RHBZ#2542292,
-#   RHBZ#2542294
-Patch11:        https://github.com/o2sh/onefetch/pull/1829.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  help2man

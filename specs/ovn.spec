@@ -45,20 +45,20 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 26.03.2
-Release: 122%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 26.09.0
+Release: 33%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
 License: Apache-2.0 AND LGPL-2.1-only AND SISSL
 
-%define ovncommit 608aa1c3f6aa94ca5e5afc093452228f481d3b9b
+%define ovncommit da7afdb1bffa5ff752f2e8ae50ffd7aecd2907f3
 
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit 45ee6f7d96dec264df2c044bc9afa61d4ef5af37
-%define ovsshortcommit 45ee6f7
+%define ovscommit ba8649c1c3aec12a6f93877064c40d63ebbf3545
+%define ovsshortcommit ba8649c
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -403,6 +403,7 @@ fi
 %{_mandir}/man8/ovn-trace.8*
 %{_mandir}/man1/ovn-detrace.1*
 %{_mandir}/man7/ovn-architecture.7*
+%{_mandir}/man7/ovn-logical-flows.7*
 %{_mandir}/man8/ovn-sbctl.8*
 %{_mandir}/man5/ovn-nb.5*
 %{_mandir}/man5/ovn-sb.5*
@@ -456,6 +457,15 @@ fi
 %{_unitdir}/ovn-br-db.service
 
 %changelog
+* Thu Oct 8 2026 Dumitru Ceara <dceara@redhat.com> - 26.09.0-33
+- Updated the OVN sources to upstream release v26.09.0 with the
+  commit da7afdb1bffa5ff752f2e8ae50ffd7aecd2907f3 and picked up
+  the commits from v26.09.0 till the tip of branch-26.09
+  89696ccc1072b6ab1c7a1f6f0a9e814604c05dd9 (28 commits) in
+  ovn.patch.
+- Updated the OVS sources to the branch-26.09 submodule
+  commit ba8649c1c3aec12a6f93877064c40d63ebbf3545
+
 * Thu Sep 10 2026 Dumitru Ceara <dceara@redhat.com> - 26.03.2-122
 - Updated the OVN sources to upstream release v26.03.2 with the
   commit 608aa1c3f6aa94ca5e5afc093452228f481d3b9b and picked up

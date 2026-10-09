@@ -1,6 +1,6 @@
 Summary: Matroska container manipulation utilities
 Name: mkvtoolnix
-Version: 100.0
+Version: 102.0
 Release: %autorelease
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
@@ -31,8 +31,8 @@ BuildRequires: po4a
 BuildRequires: pkgconfig(dvdread)
 BuildRequires: pkgconfig(flac)
 BuildRequires: pkgconfig(libcmark)
-BuildRequires: pkgconfig(libebml) >= 1.4.4
-BuildRequires: pkgconfig(libmatroska) >= 1.7.1
+BuildRequires: pkgconfig(libebml) >= 1.4.7
+BuildRequires: pkgconfig(libmatroska) >= 1.7.2
 BuildRequires: pkgconfig(libpcre2-8)
 BuildRequires: pkgconfig(pugixml)
 BuildRequires: pkgconfig(zlib)
@@ -82,7 +82,7 @@ drake %{?_smp_mflags} V=1
 %install
 drake DESTDIR=$RPM_BUILD_ROOT TOOLS=1 install
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.bunkus.mkvtoolnix-gui.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.bunkus.mkvtoolnix-gui.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.bunkus.mkvtoolnix-gui.metainfo.xml
 
 install -pm 755 \
     src/tools/{base64tool,bluray_dump,diracparser,dovic_dump,dts_dump,ebml_validator,hevcc_dump,pgs_dump,vc1parser,xyzvc_dump}\
@@ -126,7 +126,7 @@ drake tests:run_unit
 %{_bindir}/mkvtoolnix-gui
 %{_mandir}/man1/mkvtoolnix-gui.1*
 %{_datadir}/applications/org.bunkus.mkvtoolnix-gui.desktop
-%{_metainfodir}/org.bunkus.mkvtoolnix-gui.appdata.xml
+%{_metainfodir}/org.bunkus.mkvtoolnix-gui.metainfo.xml
 %{_datadir}/icons/hicolor/*/apps/*.svg
 %{_datadir}/mime/packages/org.bunkus.mkvtoolnix-gui.xml
 %{_datadir}/mkvtoolnix

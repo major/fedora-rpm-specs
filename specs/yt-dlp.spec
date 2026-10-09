@@ -4,7 +4,14 @@
 # SPDX-FileCopyrightText: 2022 Maxwell G <gotmax@e.email>
 # License text: https://spdx.org/licenses/MIT.html
 
-%bcond_without tests
+%bcond tests 1
+# Whether yt-dlp-ejs support is available.
+# We cannot build yt-dlp-ejs for Fedora 43 because the packaged esbuild version is too old.
+%bcond ejs %[ 0%{?fedora} >= 44 ]
+
+# Remove -s from shebang so users can install extra deps or plugins using pip.
+%undefine _py3_shebang_s
+
 
 Name:           yt-dlp
 Version:        2026.08.19
@@ -13,7 +20,8 @@ Summary:        A command-line program to download videos from online video plat
 
 License:        Unlicense
 URL:            https://github.com/yt-dlp/yt-dlp
-Source:         %{url}/archive/%{version}/yt-dlp-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/yt-dlp-%{version}.tar.gz
+Source1:        yt-dlp.conf
 
 # https://github.com/yt-dlp/yt-dlp/pull/17491
 # Relax handshake error regexp
@@ -64,13 +72,11 @@ additional features and fixes.
 %prep
 %autosetup -p1
 
-# TODO: Figure out https://bugzilla.redhat.com/show_bug.cgi?id=2405578
-# Users can configure JS challenges manually for now.
+# Filter out ejs if the bcond is disabled
+%if %{without ejs}
 tomcli set pyproject.toml arrays delitem \
     project.optional-dependencies.default 'yt-dlp-ejs.*'
-
-# Remove -s from shebang so users can install extra deps or plugins (or yt-dlp-ejs) using pip.
-%undefine _py3_shebang_s
+%endif
 
 # Remove unnecessary shebangs
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
@@ -92,6 +98,11 @@ make yt-dlp.1 completion-bash completion-zsh completion-fish
 %pyproject_install
 %pyproject_save_files yt_dlp
 
+# This is only relevant when ejs support is available.
+%if %{with ejs}
+install -Dpm 644 %{S:1} %{buildroot}%{_sysconfdir}/yt-dlp.conf
+%endif
+
 
 %check
 %if %{with tests}
@@ -101,6 +112,9 @@ make yt-dlp.1 completion-bash completion-zsh completion-fish
 
 %files -f %{pyproject_files}
 %doc README.md
+%if %{with ejs}
+%config(noreplace) %{_sysconfdir}/yt-dlp.conf
+%endif
 %license LICENSE
 %{_bindir}/yt-dlp
 %{_mandir}/man1/yt-dlp.1*

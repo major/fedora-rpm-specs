@@ -3,12 +3,12 @@
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit d6c60281508ef6b20db712612dad256d0b44b4fb
-%global commitdatestring 2026-08-21 11:49:16 -0600
-%global cosmic_minver 1.9.0
+%global commit da595bba495cb8fc57f26505621fc25000218349
+%global commitdatestring 2026-09-30 09:56:38 -0600
+%global cosmic_minver 1.10.0
 
 Name:           cosmic-wallpapers
-Version: 1.9.0
+Version: 1.10.0
 Release:        %autorelease
 Summary:        Default wallpapers for the COSMIC Desktop Environment
 

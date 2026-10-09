@@ -21,11 +21,7 @@
 # snapshot form, and the distance keeps several snapshots between two tags in
 # order. 0.41.0.20250203, the last build of the autotools-era scheme, sorts
 # below.
-%global basetag v2026.09.21.00
-# Snapshot: the first commit shipping build/fbcode_builder, which the
-# %%getdeps_* macros need; the next weekly tag will contain it.
-%global commit d8b07b00c72e94237d3710db0e36ec58de414b6c
-%global commits 1
+%global basetag v2026.10.05.00
 %global tagver %(echo %{basetag} | sed 's|^v||')
 %if 0%{?commit:1}
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -42,6 +38,9 @@
 # per-project CMake defines, so it is passed to every project it builds.
 # Contents of a JSON object; the macro adds the braces.
 %global getdeps_extra_cmake_defines "MCROUTER_PACKAGE_VERSION": "%{version}"
+
+# the license config the macros read: Source2, plus the EL fragment on EL
+%global getdeps_licenses_toml vendor-licenses.toml
 
 Name:           mcrouter
 Version:        %{tagver}%{?snapinfo}
@@ -90,11 +89,32 @@ Source0:        %{url}/archive/%{archive_ref}/%{name}-%{version}.tar.gz
 # recorded in vendor/getdeps-vendor.txt; produced by ./vendor.sh
 Source1:        %{name}-%{version}-vendor.tar.xz
 Source2:        getdeps-vendor-licenses.toml
+# EL needs two dependencies from source that Fedora takes from the system,
+# because EPEL's versions are older than the manifests pin: glog, 0.3.5
+# against a post-0.6.0 commit, and fast_float, 6.1.6 against 8.0.0, whose
+# parse_options_t constructor folly's Conv.cpp needs. Rather than a second
+# full vendor tree, this tarball holds only what EL builds additionally need;
+# %%prep unpacks it there and appends its manifest to getdeps-vendor.txt, so
+# the bundled() Provides, the license install and the license check cover it.
+# Declared unconditionally on purpose: a Source inside %%if 0%%{?rhel} would
+# be absent from an SRPM built on Fedora, and that SRPM could then not be
+# rebuilt for EL at all. Fedora builds carry the 140 kB and ignore it.
+# Its licenses are not covered by the per-file pass of any build: Fedora
+# builds never unpack it, and EL has no licensecheck. They were scanned by
+# hand on Fedora: glog is BSD-3-Clause throughout, plus an Apache-2.0 fuzzer
+# source and an MIT Windows header, neither compiled; fast_float is
+# Apache-2.0 OR MIT OR BSL-1.0, its license files in a versioned subdirectory
+# (hence -L). Redo that scan whenever either pin moves.
+Source3:        %{name}-%{version}-vendor-el.tar.xz
+# The glog override the above tarball needs, kept apart because an override
+# for a file that is not present is an error: %%prep appends it to a copy of
+# Source2 on EL, and every license macro reads that copy.
+Source4:        getdeps-vendor-licenses-el.toml
 # The per-file licensecheck pass of the license check is expensive; run it
 # only when Source1 is not the tarball it last passed on. After a full pass
 # on a new tarball, copy its sha512 here from the sources file. (Plain rpm:
 # this also runs when the SRPM is built, without folly-rpm-macros.)
-%global vendor_checked_sha512 5471feffa64249ad669fb4f831aa05c468d429edf688abd40aade27f10e0f42d463105c7d41b89581d9151176168815390acdd28ada762272229155dfa9b38fb
+%global vendor_checked_sha512 03ce1dc3b255275bd8d074f2ed26a156806925901a8c6fbb21208ecbfa8234558ca4cf446ac0a1179b435a7097dce3be96cd6732ed2e6fa12a742ef675710268
 %if "%(sha512sum %{SOURCE1} 2>/dev/null | cut -c1-128)" == "%{vendor_checked_sha512}"
 %bcond_with license_full_check
 %else
@@ -105,31 +125,45 @@ Source2:        getdeps-vendor-licenses.toml
 # time, after Source1 is unpacked; ./vendor.sh skips them when vendoring.
 # folly against OpenSSL 4.0 (Fedora 45+): facebook/folly#2706, in review
 # (wangle's counterpart, facebook/wangle#254, has landed)
-Patch0:         0001-folly-build-against-OpenSSL-4.0.patch
+Patch:          0001-folly-build-against-OpenSSL-4.0.patch
 # fbthrift puts relocated metadata in a .rodata section, which -fPIC/-fPIE
 # makes writable; the linker then emits an RWX segment that Fedora's
 # --error-rwx-segments refuses and glibc's aarch64 loader crashes on.
 # facebook/fbthrift#712 landed and was reverted for an unrelated internal
 # size limit; carried until it lands again.
-Patch1:         0003-fbthrift-keep-thrift-data-out-of-a-writable-rodata-section.patch
+Patch:          0003-fbthrift-keep-thrift-data-out-of-a-writable-rodata-section.patch
 # folly's F14 fallback (no SSE2/NEON: ppc64le) is ambiguous against
 # libstdc++ 16's own heterogeneous lookup; submitted internally from
 # michel-slm/folly 4193514eb
-Patch2:         0004-folly-F14-fallback-forward-exact-key-lookups.patch
+Patch:          0004-folly-F14-fallback-forward-exact-key-lookups.patch
 # mcrouter itself against current folly (explicit gflags includes) and
 # Boost 1.90 (filesystem/convenience.hpp removed); submitted internally
-Patch3:         0005-Build-against-current-folly-and-Boost-1.90.patch
-# getdeps-vendor.txt recorded "main" for the unpinned dependencies: record
-# the checked-out commit and the version each bundled() Provides carries
-# (applied by vendor.sh before vendoring)
-Patch4:         0006-getdeps-record-the-checked-out-commit-in-getdeps-vendor.txt.patch
+Patch:          0005-Build-against-current-folly-and-Boost-1.90.patch
+# The manifests build fmt, gflags, googletest, benchmark and Boost from
+# source on EL although EPEL 10 has them, and they get zlib and lz4-static
+# wrong there; submitted internally from michel-slm/CacheLib
+# 21baa410 (applied by vendor.sh before vendoring, so the vendored set
+# matches what each distro builds)
+Patch:          0010-getdeps-map-the-EL-10-system-packages.patch
+# glog's manifest forced BUILD_SHARED_LIBS=ON, so the vendored glog EL builds
+# use came out shared and the executables linked it: the rpm then required
+# libglog.so.1, which nothing ships (EPEL 10's glog is 0.3.5, soname 0).
+# folly and fbthrift only set it under feature_shared_libs; submitted
+# internally from michel-slm/CacheLib 6ad39916
+Patch:          0011-getdeps-build-glog-shared-only-on-request.patch
 
 # ppc64le was dropped in 0.41.0.20250203 over the folly F14 fallback bug
 # (rhbz#2344416); Patch2 fixes the current incarnation of it, and cachelib
 # builds on ppc64le with the same patch.
 ExclusiveArch:  x86_64 aarch64 ppc64le
 
-BuildRequires:  folly-rpm-macros >= 46-9
+BuildRequires:  folly-rpm-macros >= 46-11
+# mcrouter's CMake links the executables with -latomic. Fedora buildroots
+# have the library already; CentOS Stream 10's do not, and gcc ships only
+# the /usr/lib64/libatomic.so symlink, so the x86_64 link failed with
+# "cannot find /usr/lib64/libatomic.so.1.2.0" (koji task 151008378) while
+# aarch64 and ppc64le happened to have it installed.
+BuildRequires:  libatomic
 %if %{with toolchain_clang}
 BuildRequires:  clang
 %else
@@ -150,14 +184,21 @@ Memcached hosts.
 
 %generate_buildrequires
 %getdeps_generate_buildrequires
-%getdeps_vendor_license_buildrequires -c %{SOURCE2}
+%getdeps_vendor_license_buildrequires -c %{getdeps_licenses_toml}
 
 
 %prep
 %autosetup -n %{archive_dir} -a1 -p1
+cp -p %{SOURCE2} %{getdeps_licenses_toml}
+%if 0%{?rhel}
+tar -xf %{SOURCE3}
+cat %{getdeps_vendor_dir}/getdeps-vendor-el.txt >> %{getdeps_vendor_dir}/getdeps-vendor.txt
+rm -f %{getdeps_vendor_dir}/getdeps-vendor-el.txt
+cat %{SOURCE4} >> %{getdeps_licenses_toml}
+%endif
 # delete vendored code that is neither compiled nor referenced by the build
 # (the config's prune_directories: fbthrift's Go bindings)
-%getdeps_vendor_prune -c %{SOURCE2}
+%getdeps_vendor_prune -c %{getdeps_licenses_toml}
 # autotools leftovers (FSFAP boost macros, a GPL-3.0-or-later
 # ax_python_devel.m4), not used by the CMake build
 rm -rf mcrouter/m4
@@ -170,14 +211,14 @@ rm -rf mcrouter/m4
 # the detector is installed. -f adds the per-file licensecheck pass, see
 # vendor_checked_sha512 above.
 # -L: liboqs's LICENSE.txt sits in a versioned subdirectory of its tree
-%getdeps_vendor_license_check -c %{SOURCE2} -L %{?with_license_full_check:-f}
+%getdeps_vendor_license_check -c %{getdeps_licenses_toml} -L %{?with_license_full_check:-f}
 %{?with_license_check_only: echo "license check only: stopping before the build"; exit 1}
 %getdeps_build %{?with_check:-t}
 
 
 %install
 %getdeps_install
-%getdeps_vendor_license_install -c %{SOURCE2}
+%getdeps_vendor_license_install -c %{getdeps_licenses_toml}
 
 
 %check

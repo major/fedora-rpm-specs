@@ -58,6 +58,8 @@ Source0003:       %{rel_url}/%{newname}-%{version}.tar.gz.sha256
 Source0004:       https://joinup.ec.europa.eu/sites/default/files/custom-page/attachment/2020-03/EUPL-1.2%%20EN.txt#/EUPL-12_EN.txt
 Source1000:       gen_openssl_cnf.py
 
+# Fix 2.6.0 showing as beta
+Patch00001:       https://raw.githubusercontent.com/flathub/de.bund.ausweisapp.ausweisapp2/refs/heads/master/version.patch
 # Downstream.
 Patch01000:       %{name}-1.24.1-use_Qt_TranslationsPath.patch
 

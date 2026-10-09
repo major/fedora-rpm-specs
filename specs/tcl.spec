@@ -1,6 +1,6 @@
 %global xver 9
 %global yver 0
-%global zver 3
+%global zver 4
 
 %global majorver %{xver}.%{yver}
 %global vers %{majorver}.%{zver}
@@ -160,6 +160,10 @@ ln -s %{_bindir}/tclsh %{_bindir}/tclsh%{majorver} %{buildroot}%{_usr}/bin/
 %{_libdir}/pkgconfig/tcl.pc
 
 %changelog
+* Thu Oct 08 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.4-1
+- New version
+  Resolves: rhbz#2543920
+
 * Wed May 13 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:9.0.3-1
 - New version
   Resolves: rhbz#2476982

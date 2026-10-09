@@ -5,7 +5,7 @@
 %global crate onefetch-ascii
 
 Name:           rust-onefetch-ascii
-Version:        2.28.1
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Display colorized ascii art to the terminal
 

@@ -1,8 +1,8 @@
 #global llvm_compat 18
 
 Name:           bpftrace
-Version:        0.26.1
-Release:        2%{?dist}
+Version:        0.27.0
+Release:        1%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        Apache-2.0
 
@@ -99,6 +99,9 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 
 
 %changelog
+* Tue Oct 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.27.0-1
+- Rebased to version 0.27.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

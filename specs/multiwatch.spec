@@ -1,15 +1,12 @@
 Name:           multiwatch
-Version:        1.0.0
-Release:        17%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        Forks and watches multiple instances of a program in the same context
 License:        MIT
 URL:            https://redmine.lighttpd.net/projects/multiwatch/wiki
 Source0:        https://download.lighttpd.net/multiwatch/releases-1.x/multiwatch-%{version}.tar.xz
 
-# https://git.lighttpd.net/lighttpd/multiwatch/commit/bdd50b7910ebfd04f70e39cb688e3a4851505ac4.patch
-Patch0:         multiwatch-1.0.0-fix_signal.patch
-
-BuildRequires: make
+BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  glib2-devel
 BuildRequires:  libev-devel
@@ -28,22 +25,25 @@ instances.
 
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 
 %install
-%make_install
+%meson_install
 
 
 %files
 %license COPYING
-%doc README
+%doc README.md
 %{_bindir}/multiwatch
 %{_mandir}/man1/multiwatch.1.*
 
 
 %changelog
+* Thu Oct 08 2026 Xavier Bachelot <xavier@bachelot.org> - 1.0.1-1
+- Update to 1.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

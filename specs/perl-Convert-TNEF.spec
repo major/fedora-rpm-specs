@@ -1,18 +1,17 @@
 Summary:        Perl module to read TNEF files
 Name:           perl-Convert-TNEF
 Version:        0.18
-Release:        35%{?dist}
+Release:        36%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-TNEF
 Source0:        https://cpan.metacpan.org/modules/by-module/Convert/Convert-TNEF-%{version}.tar.gz
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(File::Spec)
@@ -24,6 +23,7 @@ BuildRequires:  perl(vars)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
+# (no additional dependencies)
 
 %description
 TNEF stands for Transport Neutral Encapsulation Format, and if you've
@@ -34,12 +34,11 @@ attachment, you may want to use this module.
 %setup -q -n Convert-TNEF-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -51,6 +50,9 @@ make test
 %{_mandir}/man3/Convert::TNEF.3*
 
 %changelog
+* Thu Oct  8 2026 Paul Howarth <paul@city-fan.org> - 0.18-36
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

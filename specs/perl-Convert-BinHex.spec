@@ -1,6 +1,6 @@
 Name:		perl-Convert-BinHex
 Version:	1.125
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Convert to/from RFC1741 HQX7 (Mac BinHex)
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Convert-BinHex
@@ -8,11 +8,10 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Convert/Convert-BinHex-%{ve
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Exporter)
@@ -36,6 +35,7 @@ BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(Test::Most)
 # Extra Tests
+BuildRequires:	findutils
 BuildRequires:	perl(Test::Pod) >= 1.00
 # Release Tests
 %if !0%{?rhel:1}
@@ -57,12 +57,11 @@ Convert::BinHex extracts data from Macintosh BinHex files.
 perl -pi -e 's/^use lib .*$//' bin/*.pl
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -80,6 +79,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Convert::BinHex.3*
 
 %changelog
+* Thu Oct  8 2026 Paul Howarth <paul@city-fan.org> - 1.125-34
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.125-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

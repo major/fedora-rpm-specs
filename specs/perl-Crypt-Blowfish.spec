@@ -1,7 +1,7 @@
 Summary:        XS Blowfish implementation for Perl
 Name:           perl-Crypt-Blowfish
 Version:        2.14
-Release:        38%{?dist}
+Release:        39%{?dist}
 License:        BSD-Systemics-W3Works
 URL:            https://metacpan.org/release/Crypt-Blowfish
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-Blowfish-%{version}.tar.gz
@@ -13,7 +13,7 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runt-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(DynaLoader)
@@ -25,6 +25,7 @@ BuildRequires:  perl(Benchmark)
 # Optional tests:
 BuildRequires:  perl(Crypt::CBC) >= 1.22
 # Dependencies:
+# (none)
 
 %description
 Crypt::Blowfish is an XS-based implementation of the Blowfish
@@ -36,13 +37,12 @@ up to 448 bits (56 bytes) long.
 %setup -q -n Crypt-Blowfish-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 find %{buildroot} -name '*.bs' -empty -delete
-find %{buildroot} -type f -name .packlist -delete
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Crypt::Blowfish.3*
 
 %changelog
+* Thu Oct  8 2026 Paul Howarth <paul@city-fan.org> - 2.14-39
+- Use %%{make_build} and %%{make_install}
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.14-38
 - Perl 5.44 rebuild
 

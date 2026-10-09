@@ -5,7 +5,7 @@
 %global crate tree-sitter-qmljs
 
 Name:           rust-tree-sitter-qmljs
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        QML grammar for the tree-sitter parsing library
 

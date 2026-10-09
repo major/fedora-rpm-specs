@@ -1,63 +1,81 @@
-%global pypi_name pyroaring
+# We don’t normally run benchmarks, but it’s nice to be able to.
+%bcond benchmarks 0
 
-Name:           python-%{pypi_name}
-Version:        1.0.3
-Release:        %{autorelease}
-Summary:        Fast and lightweight set for unsigned 32 bits integers
+Name:           python-pyroaring
+Version:        1.0.4
+Release:        %autorelease
+Summary:        Library for handling efficiently sorted integer sets
 
-%global forgeurl https://github.com/Ezibenroc/PyRoaringBitMap
-%global tag %{version}
-%forgemeta
+# The source contains a bundled, amalgamated copy of croaring in
+# pyroaring/roaring.{h,c}; these two files are (Apache-2.0 OR MIT). We remove
+# them in %%prep, so they do not contribute to the licenses of the binary RPMs.
+License:        MIT
+SourceLicense:  %{license} AND (Apache-2.0 OR MIT)
+URL:            https://github.com/Ezibenroc/PyRoaringBitMap
+Source:         %{url}/archive/%{version}/PyRoaringBitMap-%{version}.tar.gz
 
-# pyroaring/roaring.c and pyroaring/roaring.h are dual licensed
-License:        MIT or Apache-2.0
-URL:            %{forgeurl}
-Source:         %{forgesource}
+# Respect system compiler flags (no -O3)
+#
+# Downstream-only because upstream validly wants to add -O3, but we have not
+# proven it is justified. A casual comparative benchmark on x86_64 showed no
+# consistent and measurable improvement, and perhaps a small loss in some
+# microbenchmarks. This makes sense because we use the system croaring library,
+# and if there are any routines that benefit from -O3, they are likely to be in
+# those inner “hot” loops, not in the surrounding “glue” in the Python
+# extension.
+Patch:          0001-Respect-system-compiler-flags-no-O3.patch
+# Do not build bundled croaring library; link libroaring
+#
+# Removing the bundled copy and dealing with include paths are outside the
+# scope of this patch.
+#
+# Downstream-only for now; it would be nice to suggest an easy way to use a
+# system copy upstream, but it’s not immediately obvious how best to do this in
+# an upstreamable way.
+Patch:          0002-Do-not-build-bundled-croaring-library-link-libroarin.patch
 
-BuildRequires:  gcc, gcc-c++
-BuildRequires:  python3-devel
-BuildRequires:  python3-Cython
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): --tox --toxenv=cython3
+BuildOption(install): --assert-license pyroaring
 
-# Leaf package. Stop building for i686.
+BuildRequires:  gcc-c++
+BuildRequires:  pkgconfig(roaring)
+%if %{with benchmarks}
+BuildRequires:  %{py3_dist pandas}
+BuildRequires:  %{py3_dist tabulate}
+%endif
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-%global _description %{expand:
-An efficient and light-weight ordered set of 32 bits integers. This is
-a Python wrapper for the C library CRoaring.}
+%global common_description %{expand:
+An efficient and light-weight ordered set of integers. This is a Python wrapper
+for the C library CRoaring.}
 
-%description %_description
+%description %{common_description}
 
-%package -n python3-%{pypi_name}
+%package -n python3-pyroaring
 Summary:        %{summary}
 
-%description -n python3-%{pypi_name} %_description
+%description -n python3-pyroaring %{common_description}
 
 
-%prep
-%forgeautosetup -p1
+%prep -a
+# Unbundle croaring
+rm pyroaring/roaring.c
+printf '#include <%s>\n' 'roaring/roaring.h' > pyroaring/roaring.h
 
 
-%generate_buildrequires
-%pyproject_buildrequires -e cython3
+%check -a
+%tox --toxenv=%{toxenv}
+
+%if %{with benchmarks}
+%{py3_test_envvars} %{python3} ./quick_bench.py
+%endif
 
 
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files %{pypi_name}
-
-
-%check
-%tox -e %{toxenv}
-%pyproject_check_import
-
-
-%files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc README.*
+%files -n python3-pyroaring -f %{pyproject_files}
+%doc README.rst
 
 
 %changelog

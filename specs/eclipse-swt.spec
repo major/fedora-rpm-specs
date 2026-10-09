@@ -1,7 +1,7 @@
 # Version available in bundles/org.eclipse.swt
-%global swt_bundle_version 3.132.0
+%global swt_bundle_version 3.135.0
 %global major_version   4
-%global minor_version   38
+%global minor_version   41
 %global forgeurl https://github.com/eclipse-platform/eclipse.platform.swt
 %global tag R%{major_version}_%{minor_version}
 Epoch:                  1
@@ -11,7 +11,7 @@ Epoch:                  1
 
 Name:           eclipse-swt
 Version:        %{major_version}.%{minor_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Eclipse SWT: The Standard Widget Toolkit for GTK+
 %forgemeta
 
@@ -153,6 +153,9 @@ cp -a %{swtsrcdir}/Eclipse\ SWT\ PI/gtk/library/*.so %{buildroot}/%{_libdir}/%{n
 %license NOTICE
 
 %changelog
+* Thu Oct 08 2026 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.41-1
+- Bump to 4.41 and fix 2488684
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.38-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

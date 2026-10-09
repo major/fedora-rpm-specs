@@ -13,8 +13,8 @@
 %endif
 
 Name:       tor
-Version:    0.4.9.11
-Release:    2%{?dist}
+Version:    0.4.9.14
+Release:    1%{?dist}
 License:    BSD-3-Clause
 Summary:    Anonymizing overlay network for TCP
 URL:        https://www.torproject.org
@@ -168,6 +168,9 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_sysusersdir}/tor.conf
 
 %changelog
+* Thu Oct 08 2026 Marcel Härry <mh+fedora@scrit.ch> - 0.4.9.14-1
+- Update to latest upstream release bz#2529909
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.9.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

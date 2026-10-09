@@ -1,7 +1,7 @@
 Summary:	Perl interface to IDEA block cipher
 Name:		perl-Crypt-IDEA
 Version:	1.10
-Release:	39%{?dist}
+Release:	40%{?dist}
 License:	BSD-Systemics
 URL:		https://metacpan.org/release/Crypt-IDEA
 Source0:	https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-IDEA-%{version}.tar.gz
@@ -13,7 +13,7 @@ BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	sed
 # Module Runtime
 BuildRequires:	perl(Carp)
@@ -23,6 +23,7 @@ BuildRequires:	perl(strict)
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Dependencies
+# (none)
 
 # Don't provide private perl libs
 %{?perl_default_filter}
@@ -40,12 +41,11 @@ This implementation is copyright Systemics Ltd (http://www.systemics.com/).
 sed -i -e '\|^#! */usr/local/bin/perl |d' IDEA.pm
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} -c %{buildroot}
 
@@ -53,17 +53,16 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license COPYRIGHT
-%else
-%doc COPYRIGHT
-%endif
 %doc changes
 %{perl_vendorarch}/Crypt/
 %{perl_vendorarch}/auto/Crypt/
 %{_mandir}/man3/Crypt::IDEA.3*
 
 %changelog
+* Thu Oct  8 2026 Paul Howarth <paul@city-fan.org> - 1.10-40
+- Use %%{make_build} and %%{make_install}
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.10-39
 - Perl 5.44 rebuild
 

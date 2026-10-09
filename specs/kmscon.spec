@@ -36,6 +36,11 @@ Patch1: systemd-prevent-kmscon.service-to-run-if-dev-tty0-is.patch
 # Upstream patch, prevent crash on kernel 7.3+
 Patch2: drm_shared-Fix-crash-if-a-plane-has-no-properties.patch
 
+# Upstream patch, filter out non monospace fonts in freetype
+Patch10: freetype-filter-out-non-monospace-fonts-completely.patch
+# Upstream patch, fix a memory leak when using fallback font with freetype
+Patch11: freetype-Fix-memory-leak-when-loading-fallback-font.patch
+
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
 It is an attempt to replace the in-kernel VT implementation with a userspace

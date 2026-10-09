@@ -17,6 +17,11 @@ Requires:       rpm
 Requires:       python3
 # %%getdeps_install runs %%{__cmake}
 Requires:       cmake-rpm-macros
+# getdeps applies a manifest's patchfile with `git apply`, so a build needs
+# git whenever it builds a project that has one. Fedora buildroots happen to
+# have it; EPEL 10's do not, and there the vendored glog (which carries a
+# patchfile) made the build fail with FileNotFoundError: 'git'.
+Requires:       git-core
 # the %%getdeps_vendor_license_* macros wrap go_vendor_license and licensecheck
 Requires:       go-vendor-tools
 # licensecheck is Fedora-only (no EPEL build of it); without it the check

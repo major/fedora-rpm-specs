@@ -1,20 +1,18 @@
 Name:           perl-Cache-Cache
 Version:        1.08
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Generic cache interface and implementations
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Cache-Cache
 Source0:        https://cpan.metacpan.org/modules/by-module/Cache/Cache-Cache-%{version}.tar.gz
-# Bug #112967 for Cache-Cache: Digest::SHA1 -> Digest::SHA - https://rt.cpan.org/Public/Bug/Display.html?id=112967
 Patch0:         Cache-Cache-1.08-Rewrite_from_SHA1_to_SHA.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Error)
@@ -43,15 +41,16 @@ of the filesystem or shared memory.
 
 %prep
 %setup -q -n Cache-Cache-%{version}
+
+# Bug #112967 for Cache-Cache: Digest::SHA1 -> Digest::SHA - https://rt.cpan.org/Public/Bug/Display.html?id=112967
 %patch -P0 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -83,6 +82,9 @@ make test
 %{_mandir}/man3/Cache::SizeAwareSharedMemoryCache.3*
 
 %changelog
+* Thu Oct  8 2026 Paul Howarth <paul@city-fan.org> - 1.08-35
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

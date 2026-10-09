@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 45
+Version: 46
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -86,6 +86,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Oct 7 2026 Packit <hello@packit.dev> - 46-1
+- Translations and dependency updates
+
 * Wed Sep 23 2026 Packit <hello@packit.dev> - 45-1
 - Fixes CVE-2026-91202, CVE-2026-91203, CVE-2026-91205
 - Resolves RHEL-263138, RHEL-263139, RHEL-263144 for rhel-10.4

@@ -1,6 +1,6 @@
 Name:           perl-Compress-LZF
 Version:        3.8
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Extremely light-weight Lempel-Ziv-Free compression
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not in the binary packages
@@ -20,7 +20,7 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perlmulticore-static
 # Module
 BuildRequires:  perl(DynaLoader)
@@ -46,12 +46,11 @@ This is Perl binding to the LZF compression library.
 %patch -P 2 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} -c %{buildroot}
 
@@ -66,6 +65,9 @@ make test
 %{_mandir}/man3/Compress::LZF.3*
 
 %changelog
+* Thu Oct  8 2026 Paul Howarth <paul@city-fan.org> - 3.8-39
+- Use %%{make_build} and %%{make_install}
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.8-38
 - Perl 5.44 rebuild
 

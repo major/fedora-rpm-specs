@@ -1,7 +1,7 @@
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
 Version: 6.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
 Source0: https://www.kernel.org/pub/software/network/tftp/tftp-hpa-%{version}.tar.gz
@@ -27,7 +27,7 @@ Patch: tftp-fedora-tftpboot.patch
 
 BuildRequires: bc
 BuildRequires: gcc
-BuildRequires: gpgverify
+BuildRequires: openpgpverify
 BuildRequires: make
 BuildRequires: readline-devel
 BuildRequires: systemd-rpm-macros
@@ -55,7 +55,7 @@ systemd socket activation, and is disabled by default.
 
 %prep
 gzip -cd '%{SOURCE0}' > 'tftp-hpa-%{version}.tar'
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='tftp-hpa-%{version}.tar'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='tftp-hpa-%{version}.tar'
 %autosetup -p1 -n tftp-hpa-%{version}
 
 %build
@@ -106,6 +106,9 @@ tests/test-tftp.sh
 %{_unitdir}/tftp.socket
 
 %changelog
+* Tue Oct 06 2026 Andrew Naessens <anaessen@redhat.com> - 6.1-4
+- Use openpgpverify
+
 * Fri Sep 11 2026 Lukáš Zaoral <lzaoral@redhat.com> - 6.1-3
 - sync patches with upstream
 - execute testsuite in %%check

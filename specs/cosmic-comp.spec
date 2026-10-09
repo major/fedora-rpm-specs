@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 0fbd4574ef4caf74769a617d205fd1fc909ac9b1
-%global commitdatestring 2026-09-22 17:12:28 -0600
-%global cosmic_minver 1.9.0
+%global commit 41497b42d9744d9963c4c6d17e8add49489b45ee
+%global commitdatestring 2026-10-05 21:13:31 +0200
+%global cosmic_minver 1.10.0
 
 Name:           cosmic-comp
-Version: 1.9.0
+Version: 1.10.0
 Release:        %autorelease
 Summary:        Compositor for the COSMIC Desktop Environment
 
@@ -41,7 +41,7 @@ BuildRequires:  libinput-devel
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  pixman-devel
 BuildRequires:  libdisplay-info-devel
-BuildRequires:  make
+BuildRequires:  just
 
 Requires:       libseat%{?_isa}
 Requires:       libwayland-server%{?_isa}
@@ -67,7 +67,7 @@ echo "Appended %{SOURCE2} to .cargo/config.toml"
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
 export GIT_HASH="%{commit}"
-make
+just build-release --offline --frozen
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
@@ -77,7 +77,7 @@ make
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
 export GIT_HASH="%{commit}"
-make install DESTDIR=%{buildroot} prefix=%{_prefix}
+just rootdir=%{buildroot} prefix=%{_prefix} install
 
 %if %{with check}
 %check

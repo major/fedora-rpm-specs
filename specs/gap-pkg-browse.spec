@@ -26,7 +26,7 @@
 %bcond bootstrap 0
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.8.23
+Version:        1.8.24
 Release:        %autorelease
 Summary:        GAP browser for 2-dimensional arrays of data
 
@@ -59,10 +59,10 @@ BuildRequires:  gap-pkg-ctbllib-doc
 %endif
 
 Requires:       gap-core%{?_isa} >= 4.12.0
+Requires:       gap(gapdoc) >= 1.6
 
 Recommends:     gap(atlasrep) >= 2.0
 Recommends:     gap(io) >= 2.2
-Recommends:     gap(tomlib) >= 1.2.0
 
 Provides:       gap(Browse) = %{version}-%{release}
 Provides:       gap(browse) = %{version}-%{release}

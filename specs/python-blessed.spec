@@ -27,7 +27,7 @@ It provides: \
   determined.
 
 Name:       python-%{pypi_name}
-Version:    1.38.0
+Version:    1.50.0
 Release:    %autorelease
 Summary:    %{summary}
 

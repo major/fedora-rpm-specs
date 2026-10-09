@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit f97bee648c579b5fe2f2000bf3d129f1a7b08f17
-%global commitdatestring 2026-09-23 21:33:28 +0200
-%global cosmic_minver 1.9.0
+%global commit 9e4ae69fc175191f15789d35423806ea0f093c9d
+%global commitdatestring 2026-10-06 21:39:42 +0200
+%global cosmic_minver 1.10.0
 
 Name:           cosmic-settings-daemon
-Version: 1.9.0
+Version: 1.10.0
 Release:        %autorelease
 Summary:        Settings daemon for the COSMIC Desktop Environment
 
@@ -48,7 +48,7 @@ BuildRequires:  libxkbcommon-devel
 BuildRequires:  pam-devel
 BuildRequires:  pulseaudio-utils
 BuildRequires:  pipewire-devel
-BuildRequires:  make
+BuildRequires:  just
 BuildRequires:  openssl-devel
 
 Requires:       acpid
@@ -76,7 +76,7 @@ echo "Appended %{SOURCE2} to .cargo/config.toml"
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
-make
+just build-release --locked --frozen
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
@@ -85,7 +85,7 @@ make
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
-make install DESTDIR=%{buildroot} prefix=%{_prefix}
+just rootdir=%{buildroot} prefix=%{_prefix} install
 
 %if %{with check}
 %check

@@ -212,8 +212,12 @@ ExclusiveArch:  x86_64
 %ifarch x86_64
 %if %{with preview}
 %global targets_to_build "X86;AMDGPU;SPIRV"
+%global build_spirv ON
+%global comgr_spirv OFF
 %else
 %global targets_to_build "X86;AMDGPU"
+%global build_spirv OFF
+%global comgr_spirv ON
 %endif
 %endif
 %ifarch aarch64
@@ -384,6 +388,9 @@ Requires:      %{rocm_clang_name}-runtime-static = %{version}-%{release}
 Requires:      %{rocm_llvm_name}-filesystem = %{version}-%{release}
 %if %{with libcxx}
 Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
+%endif
+%if %{with preview}
+Requires:      spirv-tools
 %endif
 
 %description -n %{rocm_clang_name}
@@ -566,9 +573,10 @@ p=$PWD
 %global llvmrocm_cmake_config \\\
  -DBUILD_SHARED_LIBS=OFF \\\
  -DBUILD_TESTING=OFF \\\
- -DCLANG_ENABLE_STATIC_ANALYZER=%{build_sa} \\\
  -DCLANG_ENABLE_ARCMT=OFF \\\
  -DCLANG_ENABLE_CLANGD=OFF \\\
+ -DCLANG_ENABLE_SPIRV=%{build_spirv} \\\
+ -DCLANG_ENABLE_STATIC_ANALYZER=%{build_sa} \\\
  -DCLANG_TOOL_CLANG_FUZZER_BUILD=OFF \\\
  -DCLANG_TOOL_C_INDEX_TEST_BUILD=OFF \\\
  -DCMAKE_BUILD_TYPE=%{build_type} \\\
@@ -604,6 +612,7 @@ p=$PWD
  -DLLVM_ENABLE_LIBCXX=%{build_libcxx} \\\
  -DLLVM_ENABLE_OCAMLDOC=OFF \\\
  -DLLVM_ENABLE_RTTI=ON \\\
+ -DLLVM_ENABLE_SPIRV=%{build_spirv} \\\
  -DLLVM_ENABLE_ZLIB=ON \\\
  -DLLVM_ENABLE_ZSTD=ON \\\
  -DLLVM_INCLUDE_BENCHMARKS=OFF \\\
@@ -803,7 +812,8 @@ pushd .
        %{llvmrocm_devicelibs_config} \
        -DBUILD_SHARED_LIBS=ON \
        -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
-       -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir}
+       -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
+       -DCOMGR_DISABLE_SPIRV=%{comgr_spirv}
 
 # cmake produces a link.txt that includes libLLVM*.so, hack it out
 %if 0%{?suse_version}

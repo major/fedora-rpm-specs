@@ -3,7 +3,7 @@
 # Copyright (C) 2017-2020 Red Hat, Inc.
 
 Name:           cockpit-podman
-Version:        131
+Version:        132
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -83,6 +83,8 @@ NODE_ENV=production NODE_PATH=/usr/lib/node_modules:$(echo /usr/lib/node_modules
 
 %install
 %make_install PREFIX=/usr
+
+%check
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 %files
@@ -92,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Oct 07 2026 Packit <hello@packit.dev> - 132-1
+- Translations and dependency updates
+
 * Wed Sep 23 2026 Packit <hello@packit.dev> - 131-1
 - Bug fixes and translation updates
 

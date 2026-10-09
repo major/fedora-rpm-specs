@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 
@@ -25,7 +25,7 @@ BuildRequires: coreutils
 BuildRequires: gawk
 BuildRequires: gcc
 BuildRequires: glibc-langpack-ja
-BuildRequires: gpgverify
+BuildRequires: openpgpverify
 BuildRequires: groff
 BuildRequires: hostname
 BuildRequires: libcap-devel
@@ -63,7 +63,7 @@ mechanism, and more.
 This package contains the Zsh manual in html format.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 # enable parallel build
@@ -158,6 +158,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Tue Oct 06 2026 Andrew Naessens <anaessen@redhat.com> - 5.9.2-4
+- Use openpgpverify
+
 * Wed Jul 22 2026 Lukáš Zaoral <lzaoral@redhat.com> - 5.9.2-3
 - fix crash with bracketed-paste-magic and undo (rhbz#2484692)
 

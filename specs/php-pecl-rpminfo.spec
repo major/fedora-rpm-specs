@@ -23,11 +23,11 @@
 %global forgeurl   https://github.com/%{gh_vend}/%{gh_proj}
 %global tag        v%{version}
 
-Summary:        RPM information
 Name:           %{php_base}-pecl-%{pecl_name}
-License:        PHP-3.01
-Version:        1.2.1
-Release:        6%{?dist}
+Summary:        RPM information
+License:        BSD-3-Clause
+Version:        1.2.2
+Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -132,6 +132,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Oct  8 2026 Remi Collet <remi@remirepo.net> - 1.2.2-1
+- update to 1.2.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

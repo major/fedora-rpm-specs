@@ -17,6 +17,11 @@ Source5: systemd-sysusers.conf
 Source6: systemd-tmpfiles.conf
 Source7: 99-prefixlen
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2547780
+# Fix daemonising broken by RLIMIT_NOFILE of 0 on Linux
+# https://github.com/NetworkConfiguration/dhcpcd/pull/733
+Patch0: dhcpcd-fix-RLIMIT_NOFILE.patch
+
 BuildRequires: gcc
 BuildRequires: systemd-rpm-macros
 BuildRequires: chrony

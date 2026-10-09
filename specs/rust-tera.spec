@@ -5,28 +5,16 @@
 %global crate tera
 
 Name:           rust-tera
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Template engine for Rust based on Jinja2/Django
 
 License:        MIT
 URL:            https://crates.io/crates/tera
 Source:         %{crates_source}
-# * Fix missing license text in published crates
-# * https://github.com/Keats/tera/pull/1031
-Source10:       https://github.com/Keats/tera/raw/refs/tags/v%{version}/LICENSE
 # Manually created patch for downstream crate metadata changes
 # * Remove unused, benchmark-only dev-dependency on criterion
-# * Explicitly specify the serde/derive dev-dependency (and stop using
-#   serde_derive directly): https://github.com/Keats/tera/pull/1032
 Patch:          tera-fix-metadata.diff
-# * Stop using serde_derive directly
-# * https://github.com/Keats/tera/pull/1032
-Patch10:        tera-2.3.0-serde_derive.patch
-# * Only run parsing::instructions::tests::test_size on 64-bit targets
-# * https://github.com/Keats/tera/pull/1033
-# * Exported with git format-patch --relative to apply to the published crate
-Patch11:        0001-Only-run-parsing-instructions-tests-test_size-on-64-.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -148,7 +136,6 @@ use the "unicode" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp --preserve '%{SOURCE10}' .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

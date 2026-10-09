@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/sla
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6.2
+Version:        1.6.3
 Release:        %autorelease
 Summary:        Computing with simple Lie algebras
 

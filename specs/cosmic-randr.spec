@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 6e8e795970fa06d434af22775e415b517f7552d3
-%global commitdatestring 2026-02-13 12:35:27 -0700
-%global cosmic_minver 1.9.0
+%global commit 85efc7febb99876094cf90af6dbce0927ad8cca7
+%global commitdatestring 2026-10-06 21:20:40 +0200
+%global cosmic_minver 1.10.0
 
 Name:           cosmic-randr
-Version: 1.9.0
+Version: 1.10.0
 Release:        %autorelease
 Summary:        Display configuration command line tool
 

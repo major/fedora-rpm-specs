@@ -3,7 +3,7 @@
 %global gap_makedoc makedocrel.g
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.3.8
+Version:        1.3.9
 Release:        %autorelease
 Summary:        Elementary divisors of integer matrices
 

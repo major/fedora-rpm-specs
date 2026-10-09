@@ -3,7 +3,7 @@
 
 # https://github.com/docker/buildx
 %global goipath         github.com/docker/buildx
-Version:                0.37.2
+Version:                0.38.0
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
@@ -62,7 +62,7 @@ install -Dpm 0755 %{gobuilddir}/bin/buildx %{buildroot}%{moby_cli_plugins_dir}/d
 # Disable integration tests
 rm tests/integration_test.go
 # gitutil tests require a git repository
-%gocheck2 -d util/gitutil
+%gocheck2 -d util/gitutil -s TestNormalizeHTTPHost
 %endif
 
 %files -f %{go_vendor_license_filelist}

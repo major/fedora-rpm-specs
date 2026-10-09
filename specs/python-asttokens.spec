@@ -1,5 +1,5 @@
 Name:           python-asttokens
-Version:        3.0.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        Module to annotate Python abstract syntax trees with source code positions
 

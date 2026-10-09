@@ -25,7 +25,7 @@
 # <number>.<revision> snapshot form, and the distance keeps several snapshots
 # between two tags in order. 17^20250203, the last build of the old scheme,
 # sorts below.
-%global basetag v2026.09.28.00
+%global basetag v2026.10.05.00
 %global tagver %(echo %{basetag} | sed 's|^v||')
 %if 0%{?commit:1}
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -46,6 +46,9 @@
 # other two are only read by cachelib's own CMakeLists. Contents of a JSON
 # object; the macro adds the braces (rpm would strip them from the value).
 %global getdeps_extra_cmake_defines "LIB_INSTALL_DIR": "%{_lib}", "CACHELIB_MAJOR_VERSION": "%{major_ver}", "CONFIGS_INSTALL_DIR": "share/%{name}/test_configs"
+
+# the license config the macros read: Source2, plus the EL fragment on EL
+%global getdeps_licenses_toml vendor-licenses.toml
 
 Name:           cachelib
 Version:        %{major_ver}.%{tagver}%{?snapinfo}
@@ -99,11 +102,32 @@ Source0:        %{url}/archive/%{archive_ref}/%{name}-%{version}.tar.gz
 # getdeps-vendor.txt listing each project's pinned revision.
 Source1:        %{name}-%{version}-vendor.tar.xz
 Source2:        getdeps-vendor-licenses.toml
+# EL needs two dependencies from source that Fedora takes from the system,
+# because EPEL's versions are older than the manifests pin: glog, 0.3.5
+# against a post-0.6.0 commit, and fast_float, 6.1.6 against 8.0.0, whose
+# parse_options_t constructor folly's Conv.cpp needs. Rather than a second
+# full vendor tree, this tarball holds only what EL builds additionally need;
+# %%prep unpacks it there and appends its manifest to getdeps-vendor.txt, so
+# the bundled() Provides, the license install and the license check cover it.
+# Declared unconditionally on purpose: a Source inside %%if 0%%{?rhel} would
+# be absent from an SRPM built on Fedora, and that SRPM could then not be
+# rebuilt for EL at all. Fedora builds carry the 140 kB and ignore it.
+# Its licenses are not covered by the per-file pass of any build: Fedora
+# builds never unpack it, and EL has no licensecheck. They were scanned by
+# hand on Fedora: glog is BSD-3-Clause throughout, plus an Apache-2.0 fuzzer
+# source and an MIT Windows header, neither compiled; fast_float is
+# Apache-2.0 OR MIT OR BSL-1.0, its license files in a versioned subdirectory
+# (hence -L). Redo that scan whenever either pin moves.
+Source3:        %{name}-%{version}-vendor-el.tar.xz
+# The glog override the above tarball needs, kept apart because an override
+# for a file that is not present is an error: %%prep appends it to a copy of
+# Source2 on EL, and every license macro reads that copy.
+Source4:        getdeps-vendor-licenses-el.toml
 # The per-file licensecheck pass of the license check is expensive; run it
 # only when Source1 is not the tarball it last passed on. After a full pass
 # on a new tarball, copy its sha512 here from the sources file. (Plain rpm:
 # this also runs when the SRPM is built, without folly-rpm-macros.)
-%global vendor_checked_sha512 d024cc25d384a1625eb92ed2a642174f513cb247ddbb8436c3d1167771353566cb300e69e3f5996be0fb0193278b4010666f05af63cbbd7fbb399a12ca4475ea
+%global vendor_checked_sha512 4da31af2482892790d02438ce0c0758a93a493b8e6b84541d06bdf0b08975c10e90a83e0c91384639c824b44c3502be1cdf4005d0601dfc861db5589861f6143
 %if "%(sha512sum %{SOURCE1} 2>/dev/null | cut -c1-128)" == "%{vendor_checked_sha512}"
 %bcond_with license_full_check
 %else
@@ -112,10 +136,11 @@ Source2:        getdeps-vendor-licenses.toml
 # Patches below apply to the vendored trees under vendor/ and to
 # build/fbcode_builder. Each is an upstream fix the revisions this tag pins
 # do not include yet; drop them as the pins move past the landed commits.
-# v2026.09.28.00 picked up folly's FindLibDwarf fix (facebook/folly#2707,
-# 51590144c), wangle's OpenSSL 4.0 fix (facebook/wangle#254) and the
-# cachebench binary_trace_gen link fix (facebook/CacheLib#498, 1a643ff6), so
-# those three patches are gone.
+# v2026.10.05.00 contains the getdeps change that records each vendored
+# project's commit and version in getdeps-vendor.txt, so that patch is gone;
+# v2026.09.28.00 had already taken folly's FindLibDwarf fix
+# (facebook/folly#2707), wangle's OpenSSL 4.0 fix (facebook/wangle#254) and
+# the cachebench binary_trace_gen link fix (facebook/CacheLib#498).
 #
 # OpenSSL 4.0 (Fedora 45+) made ASN1_STRING opaque and the X509_get_*
 # accessors return const; folly does not compile against it.
@@ -135,9 +160,18 @@ Patch:          0007-getdeps-keep-LDFLAGS-on-the-shared-library-links.patch
 # libstdc++ 16's own heterogeneous lookup; fix on Michel's fork, submitted
 # internally
 Patch:          0008-folly-F14-fallback-forward-exact-key-lookups.patch
-# getdeps-vendor.txt gains the version of each vendored project, from which
-# the bundled() Provides are versioned (applied by vendor.sh before vendoring)
-Patch:          0009-getdeps-record-the-checked-out-commit-and-a-version.patch
+# The manifests build fmt, gflags, googletest, benchmark and Boost from
+# source on EL although EPEL 10 has them, and they get zlib and lz4-static
+# wrong there; submitted internally from michel-slm/CacheLib
+# 21baa410 (applied by vendor.sh before vendoring, so the vendored set
+# matches what each distro builds)
+Patch:          0010-getdeps-map-the-EL-10-system-packages.patch
+# glog's manifest forced BUILD_SHARED_LIBS=ON, so the vendored glog EL builds
+# use came out shared and the executables linked it: the rpm then required
+# libglog.so.1, which nothing ships (EPEL 10's glog is 0.3.5, soname 0).
+# folly and fbthrift only set it under feature_shared_libs; submitted
+# internally from michel-slm/CacheLib 6ad39916
+Patch:          0011-getdeps-build-glog-shared-only-on-request.patch
 
 ExclusiveArch:  x86_64 aarch64 ppc64le
 # -devel (last shipped as 17^20250203 in Fedora, 16^20230424 in EPEL 9) is gone:
@@ -145,7 +179,7 @@ ExclusiveArch:  x86_64 aarch64 ppc64le
 # packages, so there is nothing usable to ship. No Provides on purpose.
 Obsoletes:      %{name}-devel < 19.2026.09.14.00
 
-BuildRequires:  folly-rpm-macros >= 46-9
+BuildRequires:  folly-rpm-macros >= 46-11
 %if %{with toolchain_clang}
 BuildRequires:  clang
 %else
@@ -164,14 +198,21 @@ caching transparently.}
 
 %generate_buildrequires
 %getdeps_generate_buildrequires
-%getdeps_vendor_license_buildrequires -c %{SOURCE2}
+%getdeps_vendor_license_buildrequires -c %{getdeps_licenses_toml}
 
 
 %prep
 %autosetup -n %{archive_dir} -a1 -p1
 # delete vendored code that is neither compiled nor referenced by the build
 # (the config's prune_directories: fbthrift's Go bindings)
-%getdeps_vendor_prune -c %{SOURCE2}
+cp -p %{SOURCE2} %{getdeps_licenses_toml}
+%if 0%{?rhel}
+tar -xf %{SOURCE3}
+cat %{getdeps_vendor_dir}/getdeps-vendor-el.txt >> %{getdeps_vendor_dir}/getdeps-vendor.txt
+rm -f %{getdeps_vendor_dir}/getdeps-vendor-el.txt
+cat %{SOURCE4} >> %{getdeps_licenses_toml}
+%endif
+%getdeps_vendor_prune -c %{getdeps_licenses_toml}
 
 
 %build
@@ -182,7 +223,7 @@ caching transparently.}
 # vendor_checked_sha512 above.
 # -L: liboqs's LICENSE.txt sits in a versioned subdirectory of its tree (as
 # did sparse-map's while it was vendored)
-%getdeps_vendor_license_check -c %{SOURCE2} -L %{?with_license_full_check:-f}
+%getdeps_vendor_license_check -c %{getdeps_licenses_toml} -L %{?with_license_full_check:-f}
 %{?with_license_check_only: echo "license check only: stopping before the build"; exit 1}
 %getdeps_build %{?with_check:-t}
 
@@ -200,7 +241,7 @@ mv %{buildroot}%{_bindir}/binary_trace_gen %{buildroot}%{_bindir}/cachelib_binar
 # build tree in %%check and not shipped
 rm -rf %{buildroot}%{_prefix}/tests
 %endif
-%getdeps_vendor_license_install -c %{SOURCE2}
+%getdeps_vendor_license_install -c %{getdeps_licenses_toml}
 
 
 %check

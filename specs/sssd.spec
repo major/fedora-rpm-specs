@@ -23,7 +23,7 @@
 %endif
 
 Name: sssd
-Version: 2.13.1
+Version: 2.14.0~beta1
 Release: %autorelease
 Summary: System Security Services Daemon
 License: GPL-3.0-or-later
@@ -38,12 +38,6 @@ Source3: pubkey.asc
 ### Patches ###
 # Place your patches here:
 # Patch0001:  0001-patch-file.patch
-Patch0001: 0001-PAM-fix-use-after-free-during-p11_child-processing.patch
-Patch0002: 0002-gpo-reject-path-traversal-in-gPCFileSysPath.patch
-Patch0003: 0003-sudo-warn-when-ldap_sudo_search_base-falls-back-to-r.patch
-
-# https://github.com/SSSD/sssd/pull/9076
-Patch1001: 1001-Fix-FTBFS-with-GDM-51-PAM-extension-headers.patch
 
 ### Downstream only patches ###
 # Place your downstream only patches here:
@@ -117,8 +111,8 @@ BuildRequires: m4
 BuildRequires: make
 BuildRequires: nss_wrapper
 BuildRequires: openldap-devel
-BuildRequires: openssl >= 1.0.1
-BuildRequires: openssl-devel >= 1.0.1
+BuildRequires: openssl >= 3.0.8
+BuildRequires: openssl-devel >= 3.0.8
 BuildRequires: p11-kit-devel
 BuildRequires: pam_wrapper
 BuildRequires: pam-devel
@@ -589,13 +583,6 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm -f {} \;
 # Suppress developer-only documentation
 rm -Rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}
 
-# Older versions of rpmbuild can only handle one -f option
-# So we need to append to the sssd*.lang file
-for file in `find $RPM_BUILD_ROOT/%{python3_sitelib} -maxdepth 1 -name "*.egg-info" 2> /dev/null`
-do
-    echo %{python3_sitelib}/`basename $file` >> python3_sssdconfig.lang
-done
-
 touch sssd.lang
 for subpackage in sssd_ldap sssd_krb5 sssd_ipa sssd_ad sssd_proxy sssd_tools \
                   sssd_client sssd_dbus sssd_nfs_idmap sssd_winbind_idmap \
@@ -665,9 +652,6 @@ done
 # Print these to the rpmbuild log
 echo "sssd.lang:"
 cat sssd.lang
-
-echo "python3_sssdconfig.lang:"
-cat python3_sssdconfig.lang
 
 for subpackage in sssd_ldap sssd_krb5 sssd_ipa sssd_ad sssd_proxy sssd_tools \
                   sssd_client sssd_dbus sssd_nfs_idmap sssd_winbind_idmap \
@@ -880,7 +864,7 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/sssd.conf
 %{_mandir}/man8/sss_seed.8*
 %{_mandir}/man8/sssctl.8*
 
-%files -n python3-sssdconfig -f python3_sssdconfig.lang
+%files -n python3-sssdconfig
 %dir %{python3_sitelib}/SSSDConfig
 %{python3_sitelib}/SSSDConfig/*.py*
 %dir %{python3_sitelib}/SSSDConfig/__pycache__
