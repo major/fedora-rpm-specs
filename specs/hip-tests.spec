@@ -25,7 +25,7 @@
 %if %{with preview}
 %global rocm_release 10.1
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %endif
 
 %global rocm_patch 0
@@ -94,10 +94,9 @@ URL:        https://github.com/ROCm/rocm-systems
 Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # Add -fPIC flag to C compiler and disable failing spv dependencies in module CMakeLists.txt
 Patch1:     0001-hip-tests-fix-build.patch
-%if %{with preview}
 # https://github.com/ROCm/rocm-systems/issues/12852
 Patch2:     0001-hip-tests-can-not-patch-catch2.patch
-%endif
+
 ExclusiveArch:  x86_64
 
 BuildRequires:  boost-devel
@@ -224,6 +223,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/libexec/hip-tests/catch_tests/hipSquareGene
 %{pkg_prefix}/libexec/hip-tests/
 
 %changelog
+* Fri Oct 9 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

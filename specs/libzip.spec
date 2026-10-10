@@ -1,21 +1,23 @@
 %bcond_without tests
 
 Name:    libzip
-Version: 1.11.4
-Release: 5%{?dist}
+Version: 1.12
+Release: 2%{?dist}
 Summary: C library for reading, creating, and modifying zip archives
 
 License: BSD-3-Clause
 URL:     https://libzip.org/
 Source0: https://libzip.org/download/libzip-%{version}.tar.xz
 
+Patch0:  upstream.patch
+
 BuildRequires:  gcc
-BuildRequires:  zlib-devel
+BuildRequires:  zlib-devel >= 1.1.2
 BuildRequires:  bzip2-devel
 BuildRequires:  openssl-devel
-BuildRequires:  xz-devel
-BuildRequires:  libzstd-devel >= 1.3.6
-BuildRequires:  cmake >= 3.10
+BuildRequires:  xz-devel >= 5.2
+BuildRequires:  libzstd-devel >= 1.4
+BuildRequires:  cmake >= 3.14
 BuildRequires:  mandoc
 %if %{with tests}
 BuildRequires:  nihtest
@@ -117,6 +119,13 @@ sed -e '/clone-fs-/d' \
 
 
 %changelog
+* Fri Oct  9 2026 Remi Collet <remi@remirepo.net> - 1.12-2
+- Fix regression adding and replacing files in torrentzip archives
+  https://github.com/nih-at/libzip/issues/617
+
+* Fri Oct  9 2026 Remi Collet <remi@remirepo.net> - 1.12-1
+- update to 1.12
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

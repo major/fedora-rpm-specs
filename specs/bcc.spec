@@ -19,12 +19,13 @@
 
 Name:           bcc
 Version:        0.36.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        BPF Compiler Collection (BCC)
 License:        Apache-2.0
 URL:            https://github.com/iovisor/bcc
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         Fix-build-with-LLVM-22.patch
+Patch1:         Fix-build-with-LLVM-23.patch
 
 # Arches will be included as upstream support is added and dependencies are
 # satisfied in the respective arches
@@ -225,6 +226,9 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %{_sbindir}/bpf-*
 
 %changelog
+* Tue Oct 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.36.1-4
+- Rebuilt for LLVM 23
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -105,7 +105,7 @@
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.27
 #global go_prerelease rc2
-%global go_patch 1
+%global go_patch 2
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
@@ -205,6 +205,9 @@ BuildArch:     noarch
 Summary:       Golang compiler tests for stdlib
 Requires:      %{name} = %{version}-%{release}
 BuildArch:     noarch
+# testdata contains ELF files (e.g. debug/elf/testdata/libtiffxx.so_)
+# whose SONAMEs would otherwise be picked up as spurious library provides
+AutoProv:      no
 
 %description   tests
 %{summary}.

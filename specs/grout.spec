@@ -25,7 +25,7 @@
 %endif
 
 Name: grout
-Version: 0.18.0
+Version: 0.19.0
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -51,6 +51,7 @@ BuildRequires: libcmocka-devel
 BuildRequires: libecoli-devel >= 0.10.0
 BuildRequires: libevent-devel
 BuildRequires: libmnl-devel
+BuildRequires: libpcap-devel
 BuildRequires: make
 BuildRequires: meson
 BuildRequires: ninja-build
@@ -78,6 +79,9 @@ ExcludeArch: %{ix86}
 ExcludeArch: s390x
 # Upstream does not support ppc64le: see fedora#2459679
 ExcludeArch: ppc64le
+
+Requires: less
+Requires: tcpdump
 
 %description
 grout stands for Graph Router. In English, "grout" refers to thin mortar that
@@ -146,10 +150,12 @@ rm -f %{buildroot}%{_mandir}/man7/grout-frr.7*
 %config(noreplace) %{_sysconfdir}/default/grout
 %config(noreplace) %{_sysconfdir}/grout.init
 %attr(644, root, root) %{_unitdir}/grout.service
-%attr(755, root, root) %{_datadir}/bash-completion/completions/grout
-%attr(755, root, root) %{_datadir}/bash-completion/completions/grcli
+%attr(644, root, root) %{_datadir}/bash-completion/completions/grout
+%attr(644, root, root) %{_datadir}/bash-completion/completions/grcli
+%attr(644, root, root) %{_datadir}/bash-completion/completions/grtcpdump
 %attr(755, root, root) %{_bindir}/grcli
 %attr(755, root, root) %{_bindir}/grout
+%attr(755, root, root) %{_bindir}/grtcpdump
 %attr(644, root, root) %{_mandir}/man1/grcli*
 %attr(644, root, root) %{_mandir}/man8/grout.8*
 

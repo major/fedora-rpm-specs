@@ -1,7 +1,7 @@
 %global upstream_name level-zero-raytracing-support
 
 Name: intel-level-zero-gpu-raytracing
-Version: 1.2.3
+Version: 1.3.0
 Release: %autorelease
 Summary: oneAPI Level Zero Ray Tracing Support library
 

@@ -1,13 +1,15 @@
 # Run extra test
 %if ! (0%{?rhel})
 %bcond_without perl_Package_Generator_enables_extra_test
+%bcond_without perl_Package_Generator_enables_optional_test
 %else
 %bcond_with perl_Package_Generator_enables_extra_test
+%bcond_with perl_Package_Generator_enables_optional_test
 %endif
 
 Name:		perl-Package-Generator
 Version:	1.106
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	Generate new packages quickly and easily
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Package-Generator
@@ -26,8 +28,10 @@ BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
 # Test Suite
-BuildRequires:	perl(Params::Util) >= 0.11
 BuildRequires:	perl(Test::More) >= 0.96
+%if %{with perl_Package_Generator_enables_optional_test}
+BuildRequires:	perl(Params::Util) >= 0.11
+%endif
 %if %{with perl_Package_Generator_enables_extra_test}
 # Extra Tests
 BuildRequires:	perl(Test::Pod) >= 1.41
@@ -64,6 +68,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Package::Reaper.3*
 
 %changelog
+* Fri Oct 09 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.106-37
+- Conditionalize Params::Util dependency
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.106-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

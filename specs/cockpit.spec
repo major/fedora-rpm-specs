@@ -55,7 +55,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        368
+Version:        369
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -666,6 +666,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Oct 07 2026 Packit <hello@packit.dev> - 369-1
+- Translations and dependency updates
+
 * Wed Sep 23 2026 Packit <hello@packit.dev> - 368-1
 - Limit concurrent connections CVE-2026-91149
 - Harden cockpit-ws against trailing slash CVE-2026-91147

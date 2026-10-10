@@ -5,7 +5,7 @@
 %global libsoup_version 3.1.1
 
 Name: evolution-ews
-Version: 3.62.0
+Version: 3.62.1
 Release: %autorelease
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later

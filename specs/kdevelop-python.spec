@@ -1,7 +1,7 @@
 %global upstream_name kdev-python
 
 Name:           kdevelop-python
-Version:        26.08.1
+Version:        26.08.2
 Release:        1%{?dist}
 Summary:        KDevelop Python language support
 
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kd
 %{_kf6_datadir}/qlogging-categories6/kdevpythonsupport.categories
 
 %changelog
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

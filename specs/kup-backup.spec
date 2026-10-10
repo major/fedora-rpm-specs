@@ -3,7 +3,7 @@
 
 Name:           kup-backup
 Version:        6.7.91
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Backup scheduler for the Plasma desktop
 
 # CC0-1.0 is used but only in a couple upstream-related CI files, which we aren't using.
@@ -99,6 +99,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ku
 
 
 %changelog
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-2
+- Bump for libplasma update
+
 * Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
 - 6.7.91
 

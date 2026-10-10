@@ -1,5 +1,5 @@
 Name:          plasma-camera
-Version:       26.08.1
+Version:       26.08.2
 Release:       1%{?dist}
 License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND GPL-3.0-or-later
 Summary:       Camera application for Plasma Mobile
@@ -64,6 +64,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/org.kde.plasma.camera.appdata.xml
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

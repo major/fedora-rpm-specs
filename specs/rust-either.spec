@@ -5,7 +5,7 @@
 %global crate either
 
 Name:           rust-either
-Version:        1.17.0
+Version:        1.19.0
 Release:        %autorelease
 Summary:        General purpose sum type with two cases
 
@@ -33,8 +33,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README-crates.io.md
-%doc %{crate_instdir}/README.rst
+%doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/RELEASES.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

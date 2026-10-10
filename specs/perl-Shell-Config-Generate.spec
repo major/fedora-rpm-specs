@@ -1,5 +1,5 @@
 Name:           perl-Shell-Config-Generate
-Version:        0.35
+Version:        0.36
 Release:        1%{?dist}
 Summary:        Portably generate configuration for any shell
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -73,6 +73,9 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Shell-Config-Generate-%{version}
+# Remove always skipped tests
+rm t/shell_config_generate__space_win32.t
+perl -i -ne 'print $_ unless m{\A\Qt/shell_config_generate__space_win32.t\E}' MANIFEST
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -111,6 +114,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 09 2026 Petr Pisar <ppisar@redhat.com> - 0.36-1
+- 0.36 bump
+
 * Mon Sep 07 2026 Petr Pisar <ppisar@redhat.com> - 0.35-1
 - 0.35 bump
 - Package the tests

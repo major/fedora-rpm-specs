@@ -24,7 +24,7 @@ BuildRequires: libselinux-devel >= %{libselinuxver} swig
 BuildRequires: libsepol-devel >= %{libsepolver} 
 BuildRequires: audit-libs-devel
 BuildRequires: bison flex bzip2-devel
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 BuildRequires: python3
 BuildRequires: python3-devel
@@ -81,7 +81,7 @@ The libsemanage-python3 package contains the python 3 bindings for developing
 SELinux management applications.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p 2 -n libsemanage-%{version}
 
 

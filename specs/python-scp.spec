@@ -3,7 +3,7 @@
 %global forgeurl https://github.com/jbardin/scp.py
 
 Name:    python-%{srcname}
-Version: 0.16.1
+Version: 0.16.2
 %forgemeta
 Release: %autorelease
 Summary: Scp module for paramiko

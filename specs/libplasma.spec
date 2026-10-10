@@ -1,5 +1,5 @@
 Name:    libplasma
-Version: 6.7.91
+Version: 6.8.0
 Release: 1%{?dist}
 Summary: Plasma is the foundation of the KDE user interface (v6)
 
@@ -120,9 +120,11 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %{_kf6_datadir}/plasma/
 %{_kf6_datadir}/qlogging-categories6/*plasma*
 %{_libdir}/libPlasma.so.%{version}
+%{_libdir}/libPlasmaQuick.so.%{version}
 # Hardcoded, so we can easily spot soname changes in the future
 # Some gear apps and libraries need to be rebuilt when this changes
 %{_libdir}/libPlasmaQuick.so.8
+%{_libdir}/libPlasma.so.8
 %{_kf6_plugindir}/kirigami/
 %{_kf6_plugindir}/packagestructure
 %{_kf6_qmldir}/org/kde/plasma/
@@ -142,6 +144,9 @@ mkdir -p %{buildroot}%{_kf6_qmldir}/org/kde/private
 %files doc
 
 %changelog
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
+- 6.8.0
+
 * Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
 - 6.7.91
 

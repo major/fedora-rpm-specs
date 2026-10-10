@@ -1,5 +1,5 @@
 Name:          android-tools
-Version:       37.0.0
+Version:       37.0.0p1
 Release:       %autorelease
 Epoch:         1
 Summary:       Android platform tools(adb, fastboot)
@@ -9,10 +9,6 @@ URL:           http://developer.android.com/guide/developing/tools/
 
 #  Sources with all needed patches and cmakelists live there now: 
 Source0:       https://github.com/nmeum/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-# https://github.com/nmeum/android-tools/pull/208
-Patch:         https://github.com/nmeum/android-tools/pull/208.patch
-# https://github.com/nmeum/android-tools/pull/209
-Patch:         209.patch
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:         adb_mdns-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes

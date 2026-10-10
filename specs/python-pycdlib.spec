@@ -8,7 +8,7 @@ extensions, and UDF.
 
 Summary:        A pure python ISO9660 read and write library
 Name:           python-%{srcname}
-Version:        1.21.0
+Version:        1.22.0
 Release:        1%{?dist}
 License:        LGPL-2.0-only
 URL:            https://github.com/clalancette/%{srcname}
@@ -85,6 +85,9 @@ PYCDLIB_TRACK_WRITES=1 py.test-%{python3_version} \
 %{_mandir}/man1/*
 
 %changelog
+* Sat Oct 10 2026 Federico Pellegrin <fede@evolware.org> - 1.22.0-1
+- Update to 1.22.0 (rhbz#2548814)
+
 * Tue Sep 29 2026 Federico Pellegrin <fede@evolware.org> - 1.21.0-1
 - Update to 1.21.0 (rhbz#2541495)
 

@@ -5,7 +5,7 @@
 
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
-Version: 6.7.91
+Version: 6.8.0
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -46,6 +46,7 @@ BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  cmake(Phonon4Qt6)
 BuildRequires:  wayland-protocols-devel
 BuildRequires:  google-noto-color-emoji-fonts
+BuildRequires:  cmake(PolkitQt6-1)
 
 BuildRequires:  ibus-devel
 %if 0%{?scim}
@@ -356,6 +357,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kaccess.desktop
 
 
 %changelog
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
+- 6.8.0
+
 * Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
 - 6.7.91
 

@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    artikulate
 Summary: Improve your pronunciation by listening to native speakers
-Version: 26.08.1
-Release: 2%{?dist}
+Version: 26.08.2
+Release: 1%{?dist}
 
 License: BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND MIT
 URL:     https://invent.kde.org/education/%{name}
@@ -83,6 +83,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 26.08.1-2
 - Rebuilt for libxml-2.5.4
 

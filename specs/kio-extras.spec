@@ -1,5 +1,5 @@
 Name:    kio-extras
-Version: 26.08.1
+Version: 26.08.2
 Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
@@ -132,6 +132,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

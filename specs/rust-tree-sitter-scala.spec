@@ -5,7 +5,7 @@
 %global crate tree-sitter-scala
 
 Name:           rust-tree-sitter-scala
-Version:        0.26.0
+Version:        0.26.2
 Release:        %autorelease
 Summary:        Scala grammar for tree-sitter
 

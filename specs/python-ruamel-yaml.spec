@@ -1,5 +1,6 @@
 # Breaks the circular dependency with ruamel.yaml.clib.
-%bcond_with bootstrap
+%bcond bootstrap 0
+%bcond oldlibyaml %[%{without bootstrap} && %{defined fedora}]
 
 Name:           python-ruamel-yaml
 Version:        0.19.1
@@ -28,10 +29,11 @@ BuildRequires:  python3-pytest
 
 %py_provides python3-ruamel.yaml
 
-%if !%{with bootstrap}
+%if %{with oldlibyaml}
 # ruamel.yaml.clibz is not available in Fedora (and probably never will
-# be), so require the old clib backend
-Requires:       python3-ruamel-yaml+oldlibyaml = %{version}-%{release}
+# be), so recommend the old clib backend.  However, no additional backend
+# is required, as a pure Python backend is builtin.
+Recommends:     python3-ruamel-yaml+oldlibyaml
 %endif
 
 %description -n python3-ruamel-yaml %{_description}
@@ -40,7 +42,7 @@ Requires:       python3-ruamel-yaml+oldlibyaml = %{version}-%{release}
 %autosetup -n ruamel.yaml-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires %{!?with_bootstrap:-x oldlibyaml}
+%pyproject_buildrequires %{?with_oldlibyaml:-x oldlibyaml}
 
 %build
 %pyproject_wheel
@@ -62,7 +64,9 @@ k="${k-}${k+ and }not test_dump_cyaml_1_2"
 %files -n python3-ruamel-yaml -f %{pyproject_files}
 %doc README.md
 
+%if %{with oldlibyaml}
 %pyproject_extras_subpkg -n python3-ruamel-yaml oldlibyaml
+%endif
 
 %changelog
 %autochangelog

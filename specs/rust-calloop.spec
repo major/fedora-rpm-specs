@@ -5,7 +5,7 @@
 %global crate calloop
 
 Name:           rust-calloop
-Version:        0.14.4
+Version:        0.14.5
 Release:        %autorelease
 Summary:        Callback-based event loop
 
@@ -120,18 +120,6 @@ This package contains library source intended for building other packages which
 use the "nix" feature of the "%{crate}" crate.
 
 %files       -n %{name}+nix-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+pin-utils-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pin-utils-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pin-utils" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pin-utils-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+signals-devel

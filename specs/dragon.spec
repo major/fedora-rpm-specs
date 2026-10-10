@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    dragon
 Summary: Media player
-Version: 26.08.1
+Version: 26.08.2
 Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
@@ -81,6 +81,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.dragonpla
 
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

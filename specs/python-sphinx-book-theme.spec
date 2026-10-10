@@ -13,6 +13,8 @@ Source0:        %{giturl}/archive/v%{version}/sphinx-book-theme-%{version}.tar.g
 # Source1 and Source2 created with ./prepare_vendor.sh
 Source1:        sphinx-book-theme-%{version}-vendor.tar.xz
 Source2:        sphinx-book-theme-%{version}-vendor-licenses.txt
+# Adapt to changes in pydata-sphinx-theme 0.22
+Patch:          %{name}-pydata-sphinx-theme.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): -x test

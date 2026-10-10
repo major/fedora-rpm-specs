@@ -5,10 +5,14 @@
 # the tarball with those from mm-common. This is (potentially) required if
 # building an autotools-generated tarball with meson, or vice versa.
 %bcond maintainer_mode 1
+# https://gitlab.freedesktop.org/cairo/cairomm/-/work_items/25#note_3703383
+# Disable source signature verification because the release was signed with an
+# expired key.
+%bcond verify 0
 
 Name:           cairomm%{apiver}
 Summary:        C++ API for the cairo graphics library
-Version:        1.18.0
+Version:        1.18.1
 Release:        %autorelease
 
 URL:            https://www.cairographics.org
@@ -42,30 +46,16 @@ SourceLicense:  %{shrink:
 
 %global src_base https://www.cairographics.org/releases
 Source0:        %{src_base}/cairomm-%{version}.tar.xz
-# No keyring with authorized GPG signing keys is published
-# (https://gitlab.freedesktop.org/freedesktop/freedesktop/-/issues/331), but we
-# are able to verify the signature using the key for Kjell Ahlstedt from
-# https://gitlab.freedesktop.org/freedesktop/freedesktop/-/issues/290.
 Source1:        %{src_base}/cairomm-%{version}.tar.xz.asc
+# No keyring with authorized GPG signing keys is published
+# (https://gitlab.freedesktop.org/freedesktop/freedesktop/-/issues/331), but
+# Kjell Ahlstedt’s signing key was attached to
+# https://gitlab.freedesktop.org/freedesktop/freedesktop/-/issues/290.
 Source2:        https://gitlab.freedesktop.org/freedesktop/freedesktop/uploads/0ac64e9582659f70a719d59fb02cd037/gpg_key.pub
 
-# Fix outdated FSF mailing address in COPYING
-# https://gitlab.freedesktop.org/cairo/cairomm/-/merge_requests/29
-# (Merged upstream, so we are comfortable patching the license file.)
-Patch:          https://gitlab.freedesktop.org/cairo/cairomm/-/merge_requests/29.patch
-# Change license info to mention Lesser GPL 2.1 instead of Library GPL 2
-#
-# The GNU Library General Public License has been superseded by
-# the GNU Lesser General Public License.
-# https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html
-#
-# Remove obsolete FSF (Free Software Foundation) address.
-# Committed to master branch:
-# https://gitlab.freedesktop.org/cairo/cairomm/-/commit/43580ed75bde0b7d6ad442c90a22f80b50ce844d
-Patch:          https://gitlab.freedesktop.org/cairo/cairomm/-/commit/43580ed75bde0b7d6ad442c90a22f80b50ce844d.patch
-
-# For %%{gpgverify} macro
-BuildRequires:  gpgverify
+%if %{with verify}
+BuildRequires:  openpgpverify
+%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -140,8 +130,10 @@ The API/ABI version series is %{apiver}.
 
 
 %prep
-%{gpgverify} \
+%if %{with verify}
+%{openpgpverify} \
     --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 
 %autosetup -n cairomm-%{version} -p1
 

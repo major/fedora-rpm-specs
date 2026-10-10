@@ -41,6 +41,9 @@ Patch10: freetype-filter-out-non-monospace-fonts-completely.patch
 # Upstream patch, fix a memory leak when using fallback font with freetype
 Patch11: freetype-Fix-memory-leak-when-loading-fallback-font.patch
 
+# Upstream patch, start the login command even if no displays are available
+Patch12: terminal-don-t-wait-for-display-before-opening-the-p.patch
+
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).
 It is an attempt to replace the in-kernel VT implementation with a userspace

@@ -1,6 +1,6 @@
 Name:		voms-clients-java
-Version:	3.3.7
-Release:	3%{?dist}
+Version:	3.4.0
+Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
 License:	Apache-2.0
@@ -15,12 +15,13 @@ BuildRequires:	maven-local-openjdk25
 %else
 BuildRequires:	maven-local
 %endif
-BuildRequires:	mvn(org.italiangrid:voms-api-java) >= 3.3.7
+BuildRequires:	mvn(org.italiangrid:voms-api-java) >= 3.4.0
 BuildRequires:	mvn(commons-cli:commons-cli)
 BuildRequires:	mvn(commons-io:commons-io)
-BuildRequires:	mvn(junit:junit)
+BuildRequires:	mvn(org.junit.jupiter:junit-jupiter-api)
+BuildRequires:	mvn(org.mockito:mockito-core)
 BuildRequires:	asciidoctor
-Requires:	mvn(org.italiangrid:voms-api-java) >= 3.3.7
+Requires:	mvn(org.italiangrid:voms-api-java) >= 3.4.0
 %if %{?rhel}%{!?rhel:0} == 9
 Requires:	(java-headless or java-1.8.0-headless or java-11-headless or java-17-headless or java-21-headless or java-25-headless)
 %else
@@ -31,9 +32,6 @@ Requires:	javapackages-tools
 
 Requires(post):		%{_sbindir}/update-alternatives
 Requires(preun):	%{_sbindir}/update-alternatives
-
-# Older versions of voms-clients did not have alternatives
-Conflicts:	voms-clients < 2.0.12
 
 Provides:	voms-clients = %{version}-%{release}
 
@@ -167,6 +165,9 @@ fi
 %license LICENSE
 
 %changelog
+* Fri Oct 09 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.4.0-1
+- Update to version 3.4.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

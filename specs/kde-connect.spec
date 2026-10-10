@@ -1,7 +1,7 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 26.08.1
+Version: 26.08.2
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
@@ -26,6 +26,7 @@ BuildRequires:  openssl-devel
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  cmake(KF6ConfigWidgets)
 BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6DocTools)
@@ -182,10 +183,10 @@ done
 %{_kf6_datadir}/solid/actions/solid_kdeconnect.desktop
 
 %files -n kdeconnectd
-%{_kf6_libdir}/udev/rules.d/40-kdeconnect-uinput.rules
 %{_sysconfdir}/xdg/autostart/org.kde.kdeconnect.daemon.desktop
 %{_datadir}/applications/org.kde.kdeconnect.daemon.desktop
 %{_kf6_bindir}/kdeconnectd
+%{_udevrulesdir}/40-kdeconnect-uinput.rules
 %{_datadir}/dbus-1/services/org.kde.kdeconnect.service
 
 %files libs
@@ -197,6 +198,9 @@ done
 
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

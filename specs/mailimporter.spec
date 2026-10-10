@@ -1,5 +1,5 @@
 Name:    mailimporter
-Version: 26.08.1
+Version: 26.08.2
 Release: 1%{?dist}
 Summary: Mail importer library
 
@@ -84,6 +84,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %files doc
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

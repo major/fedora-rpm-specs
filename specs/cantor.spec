@@ -24,8 +24,8 @@
 
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
-Version: 26.08.1
-Release: 2%{?dist}
+Version: 26.08.2
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://apps.kde.org/cantor/
@@ -265,6 +265,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 26.08.1-2
 - Rebuilt for libxml-2.5.4
 

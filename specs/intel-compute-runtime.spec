@@ -1,7 +1,7 @@
 %global neo_major 26
 %global neo_minor 35
 %global neo_build 39758
-%global neo_hotfix 11
+%global neo_hotfix 15
 
 %if 0%{?rhel}
 %global use_system_headers 0

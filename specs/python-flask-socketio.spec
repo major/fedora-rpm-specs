@@ -1,5 +1,5 @@
 Name:           python-flask-socketio
-Version:        5.6.1
+Version:        5.7.0
 Release:        %autorelease
 Summary:        Socket.IO integration for Flask applications
 

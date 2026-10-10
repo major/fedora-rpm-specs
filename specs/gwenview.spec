@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    gwenview
 Summary: An image viewer
 Epoch:   1
-Version: 26.08.1
+Version: 26.08.2
 Release: 1%{?dist}
 
 # app + lib: GPL-2.0-or-later
@@ -134,6 +134,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.gwenview.
 
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 1:26.08.2-1
+- 26.08.2
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 1:26.08.1-1
 - 26.08.1
 

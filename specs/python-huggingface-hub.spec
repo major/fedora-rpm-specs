@@ -1,5 +1,5 @@
 Name:           python-huggingface-hub
-Version:        1.33.0
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Client library to handle repos on the huggingface.co hub
 
@@ -65,7 +65,6 @@ sed -i '/HF_XET_VERSION/d' setup.py
 %license LICENSE
 %doc README.md
 %{_bindir}/hf
-%{_bindir}/huggingface-cli
 %{_bindir}/tiny-agents
 
 %changelog

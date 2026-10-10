@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:          qrca
-Version:       26.08.1
-Release:       2%{?dist}
+Version:       26.08.2
+Release:       1%{?dist}
 License:       CC0-1.0 AND BSD-3-Clause AND BSD-2-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later
 Summary:       QR code scanner for KDE Plasma
 URL:           https://apps.kde.org/%{name}/
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.qrca.appdata.xml
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Wed Sep 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 26.08.1-2
 - Add requirement for qt6qml(org.kde.desktop)
 

@@ -20,7 +20,7 @@ BuildRequires: make
 BuildRequires: libselinux-devel >= %{version}
 BuildRequires: libcap-devel pcre2-devel libsepol-devel libsepol-static
 BuildRequires: systemd
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 Requires: libselinux >= %{libselinuxver}
 Requires: pcre2
 %{?systemd_requires}
@@ -42,7 +42,7 @@ mcstrans provides an translation daemon to translate SELinux categories
 from internal representations to user defined representation.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p 2 -n mcstrans-%{version}
 
 %build

@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 6.7.91
-Release: 2%{?dist}
+Version: 6.8.0
+Release: 1%{?dist}
 
 %global source_licenses %{shrink:
     BSD-3-Clause AND
@@ -205,7 +205,6 @@ cd ../../../../
 %{_kf6_qtplugindir}/plasma/weather_ions/dwd.so
 %{_kf6_qtplugindir}/plasma/weather_ions/envcan.so
 %{_kf6_qtplugindir}/plasma/weather_ions/noaa.so
-%{_kf6_qtplugindir}/plasma/weather_ions/wettercom.so
 %{_datadir}/plasma/weather/noaa_station_list.xml
 %{_datadir}/kwin/scripts/virtualdesktopsonlyonprimary/
 %{_kf6_libexecdir}/kameleon-qmk-helper
@@ -227,6 +226,9 @@ cd ../../../../
 %{_libdir}/cmake/PlasmaWeather/
 
 %changelog
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
+- 6.8.0
+
 * Mon Oct 05 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 6.7.91-2
 - Allow, and rebuild with, qmk-via-api 0.10
 

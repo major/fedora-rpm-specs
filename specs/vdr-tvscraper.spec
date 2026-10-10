@@ -3,12 +3,12 @@
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-%{sname}
-Version:        1.2.15
-Release:        9%{?dist}
+Version:        1.2.16
+Release:        1%{?dist}
 Summary:        Collects metadata for all available EPG events
 # The entire source code is GPLv2+ except tools/curlfuncs.* which is BSD (3 clause)
 License:        GPL-2.0-or-later AND MIT
-URL:            https://github.com/MarkusEh/vdr-plugin-tvscraper
+URL:            https://codeberg.org/MarkusE/vdr-plugin-tvscraper
 Source0:        %url/archive/refs/tags/v%{version}.tar.gz#/vdr-plugin-tvscraper-%{version}.tar.gz
 Source1:        %{name}.conf
 
@@ -45,7 +45,7 @@ Additionally you are invited to contribute to the used web services with
 providing missing data for your favorite movies and series.
 
 %prep
-%autosetup -p1 -n vdr-plugin-%{sname}-%{version}
+%autosetup -p1 -n vdr-plugin-%{sname}
 
 # disable plugin examples
 sed -i -e 's|install: install-lib install-i18n install-conf install-plugins|install: install-lib install-i18n install-conf|g' Makefile
@@ -73,6 +73,10 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{sname}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{sname}/
 
 %changelog
+* Fri Oct 09 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.16-1
+- Add codeberg URL address
+- Update to 1.2.16
+
 * Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.15-9
 - Rebuilt for new VDR 2.8.3 API version 14
 

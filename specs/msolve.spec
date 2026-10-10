@@ -1,7 +1,7 @@
 %global giturl  https://github.com/algebraic-solving/msolve
 
 Name:           msolve
-Version:        0.10.1
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Polynomial System Solving through Algebraic Methods
 
@@ -123,8 +123,8 @@ make check
 %files libs
 %doc AUTHORS README.md
 %license COPYING
-%{_libdir}/libmsolve.so.3{,.*}
-%{_libdir}/libneogb.so.3{,.*}
+%{_libdir}/libmsolve.so.4{,.*}
+%{_libdir}/libneogb.so.4{,.*}
 
 %files devel
 %{_includedir}/msolve/

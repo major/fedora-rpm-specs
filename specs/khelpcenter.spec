@@ -2,8 +2,8 @@ Name:    khelpcenter
 Summary: Show documentation for KDE applications
 # Override khelpcenter subpackage from kde-runtime-15.04 (no longer built)
 Epoch:   1
-Version: 26.08.1
-Release: 2%{?dist}
+Version: 26.08.2
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
 License: GPL-2.0-only OR GPL-3.0-only
@@ -99,6 +99,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 1:26.08.2-1
+- 26.08.2
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:26.08.1-2
 - Rebuilt for libxml-2.5.4
 

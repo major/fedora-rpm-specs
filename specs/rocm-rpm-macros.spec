@@ -25,7 +25,7 @@
 %global rocm_release 10.1
 %global rocm_patch 0
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %global rocm_patch 0
 %endif
 
@@ -164,6 +164,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Fri Oct 9 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

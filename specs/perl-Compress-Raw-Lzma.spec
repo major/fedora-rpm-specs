@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Compress-Raw-Lzma
-Version:	2.224
+Version:	2.225
 Release:	1%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -133,6 +133,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct  9 2026 Paul Howarth <paul@city-fan.org> - 2.225-1
+- Update to 2.225
+  - Update maintainer email address
+
 * Fri Aug 28 2026 Paul Howarth <paul@city-fan.org> - 2.224-1
 - Update to 2.224
   - Remove 5.6-specific code and make 5.8 the minimum version supported

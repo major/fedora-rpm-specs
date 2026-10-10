@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:		voms
-Version:	2.1.3
-Release:	7%{?dist}
+Version:	2.1.4
+Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	Apache-2.0
@@ -12,8 +12,6 @@ Source0:	https://github.com/italiangrid/%{name}/archive/v%{version}/%{name}-%{ve
 Source1:	%{name}.INSTALL
 #		System user creation config
 Source2:	%{name}-sysusers.conf
-
-Patch0:		voms-openssl4.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -72,7 +70,6 @@ Service.
 Summary:	Virtual Organization Membership Service Clients
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Provides:	voms-clients = %{version}-%{release}
-Obsoletes:	voms-clients < 2.0.12-3
 
 Requires(post):		%{_sbindir}/update-alternatives
 Requires(preun):	%{_sbindir}/update-alternatives
@@ -106,7 +103,6 @@ This package provides the VOMS service.
 
 %prep
 %setup -q
-%patch 0 -p1 -b .openssl4
 
 ./autogen.sh
 
@@ -150,12 +146,6 @@ for b in voms-proxy-init voms-proxy-info voms-proxy-destroy; do
   ln -s %{_sysconfdir}/alternatives/${b}.1.gz %{buildroot}%{_mandir}/man1/${b}.1.gz
 done
 
-%posttrans
-# Recover /etc/vomses...
-if [ -r %{_sysconfdir}/vomses.rpmsave -a ! -r %{_sysconfdir}/vomses ] ; then
-   mv %{_sysconfdir}/vomses.rpmsave %{_sysconfdir}/vomses
-fi
-
 %pre server
 %sysusers_create_compat %{SOURCE2}
 
@@ -178,18 +168,6 @@ if [ $1 -ge 1 ] ; then
     for INSTANCE in `systemctl | grep %{name}@ | awk '{print $1;}'`; do
 	systemctl try-restart $INSTANCE >/dev/null 2>&1 || :
     done
-fi
-
-%pre clients-cpp
-if [ $1 -gt 1 ]; then
-  for c in voms-proxy-init voms-proxy-info voms-proxy-destroy; do
-    if [ -r %{_bindir}/$c -a ! -h %{_bindir}/$c ]; then
-      rm -f %{_bindir}/$c
-    fi
-    if [ -r %{_mandir}/man1/$c.1.gz -a ! -h %{_mandir}/man1/$c.1.gz ]; then
-      rm -f %{_mandir}/man1/$c.1.gz
-    fi
-  done
 fi
 
 %post clients-cpp
@@ -215,22 +193,6 @@ if [ $1 -eq 0 ] ; then
     %{_sbindir}/update-alternatives --remove voms-proxy-destroy \
     %{_bindir}/voms-proxy-destroy2
 fi
-
-%triggerpostun clients-cpp -- voms-clients
-# Uninstalling the old voms-clients package will remove the alternatives
-# for voms-clients-cpp - put them back in this triggerpostun script
-%{_sbindir}/update-alternatives --install %{_bindir}/voms-proxy-init \
-    voms-proxy-init %{_bindir}/voms-proxy-init2 50 \
-    --slave %{_mandir}/man1/voms-proxy-init.1.gz voms-proxy-init-man \
-    %{_mandir}/man1/voms-proxy-init2.1.gz
-%{_sbindir}/update-alternatives --install %{_bindir}/voms-proxy-info \
-    voms-proxy-info %{_bindir}/voms-proxy-info2 50 \
-    --slave %{_mandir}/man1/voms-proxy-info.1.gz voms-proxy-info-man \
-    %{_mandir}/man1/voms-proxy-info2.1.gz
-%{_sbindir}/update-alternatives --install %{_bindir}/voms-proxy-destroy \
-    voms-proxy-destroy %{_bindir}/voms-proxy-destroy2 50 \
-    --slave %{_mandir}/man1/voms-proxy-destroy.1.gz voms-proxy-destroy-man \
-    %{_mandir}/man1/voms-proxy-destroy2.1.gz
 
 %files
 %{_libdir}/libvomsapi.so.1*
@@ -299,6 +261,10 @@ fi
 %doc README.Fedora
 
 %changelog
+* Thu Oct 08 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.4-1
+- Update to version 2.1.4
+- Drop ancient scriptlets for past packaging changes
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

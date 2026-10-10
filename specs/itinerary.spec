@@ -1,6 +1,6 @@
 Name:           itinerary
-Version:        26.08.1
-Release:        2%{?dist}
+Version:        26.08.2
+Release:        1%{?dist}
 Summary:        Itinerary and boarding pass management application
 
 License:        Apache-2.0 and BSD-3-Clause and LGPL-2.0-or-later AND CC0-1.0
@@ -102,6 +102,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/qlogging-categories6/org_kde_itinerary.categories
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Sat Oct 03 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-2
 - Rebuild for libquotient update
 

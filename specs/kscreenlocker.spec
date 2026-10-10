@@ -1,6 +1,6 @@
 Name:    kscreenlocker
-Version: 6.7.91
-Release: 2%{?dist}
+Version: 6.8.0
+Release: 1%{?dist}
 Summary: Library and components for secure lock screen architecture
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -13,9 +13,6 @@ Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{vers
 Conflicts: plasma-workspace < 5.5
 
 ## upstream patches
-# Make sure we're sending a reply even when the screen was already locked
-# https://invent.kde.org/plasma/kscreenlocker/-/merge_requests/378
-Patch0:         378.patch
 
 BuildRequires: cmake(LayerShellQt)
 
@@ -102,6 +99,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
+- 6.8.0
+
 * Thu Oct 01 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-2
 - Fix: Switch user button on lock screen isn't working
 

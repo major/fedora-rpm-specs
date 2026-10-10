@@ -5,7 +5,7 @@
 %global soversion 0.5
 
 Name:           libipuz
-Version:        0.5.4
+Version:        0.5.5
 Release:        %autorelease
 Summary:        Library for parsing .ipuz puzzle files
 
@@ -17,15 +17,17 @@ Summary:        Library for parsing .ipuz puzzle files
 # Unlicense OR MIT
 # LICENSE.dependencies contains a full license breakdown
 License:        %{shrink:
-    (LGPL-2.1-or-later OR MIT) 
-AND (Apache-2.0 OR MIT)
-AND (BSD-2-Clause OR Apache-2.0 OR MIT)
-AND MIT
-AND (MIT OR Apache-2.0)
-AND (Unlicense OR MIT)
+    (LGPL-2.1-or-later OR MIT)
+    AND MIT
+    AND (Apache-2.0 OR MIT)
+    AND (BSD-2-Clause OR Apache-2.0 OR MIT)
+    AND (Unlicense OR MIT)
 }
 URL:            https://gitlab.gnome.org/jrb/libipuz
 Source:         %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
+
+# https://gitlab.gnome.org/jrb/libipuz/-/merge_requests/126
+Patch:          0001-Bump-gtk-rs-dependencies-from-v0.20-to-v0.22.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  cmake

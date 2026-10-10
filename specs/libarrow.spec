@@ -32,8 +32,8 @@
 %global parquet_test_data_commit 92d45b0752487a4b55fb7f1581c8126ee3e73b0d
 
 Name:		libarrow
-Version:	25.0.1
-Release:	3%{?dist}
+Version:	26.0.0
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -43,8 +43,9 @@ Source1:	https://github.com/apache/arrow-testing/archive/%{arrow_test_data_commi
 Source2:	https://github.com/apache/parquet-testing/archive/%{parquet_test_data_commit}/apache-arrow-parquet-test-data-%{parquet_test_data_commit}.tar.gz
 Patch:		0001-python-pyarrow-tests-read_record_patch.py.patch
 Patch:		0002-python-pyarrow-tests-test_ipc.py.patch
-Patch:		0003-cpp-src-parquet-CMakeLists.txt.patch
-Patch:		0004-cpp-src-arrow-compute-kernels-CMakeLists.txt.patch
+#Patch:		0003-cpp-src-parquet-CMakeLists.txt.patch
+#Patch:		0004-cpp-src-arrow-compute-kernels-CMakeLists.txt.patch
+Patch:		0005-tests.patch
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
@@ -85,6 +86,8 @@ BuildRequires:	xsimd-devel
 BuildRequires:	abseil-cpp-devel
 BuildRequires:	c-ares-devel
 BuildRequires:	thrift-devel
+BuildRequires:	simdjson-devel
+BuildRequires:	uriparser-devel
 %if %{with have_rapidjson}
 BuildRequires:	rapidjson-devel
 %endif
@@ -187,6 +190,7 @@ Libraries and header files for Apache Arrow C++.
 %exclude %{_libdir}/cmake/Arrow/FindzstdAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/FindOpenSSLAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/FindProtobufAlt.cmake
+%exclude %{_libdir}/cmake/Arrow/FinduriparserAlt.cmake
 %dir %{_libdir}/cmake/Arrow/
      %{_libdir}/cmake/Arrow/ArrowConfig*.cmake
      %{_libdir}/cmake/Arrow/ArrowOptions.cmake
@@ -304,7 +308,7 @@ This package contains the libraries for Apache Arrow Flight.
 %{_libdir}/libarrow_flight.so.*
 %{_libdir}/libarrow-flight-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/ArrowFlight-25.0.typelib
+     %{_libdir}/girepository-1.0/ArrowFlight-26.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -327,7 +331,7 @@ Libraries and header files for Apache Arrow Flight.
 %{_libdir}/pkgconfig/arrow-flight.pc
 %{_libdir}/pkgconfig/arrow-flight-glib.pc
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/ArrowFlight-25.0.gir
+     %{_datadir}/gir-1.0/ArrowFlight-26.0.gir
 %endif
 
 #--------------------------------------------------------------------
@@ -522,7 +526,7 @@ This package contains the libraries for Apache Arrow GLib.
 %files glib-libs
 %{_libdir}/libarrow-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/Arrow-25.0.typelib
+     %{_libdir}/girepository-1.0/Arrow-26.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -546,7 +550,7 @@ Libraries and header files for Apache Arrow GLib.
 %dir %{_datadir}/arrow-glib/
      %{_datadir}/arrow-glib/*
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/Arrow-25.0.gir
+     %{_datadir}/gir-1.0/Arrow-26.0.gir
 
 #--------------------------------------------------------------------
 
@@ -563,7 +567,7 @@ This package contains the libraries for Apache Arrow dataset GLib.
 %files dataset-glib-libs
 %{_libdir}/libarrow-dataset-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/ArrowDataset-25.0.typelib
+     %{_libdir}/girepository-1.0/ArrowDataset-26.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -583,7 +587,7 @@ Libraries and header files for Apache Arrow dataset GLib.
 %{_libdir}/libarrow-dataset-glib.so
 %{_libdir}/pkgconfig/arrow-dataset-glib.pc
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/ArrowDataset-25.0.gir
+     %{_datadir}/gir-1.0/ArrowDataset-26.0.gir
 
 #--------------------------------------------------------------------
 
@@ -665,7 +669,7 @@ This package contains the libraries for Apache Parquet GLib.
 %files -n parquet-glib-libs
 %{_libdir}/libparquet-glib.so.*
 %dir %{_libdir}/girepository-1.0/
-     %{_libdir}/girepository-1.0/Parquet-25.0.typelib
+     %{_libdir}/girepository-1.0/Parquet-26.0.typelib
 
 #--------------------------------------------------------------------
 
@@ -685,7 +689,7 @@ Libraries and header files for Apache Parquet GLib.
 %{_libdir}/libparquet-glib.so
 %{_libdir}/pkgconfig/parquet-glib.pc
 %dir %{_datadir}/gir-1.0/
-     %{_datadir}/gir-1.0/Parquet-25.0.gir
+     %{_datadir}/gir-1.0/Parquet-26.0.gir
 
 #--------------------------------------------------------------------
 
@@ -696,7 +700,6 @@ Summary: Python library for Apache Arrow
 Python library for Apache Arrow
 
 %files -n python3-pyarrow -f %{pyproject_files}
-%exclude %{python3_sitearch}/pyarrow/lib_api.h
 %exclude %{python3_sitearch}/pyarrow/include
 
 #--------------------------------------------------------------------
@@ -882,6 +885,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Fri Oct 9 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.0-1
+- Arrow 26.0.0 (f46-build-side-154926)
+
 * Fri Oct 2 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 25.0.1-3
 - Arrow 25.0.1, rebuild with thrift-0.25.0 (f46-build-side-153920)
 

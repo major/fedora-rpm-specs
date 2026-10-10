@@ -9,8 +9,8 @@
 %endif
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        2.3.0
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPL-3.0-or-later
 URL:            %{ansible_collection_url}
@@ -23,11 +23,13 @@ BuildRequires:  ansible-packaging
 BuildRequires:  ansible-core
 BuildRequires:  coreutils
 BuildRequires:  findutils
+BuildRequires:  python3dist(lxml)
 %if %{with tests}
 BuildRequires:  glibc-langpack-en
 Buildrequires:  python3-devel
 BuildRequires:  ansible-packaging-tests
 %endif
+Requires:       python3dist(lxml)
 
 %description
 %{summary}.
@@ -68,6 +70,16 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %{ansible_collection_files}
 
 %changelog
+* Fri Oct  9 2026 Paul Howarth <paul@city-fan.org> - 2.4.0-1
+- Update to 2.4.0 (rhbz#2548673)
+  - This is a minor release of the `community.libvirt' collection
+  - Replace the deprecated 'ansible.module_utils.six' compatibility shims with
+    their Python standard library equivalents
+  - virt_volume: Fixed capacity/allocation unit parsing to recognize all unit
+    strings documented by libvirt's storage volume XML format (e.g. GiB, MiB,
+    KB, TB), instead of silently treating unrecognized units as a multiplier of
+    1 and attempting a bogus resize (GH#281)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

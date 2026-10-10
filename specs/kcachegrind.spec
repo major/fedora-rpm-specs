@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kcachegrind
 Summary: GUI to profilers such as Valgrind
-Version: 26.08.1
+Version: 26.08.2
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 and GFDL - review is highly recommended.
@@ -115,6 +115,9 @@ cat kcachegrind_qt.lang >> kcachegrind.lang
 
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

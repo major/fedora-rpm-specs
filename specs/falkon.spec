@@ -2,8 +2,8 @@
 %bcond python 0
 
 Name:           falkon
-Version:        26.08.1
-Release:        2%{?dist}
+Version:        26.08.2
+Release:        1%{?dist}
 Summary:        Modern web browser
 
 # Files in src/lib/opensearch and src/lib/3rdparty are GPLv2+
@@ -184,6 +184,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fa
 
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Mon Oct 05 2026 Karel Volný <kvolny@redhat.com> - 26.08.1-2
 - Add a Preferences dialog for additional Chromium flags (rhbz#2545869)
 

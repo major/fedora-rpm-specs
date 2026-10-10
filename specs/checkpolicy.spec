@@ -19,7 +19,7 @@ Source2: https://github.com/bachradsusi.gpg
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: byacc bison flex flex-static libsepol-static >= %{libsepolver}
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 %description
 Security-enhanced Linux is a feature of the Linux® kernel and a number
@@ -36,7 +36,7 @@ This package contains checkpolicy, the SELinux policy compiler.
 Only required for building policies.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p 2 -n checkpolicy-%{version}
 
 %build

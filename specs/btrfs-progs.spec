@@ -3,7 +3,7 @@
 
 Name:           btrfs-progs
 Version:        7.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -24,7 +24,7 @@ BuildRequires:  libacl-devel, lzo-devel
 BuildRequires:  pkgconfig(blkid)
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  pkgconfig(libgcrypt) >= 1.8.0
+BuildRequires:  pkgconfig(libcrypto) >= 3.2.0
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libzstd) >= 1.0.0
 BuildRequires:  python3-sphinx
@@ -102,7 +102,7 @@ xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}
 
 # this generates version.py so we have to run it early
 ./autogen.sh
-%configure CFLAGS="%{optflags} -fno-strict-aliasing" --with-crypto=libgcrypt --disable-python
+%configure CFLAGS="%{optflags} -fno-strict-aliasing" --with-crypto=openssl --disable-python
 
 %generate_buildrequires
 pushd libbtrfsutil/python >/dev/null
@@ -169,6 +169,12 @@ popd >/dev/null
 
 
 %changelog
+* Fri Oct 09 2026 Neal Gompa <ngompa@fedoraproject.org> - 7.1-3
+- Switch from libkcapi to openssl for crypto
+
+* Fri Oct 09 2026 Neal Gompa <ngompa@fedoraproject.org> - 7.1-2
+- Switch from libgcrypt to libkcapi for crypto
+
 * Mon Aug 17 2026 Packit <hello@packit.dev> - 7.1-1
 - Update to version 7.1
 - Resolves: rhbz#2500802

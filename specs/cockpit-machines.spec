@@ -3,7 +3,7 @@
 # Copyright (C) 2021 Red Hat, Inc.
 
 Name:           cockpit-machines
-Version:        357
+Version:        358
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -51,12 +51,15 @@ Suggests: qemu-kvm-block-curl
 # smaller footprint on Fedora, as qemu-kvm is really expensive on a server
 Requires: qemu-kvm-core
 Recommends: qemu-block-curl
-Recommends: qemu-char-spice
 Recommends: qemu-device-usb-host
 Recommends: qemu-device-usb-redirect
+# don't pull in spice support on Fedora after 45, it's of no benefit to us
+%if 0%{?fedora} <= 45
+Recommends: qemu-char-spice
 # HACK: https://bugzilla.redhat.com/show_bug.cgi?id=2170110
 %if 0%{?fedora} >= 38
 Requires: (qemu-audio-spice if qemu-char-spice)
+%endif
 %endif
 %endif
 %endif
@@ -108,6 +111,8 @@ NODE_ENV=production NODE_PATH=/usr/lib/node_modules:$(echo /usr/lib/node_modules
 
 %install
 %make_install PREFIX=/usr
+
+%check
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 %files
@@ -118,6 +123,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Oct 07 2026 Packit <hello@packit.dev> - 358-1
+- spec: Don't recommend qemu-char-spice after Fedora 45
+- manifest: Update RHEL documentation link
+- Dependency and translations updates
+
 * Wed Sep 23 2026 Packit <hello@packit.dev> - 357-1
 - Harden against local attacks from accessing sensitive data CVE-2026-92768, CVE-2026-92747, CVE-2026-92745
 - Resolves RHEL-263125, RHEL-263121, RHEL-263122 for rhel-10.4

@@ -15,8 +15,8 @@
 %endif
 
 Name:           qatengine
-Version:        2.2.0
-Release:        3%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 %if %{with provider}
 Summary:        Intel QuickAssist Technology (QAT) OpenSSL Provider
 %else
@@ -91,6 +91,9 @@ openssl engine -v %{name}
 %endif
 
 %changelog
+* Mon Aug 24 2026 Jaya Naga Venkata Sudhakar <bavirisettyx.jaya.naga.venkata.sudhakar@intel.com> - 2.3.0-1
+- Update to qatengine v2.3.0
+
 * Thu Aug 06 2026 Venkatesh J <venkatesh.j@intel.com> - 2.2.0-3
 - Rebuild qatengine v2.2.0
 

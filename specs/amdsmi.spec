@@ -29,7 +29,7 @@
 %global rocm_patch 0
 %global pkg_library_version 27
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %global rocm_patch 0
 %global pkg_library_version 27
 %endif
@@ -248,20 +248,9 @@ sed -i 's@set(SHARE_INSTALL_PREFIX@#set(SHARE_INSTALL_PREFIX@' CMakeLists.txt
 %cmake_install
 
 mkdir -p %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages
-%if %{with preview}
 mv %{buildroot}%{pkg_prefix}/*/*/site-packages/* %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages
 rm -rf %{buildroot}%{pkg_prefix}/share/amdsmi
-%else
-mv %{buildroot}%{pkg_prefix}/share/amd_smi/amdsmi %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages
-mv %{buildroot}%{pkg_prefix}/share/amd_smi/pyproject.toml %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/
-%endif
 
-%if %{without preview}
-# W: unstripped-binary-or-object /usr/lib/python3.13/site-packages/amdsmi/libamd_smi.so
-# Does an explict open, so can not just rm it
-# let's just strip it
-strip %{buildroot}/%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/*.so
-%endif
 # E: non-executable-script .../amdsmi_cli/amdsmi_cli_exceptions.py 644 /usr/bin/env python3
 chmod a+x %{buildroot}/%{pkg_prefix}/libexec/amdsmi_cli/amdsmi_*.py
 
@@ -282,11 +271,6 @@ if [ -e %{buildroot}%{pkg_prefix}/share/tests ]; then
   mkdir %{buildroot}%{pkg_prefix}/share/amdsmi
   mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 fi
-
-%if %{without preview}
-#ERROR   0002: file '/usr/lib/python3.14/site-packages/amdsmi/libamd_smi.so' contains an invalid runpath '/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build' in [/builddir/build/BUILD/amdsmi-7.12.0-build/amdsmi/redhat-linux-build/src/nic/ai-nic/amdsmi_unified/build:]
-chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi/lib%{pkg_library_name}.so
-%endif
 
 %if 0%{?suse_version}
 %files
@@ -340,6 +324,9 @@ chrpath -d %{buildroot}%{pkg_prefix}/lib/python%{python3_version}/site-packages/
 %endif
 
 %changelog
+* Fri Oct 9 2026 Tom Rix <Tom.Rix@amd.com> 10.0.1-1
+- Update to 10.1
+
 * Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

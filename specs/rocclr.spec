@@ -28,7 +28,7 @@
 %global rocm_minor 1
 %else
 %global rocm_major 10
-%global rocm_minor 0
+%global rocm_minor 1
 %endif
 
 %global pkg_library_version 7
@@ -453,7 +453,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %endif
 
 %changelog
-* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0-1
+* Fri Oct 9 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
+* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 
 * Tue Aug 25 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2

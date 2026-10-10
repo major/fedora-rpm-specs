@@ -5,7 +5,7 @@
 %global crate tree-sitter-swift
 
 Name:           rust-tree-sitter-swift
-Version:        0.7.3
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Swift grammar for the tree-sitter parsing library
 

@@ -38,7 +38,7 @@ Source2:        libpri.gpg
 #   https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=957470;filename=zero-sized-members.patch;msg=32
 Patch:          zero-sized-members.patch
 
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -72,7 +72,7 @@ machines used in its implementation.
 
 
 %prep
-%{gpgverify} \
+%{openpgpverify} \
      --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 

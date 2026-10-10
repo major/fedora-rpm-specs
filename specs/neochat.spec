@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name: neochat
-Version: 26.08.1
-Release: 2%{?dist}
+Version: 26.08.2
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -128,6 +128,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf6_datadir}/config.kcfg/neochatconfig.kcfg
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Sat Oct 03 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-2
 - Rebuild for libquotient update
 

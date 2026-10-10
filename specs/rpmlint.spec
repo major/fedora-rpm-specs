@@ -15,6 +15,10 @@ Source3:        scoring.toml
 Source4:        users-groups.toml
 Source5:        warn-on-functions.toml
 
+# Use C.UTF-8 locale for "English environment" if available
+# Fixes https://bugzilla.redhat.com/2545532
+Patch:          https://github.com/rpm-software-management/rpmlint/pull/1618.patch
+
 BuildArch:      noarch
 
 # use git to apply patches; it handles binary diffs
@@ -41,7 +45,6 @@ Requires:       rpm-build
 Requires:       /usr/bin/appstream-util
 Requires:       /usr/bin/desktop-file-validate
 Requires:       rpmlint-fedora-license-data
-Requires:       glibc-langpack-en
 
 %description
 rpmlint is a tool for checking common errors in RPM packages. Binary

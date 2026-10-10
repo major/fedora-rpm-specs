@@ -10,7 +10,8 @@ Summary:        Apple Filing Protocol client
 
 
 License:        GPL-2.0-or-later
-URL:            http://alexthepuffin.googlepages.com/home
+URL:            https://sourceforge.net/projects/afpfs-ng/
+# was URL:      http://alexthepuffin.googlepages.com/home
 Source0:        http://downloads.sourceforge.net/afpfs-ng/%{name}-%{version}.tar.bz2
 Patch0:         afpfs-ng-0.8.1-overflows.patch
 Patch1:         afpfs-ng-0.8.1-pointer.patch

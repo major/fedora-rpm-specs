@@ -29,6 +29,10 @@ Source1:        https://codeberg.org/freeipa/%{name}/releases/download/v%{VERSIO
 
 # https://codeberg.org/freeipa/bind-dyndb-ldap/issues/243
 Patch1:         bind-dyndb-ldap-11.10-check-pr244.patch
+# https://codeberg.org/freeipa/bind-dyndb-ldap/pulls/247
+Patch2:         bind-dyndb-ldap-12-multibind-libs.patch
+# https://codeberg.org/freeipa/bind-dyndb-ldap/pulls/256
+Patch3:         bind-dyndb-ldap-11.11-fwdpolicy-init.patch
 
 BuildRequires:  bind-devel >= %{bind_version}, bind-lite-devel >= %{bind_version}
 BuildRequires:  krb5-devel

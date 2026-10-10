@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc6.51
+%define pkgrelease 0.rc6.261009gaf32da41b032.55
 %define kversion 7
-%define tarfile_release 7.3-rc6
+%define tarfile_release 7.3-rc6-232-gaf32da41b032
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.51%{?buildid}%{?dist}
+%define specrelease 0.rc6.261009gaf32da41b032.55%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4835,11 +4835,23 @@ fi\
 #
 #
 %changelog
-* Mon Oct 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.51]
+* Fri Oct 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.af32da41b032.55]
 - Revert "isofs: Drop support of directory entries straddling blocks" (Justin M. Forbes)
 - redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Fri Oct 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.af32da41b032.54]
+- Linux v7.3.0-0.rc6.af32da41b032
+
+* Thu Oct 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.0c2669a9f4a1.53]
+- Linux v7.3.0-0.rc6.0c2669a9f4a1
+
+* Wed Oct 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.602042bf29f6.52]
+- Linux v7.3.0-0.rc6.602042bf29f6
+
+* Tue Oct 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.22430ae5d90a.51]
+- Linux v7.3.0-0.rc6.22430ae5d90a
 
 * Mon Oct 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.50]
 - fedora: updates for the 7.3 merge window (Peter Robinson)

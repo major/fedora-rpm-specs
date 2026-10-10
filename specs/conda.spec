@@ -1,7 +1,7 @@
 %bcond bootstrap 0
 
 Name:           conda
-Version:        26.9.1
+Version:        26.9.2
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -329,6 +329,8 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} conda info
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[zsh-expected_patterns1] \
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[fish-expected_patterns2] \
     --deselect=tests/cli/test_main.py::test_main_sourced_unix_shells_no_line_ending_fix[xonsh-expected_patterns5] \
+    --deselect=tests/cli/test_main.py::test_run_preserves_target_after_plugin_context_reset[--name] \
+    --deselect=tests/cli/test_main.py::test_run_preserves_target_after_plugin_context_reset[--prefix] \
     --deselect=tests/cli/test_main_export.py::test_export_non_pip_env_warnings \
     --deselect=tests/cli/test_main_export.py::test_export_preserves_channels_from_installed_packages \
     --deselect=tests/cli/test_main_export.py::test_export_package_alphabetical_ordering \

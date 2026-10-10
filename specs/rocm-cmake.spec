@@ -24,7 +24,7 @@
 %if %{with preview}
 %global rocm_release 10.1
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %endif
 %global rocm_patch 0
 
@@ -100,6 +100,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-cmake/LICENSE
 %{pkg_prefix}/share/rocmcmakebuildtools/
 
 %changelog
+* Fri Oct 9 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
 - Update to 7.14
 

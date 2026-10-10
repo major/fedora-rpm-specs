@@ -30,7 +30,7 @@ BuildRequires: ruby-devel ruby libsepol-static >= %{libsepolver} swig pcre2-deve
 BuildRequires: python3 python3-devel python3-setuptools python3-pip python3-build
 BuildRequires: (python3-wheel if python3-setuptools < 71)
 BuildRequires: systemd
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 Requires: libsepol%{?_isa} >= %{libsepolver} pcre2
 Conflicts: filesystem < 3, selinux-policy-base < 3.13.1-138
 
@@ -96,7 +96,7 @@ The libselinux-static package contains the static libraries
 needed for developing SELinux applications. 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p 2 -n libselinux-%{version}
 
 %build

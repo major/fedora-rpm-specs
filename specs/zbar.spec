@@ -6,17 +6,14 @@
 
 Name:		zbar
 Version:	0.23.93
-Release:	13%{?dist}
+Release:	14.2d7bada%{?dist}
 Summary:	Bar code reader
 
 License:	LGPL-2.1-or-later
-URL:		http://zbar.sourceforge.net/
-Source0:	https://linuxtv.org/downloads/%{name}/%{name}-%{version}.tar.bz2
+URL:		https://github.com/mchehab/zbar
+Source0:        zbar-2d7bada.tar.gz
 Patch0:		use_python3_on_python_script.patch
-Patch1:		fix_qt_overlinking.patch
 
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRequires:	dbus-devel
 BuildRequires:	gettext-devel
 BuildRequires:	GraphicsMagick-devel
@@ -25,7 +22,6 @@ BuildRequires:	libSM-devel
 BuildRequires:	libtool
 BuildRequires:	libv4l-devel
 BuildRequires:	libXv-devel
-BuildRequires:	make
 BuildRequires:	python3-gobject-devel
 BuildRequires:	qt5-qtbase-devel
 BuildRequires:	qt5-qtx11extras-devel
@@ -36,6 +32,7 @@ BuildRequires:	python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  xmlto
 BuildRequires:  gobject-introspection-devel
+BuildRequires:  meson
 
 %description
 ZBar Bar Code Reader is an open source software suite for reading bar
@@ -118,22 +115,19 @@ on Java Native Interface (JNI) applications using ZBar.
 %endif
 
 %prep
-%setup -q
+%setup -qn %{name}-2d7bada
 %patch 0 -p1
-%patch 1 -p1
 
 %build
-autoreconf -fiv
-%configure --with-python=python3 --with-gtk=auto --with-dbusconfdir=%{_sysconfdir} --docdir=%{_docdir}/%{name}-%{version} --with-graphicsmagick --without-xshm --without-xv --enable-codes=ean,databar,code128,code93,code39,codabar,i25,qrcode,sqcode,pdf417
-
-# rpath
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-
-%make_build
+%if %{JAVA}
+%meson -Dlibrary_type=shared -Dcodes=ean,databar,code128,code93,code39,codabar,i25,qrcode,sqcode,pdf417 -Dpython=python3 -Dstatic_qt=false -Djava=enabled
+%else
+%meson -Dlibrary_type=shared -Dcodes=ean,databar,code128,code93,code39,codabar,i25,qrcode,sqcode,pdf417 -Dpython=python3 -Dstatic_qt=false -Djava=disabled
+%endif
+%meson_build
 
 %install
-%make_install
+%meson_install
 %if %{JAVA}
 install -d %{buildroot}%{_jnidir}
 mv %{buildroot}%{_datadir}/zbar/lib/zbar.jar %{buildroot}%{_jnidir}
@@ -145,7 +139,7 @@ cp test/test_python.py %{buildroot}%{_docdir}
 find ${RPM_BUILD_ROOT} -name '*.la' -or -name '*.a' | xargs rm -f
 
 # Remove installed doc
-rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
+rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}/
 
 %ldconfig_scriptlets
 
@@ -211,10 +205,13 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
 %endif
 
 %files -n python3-zbar
-%{python3_sitearch}/zbar.so
+%{python3_sitearch}/zbar*so
 %{_docdir}/test_python.py
 
 %changelog
+* Fri Oct 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.23.93-14
+- Upstream patch for qt wayland segfault
+
 * Tue Aug 04 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.23.93-13
 - Rebuild for Python 3.15.0b4
 

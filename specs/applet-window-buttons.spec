@@ -6,7 +6,7 @@
 
 Name:           applet-window-buttons
 Version:        0.14.0^%{gitdate}.%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Plasma 6 applet to show window buttons in panels
 License:        GPL-2.0-or-later
 URL:            https://github.com/moodyhunter/applet-window-buttons6
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/plasma/plasmoids/%{orig_name}/meta
 
 
 %changelog
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 0.14.0^20250224.b114cf2-4
+- Bump for libplasma update
+
 * Tue Oct 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.14.0^20250224.b114cf2-3
 - Rebuild (libplasma)
 

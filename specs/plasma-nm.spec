@@ -1,10 +1,13 @@
+# Those two vpn components can lead to a privilege escalation, so they are disabled.
+%bcond vpnc %[0%{?fedora} && 0%{?fedora} < 45]
+%bcond fortissl %[0%{?fedora} && 0%{?fedora} < 45]
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
 Name:    plasma-nm
 Summary: Plasma for managing network connections
-Version: 6.7.91
+Version: 6.8.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -82,6 +85,16 @@ Requires:       kf6-kirigami2
 Obsoletes:      kde-plasma-networkmanagement < 1:0.9.1.0
 Obsoletes:      kde-plasma-networkmanagement-libs < 1:0.9.1.0
 Obsoletes:      kde-plasma-nm < 5.0.0-1
+%if ! %{with vpnc}
+# vpnc is no longer maintained upstream
+Obsoletes:      plasma-nm-vpnc < 6.7.91-2
+%endif
+%if ! %{with fortissl}
+# fortissl is no longer maintained upstream
+Obsoletes:      plasma-nm-fortisslvpn < 6.7.91-2
+%endif
+
+
 Provides:       kde-plasma-nm = %{version}-%{release}
 
 %description
@@ -156,14 +169,16 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    sstp
 %{summary}.
 
+%if %{with fortissl}
 %package        fortisslvpn
 Summary:        Fortigate SSL VPN support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       NetworkManager-fortisslvpn
 %description    fortisslvpn
 %{summary}.
+%endif
 
-%if 0%{?fedora}
+%if %{with vpnc}
 %package        vpnc
 Summary:        Vpnc support for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -173,7 +188,8 @@ Obsoletes:      kde-plasma-nm-vpnc < 5.0.0-1
 Provides:       kde-plasma-nm-vpnc = %{version}-%{release}
 %description    vpnc
 %{summary}.
-
+%endif
+%if 0%{?fedora}
 %package        ssh
 Summary:        SSH suppor for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -206,16 +222,24 @@ Requires:       NetworkManager-iodine
 %find_lang plasmanetworkmanagement-kcm-qml
 
 %if ! 0%{?fedora}
-rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_vpncui.so
 rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sshui.so
 rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_iodineui.so
 rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_iodineui.mo
 rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_sshui.mo
-rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_vpncui.mo 
+%endif
+%if ! %{with fortissl}
+rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_fortisslvpnui.so
+rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_fortisslvpnui.mo
+%endif
+%if ! %{with vpnc}
+# vpnc is deprecated upstream
+rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_vpncui.mo
+rm -f %{buildroot}%{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_vpncui.so
 %endif
 %if %{without openconnect}
 rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openconnectui.mo
 %endif
+
 
 %find_lang plasma_applet_org.kde.plasma.networkmanagement
 %find_lang plasmanetworkmanagement-kded
@@ -234,11 +258,15 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %find_lang plasmanetworkmanagement_l2tpui
 %find_lang plasmanetworkmanagement_pptpui
 %find_lang plasmanetworkmanagement_sstpui
+%if %{with fortissl}
 %find_lang plasmanetworkmanagement_fortisslvpnui
+%endif
 %if 0%{?fedora}
-%find_lang plasmanetworkmanagement_vpncui
 %find_lang plasmanetworkmanagement_sshui
 %find_lang plasmanetworkmanagement_iodineui
+%endif
+%if %{with vpnc}
+%find_lang plasmanetworkmanagement_vpncui
 %endif
 
 
@@ -299,13 +327,17 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %files sstp -f plasmanetworkmanagement_sstpui.lang
 %{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sstpui.so
 
+%if %{with fortissl}
 %files fortisslvpn -f plasmanetworkmanagement_fortisslvpnui.lang
 %{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_fortisslvpnui.so
+%endif
 
-%if 0%{?fedora}
+%if %{with vpnc}
 %files vpnc -f plasmanetworkmanagement_vpncui.lang
 %{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_vpncui.so
+%endif
 
+%if 0%{?fedora}
 %files ssh -f plasmanetworkmanagement_sshui.lang
 %{_kf6_qtplugindir}/plasma/network/vpn/plasmanetworkmanagement_sshui.so
 
@@ -314,6 +346,12 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
+- 6.8.0
+
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-2
+- Disable vpnc and fortissl support for F45+
+
 * Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
 - 6.7.91
 

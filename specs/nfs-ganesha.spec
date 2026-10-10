@@ -169,8 +169,8 @@ Requires: openSUSE-release
 %global kmip_ver_short	4f553ecaf
 
 Name:		nfs-ganesha
-Version:	15.7
-Release:	2%{?dev:%{dev}}%{?dist}
+Version:	15.8
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -1031,6 +1031,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Oct 9 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 15.8-1
+- NFS-Ganesha 15.8 GA
+
 * Fri Oct 2 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 15.7-2
 - NFS-Ganesha 15.7 GA
 

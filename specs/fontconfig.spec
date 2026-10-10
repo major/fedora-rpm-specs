@@ -23,6 +23,8 @@ Patch4:		%{name}-drop-lang-from-pkgkit-format.patch
 Patch6:		%{name}-lower-nonlatin-conf.patch
 # Fedora specific
 Patch7:		%{name}-update-fcgenericfamily.patch
+## Backport
+Patch100:	%{name}-fix-mono-detection.patch
 
 BuildRequires:	libxml2-devel
 BuildRequires:	freetype-devel >= %{freetype_version}

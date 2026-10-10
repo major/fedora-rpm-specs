@@ -34,6 +34,8 @@ rm -rf tests/benchmarks/
 sed -i '#_BENCHMARKS_DIR = "tests/benchmarks"#d' tests/conftest.py
 # We don't measure coverage in tests
 sed -Ei 's/--cov(-|=)[^ "]+//g' pyproject.toml
+# Remove upstream -O3 and -g0 flags so distro flags take effect
+sed -i 's/"-O3", "-g0"//' build_ext.py
 
 
 %generate_buildrequires

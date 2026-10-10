@@ -1,5 +1,5 @@
 Name:           kpublictransport
-Version:        26.08.1
+Version:        26.08.2
 Release:        1%{?dist}
 License:        CC0-1.0 AND ODbL-1.0 AND LGPL-2.1-or-later AND BSD-2-Clause AND MIT AND LGPL-2.0-or-later AND BSD-3-Clause
 Summary:        Library to assist with accessing public transport timetables and other data
@@ -74,6 +74,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
+- 26.08.2
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

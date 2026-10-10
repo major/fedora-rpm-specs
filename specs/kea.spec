@@ -82,7 +82,7 @@ BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 BuildRequires: python3-sphinx
 BuildRequires: python3-sphinx_rtd_theme
-BuildRequires: gpgverify
+BuildRequires: openpgpverify
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %upstream_name_compat %{upstream_name}
@@ -139,9 +139,9 @@ The KEA Migration Assistant is an experimental tool which helps to translate
 ISC DHCP configurations to Kea.
 
 %prep
-%{gpgverify} --keyring='%{S:10}' --signature='%{S:1}' --data='%{S:0}'
+%{openpgpverify} --keyring='%{S:10}' --signature='%{S:1}' --data='%{S:0}'
 %if 0%{?keama_version:1}
-%{gpgverify} --keyring='%{S:10}' --signature='%{S:3}' --data='%{S:2}'
+%{openpgpverify} --keyring='%{S:10}' --signature='%{S:3}' --data='%{S:2}'
 %endif
 
 %autosetup -T -b2 -N -n %{keama_dir}

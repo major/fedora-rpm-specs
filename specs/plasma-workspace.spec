@@ -2,7 +2,7 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.7.91
+Version: 6.8.0
 Release: 1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
@@ -577,9 +577,9 @@ fi
 %{_kf6_bindir}/startplasma
 %{_kf6_bindir}/startplasma-wayland
 %{_datadir}/wayland-sessions/plasma.desktop
-%{_kf6_libdir}/kconf_update_bin/plasma6.8-replace-ignore-settings
+%{_kf6_libdir}/kconf_update_bin/plasma6.8-remove-action-menu-shortcut
 %{_libexecdir}/plasma-setup-xwayland
-%{_kf6_datadir}/kconf_update/plasma6.8-replace-ignore-settings.upd
+%{_kf6_datadir}/kconf_update/plasma6.8-remove-action-menu-shortcut.upd
 
 %files doc -f %{name}-doc.lang
 
@@ -658,6 +658,9 @@ fi
 
 
 %changelog
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
+- 6.8.0
+
 * Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
 - 6.7.91
 

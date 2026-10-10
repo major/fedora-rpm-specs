@@ -1,6 +1,6 @@
 Name:		voms-api-java
-Version:	3.3.7
-Release:	4%{?dist}
+Version:	3.4.0
+Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	Apache-2.0
@@ -14,18 +14,17 @@ Patch0:		%{name}-test.patch
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
 
-%if %{?fedora}%{!?fedora:0} >= 43
+%if %{?fedora}%{!?fedora:0} >= 43 || %{?rhel}%{!?rhel:0} >= 11
 BuildRequires:	maven-local-openjdk25
 %else
 BuildRequires:	maven-local
 %endif
-BuildRequires:	mvn(eu.eu-emi.security:canl) >= 2.8.3
-BuildRequires:	mvn(junit:junit)
-BuildRequires:	mvn(org.hamcrest:hamcrest-library)
+BuildRequires:	mvn(eu.eu-emi.security:canl) >= 2.9.0
+BuildRequires:	mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:	mvn(org.mockito:mockito-core)
 BuildRequires:	faketime
 BuildRequires:	openssl
-Requires:	mvn(eu.eu-emi.security:canl) >= 2.8.3
+Requires:	mvn(eu.eu-emi.security:canl) >= 2.9.0
 
 %description
 The Virtual Organization Membership Service (VOMS) is an attribute authority
@@ -63,6 +62,11 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %pom_change_dep org.bouncycastle:bcpkix-jdk18on org.bouncycastle:bcpkix-jdk15on
 %endif
 
+%if ! ( %{?fedora}%{!?fedora:0} >= 44 || %{?rhel}%{!?rhel:0} >= 11 )
+sed 's!getKeyIdentifierOctets!getKeyIdentifier!' -i \
+  src/main/java/org/italiangrid/voms/ac/impl/DefaultVOMSValidationStrategy.java
+%endif
+
 # Generate test certificates
 export PATH=$PWD/helper-scripts-master/x509-scripts/scripts:$PATH
 pushd src/test/resources
@@ -83,6 +87,9 @@ popd
 %license LICENSE
 
 %changelog
+* Fri Oct 09 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.4.0-1
+- Update to version 3.4.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
