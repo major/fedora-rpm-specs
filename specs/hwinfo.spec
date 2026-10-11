@@ -7,16 +7,13 @@
         HWINFO_VERSION=%{version}
 
 Name:           hwinfo
-Version:        25.5
+Version:        26.0
 Release:        %autorelease
 Summary:        Hardware information tool
 
 License:        GPL-1.0-or-later
 URL:            https://github.com/openSUSE/hwinfo
 Source0:        https://github.com/openSUSE/hwinfo/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Fix check_hd being built without LDFLAGS
-Patch0:         0000-check_hd-LDFLAGS.patch
 
 BuildRequires:  libx86emu-devel
 BuildRequires:  libuuid-devel

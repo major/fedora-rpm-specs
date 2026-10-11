@@ -14,7 +14,6 @@ BuildRequires: xorg-x11-proto-devel
 BuildRequires: xorg-x11-xtrans-devel >= 1.0.3-4
 BuildRequires: libICE-devel
 BuildRequires: libuuid-devel
-BuildRequires: xmlto
 
 %description
 The X.Org X11 SM (Session Management) runtime library.

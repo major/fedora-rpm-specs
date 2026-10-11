@@ -5,7 +5,7 @@
 %global crate triomphe
 
 Name:           rust-triomphe
-Version:        0.1.16
+Version:        0.1.17
 Release:        %autorelease
 Summary:        Fork of std::sync::Arc with some extra functionality and without weak references
 

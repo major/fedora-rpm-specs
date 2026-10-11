@@ -1,3 +1,9 @@
+# We must keep using the old gpgverify (or nothing) for now due to weak
+# SHA1-based signatures. See “Please consider re-signing the latest release
+# with SHA256 instead of SHA1,” https://github.com/asterisk/libss7/issues/8,
+# and https://docs.fedoraproject.org/en-US/packaging-guidelines/#_exceptions.
+%bcond openpgpverify 0
+
 Name:           libss7
 Version:        2.0.1
 Release:        %autorelease
@@ -27,7 +33,11 @@ Source2:        libss7.gpg
 
 BuildRequires:  gcc
 BuildRequires:  make
+%if %{with openpgpverify}
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gpgverify
+%endif
 
 %description
 libss7 is a userspace library that is used for providing SS7 protocol
@@ -46,7 +56,11 @@ developing applications that use libss7.
 
 
 %prep
+%if %{with openpgpverify}
+%{openpgpverify} \
+%else
 %{gpgverify} \
+%endif
     --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 

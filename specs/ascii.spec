@@ -3,7 +3,6 @@ Version:        3.32
 Release:        2%{?dist}
 URL:            http://www.catb.org/~esr/ascii/
 Source0:        http://www.catb.org/~esr/ascii/ascii-%{version}.tar.gz
-BuildRequires:  xmlto
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  rubygem-asciidoctor

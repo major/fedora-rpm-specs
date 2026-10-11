@@ -20,7 +20,6 @@ BuildRequires:	make
 
 BuildRequires:	ImageMagick
 BuildRequires:	asciidoctor
-BuildRequires:	xmlto
 BuildRequires:	gzip
 
 BuildRequires:	lua-ldoc

@@ -6,8 +6,8 @@
 %endif
 
 Name:           sdl12-compat
-Version:        1.2.74
-Release:        3%{?dist}
+Version:        1.2.76
+Release:        1%{?dist}
 Summary:        SDL 1.2 runtime compatibility library using SDL 2.0
 # main code is Zlib
 # mp3 decoder code is MIT-0 OR Unlicense OR CC0-1.0
@@ -152,6 +152,9 @@ rm -rf %{buildroot}%{_libdir}/*.a
 
 
 %changelog
+* Fri Oct 09 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.76-1
+- Update to v1.2.76
+
 * Fri Jul 24 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 1.2.74-3
 - Add loongarch64 support.
 

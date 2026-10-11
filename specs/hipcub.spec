@@ -26,7 +26,7 @@
 %if %{with preview}
 %global rocm_release 10.1
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %endif
 
 %global rocm_patch 0
@@ -155,14 +155,6 @@ Precompiled self-tests for %{name}
 %prep
 %autosetup -p1 -n %{upstreamname}
 
-%if %{without preview}
-#
-# The ROCMExportTargetsHeaderOnly.cmake file
-# generates a files that reference the install location of other files
-# Make this change so they match
-sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR share/' cmake/ROCMExportTargetsHeaderOnly.cmake
-%endif
-
 # simplify the source for licensing when not testing
 %if %{without test}
 rm -rf examples test benchmark
@@ -220,6 +212,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipcub/LICENSE.txt
 %endif
 
 %changelog
+* Sat Oct 10 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

@@ -313,11 +313,11 @@
 %global mpichversion %(rpm -qi mpich | awk -F': ' '/Version/ {print $2}')
 %global openmpiversion %(rpm -qi openmpi | awk -F': ' '/Version/ {print $2}')
 %global majorver 3
-%global releasever %{majorver}.25
+%global releasever %{majorver}.26
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.5
+Version: %{releasever}.0
 Epoch:   %{epoch}
 Release: %autorelease
 License: BSD-2-Clause
@@ -328,7 +328,7 @@ Source0: https://web.cels.anl.gov/projects/%{name}/download/release-snapshots/%{
 Patch0:  %{name}-3.21.1-no-rpath.patch
 
 ## Rename library name for 64-bit integer package
-Patch4:  %{name}-3.24.0-fix_metis64.patch
+Patch4:  %{name}-3.26.0-fix_metis64.patch
 Patch6:  %{name}-3.14.1-fix_pkgconfig_file.patch
 Patch7:  %{name}-3.22.2-avoid_fake_MKL_detection.patch
 

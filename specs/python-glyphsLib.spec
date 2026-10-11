@@ -9,7 +9,7 @@
 %bcond check 1
 
 Name:           python-glyphsLib
-Version:        6.15.0
+Version:        6.16.0
 Release:        %autorelease
 Summary:        A bridge from Glyphs source files to UFOs
 
@@ -30,12 +30,16 @@ Source:         %{pypi_source glyphslib}
 Patch:          %{url}/pull/1073.patch
 
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): %{shrink:
-    %{?with_ufo_normalization:--extras ufo_normalization}
-    --extras defcon
-    %{?with_colr:--extras colr}
-    %{?with_check:requirements-dev.in}
-    }
+%if %{with ufo_normalization}
+BuildOption(generate_buildrequires): --extras ufo_normalization
+%endif
+BuildOption(generate_buildrequires): --extras defcon
+%if %{with colr}
+BuildOption(generate_buildrequires): --extras colr
+%endif
+%if %{with check}
+BuildOption(generate_buildrequires): requirements-dev.in
+%endif
 BuildOption(install): --assert-license glyphsLib
 
 BuildArch:      noarch

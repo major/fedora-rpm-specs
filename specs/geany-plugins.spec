@@ -3,7 +3,7 @@
 
 Name:           geany-plugins
 Version:        2.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Plugins for Geany
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -494,6 +494,7 @@ files.
 Summary:       Real time preview for Markdown documents
 Requires:      geany-plugins-common = %{version}-%{release}
 BuildRequires: pkgconfig(webkit2gtk-4.1)
+BuildRequires: pkgconfig(libmarkdown)
 BuildRequires: python3-docutils
 Provides:      geany-plugins-markdown >= 1.34
 
@@ -680,7 +681,7 @@ automatically inserts a matching snippet after you type an opening tag.
 
 %build
 autoreconf -fiv
-%configure --docdir=%{geany_plug_docdir}
+%configure --docdir=%{geany_plug_docdir} --disable-peg-markdown
 %make_build
 
 
@@ -890,6 +891,10 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Tue Oct 06 2026 Antoine Pichot <antoine.pichot@gmail.com> - 2.1-7
+- Build the markdown plugin against discount (libmarkdown) instead of the
+  bundled peg-markdown, which has no table support
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.1-6
 - Rebuilt for libxml-2.5.4
 

@@ -28,7 +28,7 @@
 %if %{with preview}
 %global rocm_release 10.1
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %endif
 
 %global rocm_patch 0
@@ -363,9 +363,7 @@ cd tensile
 %patch -P2 -p3
 %patch -P3 -p3
 %patch -P4 -p3
-%if %{with preview}
 %patch -P7 -p3
-%endif
 
 #Fix a few things:
 chmod 755 Tensile/Configs/miopen/convert_cfg.py
@@ -523,6 +521,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Oct 9 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

@@ -5,7 +5,7 @@
 %global crate migrations_macros
 
 Name:           rust-migrations_macros
-Version:        2.3.0
+Version:        2.3.1
 Release:        %autorelease
 Summary:        Codegeneration macros for diesels embedded migrations
 

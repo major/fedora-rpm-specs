@@ -1,8 +1,9 @@
 %bcond reconf           1
+%bcond fts              1
 
 Name:           global
-Version:        6.6.15
-Release:        2%{?dist}
+Version:        6.7
+Release:        1%{?dist}
 Summary:        Source code tag system
 # The entire source code is GPL-3.0-or-later except:
 # LGPL-2.0-or-later
@@ -84,9 +85,17 @@ chmod +x reconf.sh
 %endif
 
 %conf
-%configure --with-posix-sort=/usr/bin/sort --with-universal-ctags=/usr/bin/ctags \
-           --localstatedir=/var/tmp/ --without-included-ltdl --with-sqlite3 \
-           --with-python-interpreter=%{python3} --disable-static
+%configure                                                                      \
+  --with-posix-sort=/usr/bin/sort                                               \
+  --with-universal-ctags=/usr/bin/ctags                                         \
+  --localstatedir=/var/tmp/                                                     \
+  --without-included-ltdl                                                       \
+  --with-sqlite3                                                                \
+  --with-python-interpreter=%{python3}                                          \
+%if %{with fts}
+  --with-fts                                                                    \
+%endif
+  --disable-static
 
 %build
 %make_build
@@ -143,6 +152,9 @@ chmod -x %{buildroot}/%{_sysconfdir}/gtags.conf
 %{_libdir}/gtags/*
 
 %changelog
+* Sat Oct 10 2026 Matthew Krupcale  <mkrupcale@gmail.com> - 6.7-1
+- Update to v6.7
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

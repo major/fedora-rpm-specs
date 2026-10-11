@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -195,7 +195,12 @@ URL: https://sourceware.org/binutils
 %elif 0%{?fedora} >= 46
 # Fedora users on the other hand do get cross compilation capability
 # by default.
+%ifarch riscv64
+# Keep things simple for the Risc-V target though...
+%bcond crossbuilds 0
+%else
 %bcond crossbuilds 1
+%endif
 %else
 # Before F46 cross binutils builds were handled exclusively by the
 # cross-binutils package.
@@ -595,7 +600,7 @@ of Linux applications.
 %global linux_system   linux-gnu
 
 # The list of cross targets to build.
-%global cross_targets  aarch64-%{redhat_system} ppc64le-%{redhat_system} s390x-%{redhat_system} x86_64-%{redhat_system}
+%global cross_targets  aarch64-%{redhat_system} ppc64le-%{redhat_system} s390x-%{redhat_system} x86_64-%{redhat_system} i686-%{redhat_system}
 
 %package -n cross-binutils-aarch64
 Summary: Cross targeted AArch64 binutils for developer use.  Not intended for production.
@@ -663,6 +668,31 @@ BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 This package contains a S390X cross targeted version of the binutils for
 use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 
+%ifarch %{ix86}
+%package -n cross-binutils-i686
+Summary: Cross targeted i686 binutils for developer use.  Not intended for production.
+Provides: cross-binutils-i686 = %{version}-%{release}
+Provides: binutils-i686-linux-gnu = %{version}-%{release}
+Obsoletes: binutils-i686-linux-gnu < %{version}-%{release}
+Requires: coreutils
+%if %{with systemzlib}
+Requires: zlib-devel
+%endif
+BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
+
+# We build host == target versions of the cross binutils as this simplifies
+# the build mechanisms of other packages.  Ie they can use "i686-linux-gnu-ld"
+# in their build machinery and not have to worry about whether they are building
+# natively or in a cross environment.
+# Note however that for x86 hosts we want to make sure that we do not build the
+# i686 cross binutils as these will be 32-bit only.
+ExcludeArch: x86_64-%{linux_system} x86_64-%{redhat_system}
+
+%description -n cross-binutils-i686
+This package contains a i686 cross targeted version of the binutils for
+use by developers.  It is NOT INTENDED FOR PRODUCTION use.
+
+%else
 
 %package -n cross-binutils-x86_64
 Summary: Cross targeted X86_64 binutils for developer use.  Not intended for production.
@@ -679,11 +709,14 @@ BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 # the build mechanisms of other packages.  Ie they can use "x86_64-linux-gnu-ld"
 # in their build machinery and not have to worry about whether they are building
 # natively or in a cross environment.
-# ExcludeArch: x86_64-%%{linux_system} x86_64-%%{redhat_system} i686-%%{linux_system} i686-%%{redhat_system}
+# Note however that for x86 hosts we want to make sure that we do not build the
+# i686 cross binutils as these will be 32-bit only.
+ExcludeArch: i686-%{linux_system} i686-%{redhat_system}
 
 %description -n cross-binutils-x86_64
 This package contains a X86_64 cross targeted version of the binutils for
 use by developers.  It is NOT INTENDED FOR PRODUCTION use.
+%endif
 
 %endif
 
@@ -1460,6 +1493,19 @@ done
 popd > /dev/null
 exit 0
 
+%ifarch %{ix86}
+%post -n cross-binutils-i686
+ln -s %{_prefix}/i686-%{redhat_system}  %{_prefix}/i686-%{linux_system}
+
+pushd %{_bindir} > /dev/null
+for x in i686-%{redhat_system}-*; do
+    ln -s $x ${x/%{redhat_system}/%{linux_system}};
+done
+popd > /dev/null
+exit 0
+
+%else
+
 %post -n cross-binutils-x86_64
 ln -s %{_prefix}/x86_64-%{redhat_system}  %{_prefix}/x86_64-%{linux_system}
 
@@ -1469,6 +1515,7 @@ for x in x86_64-%{redhat_system}-*; do
 done
 popd > /dev/null
 exit 0
+%endif
 
 %endif
 
@@ -1550,6 +1597,23 @@ done
 popd > /dev/null
 exit 0
 
+%ifarch %{ix86} 
+%postun -n cross-binutils-i686
+if [ -L %{_prefix}/i686-%{linux_system} ] ; then
+  %__rm %{_prefix}/i686-%{linux_system}
+fi
+
+pushd %{_bindir} > /dev/null
+for x in i686-%{linux_system}-*; do
+    if [ -L $x ] ; then
+	%__rm $x
+    fi
+done
+popd > /dev/null
+exit 0
+
+%else
+
 %postun -n cross-binutils-x86_64
 if [ -L %{_prefix}/x86_64-%{linux_system} ] ; then
   %__rm %{_prefix}/x86_64-%{linux_system}
@@ -1563,6 +1627,8 @@ for x in x86_64-%{linux_system}-*; do
 done
 popd > /dev/null
 exit 0
+
+%endif
 
 %endif
 #----------------------------------------------------------------------------
@@ -1612,6 +1678,8 @@ exit 0
 %exclude /usr/bin/s390x-%{redhat_system}-*
 %exclude /usr/x86_64-%{redhat_system}/*
 %exclude /usr/bin/x86_64-%{redhat_system}-*
+%exclude /usr/i686-%{redhat_system}/*
+%exclude /usr/bin/i686-%{redhat_system}-*
 %endif
 
 %if %{with gprofng}
@@ -1690,14 +1758,27 @@ exit 0
 /usr/s390x-%{redhat_system}/
 /usr/bin/s390x-%{redhat_system}-*
 
+%ifarch %{ix86}
+
+%files -n cross-binutils-i686
+/usr/i686-%{redhat_system}/
+/usr/bin/i686-%{redhat_system}-*
+
+%else
+
 %files -n cross-binutils-x86_64
 /usr/x86_64-%{redhat_system}/
 /usr/bin/x86_64-%{redhat_system}-*
 
 %endif
 
+%endif
+
 #----------------------------------------------------------------------------
 %changelog
+* Sat Oct 10 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-15
+- Rename cross-binutils-x86_64 to cross-binutils-i686 when built on an i686 host.
+
 * Thu Oct 08 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-14
 - Rebase to commit 2c4ccb8103d
 

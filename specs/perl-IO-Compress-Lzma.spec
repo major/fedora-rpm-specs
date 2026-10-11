@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-IO-Compress-Lzma
-Version:	2.224
+Version:	2.225
 Release:	1%{?dist}
 Summary:	Read and write lzma compressed data
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -101,6 +101,10 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_mandir}/man3/IO::Uncompress::UnXz.3*
 
 %changelog
+* Sat Oct 10 2026 Paul Howarth <paul@city-fan.org> - 2.225-1
+- Update to 2.225
+  - Update maintainer email address
+
 * Fri Aug 28 2026 Paul Howarth <paul@city-fan.org> - 2.224-1
 - Update to 2.224
   - Put "use private::MakeUtil;" back into Makefile.PL

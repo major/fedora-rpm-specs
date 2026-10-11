@@ -13,7 +13,7 @@ BuildRequires: make
 BuildRequires: autoconf automake libtool
 BuildRequires: pkgconfig(xproto) pkgconfig(x11) pkgconfig(xt)
 BuildRequires: pkgconfig(xmu) pkgconfig(xpm) pkgconfig(xext)
-BuildRequires: xorg-x11-util-macros xmlto lynx
+BuildRequires: xorg-x11-util-macros
 
 %description
 Xaw is a widget set based on the X Toolkit Intrinsics (Xt) Library.

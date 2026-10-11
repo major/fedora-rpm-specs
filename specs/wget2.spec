@@ -4,11 +4,11 @@
 %bcond as_wget 1
 %endif
 
-%global somajor 4
+%global somajor 5
 
 Name:           wget2
-Version:        2.2.1
-Release:        3%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -179,6 +179,9 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Mon Oct 05 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.3.0-1
+- Update to v2.3.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

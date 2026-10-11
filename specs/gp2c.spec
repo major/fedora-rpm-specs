@@ -1,4 +1,10 @@
 %bcond autoreconf 1
+# Release signature uses cryptographically weak SHA1 digest
+# https://pari.math.u-bordeaux.fr/cgi-bin/bugreport.cgi?bug=2712
+#
+# We cannot switch to openpgpverify until upstream uses a strong signature:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_exceptions
+%bcond openpgpverify 0
 
 %global upver 0.0.14pl1
 
@@ -46,7 +52,11 @@ BuildRequires:  pari-devel
 
 BuildRequires:  tex(latex)
 
+%if %{with openpgpverify}
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gpgverify
+%endif
 
 Requires:       gcc
 Requires:       pari-devel%{?_isa}
@@ -66,7 +76,12 @@ This package contains documentation for GP2C.
 
 
 %prep
-%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+%if %{with openpgpverify}
+%{openpgpverify} \
+%else
+%{gpgverify} \
+%endif
+    --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup -n gp2c-%{upver}
 
 # Convert to Unicode

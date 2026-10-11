@@ -25,7 +25,6 @@ BuildRequires: xorg-x11-proto-devel
 BuildRequires: libX11-devel >= 1.5.99.902
 BuildRequires: libXext-devel
 BuildRequires: libXi-devel
-BuildRequires: xmlto
 
 %description
 X.Org X11 libXtst runtime library

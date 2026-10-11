@@ -3,14 +3,14 @@
 %global cryptlibdir %{_libdir}/%{name}
 
 Name:       cryptlib
-Version:    3.4.9.3
-Release:    5%{?dist}
+Version:    3.4.9.6
+Release:    1%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
 URL:        https://github.com/cryptlib/cryptlib      
-Source0:    https://senderek.ie/fedora/cl3493_fedora.zip     
-Source1:    https://senderek.ie/fedora/cl3493_fedora.zip.sig
+Source0:    https://senderek.ie/fedora/cl3496_fedora.zip     
+Source1:    https://senderek.ie/fedora/cl3496_fedora.zip.sig
 # for security reasons a public signing key should always be stored in distgit
 # and never be used with a URL to make impersonation attacks harder
 # (verified: https://senderek.ie/keys/codesigningkey)
@@ -244,7 +244,7 @@ mkdir -p %{buildroot}%{_libdir}/perl5
 mkdir -p %{buildroot}%{_mandir}/man3
 cd %{_builddir}/%{name}-%{version}/bindings
 mkdir -p %{_builddir}/include
-cp cryptlib-perl.h %{_builddir}/include/cryptlib.h
+cp ../cryptlib.h %{_builddir}/include/cryptlib.h
 cp ../tools/GenPerl.pl .
 export PERL_CRYPT_LIB_HEADER=%{_builddir}/include/cryptlib.h
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor
@@ -350,6 +350,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/cltls.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Oct 10 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.6-1
+- Update Cryptlib to version 3.4.9.6
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 3.4.9.3-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

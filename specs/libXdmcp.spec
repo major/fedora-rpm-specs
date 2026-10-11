@@ -11,7 +11,6 @@ BuildRequires: make
 BuildRequires: xorg-x11-util-macros
 BuildRequires: autoconf automake libtool
 BuildRequires: xorg-x11-proto-devel
-BuildRequires: xmlto
 
 %description
 X Display Manager Control Protocol library.

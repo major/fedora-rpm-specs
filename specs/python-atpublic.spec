@@ -8,8 +8,8 @@ Python 3.6.
 
 
 Name:           python-atpublic
-Version:        7.0.0
-Release:        5%{?dist}
+Version:        8.0.1
+Release:        1%{?dist}
 Summary:        Decorator for populating a Python module's __all__
 
 License:        Apache-2.0
@@ -33,7 +33,7 @@ Requires:       python3-setuptools
 
 
 %prep
-%autosetup -n public-%{version}
+%autosetup -n public-%{version}/packages/atpublic
 
 
 %generate_buildrequires
@@ -61,6 +61,9 @@ export ATPUBLIC_BUILD_EXTENSION=1
 
 
 %changelog
+* Sat Oct 03 2026 Federico Pellegrin <fede@evolware.org> - 8.0.1-1
+- Bump to 8.0.1 (rhbz#2521097)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.0.0-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

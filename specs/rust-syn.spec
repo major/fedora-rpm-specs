@@ -6,7 +6,7 @@
 %global crate syn
 
 Name:           rust-syn
-Version:        3.0.6
+Version:        3.0.7
 Release:        %autorelease
 Summary:        Parser for Rust source code
 

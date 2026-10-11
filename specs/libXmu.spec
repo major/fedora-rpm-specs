@@ -15,7 +15,6 @@ BuildRequires: xorg-x11-util-macros
 BuildRequires: libX11-devel
 BuildRequires: libXext-devel
 BuildRequires: libXt-devel
-BuildRequires: xmlto
 
 %description
 X.Org X11 libXmu/libXmuu runtime libraries

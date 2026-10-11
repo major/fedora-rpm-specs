@@ -6,8 +6,8 @@
 %global shortname ncpsl
 
 Name:           encapsule
-Version:        0.5.1
-Release:        2%{?dist}
+Version:        0.6
+Release:        %autorelease
 Summary:        Run isolated toolbox containers with podman
 
 License:        Apache-2.0
@@ -45,7 +45,7 @@ BuildRequires:  help2man
 %description
 This tool (originally based on the toolbox-constrained project) allows running
 isolated toolbox containers with podman. Mounting of home and host integration
-are not enabled by default, but one can choose options to do so including
+are not enabled by default, but one can use options to do so including
 capabilities specified in a toml configuration file.
 
 
@@ -95,6 +95,7 @@ PATH=%{buildroot}%{_bindir}:$PATH
 %license LICENSE
 %doc ChangeLog.md README.md example
 %{_bindir}/%{name}
+%{_datadir}/%{name}-%{version}
 %{bash_completions_dir}/%{name}
 %{fish_completions_dir}/%{name}
 %{zsh_completions_dir}/_%{name}
@@ -106,32 +107,4 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
-* Tue Sep 29 2026 Jens-Ulrik Petersen <petersen@redhat.com> - 0.5.1-2
-- shell-monad and toml-reader were packaged in Fedora
-
-* Wed Sep 16 2026 Jens Petersen <petersen@redhat.com> - 0.5.1-1
-- https://hackage.haskell.org/package/encapsule-0.5.1/changelog
-
-* Mon Sep 14 2026 Jens Petersen <petersen@redhat.com> - 0.5-2
-- add ncpsl shortname
-
-* Mon Sep 14 2026 Jens Petersen <petersen@redhat.com> - 0.5-1
-- https://hackage.haskell.org/package/encapsule-0.5/changelog
-
-* Fri Aug 07 2026 Jens Petersen <petersen@redhat.com> - 0.4.1-1
-- https://hackage.haskell.org/package/encapsule-0.4.1/changelog
-
-* Tue Aug 04 2026 Jens Petersen <petersen@redhat.com> - 0.4-1
-- https://hackage.haskell.org/package/encapsule-0.4/changelog
-
-* Tue Jul 21 2026 Jens Petersen <petersen@redhat.com> - 0.3-1
-- https://hackage.haskell.org/package/encapsule-0.3/changelog
-
-* Fri Jul 17 2026 Jens Petersen <petersen@redhat.com> - 0.2.1-1
-- https://hackage.haskell.org/package/constrained-toolbox-0.2.1/candidate/changelog
-
-* Fri Jul 17 2026 Jens Petersen <petersen@redhat.com> - 0.2-1
-- https://hackage.haskell.org/package/constrained-toolbox-0.2/candidate/changelog
-
-* Tue Jul  7 2026 Jens Petersen <petersen@redhat.com> - 0.1-1
-- https://hackage.haskell.org/package/constrained-toolbox-0.1/candidate/changelog
+%autochangelog

@@ -26,7 +26,6 @@ BuildRequires:  libtool
 BuildRequires:  libxml2-devel
 BuildRequires:  oddjob
 BuildRequires:  pam-devel
-BuildRequires:  xmlto
 
 Requires: oddjob
 Requires(post): /usr/bin/dbus-send

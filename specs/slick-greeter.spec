@@ -1,24 +1,24 @@
 %global build_type_safety_c 0
 
 Summary:	A slick-looking LightDM greeter
-Name:			slick-greeter
+Name:		slick-greeter
 Version:	2.2.7
 Release:	%autorelease
 License:	GPL-3.0-or-later
-URL:			https://github.com/linuxmint/%{name}
+URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	10_%{name}-cinnamon.gschema.override.in
 Source2:	%{name}.conf
 
-ExcludeArch:    %{ix86}
+ExcludeArch:	%{ix86}
 
-BuildSystem:		meson
+BuildSystem:	meson
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig(liblightdm-gobject-1)
 BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(libcanberra)
-BuildRequires:  pkgconfig(xapp)
+BuildRequires:	pkgconfig(xapp)
 BuildRequires:	vala
 
 Provides:	lightdm-greeter = 1.2
@@ -30,6 +30,7 @@ Requires:	lightdm%{?_isa}
 Requires:	google-noto-sans-fonts
 Requires:	system-logos
 Requires:	desktop-backgrounds-compat
+Requires:	xapp-symbolic-icons
 
 Recommends:	lightdm-settings
 Recommends:	onboard

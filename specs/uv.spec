@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.12.23
+Version:        0.12.24
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -19,20 +19,20 @@ Summary:        An extremely fast Python package installer and resolver, written
 # The license of the uv project is (MIT OR Apache-2.0), except:
 #
 # Apache-2.0:
-#   - crates/uv-python/src/libc.rs contains code derived from
+#   - crates/uv-platform/src/libc.rs contains code derived from
 #     crate(glibc_version)
 #   - crates/uv-requirements-txt/src/shquote.rs contains code derived from
 #     crate(r-shquote); the original code was (Apache-2.0 OR
 #     LGPL-2.1-or-later), but the vendored copy cites only the Apache-2.0
 #     option.
-#   - crates/uv-build-frontend/src/pipreqs/mappings is a data file taken from
+#   - crates/uv-build-frontend/src/pipreqs/mapping is a data file taken from
 #     https://pypi.org/project/pipreqs, https://github.com/bndr/pipreqs
 #
 # Apache-2.0 OR BSD-2-Clause:
 #   - crates/uv-pep440/ is vendored and forked from crate(pep440_rs)
 #   - crates/uv-pep508/ is vendored and forked from crate(pep508_rs)
-#   - crates/uv-python/packaging/ is vendored and forked from
-#     python3dist(packaging)
+#   - crates/uv-python-interpreter/python/packaging/ is vendored and forked
+#     from python3dist(packaging)
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause:
 #   - The function wheel_metadata_from_remote_zip in
@@ -83,6 +83,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Apache-2.0 AND CC0-1.0
+# (MIT OR Apache-2.0) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD
@@ -258,7 +259,7 @@ Provides:       bundled(crate(ripunzip)) = 0.4.0
 # (crates/rattler_installs_packages/)src/index/lazy_metadata.rs.
 Provides:       bundled(crate(rattler_installs_packages)) = 0.9.0
 
-# crates/uv-python/src/libc.rs
+# crates/uv-platform/src/libc.rs
 # This is at least partially derived (with changes) from the glibc_version
 # crate, https://github.com/delta-incubator/glibc-version-rs. The last commit
 # that we can match up with the file in uv is
@@ -306,14 +307,15 @@ Provides:       bundled(crate(rust-netrc)) = 0.1.2
 # the scripts have been forked. See also:
 #   https://github.com/astral-sh/uv/issues/5588#issuecomment-2257474140
 #
-# The scripts were last updated from virtualenv upstream in
+# The scripts were last mass-updated from virtualenv upstream in
 # https://github.com/astral-sh/uv/pull/15272 on 2025-09-05. The PR was opened
 # on 2025-08-14 and last revised on 2025-08-30; the latest virtualenv release
-# throughout that time interval was 20.34.0.
+# throughout that time interval was 20.34.0. (Fixes have been individually
+# applied to the scripts since then.)
 Provides:       bundled(python3dist(virtualenv)) = 20.34
 
-# The contents of crates/uv-python/python/packaging/ are a bundled copy of a
-# subset of https://pypi.org/project/packaging.
+# The contents of crates/uv-python-interpreter/python/packaging/ are a bundled
+# copy of a subset of https://pypi.org/project/packaging.
 #
 # This was added in
 # https://github.com/astral-sh/uv/commit/7964bfbb2bed50a5c7b0650a7b6799a66503a33a,
@@ -386,7 +388,7 @@ This package provides an importable Python module for uv.
 # Collect license files of vendored dependencies
 install -D --preserve-timestamps --mode=0644 \
     --target=LICENSE.bundled/packaging \
-    crates/uv-python/python/packaging/LICENSE.*
+    crates/uv-python-interpreter/python/packaging/LICENSE.*
 install -D --preserve-timestamps --mode=0644 \
     --target=LICENSE.bundled/pep440_rs crates/uv-pep440/License-*
 install -D --preserve-timestamps --mode=0644 \
@@ -742,6 +744,21 @@ skip="${skip-} --skip retry::tests::retry_logs_redact_signed_urls"
 # seems unlikely that it is a real and serious problem, although a proper
 # diagnosis would be welcome.
 skip="${skip-} --skip interpreter::tests::test_cache_eviction_with_unchanged_executable"
+
+# These panic with “Insta does not allow inline snapshot assertions in loops.”
+# This is avoided by process isolation in “cargo nextest,” so it’s not really a
+# “bug” for upstream.
+skip="${skip-} --skip test::malformed_option::no_index"
+skip="${skip-} --skip test::malformed_option::pre"
+
+# This test fails when we are using system Python interpreters: at
+# crates/uv/tests/python/venv.rs:118:9, “left” is something like:
+# PythonEnvironment(PythonEnvironmentShared {[…] interpreter: Interpreter {[…]
+#   sys_base_executable: Some("/tmp/uv/tests/.tmpZkDJjz/python/3.12/python3"),
+# […]}})
+# while “right” has:
+#   sys_base_executable: Some("/usr/bin/python3.12"),
+skip="${skip-} --skip venv::create_venv_caches_interpreter"
 
 %cargo_test -- -- --exact ${skip-}
 %endif

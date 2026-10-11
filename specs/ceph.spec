@@ -197,7 +197,7 @@ fi
 #################################################################################
 Name:		ceph
 Version:	21.1.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -3213,6 +3213,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Oct 9 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.1-2
+- ceph-21.1.1, rebuild with libarrow-26.0.0 (f46-build-side-154926)
+
 * Mon Oct 5 2026 Tomasz Torcz <ttorcz@fedoraproject.org> - 2:21.1.1-3
 - ceph-osd-crimson: obsolete only older ceph-osd, fixes uninstallable ceph-osd
 - ceph-osd-classic: fix posttrans scriptlet so the ceph-osd alternative gets registered

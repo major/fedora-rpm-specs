@@ -1,3 +1,14 @@
+# “If the upstream tarball is signed using old keys depending on SHA1 digest or
+# otherwise incompatible with current OpenPGP standard, legacy %%{gpgverify}
+# macro can be used until this is resolved (it has the same API and could be
+# used as a drop-in replacement).”
+#
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_verifying_signatures
+#
+# Please avoid using SHA1 to sign releases
+# https://sourceforge.net/p/wcd/feature-requests/16
+%bcond openpgpverify 0
+
 Summary:        Wherever Change Directory: chdir for DOS and Unix
 Name:           wcd
 Version:        6.0.7
@@ -20,16 +31,11 @@ Source1:        %{url}/files/wcd-%{version}.tar.gz.asc
 #   gpg2 --show-keys wcd.gpg
 Source2:        wcd.gpg
 
-# “If the upstream tarball is signed using old keys depending on SHA1 digest or
-# otherwise incompatible with current OpenPGP standard, legacy %%{gpgverify}
-# macro can be used until this is resolved (it has the same API and could be
-# used as a drop-in replacement).”
-#
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_verifying_signatures
-#
-# Please avoid using SHA1 to sign releases
-# https://sourceforge.net/p/wcd/feature-requests/16
+%if %{with openpgpverify}
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gpgverify
+%endif
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -106,7 +112,12 @@ plain-text documentation files, changelogs, and so on.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%if %{with openpgpverify}
+%{openpgpverify} \
+%else
+%{gpgverify} \
+%endif
+    --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 

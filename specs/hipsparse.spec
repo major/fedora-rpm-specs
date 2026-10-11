@@ -28,7 +28,7 @@
 %if %{with preview}
 %global rocm_release 10.1
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %endif
 
 %global rocm_patch 0
@@ -98,7 +98,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm SPARSE marshaling library
 License:        MIT
@@ -343,6 +343,9 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %endif
 
 %changelog
+* Sat Oct 10 2026 Tom Rix <Tom.Rix@amd.com> 10.1.0-1
+- Update to 10.1
+
 * Tue Sep 29 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-2
 - Fix tests
 

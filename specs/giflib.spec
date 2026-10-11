@@ -21,7 +21,6 @@ Patch4:        CVE-2026-26740.patch
 
 BuildRequires: cmake
 BuildRequires: gcc
-BuildRequires: xmlto
 
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc

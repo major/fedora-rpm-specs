@@ -1,7 +1,7 @@
 %global api_ver 4.0
 
 Name:           libxml++40
-Version:        4.4.0
+Version:        4.4.1
 Release:        %autorelease
 Summary:        C++ wrapper for the libxml2 XML parser library
 

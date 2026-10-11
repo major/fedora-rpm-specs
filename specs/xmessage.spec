@@ -1,3 +1,7 @@
+# We can’t switch to openpgpverify until upstream starts signing releases with
+# a strong digest; the latest release still uses DSA1024!
+%bcond openpgpverify 0
+
 Name:           xmessage
 Version:        1.0.7
 Release:        %autorelease
@@ -56,7 +60,11 @@ Source1:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz.sig
 # was obtained on 2021-02-23.
 Source2:        %{name}.gpg
 
+%if %{with openpgpverify}
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gpgverify
+%endif
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -76,7 +84,12 @@ question. xmessage can also exit after a specified time.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%if %{with openpgpverify}
+%{openpgpverify} \
+%else
+%{gpgverify} \
+%endif
+    --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 

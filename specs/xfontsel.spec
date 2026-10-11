@@ -73,7 +73,8 @@ Source1:        %{url}/pub/individual/app/xfontsel-%{version}.tar.xz.sig
 # of trust-on-first-use verification isn’t very useful.
 Source2:        xfontsel.gpg
 
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
+
 BuildRequires:  gcc
 BuildRequires:  meson
 
@@ -92,7 +93,8 @@ Logical Font Description (“XLFD”) full name for a font.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} \
+    --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 
