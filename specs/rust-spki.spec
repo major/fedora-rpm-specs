@@ -5,7 +5,7 @@
 %global crate spki
 
 Name:           rust-spki
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        X.509 Subject Public Key Info (RFC5280) describing public keys
 

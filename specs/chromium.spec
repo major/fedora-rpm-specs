@@ -59,6 +59,14 @@
 %global build_headless 0
 %endif
 
+# Temporarily disable system_esbuild by default for the epel build
+# re-enable it once esbuild has been updated
+%global system_esbuild 1
+%global esbuild_version 0.28.2
+%if 0%{?rhel}
+%global system_esbuild 0
+%endif
+
 # set nodejs_version
 %global nodejs_version v22.22.0
 
@@ -274,7 +282,7 @@
 %endif
 
 Name:	chromium
-Version: 154.0.8037.97
+Version: 155.0.8059.39
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -368,7 +376,7 @@ Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
 
 # Fix FTBFS with rustc-1.88 on el9 and epel10.1
 Patch142: chromium-149-rust-1.88-build-error.patch
-Patch143: chromium-154-rust-1.88-enable-unstable_features.patch
+Patch143: chromium-155-rust-1.88-enable-unstable_features.patch
 Patch144: chromium-146-rust-1.88-undefined-symbol.patch
 
 # add correct path for Qt6Gui header and libs
@@ -543,8 +551,6 @@ Patch511: 0001-fips-disable-options.patch
 %endif
 
 # Patches from ungoogle chromium, https://github.com/ungoogled-software/ungoogled-chromium
-# remove rollup binary, build with wasm-rollup 
-Patch520: build-with-wasm-rollup.patch
 Patch521: disable-ai.patch
 
 # Upstream patches
@@ -581,8 +587,17 @@ Source13: nodejs-sources.sh
 BuildRequires: openssl-devel
 %endif
 
+# License - Apache-2.0, https://github.com/microsoft/TypeScript?tab=Apache-2.0-1-ov-file
 # TypeScript for ppc64le
 Source14: https://github.com/microsoft/TypeScript/releases/download/v7.0.2/typescript-linux-ppc64.tgz
+
+# License - MIT License, https://github.com/evanw/esbuild/blob/main/LICENSE.md 
+%if ! %{system_esbuild}
+Source15: https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-%{esbuild_version}.tgz
+Source16: https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-%{esbuild_version}.tgz
+Source17: https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-%{esbuild_version}.tgz
+%endif
+
 BuildRequires: golang
 BuildRequires: clang
 BuildRequires: clang-tools-extra
@@ -906,7 +921,10 @@ BuildRequires: simdutf-devel
 %endif
 
 # esbuild is needed
+%if %{system_esbuild}
 BuildRequires: golang-github-evanw-esbuild
+BuildRequires: nodejs-esbuild
+%endif
 
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
 Requires: nss%{_isa} >= 3.26
@@ -1209,7 +1227,7 @@ Qt6 UI for chromium.
 
 %patch -P358 -p1 -b .rust-clang_lib
 
-%if  0%{?fedora} > 41 || (0%{?rhel} == 10 && 0%{?rhel_minor_version} > 2)
+%if 0%{?fedora} > 41 || (0%{?rhel} == 10 && 0%{?rhel_minor_version} > 2)
 %patch -P359 -p1 -b .ftbfs-with-rustc-1.95
 %endif
 
@@ -1262,7 +1280,6 @@ Qt6 UI for chromium.
 %patch -P502 -p1 -b .flatpak-widevine
 %endif
 
-%patch -P520 -p1 -b .build-with-wasm-rollup
 %patch -P521 -p1 -b .disable-ai
 
 # Upstream patches
@@ -1270,6 +1287,15 @@ Qt6 UI for chromium.
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{chromium_pybin}=' {} +
+
+# Hard code extra version
+sed -i 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' chrome/common/channel_info_posix.cc
+
+# Fix hardcoded path in remoting code
+sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux_single_process.cc
+
+# bz#2265957, add correct platform
+sed -i "s/Linux x86_64/Linux %{_arch}/" components/embedder_support/user_agent_utils.cc
 
 # Add correct path for nodejs binary
 mkdir -p third_party/node/linux/node-linux-x64/bin
@@ -1281,7 +1307,23 @@ mkdir -p third_party/node/linux/node-linux-x64/bin
 
 # Add correct path for esbuild binary
 mkdir -p third_party/devtools-frontend/src/third_party/esbuild
+%if %{system_esbuild}
 ln -s $(which esbuild) third_party/devtools-frontend/src/third_party/esbuild/esbuild
+cp -a /usr/lib/node_modules/*esbuild* third_party/devtools-frontend/src/node_modules/ 
+%else
+%ifarch x86_64
+tar xf %{SOURCE15} -C third_party/devtools-frontend/src/third_party/
+%endif
+%ifarch ppc64le
+tar xf %{SOURCE16} -C third_party/devtools-frontend/src/third_party/
+%endif
+%ifarch aarch64
+tar xf %{SOURCE17} -C third_party/devtools-frontend/src/third_party/
+%endif
+pushd third_party/devtools-frontend/src/third_party/esbuild
+ln -s ../package/bin/esbuild .
+popd
+%endif
 
 # Remove bundle gn and replace it with a system gn or bootstrap gn as it is x86_64 and causes
 # FTBFS on other arch like aarch64/ppc64le
@@ -1324,15 +1366,6 @@ rm -rf third_party/libusb/src/libusb/libusb.h
 cp -a $(pkg-config --variable=includedir libusb-1.0)/libusb-1.0/libusb.h third_party/libusb/src/libusb/libusb.h
 %endif
 
-# Hard code extra version
-sed -i 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' chrome/common/channel_info_posix.cc
-
-# Fix hardcoded path in remoting code
-sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux_single_process.cc
-
-# bz#2265957, add correct platform
-sed -i "s/Linux x86_64/Linux %{_arch}/" components/embedder_support/user_agent_utils.cc
-
 %if ! %{bundlesimdutf}
 ln -sf %{_includedir}/simdutf.h third_party/simdutf/simdutf.h
 %endif
@@ -1356,6 +1389,7 @@ popd
 FLAGS=' -Wno-deprecated-declarations -Wno-unknown-warning-option -Wno-unused-command-line-argument'
 FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wno-unused-function -Wno-unused-variable'
 FLAGS+=' -Wno-unused-const-variable -Wno-unneeded-internal-declaration -Wno-unknown-attributes -Wno-unknown-pragmas'
+LDFLAGS+=' -Wno-unused-command-line-argument'
 
 %if %{system_build_flags}
 CFLAGS=${CFLAGS/-fexceptions}
@@ -1440,7 +1474,7 @@ CHROMIUM_CORE_GN_DEFINES+=' google_default_client_secret="%{default_client_secre
 
 CHROMIUM_CORE_GN_DEFINES+=' is_clang=true'
 CHROMIUM_CORE_GN_DEFINES+=" clang_base_path=\"$clang_base_path\""
-CHROMIUM_CORE_GN_DEFINES+=" clang_version=$clang_version"
+CHROMIUM_CORE_GN_DEFINES+=" clang_version=\"$clang_version\""
 CHROMIUM_CORE_GN_DEFINES+=' clang_use_chrome_plugins=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_lld=true'
 
@@ -1472,6 +1506,7 @@ CHROMIUM_CORE_GN_DEFINES+=' angle_has_histograms=false'
 # drop unrar
 CHROMIUM_CORE_GN_DEFINES+=' safe_browsing_use_unrar=false'
 CHROMIUM_CORE_GN_DEFINES+=' v8_enable_backtrace=true'
+CHROMIUM_CORE_GN_DEFINES+=' v8_use_metagen_instance_types=false'
 # disable devtools buildle
 CHROMIUM_CORE_GN_DEFINES+=' devtools_bundle=false'
 export CHROMIUM_CORE_GN_DEFINES
@@ -1953,6 +1988,256 @@ fi
 %endif
 
 %changelog
+* Sun Oct 11 2026 Than Ngo <than@redhat.com> - 155.0.8059.39-1
+- Update to 155.0.8059.39, includes 247 security fixes 
+  * CVE-2026-102322: Incorrect Authorization in SiteIsolation
+  * CVE-2026-106179: UI misrepresentation in WebAppInstalls
+  * CVE-2026-106180: Observable discrepancy in Animation
+  * CVE-2026-106181: Incorrect reference resolution in DevTools
+  * CVE-2026-106182: UI misrepresentation in Paint
+  * CVE-2026-106183: Missing authorization in Chromoting
+  * CVE-2026-106184: Uninitialized resource in Media
+  * CVE-2026-106185: Improper input validation in Viz
+  * CVE-2026-106186: Uncontrolled search path element in CredentialProvider
+  * CVE-2026-106187: Missing authorization in Permissions
+  * CVE-2026-106188: Confused deputy in SignIn
+  * CVE-2026-106189: Code injection in ReaderMode
+  * CVE-2026-106190: Use after free in Media
+  * CVE-2026-106191: Missing authorization in Actor
+  * CVE-2026-106192: Information leak in Mobile
+  * CVE-2026-106193: Use after free in Parser
+  * CVE-2026-106194: Missing authorization in WebAppInstalls
+  * CVE-2026-106195: Incorrect authorization in Chromoting
+  * CVE-2026-106196: Missing authorization in Navigation
+  * CVE-2026-106197: Use after free in Browser
+  * CVE-2026-106198: Missing authorization in FileSystem
+  * CVE-2026-106199: Incorrect authorization in Actor
+  * CVE-2026-106200: Use after free in Track
+  * CVE-2026-106201: Race condition in V8
+  * CVE-2026-106202: Uninitialized resource in ANGLE
+  * CVE-2026-106203: Incomplete cleanup in Autofill
+  * CVE-2026-106204: Use after free in PDF
+  * CVE-2026-106205: Missing authorization in Passwords
+  * CVE-2026-106206: Improper input validation in Mobile
+  * CVE-2026-106207: Race condition in V8
+  * CVE-2026-106208: Missing authorization in API
+  * CVE-2026-106209: UI misrepresentation in Mobile
+  * CVE-2026-106210: Observable discrepancy in Scroll
+  * CVE-2026-106211: Use after free in TabStrip
+  * CVE-2026-106212: Incorrect authorization in Autofill
+  * CVE-2026-106213: Race condition in WebAudio
+  * CVE-2026-106214: Information leak in Proxy
+  * CVE-2026-106215: Uninitialized resource in ANGLE
+  * CVE-2026-106216: Cross-site request forgery in ReadingList
+  * CVE-2026-106217: Missing authorization in Google Lens
+  * CVE-2026-106220: Information leak in Passwords
+  * CVE-2026-106221: Confused deputy in WebAPKs
+  * CVE-2026-106222: Incorrect authorization in Sync
+  * CVE-2026-106223: Uninitialized resource in GPU
+  * CVE-2026-106224: Missing authorization in Google Lens
+  * CVE-2026-106225: Missing authorization in Autofill
+  * CVE-2026-106226: Improper input validation in Compositing
+  * CVE-2026-106227: Use after free in Core
+  * CVE-2026-106228: Confused deputy in Google Lens
+  * CVE-2026-106229: UI misrepresentation in FileSystem
+  * CVE-2026-106230: Incorrect reference resolution in Offline
+  * CVE-2026-106231: Uninitialized resource in Dawn
+  * CVE-2026-106232: UI misrepresentation in Browser
+  * CVE-2026-106233: Use after free in Metrics
+  * CVE-2026-106234: Use after free in Network
+  * CVE-2026-106235: Use after free in WebAudio
+  * CVE-2026-106236: UI misrepresentation in Chromoting
+  * CVE-2026-106237: Information leak in Permissions
+  * CVE-2026-106238: Race condition in Fonts
+  * CVE-2026-106239: Integer overflow in WebGL
+  * CVE-2026-106240: Type confusion in V8
+  * CVE-2026-106241: Incorrect authorization in Search
+  * CVE-2026-106242: Information leak in Omnibox
+  * CVE-2026-106243: Incomplete cleanup in Proxy Auth
+  * CVE-2026-106244: Incorrect authorization in Permissions
+  * CVE-2026-106245: Uninitialized resource in ANGLE
+  * CVE-2026-106246: Incorrect authorization in Browser
+  * CVE-2026-106247: Buffer overflow in ANGLE
+  * CVE-2026-106248: Use after free in Bindings
+  * CVE-2026-106249: Incorrect authorization in Autofill
+  * CVE-2026-106250: Missing authorization in Actor
+  * CVE-2026-106251: UI misrepresentation in Chromoting
+  * CVE-2026-106252: Incorrect comparison in Fonts
+  * CVE-2026-106253: Incorrect authorization in Extensions
+  * CVE-2026-106254: Information leak in Mobile
+  * CVE-2026-106255: Race condition in V8
+  * CVE-2026-106256: Information leak in Passwords
+  * CVE-2026-106257: Use after free in HTML
+  * CVE-2026-106258: Uninitialized resource in ANGLE
+  * CVE-2026-106259: Incorrect authorization in PermissionElement
+  * CVE-2026-106260: Incorrect authorization in DevTools
+  * CVE-2026-106261: Uninitialized resource in Video
+  * CVE-2026-106262: Incomplete cleanup in GetUserMedia
+  * CVE-2026-106263: Improper input validation in SignIn
+  * CVE-2026-106264: Missing authorization in Web Authentication (Passkeys & Security Keys)
+  * CVE-2026-106265: UI misrepresentation in File
+  * CVE-2026-106266: Confused deputy in Contextual Tasks
+  * CVE-2026-106267: Missing authorization in Network
+  * CVE-2026-106268: Use after free in WebRTC
+  * CVE-2026-106269: Use after free in CSS
+  * CVE-2026-106270: Incorrect authorization in WebAppInstalls
+  * CVE-2026-106271: Missing authorization in Workers
+  * CVE-2026-106272: UI misrepresentation in Chromoting
+  * CVE-2026-106273: Uninitialized resource in Video
+  * CVE-2026-106274: Incorrect reference resolution in Browser
+  * CVE-2026-106275: Uninitialized resource in GPU
+  * CVE-2026-106276: UI misrepresentation in Payments
+  * CVE-2026-106277: Information leak in Animation
+  * CVE-2026-106278: Use after free in Select
+  * CVE-2026-106279: Incorrect reference resolution in Passwords
+  * CVE-2026-106280: Incorrect authorization in PermissionElement
+  * CVE-2026-106281: Use after free in Tint
+  * CVE-2026-106282: UI misrepresentation in WebOTP
+  * CVE-2026-106283: Use after free in Streaming
+  * CVE-2026-106284: Out of bounds read in Printing
+  * CVE-2026-106285: UI misrepresentation in WebAppInstalls
+  * CVE-2026-106286: Confused deputy in Omnibox
+  * CVE-2026-106287: Information loss in CORS
+  * CVE-2026-106288: Missing authorization in Browser
+  * CVE-2026-106289: Missing authorization in FedCM
+  * CVE-2026-106290: Uninitialized resource in GPU
+  * CVE-2026-106291: Use after free in GarbageCollection
+  * CVE-2026-106292: Buffer overflow in Fonts
+  * CVE-2026-106293: Type confusion in ANGLE
+  * CVE-2026-106294: Incomplete cleanup in Chromoting
+  * CVE-2026-106295: Incorrect authorization in Unbounded Element
+  * CVE-2026-106296: Improper privilege management in UI
+  * CVE-2026-106297: Incorrect authorization in Scheduling
+  * CVE-2026-106298: Use after free in Chrome Tabs
+  * CVE-2026-106299: Improper input validation in WebAudio
+  * CVE-2026-106300: Race condition in CacheStorage
+  * CVE-2026-106301: Confused deputy in Contextual Tasks
+  * CVE-2026-106302: UI misrepresentation in PermissionElement
+  * CVE-2026-106303: Observable discrepancy in Autofill AI
+  * CVE-2026-106304: Out of bounds read in ANGLE
+  * CVE-2026-106305: UI misrepresentation in Mobile
+  * CVE-2026-106306: Incorrect authorization in DevTools
+  * CVE-2026-106307: Incorrect authorization in Network
+  * CVE-2026-106308: Incorrect reference resolution in Autofill
+  * CVE-2026-106309: Incorrect authorization in Selection
+  * CVE-2026-106310: Use of released resource in FontAccess
+  * CVE-2026-106311: Clickjacking in PermissionElement
+  * CVE-2026-106312: Missing authorization in SignIn
+  * CVE-2026-106313: Incorrect authorization in Browser
+  * CVE-2026-106314: Incorrect authorization in Bluetooth
+  * CVE-2026-106315: Use after free in Modularization
+  * CVE-2026-106316: UI misrepresentation in Chromoting
+  * CVE-2026-106317: UI misrepresentation in FullScreen
+  * CVE-2026-106318: Use after free in Media
+  * CVE-2026-106320: Use of released resource in UI
+  * CVE-2026-106321: Information leak in Editing
+  * CVE-2026-106322: Open redirect in AppManifest
+  * CVE-2026-106323: Missing authorization in Chrome for iOS
+  * CVE-2026-106324: Incorrect authorization in WebAppInstalls
+  * CVE-2026-106325: Incorrect reference resolution in Core
+  * CVE-2026-106326: Confused deputy in UI
+  * CVE-2026-106327: Incorrect authorization in Core
+  * CVE-2026-106328: Incorrect authorization in PDF
+  * CVE-2026-106329: Incorrect authorization in FileSystem
+  * CVE-2026-106330: Information leak in Paint
+  * CVE-2026-106331: Improper input validation in Extensions
+  * CVE-2026-106332: Integer overflow in Compositing
+  * CVE-2026-106333: Incorrect authorization in Input
+  * CVE-2026-106334: Information leak in Payments
+  * CVE-2026-106335: Use after free in Media
+  * CVE-2026-106336: Observable discrepancy in Paint
+  * CVE-2026-106337: UI misrepresentation in UI
+  * CVE-2026-106338: UI misrepresentation in PictureInPicture
+  * CVE-2026-106339: Use of released resource in Core
+  * CVE-2026-106340: Missing authorization in CredentialProvider
+  * CVE-2026-106341: Type confusion in V8
+  * CVE-2026-106342: Information leak in Autofill
+  * CVE-2026-106343: Improper state validation in Autofill AI
+  * CVE-2026-106344: Missing authorization in Permissions
+  * CVE-2026-106345: Use of released resource in Session
+  * CVE-2026-106346: Improper state validation in DevTools
+  * CVE-2026-106347: Use after free in Track
+  * CVE-2026-106348: Information leak in Animation
+  * CVE-2026-106349: Use after free in V8
+  * CVE-2026-106350: Incorrect authorization in Browser
+  * CVE-2026-106351: Observable discrepancy in Safebrowsing
+  * CVE-2026-106352: Incorrect authorization in WebProtect
+  * CVE-2026-106353: Improper input validation in Mobile
+  * CVE-2026-106354: Improper resource exposure in Extensions
+  * CVE-2026-106355: Missing authorization in Media
+  * CVE-2026-106356: Clickjacking in EVP
+  * CVE-2026-106357: Use after free in WebRTC
+  * CVE-2026-106358: Use after free in Navigation
+  * CVE-2026-106359: Confused deputy in DeviceBoundSessionCredentials
+  * CVE-2026-106360: Information leak in Payments
+  * CVE-2026-106361: Incorrect provision of specified functionality in Mobile
+  * CVE-2026-106362: Missing authorization in DevTools
+  * CVE-2026-106363: Missing authorization in FullScreen
+  * CVE-2026-106364: Incorrect authorization in Omnibox
+  * CVE-2026-106365: Missing authorization in Animation
+  * CVE-2026-106366: Incomplete cleanup in CustomTabs
+  * CVE-2026-106367: Missing authorization in Mobile
+  * CVE-2026-106368: UI misrepresentation in UI
+  * CVE-2026-106369: Missing authorization in Translate
+  * CVE-2026-106370: Uninitialized resource in GPU
+  * CVE-2026-106371: Incorrect authorization in Transactions Platform
+  * CVE-2026-106372: Incorrect authorization in UI
+  * CVE-2026-106373: Use after free in Fonts
+  * CVE-2026-106374: Type confusion in V8
+  * CVE-2026-106375: Incomplete cleanup in Dawn
+  * CVE-2026-106376: Uninitialized resource in ANGLE
+  * CVE-2026-106377: Race condition in Fonts
+  * CVE-2026-106378: Privilege elevation in Sandbox
+  * CVE-2026-106379: Uninitialized resource in Skia
+  * CVE-2026-106380: UI misrepresentation in UI
+  * CVE-2026-106381: Incorrect authorization in Passwords
+  * CVE-2026-106382: Use after free in Chromecast
+  * CVE-2026-106383: Use after free in Media
+  * CVE-2026-106384: Missing authorization in SiteIsolation
+  * CVE-2026-106385: Race condition in Chromoting
+  * CVE-2026-106386: Uninitialized resource in WebAudio
+  * CVE-2026-106387: Missing authorization in Mobile
+  * CVE-2026-106388: Missing authorization in DataTransfer
+  * CVE-2026-106389: Incorrect authorization in USB
+  * CVE-2026-106390: Incorrect provision of specified functionality in SanitizerAPI
+  * CVE-2026-106391: Incorrect authorization in WebShare
+  * CVE-2026-106392: Information leak in WebAudio
+  * CVE-2026-106393: Use after free in Storage
+  * CVE-2026-106394: Incomplete cleanup in Glic
+  * CVE-2026-106395: Uninitialized resource in Dawn
+  * CVE-2026-106396: Improper input validation in Omnibox
+  * CVE-2026-106397: Incorrect authorization in Mobile
+  * CVE-2026-106398: Incorrect authorization in Media
+  * CVE-2026-106399: Out of bounds read in Skia
+  * CVE-2026-106400: Clickjacking in Messages
+  * CVE-2026-106401: Out of bounds write in Media
+  * CVE-2026-106402: Incorrect authorization in Extensions
+  * CVE-2026-106403: Incorrect authorization in Accessibility
+  * CVE-2026-106404: Incorrect authorization in FontAccess
+  * CVE-2026-106405: Race condition in CustomTabs
+  * CVE-2026-106406: Missing authorization in Mobile
+  * CVE-2026-106407: Incorrect authorization in GetUserMedia
+  * CVE-2026-106408: Protection mechanism failure in Mobile
+  * CVE-2026-106409: Incorrect reference resolution in WebAppInstalls
+  * CVE-2026-106410: Missing authorization in Permissions
+  * CVE-2026-106411: Use after free in Parser
+  * CVE-2026-106412: Race condition in Core
+  * CVE-2026-106413: Race condition in Browser
+  * CVE-2026-106414: Improper input validation in Mobile
+  * CVE-2026-106415: Information leak in Enterprise
+  * CVE-2026-106416: Code injection in Extensions
+  * CVE-2026-106417: Integer overflow in Media
+  * CVE-2026-106418: Missing authorization in Network
+  * CVE-2026-106419: Use after free in ANGLE
+  * CVE-2026-106420: Incorrect calculation in API
+  * CVE-2026-106421: Use after free in PDF
+  * CVE-2026-106422: Incorrect authorization in API
+  * CVE-2026-106423: Use after free in Media
+  * CVE-2026-106424: Information leak in Audio
+  * CVE-2026-106425: Missing authorization in BrowserTag
+  * CVE-2026-106426: Race condition in Fonts
+  * CVE-2026-106427: Confused deputy in Mobile
+
 * Sat Oct 03 2026 Than Ngo <than@redhat.com> - 154.0.8037.97-1
 - Update to 154.0.8037.97
   * CVE-2026-103621: Integer overflow in Compositing

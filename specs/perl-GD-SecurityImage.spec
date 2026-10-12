@@ -1,12 +1,12 @@
 Name:           perl-GD-SecurityImage
 Version:        1.75
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Security image (captcha) generator
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/GD-SecurityImage
+URL:            https://metacpan.org/dist/GD-SecurityImage
 Source0:        https://cpan.metacpan.org/authors/id/B/BU/BURAK/GD-SecurityImage-%{version}.tar.gz
+Patch0:         CVE-2026-13082-r1.patch
 BuildArch:      noarch
 # build requirements
 BuildRequires:  glibc-common
@@ -16,6 +16,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # runtime requirements
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Crypt::URandom::MonkeyPatch)
 BuildRequires:  perl(GD) >= 2.45
 BuildRequires:  perl(Image::Magick) >= 6.66
 BuildRequires:  perl(Math::Trig)
@@ -46,13 +47,14 @@ gives you a basic interface to create such an image.
 
 %prep
 %setup -q -n GD-SecurityImage-%{version}
+%patch -P 0 -p1
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -65,6 +67,9 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 make test
 %{_mandir}/man3/GD*
 
 %changelog
+* Sun Oct 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.75-24
+- use Crypt::URandom::MonkeyPatch to override built-in rand (CVE-2026-13082)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate zeroize
 
 Name:           rust-zeroize
-Version:        1.9.0
+Version:        1.9.1
 Release:        %autorelease
 Summary:        Securely clear secrets from memory
 

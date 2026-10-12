@@ -27,7 +27,7 @@
 %if %{with preview}
 %global rocm_release 10.1
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %endif
 
 %global rocm_patch 0
@@ -171,14 +171,8 @@ The rocDecode development package.
 sed -i -e 's@set(CMAKE_C_COMPILER ${ROCM_PATH}/lib/llvm/bin/amdclang)@set(CMAKE_C_COMPILER "%rocmllvm_bindir/amdclang")@' {,test/,samples/*/}CMakeLists.txt
 sed -i -e 's@set(CMAKE_CXX_COMPILER ${ROCM_PATH}/lib/llvm/bin/amdclang++)@set(CMAKE_CXX_COMPILER "%rocmllvm_bindir/amdclang++")@' {,test/,samples/*/}CMakeLists.txt
 
-%if %{with preview}
 sed -i -e 's@NO_DEFAULT_PATH@@' cmake/FindLibva.cmake
 sed -i -e 's@NO_DEFAULT_PATH@@' cmake/FindLibdrm_amdgpu.cmake
-%else
-# Problems finding va.h
-# https://github.com/ROCm/rocDecode/issues/477
-sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|/usr/include|" cmake/FindLibva.cmake
-%endif
 
 # cpack cruft in the middle of the configure, this breaks TW and is only used for ubuntu
 sed -i -e 's@file(READ "/etc/os-release" OS_RELEASE)@#file(READ "/etc/os-release" OS_RELEASE)@'  CMakeLists.txt
@@ -231,6 +225,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/%{name}-asan/LICENSE
 %{pkg_prefix}/share/rocdecode
 
 %changelog
+* Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

@@ -7,12 +7,9 @@
 A collection of libraries for building applications to work with OpenStack
 clouds.}
 
-%global common_desc_tests %{expand:
-A collection of libraries for building applications to work with OpenStack
-clouds - test files}
 
 Name:           python-%{pypi_name}
-Version:        4.20.0
+Version:        4.21.0
 Release:        %autorelease
 Summary:        An SDK for building applications to work with OpenStack
 
@@ -32,19 +29,12 @@ BuildRequires:  python3-devel
 
 %package -n python3-%{pypi_name}
 Summary:        An SDK for building applications to work with OpenStack
+Provides:       python3-%{pypi_name}-tests = %{version}-%{release}
+Obsoletes:      python3-%{pypi_name}-tests < 4.21.0-1
 
 
 %description -n python3-%{pypi_name}
 %{common_desc}
-
-
-%package -n python3-%{pypi_name}-tests
-Summary:        An SDK for building applications to work with OpenStack - test files
-Requires: python3-%{pypi_name} = %{version}-%{release}
-
-
-%description -n python3-%{pypi_name}-tests
-%{common_desc_tests}
 
 
 %if 0%{?with_doc}
@@ -104,10 +94,6 @@ rm -f ./openstack/tests/unit/test_hacking.py
 %doc README.rst ChangeLog
 %{_bindir}/openstack-inventory
 %exclude %{python3_sitelib}/openstack/tests
-
-
-%files -n python3-%{pypi_name}-tests
-%{python3_sitelib}/openstack/tests
 
 
 %if 0%{?with_doc}

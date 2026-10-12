@@ -11,7 +11,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	6.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib AND Apache-2.0 AND MPL-2.0
 URL:		https://xrootd.web.cern.ch
@@ -30,6 +30,8 @@ Patch3:		0001-Tests-Do-not-hardcode-the-name-of-the-build-director.patch
 Patch4:		0001-Python-Fix-parsing-of-enum-arguments-in-python-bindi.patch
 Patch5:		0002-Python-Fix-parsing-of-timeout-arguments-in-python-bi.patch
 Patch6:		0003-Python-Fix-parsing-of-uint64_t-arguments-in-python-b.patch
+Patch7:		0004-Python-Fix-parsing-of-bool-argument-in-python-bindin.patch
+Patch8:		0005-Python-Update-converter-helper-functions.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -281,6 +283,8 @@ This package contains the API documentation of the xrootd libraries.
 %patch -P4 -p1
 %patch -P5 -p1
 %patch -P6 -p1
+%patch -P7 -p1
+%patch -P8 -p1
 
 # Delete bundled dependencies
 rm src/XrdXml/tinyxml/tiny*
@@ -690,6 +694,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sun Oct 11 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.2.0-2
+- Some fixes for the python bindings
+
 * Tue Oct 06 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.2.0-1
 - Update to version 6.2.0
 

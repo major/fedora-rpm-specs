@@ -5,7 +5,7 @@
 %global crate unicase
 
 Name:           rust-unicase
-Version:        2.9.0
+Version:        2.10.0
 Release:        %autorelease
 Summary:        Case-insensitive wrapper around strings
 

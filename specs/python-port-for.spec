@@ -26,6 +26,8 @@ It can find an unused TCP local host port and remember the association.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
+# We must work with what we have, and compatibility is quite good in practice.
+%pyproject_patch_dependency uv_build:drop_upper
 
 %generate_buildrequires
 %pyproject_buildrequires -r

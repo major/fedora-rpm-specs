@@ -5,15 +5,15 @@
 %global crate impl-more
 
 Name:           rust-impl-more
-Version:        0.3.8
+Version:        0.3.10
 Release:        %autorelease
 Summary:        Concise, declarative trait implementation macros
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/impl-more
 Source:         %{crates_source}
-Source10:       https://github.com/robjtede/impl-more/raw/refs/tags/v0.3.8/LICENSE-APACHE
-Source11:       https://github.com/robjtede/impl-more/raw/refs/tags/v0.3.8/LICENSE-MIT
+Source10:       https://github.com/robjtede/impl-more/raw/refs/tags/v0.3.10/LICENSE-APACHE
+Source11:       https://github.com/robjtede/impl-more/raw/refs/tags/v0.3.10/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 

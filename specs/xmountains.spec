@@ -1,6 +1,6 @@
 Name:           xmountains
-Version:        2.11
-Release:        8%{?dist}
+Version:        2.15
+Release:        1%{?dist}
 Summary:        A fractal terrain generator
 
 # SPDX confirmed
@@ -9,9 +9,11 @@ URL:            https://spbooth.github.io/xmountains/
 Source0:        https://github.com/spbooth/xmountains/archive/v%{version}/%{name}-%{version}.tar.gz
 Source11:        xscreensaver-xmountains.xml
 Source12:        xscreensaver-xmountains.conf
-# Need report to the upstream
-# Fix for C23
-Patch0:         xmountains-2.11-c23.patch
+# https://github.com/spbooth/xmountains/commit/6dce3ff31e7fa13350cf16c887f567a8e6aeff12
+# Fix function prototype mismatch: lto complains
+Patch0:         xmountains-2.15-6dce3ff-lto-prototype.patch
+# ... And yet more fix for the above (need reporting upstream)
+Patch1:         xmountains-2.15-prototype-additional-fix.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -41,13 +43,13 @@ This package adds XScreenSaver integration.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .c23
-
+%patch -P0 -p1 -b .lto
+%patch -P1 -p1 -b .proto
 %global optflags %optflags -Werror=implicit-function-declaration
 
 %build
 xmkmf
-make %{?_smp_mflags} CCOPTIONS="$RPM_OPT_FLAGS -DANSI"
+make %{?_smp_mflags} CCOPTIONS="$RPM_OPT_FLAGS"
 
 %install
 make install \
@@ -84,6 +86,9 @@ fi
 %{_datadir}/xscreensaver/*/*
 
 %changelog
+* Sun Oct 11 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.15-1
+- 2.15
+
 * Sat Jul 18 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.11-8
 - Drop ix86 on F45 unavoidably as imake stopped supporting on ix86
 

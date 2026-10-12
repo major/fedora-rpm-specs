@@ -1,5 +1,5 @@
 Name:           python-pytest-env
-Version:        1.7.1
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Pytest plugin that allows you to add environment variables
 
@@ -28,6 +28,15 @@ variables from .env files.}
 Summary:        %{summary}
 
 %description -n python3-pytest-env %{common_description}
+
+
+%prep -a
+# Loosen some unnecessarily aggressive version bounds
+%if %{defined fc45}
+%pyproject_patch_dependency hatchling:set_lower:1.31.0
+%endif
+# https://bugzilla.redhat.com/show_bug.cgi?id=2544657
+%pyproject_patch_dependency python-dotenv:set_lower:1.2.2
 
 
 %generate_buildrequires -p

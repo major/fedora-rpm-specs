@@ -1,12 +1,11 @@
 Name:           perl-Algorithm-BloomFilter
-Version:        0.02
-Release:        24%{?dist}
+Version:        0.03
+Release:        1%{?dist}
 Summary:        A simple bloom filter data structure
 # lib/Algorithm/BloomFilter.pm
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Algorithm-BloomFilter
+URL:            https://metacpan.org/dist/Algorithm-BloomFilter
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Algorithm-BloomFilter-%{version}.tar.gz
 
 # build requirements
@@ -42,11 +41,14 @@ This module implements a simple bloom filter in C/XS.
 
 %files
 %doc Changes
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Algorithm*
 %{perl_vendorarch}/Algorithm*
-%{_mandir}/man3/*
+%{_mandir}/man3/Algorithm*
 
 %changelog
+* Sun Oct 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.03-1
+- Update to 0.03
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.02-24
 - Perl 5.44 rebuild
 

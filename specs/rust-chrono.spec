@@ -5,7 +5,7 @@
 %global crate chrono
 
 Name:           rust-chrono
-Version:        0.4.44
+Version:        0.4.45
 Release:        %autorelease
 Summary:        Date and time library for Rust
 
@@ -16,7 +16,11 @@ Source:         %{crates_source}
 Patch:          chrono-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * remove WASM- and Windows-specific features and dependencies
+# * allow similar-asserts v1 for now, RHBZ#2454122
 Patch:          chrono-fix-metadata.diff
+# * Fix test failures due to deprecation of `core::i32::MAX` in Rust 1.99
+# * https://github.com/chronotope/chrono/pull/1825
+Patch10:        https://github.com/chronotope/chrono/pull/1825.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

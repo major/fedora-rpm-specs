@@ -1,6 +1,6 @@
 Name:          libiio
-Version:       0.26
-Release:       12%{?dist}
+Version:       1.0.0
+Release:       %autorelease
 Summary:       Library for Industrial IO
 License:       LGPL-2.0-or-later
 URL:           https://analogdevicesinc.github.io/libiio/
@@ -8,18 +8,21 @@ Source0:       https://github.com/analogdevicesinc/%{name}/archive/v%{version}.t
 
 BuildRequires: avahi-devel
 BuildRequires: bison
+BuildRequires: chrpath
 BuildRequires: cmake
-BuildRequires: doxygen
 BuildRequires: flex
 BuildRequires: gcc
 BuildRequires: libaio-devel
+BuildRequires: libserialport-devel
 BuildRequires: libusb1-devel
 BuildRequires: libxml2-devel
-BuildRequires: man2html
+BuildRequires: libzstd-devel
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
-BuildRequires: python3-sphinx
-BuildRequires: python3-sphinx_rtd_theme
+# Docs
+BuildRequires: doxygen
+BuildRequires: graphviz
+BuildRequires: man2html
 
 %description
 Library for interfacing with Linux IIO devices
@@ -63,29 +66,47 @@ Python 3 bindings for Industrial IO
 
 %prep
 %autosetup -p1
-sed -i 's#${LIBIIO_VERSION_MAJOR}-doc##' CMakeLists.txt
-sed -i 's#DESTINATION ${CMAKE_HTML_DEST_DIR}/${CMAKE_API_DEST_DIR}#DESTINATION ${CMAKE_HTML_DEST_DIR}##' CMakeLists.txt
+
+%generate_buildrequires
+cd bindings/python/
+%pyproject_buildrequires --pyproject-dependencies
 
 %build
-%cmake -DPYTHON_BINDINGS=on -DWITH_DOC=on -DWITH_MAN=on \
+%cmake -DWITH_MAN=on \
        -DUDEV_RULES_INSTALL_DIR=%{_udevrulesdir}
 
 %cmake_build
 
+pushd bindings/python/
+%pyproject_wheel
+popd
+
+# Sphinx introduces a lot of dependencies
+pushd doc/doxygen
+(cat doxyfile.in; echo "GENERATE_HTML = YES"; echo "HTML_OUTPUT = html"; echo "GENERATE_XML = NO") | doxygen -
+popd
+
 %install
 %cmake_install
 
-#hack: Fix man locations
-mv %{buildroot}%{_mandir}/man1/man/* %{buildroot}%{_mandir}/man1
-mv %{buildroot}%{_mandir}/man3/man/* %{buildroot}%{_mandir}/man3
-rmdir %{buildroot}%{_mandir}/man1/man %{buildroot}%{_mandir}/man3/man
+pushd bindings/python/
+%pyproject_install
+%pyproject_save_files iio
+popd
+
+# Fix rpath
+chrpath --delete %{buildroot}/%{_bindir}/iio*
 #Remove libtool archives.
 find %{buildroot} -name '*.la' -delete
+
+mkdir -p %{buildroot}%{_docdir}/%{name}
+cp -aR doc/doxygen/generated/html/ %{buildroot}%{_docdir}/%{name}/html/
 
 
 %files
 %license COPYING.txt
-%{_libdir}/%{name}.so.*
+%{_libdir}/%{name}.so.0
+%{_libdir}/%{name}.so.1*
 %{_mandir}/man3/libiio*
 %{_udevrulesdir}/90-libiio.rules
 
@@ -95,189 +116,14 @@ find %{buildroot} -name '*.la' -delete
 %{_mandir}/man1/iio*
 
 %files devel
-%{_includedir}/iio.h
+%{_includedir}/iio/
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/%{name}.so
 
 %files doc
 %doc %{_docdir}/%{name}
 
-%files -n python3-iio
-%{python3_sitelib}/__pycache__/iio*
-%{python3_sitelib}/iio.py
-%{python3_sitelib}/pylibiio*
+%files -n python3-iio -f %{pyproject_files}
 
 %changelog
-* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.26-12
-- Rebuilt for libxml-2.5.4
-
-* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.26-11
-- Rebuilt for Python 3.15.0b4 ABI change
-
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.26-9
-- Rebuilt for Python 3.15
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.26-7
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.26-6
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.26-4
-- Rebuilt for Python 3.14
-
-* Tue Feb 04 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.26-3
-- Minor spec cleanups and fixes
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sun Nov 10 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 0.26-1
-- Update to 0.26
-
-* Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 0.25-7
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.25-5
-- Rebuilt for Python 3.13
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.25-4
-- Rebuilt for Python 3.13
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Aug 13 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.25-1
-- Update to 0.25
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 0.24-4
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jul 18 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 0.24-1
-- Update to 0.24
-
-* Wed Jun 22 2022 Iker Pedrosa <pbrobinson@fedoraproject.org> - 0.23-6
-- Package man pages
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.23-5
-- Rebuilt for Python 3.11
-
-* Thu Apr 07 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 0.23-4
-- Drop unused libserialport
-
-* Tue Mar 29 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 0.23-3
-- Minor spec updates for cmake changes
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Aug 22 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 0.23-1
-- Update to 0.23
-
-* Sun Aug 01 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 0.22-1
-- Update to 0.22
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.21-5
-- Rebuilt for Python 3.10
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jun 23 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 0.21-1
-- Update to 0.21
-
-* Sat Jun 06 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 0.20-1
-- Update to 0.20
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.19-2
-- Rebuilt for Python 3.9
-
-* Sat Feb 15 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 0.19-1
-- Update to 0.19
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 0.18-4
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.18-3
-- Rebuilt for Python 3.8
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun May 12 2019 Peter Robinson <pbrobinson@fedoraproject.org> 0.18-1
-- Update to 0.18
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sun Jan 27 2019 Peter Robinson <pbrobinson@fedoraproject.org> 0.17-1
-- Update to 0.17
-- Enable IIOD USB/AIO backend
-
-* Thu Nov 22 2018 Peter Robinson <pbrobinson@fedoraproject.org> 0.16-1
-- Update to 0.16
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 0.15-2
-- Rebuilt for Python 3.7
-
-* Wed May 23 2018 Peter Robinson <pbrobinson@fedoraproject.org> 0.15-1
-- Update to 0.15
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Mon Jan 29 2018 Peter Robinson <pbrobinson@fedoraproject.org> 0.14-1
-- Update to 0.14
-
-* Fri Dec 22 2017 Peter Robinson <pbrobinson@fedoraproject.org> 0.12-1
-- Update to 0.12
-
-* Wed Oct 25 2017 Peter Robinson <pbrobinson@fedoraproject.org> 0.11-1
-- Update to 0.11
-
-* Wed Aug 16 2017 Peter Robinson <pbrobinson@fedoraproject.org> 0.10-1
-- Update to 0.10
-- Review updates
-
-* Wed Feb 22 2017 Peter Robinson <pbrobinson@fedoraproject.org> 0.9-1
-- Initial package
+%autochangelog

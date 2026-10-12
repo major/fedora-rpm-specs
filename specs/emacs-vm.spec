@@ -20,7 +20,7 @@ Summary(sv): Emacs postläsare VM
 Name: emacs-vm
 %global forgeurl https://gitlab.com/emacs-vm/vm/
 %global version0 9.0.0
-%global commit ebd19da89884f9513ea4e3a074f27a4784a8b9b8
+%global commit e1a00b9c9143dad6182cfb3069bc040a6434077e
 %forgemeta
 Version: %forgeversion -p
 Release: %autorelease
@@ -81,6 +81,7 @@ install -d %{buildroot}%{_datadir}/metainfo
 cp -p %{SOURCE1} %{buildroot}%{_datadir}/metainfo
 
 %check
+# Disabled because of https://gitlab.com/emacs-vm/vm/-/work_items/911
 # make test-no-opt
 appstream-util validate-relax --nonet \
 	       %{buildroot}%{_datadir}/metainfo/%{name}.metainfo.xml

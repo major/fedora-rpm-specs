@@ -1,36 +1,39 @@
-%global cpan_version 2.99043
+%global cpan_version 2.99044
 
 Name:           perl-Net-Whois-Raw
 # Keep 2-digit precision
 Version:        %(echo '%{cpan_version}' | sed 's/\(\...\)\(.\)/\1.\2/')
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Get Whois information for domains
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Net-Whois-Raw
 Source0:        https://cpan.metacpan.org/authors/id/N/NA/NALOBIN/Net-Whois-Raw-%{cpan_version}.tar.gz
 BuildArch:      noarch
+# build requirements
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
-# Run-time:
+# runtime requirements
 BuildRequires:  perl(Carp)
-# Data::Dumper not used at tests
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Encode)
+BuildRequires:  perl(Getopt::Long)
 # HTTP::Headers not used at tests
 # HTTP::Request not used at tests
 BuildRequires:  perl(IO::Socket::IP)
-# LWP::UserAgent not used at tests
+BuildRequires:  perl(LWP::UserAgent)
+BuildRequires:  perl(Net::IDN::Encode)
 BuildRequires:  perl(Regexp::IPv6)
 # URI::URL not used at tests
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 BuildRequires:  perl(utf8)
-
-# Tests:
-BuildRequires:  perl(Data::Dumper)
+# test requirements
+BuildRequires:  perl(DBI)
 BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(Socket)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::RequiresInternet)
 Requires:       perl(Data::Dumper)
@@ -67,26 +70,29 @@ perl -pi -e 's/^#!.*perl/#!\/usr\/bin\/perl/' bin/pwhois
 %package -n pwhois
 Summary:        Perl written whois client
 # Getopt::Long not used at tests
-# Net::IDN::Punycode 1 not used at tests
 # Win32API::Registry not used on Linux
-Requires:       perl(Getopt::Long) >= 2
-Requires:       perl(Net::IDN::Punycode) >= 1
+Requires:       perl(Getopt::Long)
+Requires:       perl(Net::IDN::Encode)
 # Win32API::Registry not used on Linux
 
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Getopt::Long\\)$
-%global __requires_exclude %__requires_exclude|^perl\\(Net::IDN::Punycode\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Net::IDN::Encode\\)$
 
 %description -n pwhois
-Command line whois client.  Invoke with a domain name, optionally with a whois
+Command line whois client. Invoke with a domain name, optionally with a whois
 server name.
 
 %files -n pwhois
 %license LICENSE COPYRIGHT
 %doc README
-%{_mandir}/man1/*
-%{_bindir}/*
+%{_mandir}/man1/pwhois*
+%{_bindir}/pwhois*
 
 %changelog
+* Sun Oct 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.99.044-1
+- Update to 2.99.044 (fixes CVE-2026-19954)
+- Rework dependencies
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.99.043-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

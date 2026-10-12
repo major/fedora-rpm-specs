@@ -34,6 +34,9 @@ Summary:        %{summary}
 %prep
 %forgeautosetup
 
+# We must work with what we have, and compatibility is quite good in practice.
+%pyproject_patch_dependency uv_build:drop_upper
+
 # Relax version constraints for test dependencies and remove linters.
 # and other unused / unavailable plugins.
 

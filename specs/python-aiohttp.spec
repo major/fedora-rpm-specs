@@ -6,7 +6,7 @@
 %bcond uvloop 0
 
 Name:           python-aiohttp
-Version:        3.14.4
+Version:        3.14.5
 Release:        %autorelease
 Summary:        Python HTTP client/server for asyncio
 

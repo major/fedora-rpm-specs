@@ -5,7 +5,7 @@
 %bcond_without tests
 
 Name:           wxGTK
-Version:        3.2.11
+Version:        3.2.12
 Release:        1%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1
@@ -337,6 +337,9 @@ fi
 %doc html
 
 %changelog
+* Mon Oct 12 2026 Scott Talbert <swt@techie.net> - 3.2.12-1
+- Update to new upstream release 3.2.12
+
 * Fri Jul 24 2026 Scott Talbert <swt@techie.net> - 3.2.11-1
 - Update to new upstream release 3.2.11
 - Remove wxGTK3 obsoletes

@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 %global pypi_name keystoneauth1
 
 %global _description %{expand:
@@ -11,7 +11,7 @@ new clients.}
 %global with_doc 1
 
 Name:       python-%{pypi_name}
-Version:    5.17.0
+Version:    5.18.0
 Release:    %autorelease
 Summary:    Authentication Library for OpenStack Clients
 License:    Apache-2.0
@@ -70,15 +70,12 @@ sed -i '/sphinx.ext.intersphinx.*$/d'  doc/source/conf.py
 sed -i /.*-c{env:TOX_CONSTRAINTS_FILE.*/d tox.ini
 sed -i '/sphinx-build/ s/-W//' tox.ini
 
-sed -i \
-    -e "/^coverage[[:space:]]*[~!><=]/d" \
-    -e "/^hacking[[:space:]]*[~!><=]/d" \
-    -e "/^reno[[:space:]]*[~!><=]/d" \
-    -e "/^flake8-docstrings[[:space:]]*[~!><=]/d" \
-    -e "/^flake8-import-order[[:space:]]*[~!><=]/d" \
-    -e "/^bandit[[:space:]]*[~!><=]/d" \
-    -e "/^pbr[[:space:]]*[~!><=]/d" \
-    test-requirements.txt doc/requirements.txt
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency hacking:ignore
+%pyproject_patch_dependency reno:ignore
+%pyproject_patch_dependency flake8-docstrings:ignore
+%pyproject_patch_dependency flake8-import-order:ignore
+%pyproject_patch_dependency bandit:ignore
 
 
 %generate_buildrequires
@@ -115,6 +112,7 @@ rm -rf doc/build/html/.buildinfo
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst ChangeLog
 %license LICENSE
+%exclude %{python3_sitelib}/keystoneauth1/tests
 
 
 %if 0%{?with_doc}

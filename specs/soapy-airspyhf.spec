@@ -1,15 +1,11 @@
-%global gitdate 20251009
-%global commit 7457d6972d97ea6808a2774a9439501308e4c688
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           soapy-airspyhf
-Version:        0.2.0^%{gitdate}git%{shortcommit}
+Version:        0.2.1
 Release:        %autorelease
 Summary:        SoapySDR module for AirspyHF hardware
 
 License:        MIT
 URL:            https://github.com/pothosware/SoapyAirspyHF
-Source:         https://github.com/pothosware/SoapyAirspyHF/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source:         https://github.com/pothosware/SoapyAirspyHF/archive/refs/tags/soapy-airspyhf-%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -21,7 +17,7 @@ SoapyAirspyHF is a plug-in module for SoapySDR adding support for
 AispyHF hardware.
     
 %prep
-%autosetup -n SoapyAirspyHF-%{commit}
+%autosetup -n SoapyAirspyHF-soapy-airspyhf-%{version}
 
 %build
 %cmake

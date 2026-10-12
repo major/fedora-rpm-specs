@@ -2,14 +2,13 @@
 %undefine _hardened_build
 
 Name:           patchelf
-Version:        0.19.1
-Release:        2%{?dist}
+Version:        0.19.2
+Release:        1%{?dist}
 Summary:        A utility for patching ELF binaries
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://nixos.org/patchelf.html
-Source0:        https://github.com/NixOS/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/NixOS/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -55,10 +54,15 @@ rm -rf %{buildroot}/usr/share/doc/%{name}
 %{_datadir}/zsh/site-functions/_patchelf
 
 %changelog
+* Sun Oct 11 2026 Jeremy Sanders <jeremy@jeremysanders.net> - 0.19.2-1
+- Update to v0.19.2
+- Fixes rhbz#2544650
+- Fix source URL
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
-* Sun Jul 12 2026 Jermey Sanders <jeremy@jeremysanders.net> - 0.19.1-1
+* Sun Jul 12 2026 Jeremy Sanders <jeremy@jeremysanders.net> - 0.19.1-1
 - Update to v0.19.1
 - Fixes: rhbz#2497587
 

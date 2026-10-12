@@ -25,7 +25,7 @@
 %if %{with preview}
 %global rocm_release 10.1
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %endif
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
@@ -63,7 +63,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Data Center Tool
 
@@ -188,6 +188,9 @@ chmod a+x %{buildroot}%{pkg_prefix}/libexec/rdc/authentication/*.sh
 %{pkg_prefix}/%{pkg_libdir}/cmake/rdc/
 
 %changelog
+* Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Fri Sep 25 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 10.0.0-2
 - Rebuilt for abseil-cpp 20260817.0
 

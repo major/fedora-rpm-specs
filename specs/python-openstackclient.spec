@@ -2,7 +2,7 @@
 %bcond_with bootstrap
 
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 
 # Command name
 %global cname openstack
@@ -17,7 +17,7 @@ It is a thin wrapper to the stock python-*client modules that implement the
 actual REST API client actions.}
 
 Name:             python-%{sname}
-Version:          10.3.0
+Version:          10.4.0
 Release:          %autorelease
 Summary:          OpenStack Command-line Client
 
@@ -98,26 +98,21 @@ sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 sed -i '/sphinx-build/ s/-W//' tox.ini
 sed -i '/whereto*/d' tox.ini
 
-sed -i \
-    -e "/^coverage[[:space:]]*[!><=]/d" \
-    -e "/^tempest[[:space:]]*[!><=]/d" \
-    -e "/^osprofiler[[:space:]]*[!><=]/d" \
-    -e "/^tempest[[:space:]]*[!><=]/d" \
-    -e "/^whereto[[:space:]]*[!><=]/d" \
-    -e "/^reno[[:space:]]*[!><=]/d" \
-    test-requirements.txt doc/requirements.txt
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency tempest:ignore
+%pyproject_patch_dependency osprofiler:ignore
+%pyproject_patch_dependency tempest:ignore
+%pyproject_patch_dependency whereto:ignore
+%pyproject_patch_dependency reno:ignore
 
 # autocomplete docs are optional per package add these back 
 # if they exist in fedora/epel
 
-sed -i \
-    -e "/^python-barbicanclient[[:space:]]*[!><=]/d" \
-    -e "/^python-cyborgclient[[:space:]]*[!><=]/d" \
-    -e "/^python-zunclient[[:space:]]*[!><=]/d" \
-    -e "/^python-watcherclient[[:space:]]*[!><=]/d" \
-    -e "/^python-designateclient[[:space:]]*[!><=]/d" \
-    -e "/^python-ironic-inspector-client[[:space:]]*[!><=]/d" \
-    doc/requirements.txt
+%pyproject_patch_dependency python-cyborgclient:ignore
+%pyproject_patch_dependency python-zunclient:ignore
+%pyproject_patch_dependency python-watcherclient:ignore
+%pyproject_patch_dependency python-ironic-inspector-client:ignore
+%pyproject_patch_dependency python-designateclient:ignore
 
 
 %generate_buildrequires
@@ -196,6 +191,7 @@ export PYTHON=%{__python3}
 %dir %attr(0755, openstack-completion, openstack-completion) %{_sharedstatedir}/openstack-client
 %ghost %attr(0644, openstack-completion, openstack-completion) %{_sharedstatedir}/openstack-client/bash-completion
 %{_mandir}/man8/openstack-completion.service.8*
+%exclude %{python3_sitelib}/openstackclient/tests
 
 %if %{without bootstrap}
 %files -n python-%{sname}-doc

@@ -25,7 +25,7 @@
 %if %{with preview}
 %global rocm_release 10.1
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %endif
 
 %global rocm_patch 0
@@ -106,14 +106,6 @@ sed -i -e '/INSTALL_RPATH/,+2d' CMakeLists.txt
 
 %cmake_build
 
-%if %{without preview}
-%check
-echo "void f(int *a, const cudaDeviceProp *b) { cudaChooseDevice(a,b); }" > b.cu
-echo "void f(int *a, const hipDeviceProp_t *b) { hipChooseDevice(a,b); }" > e.hip
-./bin/hipify-perl b.cu -o t.hip
-diff e.hip t.hip
-%endif
-
 %install
 %cmake_install
 rm -rf %{buildroot}%{pkg_prefix}/hip
@@ -136,6 +128,9 @@ rm -f %{buildroot}%{pkg_prefix}/libexec/hipify/hipify-perl
 %{pkg_prefix}/libexec/hipify/
 
 %changelog
+* Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

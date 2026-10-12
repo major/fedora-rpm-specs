@@ -48,6 +48,11 @@ Summary:        %{summary}
 %description -n python3-pytest-bdd %{common_description}
 
 
+%prep -a
+# We must work with what we have, and compatibility is quite good in practice.
+%pyproject_patch_dependency uv_build:drop_upper
+
+
 %install -a
 install -D --mode 0644 --preserve-timestamps \
     --target-directory '%{buildroot}%{_mandir}/man1' \

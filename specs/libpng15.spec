@@ -1,7 +1,7 @@
 Summary: Old version of libpng, needed to run old binaries
 Name: libpng15
 Version: 1.5.30
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: zlib
 URL: http://www.libpng.org/pub/png/
 
@@ -16,6 +16,8 @@ Patch1: libpng15-CVE-2018-13785.patch
 # from upstream, for <= 1.6.54, rhbz#2438542
 # https://github.com/pnggroup/libpng/commit/01d03b8453eb30ade759cd45c707e5a1c7277d88
 Patch2:  libpng-1.5-cve-2026-25646.patch
+Patch3:  libpng-1.5-CVE-2026-33416.patch
+Patch4:  libpng-1.5-CVE-2025-64505.patch
 
 BuildRequires: gcc
 BuildRequires: zlib-devel
@@ -33,6 +35,8 @@ version of libpng.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P 2 -p1 -b .cve-2026-25646
+%patch -P 3 -p1 -b .CVE-2026-33416
+%patch -P 4 -p1 -b .CVE-2025-64505
 
 # Provide pngusr.dfa for build.
 cp -p %{SOURCE1} .
@@ -58,6 +62,10 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/*
 %{_libdir}/libpng15.so.*
 
 %changelog
+* Sun Oct 11 2026 Michal Hlavinka <mhlavink@redhat.com> - 1.5.30-27
+- fix CVE-2025-64505: heap buffer overflow via malformed palette index (rhbz#2418424)
+- fix CVE-2026-33416: use-after-free via pointer aliasing in png_set_tRNS and png_set_PLTE (rhbz#2452157)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.30-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

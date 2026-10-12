@@ -21,7 +21,7 @@
 #
 %global upstreamname rocshmem
 
-%global rocm_release 10.0
+%global rocm_release 10.1
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -144,6 +144,9 @@ rm -f %{buildroot}%{_docdir}/rocshmem/LICENSE.md
 %{_libdir}/librocshmem.so
 
 %changelog
+* Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

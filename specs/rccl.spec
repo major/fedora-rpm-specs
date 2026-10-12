@@ -25,7 +25,7 @@
 %if %{with preview}
 %global rocm_release 10.1
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %endif
 
 %global rocm_patch 0
@@ -266,10 +266,6 @@ sed -i -e "s@-parallel-jobs=\${num_linker_jobs}@-parallel-jobs=${LINK_JOBS}@" CM
 # Switch to bfd
 sed -i -e 's@target_link_libraries(rccl PRIVATE   -fgpu-rdc)@target_link_libraries(rccl PRIVATE   -fgpu-rdc -fuse-ld=bfd)@' CMakeLists.txt
 
-%if %{without preview}
-# need iostream to use std::cerr
-sed -i '/#include <cuda_runtime.h>/a #include <iostream>' src/ipc_init.cu
-%endif
 # need std::map
 sed -i '/#include <mutex>/a #include <map>' src/transport/net.cc
 
@@ -332,6 +328,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

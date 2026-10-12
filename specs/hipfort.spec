@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %global upstreamname hipfort
-%global rocm_release 10.0
+%global rocm_release 10.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -135,11 +135,11 @@ export LD_LIBRARY_PATH=${PWD}/%{_vpath_builddir}/lib:$LD_LIBRARY_PATH
 %install
 %cmake_install
 # nvidia is not supported on Fedora
-rm -rf %{buildroot}%{pkg_prefix}/include/hipfort/nvptx
-rm -rf %{buildroot}%{pkg_prefix}/%{pkg_libdir}/libhipfort-nvptx*
+rm -rf %{buildroot}%{_includedir}/fortran/f95/hipfort/nvptx
+rm -rf %{buildroot}%{_libdir}/fortran/f95/libhipfort-nvptx*
 
 # rpmbuild has a problem with this file
-rm %{buildroot}%{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/hipfort-config.cmake
+rm %{buildroot}%{_libdir}/fortran/f95/cmake/hipfort/hipfort-config.cmake
 
 # Extra license
 rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
@@ -147,14 +147,17 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
 %files
 %license LICENSE
 %doc README.md
-%{pkg_prefix}/%{pkg_libdir}/libhipfort-amdgcn.so.*
+%{_libdir}/fortran/f95/libhipfort-amdgcn.so.*
 
 %files devel
-%{pkg_prefix}/include/fortran/f95/hipfort/
-%{pkg_prefix}/%{pkg_libdir}/libhipfort-amdgcn.so
-%{pkg_prefix}/%{pkg_libdir}/cmake/hipfort/
+%{_includedir}/fortran/f95/hipfort/
+%{_libdir}/fortran/f95/libhipfort-amdgcn.so
+%{_libdir}/fortran/f95/cmake/hipfort/
 
 %changelog
+* Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

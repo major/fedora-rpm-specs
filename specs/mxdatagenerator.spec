@@ -21,7 +21,7 @@
 #
 
 %global upstreamname mxdatagenerator
-%global rocm_release 10.0
+%global rocm_release 10.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -107,6 +107,9 @@ rm -f %{buildroot}%_datadir/doc/mxDataGenerator/LICENSE.md
 %_datadir/cmake/mxDataGenerator/
 
 %changelog
+* Sat Oct 10 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

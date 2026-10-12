@@ -1,10 +1,10 @@
 Name:           perl-XML-Feed
-Version:        1.0.1
+Version:        1.0.2
 Release:        1%{?dist}
 Summary:        Syndication feed parser and auto-discovery
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/XML-Feed
-Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAVECROSS/XML-Feed-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAVECROSS/XML-Feed-v%{version}.tar.gz
 BuildArch:      noarch
 # build requirements
 BuildRequires:  make
@@ -56,7 +56,7 @@ XML::Feed is a syndication feed parser for both RSS and Atom feeds. It also
 implements feed auto-discovery for finding feeds, given a URI.
 
 %prep
-%setup -q -n XML-Feed-%{version}
+%setup -q -n XML-Feed-v%{version}
 
 %build
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -75,6 +75,9 @@ implements feed auto-discovery for finding feeds, given a URI.
 %{_mandir}/man3/XML*
 
 %changelog
+* Sun Oct 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0.2-1
+- Update to 1.0.2
+
 * Sun Sep 13 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0.1-1
 - Update to 1.0.1
 

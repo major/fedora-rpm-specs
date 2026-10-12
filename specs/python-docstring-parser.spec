@@ -1,8 +1,8 @@
 %global srcname docstring-parser
 
 Name:           python-%{srcname}
-Version:        0.17.0
-Release:        6%{?dist}
+Version:        0.18.0
+Release:        1%{?dist}
 Summary:        Parse Python docstrings
 License:        MIT
 URL:            https://github.com/rr-/docstring_parser
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sun Oct 11 2026 Federico Pellegrin <fede@evolware.org> - 0.18.0-1
+- Bump to 0.18.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

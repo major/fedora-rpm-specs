@@ -1,5 +1,5 @@
 Name:           python-pytest-check
-Version:        2.7.2
+Version:        2.10.1
 Release:        %autorelease
 Summary:        A pytest plugin that allows multiple failures per test 
 

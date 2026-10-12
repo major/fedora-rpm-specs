@@ -21,7 +21,7 @@
 #
 
 %global upstreamname primbench
-%global rocm_release 10.0
+%global rocm_release 10.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -87,6 +87,9 @@ install -p -D -m 644 primbench.hpp %{buildroot}%{_includedir}/primbench.hpp
 %{_includedir}/primbench.hpp
 
 %changelog
+* Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.0
+
 * Tue Oct 6 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

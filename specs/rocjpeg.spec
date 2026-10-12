@@ -28,7 +28,7 @@
 %if %{with preview}
 %global rocm_release 10.1
 %else
-%global rocm_release 10.0
+%global rocm_release 10.1
 %endif
 
 %global rocm_patch 0
@@ -175,13 +175,8 @@ Provides:     rocjpeg%{pkg_suffix}-devel = %{version}-%{release}
 sed -i -e 's@set(CMAKE_C_COMPILER ${ROCM_PATH}/lib/llvm/bin/amdclang)@set(CMAKE_C_COMPILER "%rocmllvm_bindir/amdclang")@' {,test/,test/*/,samples/*/}CMakeLists.txt
 sed -i -e 's@set(CMAKE_CXX_COMPILER ${ROCM_PATH}/lib/llvm/bin/amdclang++)@set(CMAKE_CXX_COMPILER "%rocmllvm_bindir/amdclang++")@' {,test/,test/*/,samples/*/}CMakeLists.txt
 
-%if %{with preview}
 sed -i -e 's@NO_DEFAULT_PATH@@' cmake/FindLibva.cmake
 sed -i -e 's@NO_DEFAULT_PATH@@' cmake/FindLibdrm_amdgpu.cmake
-%else
-# There is no /opt/amgpu/include, just use the normal path.
-sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|%{pkg_prefix}/include|" cmake/FindLibva.cmake
-%endif
 
 # Fix up sample
 sed -i -e 's@${ROCM_PATH}/lib/llvm/bin/clang++@%{pkg_prefix}/bin/hipcc@' samples/*/CMakeLists.txt
@@ -247,6 +242,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/packages/librocjpeg1-asan/LICENSE
 %{pkg_prefix}/share/rocjpeg/
 
 %changelog
+* Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 

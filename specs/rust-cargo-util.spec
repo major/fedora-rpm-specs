@@ -5,7 +5,7 @@
 %global crate cargo-util
 
 Name:           rust-cargo-util
-Version:        0.2.30
+Version:        0.2.31
 Release:        %autorelease
 Summary:        Miscellaneous support code used by Cargo
 

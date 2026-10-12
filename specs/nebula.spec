@@ -3,7 +3,7 @@
 
 # https://github.com/slackhq/nebula
 %global goipath         github.com/slackhq/nebula
-Version:                1.11.1
+Version:                1.11.2
 
 %gometa -L -f
 

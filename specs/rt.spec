@@ -47,8 +47,8 @@ Requires: mod_fcgid
 %{?!rt_upgrade_dir:%global rt_upgrade_dir %{_sysconfdir}/%{name}/upgrade}
 
 Name:		rt
-Version:	5.0.7
-Release:	6%{?dist}
+Version:	5.0.10
+Release:	1%{?dist}
 Summary:	Request tracker
 
 License:	GPL-2.0-or-later
@@ -93,6 +93,7 @@ BuildRequires: perl(Convert::Color)
 BuildRequires: perl(CPAN)
 BuildRequires: perl(Crypt::Eksblowfish)
 BuildRequires: perl(Crypt::X509)
+BuildRequires: perl(CSS::Inliner) >= 4027
 BuildRequires: perl(CSS::Minifier::XS)
 BuildRequires: perl(CSS::Squish) >= 0.06
 BuildRequires: perl(Data::GUID)
@@ -105,13 +106,7 @@ BuildRequires: perl(DateTime::Locale) >= 0.40
 %{?with_mysql:BuildRequires: perl(DBD::mysql) >= 2.1018}
 %{?with_pg:BuildRequires: perl(DBD::Pg) >= 1.43}
 BuildRequires: perl(DBI) >= 1.37
-%if "%{version}" >= "5.0.6"
 BuildRequires: perl(DBIx::SearchBuilder) >= 1.80
-%elif "%{version}" >= "5.0.5"
-BuildRequires: perl(DBIx::SearchBuilder) >= 1.77
-%else
-BuildRequires: perl(DBIx::SearchBuilder) >= 1.76
-%endif
 BuildRequires: perl(Devel::StackTrace) >= 2.00
 BuildRequires: perl(Devel::GlobalDestruction)
 BuildRequires: perl(Digest::MD5) >= 2.27
@@ -166,6 +161,7 @@ BuildRequires: perl(LWP::UserAgent) >= 6.02
 BuildRequires: perl(LWP::Protocol::https)
 BuildRequires: perl(Mail::Header) >= 2.12
 BuildRequires: perl(Mail::Mailer) >= 1.57
+%{?with_devel_mode:BuildRequires: perl(Markdown::Render)}
 BuildRequires: perl(MIME::Entity) >= 5.504
 BuildRequires: perl(MIME::Types)
 BuildRequires: perl(Module::Path)
@@ -515,11 +511,7 @@ make install DESTDIR=${RPM_BUILD_ROOT}
 # Work-around to regression in rpm >= 4.12.90:
 # Can't mix %%doc with directly installed docs, anymore.
 # Need to install all files directly.
-%if "%{version}" >= "5.0.6"
 install -m 644 README.MariaDB README.fedora ${RPM_BUILD_ROOT}%{_pkgdocdir}
-%else
-install -m 644 README README.fedora ${RPM_BUILD_ROOT}%{_pkgdocdir}
-%endif
 
 # We don't want CPAN in run-time packages
 rm -f ${RPM_BUILD_ROOT}%{_sbindir}/rt-test-dependencies
@@ -592,7 +584,9 @@ fi
 %{_pkgdocdir}
 %license COPYING
 %{_bindir}/*
+%if "%{_bindir}" != "%{_sbindir}"
 %{_sbindir}/*
+%endif
 %exclude %{_bindir}/rt-mailgate
 %{_mandir}/man1/*
 %exclude %{_mandir}/man1/rt-mailgate*
@@ -651,6 +645,9 @@ fi
 %endif
 
 %changelog
+* Mon Jul 20 2026 Xavier Bachelot <xavier@bachelot.org> - 5.0.10-1
+- Update to 5.0.10
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

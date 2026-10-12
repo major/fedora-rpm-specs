@@ -2,8 +2,8 @@
 %global tcl_sitearch %{_libdir}/tcl%{tcl_version}
 
 Name:          xapian-bindings
-Version:       1.4.31
-Release:       5%{?dist}
+Version:       1.4.32
+Release:       1%{?dist}
 Summary:       Bindings for the Xapian Probabilistic Information Retrieval Library
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -121,6 +121,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %{tcl_sitearch}/xapian%{version}/
 
 %changelog
+* Sun Oct 11 2026 Christiano Anderson <chris@christiano.me> - 1.4.32-1
+- Update to 1.4.32
+
 * Sat Sep 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.31-5
 - Backport upstream fix to support swig 4.5
 

@@ -1,9 +1,9 @@
 %global zig_pixman_ver 0.3.0
 %global zig_wayland_ver 0.6.0
-%global zig_wlroots_ver 0.20.1
+%global zig_wlroots_commit c183af18ae35dd5fb3dde709697c8f84bb1dc7f3
 %global zig_xkbcommon_ver 0.4.0
-%global translatec_commit 57c559cf581b1fcad90494eda219f98abeb155ce
-%global aro_commit 5f5a050569a95ecc40a426f0c3666ae7ef987ede
+%global translatec_commit 64570104eeed461dc221e77574cd3f1c5b7eb974
+%global aro_commit 1bf978f1e63d4fe66a90b6637ba709e9abc3c854
 
 # llvm needs to be explicitly enabled because Zigs
 # own ELF2 linker doesn't support build-id's yet
@@ -14,7 +14,7 @@
 }
 
 Name:           river
-Version:        0.4.8
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Non-monolithic Wayland compositor
 
@@ -39,10 +39,10 @@ Source2:        https://isaacfreund.com/public_key.txt#/gpgkey-86DED400DDFD7A11.
 Source3:        %{name}.desktop
 Source4:        https://codeberg.org/ifreund/zig-pixman/archive/v%{zig_pixman_ver}.tar.gz#/zig-pixman-%{zig_pixman_ver}.tar.gz
 Source5:        https://codeberg.org/ifreund/zig-wayland/archive/v%{zig_wayland_ver}.tar.gz#/zig-wayland-%{zig_wayland_ver}.tar.gz
-Source6:        https://codeberg.org/ifreund/zig-wlroots/archive/v%{zig_wlroots_ver}.tar.gz#/zig-wlroots-%{zig_wlroots_ver}.tar.gz
+Source6:        https://codeberg.org/ifreund/zig-wlroots/archive/%{zig_wlroots_commit}.tar.gz#/zig-wlroots-%{zig_wlroots_commit}.tar.gz
 Source7:        https://codeberg.org/ifreund/zig-xkbcommon/archive/v%{zig_xkbcommon_ver}.tar.gz#/zig-xkbcommon-%{zig_xkbcommon_ver}.tar.gz
-Source8:        https://codeberg.org/ziglang/translate-c/archive/%{translatec_commit}.tar.gz#/translate-c-%{translatec_commit}.tar.gz
-Source9:        https://github.com/Vexu/arocc/archive/%{aro_commit}.tar.gz#/arocc-%{aro_commit}.tar.gz
+Source8:        https://codeberg.org/ifreund/translate-c/archive/%{translatec_commit}.tar.gz#/translate-c-%{translatec_commit}.tar.gz
+Source9:        https://codeberg.org/ifreund/arocc/archive/%{aro_commit}.tar.gz#/arocc-%{aro_commit}.tar.gz
 
 ExclusiveArch:  %{zig_arches}
 
@@ -64,7 +64,7 @@ BuildRequires:  pkgconfig(xkbcommon) >= 1.12.0
 # so for the time being they are bundled as part of the project.
 Provides:       bundled(zig-pixman) = %{zig_pixman_ver}
 Provides:       bundled(zig-wayland) = %{zig_wayland_ver}
-Provides:       bundled(zig-wlroots) = %{zig_wlroots_ver}
+Provides:       bundled(zig-wlroots) = %{zig_wlroots_commit}
 Provides:       bundled(zig-xkbcommon) = %{zig_xkbcommon_ver}
 
 # Lack of graphical drivers may hurt the common use case
@@ -104,7 +104,7 @@ License:        MIT
 %zig_fetch zig-wlroots
 %zig_fetch zig-xkbcommon
 %zig_fetch translate-c
-%zig_fetch arocc-%{aro_commit}
+%zig_fetch arocc
 
 
 %build

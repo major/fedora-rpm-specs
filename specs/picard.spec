@@ -1,8 +1,8 @@
 %global forgeurl    https://github.com/musicbrainz/picard/
-%global commit      3f1d44b00e680f3e17c4f9a2e879e02f42f0a33f
+%global commit      02fece92db40acf236722f76e4a9234d5562f9d4
 
 Name:           picard
-Version:        3.0.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        MusicBrainz-based audio tagger
 License:        GPL-2.0-or-later

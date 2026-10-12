@@ -12,7 +12,7 @@
 %global crate cargo
 
 Name:           rust-cargo
-Version:        0.98.0
+Version:        0.99.0
 Release:        %autorelease
 Summary:        Package manager for Rust
 
@@ -23,9 +23,7 @@ Source:         %{crates_source}
 Patch:          cargo-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop features for statically linking cURL, libgit2, OpenSSL, and SQLite
-# * bump gix to version 0.85
-# * bump gix-transport to version 0.57
-# * relax rusqlite dependency to '>=0.38,<0.40'
+# * relax rusqlite dependency to '>=0.38,<0.41'
 Patch:          cargo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26

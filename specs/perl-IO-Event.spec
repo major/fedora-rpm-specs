@@ -1,40 +1,40 @@
 Name:           perl-IO-Event
-Version:        0.813
-Release:        36%{?dist}
+Version:        0.814
+Release:        1%{?dist}
 Summary:        Tied filehandles for nonblocking IO with object callbacks
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Event
 Source0:        https://cpan.metacpan.org/authors/id/M/MU/MUIR/modules/IO-Event-%{version}.tar.gz
-# Fix a race in t/foked2.t test, bug #1105023, CPAN RT#92200
-Patch0:         IO-Event-0.813-Fix-undeterministic-test-failures-in-t-forked2.t.patch
 BuildArch:      noarch
-BuildRequires: make
+# build requirements
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl(ExtUtils::MakeMaker)
+# runtime requirements
 BuildRequires:  perl(AnyEvent)
-BuildRequires:  perl(AnyEvent::Impl::Perl)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(diagnostics)
+BuildRequires:  perl(Errno)
 BuildRequires:  perl(Event)
 BuildRequires:  perl(Event::Watcher)
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(Exporter)
-BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::Handle)
-BuildRequires:  perl(IO::Pipe)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(IO::Socket::UNIX)
-BuildRequires:  perl(List::MoreUtils)
+BuildRequires:  perl(List::SomeUtils)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Socket)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(Symbol)
+BuildRequires:  perl(Time::HiRes)
+BuildRequires:  perl(parent)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(AnyEvent::Impl::Perl)
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Simple)
-BuildRequires:  perl(Time::HiRes)
-BuildRequires:  perl(warnings)
+BuildRequires:  perl(diagnostics)
 Requires:       perl(AnyEvent)
 Requires:       perl(IO::Socket::INET)
 Requires:       perl(IO::Socket::UNIX)
@@ -48,28 +48,32 @@ w/o the user needing to think about it much.
 
 %prep
 %setup -q -n IO-Event-%{version}
-%patch -P0 -p1
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PERLLOCAL=1 NO_PACKLIST=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} +
-
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%license LICENSE
+%{perl_vendorlib}/IO*
+%{_mandir}/man3/IO*
 
 %changelog
+* Sun Oct 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.814-1
+- Update to 0.814
+- Add %%license tag
+- Drop upstreamed patch
+- Refresh dependencies
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.813-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

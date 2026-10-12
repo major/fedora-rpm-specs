@@ -1,5 +1,5 @@
 Name:           python-sqlmodel
-Version:        0.0.47
+Version:        0.0.48
 Release:        %autorelease
 Summary:        SQL databases in Python, designed for simplicity, compatibility, and robustness
 
@@ -32,6 +32,7 @@ BuildArch:      noarch
 # - Only needed for ignored tests/test_select_gen.py: black, jinja2
 # - Neither psycopg[binary] nor pymysql[rsa] seems to be actually required, and
 #   psycopg is not packaged
+BuildRequires:  %{py3_dist aiosqlite}
 BuildRequires:  %{py3_dist alembic}
 BuildRequires:  %{py3_dist dirty-equals}
 BuildRequires:  %{py3_dist fastapi}

@@ -1,22 +1,25 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name: xmlstarlet
-Version: 1.6.1
-Release: 31%{?dist}
+Version: 1.7.0
+Release: 1%{?dist}
 Summary: Command Line XML Toolkit
 License: MIT
-URL: http://xmlstar.sourceforge.net/
-Source0: http://downloads.sourceforge.net/xmlstar/%{name}-%{version}.tar.gz
-# https://sourceforge.net/p/xmlstar/bugs/109/
-Patch0: xmlstarlet-1.6.1-nogit.patch
+URL: http://xmlstarlet.github.io/
+Source0: https://github.com/xmlstarlet/xmlstarlet/archive/%{version}/xmlstarlet-%{version}.tar.gz
+
 # http://sourceforge.net/tracker/?func=detail&aid=3266898&group_id=66612&atid=515106
 # Fix for XXE (XML External Entity) vulnerability
-Patch1: xmlstarlet-1.6.1-fix-xxe.patch
+Patch1: xmlstarlet-1.7.0-fix-xxe.patch
+
+# Use local docbook files instead of referring to them by URL
+Patch2: xmlstarlet-1.7.0-docbook-nonet.patch
 
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: xmlto automake autoconf libxslt-devel
 BuildRequires: libxml2-devel >= 2.6.23
+Buildrequires: docbook-style-xsl
 
 
 %description
@@ -33,7 +36,7 @@ commands.
 %build
 autoreconf -i
 %configure --disable-static-libs --with-libxml-include-prefix=%{_includedir}/libxml2 --docdir=%{_pkgdocdir} # --libdir=%{_libdir}
-%make_build
+%make_build DOCBOOK_DIR="%{_datadir}/sgml/docbook/xsl-stylesheets"
 
 
 %install
@@ -55,6 +58,9 @@ make check
 
 
 %changelog
+* Mon Oct 05 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.7.0-1
+- Update to v1.7.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

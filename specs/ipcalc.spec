@@ -12,7 +12,7 @@ BuildRequires: gcc, libmaxminddb-devel, meson, rubygem-ronn-ng
 BuildRequires: gnupg2
 # for the test suite (JsonEscapeHostname)
 BuildRequires: jq
-Recommends:    libmaxminddb, geolite2-city, geolite2-country
+Recommends:    libmaxminddb, geolite2-city, geolite2-country, geolite2-asn
 
 # Explicitly conflict with older initscript packages that ship ipcalc
 Conflicts: initscripts < 9.63

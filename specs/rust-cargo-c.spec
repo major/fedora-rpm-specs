@@ -8,10 +8,10 @@
 %endif
 
 %global crate cargo-c
-%global crate_version 0.10.24+cargo-0.98.0
+%global crate_version 0.10.25+cargo-0.99.0
 
 Name:           rust-cargo-c
-Version:        0.10.24
+Version:        0.10.25
 Release:        %autorelease
 Summary:        Helper program to build and install c-like libraries
 
@@ -22,8 +22,10 @@ Source1:        macros.cargo-c
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          cargo-c-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
+# * temporarily downgrade object dependency from v0.40 to v0.39
 # * remove feature for building / statically linking vendored OpenSSL sources
 Patch:          cargo-c-fix-metadata.diff
+Patch:          0001-Revert-object-v0.40-API-adaptations.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -42,7 +44,6 @@ Summary:        %{summary}
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause
 # BSD-3-Clause
 # ISC
 # MIT
@@ -60,7 +61,6 @@ License:        %{shrink:
     MIT AND
     AND Apache-2.0
     AND Apache-2.0 WITH LLVM-exception
-    AND BSD-2-Clause
     AND BSD-3-Clause
     AND ISC
     AND MPL-2.0

@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.10.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -31,6 +31,9 @@ Source2:        https://forge.moderndesktop.dev/BuddiesOfBudgie/keyrings/raw/bra
 Patch0:         0001-fix-bridges-stop-left-click-on-the-desktop-opening-t.patch
 Patch1:         0002-fix-panel-stop-aborting-when-a-panel-has-no-stored-l.patch
 Patch2:         0003-fix-panel-store-a-new-panel-s-edge-before-it-is-show.patch
+Patch3:         0004-feat-appindexer-share-one-list-of-installed-apps-acr.patch
+Patch4:         0005-fix-session-dont-force-qpa-wayland-platform-fallback.patch
+Patch5:         0006-fix-panel-stop-identifying-applet-plugins-by-their-t.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -244,6 +247,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sun Oct 11 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.3-3
+- Add patches for not forcing Qt QPA platform and fix plugin load on non-EN locales
+
 * Thu Oct 01 2026 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.10.3-2
 - Add patches for labwc left-click desktop and panel abrt fix
 

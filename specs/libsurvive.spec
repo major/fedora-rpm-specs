@@ -1,5 +1,5 @@
-%global date 20260323
-%global commit 2f4303c76f53be1919d89d801172fddd7b09aa7a
+%global date 20261009
+%global commit 23f03665070549f0c13a6e768dfaf7764f75c417
 %global shortcommit %{sub %{commit} 1 7}
 
 # These are artifacts used by the unit tests
@@ -18,12 +18,9 @@ License:        %{shrink:
                 MIT AND
                 (MIT AND BSD-2-Clause) AND
                 Minpack AND
-                LicenseRef-Fedora-UltraPermissive AND
-                HIDAPI AND
                 ((MIT OR X11) OR BSD-3-Clause OR GPL-1.0-or-later) AND
                 (MIT AND (MIT OR X11) OR BSD-3-Clause) AND
-                (MIT AND (MIT OR X11)) AND
-                Zlib}
+                (MIT AND (MIT OR X11))}
 # License breakdown:
 # ./src/test_cases/libsurvive-extras-data/
 # ./libs/cnkalman/
@@ -33,18 +30,12 @@ License:        %{shrink:
 # License: MIT AND BSD-2-Clause
 # ./redist/mpfit/
 # License: Minpack
-# ./redist/crc32.{c,h}
-# License: LicenseRef-Fedora-UltraPermissive
-# ./redist/hid*.{c,h}
-# License: HIDAPI
 # ./redist/CNFG3D.{c,h}
 # License: (MIT OR X11) OR BSD 3-Clause OR GPL-1.0-or-later
 # ./redist/CNFG*.{c,h}
 # License: MIT AND (MIT OR X11) OR BSD 3-Clause
 # ./redist/lin*.{c,h}
 # License: MIT AND (MIT OR X11)
-# ./redist/puff.{c,h}
-# License: Zlib
 
 Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz#/%{name}-%{shortcommit}.tar.gz
 Source1:        %{extras_data_url}/archive/%{extras_data_commit}/%{name}-extras-data-%{extras_data_commit}.tar.gz#/%{name}-extras-data-%{extras_data_shortcommit}.tar.gz
@@ -53,15 +44,12 @@ Source1:        %{extras_data_url}/archive/%{extras_data_commit}/%{name}-extras-
 Patch:          %{name}-no-external-project.patch
 # Adapt eigen version detection for eigen3-5.0.0
 Patch:          %{name}-eigen3.patch
-# fopencookie's seek callback is int(void *, __off64_t *, int) on every arch;
-# using z_off_t breaks the i686 build
-# https://github.com/collabora/libsurvive/pull/368
-Patch:          %{name}-fopencookie-off64.patch
-# Replay's IMU timecode is parsed as a signed int with %%d; on i686 (32-bit
-# long) sscanf saturates at INT32_MAX for the back half of any recording,
-# freezing the lightcap/IMU desync correction and failing 6 ctest cases
-# https://github.com/collabora/libsurvive/pull/368
-Patch:          %{name}-i686-imu-timecode.patch
+# Do not build the bundled puff and crc32; zlib provides both
+Patch:          %{name}-system-zlib.patch
+# add_scenes() cleanup (f23d298) copies only the SurviveObject pointer when
+# compacting and resets the scene ring counter on every call, which feeds
+# mismatched scenes to the global solver and fails 2 ctest cases
+Patch:          %{name}-gss-scene-cleanup.patch
 
 ExclusiveArch:  aarch64 %{ix86} x86_64
 
@@ -70,6 +58,7 @@ BuildRequires:  blas-devel
 BuildRequires:  eigen3-devel
 BuildRequires:  gattlib-devel
 BuildRequires:  gcc-c++
+BuildRequires:  hidapi-devel
 BuildRequires:  lapack-devel
 BuildRequires:  libpcap-devel
 BuildRequires:  libusb1-devel
@@ -83,12 +72,11 @@ BuildRequires:  zlib-devel
 
 Provides:       bundled(CNFG3D)
 Provides:       bundled(CNFG)
-Provides:       bundled(crc32)
-Provides:       bundled(hidapi)
+Provides:       bundled(cnkalman)
+Provides:       bundled(cnmatrix)
 Provides:       bundled(jsmn)
 Provides:       bundled(linmath)
-Provides:       bundled(mpfit) = 1.24
-Provides:       bundled(zlib)
+Provides:       bundled(mpfit) = 1.3
 
 Requires:       systemd-udev
 
@@ -111,6 +99,9 @@ developing applications that use %{name}.
 
 # Drop bundled libraries for non-Linux platforms
 rm redist/*.m redist/dirent.windows.h
+
+# Drop bundled libraries that are provided by the system
+rm redist/hid-*.c redist/hidapi.h redist/puff.[ch] redist/crc32.[ch]
 
 # Extract test artifacts in the right places
 mkdir -p %{_vpath_builddir}/src/test_cases/libsurvive-extras-data/

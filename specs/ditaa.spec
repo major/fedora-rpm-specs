@@ -1,16 +1,13 @@
 Summary:        Diagrams Through ASCII Art
 Name:           ditaa
-Version:        0.10
-Release:        33%{?dist}
+Version:        0.11.0
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://ditaa.sourceforge.net/
 Source0:        https://github.com/stathissideris/ditaa/archive/v%{version}.tar.gz
 Source1:        ditaa.wrapper
-Patch0:         ditaa-0.9-port-to-batik-1.8.patch
-# Patch from Debian to build with JDK 10+
-Patch1:         https://sources.debian.org/data/main/d/ditaa/0.10+ds1-1.2/debian/patches/remove-JavadocTaglet.patch
-Patch2:         jdk17.patch
+Patch:          jdk17.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  java-25-devel >= 1:1.6.0
@@ -39,20 +36,24 @@ find -name '*.class' -delete
 find -name '*.jar' -delete
 
 %build
-install -d bin
+install -d bin lib
 build-jar-repository -s -p lib commons-cli batik-all xml-commons-apis-ext jericho-html
 ant -f build/release.xml
 
 %install
-install -D -p -m 0644 releases/%{name}0_9.jar %{buildroot}%{_javadir}/%{name}.jar
-install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}
+install -D -p -m 0644 releases/ditaa0_*.jar %{buildroot}%{_javadir}/ditaa.jar
+install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/ditaa
 
 %files
-%doc COPYING HISTORY
+%doc README.md
+%license LICENSE
 %{_bindir}/%{name}
 %{_javadir}/%{name}.jar
 
 %changelog
+* Sun Oct 11 2026 Terje Rosten <terjeros@gmail.com> - 0.11-1
+- 0.11
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

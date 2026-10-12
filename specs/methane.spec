@@ -1,6 +1,6 @@
 Name:           methane
-Version:        3.0.0
-Release:        3%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        Super Methane Brothers
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -115,6 +115,9 @@ EOF
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 
 %changelog
+* Fri Oct 02 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.2-1
+- Update to v3.0.2
+
 * Tue Jul 21 2026 Hans de Goede <johannes.goede@oss.qualcomm.com> - 3.0.0-3
 - Fix ppc64le and s390x FTBFS
 

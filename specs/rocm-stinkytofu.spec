@@ -21,7 +21,7 @@
 #
 
 %global upstreamname stinkytofu
-%global rocm_release 10.0
+%global rocm_release 10.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -161,6 +161,9 @@ mv %{buildroot}/usr/lib/python%{python3_version}/dist-packages/stinkytofu %{buil
 %{python3_sitearch}/stinkytofu/
 
 %changelog
+* Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
+- Update to 10.1
+
 * Mon Sep 21 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
 - Update to 10.0
 
