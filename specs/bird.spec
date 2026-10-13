@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:             bird
-Version:          3.3.3
+Version:          3.4.0
 Release:          1%{?dist}
 Summary:          BIRD Internet Routing Daemon
 
@@ -11,6 +11,7 @@ Source0:          https://bird.nic.cz/download/bird-%{version}.tar.gz
 Source1:          bird.service
 Source2:          bird.tmpfilesd
 Source3:          bird.sysusersd
+Patch0:           bird-3.4.0-bytestr-overflow.patch
 
 BuildRequires:    flex
 BuildRequires:    bison
@@ -111,6 +112,9 @@ make test
 %endif
 
 %changelog
+* Tue Oct 13 2026 Robert Scheck <robert@fedoraproject.org> - 3.4.0-1
+- Upgrade to 3.4.0 (#2549947)
+
 * Mon Oct 05 2026 Robert Scheck <robert@fedoraproject.org> - 3.3.3-1
 - Upgrade to 3.3.3 (#2545882)
 

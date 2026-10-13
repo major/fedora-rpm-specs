@@ -1,5 +1,5 @@
 Name:           python-omsdk
-Version:        1.2.518
+Version:        1.2.519
 Release:        %autorelease
 Summary:        Dell EMC OpenManage Python SDK 
 

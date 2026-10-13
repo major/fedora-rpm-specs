@@ -13,6 +13,8 @@ URL:            https://crates.io/crates/routinator
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * relax dirs dependency to allow using v5
+# * relax toml_edit dependency to allow using v0.24, v0.25:
+#   https://github.com/NLnetLabs/routinator/pull/1119
 Patch:          routinator-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

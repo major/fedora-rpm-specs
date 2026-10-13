@@ -3,9 +3,9 @@
 %undefine _py3_shebang_s
 
 %global forgeurl https://github.com/PyCQA/pylint
-%global basever 4.1.2
+%global basever 4.1.3
 #%%global prever b0
-Version:        4.1.2
+Version:        4.1.3
 %forgemeta
 
 Name:           pylint
@@ -76,7 +76,7 @@ done
 # Skip benchmarks
 # Deselect all tests failing with Python 3.14
 %pytest -v --ignore=tests/benchmark \
-  -n auto \
+  -n 1 \
   --deselect=tests/test_functional.py::test_functional[missing_timeout] \
   --deselect=tests/test_functional.py::test_functional[wrong_import_order] \
   --deselect=tests/test_self.py::TestRunTC::test_do_not_import_files_from_local_directory[args0] \

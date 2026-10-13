@@ -221,7 +221,7 @@ for mpi in '' mpich openmpi ; do
   # Note: Running unittests only in the spec file which are not packaged,
   # so the binary folder should point to the build directory
   env PATH=%{buildroot}${bindir}:${PATH} \
-    LD_LIBRARY_PATH=%{buildroot}${libdir} \
+    LD_LIBRARY_PATH=%{buildroot}${libdir}:${LD_LIBRARY_PATH} \
     tests/do_regtest.py ${test_common_args[@]} %{_vpath_builddir}/bin ${final_args[@]}
   [ -n "$mpi" ] && module unload mpi/${mpi}-%{_arch}
 done

@@ -71,6 +71,11 @@ sed -i 's/wcwidth<[^"]*/wcwidth/' pyproject.toml
 # remove zipp dependency
 sed -i "/zipp<3.21.0/d" pyproject.toml
 
+# remove ruamel_yaml_clib dependency, ruamel_yaml does not need it anymore
+sed -i "/ruamel_yaml_clib/d" pyproject.toml \
+    tests/backends/test_pep517.py \
+    tests/dependencies/test_closure.py
+
 # use unittest.mock
 find -type f -name '*.py' -exec sed \
     -e 's/^\( *\)import mock$/\1from unittest import mock/' \

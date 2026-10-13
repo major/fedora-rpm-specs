@@ -9,6 +9,8 @@ Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://github.com/qualcomm/quic-teec/pull/30
 Patch0:		30.patch
+# https://github.com/qualcomm/quic-teec/pull/31
+Patch1:		31.patch
 
 ExclusiveArch:	%{arm64}
 
@@ -45,7 +47,7 @@ applications that use %{name}.
 %files
 %license LICENSE.txt
 %doc README.md
-%{_libdir}/libqcomtee.so.*
+%{_libdir}/libqcomtee.so.1{,.*}
 
 %files devel
 %{_includedir}/qcomtee_*.h

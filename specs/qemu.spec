@@ -518,7 +518,6 @@ BuildRequires: pkgconfig(epoxy)
 BuildRequires: pkgconfig(libdrm)
 BuildRequires: pkgconfig(gbm)
 %endif
-BuildRequires: perl-Test-Harness
 BuildRequires: libslirp-devel
 BuildRequires: libbpf-devel >= 1.0.0
 %if %{have_libblkio}

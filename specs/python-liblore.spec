@@ -14,8 +14,17 @@ Source3:        %{name}.rpmlintrc
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
 BuildRequires:  pyproject-rpm-macros
+
+# Test dependencies are in the dev dependency group, intermixed with unwanted
+# linters, typecheckers, etc.; see
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters.
+# Therefore, we maintain the following list of test dependencies manually.
+BuildRequires:  python3dist(authheaders)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
+BuildRequires:  python3dist(responses)
+BuildRequires:  python3dist(typing-extensions)
 
 %global _description %{expand:
 A Python library for working with public-inbox servers, particularly
@@ -36,13 +45,9 @@ Provides:       python%{python3_pkgversion}-%{srcname} = %{version}-%{release}
 xz -dc '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup -p1 -n %{srcname}-%{version}
 
-# Disable pyright until it's packaged.
-# See https://bugzilla.redhat.com/show_bug.cgi?id=2313788
-sed -Ei -e "/^ *\"?pyright/d" pyproject.toml
-
 
 %generate_buildrequires
-%pyproject_buildrequires -p -g dev
+%pyproject_buildrequires -p
 
 
 %build

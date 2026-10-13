@@ -6,7 +6,7 @@ Group:   System Environment/Base
 
 Epoch:   1
 Version: 1.58.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 ###############################################################################
 
@@ -1070,6 +1070,9 @@ fi
 
 
 %changelog
+* Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:1.58.1-4
+- Rebuilt for new ppp
+
 * Thu Oct  1 2026 Beniamino Galvani <bgalvani@redhat.com> - 1:1.58.1-3
 - Add Obsoletes: also for the NM-fortisslvpn and NM-vpnc gnome subpackages
 

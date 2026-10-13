@@ -1,7 +1,7 @@
 %global npm_name openclaw
 
 Name:           openclaw
-Version:        2026.5.7
+Version:        2026.10.2
 Release:        %autorelease
 Summary:        Your own personal AI assistant
 
@@ -61,9 +61,9 @@ ExclusiveArch:  x86_64 aarch64
 
 BuildRequires:  dos2unix
 BuildRequires:  fdupes
-BuildRequires:  nodejs-devel
+BuildRequires:  nodejs24-devel
 
-Requires:       nodejs
+Requires:       nodejs24
 
 %description
 OpenClaw is a personal AI assistant you run on your own devices. It answers
@@ -84,9 +84,23 @@ cp -p %{SOURCE2} %{npm_name}-%{version}-bundled-licenses.txt
 # The correct form is Apache-2.0, remove the first
 sed -i '/Apache 2.0/d' %{npm_name}-%{version}-bundled-licenses.txt
 
+# (node:1683477) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use node --trace-warnings ... to show where the warning was created)
+# Install a compatible Node.js for OpenClaw only and retry this command.
+#
+# need at least node-24
+sed -i -e 's@usr/bin/env node@usr/bin/node-24@' openclaw.mjs
+# head openclaw.mjs
+# false
+
 tar xfz %{SOURCE1}
 mkdir -p node_modules
 pushd node_modules
+
+# ln: failed to create symbolic link './@openclaw': File exists
+# ln: failed to create symbolic link './chrome-devtools-mcp': File exists
+# ln: failed to create symbolic link './undici': File exists
+rm -rf @openclaw chrome-devtools-mcp undici 
 ln -s ../node_modules_prod/* .
 ln -s ../node_modules_prod/.bin .
 popd
@@ -119,9 +133,7 @@ for n in $N; do
 done
 
 # make some scripts executable
-N="dist/extensions/lmstudio/node_modules_prod/@mariozechner/pi-ai/dist/cli.d.ts
-node_modules_prod/@agentclientprotocol/sdk/dist/examples/agent.d.ts
-node_modules_prod/@agentclientprotocol/sdk/dist/examples/agent.js
+N="node_modules_prod/@agentclientprotocol/sdk/dist/examples/agent.js
 node_modules_prod/@agentclientprotocol/sdk/dist/examples/client.d.ts
 node_modules_prod/@agentclientprotocol/sdk/dist/examples/client.js
 node_modules_prod/@mariozechner/pi-ai/dist/cli.d.ts
@@ -154,37 +166,20 @@ skills/skill-creator/scripts/test_package_skill.py
 skills/skill-creator/scripts/test_quick_validate.py
 skills/video-frames/scripts/frame.sh"
 for n in $N; do
-    chmod a+x ${n}
+    if [ -f ${n} ]; then
+	chmod a+x ${n}
+    else
+	echo "remove $n from chmod list"
+    fi
 done
-
-# remove some execute permisions
-N="dist/extensions/lmstudio/node_modules_prod/@aws-sdk/types/package.json
-node_modules_prod/@aws-sdk/types/package.json
-node_modules_prod/sisteransi/package.json"
-for n in $N; do
-    chmod a-x ${n}
-done
-
-# fix line endings
-dos2unix node_modules_prod/node-edge-tts/bin.js
 
 # Make sure skills/skill-creator/license.txt is noticed
 cp -p skills/skill-creator/license.txt license.skills.skills-creator.txt
 
 # Remove wasm
-rm node_modules_prod/@mariozechner/pi-coding-agent/examples/extensions/doom-overlay/doom/build/doom.wasm
-rm node_modules_prod/@silvia-odwyer/photon-node/photon_rs_bg.wasm
-rm node_modules_prod/pdfjs-dist/wasm/jbig2.wasm
-rm node_modules_prod/pdfjs-dist/wasm/openjpeg.wasm
-rm node_modules_prod/pdfjs-dist/wasm/qcms_bg.wasm
-rm node_modules_prod/pdfjs-dist/wasm/quickjs-eval.wasm
-rm node_modules_prod/quickjs-wasi/quickjs.wasm
-rm node_modules_prod/tree-sitter-bash/tree-sitter-bash.wasm
-rm node_modules_prod/web-tree-sitter/debug/web-tree-sitter.wasm
-rm node_modules_prod/web-tree-sitter/web-tree-sitter.wasm
-
-# Remove some windows file
-rm node_modules_prod/tree-sitter-bash/prebuilds/win32-x64/tree-sitter-bash.node
+for f in `find node_modules_prod -name '*.wasm'`; do
+    rm $f
+done
 
 # Make sure we removed all the binary files
 # bin_files=`find node_modules* -type f -exec file {} + | grep -E 'ELF|Mach-O|PE32|WebAssembly'`
@@ -192,6 +187,9 @@ rm node_modules_prod/tree-sitter-bash/prebuilds/win32-x64/tree-sitter-bash.node
 # if [ $num != 0 ]; then
 #    find node_modules* -type f -exec file {} + | grep -E 'ELF|Mach-O|PE32|WebAssembly'
 # fi
+
+# cp -rp node_modules_prod/@openclaw/* node_modules/@openclaw/
+# rm -rf node_modules_prod/@openclaw
 
 %build
 #nothing to do

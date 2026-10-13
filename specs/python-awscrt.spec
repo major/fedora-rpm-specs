@@ -1,3 +1,5 @@
+%bcond test_websocket %{undefined rhel}
+
 %global desc %{expand:
 Python bindings for the AWS Common Runtime}
 
@@ -32,7 +34,9 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  openssl-devel
 
+%if %{with test_websocket}
 BuildRequires:  python%{python3_pkgversion}-websockets
+%endif
 
 ExcludeArch:    %{ix86}
 
@@ -51,6 +55,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n awscrt-%{version}
+%if %{without test_websocket}
+rm -f test/test_websocket.py
+%endif
 
 # relax version requirements
 sed -i -e 's/setuptools>=75\.3\.1/setuptools/' -e 's/wheel>=0\.45\.1/wheel/' pyproject.toml

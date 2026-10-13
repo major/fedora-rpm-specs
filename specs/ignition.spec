@@ -22,7 +22,7 @@ Version:                2.27.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -36,6 +36,13 @@ Source2:        91-ignition-authorized-keys-file.conf
 # https://github.com/coreos/ignition/pull/2316
 # https://github.com/coreos/fedora-coreos-tracker/issues/2216
 Patch0:         0001-internal-exec-stages-files-resolve-intermediate-syml.patch
+
+# Install /usr/bin/fcct as a symlink to butane.
+Patch1:         0002-Makefile-install-usr-bin-fcct-as-symlink-to-butane.patch
+
+# Don't strip DWARF debug info from butane so butane-debuginfo is valid
+# Merged upstream: https://github.com/coreos/ignition/pull/2341
+Patch2:         0003-build-don-t-strip-DWARF-debug-info-from-butane.patch
 
 BuildRequires: libblkid-devel
 BuildRequires: systemd-rpm-macros
@@ -282,113 +289,59 @@ engineering and uploaded to the Ignition GitHub releases page.
 
 tar xvf %{SOURCE1}
 
-%build
-export LDFLAGS="-X github.com/coreos/ignition/v2/internal/version.Raw=%{version} -X github.com/coreos/ignition/v2/internal/distro.selinuxRelabel=true "
+%global ignition_build_ldflags -X github.com/coreos/ignition/v2/internal/distro.selinuxRelabel=true
 %if 0%{?rhel} && 0%{?rhel} <= 8
 # Disable writing ssh keys fragments on RHEL/CentOS <= 8
-LDFLAGS+=' -X github.com/coreos/ignition/v2/internal/distro.writeAuthorizedKeysFragment=false '
+%global ignition_build_ldflags %{ignition_build_ldflags} -X github.com/coreos/ignition/v2/internal/distro.writeAuthorizedKeysFragment=false
 %endif
 %if 0%{?rhel}
 # Need uncompressed debug symbols for debuginfo extraction
-LDFLAGS+=' -compressdwarf=false '
+%global ignition_build_ldflags %{ignition_build_ldflags} -compressdwarf=false
 %endif
-export GOFLAGS="-mod=vendor"
+%if 0%{?rhel}
+# Build ignition with GOEXPERIMENT=strictfipsruntime; ignition-validate stays non-FIPS
+# NOTE: This is only available in Red Hat's FIPS-patched golang.
+%global ignition_goexperiment strictfipsruntime
+%endif
 
-echo "Building ignition..."
-GOEXPERIMENT=strictfipsruntime %gobuild -o ./ignition internal/main.go
-
-echo "Building ignition-validate..."
-%gobuild -o ./ignition-validate validate/main.go
+%build
+export GLDFLAGS='%{ignition_build_ldflags}'
+export GOEXPERIMENT='%{?ignition_goexperiment}'
+make ignition BIN_PATH=bin VERSION=%{version}
+unset GOEXPERIMENT
+make ignition-validate BIN_PATH=bin VERSION=%{version}
+%if 0%{?fedora}
+make ignition-validate-cross BIN_PATH=bin VERSION=%{version}
+%endif
 
 # Build butane
-BUTANE_LDFLAGS="-X github.com/coreos/ignition/v2/butane/internal/version.Raw=%{version} "
-
-echo "Building butane..."
-LDFLAGS="${BUTANE_LDFLAGS}" %gobuild -o ./butane-bin butane/internal/main.go
-
-%global gocrossbuild go build -ldflags "${LDFLAGS:-} -B 0x$(cat /dev/urandom | tr -d -c '0-9a-f' | head -c16)" -a -v -x
-
+make butane BIN_PATH=bin VERSION=%{version}
 %if 0%{?fedora}
-echo "Building statically-linked Linux ignition-validate..."
-GOEXPERIMENT= CGO_ENABLED=0 GOARCH=arm64 GOOS=linux %gocrossbuild -o ./ignition-validate-aarch64-unknown-linux-gnu-static validate/main.go
-GOEXPERIMENT= CGO_ENABLED=0 GOARCH=ppc64le GOOS=linux %gocrossbuild -o ./ignition-validate-ppc64le-unknown-linux-gnu-static validate/main.go
-GOEXPERIMENT= CGO_ENABLED=0 GOARCH=s390x GOOS=linux %gocrossbuild -o ./ignition-validate-s390x-unknown-linux-gnu-static validate/main.go
-GOEXPERIMENT= CGO_ENABLED=0 GOARCH=amd64 GOOS=linux %gocrossbuild -o ./ignition-validate-x86_64-unknown-linux-gnu-static validate/main.go
-
-echo "Building macOS ignition-validate..."
-GOEXPERIMENT= GOARCH=amd64 GOOS=darwin %gocrossbuild -o ./ignition-validate-x86_64-apple-darwin validate/main.go
-GOEXPERIMENT= GOARCH=arm64 GOOS=darwin %gocrossbuild -o ./ignition-validate-aarch64-apple-darwin validate/main.go
-
-echo "Building Windows ignition-validate..."
-GOEXPERIMENT= GOARCH=amd64 GOOS=windows %gocrossbuild -o ./ignition-validate-x86_64-pc-windows-gnu.exe validate/main.go
-
-# butane cross-compilation
-export LDFLAGS="${BUTANE_LDFLAGS}"
-
-echo "Building statically-linked Linux butane..."
-CGO_ENABLED=0 GOARCH=arm64 GOOS=linux %gocrossbuild -o ./butane-aarch64-unknown-linux-gnu-static butane/internal/main.go
-CGO_ENABLED=0 GOARCH=ppc64le GOOS=linux %gocrossbuild -o ./butane-ppc64le-unknown-linux-gnu-static butane/internal/main.go
-CGO_ENABLED=0 GOARCH=s390x GOOS=linux %gocrossbuild -o ./butane-s390x-unknown-linux-gnu-static butane/internal/main.go
-CGO_ENABLED=0 GOARCH=amd64 GOOS=linux %gocrossbuild -o ./butane-x86_64-unknown-linux-gnu-static butane/internal/main.go
-
-echo "Building macOS butane..."
-GOARCH=amd64 GOOS=darwin %gocrossbuild -o ./butane-x86_64-apple-darwin butane/internal/main.go
-GOARCH=arm64 GOOS=darwin %gocrossbuild -o ./butane-aarch64-apple-darwin butane/internal/main.go
-
-echo "Building Windows butane..."
-GOARCH=amd64 GOOS=windows %gocrossbuild -o ./butane-x86_64-pc-windows-gnu.exe butane/internal/main.go
+make butane-cross BIN_PATH=bin VERSION=%{version}
 %endif
 
 %install
 # dracut modules
-install -d -p %{buildroot}/%{dracutlibdir}/modules.d
-cp -r dracut/* %{buildroot}/%{dracutlibdir}/modules.d/
-install -m 0644 -D -t %{buildroot}/%{_unitdir} systemd/ignition-delete-config.service
-install -m 0755 -d %{buildroot}/%{_libexecdir}
-ln -sf ../lib/dracut/modules.d/30ignition/ignition %{buildroot}/%{_libexecdir}/ignition-apply
-ln -sf ../lib/dracut/modules.d/30ignition/ignition %{buildroot}/%{_libexecdir}/ignition-rmcfg
+make install BIN_PATH=bin DESTDIR=%{buildroot}
 
 # grub
-install -d -p %{buildroot}%{_prefix}/lib/bootupd/grub2-static/configs.d
-install -p -m 0644 grub2/05_ignition.cfg  %{buildroot}%{_prefix}/lib/bootupd/grub2-static/configs.d/
+make install-grub-for-bootupd DESTDIR=%{buildroot}
 
 # ignition
-install -d -p %{buildroot}%{_bindir}
-install -p -m 0755 ./ignition-validate %{buildroot}%{_bindir}
 %if 0%{?fedora} && 0%{?fedora} > 43
 install -d -p %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/
 install -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/91-ignition-authorized-keys-file.conf
 %endif
 
 %if 0%{?fedora}
-install -d -p %{buildroot}%{_datadir}/ignition
-install -p -m 0644 ./ignition-validate-aarch64-apple-darwin %{buildroot}%{_datadir}/ignition
-install -p -m 0644 ./ignition-validate-aarch64-unknown-linux-gnu-static %{buildroot}%{_datadir}/ignition
-install -p -m 0644 ./ignition-validate-ppc64le-unknown-linux-gnu-static %{buildroot}%{_datadir}/ignition
-install -p -m 0644 ./ignition-validate-s390x-unknown-linux-gnu-static %{buildroot}%{_datadir}/ignition
-install -p -m 0644 ./ignition-validate-x86_64-apple-darwin %{buildroot}%{_datadir}/ignition
-install -p -m 0644 ./ignition-validate-x86_64-pc-windows-gnu.exe %{buildroot}%{_datadir}/ignition
-install -p -m 0644 ./ignition-validate-x86_64-unknown-linux-gnu-static %{buildroot}%{_datadir}/ignition
+make install-ignition-validate-cross BIN_PATH=bin DESTDIR=%{buildroot}
 %endif
 
-# butane
-install -p -m 0755 ./butane-bin %{buildroot}%{_bindir}/butane
-ln -s butane %{buildroot}%{_bindir}/fcct
+make install-butane BIN_PATH=bin DESTDIR=%{buildroot}
 
 %if 0%{?fedora}
-install -d -p %{buildroot}%{_datadir}/butane
-install -p -m 0644 ./butane-aarch64-apple-darwin %{buildroot}%{_datadir}/butane
-install -p -m 0644 ./butane-aarch64-unknown-linux-gnu-static %{buildroot}%{_datadir}/butane
-install -p -m 0644 ./butane-ppc64le-unknown-linux-gnu-static %{buildroot}%{_datadir}/butane
-install -p -m 0644 ./butane-s390x-unknown-linux-gnu-static %{buildroot}%{_datadir}/butane
-install -p -m 0644 ./butane-x86_64-apple-darwin %{buildroot}%{_datadir}/butane
-install -p -m 0644 ./butane-x86_64-pc-windows-gnu.exe %{buildroot}%{_datadir}/butane
-install -p -m 0644 ./butane-x86_64-unknown-linux-gnu-static %{buildroot}%{_datadir}/butane
+make install-butane-cross BIN_PATH=bin DESTDIR=%{buildroot}
 %endif
-
-# The ignition binary is only for dracut, and is dangerous to run from
-# the command line.  Install directly into the dracut module dir.
-install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 
 %make_install -C ignition-edge-%{ignedgecommit}
 
@@ -465,6 +418,12 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %endif
 
 %changelog
+* Tue Sep 29 2026 Bipin B Narayan <bbnaraya@redhat.com> - 2.27.0-4
+- Use makefile from ignition repo for building and installing the files.
+- Backport build: install /usr/bin/fcct as symlink to butane
+- Backport build: keep DWARF debug info in butane for valid butane-debuginfo
+  https://github.com/coreos/ignition/pull/2341
+
 * Mon Sep 14 2026 Rolv Apneseth <rapneset@redhat.com> - 2.27.0-3
 - Backport fix for SELinux relabelling failures when specifying a symlink for home_dir
   https://github.com/coreos/ignition/pull/2316

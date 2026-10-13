@@ -1,6 +1,6 @@
 Name:           openfortivpn
 Version:        1.23.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Client for PPP+SSL VPN tunnel services
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -47,6 +47,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.23.1-6
+- Rebuilt for new ppp
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

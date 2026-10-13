@@ -77,7 +77,7 @@ BuildRequires: python3-devel python3-setuptools python3-pip python3-build
 BuildRequires: (python3-wheel if python3-setuptools < 71)
 BuildRequires: systemd
 BuildRequires: git-core
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 Requires: util-linux grep gawk diffutils sed
 Requires: libsepol >= %{libsepolver} coreutils libselinux-utils >=  %{libselinuxver}
 Recommends: rpm
@@ -99,7 +99,7 @@ load_policy to load policies, setfiles to label filesystems, newrole
 to switch roles.
 
 %prep -p /usr/bin/bash
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p 1 -n selinux-%{version}
 
 cp %{SOURCE13} gui/

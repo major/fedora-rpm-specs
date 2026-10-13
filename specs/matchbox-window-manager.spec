@@ -18,15 +18,11 @@ Patch1: matchbox-window-manager-1.2-keysyms.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  pkgconfig 
-BuildRequires:  expat-devel
 BuildRequires:  libmatchbox-devel >= %{libmatchbox_devel_ver}
-BuildRequires:  startup-notification-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  pango-devel
-BuildRequires:  libXcomposite-devel
 BuildRequires:  libXfixes-devel
-BuildRequires:  libXdamage-devel
 BuildRequires:  libXrender-devel
 BuildRequires:  libXcursor-devel
 Requires:       filesystem

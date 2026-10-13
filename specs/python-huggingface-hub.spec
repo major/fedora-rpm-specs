@@ -52,7 +52,7 @@ sed -i '/HF_XET_VERSION/d' setup.py
 
 %install
 %pyproject_install
-%pyproject_save_files 'huggingface_hub'
+%pyproject_save_files -l 'huggingface_hub'
 
 
 %check
@@ -62,7 +62,6 @@ sed -i '/HF_XET_VERSION/d' setup.py
 
 
 %files -n python3-huggingface-hub -f %{pyproject_files}
-%license LICENSE
 %doc README.md
 %{_bindir}/hf
 %{_bindir}/tiny-agents

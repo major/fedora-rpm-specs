@@ -6,7 +6,7 @@
 %endif
 
 Name:           m17n-lib
-Version:        1.8.6
+Version:        1.8.7
 Release:        %autorelease
 Summary:        Multilingual text library
 
@@ -71,7 +71,7 @@ Tools to test M17n GUI widget library.
 
 %build
 #autoreconf -ivf
-%configure --disable-rpath --disable-static
+%configure --disable-rpath --disable-static || { cat config.log; exit 1; }
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 

@@ -18,7 +18,7 @@ Source2: https://github.com/bachradsusi.gpg
 # Patch list end
 BuildRequires: gcc
 BuildRequires: make
-BuildRequires: byacc bison flex flex-static libsepol-static >= %{libsepolver}
+BuildRequires: bison flex libsepol-static >= %{libsepolver}
 BuildRequires: openpgpverify
 
 %description

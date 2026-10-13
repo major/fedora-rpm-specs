@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/resclasses
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        4.7.4
+Version:        4.8.0
 Release:        %autorelease
 Summary:        Set-theoretic computations with Residue Classes
 
@@ -23,6 +23,7 @@ BuildRequires:  gap(polycyclic) >= 2.11
 BuildRequires:  gap(utils) >= 0.40
 BuildRequires:  gap-devel >= 4.11.1
 
+Requires:       gap(gapdoc) >= 1.5.1
 Requires:       gap(polycyclic) >= 2.11
 Requires:       gap(utils) >= 0.40
 Requires:       gap-core >= 4.11.1
@@ -60,7 +61,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %autosetup -n %{gap_upname}-%{version}
 
 %files
-%doc CHANGES README
+%doc CHANGES.md README
 %license LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g

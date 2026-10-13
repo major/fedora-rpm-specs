@@ -9,7 +9,7 @@ Name:           rust-rustc-demangle-capi
 # bumps, we document it manually in the spec file rather than constructing it
 # from the package version.
 %global so_version 0.1
-Version:        0.1.1
+Version:        0.1.2
 Release:        %autorelease
 Summary:        C API for the rustc-demangle crate
 
@@ -45,6 +45,7 @@ rustc-demangle.
 %license LICENSE-APACHE
 %license LICENSE-MIT
 %license LICENSE.dependencies
+%doc CHANGELOG.md
 %{_libdir}/librustc_demangle.so.%{so_version}{,.*}
 
 %package     -n librustc_demangle-devel

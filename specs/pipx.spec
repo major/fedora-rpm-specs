@@ -1,5 +1,5 @@
 Name:           pipx
-Version:        1.17.12
+Version:        1.17.14
 Release:        %autorelease
 Summary:        Install and run Python applications in isolated environments
 

@@ -4,22 +4,21 @@
 %global crate sequoia-sq
 
 Name:           rust-sequoia-sq
-Version:        1.4.1
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Command-line frontends for Sequoia
 
 License:        LGPL-2.0-or-later
 URL:            https://crates.io/crates/sequoia-sq
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          sequoia-sq-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * switch crypto backend from Nettle to OpenSSL
-# * exclude files that are only useful for upstream development
 # * drop automated generation of upstream integration tests
 # * drop features for unsupported crypto backends
-# * allow indicatif 0.18:
-#   https://gitlab.com/sequoia-pgp/sequoia-sq/-/merge_requests/582
-# * allow dirs 6: https://gitlab.com/sequoia-pgp/sequoia-sq/-/merge_requests/598
-# * bump sequoia-wot dependency from 0.14 to 0.15
+# * forward-port missing dependency updates from the v1.3.x branch:
+#   https://gitlab.com/sequoia-pgp/sequoia-sq/-/merge_requests/744
 Patch:          sequoia-sq-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -122,11 +121,7 @@ install -Dpm 0644 target/assets/shell-completions/_sq \
 
 %if %{with check}
 %check
-# * skip two tests that fail due to semantics changes in sequoia-wot v0.15.3
-%{cargo_test -- -- --exact %{shrink:
-    --skip integration::sq_pki::target_cert_expired
-    --skip integration::sq_pki::target_cert_soft_revoked
-}}
+%cargo_test
 %endif
 
 %changelog

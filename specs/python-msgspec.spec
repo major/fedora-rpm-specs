@@ -3,15 +3,12 @@
 
 Name:           python-%{pypi_name}
 Summary:        Fast serialization and validation library
-Version:        0.19.0
-Source:         https://github.com/jcrist/%{pypi_name}/archive/refs/tags/%{version}/msgspec-%{version}.tar.gz
+Version:        0.22.0
+Source:         https://github.com/msgspec/%{pypi_name}/archive/refs/tags/%{version}/msgspec-%{version}.tar.gz
 Release:        %autorelease
 
 License:        BSD-3-Clause
-URL:            https://jcristharif.com/msgspec/
-
-# Python 3.14: Fix annotations support
-Patch:          https://github.com/jcrist/msgspec/pull/852.patch
+URL:            https://github.com/msgspec/msgspec
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(wheel)
@@ -36,9 +33,6 @@ JSON, MessagePack, YAML, and TOML.}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
-# Relax all getrefcount tests to allow lower numbers
-# Proposed as https://github.com/jcrist/msgspec/pull/854 but does not apply cleanly
-sed -Ei 's/sys\.getrefcount\(([^\)]+)\) == ([0-9]+)/sys.getrefcount(\1) <= \2/' tests/test_*.py
 
 %build
 %pyproject_wheel

@@ -1,11 +1,13 @@
 Name:           mediawriter
 Version:        5.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fedora Media Writer
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:            https://github.com/FedoraQt/MediaWriter
 Source0:        https://github.com/FedoraQt/MediaWriter/archive/%{version}.tar.gz#/MediaWriter-%{version}.tar.gz
+
+Patch0:         mediawriter-fix-download-completion-race-in-write-helpers.patch
 
 Provides:       liveusb-creator = %{version}-%{release}
 Obsoletes:      liveusb-creator <= 3.95.4-2
@@ -68,6 +70,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedo
 %{_datadir}/icons/hicolor/512x512/apps/org.fedoraproject.MediaWriter.png
 
 %changelog
+* Mon Oct 12 2026 Jan Grulich <jgrulich@redhat.com> - 5.3.2-3
+- Fix download completion race in write helpers
+  Resolves: rhbz#2547739
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

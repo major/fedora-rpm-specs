@@ -3,7 +3,7 @@
 
 # https://github.com/buchgr/bazel-remote
 %global goipath         github.com/buchgr/bazel-remote
-Version:                2.6.2
+Version:                2.6.3
 
 %gometa -L -f
 

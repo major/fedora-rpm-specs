@@ -1,5 +1,5 @@
 Name:           python-pdm-backend
-Version:        2.4.9
+Version:        2.5.0
 Release:        %autorelease
 Summary:        The build backend used by PDM that supports latest packaging standards
 # SPDX

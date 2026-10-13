@@ -15,7 +15,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        51.0
+Version:        51.1
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
@@ -187,6 +187,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/gnome/autostart
 rm -rf $RPM_BUILD_ROOT%{_datadir}/gnome/cursor-fonts
 
 %find_lang %{name} --all-name --with-gnome
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -f %{name}.lang
 %license COPYING

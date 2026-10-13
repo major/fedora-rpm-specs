@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/firecat53/urlscan
 
 Name:           urlscan
-Version:        1.1.2
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Extract and browse the URLs contained in an email (urlview replacement)
 

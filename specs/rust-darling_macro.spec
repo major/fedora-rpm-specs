@@ -5,9 +5,9 @@
 %global crate darling_macro
 
 Name:           rust-darling_macro
-Version:        0.21.3
+Version:        0.24.1
 Release:        %autorelease
-Summary:        Parse attributes into structs for custom derive implementations (internal support)
+Summary:        Internal support for darling
 
 License:        MIT
 URL:            https://crates.io/crates/darling_macro

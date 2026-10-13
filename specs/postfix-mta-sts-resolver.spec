@@ -39,14 +39,14 @@ client policy to Postfix via socketmap.
 %{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE0}'
 %autosetup -n %{name}-%{version} -p1
 
-
-%generate_buildrequires
-%pyproject_buildrequires
-
 # Create a sysusers.d config file
 cat >postfix-mta-sts-resolver.sysusers.conf <<EOF
 u mta-sts - 'Postfix MTA-STS Map Daemon' %{_sharedstatedir}/mta-sts -
 EOF
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build

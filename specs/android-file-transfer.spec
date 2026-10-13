@@ -2,8 +2,8 @@
 %undefine __cmake_in_source_build
 
 Name:           android-file-transfer
-Version:        4.5
-Release:        9%{?dist}
+Version:        4.6
+Release:        1%{?dist}
 Summary:        Reliable Android MTP client with minimalist UI
 
 License:        LGPL-2.1-only
@@ -73,6 +73,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Sun Oct 11 2026 Packit <hello@packit.dev> - 4.6-1
+- Update to version 4.6
+- Resolves: rhbz#2366384
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

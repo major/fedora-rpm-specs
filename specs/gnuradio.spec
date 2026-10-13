@@ -1,21 +1,3 @@
-# NEON support is by default enabled on aarch64 and disabled on other ARMs (it can be overridden)
-%ifarch aarch64
-%bcond_without neon
-%else
-%bcond_with neon
-%endif
-
-%ifarch %{arm}
-%if %{with neon}
-%global my_optflags %(echo -n "%{optflags}" | sed 's/-mfpu=[^ \\t]\\+//g'; echo " -mfpu=neon")
-%{expand: %global optflags %{my_optflags}}
-%global mfpu_neon -Dhave_mfpu_neon=1
-%else
-%global mfpu_neon -Dhave_mfpu_neon=0
-%endif
-%endif
-
-
 # fmt API change workaround
 %global optflags %(echo %{optflags} -DFMT_DEPRECATED_OSTREAM)
 
@@ -26,7 +8,7 @@
 
 Name:		gnuradio
 Version:	3.10.12.0
-Release:	19%{?alphatag:.%{alphatag}}%{?dist}
+Release:	20%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPL-3.0-or-later
@@ -160,7 +142,6 @@ GNU Radio examples
 -DGR_PKG_DOC_DIR=%{_docdir}/%{name} \
 -DGR_PYTHON_DIR=%{python3_sitearch} \
 -DPYTHON_EXECUTABLE=%{__python3} \
-%{?mfpu_neon} \
 %if "%{?_lib}"=="lib64"
 -DLIB_SUFFIX=64
 %endif
@@ -226,6 +207,10 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Mon Oct 12 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.10.12.0-20
+- Rebuild for IIO 1.0
+- Drop arm NEON conditionals
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.10.12.0-19
 - Rebuilt for Python 3.15.0b4 ABI change
 

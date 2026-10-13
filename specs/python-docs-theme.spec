@@ -1,5 +1,5 @@
 Name:           python-docs-theme
-Version:        2026.7
+Version:        2026.9.1
 Release:        %autorelease
 Summary:        The Sphinx theme for the CPython docs and related projects
 

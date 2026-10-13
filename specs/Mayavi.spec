@@ -19,7 +19,6 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 # For tests
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-pytest-timeout
-BuildRequires:  python%{python3_pkgversion}-apptools+gui
 BuildRequires:  python%{python3_pkgversion}-apptools+preferences
 BuildRequires:  python%{python3_pkgversion}-qt5
 BuildRequires:  python%{python3_pkgversion}-traits

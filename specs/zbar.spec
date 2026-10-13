@@ -5,13 +5,13 @@
 %endif
 
 Name:		zbar
-Version:	0.23.93
-Release:	14.2d7bada%{?dist}
+Version:	0.23.95
+Release:	1%{?dist}
 Summary:	Bar code reader
 
 License:	LGPL-2.1-or-later
 URL:		https://github.com/mchehab/zbar
-Source0:        zbar-2d7bada.tar.gz
+Source0:        %{url}/archive/%{version}/zbar-%{version}.tar.gz
 Patch0:		use_python3_on_python_script.patch
 
 BuildRequires:	dbus-devel
@@ -115,7 +115,7 @@ on Java Native Interface (JNI) applications using ZBar.
 %endif
 
 %prep
-%setup -qn %{name}-2d7bada
+%setup -q
 %patch 0 -p1
 
 %build
@@ -209,6 +209,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}/
 %{_docdir}/test_python.py
 
 %changelog
+* Mon Oct 12 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.23.95-1
+- 0.23.95
+
 * Fri Oct 09 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.23.93-14
 - Upstream patch for qt wayland segfault
 

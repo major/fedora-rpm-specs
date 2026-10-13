@@ -1,7 +1,7 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
 Version:       2.4.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -42,7 +42,6 @@ BuildRequires:  cmake(sysstat-qt6)
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(libmenu-cache)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libstatgrab)
 BuildRequires:  pkgconfig(x11)
@@ -51,11 +50,8 @@ BuildRequires:  pkgconfig(xcb-damage)
 BuildRequires:  pkgconfig(xcb-xkb)
 BuildRequires:  pkgconfig(xcb-util)
 BuildRequires:  pkgconfig(xcb-image)
-BuildRequires:  pkgconfig(xcomposite)
-BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xkbcommon-x11)
-BuildRequires:  pkgconfig(xrender)
 BuildRequires:  pkgconfig(xtst)
 BuildRequires:  pkgconfig(wayland-client)
 
@@ -105,6 +101,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 
 %changelog
+* Mon Oct 12 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.1-3
+- Remove stale and unused BuildRequires
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

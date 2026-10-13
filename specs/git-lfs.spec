@@ -27,8 +27,7 @@ Source5:        go-vendor-tools.toml
 
 BuildRequires:  go-vendor-tools
 
-BuildRequires:  gpgverify >= 2
-# GPGverify 2 supports clearsigned files.
+BuildRequires:  openpgpverify
 
 # Generate man pages
 BuildRequires:  /usr/bin/asciidoctor
@@ -51,7 +50,7 @@ storing the file contents on a remote server.
 
 %prep
 tar xf %{SOURCE3}
-%{gpgverify} --keyrings git-lfs-git-lfs-*/keys.asc --data='%{SOURCE2}' \
+%{openpgpverify} --keyrings git-lfs-git-lfs-*/keys.asc --data='%{SOURCE2}' \
              --output=trusted_checksums
 # Remember that a clearsigned file can contain surrounding unsigned text. Only
 # the verified text in trusted_checksums can be trusted.

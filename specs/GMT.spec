@@ -47,7 +47,8 @@ BuildRequires:  gdal-devel
 BuildRequires:  geos-devel
 BuildRequires:  glib2-devel
 BuildRequires:  GraphicsMagick
-BuildRequires:  libXt-devel libXaw-devel libXmu-devel libXext-devel
+BuildRequires:  libXext-devel
+BuildRequires:  libXt-devel
 BuildRequires:  netcdf-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  dcw-gmt
@@ -57,9 +58,7 @@ BuildRequires:  octave-devel
 %endif
 # less is detected by configure, and substituted in GMT.in
 BuildRequires:  less
-BuildRequires:  xdg-utils
 # For docs
-BuildRequires:  /usr/bin/sphinx-build
 BuildRequires:  ghostscript
 Requires:       gdal
 Requires:       GraphicsMagick
@@ -68,6 +67,7 @@ Requires:       %{name}-common = %{version}-%{release}
 Requires:       dcw-gmt
 Requires:       gshhg-gmt-nc4
 Provides:       gmt = %{version}-%{release}
+# cmake will complain at build about it not being present, but it does not change the build
 Requires:       xdg-utils
 %if %without octave
 Obsoletes:      GMT-octave <= 4.5.11

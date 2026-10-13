@@ -6,8 +6,8 @@
 %bcond_without perl_CPAN_FindDependencies_enables_optional_test
 
 Name:           perl-CPAN-FindDependencies
-Version:        3.14
-Release:        2%{?dist}
+Version:        4.01
+Release:        1%{?dist}
 Summary:        Find dependencies for modules on CPAN
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-FindDependencies
@@ -27,16 +27,13 @@ BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(CPAN::Meta)
 BuildRequires:  perl(Cwd)
-BuildRequires:  perl(Env::Path)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Find::Rule)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(File::Type)
+BuildRequires:  perl(HTTP::Tiny)
 BuildRequires:  perl(IO::Compress::Bzip2)
 BuildRequires:  perl(IO::Uncompress::Bunzip2)
-BuildRequires:  perl(LWP::Protocol::https)
-BuildRequires:  perl(LWP::Simple)
-BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Module::CoreList)
 BuildRequires:  perl(Parse::CPAN::Packages)
 BuildRequires:  perl(Path::Tiny)
@@ -46,6 +43,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::Diff)
 BuildRequires:  perl(URI::file)
 BuildRequires:  perl(vars)
+BuildRequires:  perl(version)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Devel::CheckOS)
@@ -64,7 +62,8 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 Requires:       bzip2
 Requires:       perl(IO::Compress::Bzip2)
 Requires:       perl(IO::Uncompress::Bunzip2)
-Requires:       perl(LWP::Protocol::https)
+Requires:       perl(IO::Socket::SSL)
+Requires:       perl(Net::SSLeay)
 Requires:       perl(Pod::Perldoc)
 
 # Filter modules bundled for tests
@@ -153,6 +152,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 12 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.01-1
+- 4.01 bump (rhbz#2547436)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

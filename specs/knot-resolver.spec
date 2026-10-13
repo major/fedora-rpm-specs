@@ -6,8 +6,8 @@
 %define NINJA ninja-build
 
 Name:           knot-resolver
-Version:        5.7.6
-Release:        6%{?dist}
+Version:        5.7.8
+Release:        1%{?dist}
 Summary:        Caching full DNS Resolver
 
 License:        GPL-3.0-or-later
@@ -38,9 +38,9 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(cmocka)
 BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(libedit)
-BuildRequires:  pkgconfig(libknot) >= 3.0.2
-BuildRequires:  pkgconfig(libzscanner) >= 3.0.2
-BuildRequires:  pkgconfig(libdnssec) >= 3.0.2
+BuildRequires:  pkgconfig(libknot) >= 3.1
+BuildRequires:  pkgconfig(libzscanner) >= 3.1
+BuildRequires:  (pkgconfig(libdnssec) >= 3.1 if pkgconfig(libknot) < 3.6)
 BuildRequires:  pkgconfig(libnghttp2)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libcap-ng)
@@ -380,6 +380,9 @@ fi
 %endif
 
 %changelog
+* Tue Sep 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.7.8-1
+- New upstream version 5.7.8
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -16,6 +16,9 @@ Source:         %{crates_source}
 # * relax exact versions for dev-dependencies
 # * drop unused, benchmark-only dev-dependencies
 Patch:          bumpalo-fix-metadata.diff
+# * Only test chunk_footer_is_five_words on 64-bit targets
+# * https://github.com/fitzgen/bumpalo/pull/341
+Patch10:        https://github.com/fitzgen/bumpalo/pull/341.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

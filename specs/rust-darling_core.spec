@@ -5,7 +5,7 @@
 %global crate darling_core
 
 Name:           rust-darling_core
-Version:        0.21.3
+Version:        0.24.1
 Release:        %autorelease
 Summary:        Parse attributes into structs for custom derive implementations (helper crate)
 

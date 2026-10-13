@@ -12,7 +12,7 @@
 %endif
 
 Name:           gnome-initial-setup
-Version:        51.0
+Version:        51.1
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 
@@ -101,12 +101,13 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 mkdir -p %{buildroot}%{_tmpfilesdir}
 install -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
-
 %find_lang %{name}
+
+%check
+desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 %pre
 %sysusers_create_compat %{SOURCE2}
-
 
 %files -f %{name}.lang
 %license COPYING

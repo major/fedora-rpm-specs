@@ -5,8 +5,8 @@
 
 Name:             fbb
 URL:              https://sourceforge.net/projects/linfbb/
-Version:          7.0.11
-Release:          %{?prerel:0.}2%{?prerel:.%{prerel}}%{?dist}.3
+Version:          7.0.13
+Release:          %{?prerel:0.}1%{?prerel:.%{prerel}}%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 Summary:          Packet radio mailbox and utilities
@@ -43,10 +43,10 @@ Patch:           fbb-7.0.8-beta-sample-conf.patch
 # to be added to the FHS
 Patch:           fbb-7.0.11-var-lib.patch
 # Non interactive service start
-Patch:           fbb-7.0.11-non-interactive.patch
+Patch:           fbb-7.0.13-non-interactive.patch
 Patch:           fbb-7.0.9-write-port-errors.patch
 Patch:           fbb-7.0.9-stdout.patch
-Patch:           fbb-7.0.11-ncurses-fix.patch
+Patch:           fbb-7.0.13-ncurses-fix.patch
 Patch:           fbb-remove-XmGrabTheFocus.patch
 # https://sourceforge.net/p/linfbb/tickets/90/
 Patch:           fbb-7.0.11-x11-access-macro-fix.patch
@@ -152,6 +152,7 @@ statis.dat,themes.dat,tpstat.sys,wfbid.sys,sat/satel.dat,wp/wp.sys}
 %{_var}/lib/fbb/fbbdos
 %{_var}/lib/fbb/mail
 %{_var}/lib/fbb/log
+%{_bindir}/listsat
 %{_sbindir}/ajoursat
 %{_sbindir}/fbbgetconf
 %{_sbindir}/satupdat
@@ -212,6 +213,10 @@ statis.dat,themes.dat,tpstat.sys,wfbid.sys,sat/satel.dat,wp/wp.sys}
 %{_datadir}/polkit-1/actions/org.fbb.gui.policy
 
 %changelog
+* Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 7.0.13-1
+- New version
+  Resolves: rhbz#2549654
+
 * Thu Sep 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 7.0.11-2.3
 - Motif rebuild
 

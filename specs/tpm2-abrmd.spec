@@ -2,8 +2,8 @@
 %global with_tests 1
 
 Name: tpm2-abrmd
-Version: 3.0.0
-Release: 10%{?dist}
+Version: 3.1.0
+Release: 1%{?dist}
 Summary: A system daemon implementing TPM2 Access Broker and Resource Manager
 
 License: BSD-2-Clause
@@ -45,7 +45,7 @@ required to build applications that use tpm2-abrmd.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1
 
 %build
 %configure --disable-static --disable-silent-rules \
@@ -93,6 +93,9 @@ make check
 
 
 %changelog
+* Mon Oct 12 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.1.0-1
+- Update to 3.1.0
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

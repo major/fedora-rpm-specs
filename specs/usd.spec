@@ -273,7 +273,7 @@ BuildRequires:  cmake(OpenColorIO)
 %endif
 
 %if %{with oiio}
-BuildRequires:  cmake(OpenImageIO)
+BuildRequires:  cmake(OpenImageIO) > 2.5
 %endif
 
 %if %{with openshading}

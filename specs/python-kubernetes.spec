@@ -17,7 +17,7 @@
 
 Name:       python-%{library}
 Epoch:      1
-Version:    37.0.0
+Version:    37.0.1
 Release:    1%{?dist}
 Summary:    Python client for the kubernetes API.
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -147,6 +147,9 @@ cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 %{python3_sitelib}/%{library}/e2e_test
 
 %changelog
+* Fri Oct 09 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:37.0.1-1
+- Update to 37.0.1 (#2430280)
+
 * Wed Oct 07 2026 Jason Montleon <jason@montleon.com> - 1:37.0.0-1
 - Update to 37.0.0 (#2430280)
 

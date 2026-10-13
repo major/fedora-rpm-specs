@@ -15,10 +15,14 @@ Summary: 2D retro platformer inspired by Sonic games
 License: GPL-3.0-or-later AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 
 Version: 0.6.1.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: https://opensurge2d.org
 Source0: https://github.com/alemart/opensurge/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Upstream sets -ffile-prefix-map which remaps source paths to "." in DWARF,
+# breaking RPM debugsource package generation (empty debugsourcefiles.list)
+Patch0: opensurge-0.6.1.3-no-file-prefix-map.patch
 
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
@@ -136,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 
 
 %changelog
+* Thu Oct 08 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 0.6.1.3-3
+- Drop upstream -ffile-prefix-map flag to fix empty debugsource package
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

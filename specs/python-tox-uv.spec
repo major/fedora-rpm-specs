@@ -69,18 +69,21 @@ or install python3-tox-uv.
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires -g test
-%pyproject_buildrequires -d meta
+%pyproject_buildrequires --dependency-groups test
+%pyproject_buildrequires --directory meta
 
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
-%pyproject_wheel -d meta
+%pyproject_wheel --directory meta
 
 
 %install
 %pyproject_install
+# beware, the tox_uv module is part of the bare package
+%pyproject_save_files --dist-name tox-uv tox_uv_meta --no-assert-license
+%pyproject_save_files --dist-name tox-uv-bare tox_uv --assert-license
 
 
 %check
@@ -114,16 +117,10 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pytest -v "${k:+-k $k}"
 
 
-%files -n python3-tox-uv
-%{python3_sitelib}/tox_uv-%{version}.dist-info/
-%{python3_sitelib}/tox_uv_meta/
+%files -n python3-tox-uv -f %{pyproject_files --dist-name tox-uv}
 
-%files -n python3-tox-uv-bare
+%files -n python3-tox-uv-bare -f %{pyproject_files --dist-name tox-uv-bare}
 %doc README.md
-%{python3_sitelib}/tox_uv_bare-%{version}.dist-info/
-%license %{python3_sitelib}/tox_uv_bare-%{version}.dist-info/licenses/LICENSE
-# beware, the tox_uv module is part of the bare package!
-%{python3_sitelib}/tox_uv/
 
 
 %changelog

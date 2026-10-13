@@ -1,6 +1,6 @@
 Name:           calamares
 Version:        3.3.14
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Installer from a live CD/DVD/USB to disk
 
 License:        GPL-3.0-or-later
@@ -31,7 +31,7 @@ Patch1002:       calamares-3.3.3-kdesu.patch
 
 # Calamares is only supported where live images (and GRUB) are. (#1171380)
 # This list matches the arches where grub2-efi is used to boot the system
-ExclusiveArch:  %{ix86} x86_64 aarch64 riscv64
+ExclusiveArch:  %{ix86} x86_64 aarch64 riscv64 loongarch64
 
 # Macros
 BuildRequires:  git-core
@@ -102,7 +102,7 @@ Requires:       upower
 Requires:       NetworkManager
 Requires:       dracut
 Requires:       grub2
-%ifarch x86_64 aarch64 riscv64
+%ifarch x86_64 aarch64 riscv64 loongarch64
 %ifarch x86_64
 # For x86 systems
 Requires:       grub2-efi-x64
@@ -328,6 +328,9 @@ EOF
 
 
 %changelog
+* Fri Jul 24 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 3.3.14-12
+- Add loongarch64 supoort.
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.3.14-11
 - Rebuilt for Python 3.15.0b4 ABI change
 

@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.16.10
+Version:        0.17.0
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -108,6 +108,7 @@ SourceLicense:  %{shrink:
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
 # CC0-1.0
 # ISC
 # MIT
@@ -127,6 +128,7 @@ License:        %{shrink:
     MIT AND
     Apache-2.0 AND
     (Apache-2.0 OR BSD-2-Clause) AND
+    (Apache-2.0 OR BSD-2-Clause OR MIT) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 OR MIT OR Zlib) AND

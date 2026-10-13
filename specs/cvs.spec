@@ -14,7 +14,7 @@
 
 Name:       cvs
 Version:    1.11.23
-Release:    78%{?dist}
+Release:    79%{?dist}
 Summary:    Concurrent Versions System
 URL:        https://cvs.nongnu.org/
 # contrib/check_cvs.in:     check-cvs
@@ -389,8 +389,8 @@ BuildRequires:  systemd
 # texinfo required for
 # cvs-1.11.23-Back-port-KeywordExpand-configuration-keyword.patch
 BuildRequires:  texinfo
-BuildRequires:  vim-minimal
 BuildRequires:  zlib-devel
+# The build-time configured default editor
 Requires:       vim-minimal
 
 
@@ -538,7 +538,9 @@ autoreconf --force --install
 
 %configure CFLAGS="$CFLAGS $RPM_OPT_FLAGS \
     -D_FILE_OFFSET_BITS=64 %-D_LARGEFILE64_SOURCE" \
-    $PAM_CONFIG $KRB_CONFIG CSH=/bin/csh
+    $PAM_CONFIG $KRB_CONFIG \
+    --with-editor=/usr/bin/vi \
+    CSH=/bin/csh
 
 %{make_build} all doc
 
@@ -619,6 +621,9 @@ exit 0
 
 
 %changelog
+* Mon Oct 12 2026 Petr Pisar <ppisar@redhat.com> - 1.11.23-79
+- Do not configure default editor with an autodetection
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.23-78
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -8,7 +8,7 @@ Summary:   NetworkManager VPN plugin for PPTP
 Name:      NetworkManager-pptp
 Epoch:     1
 Version:   1.2.12
-Release:   14%{?dist}
+Release:   15%{?dist}
 License:   GPL-2.0-or-later
 URL:       http://www.gnome.org/projects/NetworkManager/
 
@@ -103,6 +103,9 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 
 
 %changelog
+* Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:1.2.12-15
+- Rebuilt for new ppp
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.12-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global npm_name @earendil-works/pi-coding-agent
 
 Name:           pi-coding-agent
-Version:        0.84.2
+Version:        1.1.0
 Release:        %autorelease
 Summary:        An open source coding agent
 
@@ -80,6 +80,8 @@ find . -name 'interface.c' -print0 | xargs -0 rm -rf
 # remove some binaries
 rm -rf node_modules_prod/@earendil-works/pi-tui/native
 rm -f node_modules_prod/@silvia-odwyer/photon-node/photon_rs_bg.wasm
+rm -f node_modules_prod/esbuild/bin/esbuild
+rm -f node_modules_prod/esbuild/lib/downloaded-@esbuild-linux-x64-esbuild
 
 # make some scripts executable
 chmod a+x dist/bun/cli.d.ts

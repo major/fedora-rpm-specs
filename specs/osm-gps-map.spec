@@ -1,5 +1,5 @@
 Name:           osm-gps-map
-Version:        1.2.1
+Version:        1.2.2
 Release:        1%{?dist}
 Summary:        Gtk+ widget for displaying OpenStreetMap tiles
 
@@ -70,6 +70,9 @@ GObject introspection bindings for %{name}.
 
 
 %changelog
+* Mon Oct 12 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.2.2-1
+- 1.2.2
+
 * Mon Aug 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.2.1-1
 - 1.2.1
 

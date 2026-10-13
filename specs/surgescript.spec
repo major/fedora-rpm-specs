@@ -21,10 +21,11 @@ Summary: Scripting language for games
 License: Apache-2.0 AND BSD-1-Clause AND BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
 
 Version: 0.6.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 URL: https://opensurge2d.org
 Source0: https://github.com/alemart/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch: drop-prefix-map.patch
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -79,7 +80,7 @@ using static linking.
 
 
 %prep
-%setup -q
+%autosetup
 
 
 %build
@@ -123,6 +124,9 @@ rmdir %{buildroot}%{_datadir}
 
 
 %changelog
+* Thu Oct 08 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 0.6.1-7
+- Fix debugsource package generation
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

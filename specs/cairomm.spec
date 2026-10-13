@@ -5,10 +5,6 @@
 # the tarball with those from mm-common. This is (potentially) required if
 # building an autotools-generated tarball with meson, or vice versa.
 %bcond maintainer_mode 1
-# https://gitlab.freedesktop.org/cairo/cairomm/-/work_items/25#note_3703383
-# Disable source signature verification because the release was signed with an
-# expired key.
-%bcond verify 0
 
 Name:           cairomm
 Summary:        C++ API for the cairo graphics library
@@ -47,16 +43,26 @@ SourceLicense:  %{shrink:
 
 %global src_base https://www.cairographics.org/releases
 Source0:        %{src_base}/cairomm-%{version}.tar.xz
-# No keyring with authorized GPG signing keys is published
-# (https://gitlab.freedesktop.org/freedesktop/freedesktop/-/issues/331), but
-# Kjell Ahlstedt’s signing key was attached to
-# https://gitlab.freedesktop.org/freedesktop/freedesktop/-/issues/290.
 Source1:        %{src_base}/cairomm-%{version}.tar.xz.asc
-Source2:        https://gitlab.freedesktop.org/freedesktop/freedesktop/uploads/0ac64e9582659f70a719d59fb02cd037/gpg_key.pub
+# $ sq inspect cairomm-1.14.6.tar.xz.asc
+# cairomm-1.14.6.tar.xz.asc: Detached signature.
+#
+#    Alleged signer: signer's cert not found
+#                    6CB445A816504714AA4962579EBA155FCC12D2C0
+#                    (signature subkey)
+#              Note: Signatures have NOT been verified!
+# $ sq network keyserver search --output=cairomm.pub \
+#       6CB445A816504714AA4962579EBA155FCC12D2C0
+#
+# Found 1 certificate related to the query:
+#
+#  - 6CB445A816504714AA4962579EBA155FCC12D2C0
+#    - Kjell Ahlstedt <kjellahlstedt@gmail.com> (UNAUTHENTICATED)
+#    - created 2020-09-08 14:11:17 UTC
+#    - found via: hkps://keyserver.ubuntu.com
+Source2:        cairomm.pub
 
-%if %{with verify}
 BuildRequires:  openpgpverify
-%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -143,10 +149,8 @@ The API/ABI version series is %{apiver}.
 
 
 %prep
-%if %{with verify}
 %{openpgpverify} \
     --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%endif
 
 %autosetup -p1
 # Fix stray executable bit:

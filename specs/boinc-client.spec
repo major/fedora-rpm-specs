@@ -37,9 +37,7 @@ SOURCE1:       boinc-client-logrotate-d
 SOURCE3:       36x11-common_xhost-boinc
 SOURCE4:       config.properties
 SOURCE5:       edu.berkeley.BOINC.metainfo.xml
-%if 0%{?fedora} > 35
-#Patch0:        openssl3.patch
-%endif
+Patch0:        openssl4.patch
 Patch1:        disable_idle_time_detection.patch
 # On Linux distributions, BOINC runs as a service. Users must not be able to
 # try stopping the service from exit menu entry.
@@ -78,7 +76,7 @@ BuildRequires: libXScrnSaver-devel
 %endif
 BuildRequires: mesa-libGLU-devel
 BuildRequires: pkgconfig(openssl)
-%if %{defined fedora} && 0%{?fedora} > 40
+%if %{defined fedora} && 0%{?fedora} > 40 && 0%{?fedora} < 45
 # https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
 #
 # We have raised the possibility of removing OpenSSL engine support upstream:

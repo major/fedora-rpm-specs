@@ -6,7 +6,7 @@ Version:        0.6.0
 Release:        %autorelease
 Summary:        A Sphinx extension for running 'sphinx-apidoc' on each build
 
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            http://www.sphinx-doc.org/
 Source0:        https://files.pythonhosted.org/packages/source/s/sphinxcontrib_apidoc/sphinxcontrib_apidoc-%{version}.tar.gz
 BuildArch:      noarch

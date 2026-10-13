@@ -1,7 +1,7 @@
 Name:          lxqt-runner
 Summary:       Application runner agent for LXQt desktop suite
 Version:       2.4.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -18,21 +18,15 @@ BuildRequires: cmake(lxqt)
 BuildRequires: cmake(lxqt-globalkeys)
 BuildRequires: cmake(lxqt-globalkeys-ui)
 BuildRequires: cmake(LayerShellQt)
-BuildRequires: pkgconfig(libmenu-cache)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: cmake(muparser)
 BuildRequires: perl-interpreter
 
+Obsoletes:     %{name}-l10n < %{version}-%{release}
+Provides:      %{name}-l10n = %{version}-%{release}
 
 %description
 %{summary}.
-
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-runner
-Requires:       lxqt-runner
-%description l10n
-This package provides translations for the lxqt-runner package.
 
 %prep
 %autosetup
@@ -50,17 +44,17 @@ This package provides translations for the lxqt-runner package.
 %check
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
-%files
+%files -f %{name}.lang
+%license LICENSE
+%doc AUTHORS CHANGELOG README.md
 %{_bindir}/lxqt-runner
 %config(noreplace)%{_sysconfdir}/xdg/autostart/lxqt-runner.desktop
 %{_mandir}/man1/%{name}*
 
-%files l10n -f lxqt-runner.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/lxqt/translations/%{name}
-
 %changelog
+* Mon Oct 12 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-3
+- Drop l10n subpackage and unused BuildRequires
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

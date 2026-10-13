@@ -33,7 +33,7 @@
 
 Name:		libarrow
 Version:	26.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -52,7 +52,6 @@ Patch:		0005-tests.patch
 # package, and in turn the only consumers of this and liborc are Ceph, which
 # is also 64-bit only, and rdal.
 ExcludeArch:	%{ix86} %{arm}
-BuildRequires:	bison
 BuildRequires:	boost-devel
 BuildRequires:	brotli-devel
 BuildRequires:	bzip2-devel
@@ -62,7 +61,6 @@ BuildRequires:	meson
 %if %{with use_s3}
 BuildRequires:	curl-devel
 %endif
-BuildRequires:	flex
 BuildRequires:	gcc-c++
 BuildRequires:	gflags-devel
 BuildRequires:	glog-devel
@@ -80,7 +78,6 @@ BuildRequires:	python%{python3_pkgversion}-Cython
 BuildRequires:	python%{python3_pkgversion}-pandas
 BuildRequires:	python%{python3_pkgversion}-pytest
 BuildRequires:	python%{python3_pkgversion}-hypothesis
-BuildRequires:	python%{python3_pkgversion}-pytzdata
 BuildRequires:	python%{python3_pkgversion}-libcst
 BuildRequires:	xsimd-devel
 BuildRequires:	abseil-cpp-devel
@@ -885,6 +882,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Mon Oct 12 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.0-1
+- Arrow 26.0.0 (f46-build-side-154926), unused BuildRequires
+
 * Fri Oct 9 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.0-1
 - Arrow 26.0.0 (f46-build-side-154926)
 

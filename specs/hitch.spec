@@ -12,7 +12,7 @@
 
 Name:		hitch
 Version:	1.8.0
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Network proxy that terminates TLS/SSL connections
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -27,7 +27,7 @@ BuildRequires:	openssl
 BuildRequires:	pkgconfig
 BuildRequires:	libtool
 #BuildRequires:	python-docutils >= 0.6
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 && 0%{?fedora} < 45
 BuildRequires:  openssl-devel-engine
 %else
 BuildRequires:	openssl-devel
@@ -37,6 +37,9 @@ Requires:	openssl
 Patch0:		hitch.systemd.service.patch
 # https://github.com/varnish/hitch/issues/395
 Patch1:		hitch-1.8.0.fix_el10_build.patch
+# https://github.com/varnish/hitch/pull/399
+# https://github.com/varnish/hitch/pull/406
+Patch2:         hitch-1.8.0-openssl4.patch
 
 Requires(post): systemd
 Requires(preun): systemd
@@ -57,8 +60,10 @@ of connections efficiently on multicore machines.
 %patch -P1
 %endif
 
+%patch -P2 -p1
+
 %build
-#./bootstrap
+autoreconf -fiv
 
 # manpages are prebuilt, no need to build again
 export RST2MAN=/bin/true
@@ -131,6 +136,9 @@ make check
 %ghost %verify(not md5 size mtime)  /run/%{name}/%{name}.pid
 
 %changelog
+* Fri Sep 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.0-14
+- Fix compatibility with openssl 4.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

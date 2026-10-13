@@ -2,7 +2,7 @@
 %global gem_name net-ldap
 
 Name: rubygem-%{gem_name}
-Version: 0.20.0
+Version: 0.21.0
 Release: %autorelease
 Summary: Net::LDAP for Ruby implements client access LDAP protocol
 License: MIT

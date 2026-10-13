@@ -547,7 +547,7 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 # PGO patches
 %if %{build_with_pgo}
 %if !%{with build_with_clang}
-%patch -P600 -p1 -b .pgo
+%patch -P600 -p2 -b .pgo
 %patch -P602 -p1 -b .1516803
 %endif
 %endif

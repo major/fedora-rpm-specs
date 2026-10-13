@@ -1,6 +1,9 @@
+# Build API documentation (disabled by default)
+%bcond docs 0
+
 Name:           pcmanfm-qt
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LXQt file manager PCManFM
 
 License:        GPL-2.0-or-later
@@ -11,25 +14,23 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  desktop-backgrounds-compat
 BuildRequires:  desktop-file-utils
+%if %{with docs}
 BuildRequires:  doxygen
+%endif
+BuildRequires:  perl-interpreter
 
 BuildRequires:  cmake(fm-qt6)
-BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(LayerShellQt)
-BuildRequires:  cmake(lxqt) >= 1.0.0
-BuildRequires:  cmake(lxqt-menu-data)
 BuildRequires:  cmake(lxqt2-build-tools)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6Widgets)
 
 
-BuildRequires:  pkgconfig(exiv2)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(libexif)
-BuildRequires:  pkgconfig(libfm)
 BuildRequires:  pkgconfig(libmenu-cache)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcb)
@@ -60,6 +61,15 @@ was started as the Qt port of PCManFM, the file manager of LXDE.
 PCManFM-Qt is used by LXQt for handling the desktop. Nevertheless, it can also
 be used independently of LXQt and under any desktop environment.
 
+%if %{with docs}
+%package  doc
+Summary:        API Documentation for %{name}
+BuildArch:      noarch
+
+%description  doc
+Doxygen-generated API documentation for %{name}
+%endif
+
 %prep
 %autosetup -C -p1
 
@@ -71,7 +81,11 @@ fi
 sed -e "s|Wallpaper=.*$|Wallpaper=%{_datadir}/backgrounds/default.${bg_file_ext}|" -i config/pcmanfm-qt/lxqt/settings.conf.in
 
 %conf
-%cmake
+%if %{with docs}
+%cmake -DBUILD_DOCUMENTATION:BOOL=ON
+%else
+%cmake -DBUILD_DOCUMENTATION:BOOL=OFF
+%endif
 
 %build
 %cmake_build
@@ -98,7 +112,16 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/lxqt-desktop.desk
 %{_datadir}/%{name}/lxqt/settings.conf
 %{_datadir}/icons/hicolor/scalable/apps/pcmanfm-qt.svg
 
+%if %{with docs}
+%files doc
+%license LICENSE
+%{_docdir}/%{name}/docs/
+%endif
+
 %changelog
+* Mon Oct 12 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.1-2
+- Revisions to remove un-needed BuildRequires
+
 * Wed Aug 26 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.1-1
 - Update to 2.4.1
 

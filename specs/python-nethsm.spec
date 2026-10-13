@@ -1,12 +1,11 @@
 Name:           python-nethsm
-Version:        2.1.1
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Client-side Python SDK for NetHSM
 
 License:        Apache-2.0
 URL:            https://github.com/Nitrokey/nethsm-sdk-py
 Source:         %{url}/archive/refs/tags/v%{version}.tar.gz
-Patch:          %{url}/pull/159.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

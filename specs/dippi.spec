@@ -2,7 +2,7 @@
 
 Name:           dippi
 Summary:        Calculate display info like DPI and aspect ratio
-Version:        5.0.2
+Version:        5.0.4
 Release:        %autorelease
 # The entire source is GPL-3.0-only, except:
 #   - data/metadata.metainfo.xml.in is CC0-1.0, allowed for content only
@@ -10,6 +10,10 @@ License:        GPL-3.0-or-later AND CC0-1.0
 
 URL:            https://github.com/cassidyjames/dippi
 Source:         %{url}/archive/%{version}/dippi-%{version}.tar.gz
+
+# Fix a couple of minor issues with the English “translations”
+# https://github.com/cassidyjames/dippi/pull/156
+Patch:          %{url}/pull/156.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -33,14 +37,15 @@ BuildRequires:  pkgconfig(libadwaita-1) >= 1.8.1
 
 Requires:       hicolor-icon-theme
 
-Summary(en_AU): Calculate display info like DPI and aspect ratio
-Summary(en_CA): Calculate display info like DPI and aspect ratio
-Summary(en_GB): Calculate display info like DPI and aspect ratio
-Summary(es):    Cálculo de datos de la pantalla como los PPP y la relación de aspecto
+Summary(en_AU): Calculate display info like DPI
+Summary(en_CA): Calculate display info like DPI
+Summary(en_GB): Calculate display info like DPI
+Summary(es):    Calcula datos de la pantalla, como PPP
 Summary(fr_CA): Calculez les informations de l’écran comme le DPI ou le ratio
 Summary(fr):    Calculez des informations sur l'écran comme le DPI ou le ratio
-Summary(hr):    Izračunavanje podataka ekrana kao DPI
+Summary(hr):    Izračunaj podatke ekrana kao DPI
 Summary(it):    Calcola le informazioni di visualizzazione come DPI
+Summary(ka):    ეკრანის ისეთი ინფორმაციების გამოთვლა, როგორიცაა DPI
 Summary(lt):    Apskaičiuoti tokią ekrano informaciją kaip taškus colyje (DPI) ir proporcijas
 Summary(nl):    Bereken scherminformatie, zoals DPI en beeldverhouding
 Summary(pt):    Calcule informação do monitor como o DPI e a relação de aspeto
@@ -48,10 +53,9 @@ Summary(tr):    DPI ve en boy oranı gibi ekran bilgilerini hesaplama
 
 
 %description
-Analyze any display. Input a few simple details and figure out the
-aspect ratio, DPI, and other details of a particular display. Great for
-deciding which laptop or external monitor to purchase, and if it would
-be considered HiDPI.
+Analyze any display. Input a few simple details and figure out the aspect
+ratio, DPI, and other details of a particular display. Great for deciding which
+laptop or external monitor to purchase, and if it would be considered HiDPI.
 
 Lots of handy features:
   • Find out if a display is a good choice based on its size and resolution
@@ -70,16 +74,15 @@ Tells you if a display’s density is:
   • Too High DPI
 
 %description -l en_AU
-Analyse any display. Input a few simple details and figure out the
-aspect ratio, DPI, and other details of a particular display. Great for
-deciding which laptop or external monitor to purchase, and if it would
-be considered HiDPI.
+Analyse any display. Input a few simple details and figure out the aspect
+ratio, DPI, and other details of a particular display. Great for deciding which
+laptop or external monitor to purchase, and if it would be considered HiDPI.
 
 Lots of handy features:
   • Find out if a display is a good choice based on its size and resolution
   • Get advice about different densities
   • Learn the logical resolution
-  • Differentiates between laptops and desktop displays
+  • Differentiate between laptops and desktop displays
   • Stupid simple: all in a cute li’l window
 
 Tells you if a display’s density is:
@@ -92,10 +95,9 @@ Tells you if a display’s density is:
   • Too High DPI
 
 %description -l en_CA
-Analyze any display. Input a few simple details and figure out the
-aspect ratio, DPI, and other details of a particular display. Great for
-deciding which laptop or external monitor to purchase, and if it would
-be considered HiDPI.
+Analyze any display. Input a few simple details and figure out the aspect
+ratio, DPI, and other details of a particular display. Great for deciding which
+laptop or external monitor to purchase, and if it would be considered HiDPI.
 
 Lots of handy features:
   • Find out if a display is a good choice based on its size and resolution
@@ -114,10 +116,9 @@ Tells you if a display’s density is:
   • Too High DPI
 
 %description -l en_GB
-Analyse any display. Input a few simple details and figure out the
-aspect ratio, DPI, and other details of a particular display. Great for
-deciding which laptop or external monitor to purchase, and if it would
-be considered HiDPI.
+Analyse any display. Input a few simple details and figure out the aspect
+ratio, DPI, and other details of a particular display. Great for deciding which
+laptop or external monitor to purchase, and if it would be considered HiDPI.
 
 Lots of handy features:
   • Find out if a display is a good choice based on its size and resolution
@@ -138,10 +139,10 @@ Tells you if a display’s density is:
 %description -l es
 Análisis de cualquier pantalla. Proporcione unos pocos datos y averigüe la
 relación de aspecto, los PPP y otros detalles sobre una pantalla concreta.
-Estupendo para decidir qué portátil o monitor externo comprar y si este
-puede considerarse de alta resolución.
+Estupendo para decidir qué portátil o monitor externo comprar y si este puede
+considerarse de alta resolución.
 
-Funcionalidades útiles:
+Numerosas funcionalidades útiles:
   • Descubra si una pantalla es una buena elección en función de su tamaño y su
     resolución
   • Obtenga orientaciones sobre las distintas densidades
@@ -149,14 +150,14 @@ Funcionalidades útiles:
   • Distinga las pantallas para portátiles de las de escritorio
   • Sencillísimo: todo en una ventanita
 
-Le dice si la densidad de una pantalla es:
-  • de muy pocos PPP,
-  • de PPP relativamente escasos,
-  • ideal para resolución baja,
-  • potencialmente problemática,
-  • ideal para resolución alta,
-  • bastante elevada para resolución alta, o
-  • de PPP demasiado elevados
+Señala si la densidad de una pantalla es:
+  • Muy pocos PPP,
+  • Bastante pocos PPP,
+  • Ideal para LoDPI,
+  • Potencialmente problemática,
+  • Ideal para HiDPI,
+  • Bastante alta para HiDPI, o
+  • Demasiados PPP
 
 %description -l fr_CA
 Analysez n’importe quel écran. Entrez de simples détails à son propos et
@@ -206,7 +207,7 @@ Vous dit si la densité d’un écran est :
 
 %description -l hr
 Analiziraj bilo koji ekran. Unesi nekoliko jednostavnih detalja i izračunaj
-omjer, DPI i druge detalje određenog ekrana. Izvrsno za odlučivanje kupnje
+omjer, DPI i druge detalje određenog ekrana. Izvrsno za odlučivanje pri kupnji
 laptopa ili eksternog monitora i hoće li se smatrati HiDPI-jem.
 
 Puno praktičnih funkcija:
@@ -231,7 +232,7 @@ proporzioni, il DPI e altri dettagli di un particolare display. Ottimo per
 decidere quale laptop o monitor esterno acquistare e se sarebbe considerato
 HiDPI.
 
-Funzioni utili:
+Tante funzioni utili:
   • Scopri se un display è una buona scelta in base alle sue dimensioni e
     risoluzione
   • Ottieni consigli sulle diverse densità
@@ -247,6 +248,27 @@ Ti dice se la densità di un display è:
   • Ideale per HiDPI,
   • Abbastanza alto per HiDPI, o
   • DPI troppo alto
+
+%description -l ka
+ნებისმიერი ეკრანის ანალიზი. შეიყვანეთ რამდენიმე მარტივი დეტალი და გაარკვიეთ
+ეკრანის ზომების ფარდობა, DPI და სხვა დეტალები. გადასარევია გასარკვევად, რომელი
+ლეპტოპის ეკრანი, ან გარე ეკრანი შეიძინოთ და თუ უნდა იყოს ის HiDPI-ად ჩათვლილი.
+
+ბევრი სასარგებლო ფუნქცია:
+  • გაერკვიეთ, ეკრანი კარგია, თუ არა მის ზომაზე და გარჩევადობაზე დაყრდნობით
+  • რჩევა სხვადასხვა სიმკვრივეების შესახებ
+  • გაიგეთ ლოგიკური გარჩევადობის შესახებ
+  • განსხვავება ლეპტოპისა და სამაგიდო კომპიუტერის ეკრანებს შორის
+  • სულელურად მარტივი: ის ერთი პატარა ფანჯრუკაა
+
+გეუბნებათ, თუ თქვენი ეკრანის სიმკვრივეა:
+  • ძალიან დაბალი DPI,
+  • საკმაოდ დაბალი DPI,
+  • იდეალურია LoDPI-ისთვის,
+  • პოტენციურად პრობლემატური,
+  • იდეალურია HiDPI-ისთვის,
+  • საკმაოდ მაღალია HiDPI-ისთვის, ან
+  • მეტისმეტად მაღალი DPI
 
 %description -l lt
 Išanalizuokite bet kurį ekraną. Įveskite kai kurią paprastą informaciją ir
@@ -342,27 +364,13 @@ Bir ekranın yoğunluğunu:
 %prep
 %autosetup -p1
 
-# While https://github.com/cassidyjames/dippi/issues/82 is fixed upstream, the
-# typo is still present in non-US English localizations—shall we say
-# localisations?
-sed --regexp-extended --in-place 's/(display)‘s/\1’s/g' po/en_*.po
-
-rename_lang() {
-  set -o nounset
-  set -o errexit
-  sed --regexp-extended --in-place \
-      "s/(Language:[[:blank:]]+)${1}\\b/\\1${2}/" \
-      "po/${1}.po" "po/extra/${1}.po"
-  mv "po/${1}.po" "po/${2}.po"
-  mv "po/extra/${1}.po" "po/extra/${2}.po"
-  sed --regexp-extended --in-place "s/^${1}(\\r?)\$/${2}\\1/" \
-      po/LINGUAS po/extra/LINGUAS
-}
-
 # https://salsa.debian.org/iso-codes-team/iso-codes/-/blob/v4.16.0/CHANGELOG.md
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2279336 for discussion of the
-# issue and possible upstreamability.
-rename_lang mo ro_MD
+# issue and possible upstreamability. Since there is no actual Moldavian
+# translation, just a placeholder, we sidestep the issue by removing the
+# translation file.
+rm po/mo.po
+sed --regexp-extended --in-place '/^mo\r?$/d' po/LINGUAS
 
 
 %conf

@@ -1,10 +1,10 @@
 # Created by pyp2rpm-3.3.4
 %global pypi_name click-spinner
-%global commit b27b8d1e2785ce75be1433e579e05193a9b3a782
+%global commit 814d970e63c994c646b60e75deff518a2584b6a9
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{pypi_name}
-Version:        0.1.10
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Spinner for Click
 
@@ -43,11 +43,6 @@ not suitable because you don’t know how much longer it would take.
 
 %prep
 %autosetup -n %{pypi_name}-%{commit}
-# These are bad and should be removed once upstream takes a release
-sed -i "s/versioneer.get_version()/'%{version}'/g" setup.py
-sed -i "s/description-file/description_file/g" setup.py
-sed -i "/from . import _version/d" click_spinner/__init__.py
-sed -i "s/_version.get_versions()\['version'\]/'%{version}'/g" click_spinner/__init__.py
 
 %build
 %pyproject_wheel

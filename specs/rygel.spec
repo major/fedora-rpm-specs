@@ -1,7 +1,7 @@
 %global apiver 2.8
 
 Name:          rygel
-Version:       46.0
+Version:       46.1
 Release:       %autorelease
 Summary:       A collection of UPnP/DLNA services
 
