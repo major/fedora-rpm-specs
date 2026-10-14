@@ -1,13 +1,12 @@
 Name:           perl-Dist-Milla
 Version:        1.0.22
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        CPAN distribution builder
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Milla
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Dist-Milla-v%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
@@ -184,6 +183,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 13 2026 Petr Pisar <ppisar@redhat.com> - 1.0.22-10
+- Remove build-time dependency on unused make
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.22-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

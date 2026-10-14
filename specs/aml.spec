@@ -1,8 +1,8 @@
 # -*-Mode: rpm-spec -*-
 
 Name:     aml
-Version:  0.3.0
-Release:  11%{?dist}
+Version:  1.0.0
+Release:  1%{?dist}
 Summary:  Another Main Loop
 # main source is ISC
 # include/sys/queue.h is BSD
@@ -55,18 +55,21 @@ This package contains header files for %{name}.
 %meson_install
 
 %files
-%{_libdir}/lib%{name}.so.0*
+%{_libdir}/lib%{name}.so.1*
 
 %doc README.md
 
 %license COPYING
 
 %files devel
-%{_includedir}/%{name}.h
+%{_includedir}/%{name}1/
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Fri Oct 02 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.0-1
+- Update to v1.0.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

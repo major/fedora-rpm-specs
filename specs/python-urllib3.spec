@@ -31,6 +31,18 @@ Source0:        %{url}/archive/%{version}/urllib3-%{version}.tar.gz
 %global hypercorn_commit d1719f8c1570cbd8e6a3719ffdb14a4d72880abb
 Source1:        %{hypercorn_url}/archive/%{hypercorn_commit}/hypercorn-%{hypercorn_commit}.tar.gz
 
+# fix ValueError: check_hostname requires server_hostname with latest Python
+# https://github.com/urllib3/urllib3/pull/5289
+Patch:          %{url}/commit/be5a3f30aae8e0ee89759083b8ec01cfe8d60195.patch
+# Avoid flushing swallowed gzip trailing garbage
+# https://github.com/urllib3/urllib3/pull/5271
+#
+# Fixes:
+#
+# test_response.py fails with Python >= 3.14.8 (unreleased)
+# https://github.com/urllib3/urllib3/issues/5268
+Patch:          %{url}/commit/48113e7a5fa3b98a61467afa6bcbb0f9b7ca7207.patch
+
 BuildArch:      noarch
 
 %if %{with tests}

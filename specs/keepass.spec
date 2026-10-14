@@ -19,7 +19,6 @@ Patch1:         keepass-fix-XSL-search-path.patch
 
 ExclusiveArch:  %{mono_arches}
 ExcludeArch:    armv7hl
-BuildRequires:  ImageMagick
 BuildRequires:  desktop-file-utils
 BuildRequires:  gnupg2
 BuildRequires:  libappstream-glib
@@ -63,9 +62,6 @@ sed -i -e 's|/usr|%{_prefix}|g' dist/%{name} KeePass/App/AppDefs.cs
 
 # Make sure no prebuilt dlls are shipped
 find -name "*dll" -delete
-
-# Work around libpng bug (https://bugzilla.redhat.com/show_bug.cgi?id=1276843):
-find -name \*.png -print0 | xargs -0 mogrify -define png:format=png32
 
 
 %build

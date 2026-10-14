@@ -31,7 +31,6 @@ Patch:          CVE-2026-46529.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
-BuildRequires:  pkgconfig(adwaita-icon-theme)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gnome-desktop-3.0)

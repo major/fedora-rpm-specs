@@ -17,7 +17,7 @@ VCS: git:https://github.com/SELinuxProject/selinux.git
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: flex
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 Obsoletes: %{name}-compat = 3.1-4
 
 %description
@@ -60,7 +60,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 The libsepol-utils package contains the utilities
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p 2 -n libsepol-%{version}
 
 # sparc64 is an -fPIC arch, so we need to fix it here

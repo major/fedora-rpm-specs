@@ -87,9 +87,6 @@ Requires: %{name}-langpacks = %{version}-%{release}
 
 ### Build Dependencies ###
 
-%if ! 0%{?flatpak}
-BuildRequires: %{_bindir}/killall
-%endif
 BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: gettext

@@ -28,10 +28,8 @@ Source0:       http://download.gnome.org/sources/%{name}/%{gnome_major_version}/
 %gnome_check_version
 
 BuildRequires: cvt
-BuildRequires: desktop-file-utils
 BuildRequires: mesa-libEGL-devel
 BuildRequires: mesa-libGLES-devel
-BuildRequires: mesa-libGL-devel
 BuildRequires: mesa-libgbm-devel
 BuildRequires: pam-devel
 BuildRequires: pkgconfig(bash-completion)

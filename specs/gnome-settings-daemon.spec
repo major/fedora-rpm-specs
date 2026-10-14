@@ -29,7 +29,6 @@ Source100:    	org.gnome.settings-daemon.plugins.power.gschema.override
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  meson >= 0.64.0
-BuildRequires:  perl-interpreter
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(colord) >= %{colord_version}
@@ -52,9 +51,7 @@ BuildRequires:  pkgconfig(libnm)
 BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libpulse-mainloop-glib)
-BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(mm-glib)
-BuildRequires:  pkgconfig(nss)
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(upower-glib)
 BuildRequires:  pkgconfig(x11)

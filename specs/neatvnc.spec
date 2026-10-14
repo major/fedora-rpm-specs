@@ -1,8 +1,8 @@
 # -*-Mode: rpm-spec -*-
 
 Name:     neatvnc
-Version:  0.9.0
-Release:  9%{?dist}
+Version:  1.0.3
+Release:  1%{?dist}
 Summary:  Liberally licensed VNC server library
 # main source is ISC
 # include/sys/queue.h is BSD
@@ -10,10 +10,6 @@ License:  ISC AND BSD-2-Clause AND BSD-3-Clause
 
 URL:      https://github.com/any1/neatvnc
 Source:   %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Backport to fix i686 builds
-# From: https://github.com/any1/neatvnc/commit/e0e0ce5c579cafc763992f1c1bb964eb95999fb7
-Patch:    0001-server-Use-correct-type-for-length-in-compress.patch
 
 # Backport to fix build with nettle 4
 Patch:    https://github.com/any1/neatvnc/commit/5b190f0fd9e6b0bfd32752a9115242f87ec36c59.patch#/0001-Use-nettle-hogweed-version-4.patch
@@ -24,22 +20,24 @@ BuildRequires: gcc
 BuildRequires: git-core
 BuildRequires: meson
 BuildRequires: cmake
-BuildRequires: pkgconfig(gbm)
+BuildRequires: pkgconfig(aml1)
 BuildRequires: pkgconfig(libavcodec)
 BuildRequires: pkgconfig(libavfilter)
 BuildRequires: pkgconfig(libavutil)
-BuildRequires: pkgconfig(aml)
+BuildRequires: pkgconfig(libdrm)
+BuildRequires: pkgconfig(libpng)
+BuildRequires: pkgconfig(libsixel)
+BuildRequires: pkgconfig(gbm)
+BuildRequires: pkgconfig(gmp)
 BuildRequires: pkgconfig(gnutls)
 BuildRequires: pkgconfig(nettle)
-BuildRequires: pkgconfig(libdrm)
 BuildRequires: pkgconfig(pixman-1)
 BuildRequires: pkgconfig(zlib)
 BuildRequires: turbojpeg-devel
 
 %description
 This is a liberally licensed VNC server library that's intended to be
-fast and neat. Note: This is a beta release, so the interface is not
-yet stable.
+fast and neat.
 
 %package devel
 Summary: Development files for %{name}
@@ -61,7 +59,7 @@ This package contains header files for %{name}.
 %files
 %doc README.md
 %license COPYING
-%{_libdir}/lib%{name}.so.0{,.*}
+%{_libdir}/lib%{name}.so.1{,.*}
 
 %files devel
 %{_includedir}/%{name}.h
@@ -69,6 +67,12 @@ This package contains header files for %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Oct 13 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.3-1
+- Update to v1.0.3
+
+* Fri Oct 02 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.2-1
+- Update to v1.0.2
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.9.0-9
 - Rebuilt for FFmpeg 9
 

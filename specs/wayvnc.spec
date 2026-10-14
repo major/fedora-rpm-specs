@@ -1,10 +1,11 @@
 # -*-Mode: rpm-spec -*-
 
-%global nvnc_version 0.9.0
+%global aml_version 1.0.0
+%global nvnc_version 1.0.0
 
 Name:     wayvnc
-Version:  0.9.1
-Release:  5%{?dist}
+Version:  0.10.2
+Release:  1%{?dist}
 Summary:  A VNC server for wlroots based Wayland compositors
 License:  ISC
 URL:      https://github.com/any1/wayvnc
@@ -12,7 +13,7 @@ Source:   %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: gcc
 BuildRequires: meson
-BuildRequires: pkgconfig(aml) >= 0.2.2
+BuildRequires: pkgconfig(aml1) >= %{aml_version}
 BuildRequires: pkgconfig(egl)
 BuildRequires: pkgconfig(glesv2)
 BuildRequires: pkgconfig(gnutls)
@@ -23,11 +24,10 @@ BuildRequires: pkgconfig(pixman-1)
 BuildRequires: pkgconfig(wayland-client)
 BuildRequires: pkgconfig(xkbcommon) >= 1.0.0
 BuildRequires: pkgconfig(jansson)
-BuildRequires: pkgconfig(aml) >= 0.3.0
 BuildRequires: scdoc
 
 Requires: (sway >= 1.6 if sway)
-Requires: aml >= 0.3.0
+Requires: aml >= %{aml_version}
 Requires: neatvnc >= %{nvnc_version}
 
 %description
@@ -60,6 +60,9 @@ physical display attached.
 %license COPYING
 
 %changelog
+* Sat Oct 10 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.10.2-1
+- Update to v0.10.2
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

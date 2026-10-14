@@ -112,7 +112,6 @@ rm -rf doc/build/html/.buildinfo
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst ChangeLog
 %license LICENSE
-%exclude %{python3_sitelib}/keystoneauth1/tests
 
 
 %if 0%{?with_doc}

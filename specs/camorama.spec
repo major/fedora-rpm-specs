@@ -1,5 +1,5 @@
 Name:           camorama
-Version:        0.30.0
+Version:        0.30.1
 Release:        1%{?dist}
 Summary:        Gnome webcam viewer
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -23,6 +23,7 @@ BuildRequires:  gdk-pixbuf2-devel
 BuildRequires:  libavcodec-free-devel
 BuildRequires:  libavutil-free-devel
 BuildRequires:  libswscale-free-devel
+BuildRequires:  python3-polib
 BuildRequires:  ffmpeg-free
 BuildRequires:  gnome-common
 Requires:       hicolor-icon-theme
@@ -61,8 +62,11 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
-* Sat Sep 26 2026 Mauro Carvalho Chehab <mchehab@kernel.org> - 0.30.1-1
-- Bump to version 0.30.1: gtk4, libcamera, audio, better decoders
+* Tue Oct 13 2026 Mauro Carvalho Chehab <mchehab@kernel.org> - 0.30.1-1
+- Bump to version 0.30.1: several fixes and some cleanups
+
+* Sat Sep 26 2026 Mauro Carvalho Chehab <mchehab@kernel.org> - 0.30.0-1
+- Bump to version 0.30.0: gtk4, libcamera, audio, better decoders
 
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild

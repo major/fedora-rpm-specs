@@ -1,6 +1,6 @@
 %define name          xscreensaver
 
-%define mainversion   6.16
+%define mainversion   6.17
 %dnl %define extratarver   1
 %dnl %define beta_ver      b2
 
@@ -11,7 +11,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    3
+%define baserelease    1
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -95,17 +95,15 @@ Source100:       ja.po
 ## Patches
 ##
 # bug 129335
-Patch1:          xscreensaver-5.45-0001-barcode-glsnake-sanitize-the-names-of-modes.patch
+Patch1:          xscreensaver-6.17-0001-barcode-glsnake-sanitize-the-names-of-modes.patch
 ## Patches already sent to the upsteam
 ## Patches which must be discussed with upstream
 # See bug 472061
-Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
+Patch21:         xscreensaver-6.17-webcollage-default-nonet.patch
 # make_ximage: avoid integer overflow on left shift
 Patch4701:       xscreensaver-6.07-0001-make_ximage-avoid-integer-overflow-on-left-shift.patch
 # convert_ximage_to_rgba32: avoid integer overflow on left shift
 Patch4702:       xscreensaver-6.07-0002-convert_ximage_to_rgba32-avoid-integer-overflow-on-l.patch
-# Fix graphstat dependency source dir in Makefile
-Patch5701:       xscreensaver-6.16-0001-Fix-graphstat-dependency-source-dir-in-Makefile.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -416,7 +414,6 @@ done
 
 %__cat %PATCH4701 | %__git am
 %__cat %PATCH4702 | %__git am
-%__cat %PATCH5701 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -717,20 +714,19 @@ rm -f configure
 sed -i driver/XScreenSaver.ad -e "s|$(pwd)/TMPBINDIR/||"
 
 %if %{update_po}
-pushd po
-  make generate_potfiles_in
-  # The following hack still seems needed
-  sed -i POTFILES.in POTFILES \
-     -e '\@driver/.*\.ui@s|^\([ \t]*\)\(.*\)$|\1[type: gettext/glade]\2|'
-  # Update POTFILES.in, the copy to the original directory
-  cp -p POTFILES.in ../../po/
-  git commit -m "POTFILES.in regenerated" -a || true
-  ( cd .. ; ./config.status )
 
-  cp -p POTFILES{.in,} ..
-  make xscreensaver.pot srcdir=..
+pushd po
+
+# 6.17 hack
+  (
+    cd ../driver
+    make demo-Gtk-resources.c
+    cp -p demo-Gtk-resources.c ../../driver
+  )
+
+  make generate_potfiles_in
+  git commit -m "POTFILES.in regenerated" -a || true
   make update-po
-  rm -f ../POTFILES{.in,}
 popd
 
 
@@ -1216,6 +1212,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Oct 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.17-1
+- Update to 6.17
+
 * Fri Sep 11 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:6.16-3
 - Rebuilt for libxml-2.5.4
 

@@ -5,8 +5,8 @@
 %global app_id org.gnome.Shell.Extensions.GSConnect
 
 Name:           gnome-shell-extension-gsconnect
-Version:        72
-Release:        3%{?dist}
+Version:        73
+Release:        1%{?dist}
 Summary:        KDE Connect implementation for GNOME Shell
 
 License:        GPL-2.0-or-later
@@ -16,10 +16,11 @@ Source1:        nautilus-gsconnect.metainfo.xml
 Source2:        nemo-gsconnect.metainfo.xml
 # Fix Firewalld path
 Patch0:         %{name}-42-firewalld.patch
+# Drop unneeded C language from Meson project() to avoid requiring gcc
+Patch1:         %{name}-73-no-c.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  firewalld-filesystem
-BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gtk4
 BuildRequires:  libappstream-glib
@@ -33,10 +34,10 @@ Requires:       openssh
 # Needed for ssh-add
 Requires:       openssh-clients
 Requires:       openssl
-Requires:       /usr/bin/ffmpeg
 Requires(post): firewalld-filesystem
 Recommends:     evolution-data-server
 Recommends:     (gsound or libcanberra-gtk3)
+Recommends:     gvfs
 Suggests:       (nautilus-gsconnect = %{version}-%{release} if nautilus)
 Suggests:       (nemo-gsconnect = %{version}-%{release} if nemo)
 Suggests:       webextension-gsconnect = %{version}-%{release}
@@ -48,7 +49,7 @@ and remote input. The KDE Connect team maintains cross-desktop, Android and
 Sailfish applications as well as an interface for KDE Plasma.
 
 GSConnect is a complete implementation of KDE Connect especially for GNOME Shell
-with Nautilus, Chrome and Firefox integration. It is does not rely on the KDE
+with Nautilus, Chrome and Firefox integration. It does not rely on the KDE
 Connect desktop application and will not work with it installed.
 
 
@@ -157,6 +158,13 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Oct 13 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 73-1
+- Update to 73
+- Fix typo in package description (RHBZ #2543043)
+- Add weak dependency on gvfs for the SFTP plugin
+- Drop ffmpeg dependency, unused since the removal of the photo plugin in v56
+- Drop gcc build dependency, as no C code is built
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 72-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

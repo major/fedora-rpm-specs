@@ -1,5 +1,5 @@
 Name:             3proxy
-Version:          1.0.0
+Version:          1.0.1
 Release:          %autorelease
 
 Summary:          Tiny but very powerful proxy
@@ -47,7 +47,8 @@ sed -i -e "s/^CFLAGS [?]=\+/CFLAGS +=/" -e "s/^CFLAGS =/CFLAGS +=/" Makefile.Lin
 
 %build
 %set_build_flags
-%make_build -f Makefile.Linux PREFIX=
+# FTP and mail proxies are disabled by default upstream since 1.0.1.
+%make_build -f Makefile.Linux PREFIX= FTP=true MAILPROXY=true
 
 %install
 install -d %{buildroot}%{_sysconfdir}

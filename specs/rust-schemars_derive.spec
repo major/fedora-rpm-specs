@@ -5,7 +5,7 @@
 %global crate schemars_derive
 
 Name:           rust-schemars_derive
-Version:        1.2.1
+Version:        1.2.3
 Release:        %autorelease
 Summary:        Macros for #[derive(JsonSchema)], for use with schemars
 

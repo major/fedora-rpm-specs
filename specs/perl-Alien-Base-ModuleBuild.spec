@@ -5,7 +5,7 @@
 
 Name:           perl-Alien-Base-ModuleBuild
 Version:        1.17
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Perl framework for building Alien:: modules and their libraries
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-Base-ModuleBuild
@@ -35,7 +35,7 @@ BuildRequires:  perl(File::chdir) >= 0.1005
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Path)
-BuildRequires:  perl(File::ShareDir) >= 1.00
+# File::ShareDir 1.00 only used with Alien::Base < 0.77
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(HTTP::Tiny) >= 0.044
 BuildRequires:  perl(List::Util) >= 1.45
@@ -85,7 +85,6 @@ Requires:       perl(Alien::Base::PkgConfig) >= 1.20
 Recommends:     perl(Digest::SHA)
 Requires:       perl(File::chdir) >= 0.1005
 Requires:       perl(File::Find)
-Requires:       perl(File::ShareDir) >= 1.00
 Recommends:     perl(HTML::LinkExtor)
 Requires:       perl(HTTP::Tiny) >= 0.044
 Requires:       perl(List::Util) >= 1.45
@@ -179,13 +178,20 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Alien
+%dir %{perl_vendorlib}/Alien/Base
+%{perl_vendorlib}/Alien/Base/ModuleBuild
+%{perl_vendorlib}/Alien/Base/ModuleBuild.pm
+%{_mandir}/man3/Alien::Base::ModuleBuild.*
+%{_mandir}/man3/Alien::Base::ModuleBuild::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 13 2026 Petr Pisar <ppisar@redhat.com> - 1.17-11
+- Remove a dependency on unused File::ShareDir
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

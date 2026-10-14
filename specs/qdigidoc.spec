@@ -8,13 +8,13 @@
 # spectool -g -s 0 qdigidoc.spec
 
 Name:           qdigidoc
-Version:        4.10.0
-Release:        4%{?dist}
+Version:        4.11.1
+Release:        1%{?dist}
 Summary:        Estonian digital signature and encryption application
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/open-eid/DigiDoc4-Client
-Source0:        %{url}/releases/download/v%{version}/%{upstream_name}_%{version}.%{build_number}.tar.xz
+Source0:        %{url}/releases/download/v%{version}/%{upstream_name}-%{version}.tar.gz
 Patch0:         sandbox.patch
 Patch1:         cmake.patch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -25,7 +25,7 @@ BuildRequires:  make
 BuildRequires:  cmake >= 3.5
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
-BuildRequires:  libdigidocpp-devel >= 4.4.0
+BuildRequires:  libdigidocpp-devel >= 4.5.1
 BuildRequires:  flatbuffers-compiler
 BuildRequires:  openldap-devel
 BuildRequires:  pkgconfig(cups)
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ee.ria.qdigidoc4.des
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Tue Oct 13 2026 Dmitri Smirnov <dmitri@smirnov.ee> - 4.11.1-1
+- Upstream release 4.11.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

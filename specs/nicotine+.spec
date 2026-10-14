@@ -2,8 +2,8 @@
 %global appdata_id org.nicotine_plus.Nicotine
 
 Name:           nicotine+
-Version:        3.3.10
-Release:        8%{?dist}
+Version:        3.3.11
+Release:        1%{?dist}
 Summary:        A graphical client for Soulseek
 
 # - pynicotine/external/tinytag.py is MIT
@@ -26,10 +26,11 @@ BuildRequires:  gtk4
 # Runtime dependencies are not declared in setup.py but are actually required
 # (see doc/DEPENDENCIES.md)
 Requires:       (gtk4 or gtk3)
-Requires:       (gtk3 and gspell)
-Requires:       (gtk4 and libadwaita)
+Requires:       (gspell if gtk3)
+Requires:       (libadwaita if gtk4)
+Requires:       (python3-gobject if gtk3)
+Requires:       gobject-introspection
 Requires:       hicolor-icon-theme
-Requires:       %{py3_dist pygobject}
 # pynicotine/external/tinytag.py is a bundled fork of
 # https://pypi.org/project/tinytag/
 Provides:       bundled(python3dist(tinytag))
@@ -78,6 +79,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Tue Oct 13 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.3.11-1
+- Update to 3.3.11
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

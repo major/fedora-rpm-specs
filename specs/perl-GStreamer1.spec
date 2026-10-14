@@ -8,7 +8,7 @@
 
 Name:           perl-GStreamer1
 Version:        0.003
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Perl binding for GStreamer 1.x
 # lib/GStreamer1.pm:                BSD-2-Clause
 # lib/GStreamer1/Caps/Simple.pm:    BSD-2-Clause
@@ -27,7 +27,7 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
-BuildRequires:  perl(Devel::CheckLib) >= 0.9
+# Devel::CheckLib 0.9 not used, patched out
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -102,6 +102,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 13 2026 Petr Pisar <ppisar@redhat.com> - 0.003-37
+- Remove build dependency on unused Devel::CheckLib
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           python-starlette
-Version:        1.7.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        The little ASGI library that shines
 
@@ -7,10 +7,6 @@ License:        BSD-3-Clause
 URL:            https://starlette.dev
 %global forgeurl https://github.com/encode/starlette
 Source:         %{forgeurl}/archive/%{version}/starlette-%{version}.tar.gz
-
-# Make it possible to run the tests without blockbuster
-# https://github.com/Kludex/starlette/pull/3576
-Patch:          %{forgeurl}/pull/3576.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --extras full

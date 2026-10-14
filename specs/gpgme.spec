@@ -8,7 +8,7 @@
 
 Name:           gpgme
 Summary:        GnuPG Made Easy - high level crypto API
-Version:        2.1.2
+Version:        2.2.0
 Release:        1%{?dist}
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
@@ -150,6 +150,9 @@ make check
 %{_libdir}/pkgconfig/%{name}*.pc
 
 %changelog
+* Tue Oct 13 2026 Michal Hlavinka <mhlavink@redhat.com> - 2.2.0-1
+- updated to 2.2.0
+
 * Thu Aug 06 2026 Michal Hlavinka <mhlavink@redhat.com> - 2.1.2-1
 - updated to 2.1.2 (#2479546)
 

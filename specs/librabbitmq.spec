@@ -18,7 +18,7 @@
 Name:      %{libname}
 Summary:   Client library for AMQP
 License:   MIT
-Version:   0.18.0
+Version:   0.18.1
 Release:   1%{?dist}
 %forgemeta
 URL:       %{forgeurl}
@@ -131,6 +131,9 @@ grep static %{buildroot}%{_libdir}/cmake/rabbitmq-c/*.cmake && exit 1
 
 
 %changelog
+* Tue Oct 13 2026 Remi Collet <remi@remirepo.net> - 0.18.1-1
+- update to 0.18.1
+
 * Tue Sep 15 2026 Remi Collet <remi@remirepo.net> - 0.18.0-1
 - update to 0.18.0
 

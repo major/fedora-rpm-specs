@@ -324,7 +324,7 @@ BuildRequires:  pkgconfig(vpx)
 BuildRequires:  cmake(OpenColorIO) >= 2.0.0
 BuildRequires:  cmake(Imath)
 BuildRequires:  cmake(OpenEXR)
-BuildRequires:  cmake(OpenImageIO) >= 2.5.0.0
+BuildRequires:  cmake(OpenImageIO) > 3.0
 BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:  potrace-devel

@@ -23,7 +23,7 @@
 
 %define PLATFORMS_COMMIT f8dbb5c60330
 
-%define OPENSSL_VER    3.5.8
+%define OPENSSL_VER    3.5.9
 
 %define DBXDATE_2011   20260630.2011
 %define DBXDATE_2023   20260901.2023
@@ -83,6 +83,7 @@ Source2: https://github.com/openssl/openssl/releases/download/openssl-%{OPENSSL_
 Source4: edk2-platforms-%{PLATFORMS_COMMIT}.tar.xz
 Source5: jansson-2.13.1.tar.bz2
 Source6: dtc-1.7.0.tar.xz
+Source8: 31_uefi-shell
 Source9: README.experimental
 
 # json description files
@@ -395,7 +396,7 @@ mkdir -p SecurityPkg/DeviceSecurity/SpdmLib/libspdm/include
 chmod -Rf a+rX,u+w,g-w,o-w .
 
 cp -a -- \
-   %{SOURCE9} \
+   %{SOURCE8} %{SOURCE9} \
    %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
    %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} \
    %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} \
@@ -659,6 +660,8 @@ install -m 0644 \
         60-edk2-ovmf-x64-stateless.json \
         92-edk2-ovmf-igvm-x64-nosb.json \
         %{buildroot}%{_datadir}/qemu/firmware
+install -d -m 0700 %{buildroot}/etc/grub.d
+install -m 0755 31_uefi-shell %{buildroot}/etc/grub.d
 %endif
 
 # endif build_ovmf
@@ -687,6 +690,10 @@ install -m 0644 \
         90-edk2-aarch64-qemuvars-sb-enrolled.json \
         91-edk2-aarch64-qemuvars-sb.json \
         %{buildroot}%{_datadir}/qemu/firmware
+%endif
+%if %{defined fedora}
+install -d -m 0700 %{buildroot}/etc/grub.d
+install -m 0755 31_uefi-shell %{buildroot}/etc/grub.d
 %endif
 
 # endif build_aarch64
@@ -798,7 +805,21 @@ done
 %endif
 %files shell-x64
 %{_datadir}/%{name}/ovmf/Shell.efi
+%if %{defined fedora}
+/etc/grub.d/31_uefi-shell
+%endif
 # endif build_ovmf
+%endif
+
+%if %{defined fedora}
+%post shell-x64
+if test -d /boot/efi/EFI/BOOT; then
+    cp %{_datadir}/%{name}/ovmf/Shell.efi /boot/efi/shellx64.efi
+fi
+%postun shell-x64
+if test "$1" == "0" -a -d /boot/efi/EFI/BOOT; then
+    rm -f /boot/efi/shellx64.efi
+fi
 %endif
 
 %if %{build_aarch64}
@@ -832,7 +853,21 @@ done
 %{_datadir}/qemu/firmware/53-edk2-aarch64-verbose-raw.json
 %files shell-aa64
 %{_datadir}/%{name}/aarch64/Shell.efi
+%if %{defined fedora}
+/etc/grub.d/31_uefi-shell
+%endif
 # endif build_aarch64
+%endif
+
+%if %{defined fedora}
+%post shell-aa64
+if test -d /boot/efi/EFI/BOOT; then
+    cp %{_datadir}/%{name}/aarch64/Shell.efi /boot/efi/shellaa64.efi
+fi
+%postun shell-aa64
+if test "$1" == "0" -a -d /boot/efi/EFI/BOOT; then
+    rm -f /boot/efi/shellaa64.efi
+fi
 %endif
 
 %files tools

@@ -11,7 +11,7 @@
 
 Name:           gscan2pdf
 Version:        2.13.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
 # icons/scanner.svg:    GPL-2.0-only
@@ -82,10 +82,10 @@ BuildRequires:  perl(GooCanvas2)
 BuildRequires:  perl(GooCanvas2::Canvas)
 BuildRequires:  perl(Gtk3) >= 0.028
 # Gtk3::Entry is not provided by perl-Gtk3
-BuildRequires:  perl(Gtk3::ImageView)
-BuildRequires:  perl(Gtk3::ImageView::Tool::Dragger)
-BuildRequires:  perl(Gtk3::ImageView::Tool::Selector)
-BuildRequires:  perl(Gtk3::ImageView::Tool::SelectorDragger)
+# Gtk3::ImageView not used at tests
+# Gtk3::ImageView::Tool::Dragger not used at tests
+# Gtk3::ImageView::Tool::Selector not used at tests
+# Gtk3::ImageView::Tool::SelectorDragger not used at tests
 BuildRequires:  perl(Gtk3::SimpleList)
 BuildRequires:  perl(HTML::Entities)
 BuildRequires:  perl(HTML::TokeParser)
@@ -380,6 +380,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 13 2026 Petr Pisar <ppisar@redhat.com> - 2.13.5-5
+- Remove a build-time dependency on unused Gtk3::ImageView
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,3 +1,7 @@
+%global forgeurl https://github.com/linuxmint/cinnamon-control-center
+%global tagver   6.7.7
+%global tag      %{tagver}-unstable
+
 %global _artwork_version 1.7.5
 
 %global cinnamon_desktop_version 6.7.0
@@ -5,15 +9,14 @@
 %global cinnamon_menus_version 6.7.0
 %global redhat_menus_version 1.8
 
-%global upstream_version 6.7.5-unstable
-
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 6.7.5^unstable
-Release: %autorelease
+Version: %{tagver}^unstable
+Release: %{autorelease}
+%{forgemeta}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
-URL:     https://github.com/linuxmint/%{name}
-Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+URL:     %{forgeurl}
+Source0: %{forgesource}
 Source1: http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_%{_artwork_version}.tar.xz
 
 ExcludeArch: %{ix86}
@@ -77,7 +80,7 @@ Install this package to build control-center panels or applications
 that link against libcinnamon-control-center.
 
 %prep
-%autosetup -a1 -p1 -n %{name}-%{upstream_version}
+%autosetup %{forgesetupargs} -p1 -a1
 
 %install -a
 desktop-file-install                                  \

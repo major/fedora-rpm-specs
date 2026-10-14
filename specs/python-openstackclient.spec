@@ -99,6 +99,8 @@ sed -i '/sphinx-build/ s/-W//' tox.ini
 sed -i '/whereto*/d' tox.ini
 
 %pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency hacking:ignore
+rm openstackclient/tests/unit/test_hacking.py
 %pyproject_patch_dependency tempest:ignore
 %pyproject_patch_dependency osprofiler:ignore
 %pyproject_patch_dependency tempest:ignore
@@ -191,7 +193,7 @@ export PYTHON=%{__python3}
 %dir %attr(0755, openstack-completion, openstack-completion) %{_sharedstatedir}/openstack-client
 %ghost %attr(0644, openstack-completion, openstack-completion) %{_sharedstatedir}/openstack-client/bash-completion
 %{_mandir}/man8/openstack-completion.service.8*
-%exclude %{python3_sitelib}/openstackclient/tests
+# Do not exclude the tests from package - magnumclient imports them.
 
 %if %{without bootstrap}
 %files -n python-%{sname}-doc

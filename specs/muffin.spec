@@ -1,13 +1,15 @@
-%global upstream_version 6.7.8-unstable
+%global forgeurl https://github.com/linuxmint/muffin
+%global tagver   6.7.9
+%global tag      %{tagver}-unstable
 
 Name:          muffin
-Version:       6.7.8^unstable
-Release:       %autorelease
+Version:       %{tagver}^unstable
+Release:       %{autorelease}
+%{forgemeta}
 Summary:       Window and compositing manager based on Clutter
-
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND SGI-B-2.0
-URL:           https://github.com/linuxmint/%{name}
-Source0:       %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+URL:           %{forgeurl}
+Source0:       %{forgesource}
 
 ExcludeArch:   %{ix86}
 
@@ -96,7 +98,7 @@ Header files and libraries for developing Muffin plugins. Also includes
 utilities for testing Metacity/Muffin themes.
 
 %prep
-%autosetup -p1 -n %{name}-%{upstream_version}
+%forgeautosetup -p1
 
 %install -a
 rm -rf %{buildroot}%{_bindir}/

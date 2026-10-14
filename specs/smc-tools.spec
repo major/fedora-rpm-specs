@@ -1,6 +1,6 @@
 Name:           smc-tools
 Version:        1.8.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Shared Memory Communication Tools
 
 License:        EPL-1.0
@@ -16,6 +16,8 @@ BuildRequires:  pkgconfig(bash-completion)
 # for smc_chk
 Requires:       python3
 Requires:       man
+# for smc_rnics
+Requires:       glibc-gconv-extra
 %endif
 
 
@@ -66,6 +68,9 @@ sockets in Linux.
 
 
 %changelog
+* Tue Oct 13 2026 Dan Horák <dan@danny.cz> - 1.8.8-2
+- add R: glibc-gconv-extra for smc_rnics
+
 * Wed Aug 19 2026 Dan Horák <dan@danny.cz> - 1.8.8-1
 - update to 1.8.8 (rhbz#2519470)
 

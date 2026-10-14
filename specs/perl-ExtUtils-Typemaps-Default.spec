@@ -1,5 +1,5 @@
 Name:           perl-ExtUtils-Typemaps-Default
-Version:        1.05
+Version:        1.07
 Release:        %autorelease
 Summary:        Set of useful typemaps
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.

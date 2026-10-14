@@ -1,5 +1,5 @@
 Name:           python-virt-firmware
-Version:        26.9
+Version:        26.10
 Release:        %autorelease
 Summary:        Tools for virtual machine firmware volumes
 
@@ -77,8 +77,10 @@ cp -ar tests %{buildroot}%{_datadir}/%{name}
 # uki-direct
 install -m 755 -d  %{buildroot}%{_unitdir}
 install -m 755 -d  %{buildroot}%{_prefix}/lib/kernel/install.d
+install -m 755 -d  %{buildroot}%{_prefix}/libexec
 install -m 644 systemd/kernel-bootcfg-boot-successful.service %{buildroot}%{_unitdir}
 install -m 755 systemd/99-uki-uefi-setup.install %{buildroot}%{_prefix}/lib/kernel/install.d
+install -m 755 systemd/uki-boot-successful %{buildroot}%{_prefix}/libexec
 # virt-sb-certs
 install -m 755 -d %{buildroot}%{_datadir}/virt-sb-certs
 dirs=$(cd %{buildroot}%{python3_sitelib}/virt/firmware/certs; echo *)
@@ -133,6 +135,7 @@ done
 %files -n uki-direct
 %{_unitdir}/kernel-bootcfg-boot-successful.service
 %{_prefix}/lib/kernel/install.d/99-uki-uefi-setup.install
+%{_prefix}/libexec/uki-boot-successful
 
 %files -n virt-sb-certs
 %{_datadir}/virt-sb-certs

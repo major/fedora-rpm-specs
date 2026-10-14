@@ -7,7 +7,7 @@
 
 Name:		perl-Archive-Any-Lite
 Version:	0.11
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Simple CPAN package extractor 
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Archive-Any-Lite
@@ -16,11 +16,10 @@ Patch0:		Archive-Any-Lite-0.08-EU:MM.patch
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.30
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:	perl(Archive::Tar) >= 1.76
 BuildRequires:	perl(Archive::Zip)
@@ -42,7 +41,7 @@ BuildRequires:	perl(Parallel::ForkManager) >= 0.7.6
 %endif
 BuildRequires:	perl(Test::Pod) >= 1.18
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
-# Runtime
+# Dependencies
 Requires:	perl(IO::Uncompress::Bunzip2)
 Requires:	perl(IO::Zlib)
 
@@ -60,12 +59,11 @@ check MIME types.
 %patch -P0
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -78,6 +76,9 @@ make test TEST_POD=1
 %{_mandir}/man3/Archive::Any::Lite.3*
 
 %changelog
+* Tue Oct 13 2026 Paul Howarth <paul@city-fan.org> - 0.11-32
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

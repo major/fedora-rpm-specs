@@ -8,7 +8,7 @@
 Name:           ntfs-3g
 Epoch:          2
 Version:        2026.9.28
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Linux NTFS userspace driver
 License:        GPL-2.0-or-later
 URL:            https://github.com/tuxera/ntfs-3g
@@ -196,6 +196,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{name}/README
 %exclude %{_mandir}/man8/ntfs-3g*
 
 %changelog
+* Tue Oct 13 2026 Adam Williamson <adamwill@fedoraproject.org> - 2:2026.9.28-3
+- Rebuild for hwinfo libhd soname bump, again
+
 * Mon Oct 05 2026 Adam Williamson <adamwill@fedoraproject.org> - 2:2026.9.28-2
 - Rebuild for hwinfo libhd soname bump
 

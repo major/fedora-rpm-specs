@@ -20,7 +20,7 @@ Patch1:         %{name}-java8.patch
 
 BuildRequires:  javapackages-local-openjdk25
 
-BuildRequires:  ant-openjdk25 , java-25-devel, java-javadoc, jpackage-utils, junit
+BuildRequires:  ant-openjdk25 , java-25-devel, java-javadoc, jpackage-utils
 Requires:       java-25-headless, jpackage-utils
 
 BuildArch:      noarch

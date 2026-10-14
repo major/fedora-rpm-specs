@@ -1,5 +1,5 @@
 Name:           kio-snapshot
-Version:        1.0.0
+Version:        1.1.0
 Release:        1%{?dist}
 Summary:        Integration of Btrfs filesystem snapshots for KDE apps
 
@@ -21,6 +21,7 @@ BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Solid)
 
 BuildRequires:  pkgconfig(libbtrfsutil)
+BuildRequires:  pkgconfig(mount)
 
 %description
 Btrfs Filesystem snapshot integration for KDE applications.
@@ -51,5 +52,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_metainfodir}/org.kde.kio_snapshot.metainfo.xml
 
 %changelog
+* Wed Oct 14 2026 Steve Cossette <steve@ninjasinpajamas.ca> - 1.1.0-1
+- 1.1.0
+
 * Thu Aug 20 2026 Steve Cossette <farchord@gmail.com> - 1.0.0-1
 - Initial Release

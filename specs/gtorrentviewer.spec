@@ -1,6 +1,6 @@
 Name:		gtorrentviewer
 Version:	0.2b
-Release:	59%{?dist}
+Release:	60%{?dist}
 Summary:	A GTK2-based viewer and editor for BitTorrent meta files
 License:	GPL-1.0-or-later
 URL:		http://gtorrentviewer.sourceforge.net/
@@ -21,12 +21,6 @@ BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	intltool
 BuildRequires:	libcurl-devel
-
-# Scriptlets replaced by File Triggers from Fedora 26 onwards
-%if 0%{?fedora} < 26 && 0%{?rhel} < 8
-Requires(post):	  desktop-file-utils
-Requires(postun): desktop-file-utils
-%endif
 
 %description
 GTorrentViewer gives you the ability to see and modify all the possible
@@ -70,10 +64,10 @@ download.
 %define _lto_cflags %{nil}
 
 %configure
-make %{?_smp_mflags}
+%{make_build}
 
 %install
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%{make_install}
 rm -f %{buildroot}%{_datadir}/GTorrentViewer/README
 desktop-file-install \
 	--vendor "" \
@@ -81,15 +75,6 @@ desktop-file-install \
 	--delete-original \
 	--dir %{buildroot}%{_datadir}/applications \
 	%{buildroot}%{_datadir}/applications/gtorrentviewer.desktop
-
-# Scriptlets replaced by File Triggers from Fedora 26 onwards
-%if 0%{?fedora} < 26 && 0%{?rhel} < 8
-%post
-/usr/bin/update-desktop-database &> /dev/null || :
-
-%postun
-/usr/bin/update-desktop-database &> /dev/null || :
-%endif
 
 %files
 %license COPYING
@@ -102,6 +87,10 @@ desktop-file-install \
 %{_mandir}/man1/gtorrentviewer.1*
 
 %changelog
+* Tue Oct 13 2026 Paul Howarth <paul@city-fan.org> - 0.2b-60
+- Drop legacy scriptlets
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2b-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

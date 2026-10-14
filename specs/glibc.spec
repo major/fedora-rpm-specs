@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.44.9000-220-gcbf59b8366
+%global glibcsrcdir glibc-2.44.9000-246-g81ac10977d
 %global glibcversion 2.44.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 4
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2477,6 +2477,36 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Oct 13 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-5
+- Auto-sync with upstream branch master,
+  commit 81ac10977d3c0c4291838bb0e220eeb670bfc90d:
+- hurd: Re-fix SA_RESETHAND for SIGILL/SIGTRAP (Samuel Thibault)
+- hurd: Do not pass MSG_NOSIGNAL to socket translators (Samuel Thibault)
+- hurd: Fix extra localplt (Samuel Thibault)
+- hurd: Preserve the euid/egid in seteuids/setgroups. (Yelninei)
+- hurd: seteuids: Change size argument to size_t. (Yelninei)
+- hurd: seteuids: Specify MACH_MSG_TYPE_COPY_SEND. (Yelninei)
+- Remove gethostname from sysdeps/unix/syscalls.list (Matt Turner)
+- posix: Use PROT_READ for tst-mmap address probe (Muhammad Kamran)
+- nptl: Release robust mutex after trylock returns ENOTRECOVERABLE (BZ #27458) (後藤　遼(新製品開発3))
+- test-installation: skip libnsl (Xi Ruoyao)
+- test-installation: skip libunwind (Xi Ruoyao)
+- test-installation: skip empty static libraries (Xi Ruoyao)
+- test-installation: skip nss_{dns,files} (Xi Ruoyao)
+- test-installation: fix libgcc_s reference (Xi Ruoyao)
+- test-installation: remove the reference to libdb1 (Xi Ruoyao)
+- treewide: remove remnants of libnss_ldap (Xi Ruoyao)
+- test-installation: refactor skipping the unwanted libraries (Xi Ruoyao)
+- AArch64: Add SVE2 strlen (Wilco Dijkstra)
+- math: Fix misspelled entries in flt-32 libm-test-ulps (Adhemerval Zanella)
+- <wchar.h>: Define __CORRECT_ISO_CPP_WCHAR_H_PROTO for Clang [BZ #34692] (Liviu Nicoara)
+- libio: Use __wunderflow in _IO_getwline_info (Shamil Abdulaev)
+- advisories: Fix GLIBC-SA-2026-0024 (CVE-2026-97399) (Sachin Monga)
+- hurd: Fix xfailing tst-pututxline and tst-arc4random-fork (Samuel Thibault)
+- realloc: Fix mmap non-mremap reallocation case [BZ #34697] (Samuel Thibault)
+- powerpc: Fix one byte overread in strncasecmp (bug 34683, CVE-2026-97399) (Sachin Monga)
+- hurd: support calls to getuid before _hurd_ports is initialised (Mike Kelly)
+
 * Tue Sep 29 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-4
 - Auto-sync with upstream branch master,
   commit cbf59b836645b6ac69ad8c47a560598bc4942ecc:

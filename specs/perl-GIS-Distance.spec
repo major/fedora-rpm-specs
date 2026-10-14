@@ -1,16 +1,9 @@
-%if !%{defined perl_bootstrap}
-# Run optional tests.
-# Disabled because perl-Geo-Point was retired (bug #1748923).
-# Build-cycle: perl-GIS-Distance → perl-Geo-Point → perl-Geo-Distance
-%bcond_with perl_GIS_Distance_enables_optional_test
 # Use optimized implementation in C
-# Build-cycle: perl-GIS-Distance-XS → perl-GIS-Distance
 %bcond_without perl_GIS_Distance_enables_xs
-%endif
 
 Name:           perl-GIS-Distance
 Version:        0.20
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Calculate geographic distances
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GIS-Distance
@@ -33,17 +26,16 @@ BuildRequires:  perl(namespace::clean) >= 0.24
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strictures) >= 2
-%if %{with perl_GIS_Distance_enables_xs}
 # Optional run-time:
-BuildRequires:  perl(GIS::Distance::Fast) >= 0.13
-%endif
+# GIS::Distance::Fast 0.13 is not used at tests, all tests load formulas by
+# a full module name, e.g. with GIS::Distance->new('GIS::Distance::Polar'),
+# forcing loading non-Fast implementations.
 # Tests:
 BuildRequires:  perl(Test2::V0) >= 0.000094
-%if %{with perl_GIS_Distance_enables_optional_test}
 # Optional tests:
-BuildRequires:  perl(Geo::Point) >= 0.95
-BuildRequires:  perl(Test2::Require::Module)
-%endif
+# Disabled because perl-Geo-Point was retired (bug #1748923).
+# Geo::Point 0.95 not used
+# Test2::Require::Module not used
 Requires:       perl(Const::Fast) >= 0.014
 %if %{with perl_GIS_Distance_enables_xs}
 Recommends:     perl(GIS::Distance::Fast) >= 0.13
@@ -63,9 +55,6 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(Test2::V0) >= 0.000094
-%if %{with perl_GIS_Distance_enables_optional_test}
-Requires:       perl(Geo::Point) >= 0.95
-%endif
 
 %description tests
 Tests from %{name}. Execute them
@@ -73,10 +62,9 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n GIS-Distance-%{version}
-%if !%{with perl_GIS_Distance_enables_optional_test}
+# Remove always skipped tests
 rm t/geo_point.t
 perl -i -ne 'print $_ unless m{^t/geo_point\.t}' MANIFEST
-%endif
 # Normalize shebangs
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -118,6 +106,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 13 2026 Petr Pisar <ppisar@redhat.com> - 0.20-10
+- Do not build-depend unused GIS::Distance::Fast
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

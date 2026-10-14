@@ -45,7 +45,7 @@ BuildRequires:  pkgconfig(libselinux)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(tracker-sparql-3.0)
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  /usr/bin/appstream-util
+BuildRequires:  /usr/bin/appstreamcli
 # needed by test/automated/displayless
 BuildRequires:  localsearch
 BuildRequires:  pkgconfig(glycin-gtk4-2)

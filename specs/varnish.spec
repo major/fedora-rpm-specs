@@ -4,8 +4,8 @@
 
 %global __provides_exclude_from ^%{_libdir}/varnish/vmods
 
-%global abi 00d995548e7fc94e7530840ab90855b019de7bc4
-%global vrt 23.1
+%global abi ffd36e9db9a1ec2bf6637deda180a87d40a13d0f
+%global vrt 22.2
 
 # Package scripts are now external
 # https://github.com/varnishcache/pkg-varnish-cache
@@ -31,7 +31,7 @@
 
 Summary: High-performance HTTP accelerator
 Name: varnish
-Version: 9.0.4
+Version: 9.1.0
 Release: 1%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
@@ -41,12 +41,9 @@ Source2: varnish.sysusers
 Source3: https://github.com/jemalloc/jemalloc/releases/download/%{jemalloc_version}/jemalloc-%{jemalloc_version}.tar.bz2
 Source4: varnish.tmpfiles
 
-# Compatibility with openssl-4.0.0
-# https://github.com/varnish/varnish/issues/32
-Patch1:   varnish-9.0.1_openssl_4.0_asn1.patch
-
-# 32bit fixes, picked from vinyl cache upstream
-Patch2:   32bit_build_fixes.patch
+# 32bit build fixes
+Patch1: varnish-9.1.0_vtim_format_time_t.patch
+Patch2: varnish-9.1.0_blob_transcode_32bit.patch
 
 %if %{with bundled_jemalloc}
 # bundled jemalloc patch
@@ -60,7 +57,6 @@ Provides: varnishd(vrt)%{_isa} = %{vrt}
 
 Provides: vmod(blob)%{_isa} = %{version}-%{release}
 Provides: vmod(cookie)%{_isa} = %{version}-%{release}
-Provides: vmod(debug)%{_isa} = %{version}-%{release}
 Provides: vmod(directors)%{_isa} = %{version}-%{release}
 Provides: vmod(h2)%{_isa} = %{version}-%{release}
 Provides: vmod(proxy)%{_isa} = %{version}-%{release}
@@ -157,9 +153,7 @@ Documentation files for %name
 
 %prep
 %setup -q
-%if 0%{?fedora} > 44 || 0%{?rhel} > 10
 %patch 1 -p1
-%endif
 %patch 2 -p1
 tar xzf %SOURCE1
 ln -s pkg-varnish-cache-%{commit1}/redhat redhat
@@ -431,6 +425,15 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Thu Sep 24 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.1.0-1
+- New upstream release
+- Includes fix for VSV00020: workspace buffer overflow in the .upper()
+  and .lower() VCL string type methods
+- Drop openssl_4.0_asn1 patch as it is merged upstream
+- Update abi and vrt
+- Add patch for format bug preventing build on 32 bit
+- Do not provide vmod(debug), the debug vmod is not installed
+
 * Mon Sep 21 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 9.0.4-1
 - New upstream release, a security release
 - Includes fix for VSV00020 (CVE pending)

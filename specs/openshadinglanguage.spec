@@ -96,7 +96,7 @@ BuildRequires:  llvm%{?llvm_compat}-devel
 # Needed for OSL pointclound functions
 BuildRequires:  partio-devel
 BuildRequires:  cmake(Imath) >= 3.1
-BuildRequires:  cmake(OpenImageIO) >= 2.5
+BuildRequires:  cmake(OpenImageIO) > 3.0
 BuildRequires:  pkgconfig(pugixml)
 # -static required by policy for a header-only library
 BuildRequires:  robin-map-static

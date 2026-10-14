@@ -3,7 +3,7 @@
 %global modulename %{name}
 
 Name:           boomaga
-Version:        3.8.1
+Version:        3.9.3
 Release:        1%{?dist}
 # Release:        30.git%%{shortcommit0}%%{?dist}
 Summary:        A virtual printer for viewing a document before printing
@@ -165,6 +165,9 @@ fi
 %{_datadir}/selinux/*/%{modulename}.pp
 
 %changelog
+* Tue Oct 13 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.9.3-1
+- Update to 3.9.3
+
 * Fri Sep 25 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.8.1-1
 - Update to 3.8.1
 

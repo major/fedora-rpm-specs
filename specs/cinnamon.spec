@@ -1,20 +1,23 @@
 %global __requires_exclude ^libcinnamon\.so|^libst\.so
 %global __provides_exclude ^libcinnamon\.so|^libst\.so
 
-%global cjs_version 140.0
-%global cinnamon_desktop_version 6.7.1
-%global cinnamon_translations_version 6.7.0
-%global muffin_version 6.7.7
+%global forgeurl https://github.com/linuxmint/cinnamon
+%global tagver   6.7.9
+%global tag      %{tagver}-unstable
 
-%global upstream_version 6.7.8-unstable
+%global cjs_version 140.0
+%global cinnamon_desktop_version 6.7.5
+%global cinnamon_translations_version 6.7.0
+%global muffin_version 6.7.9
 
 Name:           cinnamon
-Version:        6.7.8^unstable
-Release:        %autorelease
+Version:       %{tagver}^unstable
+Release:       %{autorelease}
+%{forgemeta}
 Summary:        Window management and application launching for Cinnamon
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
-URL:            https://github.com/linuxmint/%{name}
-Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 Source1:        10_cinnamon-common.gschema.override
 Source2:        10_cinnamon-apps.gschema.override.in
 Source3:        22_fedora.styles
@@ -36,6 +39,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  systemd
 BuildRequires:  desktop-file-utils
 BuildRequires:  sassc
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  python3-rpm-macros
 BuildRequires:  pkgconfig(cjs-1.0) >= %{cjs_version}
 BuildRequires:  pkgconfig(gcr-base-3)
@@ -112,6 +116,7 @@ Requires:       mintlocale
 Recommends:     %{name}-control-center%{?_isa}
 Recommends:     gnome-online-accounts-gtk
 Recommends:     %{name}-translations >= %{cinnamon_translations_version}
+Recommends:     velocitty
 
 # needed for theme overrides
 Requires:       desktop-backgrounds-basic
@@ -198,7 +203,7 @@ Requires:       evolution-data-server%{?_isa}
 Calendar server for Cinnamon.
 
 %prep
-%autosetup -p1 -n %{name}-%{upstream_version}
+%forgeautosetup -p1
 
 sed -i -e 's@gksu@pkexec@g' files%{_bindir}/%{name}-settings-users
 sed -i -e 's@gnome-orca@orca@g' files%{_datadir}/%{name}/%{name}-settings/modules/cs_accessibility.py
@@ -255,7 +260,6 @@ rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 %{_bindir}/cinnamon-dbus-command
 %{_bindir}/cinnamon-desktop-editor
 %{_bindir}/cinnamon-file-dialog
-%{_bindir}/cinnamon-hover-click
 %{_bindir}/cinnamon-install-spice
 %{_bindir}/cinnamon-json-makepot
 %{_bindir}/cinnamon-keyboard-display
@@ -302,6 +306,7 @@ rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 %{_libexecdir}/cinnamon/cinnamon-screensaver-pam-helper
 %{_mandir}/man1/*
 %{python3_sitelib}/%{name}/
+%{_userunitdir}/cinnamon-background-daemon.service
 
 %files calendar-server
 %{_bindir}/%{name}-calendar-server

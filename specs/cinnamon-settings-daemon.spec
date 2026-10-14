@@ -1,15 +1,18 @@
+%global forgeurl https://github.com/linuxmint/cinnamon-settings-daemon
+%global tagver   6.7.6
+%global tag      %{tagver}-unstable
+
 %global cinnamon_desktop_version 6.7.3
 
-%global upstream_version 6.7.5-unstable
+Name:    cinnamon-settings-daemon
+Version: %{tagver}^unstable
+Release: %{autorelease}
+%{forgemeta}
+Summary: The daemon sharing settings from CINNAMON to GTK+/KDE applications
 
-Name:           cinnamon-settings-daemon
-Version:        6.7.5^unstable
-Release:        %autorelease
-Summary:        The daemon sharing settings from CINNAMON to GTK+/KDE applications
-
-License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
-URL:            https://github.com/linuxmint/%{name}
-Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
+URL:     %{forgeurl}
+Source0: %{forgesource}
 
 ExcludeArch:    %{ix86}
 
@@ -56,7 +59,7 @@ A daemon to share settings from CINNAMON to other applications. It also
 handles global keybindings, and many of desktop-wide settings.
 
 %prep
-%autosetup -p1 -n %{name}-%{upstream_version}
+%forgeautosetup -p1
 
 %install -a
 desktop-file-install --delete-original           \

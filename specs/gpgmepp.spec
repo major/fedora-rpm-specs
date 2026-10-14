@@ -1,6 +1,6 @@
 Name:           gpgmepp
 Summary:        C++ bindings/wrapper for GPGME
-Version:        2.1.0
+Version:        2.2.0
 Release:        1%{?dist}
 Epoch:          1
 
@@ -57,6 +57,9 @@ Requires:       gpgme-devel%{?_isa} >= %{version}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Oct 13 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.2.0-1
+- updated to 2.2.0
+
 * Mon Aug 24 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.1.0-1
 - updated to 2.1.0
 

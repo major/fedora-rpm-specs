@@ -10,7 +10,6 @@ URL:            https://gitlab.gnome.org/GNOME/libcloudproviders
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
-BuildRequires:  gtk-doc
 BuildRequires:  meson
 BuildRequires:  vala
 
@@ -38,7 +37,7 @@ developing applications that use %{name}.
 
 
 %build
-%meson -Denable-gtk-doc=true
+%meson -Ddocumentation=true
 %meson_build
 
 

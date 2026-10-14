@@ -19,7 +19,7 @@ BuildRequires:  meson
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  itstool
-BuildRequires:  libappstream-glib
+BuildRequires:  /usr/bin/appstreamcli
 BuildRequires:  vala
 
 BuildRequires:  pkgconfig(geocode-glib-2.0)

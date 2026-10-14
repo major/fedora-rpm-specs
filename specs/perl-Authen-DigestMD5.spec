@@ -1,7 +1,7 @@
 Summary:	SASL DIGEST-MD5 authentication (RFC2831)
 Name:		perl-Authen-DigestMD5
 Version:	0.04
-Release:	53%{?dist}
+Release:	54%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Authen-DigestMD5
 Source0:	https://cpan.metacpan.org/modules/by-module/Authen/Authen-DigestMD5-%{version}.tar.gz
@@ -10,11 +10,10 @@ Patch1:		Authen-DigestMD5-0.04-shellbang.patch
 BuildArch:	noarch
 # Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Digest::MD5)
@@ -39,12 +38,11 @@ chmod -c 644 digest-md5-auth.pl
 %patch -P 0 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 # Get rid of sample code that introduces additional dep on perl(OpenLDAP)
@@ -59,6 +57,9 @@ make test
 %{_mandir}/man3/Authen::DigestMD5.3*
 
 %changelog
+* Tue Oct 13 2026 Paul Howarth <paul@city-fan.org> - 0.04-54
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -39,7 +39,7 @@ BuildRequires:  cmake(Eigen3)
 BuildRequires:  cmake(Imath)
 BuildRequires:  cmake(OpenColorIO)
 BuildRequires:  cmake(OpenEXR)
-BuildRequires:  cmake(OpenImageIO)
+BuildRequires:  cmake(OpenImageIO) > 3.0
 BuildRequires:  cmake(OpenImageDenoise)
 BuildRequires:  cmake(OpenJPEG)
 BuildRequires:  cmake(nlohmann_json)

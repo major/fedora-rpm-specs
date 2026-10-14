@@ -15,7 +15,7 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 BuildRequires:  gcc
 BuildRequires:  gpgverify
 BuildRequires:  meson >= 1
-BuildRequires:  pkgconfig(aml)
+BuildRequires:  (pkgconfig(aml1) or pkgconfig(aml))
 BuildRequires:  pkgconfig(json-c)
 
 %description

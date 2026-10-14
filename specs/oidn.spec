@@ -42,7 +42,7 @@ Recommends:     ispc-gpu
 %if %{with ninja}
 BuildRequires:  ninja-build
 %endif
-BuildRequires:  pkgconfig(OpenImageIO)
+BuildRequires:  pkgconfig(OpenImageIO) > 3.0
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(tbb)
 

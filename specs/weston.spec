@@ -1,7 +1,7 @@
-%global apiver 15
+%global apiver 16
 
 Name:           weston
-Version:        15.0.1
+Version:        16.0.0
 Release:        %autorelease
 Summary:        A lightweight and functional Wayland compositor
 
@@ -18,30 +18,23 @@ BuildRequires:  lua-devel
 BuildRequires:  pam-devel
 # ninja-build is a dependency from meson
 BuildRequires:  meson
-BuildRequires:  pkgconfig(cairo)
+BuildRequires:  (pkgconfig(aml1) >= 1.0.0 with pkgconfig(aml1) < 2.0.0)
 BuildRequires:  pkgconfig(cairo) >= 1.10.0
 BuildRequires:  pkgconfig(cairo-xcb)
 BuildRequires:  pkgconfig(colord) >= 0.1.27
 BuildRequires:  pkgconfig(dbus-1) >= 1.6
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(freerdp3)
-BuildRequires:  pkgconfig(gbm) >= 10.2
+BuildRequires:  pkgconfig(gbm) >= 21.3
 BuildRequires:  pkgconfig(glesv2)
-BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(gobject-2.0)
-BuildRequires:  pkgconfig(gstreamer-1.0)
-BuildRequires:  pkgconfig(gstreamer-allocators-1.0)
-BuildRequires:  pkgconfig(gstreamer-app-1.0)
-BuildRequires:  pkgconfig(gstreamer-video-1.0)
 BuildRequires:  pkgconfig(lcms2)
-BuildRequires:  pkgconfig(libdisplay-info) >= 0.1.1
+BuildRequires:  (pkgconfig(libdisplay-info) >= 0.2.0 with pkgconfig(libdisplay-info) < 0.5.0)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.109
 BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  pkgconfig(libinput) >= 0.8.0
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libseat) >= 0.6.1
-BuildRequires:  pkgconfig(libspa-0.2)
 BuildRequires:  pkgconfig(libsystemd) >= 209
 BuildRequires:  pkgconfig(libudev) >= 136
 # libunwind available only on selected arches
@@ -53,7 +46,7 @@ BuildRequires:  pkgconfig(libva-drm) >= 0.34.0
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libxml-2.0) >= 2.6
 BuildRequires:  pkgconfig(mtdev) >= 1.1.0
-BuildRequires:  (pkgconfig(neatvnc) >= 0.7.0 with pkgconfig(neatvnc) < 0.10.0)
+BuildRequires:  (pkgconfig(neatvnc) >= 1.0.0 with pkgconfig(neatvnc) < 2.0.0)
 BuildRequires:  pkgconfig(pangocairo)
 BuildRequires:  pkgconfig(pixman-1) >= 0.25.2
 BuildRequires:  pkgconfig(vulkan)
@@ -95,7 +88,6 @@ industrial, kiosks, set-top boxes and TVs.
 %{_bindir}/weston-screenshooter
 %{_bindir}/weston-tablet
 %{_bindir}/weston-terminal
-%{_bindir}/wcap-decode
 %dir %{_libdir}/weston
 %{_libdir}/weston/desktop-shell.so
 %{_libdir}/weston/hmi-controller.so
@@ -134,6 +126,8 @@ Weston desktop session.
 Summary:        Weston compositor libraries
 Conflicts:      %{name}-libs < 15.0.1-2
 Obsoletes:      %{name}-libs < 15.0.1-2
+Obsoletes:      %{name}-libs-plugin-pipewire < 16.0.0-1
+Obsoletes:      %{name}-libs-plugin-remoting < 16.0.0-1
 Recommends:     %{name}-libs-backend-rdp%{?_isa} = %{version}-%{release}
 Recommends:     %{name}-libs-backend-vnc%{?_isa} = %{version}-%{release}
 
@@ -183,40 +177,6 @@ This package contains the Weston VNC backend.
 %files          libs-backend-vnc
 %license COPYING
 %{_libdir}/libweston-%{apiver}/vnc-backend.so
-
-%dnl --------------------------------------------------------------------
-
-%package        libs-plugin-pipewire
-Summary:        Weston PipeWire plugin
-# These will be gone in Weston 16.0
-Provides:       deprecated()
-Conflicts:      %{name}-libs < 15.0.1-2
-Obsoletes:      %{name}-libs < 15.0.1-2
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
-%description    libs-plugin-pipewire
-This package contains the Weston PipeWire plugin.
-
-%files          libs-plugin-pipewire
-%license COPYING
-%{_libdir}/libweston-%{apiver}/pipewire-plugin.so
-
-%dnl --------------------------------------------------------------------
-
-%package        libs-plugin-remoting
-Summary:        Weston GStreamer-based remoting plugin
-# These will be gone in Weston 16.0
-Provides:       deprecated()
-Conflicts:      %{name}-libs < 15.0.1-2
-Obsoletes:      %{name}-libs < 15.0.1-2
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-
-%description    libs-plugin-remoting
-This package contains the Weston GStreamer-based remoting plugin.
-
-%files          libs-plugin-remoting
-%license COPYING
-%{_libdir}/libweston-%{apiver}/remoting-plugin.so
 
 %dnl --------------------------------------------------------------------
 

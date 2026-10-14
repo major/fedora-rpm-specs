@@ -1,7 +1,7 @@
 %global alt_name GPaste
 
 Name:           gpaste
-Version:        50.6
+Version:        51.0
 Release:        1%{?dist}
 Summary:        Clipboard management system
 
@@ -21,16 +21,21 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gnome-keybindings)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(gtk4-x11)
+BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
+BuildRequires:  pkgconfig(libmutter-51)
+BuildRequires:  pkgconfig(libsecret-1)
+BuildRequires:  pkgconfig(libsodium)
 BuildRequires:  pkgconfig(pango)
+BuildRequires:  pkgconfig(pwquality)
+BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(systemd)
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xi)
+BuildRequires:  python3
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  vala
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       hicolor-icon-theme
 %{?systemd_requires}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -94,6 +99,16 @@ Supplements:    (%{name} and bash-completion)
 Bash command line completion support for %{name}.
 
 
+%package fish-completion
+Summary:        Fish completion for %{name}
+Requires:       %{name} = %{version}-%{release}
+Requires:       fish
+Supplements:    (%{name} and fish)
+
+%description fish-completion
+Fish command line completion support for %{name}.
+
+
 %package zsh-completion
 Summary:        Zsh completion for %{name}
 Requires:       %{name} = %{version}-%{release}
@@ -107,6 +122,10 @@ Zsh command line completion support for %{name}.
 %prep
 %autosetup -n %{alt_name}-%{version}
 
+# appstream-util does not support <releases type="external"/>: merge releases into the metainfo file
+sed -n '\|^<releases>|,\|^</releases>|{s|^.|  &|;p}' data/metainfo/org.gnome.GPaste.Ui.releases.xml >releases.xml
+sed -i -e '\|<releases type="external"/>|{r releases.xml' -e 'd}' data/metainfo/org.gnome.GPaste.Ui.metainfo.xml.in
+
 
 %build
 %meson
@@ -117,6 +136,9 @@ Zsh command line completion support for %{name}.
 %meson_install
 
 install -Dpm 0644 */data/systemd/*.service -t $RPM_BUILD_ROOT%{_userunitdir}/
+
+# Releases are merged into the metainfo file
+rm -r $RPM_BUILD_ROOT%{_datadir}/metainfo/releases/
 
 %find_lang %{alt_name}
 
@@ -145,13 +167,15 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %files
-%doc AUTHORS NEWS README.md THANKS
+%doc AUTHORS NEWS README.md
 %{_bindir}/%{name}-client
 %dir %{_libexecdir}/%{name}/
 %{_libexecdir}/%{name}/gpaste-daemon
 %{_datadir}/applications/org.gnome.GPaste.Daemon.desktop
+%{_datadir}/dbus-1/interfaces/org.gnome.GPaste3.xml
 %{_datadir}/dbus-1/services/org.gnome.GPaste.service
 %{_datadir}/glib-2.0/schemas/*.xml
+%{_datadir}/icons/hicolor/*/apps/org.gnome.GPaste.Ui*.svg
 %{_userunitdir}/org.gnome.GPaste.service
 %{_mandir}/man1/*.1.*
 
@@ -165,7 +189,7 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 %files devel
 %{_datadir}/gir-1.0/*.gir
 %{_datadir}/vala/vapi/*
-%{_includedir}/%{name}-2/
+%{_includedir}/%{name}/
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
@@ -190,11 +214,18 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 %{_datadir}/bash-completion/completions/%{name}-client
 
 
+%files fish-completion
+%{_datadir}/fish/vendor_completions.d/%{name}-client.fish
+
+
 %files zsh-completion
 %{_datadir}/zsh/site-functions/_%{name}-client
 
 
 %changelog
+* Tue Oct 13 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 51.0-1
+- Update to 51.0
+
 * Mon Jul 20 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 50.6-1
 - Update to 50.6
 

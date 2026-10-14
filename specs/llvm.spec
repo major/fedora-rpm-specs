@@ -3373,6 +3373,7 @@ fi
 %else
 %{expand_bins %{expand:
     llvm-calc-occupancy
+    UnicodeCharSetsGenerator
 }}
 %endif
 

@@ -13,7 +13,7 @@
 # https://github.com/coreos/ignition
 %global goipath         github.com/coreos/ignition
 %global gomodulesmode   GO111MODULE=on
-Version:                2.27.0
+Version:                2.28.0
 
 %gometa
 
@@ -22,7 +22,7 @@ Version:                2.27.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -31,18 +31,6 @@ URL:            %{gourl}
 Source0:        %{gosource}
 Source1:        https://github.com/fedora-iot/ignition-edge/archive/%{ignedgecommit}/ignition-edge-%{ignedgeshortcommit}.tar.gz
 Source2:        91-ignition-authorized-keys-file.conf
-
-# Backport fix for SELinux relabelling failures when specifying a symlink for home_dir
-# https://github.com/coreos/ignition/pull/2316
-# https://github.com/coreos/fedora-coreos-tracker/issues/2216
-Patch0:         0001-internal-exec-stages-files-resolve-intermediate-syml.patch
-
-# Install /usr/bin/fcct as a symlink to butane.
-Patch1:         0002-Makefile-install-usr-bin-fcct-as-symlink-to-butane.patch
-
-# Don't strip DWARF debug info from butane so butane-debuginfo is valid
-# Merged upstream: https://github.com/coreos/ignition/pull/2341
-Patch2:         0003-build-don-t-strip-DWARF-debug-info-from-butane.patch
 
 BuildRequires: libblkid-devel
 BuildRequires: systemd-rpm-macros
@@ -418,6 +406,10 @@ make install-butane-cross BIN_PATH=bin DESTDIR=%{buildroot}
 %endif
 
 %changelog
+* Mon Oct 12 2026 Steven Presti <spresti@redhat.com> - 2.28.0-1
+- New upstream release
+- Drop patches merged upstream
+
 * Tue Sep 29 2026 Bipin B Narayan <bbnaraya@redhat.com> - 2.27.0-4
 - Use makefile from ignition repo for building and installing the files.
 - Backport build: install /usr/bin/fcct as symlink to butane
@@ -954,4 +946,3 @@ make install-butane-cross BIN_PATH=bin DESTDIR=%{buildroot}
 
 * Thu Jun 21 2018 Dusty Mabe <dusty@dustymabe.com> - 0.26.0-0.1.git7610725
 - First package for Fedora
-

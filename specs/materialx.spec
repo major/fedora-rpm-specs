@@ -77,7 +77,7 @@ BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(xt)
 # Optional components
 %if %{with openimageio}
-BuildRequires:  pkgconfig(OpenImageIO)
+BuildRequires:  cmake(OpenImageIO) > 3.0
 %endif
 
 # Viewer needs access to upstream git submodule

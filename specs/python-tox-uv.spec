@@ -1,5 +1,5 @@
 Name:           python-tox-uv
-Version:        1.36.1
+Version:        1.37.0
 Release:        %autorelease
 Summary:        Integration of uv with tox
 
@@ -53,6 +53,15 @@ or install python3-tox-uv.
 %autosetup -p1 -n tox-uv-%{version}
 # Remove a build dependency of tox-uv on tox-uv-bare (we build both)
 %pyproject_patch_dependency tox-uv-bare:ignore:br_only
+
+# Upstream bumped the minimum tox version in commit
+# f5a823319593a4410efd7714815fc586f82a8113 along with many other dependencies,
+# but this does not seem to be absolutely required. Permit the version
+# in Fedora 45 (and currently in Fedora 46), and treat packaging similarly.
+%pyproject_patch_dependency tox:set_lower:4.53.1
+%if %{defined fc45}
+%pyproject_patch_dependency packaging:set_lower:26.2
+%endif
 
 # Remove unpackaged (devpi-process) and coverage test dependencies
 %pyproject_patch_dependency devpi-process:ignore

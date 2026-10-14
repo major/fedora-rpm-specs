@@ -1,7 +1,7 @@
 %global pkg agent-shell
 
 Name:           emacs-%{pkg}
-Version:        0.56.1
+Version:        0.87.9
 Release:        %autorelease
 Summary:        A native Emacs buffer to interact with LLM agents powered by ACP
 
@@ -10,10 +10,10 @@ URL:            https://github.com/xenodium/agent-shell
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 Source1:        %{pkg}-init.el
 # acp.el
-%global acp_version 0.12.2
+%global acp_version 0.17.1
 Source2:        https://github.com/xenodium/acp.el/archive/refs/tags/v%{acp_version}.tar.gz
 # shell-maker.el
-%global sm_version 0.93.1
+%global sm_version 0.97.5
 Source3:        https://github.com/xenodium/shell-maker/archive/refs/tags/v%{sm_version}.tar.gz
 
 BuildRequires:  emacs

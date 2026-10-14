@@ -20,7 +20,6 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 BuildRequires:  blueprint-compiler
 BuildRequires:  gcc
 BuildRequires:  gettext
-BuildRequires:  gtk-doc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(geocode-glib-2.0)
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}

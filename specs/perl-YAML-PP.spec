@@ -1,6 +1,6 @@
 Name:           perl-YAML-PP
-Version:        0.41.0
-Release:        2%{?dist}
+Version:        0.42.0
+Release:        1%{?dist}
 Summary:        YAML 1.2 processor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-PP/
@@ -59,6 +59,7 @@ Requires:       perl(experimental)
 Requires:       perl(HTML::Entities)
 Requires:       perl(JSON::PP)
 Requires:       perl(JSON::XS)
+Requires:       perl(Module::Load)
 Requires:       perl(Scalar::Util) >= 1.07
 Requires:       perl(Term::ANSIColor)
 Requires:       perl(Tie::IxHash)
@@ -145,6 +146,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 12 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.42.0-1
+- 0.42.0 bump (rhbz#2549360)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.41.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

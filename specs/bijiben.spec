@@ -29,7 +29,6 @@ BuildRequires:  pkgconfig(tracker-sparql-3.0)
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  pkgconfig(webkit2gtk-4.1) >= 2.36
 BuildRequires:  vala
-BuildRequires:  yelp-tools
 BuildRequires:  libappstream-glib-devel
 
 Recommends:     gvfs-goa

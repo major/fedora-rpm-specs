@@ -20,7 +20,7 @@ BuildRequires:  gcc-gfortran
 BuildRequires:  flexiblas-devel
 BuildRequires:  gawk
 %endif
-ExclusiveArch:  x86_64 aarch64
+ExclusiveArch:  x86_64 aarch64 riscv64
 
 %description
 LIBXS is a portable C library providing building blocks for memory operations,

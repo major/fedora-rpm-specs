@@ -67,7 +67,7 @@ BuildRequires:  /usr/bin/python
 # lief is not yet packaged and is not a hard dependency
 sed -i -e '/lief/d' pyproject.toml
 # Unpackaged and unneeded test deps
-sed -i -E -e '/^(conda-launchers|py-lief|python|python-libarchive-c|conda-forge::.*|ripgrep)( .*)?$/d' -e '/rattler-build/d' tests/requirements.txt
+sed -i -E -e '/^(conda-launchers|editables|py-lief|python|python-libarchive-c|conda-forge::.*|ripgrep)( .*)?$/d' -e '/rattler-build/d' tests/requirements.txt
 # do not run coverage/durations/xdoctest in pytest
 sed -i -E -e '/--(no-)?cov|durations|xdoctest/d' pyproject.toml
 # Not needed for man pages

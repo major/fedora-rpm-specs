@@ -39,6 +39,9 @@ Summary:        %{summary}
 # Relax poetry dependencies
 sed -i 's/Cython>=3,<3.1.0/Cython>=3/' pyproject.toml
 
+# Remove upstream -O3 and -g0 flags so distro flags take effect
+sed -i 's/"-O3", "-g0"//' build_ext.py
+
 
 %generate_buildrequires
 %pyproject_buildrequires

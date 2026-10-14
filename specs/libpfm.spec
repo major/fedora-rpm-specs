@@ -8,8 +8,8 @@
 %endif
 
 Name:		libpfm
-Version:	4.13.0
-Release:	23%{?dist}
+Version:	4.14.1
+Release:	1%{?dist}
 
 Summary:	Library to encode performance events for use by perf tool
 
@@ -18,14 +18,13 @@ URL:		http://perfmon2.sourceforge.net/
 Source0:	http://sourceforge.net/projects/perfmon2/files/libpfm4/%{name}-%{version}.tar.gz
 Patch1:		libpfm-fix-const.patch
 Patch2:		libpfm-python3-setup.patch
-Patch3:		libpfm-gcc14.patch
-Patch4:		libpfm-unused-vars.patch
 
 BuildRequires: make
 BuildRequires:	gcc
 %if %{with python}
 BuildRequires:	python3
 BuildRequires:	python3-devel
+BuildRequires:	python3-pip
 BuildRequires:	python3-setuptools
 BuildRequires:	swig
 %endif
@@ -75,12 +74,11 @@ Python bindings for libpfm4 and perf_event_open system call.
 %setup -q
 %patch -P1 -p1 -b .fix-const
 %patch -P2 -p1 -b .python3
-%patch -P3 -p1 -b .gcc14
-%patch -P4 -p1 -b .unused
 # to prevent setuptools from installing an .egg, we need to pass --root to setup.py install
 # see https://github.com/pypa/setuptools/issues/3143
 # and https://github.com/pypa/pip/issues/11501
-sed -i 's/--prefix=$(DESTDIR)$(PYTHON_PREFIX)/--root=$(DESTDIR) --prefix=$(PYTHON_PREFIX)/' python/Makefile
+# --no-build-isolation keeps pip from trying to download setuptools
+sed -i 's/--prefix=$(DESTDIR)$(PYTHON_PREFIX)/--root=$(DESTDIR) --prefix=$(PYTHON_PREFIX) --no-build-isolation/' python/Makefile
 
 %build
 %if %{with python}
@@ -88,7 +86,8 @@ sed -i 's/--prefix=$(DESTDIR)$(PYTHON_PREFIX)/--root=$(DESTDIR) --prefix=$(PYTHO
 %else
 %global python_config CONFIG_PFMLIB_NOPYTHON=y
 %endif
-%make_build %{python_config} \
+# tracepoint events are disabled by default since 4.14, keep them enabled
+%make_build %{python_config} CONFIG_PFMLIB_NOTRACEPOINT=n \
      OPTIM="%{optflags}" LDFLAGS="%{build_ldflags}"
 
 
@@ -135,11 +134,16 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.a
 %if %{with python}
 %files -n python3-libpfm
 %license COPYING
-%{python3_sitearch}/perfmon-*.egg-info/
+%{python3_sitearch}/perfmon-*.dist-info/
 %{python3_sitearch}/perfmon/
 %endif
 
 %changelog
+* Tue Oct 13 2026 Aaron Merey <amerey@redhat.com> - 4.14.1-1
+- Rebase on libpfm-4.14.1.
+- Drop libpfm-gcc14.patch and libpfm-unused-vars.patch (upstream).
+- Keep tracepoint events enabled (CONFIG_PFMLIB_NOTRACEPOINT=n).
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.13.0-23
 - Rebuilt for Python 3.15.0b4 ABI change
 

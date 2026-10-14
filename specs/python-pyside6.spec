@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.11.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -27,6 +27,10 @@ Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name
 Patch:          0001-Fix-header-installation-path-to-follow-filesystem-st.patch
 Patch:          0001-Fix-header-packaging-and-include-path-regressions.patch
 Patch:          0001-Always-link-to-python-libraries.patch
+
+# Upstream Python 3.15 fixes (PYSIDE-3221)
+# https://codereview.qt-project.org/c/pyside/pyside-setup/+/729499
+Patch:          0001-Enumerations-Enable-the-forgiveness-feature-ENOPT_NO.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -367,6 +371,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Tue Oct 13 2026 LuK1337 <priv.luk@gmail.com> - 6.11.2-3
+- Apply ENOPT_NO_ZERODEFAULT support patch from upstream
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.11.2-2
 - Rebuilt for libxml-2.5.4
 

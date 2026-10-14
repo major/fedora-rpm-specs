@@ -426,7 +426,7 @@ cd ..
 %if 0%{?with_mpicheck}
 cd %{module}-releases-openmpi
 %{_openmpi_load}
-LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB make test
+LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB:$LD_LIBRARY_PATH make test
 %{_openmpi_unload}
 cd ..
 %endif
@@ -441,7 +441,7 @@ for i in `find . -type f \( -name "Makefile" \)`; do
 done
 #
 %{_mpich_load}
-MPICH_INTERFACE_HOSTNAME=localhost LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB make test
+MPICH_INTERFACE_HOSTNAME=localhost LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB:$LD_LIBRARY_PATH make test
 %{_mpich_unload}
 cd ..
 %endif

@@ -1,6 +1,6 @@
 # Increment the serial number every time we update the commit hash.
-%global serial 1
-%global commit 2682b1e65b1a8c105e22791a5f60cf462872b10f
+%global serial 2
+%global commit 5039d9949317db76880f9075102ef9662f58531b
 
 Name:           pythoncapi-compat
 Summary:        Python C API compatibility

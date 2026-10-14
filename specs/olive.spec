@@ -18,7 +18,7 @@ Version:        0.2.0^%{gitdate}git%{shortcommit}
 %else
 Version:        0.2.0
 %endif
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A free non-linear video editor
 # app/widget/flowlayout/flowlayout.*: BSD-3-Clause
 # ext/KDDockWidgets/LICENSE.txt: GPL-2.0-only OR GPL-3.0-only
@@ -51,6 +51,9 @@ Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.g
 Patch10:        olive-fix-build-against-qt-6-10.patch
 
 BuildRequires:  cmake
+BuildRequires:  cmake(OpenColorIO)
+BuildRequires:  cmake(OpenEXR)
+BuildRequires:  cmake(OpenImageIO) > 3.0
 BuildRequires:  cmake(Qt6Concurrent)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6DBus)
@@ -62,9 +65,6 @@ BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
-BuildRequires:  OpenColorIO-devel
-BuildRequires:  OpenEXR-devel
-BuildRequires:  OpenImageIO-devel
 BuildRequires:  pkgconfig(opengl)
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavformat)
@@ -151,6 +151,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/mime/packages/%{unique_name}.xml
 
 %changelog
+* Tue Oct 13 2026 Richard Shaw <hobbes1069@gmail.com> - 0.2.0^20241204git8ac191c-12
+- Rebuild for OpenImageIO 3.2.
+
 * Wed Oct 07 2026 Richard Shaw <hobbes1069@gmail.com> - 0.2.0^20241204git8ac191c-11
 - Rebuild for OpenColorIO 2.6.
 

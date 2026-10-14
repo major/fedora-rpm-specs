@@ -2,10 +2,14 @@
 
 Name:           perl-Gtk2-Notify
 Version:        0.05
-Release:        61%{?dist}
+Release:        62%{?dist}
 Summary:        Perl interface to libnotify
+# lib/Gtk2/Notify.pm:   LGPL-2.0-or-later
+# ppport.h:     GPL-1.0-or-later OR Artistic-1.0-Perl
+## Unbunlded
+# inc/Module/Install:   GPL-1.0-or-later OR Artistic-1.0-Perl
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.0-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/Gtk2-Notify
 Source0:        https://cpan.metacpan.org/authors/id/F/FL/FLORA/Gtk2-Notify-%{version}.tar.gz
 Patch0:         libnotify.patch
@@ -43,16 +47,15 @@ BuildRequires:  perl(Test::Pod) >= 1.14
 %if %{use_x11_tests}
 # X11 tests:
 # Some tests invoke glib functions which try dbus-launch. Without
-# dbus-launch, an warning is emmitted which causes Test::Exception to raise an
+# dbus-launch, a warning is emmitted which causes Test::Exception to raise an
 # error.
 BuildRequires:  dbus-x11
-# And the dbus is used to talk to org.freedesktop.Notifications server which
-# can be requested by desktop-notification-daemon RPM symbol. However it can
+# And D-Bus is used to talk to org.freedesktop.Notifications server which
+# can be requested by desktop-notification-daemon RPM symbol. However, it can
 # pull whole Gnome or KDE. So we use mimalistic `dunst' instead.
 BuildRequires:  dunst
 BuildRequires:  font(:lang=en)
 BuildRequires:  xorg-x11-server-Xvfb
-BuildRequires:  xorg-x11-xinit
 %endif
 Requires:       perl(Carp)
 
@@ -65,14 +68,14 @@ functionality from within a perl application.
 %patch -P0 -p1
 # Remove bundled module
 rm -r ./inc/*
-sed -i -e '/^inc\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
 
@@ -86,11 +89,21 @@ make test
 
 %files
 %doc Changes examples README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Gtk2*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/Gtk2
+%{perl_vendorarch}/auto/Gtk2/Notify
+%dir %{perl_vendorarch}/Gtk2
+%{perl_vendorarch}/Gtk2/Notify
+%{perl_vendorarch}/Gtk2/Notify.pm
+%{perl_vendorarch}/Gtk2/Notify.pod
+%{_mandir}/man3/Gtk2::Notify.*
+%{_mandir}/man3/Gtk2::Notify::*
 
 %changelog
+* Tue Oct 13 2026 Petr Pisar <ppisar@redhat.com> - 0.05-62
+- Remove build-dependency on unused xorg-x11-xinit
+- Correct a license tag from "LicenseRef-Callaway-LGPLv2+" to
+  "LGPL-2.0-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl)"
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-61
 - Perl 5.44 rebuild
 

@@ -58,7 +58,7 @@
 
 Name:           rccl-tests%{pkg_suffix}
 Version:        git%{date0}.%{shortcommit0}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        RCCL tests
 
 Url:            https://github.com/ROCm/rccl-tests
@@ -131,7 +131,10 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl-tests/LICENSE.txt
 %{pkg_prefix}/bin/*_perf
 
 %changelog
-* Thu Sep 24 2026 Tom Rix <Tom.Rix@amd.com> - - git20260116.a52452e-3
+* Tue Oct 13 2026 Tom Rix <Tom.Rix@amd.com> - git20260116.a52452e-4
+- Rebuild for 10.1
+
+* Thu Sep 24 2026 Tom Rix <Tom.Rix@amd.com> - git20260116.a52452e-3
 - Rebuild for 10.0
 
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - git20260116.a52452e-2

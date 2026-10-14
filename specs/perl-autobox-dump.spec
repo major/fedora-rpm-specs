@@ -1,6 +1,6 @@
 Name:           perl-autobox-dump
 Version:        20090426.1746
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Human/perl readable strings from the results of an EXPR
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/autobox-dump
@@ -8,11 +8,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/autobox/autobox-dump
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module
 BuildRequires:  perl(autobox)
 BuildRequires:  perl(base)
@@ -33,12 +32,11 @@ produces a human/perl readable representation of the value of that expression.
 %setup -q -n autobox-dump-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -50,6 +48,9 @@ make test
 %{_mandir}/man3/autobox::dump.3*
 
 %changelog
+* Tue Oct 13 2026 Paul Howarth <paul@city-fan.org> - 20090426.1746-42
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20090426.1746-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

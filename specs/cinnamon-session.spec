@@ -1,14 +1,17 @@
-%global cinnamon_desktop_version 6.7.1
+%global forgeurl https://github.com/linuxmint/cinnamon-session
+%global tagver   6.7.6
+%global tag      %{tagver}-unstable
 
-%global upstream_version 6.7.5-unstable
+%global cinnamon_desktop_version 6.7.1
 
 Summary: Cinnamon session manager
 Name:    cinnamon-session
-Version: 6.7.5^unstable
-Release: %autorelease
+Version: %{tagver}^unstable
+Release: %{autorelease}
+%{forgemeta}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
-URL:     https://github.com/linuxmint/%{name}
-Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+URL:     %{forgeurl}
+Source0: %{forgesource}
 
 ExcludeArch: %{ix86}
 
@@ -51,7 +54,7 @@ Cinnamon-session manages a Cinnamon desktop or GDM login session. It starts up
 the other core components and handles logout and saving the session.
 
 %prep
-%autosetup -p1 -n %{name}-%{upstream_version}
+%forgeautosetup -p1
 
 %files
 %doc AUTHORS README
@@ -66,6 +69,9 @@ the other core components and handles logout and saving the session.
 %{_datadir}/icons/hicolor/scalable/apps/cinnamon-session-properties.svg
 %{_datadir}/glib-2.0/schemas/org.cinnamon.SessionManager.gschema.xml
 %{_userunitdir}/*.target
+%{_userunitdir}/app-cinnamon-.scope.d/
+%{_userunitdir}/dbus.service.d/
+
 
 %changelog
 %autochangelog

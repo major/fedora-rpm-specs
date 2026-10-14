@@ -31,7 +31,7 @@ BuildRequires:  pkgconfig(glfw3)
 BuildRequires:  pkgconfig(xmu)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(OpenImageIO)
+BuildRequires:  pkgconfig(OpenImageIO) > 3.0
 BuildRequires:  pkgconfig(tbb)
 
 # Supported architectures with SIMD optimizations

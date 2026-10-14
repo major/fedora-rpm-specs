@@ -278,7 +278,6 @@ BuildRequires: gcc
 BuildRequires: gdbm-devel
 BuildRequires: git-core
 BuildRequires: glibc-devel
-BuildRequires: gnupg2
 BuildRequires: libX11-devel
 BuildRequires: libffi-devel
 BuildRequires: libuuid-devel

@@ -52,7 +52,6 @@ BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(pwquality)
-BuildRequires:  pkgconfig(rest-1.0)
 BuildRequires:  systemd-rpm-macros
 %if %{with webkitgtk}
 BuildRequires:  pkgconfig(webkitgtk-6.0)

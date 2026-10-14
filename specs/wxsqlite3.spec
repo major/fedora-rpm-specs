@@ -3,13 +3,14 @@
 %global wxincdir %{_includedir}/wx-%{wxversion}
 
 Name:           wxsqlite3
-Version:        5.0.1
+Version:        5.0.2
 Release:        1%{?dist}
 Summary:        C++ wrapper around the SQLite 3.x database
 
 License:        LGPL-3.0-or-later WITH WxWindows-exception-3.1
 URL:            https://github.com/utelle/wxsqlite3
 Source0:        https://github.com/utelle/wxsqlite3/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+##  Patch0:         09fed84068a67f85defd9c209682ca472b76b065.patch
 
 # don't %%build the included wxSQLite+ application
 BuildRequires:  make
@@ -85,7 +86,7 @@ chmod -x LICENCE.txt readme.md
 %build
 %set_build_flags
 
-# disable GCC LTO froür wxSQLite3
+# disable GCC LTO for wxSQLite3
 export CFLAGS="%{build_cflags} -fno-lto"
 export CXXFLAGS="%{build_cxxflags} -fno-lto"
 
@@ -129,6 +130,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %doc docs/html
 
 %changelog
+* Tue Oct 13 2026 Martin Gansser <martinkg@fedoraproject.org> 5.0.2-1
+- Update to 5.0.2
+
 * Fri Aug 14 2026 Martin Gansser <martinkg@fedoraproject.org> 5.0.1-1
 - Update to 5.0.1
 

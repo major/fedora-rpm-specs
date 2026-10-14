@@ -12,7 +12,7 @@
 
 Name:           perl-Alien-Build
 Version:        2.88
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build external dependencies for use in CPAN
 # lib/Alien/Build/Plugin/Test/Mock.pm contains Base64-encoded files for tests
 # (a bash script, C source file, a gzipped tar archive, Mach-O 64-bit x86_64
@@ -64,7 +64,6 @@ BuildRequires:  perl(Archive::Tar)
 BuildRequires:  perl(Archive::Zip)
 BuildRequires:  perl(Capture::Tiny) >= 0.17
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Config::INI::Reader::Multiline)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Digest::SHA)
@@ -75,7 +74,6 @@ BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(ExtUtils::ParseXS) >= 3.30
 BuildRequires:  perl(FFI::CheckLib)
 BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(File::BOM)
 BuildRequires:  perl(File::chdir)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Find)
@@ -171,7 +169,6 @@ Requires:       perl(Alien::Build::Plugin::Decode::Mojo)
 Requires:       perl(Archive::Tar)
 # Archive::Zip or unzip
 Requires:       perl(Archive::Zip)
-Requires:       perl(Config::INI::Reader::Multiline)
 Requires:       perl(ExtUtils::CBuilder)
 Requires:       perl(ExtUtils::MakeMaker) >= 6.52
 Requires:       perl(ExtUtils::ParseXS) >= 3.30
@@ -179,7 +176,6 @@ Requires:       perl(ExtUtils::ParseXS) >= 3.30
 Recommends:     perl(FFI::Platypus) >= 0.12
 %endif
 Requires:       perl(Capture::Tiny) >= 0.17
-Requires:       perl(File::BOM)
 Requires:       perl(File::Find)
 # (HTTP::Tiny and Mozilla::CA) or curl for Alien::Build::Plugin::Download::Negotiate
 Requires:       perl(HTTP::Tiny) >= 0.044
@@ -473,6 +469,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 13 2026 Petr Pisar <ppisar@redhat.com> - 2.88-2
+- Remove dependency on unused Config::INI::Reader::Multiline and File::BOM
+
 * Mon Sep 21 2026 Petr Pisar <ppisar@redhat.com> - 2.88-1
 - 2.88 bump
 

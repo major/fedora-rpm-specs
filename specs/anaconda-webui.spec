@@ -1,17 +1,30 @@
 Name:           anaconda-webui
-Version:        88
+Version:        89
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
 
+# distributions which ship nodejs-esbuild can rebuild the bundle during package build
+%if 0%{?fedora} >= 42
+%define rebuild_bundle 1
+%endif
+
 Source0:        https://github.com/rhinstaller/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+%if %{defined rebuild_bundle}
+Source1:        https://github.com/rhinstaller/%{name}/releases/download/%{version}/%{name}-node-%{version}.tar.xz
+%endif
 BuildArch:      noarch
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  gettext
 # Needed for the unitdir macro
 BuildRequires: systemd-rpm-macros
+
+%if %{defined rebuild_bundle}
+BuildRequires:  /usr/bin/node
+BuildRequires:  nodejs-esbuild
+%endif
 
 %global anacondacorever 0
 
@@ -42,27 +55,21 @@ Requires: system-logos
 %endif
 BuildRequires: desktop-file-utils
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
 Provides: bundled(npm(attr-accept)) = 2.2.5
-Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(error-stack-parser)) = 2.1.4
 Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.6
-Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.18.1
-Provides: bundled(npm(loose-envify)) = 1.4.0
 Provides: bundled(npm(luxon)) = 3.7.2
-Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
+Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(react-dropzone)) = 14.4.1
-Provides: bundled(npm(react-is)) = 16.13.1
-Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
 Provides: bundled(npm(source-map)) = 0.5.6
 Provides: bundled(npm(stack-generator)) = 2.0.10
@@ -78,9 +85,17 @@ Anaconda installer Web interface
 
 %prep
 %setup -q -n %{name}
+%if %{defined rebuild_bundle}
+%setup -q -D -T -a 1 -n %{name}
+%endif
 
 %build
-# Nothing to build
+%if %{defined rebuild_bundle}
+rm -rf dist
+NODE_ENV=production NODE_PATH=/usr/lib/node_modules ./build.js
+%else
+# Use pre-built bundle on distributions without nodejs-esbuild
+%endif
 
 %install
 %make_install PREFIX=/usr
@@ -147,6 +162,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Mon Oct 12 2026 Packit <hello@packit.dev> - 89-1
+- packaging: Rebuild our bundle during Fedora package build
+
 * Tue Oct 06 2026 Packit <hello@packit.dev> - 88-1
 - storage: match btrfs subvolumes by type and parent volume (Resolves: rhbz#254485)
 

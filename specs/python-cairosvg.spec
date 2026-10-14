@@ -3,7 +3,7 @@
 %global py3_prefix python%{python3_pkgversion}
 
 Name:               python-cairosvg
-Version:            2.9.0
+Version:            2.9.1
 Release:            %autorelease
 Summary:            A Simple SVG Converter for Cairo
 

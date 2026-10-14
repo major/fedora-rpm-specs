@@ -17,11 +17,12 @@
 the gap between your local media playback and
 Beetbrainz.}
 
+Version:        1.8.2
+Release:        %autorelease
+
 %gometa
 
 Name:           %{goname}
-Version:        1.8.1
-Release:        %autorelease
 Summary:        Playback Event Dispatcher for Beetbrainz
 License:        GPL-3.0-or-later
 URL:            %{gourl}

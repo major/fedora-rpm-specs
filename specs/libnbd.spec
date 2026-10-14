@@ -24,8 +24,8 @@
 %global source_directory 1.25-development
 
 Name:           libnbd
-Version:        1.25.7
-Release:        4%{?dist}
+Version:        1.25.8
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -314,7 +314,7 @@ make %{?_smp_mflags} check || {
 
 
 %files devel
-%doc TODO examples/*.c
+%doc TODO.md examples/*.c
 %license examples/LICENSE-FOR-EXAMPLES
 %{_includedir}/libnbd.h
 %{_libdir}/libnbd.so
@@ -405,6 +405,10 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Tue Oct 13 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.8-1
+- New upstream development version 1.25.8
+- Replace TODO with TODO.md
+
 * Sat Oct 03 2026 Jerry James <loganjerry@gmail.com> - 1.25.7-4
 - Bump and rebuild
 

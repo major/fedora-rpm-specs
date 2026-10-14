@@ -27,7 +27,6 @@ BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gom-1.0)
 BuildRequires:  pkgconfig(gtksourceview-5)
 BuildRequires:  pkgconfig(json-glib-1.0)
-BuildRequires:  pkgconfig(jsonrpc-glib-1.0)
 BuildRequires:  pkgconfig(libcmark)
 BuildRequires:  pkgconfig(libdex-1) >= 1.1
 BuildRequires:  pkgconfig(libgit2)
