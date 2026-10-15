@@ -1,7 +1,7 @@
 %global srcname cftime
 
 Name:           python-%{srcname}
-Version:        1.6.6
+Version:        1.6.6.1
 Release:        %autorelease
 Summary:        Time-handling functionality from netcdf4-python
 

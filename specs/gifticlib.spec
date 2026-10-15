@@ -44,6 +44,7 @@ sed -i \
 rm -rf build/
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

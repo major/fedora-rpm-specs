@@ -1,26 +1,17 @@
-%global commit0 4e9be7e91da6d1431e604338c1d3b8aff848541e
-%global date 20240130
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 Summary:        Speedy, parallel, and modular, login brute-forcer
 Name:           medusa
 Version:        2.3
-Release:        8.%{date}git%{shortcommit0}%{?dist}
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://www.foofus.net/jmk/medusa/medusa.html
 
-Source0:        https://github.com/jmk-foofus/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
-
-# https://github.com/jmk-foofus/medusa/pull/72
-# https://bugzilla.redhat.com/show_bug.cgi?id=2340838
-# Fix build with GCC 15
-Patch:          0001-Fix-build-with-GCC-15-by-simplifying-libssh-callback.patch
+Source0:        https://github.com/jmk-foofus/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  apr-devel
 BuildRequires:  autoconf
 BuildRequires:  automake
-BuildRequires:  freerdp2-devel
+BuildRequires:  freerdp-devel
 BuildRequires:  libgcrypt-devel
 BuildRequires:  libpq-devel
 BuildRequires:  libssh2-devel
@@ -45,7 +36,7 @@ services. Some of the key features of Medusa are:
   extend the supported list of services for brute-forcing.
 
 %prep
-%autosetup -p1 -n %{name}-%{commit0}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 autoreconf -vif
@@ -65,6 +56,9 @@ autoreconf -vif
 %{_libdir}/%{name}
 
 %changelog
+* Fri Sep 04 2026 Ondrej Holy <oholy@redhat.com> - 2.3-1
+- Update to 2.3 release with freerdp3 support
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-8.20240130git4e9be7e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

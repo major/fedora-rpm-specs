@@ -5,9 +5,8 @@
 
 Name:           perl-Math-NumSeq
 Version:        75
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Number sequences
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://metacpan.org/release/Math-NumSeq
 Source0:        https://cpan.metacpan.org/authors/id/K/KR/KRYDE/Math-NumSeq-%{version}.tar.gz
@@ -65,7 +64,7 @@ BuildRequires:  perl(Test)
 # Optional tests:
 BuildRequires:  perl(Data::Float)
 # Devel::FindRef not available because it does not work since Perl 5.22.
-BuildRequires:  perl(Devel::StackTrace)
+# Devel::StackTrace not helpful, in typically passing case unused
 %endif
 Recommends:     perl(Encode)
 Requires:       perl(File::HomeDir)
@@ -106,7 +105,6 @@ Requires:       perl(Scalar::Util)
 # Optional tests:
 Requires:       perl(Data::Float)
 # Devel::FindRef not available because it does not work since Perl 5.22.
-Requires:       perl(Devel::StackTrace)
 %endif
 
 %description tests
@@ -141,13 +139,19 @@ make test
 %files
 %license COPYING
 %doc Changes examples
-%{perl_vendorlib}/Math
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Math
+%{perl_vendorlib}/Math/NumSeq
+%{perl_vendorlib}/Math/NumSeq.pm
+%{_mandir}/man3/Math::NumSeq.*
+%{_mandir}/man3/Math::NumSeq::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 75-14
+- Remove a dependency on unused Devel::StackTrace
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 75-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,18 +1,22 @@
-%global upstream_version 1.1.4-unstable
+%global forgeurl https://github.com/linuxmint/xdg-desktop-portal-xapp
+%global tagver   1.1.5
+%global tag      %{tagver}-unstable
 
 Name:           xdg-desktop-portal-xapp
-Version:        1.1.4^unstable
-Release:        2%{?dist}
+Version:        %{tagver}^unstable
+Release:        %{autorelease}
+%{forgemeta}
 Summary:        Backend implementation for xdg-desktop-portal using Xapp
 
 License:        LGPL-2.1-or-later
-URL:            https://github.com/linuxmint/%{name}
-Source0:        %{url}/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
+BuildSystem:    meson
+BuildOption(conf): -Dsystemduserunitdir=%{_userunitdir}
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  glib2-devel
-BuildRequires:  meson
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(xdg-desktop-portal) >= 1.7.1
 BuildRequires:  systemd-rpm-macros
@@ -30,18 +34,10 @@ This allows sandboxed applications to request services and information from
 outside the sandbox in the MATE, XFCE and Cinnamon environments.
 
 %prep
-%autosetup -p1 -n %{name}-%{upstream_version}
+%forgeautosetup -p1
 
-
-%build
-%meson -Dsystemduserunitdir=%{_userunitdir}
-%meson_build
-
-
-%install
-%meson_install
+%install -a
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
-
 
 %post
 %systemd_user_post %{name}.service
@@ -59,61 +55,5 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/xdg-desktop-portal/portals/xapp-gnome-keyring.portal
 %{_userunitdir}/xdg-desktop-portal-xapp.service
 
-
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4^unstable-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Tue Jun 16 2026 Leigh Scott <leigh123linux@gmail.com> - 1.1.4^unstable-1
-- Update to 1.1.4-unstable
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Nov 12 2025 Leigh Scott <leigh123linux@gmail.com> - 1.1.3-1
-- Update to 1.1.3
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue May 20 2025 Leigh Scott <leigh123linux@gmail.com> - 1.1.1-1
-- Update to 1.1.1
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Nov 25 2024 Leigh Scott <leigh123linux@gmail.com> - 1.1.0-1
-- Update to 1.1.0
-
-* Tue Aug 20 2024 Leigh Scott <leigh123linux@gmail.com> - 1.0.9-1
-- Update to 1.0.9
-
-* Fri Jul 19 2024 Leigh Scott <leigh123linux@gmail.com> - 1.0.8-1
-- Update to 1.0.8
-
-* Sat Jun 22 2024 Leigh Scott <leigh123linux@gmail.com> - 1.0.7-1
-- Update to 1.0.7
-
-* Wed Jun 12 2024 Leigh Scott <leigh123linux@gmail.com> - 1.0.6-1
-- Update to 1.0.6
-
-* Tue Jun 04 2024 Leigh Scott <leigh123linux@gmail.com> - 1.0.5-1
-- Update to 1.0.5
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Nov 30 2023 Leigh Scott <leigh123linux@gmail.com> - 1.0.4-1
-- Update to 1.0.4
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 27 2023 Leigh Scott <leigh123linux@gmail.com> - 1.0.2-1
-- Update to 1.0.2
-
-* Thu Jun 08 2023 Leigh Scott <leigh123linux@gmail.com> - 1.0.1-1
-- Update to 1.0.1
-
-* Fri May 26 2023 Leigh Scott <leigh123linux@gmail.com> - 1.0.0-1
-- Initial build
+%autochangelog

@@ -1,7 +1,7 @@
 %global githubname   libbpf
-%global githubver    1.7.0
+%global githubver    1.8.0
 %global githubfull   %{githubname}-%{githubver}
-%global libver       1.7.0
+%global libver       1.8.0
 
 %global usdtname     usdt
 %global usdtver      0.1.0
@@ -9,7 +9,7 @@
 
 Name:           %{githubname}
 Version:        %{githubver}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Libbpf library
 
 License:        LGPL-2.1-only OR BSD-2-Clause
@@ -51,7 +51,7 @@ developing applications that use %{name}
 %package usdt-devel
 Summary:        The header for defining USDTs
 Version:        %{usdtver}
-Release:        6%{?dist}
+Release:        7%{?dist}
 BuildArch:      noarch
 
 %description usdt-devel
@@ -90,6 +90,9 @@ install -D -m644 usdt-%{usdtref}/usdt.h %{buildroot}%{_includedir}/%{usdtname}/u
 %{_includedir}/%{usdtname}/usdt.h
 
 %changelog
+* Wed Oct 14 2026 Viktor Malik <vmalik@redhat.com> - 2:1.8.0-1
+- release 1.8.0-1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

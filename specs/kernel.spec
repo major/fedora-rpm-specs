@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc7.58
+%define pkgrelease 0.rc7.261014g4056b3c9d3c9.60
 %define kversion 7
-%define tarfile_release 7.3-rc7
+%define tarfile_release 7.3-rc7-28-g4056b3c9d3c9
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.58%{?buildid}%{?dist}
+%define specrelease 0.rc7.261014g4056b3c9d3c9.60%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4835,11 +4835,20 @@ fi\
 #
 #
 %changelog
-* Mon Oct 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.58]
+* Wed Oct 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.4056b3c9d3c9.60]
 - Revert "isofs: Drop support of directory entries straddling blocks" (Justin M. Forbes)
 - redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Wed Oct 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.4056b3c9d3c9.59]
+- Linux v7.3.0-0.rc7.4056b3c9d3c9
+
+* Tue Oct 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.58]
+- Enable AMDXDNA on RHEL x86_64. (John Wiele)
+- redhat/configs: enable CONFIG_IMA_INIT_LATE_SYNC for aarch64 (Bruno Meneguele) [RHEL-261837]
+- redhat: Move CONFIG_CRYPTO_PHMAC_S390 to the s390x subfolder (Thomas Huth)
+- redhat: Remove config files for non-existing CONFIG_CRYPTO_SHA256_ARM64 (Thomas Huth)
 
 * Mon Oct 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.57]
 - Linux v7.3.0-0.rc7

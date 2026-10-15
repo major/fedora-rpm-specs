@@ -13,7 +13,7 @@
 
 Name:           perl-PDF-Builder
 Version:        3.028
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Creation and modification of PDF files in Perl
 # docs/buildDoc.pl:             same as PDF-Builder
 # examples/Column.pl:           LGPL-2.1-or-later
@@ -90,8 +90,6 @@ BuildRequires:  font(dejavusans)
 BuildRequires:  ghostscript >= 9.25.0
 # For "convert" program
 BuildRequires:  ImageMagick >= 6.9.7
-# For tiffcp program
-BuildRequires:  libtiff-tools
 BuildRequires:  perl(GD)
 # URW T1 font URWGothic-Book
 BuildRequires:  urw-base35-gothic-fonts
@@ -146,8 +144,6 @@ Requires:       font(dejavusans)
 Requires:       ghostscript >= 9.25.0
 # For "convert" program
 Requires:       ImageMagick >= 6.9.7
-# For tiffcp program
-Requires:       libtiff-tools
 Requires:       perl(GD)
 # URW T1 font URWGothic-Book
 Requires:       urw-base35-gothic-fonts
@@ -210,6 +206,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 3.028-4
+- Remove a dependency on unused libtiff-tools
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.028-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

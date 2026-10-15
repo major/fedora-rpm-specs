@@ -1,3 +1,8 @@
+# TPM1 requires tpm-tools, is unwanted in RHEL
+%ifnarch %{ix86}
+%bcond tpm1 %{undefined rhel}
+%endif
+
 %global dracut_prio 50
 
 Name:           clevis
@@ -27,7 +32,7 @@ BuildRequires:  libudisks2-devel
 BuildRequires:  openssl-devel
 
 BuildRequires:  tpm2-tools >= 4.0.0
-%ifnarch %{ix86}
+%if %{with tpm1}
 BuildRequires:  tpm-tools
 %endif
 BuildRequires:  desktop-file-utils
@@ -127,7 +132,7 @@ Requires:       openssl
 %description pin-pkcs11
 Automatically unlocks LUKS block devices through a PKCS#11 device.
 
-%ifnarch %{ix86}
+%if %{with tpm1}
 %package pin-tpm1
 Summary:        TPM 1.2 pin for clevis
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -144,10 +149,10 @@ Automated decryption using a TPM 1.2 device.
 
 %build
 %meson -Duser=clevis -Dgroup=clevis \
-%ifarch %{ix86}
-  -Dtpm1=disabled
-%else
+%if %{with tpm1}
   -Dtpm1=enabled
+%else
+  -Dtpm1=disabled
 %endif
 %meson_build
 
@@ -240,7 +245,7 @@ desktop-file-validate \
 %{_prefix}/lib/dracut/modules.d/%{dracut_prio}%{name}-pin-pkcs11/%{name}-pkcs11-prehook.sh
 %{_prefix}/lib/dracut/modules.d/%{dracut_prio}%{name}-pin-pkcs11/%{name}-pkcs11-hook.sh
 
-%ifnarch %{ix86}
+%if %{with tpm1}
 %files pin-tpm1
 %{_bindir}/%{name}-decrypt-tpm1
 %{_bindir}/%{name}-encrypt-tpm1

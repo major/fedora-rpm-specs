@@ -11,7 +11,7 @@ Name:           guayadeque
 Version:        0.7.6
 Release:        0.1.beta9.git%{shortcommit0}%{?dist}
 %else
-Version:        0.7.7
+Version:        1.0.1
 Release:        1%{?dist}
 %endif
 Summary:        Music player
@@ -25,6 +25,10 @@ Source0:        %url/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.ta
 %endif
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 Source1:        PACKAGE-LICENSING
+
+# GCC 16 LTO causes an undefined reference in wxSQLite3::ResultSet
+# on Fedora (wxSQLite3::ResultSet::operator=(wxSQLite3::ResultSet&&)).
+%global _lto_cflags %{nil}
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -163,6 +167,7 @@ cp -p %{SOURCE1} PACKAGE-LICENSING
 %cmake_install
 # remove duplicate file
 rm -f %{buildroot}/licenses/%{name}/INSTALL.md
+rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 mkdir -p %{buildroot}%{_datadir}/{applications,appdata}
 desktop-file-install --delete-original  \
         --dir %{buildroot}%{_datadir}/applications   \
@@ -194,10 +199,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Wed Oct 14 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.0.1-1
+- Update to 1.0.1-1
+
 * Wed Sep 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.7-1
 - Update to 0.7.7-1
 - Add Georgian lang
-- Add wiki subpkg wiki
+- Add wiki subpkg
 
 * Wed Aug 19 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.7.6-1
 - Update to 0.7.6-1

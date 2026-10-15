@@ -18,7 +18,7 @@ BuildRequires:  rust-std-static-x86_64-unknown-uefi
 %endif
 
 Name:           virt-firmware-rs
-Version:        26.9.1
+Version:        26.10.2
 Release:        %autorelease
 Summary:        Tools for EFI and virtual machine firmware
 
@@ -81,6 +81,7 @@ sed -i Cargo.toml -e '/efi-apps/d'
 %cargo_build -- --package virtfw-efi-tools
 %cargo_build -- --package virtfw-igvm-tools --features authenticode
 %cargo_build -- --package virtfw-varstore --features std,json
+%cargo_build -- --package virtfw-clapgen
 %if %{with efi_apps}
 %cargo_build -- --package virtfw-efi-apps --target $(uname -m)-unknown-uefi
 %endif
@@ -111,10 +112,18 @@ for dir in efi-apps efi-tools igvm-tools; do
 done
 # man pages
 mkdir -p %{buildroot}%{_mandir}/man1
-for app in enroll-sb-vars check-sb-signature virt-fw-vars-setup \
-           igvm-inspect igvm-wrap igvm-update; do
+for app in virt-fw-vars-setup; do
     %{buildroot}%{_bindir}/${app} --manpage > %{buildroot}%{_mandir}/man1/${app}.1
 done
+for app in \
+    check-sb-signature enroll-sb-vars generate-boot-csv \
+    list-sb-vars mini-bootcfg uefi-boot-menu \
+    igvm-elfis igvm-inspect igvm-update igvm-wrap \
+; do
+    target/rpm/virtfw-clapgen --manpage ${app} > %{buildroot}%{_mandir}/man1/${app}.1
+done
+mv %{buildroot}%{_mandir}/man1/uefi-boot-menu.1 \
+   %{buildroot}%{_mandir}/man1/uefi-boot-menu-rs.1
 
 %if %{with check}
 %check

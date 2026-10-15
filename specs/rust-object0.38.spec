@@ -13,6 +13,7 @@ License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/object
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * bump ruzstd dependency from v0.8 to v0.9
 # * disable unused WASM support
 Patch:          object-fix-metadata.diff
 

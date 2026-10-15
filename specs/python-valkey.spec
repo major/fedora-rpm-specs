@@ -1,22 +1,15 @@
 Name:           python-valkey
-Version:        6.1.1
+Version:        6.2.0
 Release:        %autorelease
 Summary:        The Python interface to the Valkey key-value store
 License:        MIT
 URL:            https://github.com/valkey-io/valkey-py
 Source:         %{url}/archive/v%{version}/python-valkey-%{version}.tar.gz
-# Fix test to work with Valkey versions lower than 9
-# Upstream issue (merged but not released yet)
-# https://github.com/valkey-io/valkey-py/pull/239
-Patch0:         fix-tests-with-version-lower-than-9.patch
-# Make skip_ifmodversion_lt skip not installed modules
+# Fix: correctly parse module load error for
+# Valkey server >= 9.2 
 # Upstream issue:
-# https://github.com/valkey-io/valkey-py/pull/302
-Patch1:         pr-302.patch
-# Fix test_acl_getuser_setuser for newer Valkey versions
-# Upstream issue:
-# https://github.com/valkey-io/valkey-py/pull/303
-Patch2:         pr-303.patch
+# https://github.com/valkey-io/valkey-py/pull/360
+Patch0:         pr-360.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -42,20 +35,10 @@ This is a Python 3 interface to the Valkey key-value store.
 
 %prep
 %autosetup -p1 -n valkey-py-%{version}
-# Upstream pins this dependency, but we need to be more flexible.
-sed -e '/ocsp/ s/pyopenssl==/pyopenssl>=/' \
-    -i setup.py
 
 
 %generate_buildrequires
-# pyOpenSSL version on Fedora prior to 41 is 23.2.0
-# while ocsp extra requires >= 23.2.1
-%if 0%{?fedora} >= 41
 %pyproject_buildrequires -x ocsp
-%endif
-%if 0%{?fedora} < 41
-%pyproject_buildrequires
-%endif
 
 
 %build
@@ -68,16 +51,9 @@ sed -e '/ocsp/ s/pyopenssl==/pyopenssl>=/' \
 
 
 %check
-# pyOpenSSL version on Fedora prior to 41 is 23.2.0
-# while ocsp extra requires >= 23.2.1
-%if 0%{?fedora} >= 41
 %pyproject_check_import
-%endif
-%if 0%{?fedora} < 41
-%pyproject_check_import -e valkey.ocsp
-%endif
 
-echo 'enable-module-command yes' | valkey-server --port 6379 --enable-debug-command yes - &
+valkey-server --port 6379 --enable-debug-command yes --enable-module-command yes --daemonize yes --logfile ""
 %pytest -m 'not onlycluster and not redismod and not ssl' -k 'not get_from_cache and not test_cache_decode_response[sentinel_setup0] and not psync and not test_geopos and not geosearch and not georadius'
 kill %1
 

@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           arapuca
-Version:        0.2.8
+Version:        0.2.9
 Release:        %autorelease
 Summary:        Cross-platform process sandbox with kernel-enforced isolation
 
@@ -41,6 +41,8 @@ Source0:        %{url}/archive/v%{version}/arapuca-%{version}.tar.gz
 # cargo-vendor-filterer stubs them; %%cargo_vendor_manifest lists them in
 # bundled() provides regardless. This is a known limitation.
 Source1:        arapuca-%{version}-vendor.tar.zstd
+
+Patch: 0001-seccomp-handle-low-RLIMIT_NOFILE-in-retained-socket-.patch
 
 ExclusiveArch:  %{rust_arches}
 

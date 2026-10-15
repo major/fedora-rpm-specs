@@ -1,52 +1,55 @@
 Name:           perl-Kwiki-Search
 Version:        0.12
-Release:        59%{?dist}
+Release:        60%{?dist}
 Summary:        Kwiki Search Plugin
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Kwiki-Search
 Source0:        https://cpan.metacpan.org/authors/id/I/IN/INGY/Kwiki-Search-%{version}.tar.gz
 Patch0:         Kwiki-Search-0.12-Fix-building-on-Perl-without-dot-in-INC.patch
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(Config)
-BuildRequires:  perl(Cwd)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(ExtUtils::MM_Unix)
-BuildRequires:  perl(File::Find)
-BuildRequires:  perl(File::Path)
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::Win32)
+BuildRequires:  perl(Module::Install::WriteAll)
 # Runtime
 BuildRequires:  perl(Kwiki) >= 0.34
 BuildRequires:  perl(Kwiki::CGI)
 BuildRequires:  perl(Kwiki::Installer)
 BuildRequires:  perl(Kwiki::Plugin)
-BuildRequires:  perl(mixin)
+# mixin is not used. It is a subroutine exported by Spiffy via Spoon::Base via
+# Spoon::Plugin via Kwiki::Plugin. In other words, Spiffy has it's own private
+# implemenation of the mixin module.
 # Tests only
 BuildRequires:  perl(lib)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 Requires:       perl(Kwiki) >= 0.34
 Requires:       perl(Kwiki::Installer)
 
+# Filter private modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(mixin\\)
+
 %description
 %{summary}.
 
 %prep
-%setup -q -n Kwiki-Search-%{version}
-%patch -P0 -p1
+%autosetup -p1 -n Kwiki-Search-%{version}
+# Remove bunlded modules
+rm -r inc
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -54,10 +57,14 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Kwiki
+%{perl_vendorlib}/Kwiki/Search.pm
+%{_mandir}/man3/Kwiki::Search.*
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 0.12-60
+- Remove a dependency on unused mixin module
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

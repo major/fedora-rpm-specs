@@ -13,6 +13,7 @@ Summary:        Library to support the Advanced Forensic Format
 URL:            https://github.com/sshock/AFFLIBv3
 VCS:            https://github.com/sshock/AFFLIBv3
 Source0:        %{vcs}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Patch0:         fix-60-build-error-with-gcc-16.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  libtool

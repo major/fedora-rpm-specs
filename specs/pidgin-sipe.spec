@@ -1,7 +1,10 @@
+# freerdp3 not yet supported upstream
+%bcond freerdp 0
+
 Name:           pidgin-sipe
 Summary:        Pidgin protocol plugin to connect to MS Office Communicator
 Version:        1.25.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            http://sipe.sourceforge.net/
@@ -34,8 +37,7 @@ BuildRequires:  gssntlmssp-devel >= 0.5.0
 BuildRequires:  intltool
 BuildRequires:  libtool
 BuildRequires:  make
-
-%if ! 0%{?rhel}
+%if %{with freerdp}
 BuildRequires:  pkgconfig(freerdp-shadow2)
 %endif
 
@@ -123,6 +125,9 @@ rm -f \
 
 
 %changelog
+* Wed Oct 14 2026 Ondrej Holy <oholy@redhat.com> - 1.25.0-28
+- Disable freerdp support
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.25.0-27
 - Rebuilt for libxml-2.5.4
 

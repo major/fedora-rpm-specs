@@ -11,8 +11,8 @@
 %global muffin_version 6.7.9
 
 Name:           cinnamon
-Version:       %{tagver}^unstable
-Release:       %{autorelease}
+Version:        %{tagver}^unstable
+Release:        %{autorelease}
 %{forgemeta}
 Summary:        Window management and application launching for Cinnamon
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT

@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        86.0.0
+Version:        87.0.0
 
 %gometa
 
@@ -11,7 +11,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -22,7 +22,6 @@ License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC-BY-SA-4.0 AN
 
 URL:            %{gourl}
 Source0:        https://github.com/osbuild/image-builder/releases/download/v%{version}/image-builder-%{version}.tar.gz
-Patch0:         2750.patch
 
 
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
@@ -216,7 +215,6 @@ Requires:   osbuild-depsolve-dnf >= %{min_osbuild_version}
 %forgeautosetup -p1
 %else
 %goprep -k
-%autopatch -p1
 %endif
 
 %build
@@ -274,6 +272,30 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Wed Oct 14 2026 Packit <hello@packit.dev> - 87.0.0-1
+Changes with 87.0.0
+----------------
+  - Update osbuild dependency commit ID (#2755)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou
+  - add support for CLI credentials when uploading to Azure (#2745)
+    - Author: Ondřej Budai, Reviewers: Simon de Vlieger
+  - bootc: supported customizations for composefs (#2730)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - distro/rhel: set default_kernel to kernel-core on Oracle Linux 9 (#2753)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger
+  - fedora: bump disk size for atomics (#2750)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - fedora: include rpi firmware for atomic desktops (#2734)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - github: fetch whole history when building containers (#2751)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - osinfo: read blueprints from variants (#2754)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+  - tests: Add check-snapshots test (#2746)
+    - Author: Brian C. Lane, Reviewers: Sanne Raymaekers, Simon de Vlieger
+
+— Somewhere on the Internet, 2026-10-14
+
 * Thu Oct 08 2026 Simon de Vlieger <cmdr@supakeen.com> - 86.0.0-2
 - Backport upstream PR 2750 to bump disk size for atomics.
 

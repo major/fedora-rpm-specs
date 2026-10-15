@@ -2,7 +2,7 @@
 %bcond          gcc 0
 
 Name:           ispc
-Version:        1.31.0
+Version:        1.32.0
 Release:        %autorelease
 
 Summary:        C-based SPMD programming language compiler

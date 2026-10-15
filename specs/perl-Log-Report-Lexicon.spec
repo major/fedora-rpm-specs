@@ -1,6 +1,6 @@
 Name:           perl-Log-Report-Lexicon
 Version:        1.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Translation component of Log::Report
 # t/simplecal/  "same license as libintl-perl", i.e. GPL-3.0-or-later AND LGPL-2.0-or-later
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -25,7 +25,7 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec)
 # Getopt::Long not used at tests
 BuildRequires:  perl(List::Util)
-BuildRequires:  perl(Locale::gettext)
+# Locale::gettext not used at tests
 BuildRequires:  perl(Log::Report) >= 1.4
 BuildRequires:  perl(Log::Report::Translator)
 BuildRequires:  perl(Log::Report::Util)
@@ -128,6 +128,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 1.15-4
+- Remove an unused build dependency on Locale::gettext
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -11,6 +11,8 @@ Source0:        https://github.com/Azure/%{name}/archive/v%{version}.tar.gz
 Source1:        module-setup.sh
 
 Patch1:         0001-waagent.service-set-ConditionVirtualization-microsof.patch
+Patch2:         0001-Fedora-get-rid-of-passlib-dependency.patch
+Patch3:         0001-Unify-fedora-s-restart_if-defaults-with-RHEL-Ubuntu.patch
 
 BuildArch:      noarch
 
@@ -32,6 +34,7 @@ Requires:       parted
 Requires:       python3-crypt-r
 Requires:       iptables
 Requires:       logrotate
+Requires:       iproute
 
 BuildRequires:   systemd
 Requires(post):  systemd

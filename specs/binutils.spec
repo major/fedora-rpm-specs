@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 15%{?dist}
+Release: 18%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -195,12 +195,7 @@ URL: https://sourceware.org/binutils
 %elif 0%{?fedora} >= 46
 # Fedora users on the other hand do get cross compilation capability
 # by default.
-%ifarch riscv64
-# Keep things simple for the Risc-V target though...
-%bcond crossbuilds 0
-%else
 %bcond crossbuilds 1
-%endif
 %else
 # Before F46 cross binutils builds were handled exclusively by the
 # cross-binutils package.
@@ -213,8 +208,8 @@ URL: https://sourceware.org/binutils
 %elif 0%{?fedora} >= 46
 %bcond gold 0
 %else
-# Gold does not support the RISC-V architecture.
-%ifarch riscv64
+# Gold does not support the RISC-V or LoongArch architectures.
+%ifarch riscv64 loongarch64
 %bcond gold 0
 %else
 %bcond gold 1
@@ -600,7 +595,7 @@ of Linux applications.
 %global linux_system   linux-gnu
 
 # The list of cross targets to build.
-%global cross_targets  aarch64-%{redhat_system} ppc64le-%{redhat_system} s390x-%{redhat_system} x86_64-%{redhat_system} i686-%{redhat_system}
+%global cross_targets  aarch64-%{redhat_system} i686-%{redhat_system} ppc64le-%{redhat_system} s390x-%{redhat_system} x86_64-%{redhat_system}
 
 %package -n cross-binutils-aarch64
 Summary: Cross targeted AArch64 binutils for developer use.  Not intended for production.
@@ -624,6 +619,7 @@ BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 This package contains an AArch64 cross targeted version of the binutils for
 use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 
+#----------------------------------------------------------------------------
 
 %package -n cross-binutils-ppc64le
 Summary: Cross targeted PPC64LE binutils for developer use.  Not intended for production.
@@ -646,6 +642,7 @@ BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 This package contains a PPC64LE cross targeted version of the binutils for
 use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 
+#----------------------------------------------------------------------------
 
 %package -n cross-binutils-s390x
 Summary: Cross targeted S390X binutils for developer use.  Not intended for production.
@@ -667,6 +664,8 @@ BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 %description -n cross-binutils-s390x
 This package contains a S390X cross targeted version of the binutils for
 use by developers.  It is NOT INTENDED FOR PRODUCTION use.
+
+#----------------------------------------------------------------------------
 
 %ifarch %{ix86}
 %package -n cross-binutils-i686
@@ -1096,8 +1095,6 @@ run_tests()
 	builddir=cross-build-$target
     fi
 
-    pushd $builddir
-
     echo "TESTING the binutils FOR TARGET $target (native ? $native)"
 
     # Do not use %%check as it is run after %%install where libbfd.so is rebuilt
@@ -1106,6 +1103,8 @@ run_tests()
     echo ================ $target == TESTSUITE DISABLED ====================
     return
 %endif
+
+    pushd $builddir
 
     # FIXME:  I have not been able to find a way to capture a "failed" return
     # value from "make check" without having it also stop the build.  So in
@@ -1448,6 +1447,7 @@ exit 0
 %if %{with crossbuilds}
 # Create symlinks mapping cross binutils pathnames created by
 # this package with those created by the cross-binutils packge.
+# But only do this if those file have not already been created.
 
 # FIXME: It would be nice if the following commands could be put into
 # a single function and called with an argument indicating the target
@@ -1458,15 +1458,15 @@ exit 0
 %post -n cross-binutils-aarch64
 # Link /usr/<target>-redhat-linux to /usr/<target>-linux-gnu
 if ! [ -d %{_prefix}/aarch64-%{linux_system} ] ; then
-  ln -s %{_prefix}/aarch64-%{redhat_system} %{_prefix}/aarch64-%{linux_system}
+  ln -s %{_prefix}/aarch64-%{redhat_system} %{_prefix}/aarch64-%{linux_system} ;
 fi
 
 # Link /usr/bin/<target>-redhat-linux-<exec>
 # to   /usr/bin/<target>-linux-gnu-<exec>
 pushd %{_bindir} > /dev/null
 for x in aarch64-%{redhat_system}-*; do
-    if ! [ -x ${x/%{redhat_system}/%{linux_system}} ] ; then
-	ln -s $x ${x/%{redhat_system}/%{linux_system}};
+    if ! [ -a    ${x/%{redhat_system}/%{linux_system}} ] ; then
+	ln -s $x ${x/%{redhat_system}/%{linux_system}} ;
     fi
 done
 popd > /dev/null
@@ -1474,32 +1474,44 @@ exit 0
 
 %post -n cross-binutils-ppc64le
 # The non-standard naming is a "feature" of the cross-binutils package.
-ln -s %{_prefix}/ppc64le-%{redhat_system}  %{_prefix}/powerpc64le-%{linux_system}
+if ! [ -d %{_prefix}/powerpc64le-%{linux_system} ] ; then
+    ln -s %{_prefix}/ppc64le-%{redhat_system} %{_prefix}/powerpc64le-%{linux_system} ;
+fi
 
 pushd %{_bindir} > /dev/null
 for x in ppc64le-%{redhat_system}-*; do
-    ln -s $x ${x/ppc64le-%{redhat_system}}/powerpc64le-%{linux_system}}
+    if ! [ -a    ${x/ppc64le-%{redhat_system}/powerpc64le-%{linux_system}} ] ; then
+	ln -s $x ${x/ppc64le-%{redhat_system}/powerpc64le-%{linux_system}} ;
+    fi
 done
 popd > /dev/null
 exit 0
 
 %post -n cross-binutils-s390x
-ln -s %{_prefix}/s390x-%{redhat_system}  %{_prefix}/s390x-%{linux_system}
+if ! [ -d %{_prefix}/s390x-%{linux_system} ] ; then
+    ln -s %{_prefix}/s390x-%{redhat_system} %{_prefix}/s390x-%{linux_system} ;
+fi
 
 pushd %{_bindir} > /dev/null
 for x in s390x-%{redhat_system}-*; do
-    ln -s $x ${x/%{redhat_system}/%{linux_system}};
+    if ! [ -a    ${x/%{redhat_system}/%{linux_system}} ] ; then
+	ln -s $x ${x/%{redhat_system}/%{linux_system}} ;
+    fi
 done
 popd > /dev/null
 exit 0
 
 %ifarch %{ix86}
 %post -n cross-binutils-i686
-ln -s %{_prefix}/i686-%{redhat_system}  %{_prefix}/i686-%{linux_system}
+if ! [ -d %{_prefix}/i686-%{linux_system} ] ; then
+    ln -s %{_prefix}/i686-%{redhat_system} %{_prefix}/i686-%{linux_system} ;
+fi
 
 pushd %{_bindir} > /dev/null
 for x in i686-%{redhat_system}-*; do
-    ln -s $x ${x/%{redhat_system}/%{linux_system}};
+    if ! [ -a    ${x/%{redhat_system}/%{linux_system}} ] ; then
+	ln -s $x ${x/%{redhat_system}/%{linux_system}} ;
+    fi
 done
 popd > /dev/null
 exit 0
@@ -1507,11 +1519,15 @@ exit 0
 %else
 
 %post -n cross-binutils-x86_64
-ln -s %{_prefix}/x86_64-%{redhat_system}  %{_prefix}/x86_64-%{linux_system}
+if ! [ -d %{_prefix}/x86_64-%{linux_system} ] ; then
+    ln -s %{_prefix}/x86_64-%{redhat_system} %{_prefix}/x86_64-%{linux_system} ;
+fi
 
 pushd %{_bindir} > /dev/null
 for x in x86_64-%{redhat_system}-*; do
-    ln -s $x ${x/%{redhat_system}/%{linux_system}};
+    if ! [ -a    ${x/%{redhat_system}/%{linux_system}} ] ; then
+	ln -s $x ${x/%{redhat_system}/%{linux_system}} ;
+    fi
 done
 popd > /dev/null
 exit 0
@@ -1776,6 +1792,15 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Oct 14 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-18
+- Fix problems with the Post stage for cross binutils.
+
+* Wed Oct 14 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 2.47.50-17
+- Disable gold for loongarch64.
+
+* Tue Oct 13 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 2.47.50-16
+- Fix an incorrect pushd when the testsuite is disabled.
+
 * Sat Oct 10 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-15
 - Rename cross-binutils-x86_64 to cross-binutils-i686 when built on an i686 host.
 

@@ -1,7 +1,7 @@
 Summary: Revision Control System (RCS) file version management tools
 Name: rcs
 Version: 5.10.1
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/rcs/
 Source: http://ftp.gnu.org/gnu/rcs/%{name}-%{version}.tar.lz
@@ -15,9 +15,7 @@ BuildRequires: gcc
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: groff-base
-BuildRequires: ghostscript
 BuildRequires: ed
-BuildRequires: texinfo
 BuildRequires: lzip
 Requires: diffutils
 
@@ -52,11 +50,24 @@ make check XFAIL_TESTS="`tests/known-failures %{version}`"
 
 %files
 %doc ChangeLog COPYING THANKS NEWS README
-%{_bindir}/*
+%{_bindir}/ci
+%{_bindir}/co
+%{_bindir}/ident
+%{_bindir}/merge
+%{_bindir}/rcs
+%{_bindir}/rcsclean
+%{_bindir}/rcsdiff
+%{_bindir}/rcsfreeze
+%{_bindir}/rcsmerge
+%{_bindir}/rlog
 %{_mandir}/man[15]/*
-%{_infodir}/*
+%{_infodir}/rcs.info.gz
 
 %changelog
+* Wed Oct 14 2026 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 5.10.1-16
+- Cleanup unused BuildRequires
+- Make files section explicit
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,9 +3,8 @@
 
 Name:           perl-Parse-DMIDecode
 Version:        0.03
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Interface to SMBIOS using dmidecode
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Parse-DMIDecode
 Source0:        https://cpan.metacpan.org/modules/by-module/Parse/Parse-DMIDecode-%{version}.tar.gz
@@ -25,7 +24,6 @@ ExclusiveArch:  %{ix86} x86_64 ia64 aarch64 riscv64
 # are not noarch because of dmidecode
 %global debug_package %{nil}
 BuildRequires:  coreutils
-BuildRequires:  dmidecode
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 # Config not used
@@ -34,6 +32,7 @@ BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Run-time:
+# dmidecode not used at tests
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Which) >= 0.05
@@ -65,12 +64,11 @@ perl -i -ne 'print $_ unless m{^t/1[01]pod}' MANIFEST
 %endif
 
 %build
-AUTOMATED_TESTING=1 %{__perl} Build.PL installdirs=vendor
+AUTOMATED_TESTING=1 perl Build.PL installdirs=vendor
 ./Build
 
 %install
 ./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -80,10 +78,16 @@ unset DEBUG
 %files
 %license LICENSE
 %doc Changes NOTICE README TODO examples
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Parse
+%{perl_vendorlib}/Parse/DMIDecode
+%{perl_vendorlib}/Parse/DMIDecode.pm
+%{_mandir}/man3/Parse::DMIDecode.*
+%{_mandir}/man3/Parse::DMIDecode::*
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 0.03-44
+- Remove build dependency on unused dmidcode
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

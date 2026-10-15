@@ -17,7 +17,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.44.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -451,6 +451,7 @@ Requires:       gawk
 Requires:       sed
 Requires:       sg3_utils
 Requires:       tar
+Requires:       glibc-gconv-extra
 Requires:       s390utils-core = %{epoch}:%{version}-%{release}
 Requires:       s390utils-se-data = %{epoch}:%{version}-%{release}
 %{?systemd_requires}
@@ -1145,6 +1146,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Wed Oct 14 2026 Dan Horák <dan[at]danny.cz> - 2:2.44.1-2
+- add R:glibc-gconv-extra for the base subpackage
+
 * Tue Sep 22 2026 Dan Horák <dan[at]danny.cz> - 2:2.44.1-1
 - rebased to 2.44.1 (rhbz#2537672)
 

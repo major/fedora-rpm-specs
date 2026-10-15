@@ -2,7 +2,7 @@
 %bcond ctest 1
 
 Name:           json-schema-validator
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Modern C++ JSON schema validator
 
@@ -13,8 +13,6 @@ SourceLicense:  MIT
 URL:            https://github.com/pboettch/json-schema-validator
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Fix a test failure on platforms where char is unsigned
-Patch:          %{url}/pull/376.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

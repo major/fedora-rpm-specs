@@ -1,8 +1,8 @@
 %global libcall_ui_commit 3a2044f8e7c45387954ed35d22c6b6309e6751d6
 
 Name:       calls
-Version:    50.0
-Release:    3%{?dist}
+Version:    51.1
+Release:    1%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later
@@ -29,7 +29,7 @@ BuildRequires:  pkgconfig(libebook-contacts-1.2)
 BuildRequires:  pkgconfig(folks)
 BuildRequires:  pkgconfig(mm-glib)
 BuildRequires:  pkgconfig(libfeedback-0.0) >= 0.0.1
-BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.20
 BuildRequires:  pkgconfig(gmobile) >= 0.3.0
 BuildRequires:  gstreamer1-plugins-good-gtk
 BuildRequires:  sofia-sip-glib-devel

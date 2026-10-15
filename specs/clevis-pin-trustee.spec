@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: MIT
 Name:           clevis-pin-trustee
-Version:        0.1.0
+Version:        0.1.1
 Release:        %autorelease
 Summary:        Clevis PIN for Trustee attestation
 

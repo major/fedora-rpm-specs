@@ -37,7 +37,7 @@ fi                                               \
 %global newname   AusweisApp
 
 Name:             AusweisApp2
-Version:          2.6.0
+Version:          2.6.1
 Release:          %autorelease
 Summary:          %{pkg_sum}
 
@@ -58,8 +58,6 @@ Source0003:       %{rel_url}/%{newname}-%{version}.tar.gz.sha256
 Source0004:       https://joinup.ec.europa.eu/sites/default/files/custom-page/attachment/2020-03/EUPL-1.2%%20EN.txt#/EUPL-12_EN.txt
 Source1000:       gen_openssl_cnf.py
 
-# Fix 2.6.0 showing as beta
-Patch00001:       https://raw.githubusercontent.com/flathub/de.bund.ausweisapp.ausweisapp2/refs/heads/master/version.patch
 # Downstream.
 Patch01000:       %{name}-1.24.1-use_Qt_TranslationsPath.patch
 
@@ -80,7 +78,6 @@ BuildRequires:    python3-devel
 BuildRequires:    qt6-qtbase-devel
 BuildRequires:    qt6-qtbase-private-devel
 BuildRequires:    qt6-qtscxml-devel
-BuildRequires:    qt6-qtshadertools-devel
 BuildRequires:    qt6-qtsvg-devel
 BuildRequires:    qt6-qttools-devel
 BuildRequires:    qt6-qtwebsockets-devel

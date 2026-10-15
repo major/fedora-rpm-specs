@@ -3,7 +3,7 @@
 
 Summary:        Password Safe is a password management utility
 Name:           passwordsafe
-Version:        1.25.0
+Version:        1.26.0
 Source0:        https://github.com/%{short}/%{short}/archive/refs/tags/%{version}/%{short}-%{version}.tar.gz
 Source1:        https://github.com/%{short}/%{short}/releases/download/%{version}/%{version}.tar.gz.sig
 Source2:        ronys-at-pwsafe-dot-org.gpg
@@ -18,9 +18,6 @@ Patch2:         remove-unreferenced-libmagic.patch
 # upstream wants to keep utf8 bom since they seem to have Windows editors
 # that require it. I don't think any Fedora editor requires a utf-8 bom.
 Patch3:         bomless-utf8-output.patch
-#
-# S390 C++ does not allow variable length arrays
-Patch4:         https://github.com/pwsafe/pwsafe/pull/1875.patch
 
 #
 # most of the code is Artistic-2.0

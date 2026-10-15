@@ -24,7 +24,7 @@
 
 Name: ucx
 Version: 1.19.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: UCX is a communication library implementing high-performance messaging
 
 License: BSD-3-Clause AND MIT AND CC-PDDC AND (BSD-3-Clause OR Apache-2.0)
@@ -412,6 +412,9 @@ Infiniband datagrams for out-of-band communications.
 %endif
 
 %changelog
+* Wed Oct 14 2026 Tom Rix <Tom.Rix@amd.com> - 1.19.0-5
+- Rebuild for ROCm 10.1
+
 * Fri Sep 25 2026 Tom Rix <Tom.Rix@amd.com> - 1.19.0-4
 - Rebuild for ROCm 10.0
 

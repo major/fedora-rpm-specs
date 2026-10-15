@@ -9,7 +9,7 @@
 
 Name:           qdigidoc
 Version:        4.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Estonian digital signature and encryption application
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -17,6 +17,7 @@ URL:            https://github.com/open-eid/DigiDoc4-Client
 Source0:        %{url}/releases/download/v%{version}/%{upstream_name}-%{version}.tar.gz
 Patch0:         sandbox.patch
 Patch1:         cmake.patch
+Patch2:         openssl4-compat.patch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # Dependency flatbuffers already not available on x86
 ExcludeArch:    %{ix86}
@@ -95,8 +96,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ee.ria.qdigidoc4.des
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Wed Oct 14 2026 Dmitri Smirnov <dmitri@smirnov.ee> - 4.11.1-2
+- Add a patch to fix build against openssl 4 (upstream patches submitted)
+
 * Tue Oct 13 2026 Dmitri Smirnov <dmitri@smirnov.ee> - 4.11.1-1
 - Upstream release 4.11.1
+- Fix certificate access and bundled libcdoc compilation with OpenSSL 4
 
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild

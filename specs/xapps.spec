@@ -1,13 +1,16 @@
-%global upstream_version 3.3.6-unstable
+%global forgeurl https://github.com/linuxmint/xapp
+%global tagver   3.3.7
+%global tag      %{tagver}-unstable
 
 Name:           xapps
-Version:        3.3.6^unstable
-Release:        %autorelease
+Version:        %{tagver}^unstable
+Release:        %{autorelease}
+%{forgemeta}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPL-3.0-only
-URL:            https://github.com/linuxmint/%{name}
-Source0:        %{url}/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 Source1:        http://packages.linuxmint.com/pool/main/f/flags/flags_1.0.4.tar.xz
 Patch0:         watcher_fix_libexec.patch
 
@@ -69,7 +72,7 @@ Provides:       python3-xapps-overrides%{?_isa} = %{version}-%{release}
 Python%{python3_version} files for XApp apps.
 
 %prep
-%autosetup -p1 -n xapp-%{upstream_version}
+%autosetup %{forgesetupargs} -p1 -a1
 
 %install -a
 tar -xf %{SOURCE1} -C %{buildroot}%{_datadir} --strip 3

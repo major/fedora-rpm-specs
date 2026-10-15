@@ -1,5 +1,5 @@
 Name:           media-downloader
-Version:        5.6.5
+Version:        5.6.6
 Release:        1%{?dist}
 Summary:        GUI frontend to multiple CLI based downloading programs
 License:        GPL-2.0-or-later
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Wed Oct 14 2026 Martin Gansser <martinkg@fedoraproject.org> - 5.6.6-1
+- Update to 5.6.6
+
 * Mon Aug 17 2026 Martin Gansser <martinkg@fedoraproject.org> - 5.6.5-1
 - Update to 5.6.5
 

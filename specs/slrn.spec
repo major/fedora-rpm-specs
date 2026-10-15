@@ -1,7 +1,7 @@
 Summary: A threaded Internet news reader
 Name: slrn
 Version: 1.0.3a
-Release: 23%{?dist}
+Release: 24%{?dist}
 # COPYRIGHT:    GPL-2.0-or-later
 # src:          GPL-2.0-or-later
 # src/vms.c:    "donated for use in slrn by Andrew Greer"
@@ -89,11 +89,12 @@ done
 
 chmod 644 doc/slrnpull/* contrib/*
 
-# Create a sysusers.d config file
-# Static UID and GID defined by /usr/share/doc/setup-*/uidgid
+# Create a sysusers.d config file.
+# Static UID and GID defined by /usr/share/doc/setup/uidgid.
+# Synchronize with a config file packaged in inews.
 cat >slrn.sysusers.conf <<EOF
 g news 13
-u news 9 'news user' - -
+u news 9 'News server user' /etc/news -
 EOF
 
 %build
@@ -164,6 +165,9 @@ exit 0
 %{_mandir}/man1/slrnpull.1*
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 1.0.3a-24
+- Align "news" user configuration with a configuration provided by "inews" package
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3a-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

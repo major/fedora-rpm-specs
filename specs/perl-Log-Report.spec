@@ -3,7 +3,7 @@
 
 Name:           perl-Log-Report
 Version:        1.46
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Report a problem with exceptions and translation support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Report
@@ -37,7 +37,6 @@ BuildRequires:  perl(Log::Report::Util) >= 1.07
 BuildRequires:  perl(Mojo::Base)
 BuildRequires:  perl(Mojo::Log)
 %endif
-BuildRequires:  perl(Moo)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(POSIX)
@@ -237,6 +236,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 1.46-3
+- Remove a build dependency on unused Moo
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

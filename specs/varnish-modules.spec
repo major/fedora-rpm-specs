@@ -4,8 +4,8 @@
 %global rst2man rst2man
 
 Name:    varnish-modules
-Version: 0.28.0
-Release: 6%{?dist}
+Version: 0.29.0
+Release: 1%{?dist}
 Summary: A collection of modules ("vmods") extending Varnish VCL
 
 License: BSD-2-Clause
@@ -76,6 +76,10 @@ sed -i 's,tests/xkey/test12.vtc,,' src/Makefile
 
 
 %changelog
+* Wed Oct 14 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.29.0-1
+- New upstream release
+- Built for varnish-9.1.0
+
 * Tue Sep 22 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.28.0-6
 - Built for varnish-9.0.4
 

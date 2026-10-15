@@ -12,7 +12,7 @@ Name:             obs-signd
 Summary:          The OBS sign daemon
 License:          GPL-2.0-only
 URL:              https://github.com/openSUSE/obs-sign
-Version:          2.8.4
+Version:          2.8.5
 Release:          %autorelease
 #Release:          %%{baserelease}%%{?snapshotrel}%%{?dist}
 Source0:          https://github.com/openSUSE/%{shortname}/archive/refs/tags/%{version}.tar.gz#/%{shortname}-%{version}.tar.gz
@@ -86,6 +86,9 @@ install -m0644 -D obs-signd.sysusers.conf %{buildroot}%{_sysusersdir}/obs-signd.
 %{_sysusersdir}/obs-signd.conf
 
 %changelog
+* Wed Oct 14 2026 Miroslav Suchý <msuchy@redhat.com> - 2.8.5-1
+- Update to version 2.8.5
+
 * Wed Jun 04 2025 Oleg Girko <ol@infoserver.lv> 2.6.1-4
 - Fix typo in patch again, it should be "--file-is-digest" not "--file-is-digests"
 

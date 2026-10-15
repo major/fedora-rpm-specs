@@ -5,7 +5,7 @@
 %global crate manyhow-macros
 
 Name:           rust-manyhow-macros
-Version:        0.14.0
+Version:        0.14.1
 Release:        %autorelease
 Summary:        Macro for manyhow
 

@@ -1,5 +1,5 @@
 Name:           python-pyscipopt
-Version:        6.2.1
+Version:        6.3.0
 Release:        %autorelease
 Summary:        Python interface and modeling environment for SCIP
 
@@ -9,20 +9,6 @@ Summary:        Python interface and modeling environment for SCIP
 License:        MIT AND WTFNMFPL
 URL:            https://github.com/scipopt/PySCIPOpt
 Source:         %{url}/archive/v%{version}/PySCIPOpt-%{version}.tar.gz
-
-# Fix `test_markDoNotAggrVar_and_getStatus`
-# https://github.com/scipopt/PySCIPOpt/pull/1230
-# Cherry-picked on v6.2.1
-Patch:          0001-Make-test_markDoNotAggrVar_and_getStatus-robust-to-S.patch
-
-# Fix Cython 3.3 compatibility
-# https://github.com/scipopt/PySCIPOpt/pull/1248
-#
-# Fixes:
-#
-# Error compiling/Cythonizing with Cython 3.3.0: 'axis' redeclared
-# https://github.com/scipopt/PySCIPOpt/issues/1247
-Patch:          %{url}/pull/1248.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license pyscipopt

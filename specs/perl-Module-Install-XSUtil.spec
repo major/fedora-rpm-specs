@@ -1,23 +1,23 @@
 Name:           perl-Module-Install-XSUtil
 Version:        0.45
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Utility functions for XS modules
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-XSUtil
 Source0:        https://cpan.metacpan.org/authors/id/G/GF/GFUJI/Module-Install-XSUtil-%{version}.tar.gz
 # Fix test, CPAN RT#77780
 Patch0:         Module-Install-XSUtil-0.43-Fix-test-to-use-renamed-requires_xs.patch
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::Repository)
 # Run-time:
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(Devel::CheckLib) >= 0.4
+# Devel::CheckLib 0.4 not used at tests
 BuildRequires:  perl(ExtUtils::ParseXS) >= 3.18
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Find)
@@ -48,32 +48,36 @@ Module::Install::XSUtil provides a set of utilities to setup distributions
 which include or depend on an XS module.
 
 %prep
-%setup -q -n Module-Install-XSUtil-%{version}
-%patch -P0 -p1
+%autosetup -p1 -n Module-Install-XSUtil-%{version}
 # Remove bundled modules
 rm -rf inc/*
-sed -i -e '/^inc\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 # Run author tests, setting TEST_FILES clashes with nested test (CPAN RT#77780)
 mkdir inc/.author
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Module
+%dir %{perl_vendorlib}/Module/Install
+%{perl_vendorlib}/Module/Install/XSUtil.pm
+%{_mandir}/man3/Module::Install::XSUtil.*
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 0.45-36
+- Remove unused build dependency on Devel::CheckLib
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.45-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

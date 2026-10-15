@@ -1,52 +1,55 @@
 Name:           perl-Kwiki-Revisions
 Version:        0.15
-Release:        61%{?dist}
+Release:        62%{?dist}
 Summary:        Kwiki Revisions Plugin
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Kwiki-Revisions
 Source0:        https://cpan.metacpan.org/authors/id/I/IN/INGY/Kwiki-Revisions-%{version}.tar.gz
 Patch0:         Kwiki-Revisions-0.15-Fix-building-on-Perl-without-dot-in-INC.patch
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(Config)
-BuildRequires:  perl(Cwd)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(ExtUtils::MM_Unix)
-BuildRequires:  perl(File::Find)
-BuildRequires:  perl(File::Path)
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::Win32)
+BuildRequires:  perl(Module::Install::WriteAll)
 # Runtime
 BuildRequires:  perl(Kwiki) >= 0.38
 BuildRequires:  perl(Kwiki::CGI)
 BuildRequires:  perl(Kwiki::Installer)
 BuildRequires:  perl(Kwiki::Plugin)
-BuildRequires:  perl(mixin)
+# mixin is not used. It is a subroutine exported by Spiffy via Spoon::Base via
+# Spoon::Plugin via Kwiki::Plugin. In other words, Spiffy has it's own private
+# implemenation of the mixin module.
 # Tests only
 BuildRequires:  perl(lib)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 Requires:       perl(Kwiki) >= 0.38
 Requires:       perl(Kwiki::Installer)
 
+# Filter private modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(mixin\\)
+
 %description
 %{summary}.
 
 %prep
-%setup -q -n Kwiki-Revisions-%{version}
-%patch -P0 -p1
+%autosetup -p1 -n Kwiki-Revisions-%{version}
+# Remove bunlded modules
+rm -r inc
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install} DESTDIR=%{buildroot}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -54,10 +57,14 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Kwiki
+%{perl_vendorlib}/Kwiki/Revisions.pm
+%{_mandir}/man3/Kwiki::Revisions.*
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 0.15-62
+- Remove a dependency on unused mixin module
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

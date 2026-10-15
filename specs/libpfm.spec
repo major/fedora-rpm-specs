@@ -9,7 +9,7 @@
 
 Name:		libpfm
 Version:	4.14.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Library to encode performance events for use by perf tool
 
@@ -139,6 +139,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.a
 %endif
 
 %changelog
+* Tue Oct 13 2026 Aaron Merey <amerey@redhat.com> - 4.14.1-2
+- Don't install build dependencies in tests/runtest.sh
+
 * Tue Oct 13 2026 Aaron Merey <amerey@redhat.com> - 4.14.1-1
 - Rebase on libpfm-4.14.1.
 - Drop libpfm-gcc14.patch and libpfm-unused-vars.patch (upstream).

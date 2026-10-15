@@ -1,7 +1,7 @@
 %bcond bootstrap 0
 
 Name:           conda
-Version:        26.9.2
+Version:        26.9.3
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 

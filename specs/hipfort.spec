@@ -153,6 +153,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipfort/LICENSE
 %{_includedir}/fortran/f95/hipfort/
 %{_libdir}/fortran/f95/libhipfort-amdgcn.so
 %{_libdir}/fortran/f95/cmake/hipfort/
+%{_libdir}/cmake/hipfort/
 
 %changelog
 * Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1

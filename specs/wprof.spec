@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/anakryiko/wprof
-Version:        0.7
+Version:        0.7.1
 %forgemeta
 
 # run `fedpkg prep --define 'with_skip_vendored 1'`
@@ -16,7 +16,7 @@ Version:        0.7
 # we need to declare this to show it in the version string
 # since we 'backport' the first two commits after 0.5, just
 # use the commit hash of the latest commit we use
-%global wprof_commit 23cbea909d4365c804b1a8d3744d8afc2f314280
+%global wprof_commit b05f951c4514d926547a96098816ec068908120a
 
 # upstream build system requires the use of these sources
 %global blazesym_url https://github.com/libbpf/blazesym
@@ -34,9 +34,9 @@ Version:        0.7
 %global bpftool_version 7.8.0~^%{bpftool_date}git%{bpftool_shortcommit}
 
 %global libbpf_url https://github.com/libbpf/libbpf
-%global libbpf_commit 34e3ebf0f062cf81882c51ac95dce720101ca5cc
+%global libbpf_commit f90a9c487d7542d91fa584b83b6a624a4fbeb341
 %global libbpf_shortcommit %(c=%{libbpf_commit}; echo ${c:0:7})
-%global libbpf_date 20260630
+%global libbpf_date 20260915
 # see libbpf/src/libbpf_version.h
 %global libbpf_version 1.8~^%{libbpf_date}git%{libbpf_shortcommit}
 
@@ -139,11 +139,6 @@ Source102:      wprof-wpb-%{version}-vendor.tar.gz
 
 # share the bundled vmlinux header, don't try to fetch it again
 Patch:          wprof-blazesym-shared-vmlinux.diff
-# Linux 7.3 kernel-headers declare arm64 sigcontext vregs as __u128, but the
-# bundled libbpf's private include/linux/types.h shadows the UAPI one and lacks
-# that typedef, breaking the aarch64 build. Backport of libbpf commit f90a9c48;
-# drop once the bundled libbpf snapshot is at or after 2026-09-07.
-Patch:          libbpf-add-u128-types.patch
 
 # strobelight-libs only supports x86_64 and aarch64
 ExclusiveArch:  x86_64 aarch64
@@ -219,6 +214,19 @@ popd
 %endif
 %make_build -C src GIT_SHA=%{wprof_commit}
 
+pushd src/demangle
+%cargo_vendor_manifest
+cat cargo-vendor.txt >> ../../cargo-vendor-unsorted.txt
+popd
+
+pushd src/wpb
+%cargo_vendor_manifest
+cat cargo-vendor.txt >> ../../cargo-vendor-unsorted.txt
+popd
+
+cat cargo-vendor-unsorted.txt | sort -u > cargo-vendor.txt
+
+
 for proj in blazesym src/demangle src/wpb; do
   pushd ${proj}
   echo === ${proj} ===
@@ -248,6 +256,7 @@ done
 %license LICENSE*
 # blazesym vendored deps already got collected earlier
 %license src/demangle/LICENSE.demangle.dependencies src/wpb/LICENSE.wpb.dependencies
+%license cargo-vendor.txt
 %doc README.md UTRACE.md
 %{_bindir}/wprof
 

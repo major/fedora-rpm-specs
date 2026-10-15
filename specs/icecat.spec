@@ -83,9 +83,9 @@ ExcludeArch: %{ix86} %{arm}
 %global system_nss  0
 %endif
 %if %{?system_nss}
-%global nspr_version 4.36
+%global nspr_version 4.37
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.110
+%global nss_version 3.125
 %global nss_build_version %{nss_version}
 %endif
 
@@ -112,8 +112,8 @@ ExcludeArch: %{ix86} %{arm}
 %global __requires_exclude ^(%%(find %{buildroot}%{icecatappdir} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
 Name:    icecat
-Epoch:   4
-Version: 140.17.0
+Epoch:   5
+Version: 153.5.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
@@ -152,14 +152,11 @@ Source19: run-wayland-compositor
 # Fedora specific patches
 Patch221: firefox-nss-addon-hack.patch
 Patch224: %{name}-GLIBCXX-fix-for-GCC-12.patch
-Patch225: %{name}-build-c11-threads-avail.patch
-Patch227: %{name}-build-seccomp.patch
 
 # ARM run-time patch
 Patch226: rhbz-1354671.patch
 
 # Build patches
-Patch228: %{name}-protobuf_s390.patch
 Patch229: mozilla-2034301.patch
 
 # Fix crash on ppc64le (mozilla#1512162)
@@ -341,20 +338,9 @@ tar -xf %{SOURCE5}
 %patch -P 221 -p 1 -b .firefox-nss-addon-hack
 %patch -P 224 -p 1 -b .glibcxx
 
-# Fedora patches
-%if 0%{?fedora} >= 44 || 0%{?rhel} >= 10
-%patch -P 225 -p 1 -b .build-c11
-%patch -P 227 -p 1 -b .build-seccomp
-%endif
-
 # ARM64
 %ifarch %{arm64}
 %patch -P 226 -p 1 -b .1354671
-%endif
-
-# s390x
-%ifarch s390x
-%patch -P 228 -p 1 -b .build-protobuf
 %endif
 
 %patch -P 229 -p 1 -b .incom-pointer
@@ -364,7 +350,7 @@ tar -xf %{SOURCE5}
 %endif
 %if %{build_with_pgo}
 %if %{without toolchain_clang}
-%patch -P 601 -p1 -b .pgo
+%patch -P 601 -p2 -b .pgo
 %patch -P 602 -p1 -b .1516803
 %endif
 %endif
@@ -421,7 +407,6 @@ echo "ac_add_options --without-system-libvpx" >> .mozconfig
 
 echo "ac_add_options --with-system-jpeg" >> .mozconfig
 echo "ac_add_options --enable-ffmpeg" >> .mozconfig
-echo "ac_add_options --enable-av1" >> .mozconfig
 
 %if 0%{?debug_build}
 echo "ac_add_options --enable-debug" >> .mozconfig
@@ -569,10 +554,11 @@ export RUSTFLAGS="$RUSTFLAGS -C target-cpu=native -C opt-level=3 -Clinker=clang-
 
 #  error "STL code can only be used with -fno-exceptions"
 CXXFLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-fexceptions/-fno-exceptions/')
-export CXXFLAGS="$CXXFLAGS"
-export CXXFLAGS="$CXXFLAGS -fpermissive -std=gnu++17"
 
-export CFLAGS="$MOZ_OPT_FLAGS -std=gnu17"
+# Try to fix the fmt build error
+export CXXFLAGS="$CXXFLAGS -DFMT_ENFORCE_COMPILE_STRING=0"
+export CXXFLAGS="$CXXFLAGS -fpermissive"
+export CFLAGS="$MOZ_OPT_FLAGS -DFMT_ENFORCE_COMPILE_STRING=0"
 export LDFLAGS="%{__global_ldflags} $MOZ_LINK_FLAGS -L%{_libdir} -L%{icecatappdir}"
 export PREFIX='%{_prefix}'
 export LIBDIR='%{_libdir}'
@@ -771,6 +757,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %dir %{icecatappdir}
 %{icecatappdir}/glxtest
 %{icecatappdir}/vaapitest
+%{icecatappdir}/vulkantest
 %{icecatappdir}/browser/
 %{icecatappdir}/defaults/
 %{icecatappdir}/dictionaries

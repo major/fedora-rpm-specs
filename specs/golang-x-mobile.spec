@@ -3,7 +3,7 @@
 
 # https://github.com/golang/mobile
 %global goipath         github.com/golang/mobile
-%global commit          6129f5bee9d516e31842c9815bf24f60fa682b6e
+%global commit          19777044486779222400e9ca16c4306f9c6dbfa9
 
 %gometa -L -f
 
@@ -48,11 +48,8 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
-# Skip tests that fail due to missing system dependencies or build environment issues
-for test in "TestGobind" "TestDocs" \
-; do
-awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
-done
+# Compile command tests to verify their dependencies without requiring mobile SDKs.
+%gotest -run '^$' golang.org/x/mobile/cmd/gobind golang.org/x/mobile/cmd/gomobile
 
 # Test only the core packages that don't require graphics/audio libraries
 %gotest golang.org/x/mobile/bind golang.org/x/mobile/bind/java golang.org/x/mobile/bind/objc golang.org/x/mobile/bind/seq golang.org/x/mobile/exp/f32 golang.org/x/mobile/exp/font golang.org/x/mobile/exp/sprite/clock golang.org/x/mobile/exp/sprite/portable golang.org/x/mobile/internal/binres golang.org/x/mobile/internal/importers golang.org/x/mobile/internal/importers/java golang.org/x/mobile/internal/importers/objc

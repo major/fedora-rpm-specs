@@ -54,7 +54,7 @@
 
 Name:           rocm-validation-suite%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm Validation Suite (rvs)
 
 Url:            https://github.com/ROCm/ROCmValidationSuite
@@ -225,6 +225,9 @@ done
 %{pkg_prefix}/%{pkg_libdir}/rvs/
 
 %changelog
+* Wed Oct 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-5
+- Rebuild for 10.1
+
 * Fri Sep 25 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-4
 - Rebuild for 10.0
 

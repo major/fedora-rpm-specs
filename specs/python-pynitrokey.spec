@@ -1,5 +1,5 @@
 Name:           python-pynitrokey
-Version:        0.12.3
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Python client for Nitrokey devices
 

@@ -7,7 +7,7 @@
 
 Name:           guacamole-server
 Version:        1.6.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Server-side native components that form the Guacamole proxy
 License:        Apache-2.0
 URL:            https://guacamole.apache.org/
@@ -18,6 +18,9 @@ Source2:        %{name}.sysusersd
 # src/libguac/wol.c: inet_pton called with a destination buffer size too small
 # https://issues.apache.org/jira/browse/GUACAMOLE-2087
 Patch0:         https://github.com/apache/guacamole-server/pull/591.patch#/guacamole-server-1.6.0-correct-struct-sockaddr_in.patch
+
+# https://github.com/apache/guacamole-server/pull/711
+Patch1:         GUACAMOLE-2326-Fix-freerdp-feature-detection-with-la.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -30,8 +33,8 @@ BuildRequires:  libwebsockets-devel
 BuildRequires:  make
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(cairo)
-BuildRequires:  pkgconfig(freerdp2)
-BuildRequires:  pkgconfig(freerdp-client2)
+BuildRequires:  pkgconfig(freerdp3)
+BuildRequires:  pkgconfig(freerdp-client3)
 BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libpulse)
@@ -43,7 +46,7 @@ BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(ossp-uuid)
 BuildRequires:  pkgconfig(pango)
 BuildRequires:  pkgconfig(vorbis)
-BuildRequires:  pkgconfig(winpr2)
+BuildRequires:  pkgconfig(winpr3)
 
 %{?_with_ffmpeg:
 BuildRequires:  pkgconfig(libavcodec)
@@ -216,8 +219,8 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %files -n libguac-client-rdp
 %{_libdir}/libguac-client-rdp.so
 %{_libdir}/libguac-client-rdp.so.0*
-%{_libdir}/freerdp2/libguac-common-svc-client.so
-%{_libdir}/freerdp2/libguacai-client.so
+%{_libdir}/freerdp3/libguac-common-svc-client.so
+%{_libdir}/freerdp3/libguacai-client.so
 
 %files -n libguac-client-ssh
 %{_libdir}/libguac-client-ssh.so
@@ -246,6 +249,9 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %attr(750,%{username},%{username}) %{_sharedstatedir}/guacd/
 
 %changelog
+* Fri Sep 04 2026 Ondrej Holy <oholy@redhat.com> - 1.6.0-10
+- Switch to freerdp3
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.6.0-9
 - Rebuilt for FFmpeg 9
 

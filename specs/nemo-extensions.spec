@@ -2,17 +2,19 @@
 %global debug_package %{nil}
 %global cjs_version 140.0
 
-%global upstream_version 6.7.2-unstable
-%global sversion 6.7.2
+%global forgeurl https://github.com/linuxmint/nemo-extensions
+%global tagver   6.7.3
+%global tag      %{tagver}-unstable
 
 Name:           nemo-extensions
-Version:        6.7.2^unstable
-Release:        %autorelease
+Version:        %{tagver}^unstable
+Release:        %{autorelease}
+%{forgemeta}
 Summary:        Extensions for Nemo
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
-URL:            https://github.com/linuxmint/%{name}
-Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 ExcludeArch:    %{ix86}
 
@@ -163,7 +165,7 @@ Seahorse nemo is an extension for nemo which allows encryption
 and decryption of OpenPGP files using GnuPG.
 
 %prep
-%autosetup -p1 -n %{name}-%{upstream_version}
+%forgeautosetup -p1
 # use relative paths in data_files to support wheel-based installation
 # TODO send upstream
 sed -Ei '/^ *data_files *= *\[/,/^ *\]/ { s@/usr/@@ }' */setup.py
@@ -266,7 +268,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %license nemo-audio-tab/COPYING.GPL3
 %{_datadir}/nemo-python/extensions/nemo-audio-tab.py
 %{_datadir}/nemo-audio-tab/
-%{python3_sitelib}/nemo_audio_tab-%{sversion}.dist-info/
+%{python3_sitelib}/nemo_audio_tab-%{tagver}.dist-info/
 
 
 %files -n nemo-pastebin
@@ -275,7 +277,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %license nemo-pastebin/COPYING
 %{_bindir}/nemo-pastebin-configurator
 %{_datadir}/nemo-python/extensions/nemo-pastebin.py
-%{python3_sitelib}/nemo_pastebin-%{sversion}.dist-info/
+%{python3_sitelib}/nemo_pastebin-%{tagver}.dist-info/
 %{_datadir}/glib-2.0/schemas/nemo-pastebin.gschema.xml
 %{_datadir}/nemo-pastebin/
 %{_datadir}/icons/hicolor/*/apps/nemo-pastebin.*
@@ -303,7 +305,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_datadir}/nemo-python/extensions/nemo_terminal.py
 %{_datadir}/nemo-terminal/
 %{_datadir}/glib-2.0/schemas/org.nemo.extensions.nemo-terminal.gschema.xml
-%{python3_sitelib}/nemo_terminal-%{sversion}.dist-info/
+%{python3_sitelib}/nemo_terminal-%{tagver}.dist-info/
 
 %files -n nemo-preview
 %doc nemo-preview/README
@@ -317,7 +319,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %files -n nemo-emblems
 %license nemo-emblems/COPYING.GPL3
 %{_datadir}/nemo-python/extensions/nemo-emblems.py
-%{python3_sitelib}/nemo_emblems-%{sversion}.dist-info/
+%{python3_sitelib}/nemo_emblems-%{tagver}.dist-info/
 
 %files -n nemo-image-converter
 %doc nemo-image-converter/README
@@ -329,7 +331,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_bindir}/nemo-compare-preferences
 %{_datadir}/nemo-python/extensions/nemo-compare.py
 %{_datadir}/nemo-compare/
-%{python3_sitelib}/nemo_compare-%{sversion}.dist-info/
+%{python3_sitelib}/nemo_compare-%{tagver}.dist-info/
 
 %files -n nemo-seahorse
 %doc nemo-seahorse/{AUTHORS,COPYING,README,NEWS,ChangeLog}

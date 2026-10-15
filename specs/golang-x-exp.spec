@@ -9,7 +9,7 @@
 # https://github.com/golang/exp
 %global goipath         golang.org/x/exp
 %global forgeurl        https://github.com/golang/exp
-%global commit          764159d718efdc208c8aca89cf725febea120ec1
+%global commit          2ab7f3cbc5fb8d9f07593f3a44bd0e66940f42c8
 
 %gometa
 
@@ -33,8 +33,10 @@ License:        BSD-3-Clause AND Apache-2.0
 URL:            %{gourl}
 Source:         %{gosource}
 
-# Fix format specifier in scan_test.go for integer values
-Patch0:         fix-scan-test-format.patch
+# The export-data test uses a module fixture under Fedora's GOPATH test mode
+Patch0:         fix-exportdata-test-module-mode.patch
+# Keep source-backed loading with Fedora's older go/packages implementation
+Patch1:         restore-apidiff-load-mode.patch
 
 BuildRequires:  libglvnd-devel
 
@@ -73,7 +75,6 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %check
 for test in "TestRelease_gitRepo_uncommittedChanges" \
             "TestFailure" \
-            "TestCertificateTransparency" \
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done

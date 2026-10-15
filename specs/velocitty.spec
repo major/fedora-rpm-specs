@@ -1,10 +1,10 @@
 %global forgeurl https://github.com/xapp-project/velocitty
 %global tag      %{version}
-%forgemeta
 
 Name:           velocitty
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
+%forgemeta
 Summary:        Terminal emulator for Linux desktops
 
 License:        GPL-3.0-or-later

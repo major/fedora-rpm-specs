@@ -1,6 +1,6 @@
 Name:           SoapySDR
-Version:        0.8.1
-Release:        25%{?dist}
+Version:        0.9.0
+Release:        2%{?dist}
 Summary:        A Vendor Neutral and Platform Independent SDR Support Library
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -8,76 +8,89 @@ License:        BSL-1.0
 URL:            https://github.com/pothosware/%{name}
 Source0:        https://github.com/pothosware/%{name}/archive/refs/tags/soapy-sdr-%{version}.tar.gz
 
+%global shortver %(c=%{version}; echo $c|cut -d"." -f1-2)
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  swig
 BuildRequires:  doxygen
-BuildRequires: python3-devel
-BuildRequires: python3-numpy
-BuildRequires: (python3-setuptools if python3-devel >= 3.12)
+BuildRequires:  python3-devel
+BuildRequires:  python3-numpy
+BuildRequires:  python3-setuptools
+BuildRequires:  sed
 
 %description
 SoapySDR is an open-source generalized C/C++ API and runtime library
 for interfacing with Software-Defined Radio (SDR) devices.
 
-%package -n python3-%{name}
+%package        -n python3-%{name}
 Summary:        Python3 Bindings for SoapySDR
-%{?python_provide:%python_provide python3-%{name}}
 
-%description -n python3-%{name}
+%description    -n python3-%{name}
 SoapySDR is an open-source generalized C/C++ API and runtime library
 for interfacing with Software-Defined Radio (SDR) devices.
 
-%package -n %{name}-devel
+%package        devel
 Summary:        Development Files for SoapySDR
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
-%description -n %{name}-devel
-SoapySDR is an open-source generalized C/C++ API and runtime library
-for interfacing with Software-Defined Radio (SDR) devices.
+%description    devel
+This package contains libraries and header files for
+developing applications that use %{name}.
 
-%package -n %{name}-doc
+%package        doc
 Summary:        Development Files for SoapySDR
-BuildArch: noarch
+BuildArch:      noarch
 
-%description -n %{name}-doc
+%description    doc
 SoapySDR is an open-source generalized C/C++ API and runtime library
-for interfacing with Software-Defined Radio (SDR) devices. This package includes
-library header file documentation.
-    
-    
+for interfacing with Software-Defined Radio (SDR) devices. This package
+includes library header file documentation.
+
 %prep
 %autosetup -n %{name}-soapy-sdr-%{version}
 
+# Fix doxygen warnings and add an install target for documentation
+sed  -i '/COMMAND ${DOXYGEN_EXECUTABLE}/i COMMAND ${DOXYGEN_EXECUTABLE} -u ${CMAKE_CURRENT_BINARY_DIR}\/Doxyfile' docs/CMakeLists.txt
+
+cat << "EOF" >> docs/CMakeLists.txt
+
+install(
+        DIRECTORY ${CMAKE_CURRENT_BINARY_DIR_DOXYGEN}
+        DESTINATION ${CMAKE_INSTALL_DOCDIR}
+       )
+
+EOF
+
 %build
-# TODO: Remove in the next release
-# https://github.com/pothosware/SoapySDR/commit/fbf9f3c328868f46029284716df49095ab7b99a6
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 export Python_ADDITIONAL_VERSIONS="%{python3_version}"
-%cmake -DUSE_PYTHON_CONFIG=ON -DPYTHON3_EXECUTABLE=%{__python3} -DSOAPY_SDR_EXTVER=%{release}
+
+%cmake \
+       -DUSE_PYTHON_CONFIG=ON \
+       -DPYTHON3_EXECUTABLE=%{__python3} \
+       -DSOAPY_SDR_EXTVER=%{release}
+
 %cmake_build
 
 %install
 %cmake_install
-mkdir -p %{buildroot}%{_libdir}/%{name}/modules0.8
-# install docs
-mkdir -p %{buildroot}%{_pkgdocdir}
-cp -a %{__cmake_builddir}/docs/html/* %{buildroot}%{_pkgdocdir}
+mkdir -p %{buildroot}%{_libdir}/%{name}/modules%{shortver}
 
 %check
-ctest -V %{?_smp_mflags}
+%ctest
 
-%ldconfig_scriptlets
 %files
 %license LICENSE_1_0.txt
-%{_bindir}/SoapySDRUtil
-%{_libdir}/libSoapySDR.so.0.8.1
-%{_libdir}/libSoapySDR.so.0.8
-%{_mandir}/man1/*
-%doc README.md
-# for hardware support modules
+%doc README.md Changelog.txt
+# empty folders for hardware support modules
 %dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/modules0.8
+%dir %{_libdir}/%{name}/modules%{shortver}
+
+%{_bindir}/SoapySDRUtil
+
+%{_libdir}/libSoapySDR.so.0{,.*}
+
+%{_mandir}/man1/*
 
 %files -n python3-%{name}
 %license LICENSE_1_0.txt
@@ -85,19 +98,29 @@ ctest -V %{?_smp_mflags}
 %{python3_sitearch}/_SoapySDR.so
 %{python3_sitearch}/__pycache__/SoapySDR.cpython-*.pyc
 
+%files devel
+%doc Changelog.txt
+%dir %{_datadir}/cmake/%{name}
 
-%files -n %{name}-devel
 %{_includedir}/%{name}
+
 %{_libdir}/libSoapySDR.so
 %{_libdir}/pkgconfig/*
-%dir %{_datadir}/cmake/%{name}
+
 %{_datadir}/cmake/%{name}/*
 
-%files -n %{name}-doc
+%files doc
 %license LICENSE_1_0.txt
-%{_pkgdocdir}/*
+%doc %{_pkgdocdir}/*
 
 %changelog
+* Wed Oct 14 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.9.0-2
+- fix nested html folders in documentation
+
+* Wed Oct 14 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.9.0-1
+- 0.9.0 release RHBZ#2548981
+- modernize specfile
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.8.1-25
 - Rebuilt for Python 3.15.0b4 ABI change
 

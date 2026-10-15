@@ -3,7 +3,7 @@
 
 Name:           perl-Mail-DMARC
 Version:        2.20260827
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # share/public_suffix_list:     MPL-2.0
@@ -48,9 +48,9 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Uncompress::Gunzip)
 BuildRequires:  perl(IO::Uncompress::Unzip)
 BuildRequires:  perl(JSON)
-BuildRequires:  perl(Mail::DKIM::PrivateKey)
-BuildRequires:  perl(Mail::DKIM::Signer)
-BuildRequires:  perl(Mail::DKIM::TextWrap)
+# Mail::DKIM::PrivateKey not used at tests
+# Mail::DKIM::Signer not used at tests
+# Mail::DKIM::TextWrap not used at tests
 BuildRequires:  perl(Module::Load)
 BuildRequires:  perl(Net::DNS::Resolver)
 BuildRequires:  perl(Net::IMAP::Simple)
@@ -247,6 +247,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 2.20260827-2
+- Remove unused build dependencies on Mail::DKIM modules
+
 * Tue Sep 01 2026 Petr Pisar <ppisar@redhat.com> - 2.20260827-1
 - 2.20260827 bump
 - Move HTML files from perl-Mail-DMARC to perl-Mail-DMARC-HTTP package

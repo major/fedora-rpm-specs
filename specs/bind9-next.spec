@@ -54,7 +54,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND MIT AND BSD-2-clause
 #
-Version:  9.21.22
+Version:  9.21.26
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -88,8 +88,6 @@ Patch1: bind-9.16-redhat_doc.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
 # avoid often fails on i386, unsupported upstream
 Patch4: bind-9.21-unittest-qpdb-i386.patch
-# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/12061
-Patch5: bind-9.21-unittest-32b-mem.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -105,7 +103,7 @@ Conflicts:      bind-dyndb-ldap
 
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  openssl-devel
+BuildRequires:  pkgconfig(libcrypto) pkgconfig(libssl)
 BuildRequires:  libtool
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  ninja-build
@@ -157,22 +155,22 @@ BuildRequires:  python3-hypothesis
 # manual configuration requires this tool
 BuildRequires:  iproute
 BuildRequires:  python3-jinja2
-BuildRequires:  lmdb-devel
 %if %{with SUDO}
 BuildRequires:  libcap sudo
 %endif
 %endif
 %if %{with GSSTSIG}
-BuildRequires:  krb5-devel
+BuildRequires:  pkgconfig(krb5)
 %endif
 %if %{with JSON}
-BuildRequires:  json-c-devel
+BuildRequires:  pkgconfig(json-c)
 %endif
 %if %{with GEOIP2}
-BuildRequires:  libmaxminddb-devel
+BuildRequires:  pkgconfig(libmaxminddb)
 %endif
 %if %{with DNSTAP}
-BuildRequires:  fstrm-devel protobuf-c-devel
+BuildRequires:  pkgconfig(libfstrm)
+BuildRequires:  pkgconfig(libprotobuf-c)
 %endif
 # Needed to regenerate dig.1 manpage
 %if %{with DOC}
@@ -247,22 +245,23 @@ Summary:  Header files and libraries needed for bind-dyndb-ldap
 Provides: %{name}-lite-devel = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-lite-devel < 32:9.16.6-3
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Requires: openssl-devel%{?_isa}
-Requires: libxml2-devel%{?_isa}
-Requires: libcap-devel%{?_isa}
-Requires: lmdb-devel%{?_isa}
+Requires: pkgconfig(libcrypto) pkgconfig(libssl)
+Requires: pkgconfig(libcrypto) pkgconfig(libssl)
+Requires: pkgconfig(libxml-2.0)
+Requires: pkgconfig(libcap)
 %upname_compat %{upname}-devel
 %if %{with GSSTSIG}
-Requires: krb5-devel%{?_isa}
+Requires: pkgconfig(krb5)
 %endif
 %if %{with JSON}
-Requires:  json-c-devel%{?_isa}
+Requires: pkgconfig(json-c)
 %endif
 %if %{with DNSTAP}
-Requires:  fstrm-devel%{?_isa} protobuf-c-devel%{?_isa}
+Requires: pkgconfig(libfstrm)
+Requires: pkgconfig(libprotobuf-c)
 %endif
 %if %{with GEOIP2}
-Requires:  libmaxminddb-devel%{?_isa}
+Requires: pkgconfig(libmaxminddb)
 %endif
 
 %description devel
@@ -746,6 +745,7 @@ fi;
 %{_mandir}/man1/named-journalprint.1*
 %{_mandir}/man1/named-makejournal.1*
 %{_mandir}/man8/filter-*.8*
+%{_mandir}/man8/synthrecord*.8*
 %doc README.md named.conf.default
 %doc doc/changelog/changelog-9.*.rst*
 %doc sample/
@@ -796,6 +796,7 @@ fi;
 %{_bindir}/nsec3hash
 %{_bindir}/named-checkzone
 %{_bindir}/named-compilezone
+%{_bindir}/named-wireformat
 %if "%{_sbindir}" != "%{_bindir}"
 %{_sbindir}/named-checkzone
 %{_sbindir}/named-compilezone
@@ -817,6 +818,7 @@ fi;
 %{_mandir}/man1/nsec3hash.1*
 %{_mandir}/man1/named-checkzone.1*
 %{_mandir}/man1/named-compilezone.1*
+%{_mandir}/man1/named-wireformat.1*
 %{_sysconfdir}/trusted-key.key
 
 %files dnssec-utils

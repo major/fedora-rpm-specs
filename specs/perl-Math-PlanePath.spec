@@ -1,8 +1,7 @@
 Name:           perl-Math-PlanePath
 Version:        129
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Mathematical paths through the 2-D plane
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://user42.tuxfamily.org/math-planepath/index.html
 Source0:        https://cpan.metacpan.org/authors/id/K/KR/KRYDE/Math-PlanePath-%{version}.tar.gz
@@ -44,7 +43,7 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Data::Float)
 # Devel::FindRef not yet packaged
-BuildRequires:  perl(Devel::StackTrace)
+# Devel::StackTrace not helpfull and not used in typical case
 # Math::BigInt::Lite not yet packaged
 Requires:       perl(constant::defer) >= 5
 Requires:       perl(File::Spec)
@@ -82,15 +81,35 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license COPYING
 %doc Changes examples debian/copyright
-%{perl_vendorlib}/Math*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Math
+%dir %{perl_vendorlib}/Math/NumSeq
+%dir %{perl_vendorlib}/Math/NumSeq/OEIS
+%dir %{perl_vendorlib}/Math/NumSeq/OEIS/Catalogue
+%dir %{perl_vendorlib}/Math/NumSeq/OEIS/Catalogue/Plugin
+%{perl_vendorlib}/Math/NumSeq/OEIS/Catalogue/Plugin/PlanePath.pm
+%{perl_vendorlib}/Math/NumSeq/PlanePathCoord.pm
+%{perl_vendorlib}/Math/NumSeq/PlanePathDelta.pm
+%{perl_vendorlib}/Math/NumSeq/PlanePathN.pm
+%{perl_vendorlib}/Math/NumSeq/PlanePathTurn.pm
+%{perl_vendorlib}/Math/PlanePath
+%{perl_vendorlib}/Math/PlanePath.pm
+%{_mandir}/man3/Math::NumSeq::PlanePathCoord.*
+%{_mandir}/man3/Math::NumSeq::PlanePathDelta.*
+%{_mandir}/man3/Math::NumSeq::PlanePathN.*
+%{_mandir}/man3/Math::NumSeq::PlanePathTurn.*
+%{_mandir}/man3/Math::PlanePath.*
+%{_mandir}/man3/Math::PlanePath::*
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 129-18
+- Remove build dependency on unused Devel::StackTrace
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 129-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

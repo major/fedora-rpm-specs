@@ -1,6 +1,6 @@
 Name:       perl-Net-Amazon-S3
 Version:    0.992
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Use the Amazon Simple Storage Service (S3)
 # README.md reports the code is derived from an ADSL-licensed code.
 License:    (GPL-1.0-or-later OR Artistic-1.0-Perl) AND ADSL
@@ -71,7 +71,7 @@ BuildRequires:  perl(Time::Piece)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(URI::QueryParam)
-BuildRequires:  perl(VM::EC2::Security::CredentialCache)
+# VM::EC2::Security::CredentialCache not used at tests
 BuildRequires:  perl(XML::LibXML)
 BuildRequires:  perl(XML::LibXML::XPathContext)
 # Tests:
@@ -192,6 +192,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 0.992-4
+- Remove an unused build d dependency on VM::EC2::Security::CredentialCache
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.992-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

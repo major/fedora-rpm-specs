@@ -1,15 +1,13 @@
 %bcond_without tests
 
 Name:    libzip
-Version: 1.12
-Release: 2%{?dist}
+Version: 1.12.1
+Release: 1%{?dist}
 Summary: C library for reading, creating, and modifying zip archives
 
 License: BSD-3-Clause
 URL:     https://libzip.org/
 Source0: https://libzip.org/download/libzip-%{version}.tar.xz
-
-Patch0:  upstream.patch
 
 BuildRequires:  gcc
 BuildRequires:  zlib-devel >= 1.1.2
@@ -119,6 +117,9 @@ sed -e '/clone-fs-/d' \
 
 
 %changelog
+* Wed Oct 14 2026 Remi Collet <remi@remirepo.net> - 1.12.1-1
+- update to 1.12.1
+
 * Fri Oct  9 2026 Remi Collet <remi@remirepo.net> - 1.12-2
 - Fix regression adding and replacing files in torrentzip archives
   https://github.com/nih-at/libzip/issues/617

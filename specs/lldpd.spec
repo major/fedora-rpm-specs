@@ -1,17 +1,20 @@
 Name:     lldpd
-Version:  1.0.18
-Release:  8%{?dist}
+Version:  1.0.22
+Release:  1%{?dist}
 Summary:  ISC-licensed implementation of LLDP
 License:  ISC
 
 URL:      https://github.com/lldpd/
-Source0:  https://github.com/lldpd/lldpd/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:  https://github.com/lldpd/lldpd/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:  %{name}-fedora.service
 Source2:  %{name}-tmpfiles
 Source3:  %{name}-fedora.sysconfig
 Source4:  %{name}-systemd-sysusers.conf
-Patch1:   lldpd-configure-c99.patch
 
+# https://github.com/lldpd/lldpd/pull/805
+Patch0:   0001-include-add-us-128-to-linux-types.h.patch
+
+BuildRequires: autoconf automake libtool
 BuildRequires: check-devel
 BuildRequires: gcc
 BuildRequires: libxml2-devel
@@ -39,9 +42,11 @@ Summary: %{summary}
 
 %prep
 %autosetup -p1
+echo %{version} > .dist-version
 
 
 %build
+autoreconf -fiv
 %configure --disable-static --with-snmp --disable-silent-rules \
   --with-privsep-user=%{name} --with-privsep-group=%{name} \
   --with-privsep-chroot=%{_rundir}/%{name}/chroot \
@@ -109,11 +114,15 @@ exit 0
 %files devel
 %{_includedir}/lldp-const.h
 %{_includedir}/lldpctl.h
+%{_includedir}/lldpctl.hpp
 %{_libdir}/liblldpctl.so
 %{_libdir}/pkgconfig/lldpctl.pc
 
 
 %changelog
+* Thu Oct 08 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.22-1
+- Update to 1.0.22
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.18-8
 - Rebuilt for libxml-2.5.4
 

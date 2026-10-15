@@ -1,32 +1,25 @@
 Name:           perl-POE-Component-Client-LDAP
 Version:        0.04        
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Async LDAP access for POE
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/POE-Component-Client-LDAP            
-Source0: https://cpan.metacpan.org/authors/id/H/HA/HACHI/POE-Component-Client-LDAP-%{version}.tar.gz        
-Patch0:         POE-Component-Client-LDAP-0.04-Fix-building-on-Perl-without-dot-in-INC.patch
+Source0:        https://cpan.metacpan.org/authors/id/H/HA/HACHI/POE-Component-Client-LDAP-%{version}.tar.gz
+Patch0:         POE-Component-Client-LDAP-0.04-Do-not-install-dependencies-from-CPAN.patch
 BuildArch:      noarch
-BuildRequires:  findutils
+BuildRequires:  coreutils
+BuildRequires:  dos2unix
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::WriteAll)
+# Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Config)
 BuildRequires:  perl(Convert::ASN1)
-BuildRequires:  perl(CPAN)
-BuildRequires:  perl(Cwd)
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(ExtUtils::Manifest)
-BuildRequires:  perl(ExtUtils::MM_Unix)
-BuildRequires:  perl(File::Find)
-BuildRequires:  perl(File::Path)
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(FindBin)
-BuildRequires:  perl(Module::Build)
-BuildRequires:  perl(Net::LDAP)
+BuildRequires:  perl(Net::LDAP) >= 0.31
 BuildRequires:  perl(Net::LDAP::ASN)
 BuildRequires:  perl(Net::LDAP::Constant)
 BuildRequires:  perl(POE)
@@ -36,10 +29,9 @@ BuildRequires:  perl(POE::Wheel::Null)
 BuildRequires:  perl(POE::Wheel::ReadWrite)
 BuildRequires:  perl(POE::Wheel::SocketFactory)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-BuildRequires:  dos2unix
+# Tests:
+BuildRequires:  perl(Test::More)
 
 %description
 POE::Component::Client::LDAP->new() starts up a new POE::Session and
@@ -47,29 +39,41 @@ POE::Wheel to manage socket communications for an underlying Net::LDAP
 object, allowing it to be used in async mode properly within a POE program.
 
 %prep
-%setup -q -n POE-Component-Client-LDAP-%{version}
-%patch -P0 -p1
+%autosetup -p1 -n POE-Component-Client-LDAP-%{version}
+# Remove bundled modules
+rm -r ./inc
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 # fix line endings...
 dos2unix scripts/search.pl
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 chmod -R u+w %{buildroot}/*
 
 %check
+unset LDAP_DEBUG
 make test
 
 %files
-%doc Changes LICENSE README Todo scripts
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%license LICENSE
+%doc Changes README Todo scripts
+%dir %{perl_vendorlib}/POE
+%dir %{perl_vendorlib}/POE/Component
+%dir %{perl_vendorlib}/POE/Component/Client
+%{perl_vendorlib}/POE/Component/Client/LDAP.pm
+%dir %{perl_vendorlib}/POE/Filter
+%{perl_vendorlib}/POE/Filter/ASN1.pm
+%{_mandir}/man3/POE::Component::Client::LDAP.3*
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 0.04-54
+- Modernize a spec file
+- Unbundle Module::Install
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

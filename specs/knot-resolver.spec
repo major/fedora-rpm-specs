@@ -7,7 +7,7 @@
 
 Name:           knot-resolver
 Version:        5.7.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Caching full DNS Resolver
 
 License:        GPL-3.0-or-later
@@ -15,12 +15,7 @@ URL:            https://www.knot-resolver.cz/
 Source0:        https://secure.nic.cz/files/%{name}/%{name}-%{version}.tar.xz
 
 # LuaJIT only on these arches
-%if 0%{?rhel} == 7
-# RHEL 7 does not have aarch64 LuaJIT
-ExclusiveArch:	%{ix86} x86_64
-%else
 ExclusiveArch:	%{arm} aarch64 %{ix86} x86_64
-%endif
 
 %if 0%{GPG_CHECK}
 Source1:        https://secure.nic.cz/files/%{name}/%{name}-%{version}.tar.xz.asc
@@ -38,9 +33,8 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(cmocka)
 BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(libedit)
-BuildRequires:  pkgconfig(libknot) >= 3.1
-BuildRequires:  pkgconfig(libzscanner) >= 3.1
-BuildRequires:  (pkgconfig(libdnssec) >= 3.1 if pkgconfig(libknot) < 3.6)
+BuildRequires:  pkgconfig(libknot)
+BuildRequires:  pkgconfig(libzscanner)
 BuildRequires:  pkgconfig(libnghttp2)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libcap-ng)
@@ -380,6 +374,9 @@ fi
 %endif
 
 %changelog
+* Wed Oct 14 2026 Jan Včelák <jvcelak@fedoraproject.org> - 5.7.8-2
+- Rebuild
+
 * Tue Sep 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.7.8-1
 - New upstream version 5.7.8
 

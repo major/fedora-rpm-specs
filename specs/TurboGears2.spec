@@ -1,12 +1,11 @@
 Name:           TurboGears2
-Version:        2.5.0
-Release:        11%{?dist}
+Version:        2.5.1
+Release:        1%{?dist}
 Summary:        Next generation front-to-back web development megaframework
 
 License:        MIT
 URL:            http://www.turbogears.org
 Source0:        %pypi_source turbogears2
-Patch1:         tg2-crank-update.patch
 
 BuildArch:      noarch
 
@@ -95,6 +94,9 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 %doc README.rst
 
 %changelog
+* Tue Oct 13 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.5.1-1
+- Update to upstream.
+
 * Fri Jul 17 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.5.0-11
 - Update crank dependency (upstream commit c061a5d)
 

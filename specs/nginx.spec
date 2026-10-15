@@ -60,7 +60,7 @@
 
 Name:              nginx
 Epoch:             2
-Version:           1.30.5
+Version:           1.30.6
 Release:           %autorelease
 
 Summary:           A high performance web server and reverse proxy server
@@ -108,7 +108,11 @@ Patch4:            0005-Compile-perl-module-with-O2.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
+%if 0%{?fedora} > 42
+BuildRequires:     openpgpverify
+%else
 BuildRequires:     gnupg2
+%endif
 %if 0%{?with_gperftools}
 BuildRequires:     gperftools-devel
 %endif
@@ -272,7 +276,11 @@ BuildRequires:     zlib-devel
 %prep
 # Combine all keys from upstream into one file
 cat %{S:3} %{S:4} %{S:5} %{S:6} > %{_builddir}/%{name}.gpg
+%if 0%{?fedora} > 42
+%{openpgpverify} --keyring='%{_builddir}/%{name}.gpg' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%else
 %{gpgverify} --keyring='%{_builddir}/%{name}.gpg' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 %autosetup -p1
 cp %{SOURCE200} %{SOURCE10} %{SOURCE12} %{SOURCE18} %{SOURCE220} .
 

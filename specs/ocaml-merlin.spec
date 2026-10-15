@@ -1,11 +1,10 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%global ocamlver 505
 %global giturl  https://github.com/ocaml/merlin
 
 Name:           ocaml-merlin
-Version:        5.8.1
+Version:        5.9
 Release:        %autorelease
 Summary:        Context sensitive completion for OCaml
 
@@ -21,7 +20,7 @@ Summary:        Context sensitive completion for OCaml
 License:        MIT AND QPL-1.0 AND LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://ocaml.github.io/merlin/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}-%{ocamlver}/merlin-%{version}-%{ocamlver}.tbz
+Source:         %{giturl}/archive/v%{version}/merlin-%{version}.tar.gz
 
 # Fix the tests to work with /usr/lib64 as well as /usr/lib
 Patch:          0001-Use-usr-lib64-for-Fedora.patch
@@ -120,7 +119,7 @@ Requires:       vim-filesystem
 This package contains the Vim interface to merlin.
 
 %prep
-%autosetup -n merlin-%{version}-%{ocamlver} -p1
+%autosetup -n merlin-%{version} -p1
 
 %install -a
 # Reinstall vim files to Fedora default location

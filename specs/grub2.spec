@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	85%{?dist}
+Release:	86%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -686,6 +686,10 @@ fi
 %endif
 
 %changelog
+* Tue Oct 13 2026 Dennis Gilmore <dennis@ausil.us> - 2.12-86
+- Add patch to try try allocating in the lower 4GB first
+- Resolves: #2459477
+
 * Fri Oct 02 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-85
 - Remove grub-cc sub-package
 

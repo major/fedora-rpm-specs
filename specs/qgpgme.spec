@@ -5,8 +5,8 @@
 Name:           qgpgme
 Summary:        Qt API bindings/wrapper for GPGME
 Epoch:          1
-Version:        2.0.0
-Release:        4%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            https://gnupg.org/related_software/gpgme/
@@ -16,9 +16,7 @@ Source2:        https://gnupg.org/signature_key.asc
 
 # prevent soname .so.15 conflict for qgpgme with compat-qgpgme124-qt{5,6}
 Patch1:         qgpgme-2.0.1-soname2.patch
-# for qgpgme <= 2.0.0, rhbz#2464335
-# https://github.com/gpg/gpgmeqt/commit/150b23c105f3ea7034e6f106e60686aea4e4a13e
-Patch2:         qgpgme-2.0-fixdnparsing.patch
+Patch2:         qgpgme-2.2.0-ftbfs.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -137,6 +135,9 @@ chrpath -d %{buildroot}%{_libdir}/lib%{name}qt6.so*
 %endif
 
 %changelog
+* Tue Oct 13 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.2.0-1
+- updated to 2.2.0
+
 * Fri Jul 24 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.0.0-4
 - Fix devel subpackage dependencies
 

@@ -7,7 +7,7 @@
 Summary:	Tools for monitoring SMART capable hard disks
 Name:		smartmontools
 Version:	7.5
-Release:	10%{?dist}
+Release:	11%{?dist}
 Epoch:		1
 License:	GPL-2.0-or-later
 URL:		https://www.smartmontools.org/
@@ -24,6 +24,10 @@ Source9:	smartmontools.tmpfilesd
 
 #fedora/rhel specific
 Patch1:		smartmontools-5.38-defaultconf.patch
+
+# Assume missing Error Information log if only one entry is reported (issue#491, rhbz#2547581)
+# https://github.com/smartmontools/smartmontools/commit/c238654075fbb7460a44138c4688ecb0ccd42a88
+Patch2:	smartmontools-7.5-c2386540.patch
 
 BuildRequires: make
 BuildRequires:	gcc-c++ readline-devel ncurses-devel automake util-linux gettext
@@ -73,6 +77,7 @@ Custom SELinux policy module for smartmontools
 %prep
 %setup -q 
 %patch -P1 -p1 -b .defaultconf
+%patch -P2 -p2 -b .c2386540
 cp %{SOURCE5} .
 %if 0%{?with_selinux}
 mkdir selinux
@@ -175,6 +180,9 @@ fi
 
 
 %changelog
+* Wed Oct 14 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:7.5-11
+- assume missing Error Information log if only one entry is reported (rhbz#2547581)
+
 * Thu Oct 08 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:7.5-10
 - update smartdnotify to avoid some selinux errors (#2542445)
 

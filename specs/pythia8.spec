@@ -1,14 +1,15 @@
 Name:		pythia8
-Version:	8.3.17
-Release:	5%{?dist}
+Version:	8.3.18
+Release:	1%{?dist}
 Summary:	Pythia Event Generator for High Energy Physics
 
 License:	GPL-2.0-or-later
 URL:		https://pythia.org
-Source0:	https://pythia.org/download/pythia83/pythia8317.tgz
-#		Link plugins to the shared library
+Source0:	https://pythia.org/releases/pythia83/pythia8318.tgz
 #		Remove rpath
 Patch0:		%{name}-makefile.patch
+#		https://gitlab.com/Pythia8/releases/-/work_items/719
+Patch1:		0001-Fix-deprecation-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -62,6 +63,18 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 %description -n python3-%{name}
 This package provides the Python 3 bindings for Pythia 8.
 
+%package -n python3-%{name}+hepmc3
+Summary:	Pythia 8 Python 3 HepMC3 interface
+%py_provides	python3-%{name}+hepmc3
+Requires:	python3-%{name} = %{version}-%{release}
+%if %{?rhel}%{!?rhel:0} == 8
+#		The python dependency generator in EPEL 8 is incomplete
+Requires:	%py3_dist pyHepMC3
+%endif
+
+%description -n python3-%{name}+hepmc3
+This package provides the Python 3 HepMC3 interface for Pythia 8.
+
 %package data
 Summary:	Pythia 8 Data Files
 BuildArch:	noarch
@@ -84,8 +97,9 @@ BuildArch:	noarch
 This package provides documentation for Pythia 8.
 
 %prep
-%setup -q -n pythia8317
+%setup -q -n pythia8318
 %patch -P0 -p1
+%patch -P1 -p1
 
 # Remove DOS end-of-line
 dos2unix -k share/Pythia8/htmldoc/pythia.css \
@@ -102,8 +116,9 @@ PYTHON_CONFIG=%{__python3}-config \
 	    --with-python \
 	    --with-gzip
 
-%make_build PYTHON_EXT_SUFFIX=%{python3_ext_suffix}
+mkdir lib
 ln -s libpythia8-%{version}.so lib/libpythia8.so
+%make_build PYTHON_EXT_SUFFIX=%{python3_ext_suffix}
 
 %install
 %make_install \
@@ -128,17 +143,32 @@ rm %{buildroot}%{_datadir}/Pythia8/examples/runmains
 
 touch %{buildroot}%{_datadir}/Pythia8/examples/Makefile.inc
 
-mkdir -p %{buildroot}%{python3_sitearch}
+mkdir -p %{buildroot}%{python3_sitearch}/pythia8
+cat > %{buildroot}%{python3_sitearch}/pythia8/__init__.py << EOF
+from .pythia8 import *
+EOF
 mv %{buildroot}%{_libdir}/pythia8%{python3_ext_suffix} \
-	%{buildroot}%{python3_sitearch}
+   %{buildroot}%{python3_sitearch}/pythia8
+mv %{buildroot}%{_libdir}/python/*.py \
+   %{buildroot}%{python3_sitearch}/pythia8
+
 mkdir %{buildroot}%{python3_sitearch}/%{name}-%{version}.dist-info
-echo 'Name: %{name}' > \
-     %{buildroot}%{python3_sitearch}/%{name}-%{version}.dist-info/METADATA
-echo 'Version: %{version}' >> \
-     %{buildroot}%{python3_sitearch}/%{name}-%{version}.dist-info/METADATA
+cat > %{buildroot}%{python3_sitearch}/%{name}-%{version}.dist-info/METADATA << EOF
+Name: %{name}
+Version: %{version}
+Provides-Extra: HepMC3
+Requires-Dist: pyHepMC3; extra == 'HepMC3'
+EOF
 
 %files
 %{_libdir}/libpythia8-%{version}.so
+%{_libdir}/libpythia8amcatnloHooks.so
+%{_libdir}/libpythia8colourReconnectionHooks.so
+%{_libdir}/libpythia8jetMatchingHooks.so
+%{_libdir}/libpythia8lhefHooks.so
+%{_libdir}/libpythia8powhegHooks.so
+%{_libdir}/libpythia8resonanceDecayFilterHooks.so
+%{_libdir}/libpythia8setLHEDecayProductHooks.so
 %doc AUTHORS GUIDELINES
 %license COPYING
 
@@ -155,8 +185,18 @@ echo 'Version: %{version}' >> \
 %{_libdir}/libpythia8lhapdf6.so
 
 %files -n python3-%{name}
+%dir %{python3_sitearch}/%{name}
+%{python3_sitearch}/%{name}/pythia8%{python3_ext_suffix}
+%{python3_sitearch}/%{name}/__init__.py
+%{python3_sitearch}/%{name}/Vistas.py
+%{python3_sitearch}/%{name}/__pycache__/__init__.*
+%{python3_sitearch}/%{name}/__pycache__/Vistas.*
 %{python3_sitearch}/%{name}-%{version}.dist-info
-%{python3_sitearch}/pythia8.*.so
+
+%files -n python3-%{name}+hepmc3
+%{python3_sitearch}/%{name}/HepMC3.py
+%{python3_sitearch}/%{name}/__pycache__/HepMC3.*
+%ghost %{python3_sitearch}/%{name}-%{version}.dist-info
 
 %files data
 %dir %{_datadir}/Pythia8
@@ -177,6 +217,9 @@ echo 'Version: %{version}' >> \
 %license COPYING
 
 %changelog
+* Wed Oct 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.18-1
+- Update to version 8.3.18
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 8.3.17-5
 - Rebuilt for Python 3.15.0b4 ABI change
 
@@ -189,7 +232,7 @@ echo 'Version: %{version}' >> \
 * Tue Apr 07 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.17-2
 - Add HepMC3 interface package
 
-* Thu Mar 12 2026 Mattias Ellert  <mattias.ellert@physics.uu.se> - 8.3.17-1
+* Thu Mar 12 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.17-1
 - Update to version 8.3.17
 - Rebuild for LHAPDF 6.5.6
 

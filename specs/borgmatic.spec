@@ -1,11 +1,13 @@
 Name:           borgmatic
-Version:        2.1.9
+Version:        2.1.10
 Release:        %autorelease
 Summary:        Simple Python wrapper script for borgbackup
 
 License:        GPL-3.0-or-later
 URL:            https://torsion.org/borgmatic
 Source0:        https://projects.torsion.org/borgmatic-collective/borgmatic/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Hotfix for rhbz#2549351, cherry picked onto 2.1.10
+Patch0:         https://projects.torsion.org/borgmatic-collective/borgmatic/commit/f46c509cf0e3eb4ede4ddb9c2ca5a21a7b8284dc.patch
 
 BuildArch:      noarch
 
@@ -26,11 +28,13 @@ borgmatic (formerly atticmatic) is a simple Python wrapper script for
 the Borg backup software that initiates a backup, prunes any old backups
 according to a retention policy, and validates backups for consistency.
 
+%pyproject_extras_subpkg -n %{name} Apprise,browse
+
 %generate_buildrequires
 %pyproject_buildrequires
 
 %prep
-%autosetup -n %{name}
+%autosetup -n %{name} -p1
 
 
 %build

@@ -1,39 +1,36 @@
 Name:           perl-Module-Install-Copyright
 Version:        0.009
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Package a COPYRIGHT file with a distribution
-# CONTRIBUTING: CC-BY-SA
-# COPYRIGHT:    Public Domain
-# Other file:   GPL+ or Artistic
-# Automatically converted from old format: (GPL+ or Artistic) and CC-BY-SA and Public Domain - review is highly recommended.
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Callaway-CC-BY-SA AND LicenseRef-Callaway-Public-Domain
+# CONTRIBUTING: CC-BY-SA-2.0-UK
+# COPYRIGHT:    LicenseRef-Fedora-Public-Domain
+# Other file:   GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND CC-BY-SA-2.0-UK AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/Module-Install-Copyright
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/Module-Install-Copyright-%{version}.tar.gz
 # To boostrap this package without bundling
 Patch0:         Module-Install-Copyright-0.009-Build-without-bundled-Module-Package-modules.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(inc::Module::Package)
-BuildRequires:  sed
 # Run-time:
 BuildRequires:  perl(:VERSION) >= 5.8.0
 BuildRequires:  perl(base)
-BuildRequires:  perl(constant)
-BuildRequires:  perl(List::MoreUtils)
-BuildRequires:  perl(Module::Install::Admin::RDF) >= 0.003
+# constant not used at tests
+# List::MoreUtils not used at tests
+# Module::Install::Admin::RDF 0.003 not used at tests
 BuildRequires:  perl(Module::Install::Base)
-BuildRequires:  perl(Module::Install::Contributors) >= 0.001
-BuildRequires:  perl(Module::Manifest)
-BuildRequires:  perl(MooX::Struct)
-BuildRequires:  perl(Path::Class)
-BuildRequires:  perl(RDF::Trine)
-BuildRequires:  perl(RDF::Trine::Namespace)
-BuildRequires:  perl(Software::License)
-BuildRequires:  perl(Software::LicenseUtils)
+# Module::Install::Contributors 0.001 not used at tests
+# Module::Manifest not used at tests
+# MooX::Struct not used at tests
+# Path::Class not used at tests
+# RDF::Trine not used at tests
+# RDF::Trine::Namespace not used at tests
+# Software::License not used at tests
+# Software::LicenseUtils not used at tests
 BuildRequires:  perl(strict)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
@@ -53,15 +50,14 @@ copyright file format.
 # the inc/Module/Package/Dist/RDF.pm is not good for anything so the patch
 # makes not to load it.
 rm -rf ./inc
-sed -i -e '/^inc/d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -71,10 +67,22 @@ make test
 %license LICENSE
 %doc Changes CONTRIBUTING COPYRIGHT CREDITS README
 %doc examples
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Module
+%dir %{perl_vendorlib}/Module/Install
+%dir %{perl_vendorlib}/Module/Install/Admin
+%{perl_vendorlib}/Module/Install/Admin/Copyright.pm
+%{perl_vendorlib}/Module/Install/Admin/Credits.pm
+%{perl_vendorlib}/Module/Install/Copyright.pm
+%{perl_vendorlib}/Module/Install/Credits.pm
+%{_mandir}/man3/Module::Install::Admin::Copyright.*
+%{_mandir}/man3/Module::Install::Admin::Credits.*
+%{_mandir}/man3/Module::Install::Copyright.*
+%{_mandir}/man3/Module::Install::Credits.*
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 0.009-30
+- Remove unused build-time dependencies
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

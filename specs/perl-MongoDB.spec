@@ -7,7 +7,7 @@
 
 Name:           perl-MongoDB
 Version:        2.2.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        MongoDB driver for Perl
 ## Installed:
 # lib/MongoDB/_Link.pm:             Apache-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
@@ -113,11 +113,9 @@ BuildRequires:  perl(utf8)
 # Optional tests:
 # CPAN::Meta not useful
 BuildRequires:  perl(Cpanel::JSON::XS)
-BuildRequires:  perl(JSON::Tiny)
 BuildRequires:  perl(Mojo::JSON)
 BuildRequires:  perl(Test::Harness) >= 3.31
 BuildRequires:  perl(Time::Moment) >= 0.22
-BuildRequires:  perl(Types::Serialiser)
 Suggests:       perl(Authen::SASL)
 Requires:       perl(Authen::SASL::SASLprep)
 Requires:       perl(Authen::SCRAM::Client) >= 0.011
@@ -193,6 +191,9 @@ exit $test_rc
 %{_mandir}/man3/MongoDB::*
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 2.2.2-18
+- Remove unused build dependencies on JSON::Tiny and Types::Serialiser
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

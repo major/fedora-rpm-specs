@@ -1,7 +1,7 @@
 %global cpan_name MogileFS-Server
 Name:       perl-%{cpan_name}
 Version:    2.73
-Release:    29%{?dist}
+Release:    30%{?dist}
 Summary:    Server part of the MogileFS distributed file system
 # LICENSE:      GPL-1.0-or-later OR Artistic-1.0-Perl
 # mogautomount: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -82,6 +82,9 @@ BuildRequires:  perl(Sys::Syslog)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
+# Optional run-time:
+# Many tests would be skipped without perl-MogileFS-Utils
+BuildRequires:  perl-MogileFS-Utils
 # Tests:
 # net-tools for netstat program
 # net-tools not used because t/mogstored-shutdown.t is removed
@@ -90,7 +93,6 @@ BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(MogileFS::Admin)
 BuildRequires:  perl(MogileFS::Client)
-BuildRequires:  perl-MogileFS-Utils
 Provides:       perl-mogilefs-server = %{version}-%{release}
 Obsoletes:      perl-mogilefs-server < 2.37
 
@@ -105,6 +107,8 @@ Server part of the MogileFS distributed file system.
 Summary:        MogileFS tracker daemon
 Requires:       mogilefsd-storage = %{version}-%{release}
 Recommends:     mogilefsd-storage-mysql = %{version}-%{release}
+# MogileFS::Test can execute programs from perl-MogileFS-Utils
+Recommends:     perl-MogileFS-Utils
 Requires(pre):      glibc-common
 %if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 Requires(pre):      shadow-utils
@@ -350,6 +354,9 @@ exit 0
 %{perl_vendorlib}/Mogstored/HTTPServer/Perlbal.pm
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 2.73-30
+- Recommend perl-MogileFS-Utils from mogilefsd
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.73-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

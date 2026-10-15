@@ -1,10 +1,10 @@
 %bcond check 1
 
-%global commit 840d11c9cb97b1485a60fe77fdbca6537b508eda
+%global commit 18fb62e992929c2f55b7f1dbd207d5d1e9811de4
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 
 Name:           aw-server-rust
-Version:        0.14.0^20260829.git%{short_commit}
+Version:        0.14.0^20261014.git%{short_commit}
 Release:        %autorelease
 Summary:        A re-implementation of aw-server in Rust
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
@@ -35,20 +35,21 @@ Source:         %{url}/archive/%{commit}/%{name}-%{short_commit}.tar.gz
 
 Patch0:         0001-Remove-vendored-openssl.patch
 Patch1:         0002-Remove-Android-dependencies.patch
+Patch2:         0003-Remove-Windows-dependencies.patch
 # jemallocator will not be packaged for Fedora, so remove it
-Patch2:         0003-Remove-jemallocator.patch
+Patch3:         0004-Remove-jemallocator.patch
 # switch to dependency versions available in Fedora
-Patch3:         0004-Fix-fancy-regex-dependency-to-the-one-used-in-Fedora.patch
+Patch4:         0005-Fix-fancy-regex-dependency-to-the-one-used-in-Fedora.patch
 # switch to dependency versions available in Fedora
-Patch4:         0005-Fix-lru-dependency-to-the-one-used-in-Fedora.patch
+Patch5:         0006-Fix-lru-dependency-to-the-one-used-in-Fedora.patch
 # switch to dependency versions available in Fedora
-Patch5:         0006-Fix-rusqlite-dependency-to-the-one-used-in-Fedora.patch
+Patch6:         0007-Fix-rusqlite-dependency-to-the-one-used-in-Fedora.patch
 # switch to dependency versions available in Fedora
-Patch6:         0007-Fix-proptest-dependency-to-the-one-used-in-Fedora.patch
+Patch7:         0008-Fix-proptest-dependency-to-the-one-used-in-Fedora.patch
 # drop an unused, benchmark-only criterion dev-dependency to speed up builds
-Patch7:         0008-Remove-criterion.patch
+Patch8:         0009-Remove-criterion.patch
 # https://github.com/ActivityWatch/aw-server-rust/pull/545
-Patch8:         0009-Allow-dirs-6.patch
+Patch9:         0010-Allow-dirs-6.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

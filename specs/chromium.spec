@@ -282,7 +282,7 @@
 %endif
 
 Name:	chromium
-Version: 155.0.8059.39
+Version: 155.0.8059.79
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1988,6 +1988,46 @@ fi
 %endif
 
 %changelog
+* Wed Oct 14 2026 Than Ngo <than@redhat.com> - 155.0.8059.79-1
+- Update to 155.0.8059.39, includes 37 security fixes
+  * CVE-2026-110136: Use after free in PDF
+  * CVE-2026-110137: Use after free in WebRTC
+  * CVE-2026-110138: Use after free in ShapeDetection
+  * CVE-2026-110139: Use after free in Media
+  * CVE-2026-110140: Type confusion in V8
+  * CVE-2026-110141: Observable discrepancy in Media
+  * CVE-2026-110142: Use after free in FileSystem
+  * CVE-2026-110143: Use of uninitialized variable in ThirdParty lmza_sdk
+  * CVE-2026-110144: Incorrect authorization in Mojo
+  * CVE-2026-110145: Use after free in Passwords
+  * CVE-2026-110146: Information leak in Passwords
+  * CVE-2026-110147: Use after free in PDF
+  * CVE-2026-110148: Use after free in SVG
+  * CVE-2026-110149: Use after free in Browser
+  * CVE-2026-110150: Privilege elevation in Installer
+  * CVE-2026-110151: Use after free in Media
+  * CVE-2026-110152: Buffer overflow in ANGLE
+  * CVE-2026-110153: Use after free in Media
+  * CVE-2026-110154: Use after free in Canvas
+  * CVE-2026-110155: Buffer overflow in PDFium
+  * CVE-2026-110156: Incorrect reference resolution in Extensions
+  * CVE-2026-110157: Use after free in SVG
+  * CVE-2026-110158: Use after free in Passwords
+  * CVE-2026-110159: Incorrect authorization in Updater
+  * CVE-2026-110160: Missing authorization in ReadingMode
+  * CVE-2026-110161: Use after free in Network
+  * CVE-2026-110162: Use after free in Desktop
+  * CVE-2026-110163: Use after free in DOM
+  * CVE-2026-110164: Use after free in DOM
+  * CVE-2026-110165: Use after free in Core
+  * CVE-2026-110166: Buffer overflow in Animation
+  * CVE-2026-110167: Use after free in Media
+  * CVE-2026-110168: Use after free in V8
+  * CVE-2026-110169: Use after free in V8
+  * CVE-2026-110170: Use after free in Bindings
+  * CVE-2026-110171: Use after free in Media
+  * CVE-2026-110172: Use after free in Media
+
 * Sun Oct 11 2026 Than Ngo <than@redhat.com> - 155.0.8059.39-1
 - Update to 155.0.8059.39, includes 247 security fixes 
   * CVE-2026-102322: Incorrect Authorization in SiteIsolation

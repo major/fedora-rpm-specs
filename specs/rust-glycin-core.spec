@@ -5,7 +5,7 @@
 %global crate glycin-core
 
 Name:           rust-glycin-core
-Version:        4.0.0
+Version:        4.0.2
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 

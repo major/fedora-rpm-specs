@@ -1,14 +1,13 @@
-%global forgeurl https://github.com/intel/openlldp
-%global version0 1.2.0
-%forgemeta
+%global projname openlldp
+%global forgeurl https://github.com/intel/%{projname}
 
 Name:               lldpad
-Version:            %forgeversion
+Version:            1.2.0
 Release:            %autorelease
 Summary:            Link Layer Discovery Protocol (LLDP) Agent
 License:            GPL-2.0-only
-URL:                %forgeurl
-Source0:            %forgesource
+URL:                %{forgeurl}
+Source0:            %{forgeurl}/archive/v%{version}/%{projname}-%{version}.tar.gz
 
 BuildRequires:      automake autoconf libtool
 BuildRequires:      flex >= 2.5.33
@@ -43,7 +42,7 @@ The %{name}-devel package contains header files for developing applications
 that use %{name}.
 
 %prep
-%forgeautosetup -p1
+%autosetup -n %{projname}-%{version} -p1
 
 %build
 ./bootstrap.sh

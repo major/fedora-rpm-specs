@@ -12,7 +12,7 @@
 %global debug_package %{nil}
 
 Name:           python-nanobind
-Version:        2.12.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Tiny and efficient C++/Python bindings
 
@@ -20,6 +20,10 @@ License:        BSD-3-Clause
 URL:            https://nanobind.readthedocs.org/
 VCS:            git:%{nanobind_giturl}.git
 Source0:        %{nanobind_giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Fixes i686 build.
+# https://github.com/wjakob/nanobind/pull/1453
+Patch:          1453.patch
 
 BuildRequires:  clang
 BuildRequires:  cmake
@@ -49,7 +53,7 @@ Obsoletes:      python%{python3_pkgversion}-nanobind-devel < 2.6.1-4
 
 
 %prep
-%autosetup -n %{nanobind_src_dir}
+%autosetup -p1 -n %{nanobind_src_dir}
 %py3_shebang_fix src/stubgen.py
 
 

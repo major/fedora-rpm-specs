@@ -1,12 +1,15 @@
-%global upstream_version 6.7.8-unstable
+%global forgeurl https://github.com/linuxmint/nemo
+%global tagver   6.7.9
+%global tag      %{tagver}-unstable
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.7.8^unstable
-Release:        %autorelease
+Version:        %{tagver}^unstable
+Release:        %{autorelease}
+%{forgemeta}
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
-URL:            https://github.com/linuxmint/%{name}
-Source0:        %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 Source1:        nemo-fedora.gschema.override
 
 ExcludeArch:   %{ix86}
@@ -99,7 +102,7 @@ This package provides libraries and header files needed
 for developing nemo extensions.
 
 %prep
-%autosetup -p1 -n %{name}-%{upstream_version}
+%forgeautosetup -p1
 
 %install -a
 install -D -m 0644 %{SOURCE1} %{buildroot}/%{_datadir}/glib-2.0/schemas/nemo-fedora.gschema.override

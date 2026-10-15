@@ -6,7 +6,7 @@
 %global crate gufo-exif
 
 Name:           rust-gufo-exif
-Version:        0.5.0
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Read and manipulate Exif metadata
 

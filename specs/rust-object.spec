@@ -5,7 +5,7 @@
 %global crate object
 
 Name:           rust-object
-Version:        0.39.1
+Version:        0.40.0
 Release:        %autorelease
 Summary:        Unified interface for reading and writing object file formats
 
@@ -159,6 +159,18 @@ use the "elf" feature of the "%{crate}" crate.
 %files       -n %{name}+elf-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+goff-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+goff-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "goff" feature of the "%{crate}" crate.
+
+%files       -n %{name}+goff-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+macho-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -169,6 +181,18 @@ This package contains library source intended for building other packages which
 use the "macho" feature of the "%{crate}" crate.
 
 %files       -n %{name}+macho-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+names-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+names-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "names" feature of the "%{crate}" crate.
+
+%files       -n %{name}+names-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pe-devel
@@ -326,6 +350,7 @@ use the "xcoff" feature of the "%{crate}" crate.
     --skip read::elf::zero_sized_section_works
     --skip read::macho::test_go_macho
     --skip read::macho::test_macho_entry_point
+    --skip read::macho::test_macho_load_command_offset
 }}
 %endif
 

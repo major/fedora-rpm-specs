@@ -1,7 +1,5 @@
 # Add support for DNS resolution
 %bcond_without perl_POE_Component_IRC_enables_dns
-# Enable IPv6 support
-%bcond_without perl_POE_Component_IRC_enables_ipv6
 # Enable SSL support
 %bcond_without perl_POE_Component_IRC_enables_ssl
 # Enable zlib compression
@@ -10,7 +8,7 @@
 Name:           perl-POE-Component-IRC
 Summary:        A POE component for building IRC clients
 Version:        6.95
-Release:        4%{?dist}
+Release:        5%{?dist}
 # LICENSE:      (GPL-1.0-or-later OR Artistic-1.0-Perl) declaration,
 #               GPL-1.0 text and Artistic-1.0 text
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -85,11 +83,7 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Net::Netmask)
-BuildRequires:  perl(POE::Component::Client::Ident::Agent)
 # TODO: Unbundle POE::Component::Server::IRC
-%if %{with perl_POE_Component_IRC_enables_ipv6}
-BuildRequires:  perl(Socket::GetAddrInfo)
-%endif
 BuildRequires:  perl(Test::Differences) >= 0.61
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(vars)
@@ -149,9 +143,6 @@ Requires:       perl(POE::Filter::Zlib::Stream) >= 1.96
 %endif
 Requires:       perl(POE::Wheel::ReadWrite)
 Requires:       perl(POE::Wheel::SocketFactory)
-%if %{with perl_POE_Component_IRC_enables_ipv6}
-Requires:       perl(Socket::GetAddrInfo)
-%endif
 Requires:       perl(Test::Differences) >= 0.61
 Requires:       perl(Test::More) >= 0.47
 Provides:       bundled(POE-Component-Server-IRC) = 1.52
@@ -221,6 +212,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 6.95-5
+- Remove unused dependencies on POE::Component::Client::Ident::Agent and
+  Socket::GetAddrInfo
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.95-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

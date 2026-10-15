@@ -1,7 +1,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           ansible-collection-dellemc-openmanage
-Version:        10.0.2
+Version:        11.0.0
 Release:        %autorelease
 Summary:        Dell OpenManage collection for Ansible
 
@@ -45,8 +45,8 @@ Requires:       isomd5sum
 Requires:       wget
 
 # From requirements.txt
-Requires:       python3dist(omsdk)
 Requires:       python3dist(netaddr)
+Requires:       python3dist(defusedxml)
 
 %description
 %{summary}.
@@ -64,6 +64,7 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 # Remove empty files
 find . -type f -empty ! -name __init__.py -print -delete
 
+%pyproject_patch_dependency defusedxml:drop_lower
 
 %if %{with tests}
 %generate_buildrequires

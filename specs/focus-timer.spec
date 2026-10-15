@@ -56,6 +56,7 @@ Requires:       hicolor-icon-theme
 Requires:       dbus-common
 # For /usr/share/knotifications6 ownership
 Requires:       kf6-knotifications
+Recommends:     (gnome-shell-extension-focus-timer if gnome-shell)
 
 # Renamed upstream from gnome-pomodoro.
 # Drop these in F47
