@@ -1,13 +1,17 @@
 Name: cfitsio
 # When bumping this, you MUST also rebuild kst
 # kst-fits depends on the exact cfitsio version
-Version: 4.6.4
+Version: 4.7.0
 Release: %autorelease
 Summary: Library for manipulating FITS data files
 
 License: CFITSIO
 URL: https://heasarc.gsfc.nasa.gov/fitsio/
-Source: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-%{version}.tar.gz
+Source0: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-%{version}.tar.gz
+Source1: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/docs/quick.pdf
+Source2: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/docs/cfitsio.pdf
+Source3: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/docs/fitsio.pdf
+Source4: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/docs/fpackguide.pdf
 # Remove soname version check
 Patch: cfitsio-noversioncheck.patch
 
@@ -61,10 +65,11 @@ This package contains utility programas provided by CFITSIO
 
 %prep
 %autosetup -p1
+cp -a %SOURCE1 %SOURCE2 %SOURCE3 %SOURCE4 docs/
 
 %build
 %configure --enable-reentrant --with-bzip2 --includedir=%{_includedir}/%{name}
-make %{?_smp_mflags}
+%make_build
 
 %check
 make testprog
@@ -73,7 +78,7 @@ cmp -s testprog.lis testprog.out
 cmp -s testprog.fit testprog.std
 
 %install
-make DESTDIR=%{buildroot} install
+%make_install
 #
 rm %{buildroot}/%{_bindir}/cookbook
 rm %{buildroot}/%{_bindir}/smem
@@ -97,7 +102,7 @@ rm %{buildroot}/%{_bindir}/speed
 %{_libdir}/libcfitsio.a
 
 %files docs
-%doc docs/fitsio.pdf docs/cfitsio.pdf
+%doc docs/fitsio.pdf docs/cfitsio.pdf docs/quick.pdf
 %license licenses/License.txt
 
 %files utils

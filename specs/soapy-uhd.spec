@@ -1,6 +1,6 @@
 Name:		soapy-uhd
 Version:	0.4.1
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Soapy SDR plugins for UHD supported SDR devices
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
@@ -48,6 +48,9 @@ Soapy SDR plugins for UHD supported SDR devices.
 %{_libdir}/uhd/modules/*.so
 
 %changelog
+* Thu Oct 15 2026 Richard Shaw <hobbes1069@gmail.com> - 0.4.1-26
+- Rebuild for SoapySDR.
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

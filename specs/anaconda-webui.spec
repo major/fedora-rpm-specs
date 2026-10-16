@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        89
+Version:        90
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -162,6 +162,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Oct 15 2026 Katerina Koukiou <kkoukiou@redhat.com> - 90-1
+- po: Update from Fedora Weblate
+
 * Mon Oct 12 2026 Packit <hello@packit.dev> - 89-1
 - packaging: Rebuild our bundle during Fedora package build
 

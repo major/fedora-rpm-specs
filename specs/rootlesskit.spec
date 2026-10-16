@@ -7,7 +7,7 @@
 
 # https://github.com/rootless-containers/rootlesskit
 %global goipath         github.com/rootless-containers/rootlesskit/v3
-Version:                3.2.0
+Version:                3.3.0
 
 %gometa -L -f
 
@@ -58,11 +58,11 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
     -s "TestSourceIPTransparentBackend"
     %dnl test(s) fail with go test timeout error
     -s "TestBuiltIn/Test(TCP|UDP)4?"
+    %dnl fatal error: unsafe.Slice: len out of range - panic during panic
+    %dnl see https://kojipkgs.fedoraproject.org//work/tasks/8431/151288431/build.log
+    %[ "%{_arch}" == "ppc64le" ? "-d pkg/parent" : "" ]
 }
 %gocheck2 -F %{test_ignores}
-
-# TestSourceIPTransparentBackend - time out after 10m0s
-# %%gotest ./... -skip 'TestBuiltIn' -skip 'TestSourceIPTransparentBackend' -skip 'TestBuiltIn/TestTCP'
 %endif
 
 %files -f %{go_vendor_license_filelist}

@@ -34,7 +34,12 @@ BuildRequires:  pkgconfig(webkitgtk-6.0)
 
 Obsoletes:      sushi-devel < 0.5.1
 
+# gi:// imports
+Requires: glycin-gtk4-libs
 Requires: gtksourceview5
+Requires: libadwaita
+Requires: libsoup3
+Requires: papers-libs
 Recommends: webkitgtk6.0
 
 #Description from upstream's README.

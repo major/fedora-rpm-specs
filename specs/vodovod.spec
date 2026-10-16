@@ -1,30 +1,44 @@
 Name:		vodovod
 Version:	1.10r22
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	A pipe connecting game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://home.gna.org/vodovod/
+# Upstream is gone: gna.org was shut down in 2017, so both the homepage in
+# URL above and the download/svn locations below are dead.
 #Source:	http://download.gna.org/vodovod/%%{name}-%%{version}-src.tar.gz
 # svn export -r 22 svn://svn.gna.org/svn/vodovod/trunk vodovod
 # tar czvf vodovod-1.10r22-src.tar.gz vodovod
 Source:		%{name}-%{version}-src.tar.gz
+Source1:	%{name}.desktop
+# update locales
 Patch0:		vodovod-1.10r22-locales.patch
+# fix bug #1037377
 Patch1:		vodovod-1.10r22-format-string.patch
+# store the highscore per user instead of in a shared setgid-writable file
+Patch2:		0001-move-the-highscore-to-home.patch
+# clip drawing to the surface, the language menu reaches past the screen
+Patch3:		vodovod-1.10r22-bounds.patch
+# don't use translation for key bindings
+Patch4:		vodovod-1.10r22-config-keys.patch
 
-BuildRequires: make
-BuildRequires:  gcc-c++
-BuildRequires:	desktop-file-utils SDL-devel SDL_image-devel SDL_mixer-devel
-BuildRequires:	SDL_ttf-devel gettext ImageMagick
+BuildRequires:	make
+BuildRequires:	gcc-c++
+BuildRequires:	desktop-file-utils
+BuildRequires:	gettext
+BuildRequires:	ImageMagick
+BuildRequires:	SDL-devel
+BuildRequires:	SDL_image-devel
+BuildRequires:	SDL_mixer-devel
+BuildRequires:	SDL_ttf-devel
 
 # Automate finding font file paths
 %global fonts font(dejavusansmono)
 Requires:	%{fonts}
-BuildRequires:  fontconfig %{fonts}
-
-Requires(post): coreutils
-Requires(postun): coreutils
+BuildRequires:	fontconfig
+BuildRequires:	%{fonts}
 
 %description
 A free cross-platform pipe connecting game. You get a limited number
@@ -43,60 +57,47 @@ aby viedli vodu z domčeka v hornej časti obrazovky do nádrže v dolnej časti
 
 
 %prep
-#%%setup -q -n %%{name}-%%{version}-src
-%setup -q -n %{name}
-# update locales
-%patch -P0 -p1
-# fix bug #1037377
-%patch -P1 -p1
+%autosetup -n %{name} -p1
 
 %build
-make PREFIX=%{_prefix} HIGHSCOREDIR=%{_localstatedir}/games \
-	%{?_smp_mflags} CXX="%{__cxx}" CXXFLAGS="%{optflags}"
-# .desktop file 
-cat <<EOF > %{name}.desktop
-[Desktop Entry]
-Name=Vodovod
-GenericName=Logic Game
-GenericName[cs]=Logická hra
-GenericName[sk]=Logická hra
-Comment=A pipe connecting game
-Comment[cs]=Propojování potrubí
-Comment[sk]=Spojovanie potrubia
-Exec=vodovod
-Icon=vodovod
-Terminal=false
-Type=Application
-Categories=Game;LogicGame;
-EOF
-
+sed -i 's/$(CXX) `sdl-config --libs`/$(CXX) $(LDFLAGS) `sdl-config --libs`/' Makefile
+%make_build PREFIX=%{_prefix} CXX="%{__cxx}" CXXFLAGS="%{optflags}"
 
 %install
-make PREFIX=%{_prefix} DESTDIR=%{buildroot} install
+%make_install PREFIX=%{_prefix}
 # replace the bundled font usage with the one provided by font package
-ln -f -s $(fc-match -f "%{file}" "dejavusansmono") \
-        %{buildroot}%{_datadir}/%{name}/data/font1.ttf
-# since the game sources do not come with the hiscore file, we have to create it
-# this will result in empty hiscore table, but it is not such a big deal
-mkdir -p %{buildroot}%{_localstatedir}/games
-touch %{buildroot}%{_localstatedir}/games/%{name}.sco
+ln -f -s $(realpath -ms --relative-to=%{_datadir}/%{name}/data \
+	$(fc-match -f "%{file}" "dejavusansmono")) \
+	%{buildroot}%{_datadir}/%{name}/data/font1.ttf
 # add icon and .desktop file
 mkdir -p -m 0755 %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
-convert data/abicon.bmp %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/vodovod.xpm
-desktop-file-install  \
-	--dir=%{buildroot}%{_datadir}/applications %{name}.desktop
+magick data/abicon.bmp %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/vodovod.xpm
+desktop-file-install \
+	--dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %find_lang %{name}
 
 %files -f %{name}.lang
-%doc CHANGES COPYING html
-%attr(2755,root,games) %{_bindir}/%{name}
+%license COPYING
+%doc CHANGES html
+%{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.xpm
-%config(noreplace) %attr (0664,root,games) %{_localstatedir}/games/%{name}.sco
 
 
 %changelog
+* Thu Oct 15 2026 Karel Volný <kvolny@redhat.com> - 1.10r22-31
+- move highscores to the user's home and drop the setgid bit
+  (patch by Lukas Nykryn) (rhbz#2421810)
+- drop the now unused shared highscore file and the games group
+- ship the .desktop file as Source1 instead of generating it in %%build
+- spec cleanup
+- add missing LDFLAGS
+- some fixes in locales patch
+- fix language menu overflow and crash
+- fix language config saving
+- fix key bindings configuration
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10r22-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

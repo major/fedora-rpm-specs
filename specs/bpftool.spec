@@ -1,6 +1,6 @@
 Name:           bpftool
 Version:        7.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Inspection and simple manipulation of eBPF programs and maps
 
 %global libname libbpf
@@ -9,6 +9,11 @@ Summary:        Inspection and simple manipulation of eBPF programs and maps
 License:        GPL-2.0-only OR BSD-2-Clause
 URL:            https://github.com/libbpf/bpftool
 Source:         https://github.com/libbpf/bpftool/releases/download/v%{version}/%{sources}.tar.gz
+
+# https://github.com/libbpf/libbpf/pull/982, included in libbpf-1.8.0
+Patch:          0001-libbpf-include-add-128-bit-integer-types.patch
+# https://github.com/libbpf/bpftool/pull/297
+Patch:          0002-include-add-u128-to-linux-types.h.patch
 
 ExcludeArch:    %{ix86}
 
@@ -46,6 +51,9 @@ mv %{buildroot}%{_prefix}/sbin %{buildroot}%{_bindir}
 %{_mandir}/man8/bpftool*.8*
 
 %changelog
+* Tue Oct 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.7.0-4
+- Rebuilt for LLVM 23
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

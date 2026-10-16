@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.20.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -20,6 +20,11 @@ Source7: passwd.pamd
 %global _ld_strict_symbol_defs 1
 
 ### Patches ###
+# https://github.com/shadow-maint/shadow/pull/1772
+# https://bugzilla.redhat.com/show_bug.cgi?id=2548931
+# Force C locale before regcomp() and regexec()
+# Fixes bogus invalid hash results in Turkish
+Patch: 0001-Force-C-locale-before-regcomp-regexec.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -264,6 +269,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Thu Oct 15 2026 Adam Williamson <adamwill@fedoraproject.org> - 2:4.20.0-2
+- Backport PR #1772 to fix bogus hash check failures in Turkish (#2548931)
+
 * Wed Jul 29 2026 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.20.0-1
 - Rebase to version 4.20.0
 

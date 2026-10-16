@@ -15,6 +15,8 @@ URL:            https://crates.io/crates/libbpf-sys
 Source:         %{crates_source %{crate} %{crate_version}}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          libbpf-sys-fix-metadata-auto.diff
+# https://bugzilla.redhat.com/show_bug.cgi?id=2527141
+Patch:          0001-libbpf-include-add-128-bit-integer-types.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  elfutils-libelf-devel

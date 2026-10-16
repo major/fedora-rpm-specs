@@ -1,62 +1,145 @@
 Name:           perl-SVK
 Version:        2.2.3
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        A Distributed Version Control System
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
-License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+# ARTISTIC:             Artistic-1.0-Perl text
+# bin/svk:              GPL-2.0-only OR Artistic-1.0-Perl
+# COPYING:              GPL-2.0 text
+# lib/SVK/Accessor.pm:  GPL-2.0-only OR Artistic-1.0-Perl
+## Not in any binary package
+# inc/Module/Install/Metadata.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
+## Not used and not in any binary package
+# contrib/update-copyright.pl:      GPL-1.0-or-later OR Artistic-1.0-Perl
+# utils/vc-svk.el:      GPL-2.0-or-later
+License:        GPL-2.0-only
+SourceLicense:  %{license} AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later
 URL:            https://metacpan.org/release/SVK
 Source0:        https://cpan.metacpan.org/modules/by-authors/id/C/CL/CLKAO/SVK-v%{version}.tar.gz
-Patch0:         SVK-v2.2.3-Fix-building-on-Perl-without-dot-in-INC.patch
 # Fix subversion version check, CPAN RT#125150
-Patch1:         SVK-v2.2.3-Fix-SVN-Core-version-check.patch
+Patch0:         SVK-v2.2.3-Fix-SVN-Core-version-check.patch
+# Do not try to install dependencies from CPAN at build time
+Patch1:         SVK-v2.2.3-Disable-installing-dependencies-from-CPAN.patch
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.42
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Algorithm::Annotate)
-BuildRequires:  perl(Algorithm::Diff) >= 1.19
-BuildRequires:  perl(App::CLI)
-BuildRequires:  perl(Compress::Zlib)
-BuildRequires:  perl(Class::Accessor::Fast)
-BuildRequires:  perl(Class::Autouse) >= 1.15
-BuildRequires:  perl(Class::Data::Inheritable)
-BuildRequires:  perl(Data::Hierarchy) >= 0.30
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(File::Type)
-BuildRequires:  perl(File::MMagic)
-BuildRequires:  perl(FreezeThaw)
-BuildRequires:  perl(IO::Digest)
-BuildRequires:  perl(List::MoreUtils)
-BuildRequires:  perl(Locale::Maketext::Lexicon)
-BuildRequires:  perl(Log::Log4perl)
-BuildRequires:  perl(Path::Class) >= 0.16
-BuildRequires:  perl(PerlIO::eol) >= 0.13
-BuildRequires:  perl(PerlIO::via::dynamic) >= 0.11
-BuildRequires:  perl(PerlIO::via::symlink) >= 0.02
-BuildRequires:  perl(Pod::Escapes)
-BuildRequires:  perl(Pod::Simple)
-#BuildRequires:  perl(SVN::Mirror) >= 0.71
-BuildRequires:  perl(SVN::Simple::Edit) >= 0.27
-BuildRequires:  perl(Term::ReadKey)
-BuildRequires:  perl(UNIVERSAL::require)
-BuildRequires:  perl(URI)
-BuildRequires:  perl(version) >= 0.68
-BuildRequires:  perl(YAML::Syck) >= 0.60
-BuildRequires:  perl(Time::Progress)
-Requires:  perl(App::CLI)
-Requires:  perl(Class::Accessor::Fast)
-Requires:  perl(Class::Data::Inheritable)
-Requires:  perl(Pod::Escapes)
-Requires:  perl(Pod::Simple)
-Requires:  perl(ExtUtils::MakeMaker)
-#Requires:  perl(SVN::Mirror) >= 0.71
-Requires:  perl(Term::ReadKey)
-Requires:  perl(Time::Progress)
-Requires:  perl(URI)
-Provides:  perl(SVK::Version) = %{version}
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(Module::Install::Makefile)
+BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::Scripts)
+BuildRequires:  perl(Module::Install::WriteAll)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(SVN::Core) >= 1.3.0
+BuildRequires:  perl(version) >= 0.77
+# Run-time:
+# No tests are performed
+#BuildRequires:  perl(Algorithm::Annotate)
+#BuildRequires:  perl(Algorithm::Diff) >= 1.19
+#BuildRequires:  perl(App::CLI)
+#BuildRequires:  perl(App::CLI::Command)
+#BuildRequires:  perl(autouse)
+#BuildRequires:  perl(base)
+#BuildRequires:  perl(Carp)
+#BuildRequires:  perl(Class::Accessor)
+#BuildRequires:  perl(Class::Accessor::Fast)
+#BuildRequires:  perl(Class::Autouse) >= 1.15
+#BuildRequires:  perl(Class::Data::Inheritable)
+#BuildRequires:  perl(Compress::Zlib)
+#BuildRequires:  perl(Config)
+#BuildRequires:  perl(constant)
+#BuildRequires:  perl(Cwd)
+#BuildRequires:  perl(Data::Dumper)
+#BuildRequires:  perl(Data::Hierarchy) >= 0.30
+## Date::Format only on Win32
+#BuildRequires:  perl(Digest::MD5)
+#BuildRequires:  perl(Encode)
+#BuildRequires:  perl(Encode::TW)
+#BuildRequires:  perl(Exporter)
+#BuildRequires:  perl(ExtUtils::MakeMaker)
+#BuildRequires:  perl(Fcntl)
+#BuildRequires:  perl(File::Compare)
+#BuildRequires:  perl(File::Copy)
+#BuildRequires:  perl(File::Find)
+#BuildRequires:  perl(File::Glob)
+#BuildRequires:  perl(File::LibMagic) >= 0.84
+#BuildRequires:  perl(File::MMagic)
+#BuildRequires:  perl(File::Path)
+#BuildRequires:  perl(File::Spec)
+#BuildRequires:  perl(File::Temp)
+#BuildRequires:  perl(File::Type)
+#BuildRequires:  perl(FreezeThaw)
+#BuildRequires:  perl(Getopt::Long)
+#BuildRequires:  perl(IO::Digest)
+#BuildRequires:  perl(List::MoreUtils)
+#BuildRequires:  perl(List::Util)
+#BuildRequires:  perl(LWP::UserAgent)
+#BuildRequires:  perl(MIME::Base64)
+#BuildRequires:  perl(Path::Class) >= 0.16
+#BuildRequires:  perl(PerlIO)
+#BuildRequires:  perl(PerlIO::eol) >= 0.13
+#BuildRequires:  perl(PerlIO::gzip)
+#BuildRequires:  perl(PerlIO::scalar)
+#BuildRequires:  perl(PerlIO::via)
+## PerlIO::via::Bzip2 not yet packaged
+#BuildRequires:  perl(PerlIO::via::dynamic) >= 0.11
+#BuildRequires:  perl(PerlIO::via::symlink) >= 0.02
+#BuildRequires:  perl(POSIX)
+#BuildRequires:  perl(Scalar::Util)
+#BuildRequires:  perl(Socket)
+#BuildRequires:  perl(Storable)
+#BuildRequires:  perl(SVN::Client)
+#BuildRequires:  perl(SVN::Core) >= 1.3.0
+#BuildRequires:  perl(SVN::Delta)
+## SVN::Dump not yet packages not needed only replacing packaged SVK
+#BuildRequires:  perl(SVN::Fs)
+## SVN::Mirror 0.71 retired
+#BuildRequires:  perl(SVN::Ra)
+#BuildRequires:  perl(SVN::Repos)
+#BuildRequires:  perl(SVN::Simple::Edit) >= 0.27
+#BuildRequires:  perl(Sys::Hostname)
+#BuildRequires:  perl(Term::ReadKey)
+#BuildRequires:  perl(Test::More)
+#BuildRequires:  perl(Tie::Scalar)
+#BuildRequires:  perl(Time::Local)
+#BuildRequires:  perl(Time::Progress)
+#BuildRequires:  perl(UNIVERSAL::require)
+#BuildRequires:  perl(URI)
+#BuildRequires:  perl(warnings)
+#BuildRequires:  perl(YAML::Syck) >= 0.60
+## Optional run-time:
+#BuildRequires:  perl(Locale::Maketext::Lexicon) >= 0.62
+#BuildRequires:  perl(Locale::Maketext::Simple) >= 0.16
+#BuildRequires:  perl(Log::Log4perl)
+# Tests:
+# Not performed
+Requires:   perl(Algorithm::Diff) >= 1.19
+Requires:   perl(Class::Autouse) >= 1.15
+Requires:   perl(Cwd)
+Requires:   perl(ExtUtils::MakeMaker)
+Requires:   perl(File::Find)
+Recommends: perl(Locale::Maketext::Lexicon) >= 0.62
+Recommends: perl(Locale::Maketext::Simple) >= 0.16
+Recommends: perl(Log::Log4perl)
+Requires:   perl(Path::Class) >= 0.16
+Requires:   perl(PerlIO::gzip)
+# PerlIO::via::Bzip2 not yet packaged
+Requires:   perl(PerlIO::via::dynamic) >= 0.11
+Requires:   perl(PerlIO::via::symlink) >= 0.02
+Requires:   perl(SVN::Core) >= 1.3.0
+# SVN::Dump not yet packages not needed only replacing packaged SVK
+# SVN::Mirror 0.71 retired
+Requires:   perl(SVN::Simple::Edit) >= 0.27
+Requires:   perl(Term::ReadKey)
+Requires:   perl(Tie::Scalar)
+Requires:   perl(Time::Local)
+Requires:   perl(Time::Progress)
+Requires:   perl(URI)
+Requires:   perl(YAML::Syck) >= 0.60
+Provides:   perl(SVK::Version) = %{version}
 
+# Remove uder-specified requires
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Algorithm::Diff|Class::Autouse|Path::Class|PerlIO::via::dynamic|PerlIO::via::symlink|SVN::Core|SVN::Simple::Edit|YAML::Syck)\\)$
 # Remove under-specified provides
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(SVK\\)$
 
@@ -72,16 +155,17 @@ the Subversion file system but provides additional features:
 For more information about the SVK project, visit http://svk.elixus.org/.
 
 %prep
-%setup -q -n SVK-v%{version}
-%patch -P0 -p1
-%patch -P1 -p1
+%autosetup -p1 -n SVK-v%{version}
+# Remove bundled modules
+rm -r inc
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL --skipdeps NO_PACKLIST=1 INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL NO_PACKLIST=1 NO_PERLLOCAL=1 INSTALLDIRS=vendor
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -93,12 +177,18 @@ make pure_install DESTDIR=$RPM_BUILD_ROOT
 %files
 %license ARTISTIC COPYING
 %doc CHANGES CHANGES-1.0 COMMITTERS README
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/SVK
+%{perl_vendorlib}/SVK.pm
+%{_mandir}/man1/svk.*
+%{_mandir}/man3/SVK.*
+%{_mandir}/man3/SVK::*
 %{_bindir}/svk
 
 %changelog
+* Thu Oct 15 2026 Petr Pisar <ppisar@redhat.com> - 2.2.3-48
+- Correct a license from "GPL-1.0-or-later OR Artistic-1.0-Perl" to
+  "GPL-2.0-only"
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

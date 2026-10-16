@@ -1,6 +1,6 @@
 Name:		sdrangel
 Version:	7.27.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Software defined radio (SDR) and signal analyzer frontend to various hardware
 License:	GPL-3.0-or-later
 URL:		https://github.com/f4exb/sdrangel
@@ -110,6 +110,9 @@ appstream-util validate-relax \
 %{_metainfodir}/org.sdrangel.SDRangel.metainfo.xml
 
 %changelog
+* Thu Oct 15 2026 Richard Shaw <hobbes1069@gmail.com> - 7.27.2-5
+- Rebuild for SoapySDR.
+
 * Mon Oct 12 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 7.27.2-4
 - Rebuild for IIO 1.0
 

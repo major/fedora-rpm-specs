@@ -1,6 +1,6 @@
 Name:           soapy-rtlsdr
 Version:        0.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SoapySDR module for RTL-SDR hardware
 
 License:        MIT
@@ -35,6 +35,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 
 %changelog
+* Thu Oct 15 2026 Richard Shaw <hobbes1069@gmail.com> - 0.3.4-2
+- Rebuild for SoapySDR.
+
 * Tue Oct 13 2026 Richard Shaw <hobbes1069@gmail.com> - 0.3.4-1
 - Update to 0.3.4.
 

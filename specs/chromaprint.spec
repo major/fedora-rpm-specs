@@ -12,8 +12,8 @@
 
 
 Name:           chromaprint
-Version:        1.6.1
-Release:        2%{?dist}
+Version:        1.6.2
+Release:        1%{?dist}
 Summary:        Library implementing the AcoustID fingerprinting
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -117,6 +117,9 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %endif
 
 %changelog
+* Thu Oct 15 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 1.6.2-1
+- 1.6.2 release RHBZ#2553349
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.6.1-2
 - Rebuilt for FFmpeg 9
 

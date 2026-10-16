@@ -28,6 +28,11 @@ Source0:        http://download.gimp.org/pub/gegl/%{apiver}/gegl-%{version}.tar.
 # https://gitlab.gnome.org/GNOME/gegl/-/merge_requests/284
 Patch:		0001-meson-Declare-opencl-as-a-dependency.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2544422
+# https://gitlab.gnome.org/GNOME/gegl/-/issues/477
+# https://gitlab.gnome.org/GNOME/gegl/-/merge_requests/290
+Patch:		0001-libs-rgbe-fix-477-Segfault-in-rgbe_rgbe_to_float.patch
+
 BuildRequires:  chrpath
 BuildRequires:  enscript
 BuildRequires:  gcc-c++

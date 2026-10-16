@@ -1,6 +1,6 @@
 Name:           perl-Text-CSV_XS
-Version:        1.64
-Release:        3%{?dist}
+Version:        1.65
+Release:        1%{?dist}
 Summary:        Comma-separated values manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-CSV_XS
@@ -80,6 +80,18 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Text::CSV_XS.3*
 
 %changelog
+* Thu Oct 15 2026 Paul Howarth <paul@city-fan.org> - 1.65-1
+- Update to 1.65 (rhbz#2553256)
+  - CPAN.org does not forward email anymore
+  - parse(): Report trailing lone CR, do not store EOF as 0xFF (CVE-2026-110759)
+  - Under allow_whitespace, do not strip beyond field start (CVE-2026-110758)
+  - combine(): Decide quoting from the bytes, not the NV flags (CVE-2026-110757)
+  - Flush saved bytes in Combine() (CVE-2026-110756)
+  - Re-use AHEAD with \r instead of copying (CVE-2026-110755)
+  - getline(): Free the result array when the parse fails (CVE-2026-110754)
+  - Do not free the bound column scalar in skip_empty_rows (CVE-2026-110753)
+  - fragment(): Do not size memory by the selector integers (CVE-2026-110752)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.64-3
 - Perl 5.44 rebuild
 

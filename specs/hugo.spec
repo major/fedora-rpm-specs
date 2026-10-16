@@ -38,6 +38,9 @@ Source2:        go-vendor-tools.toml
 # Needed for vendor/golibsass; go-vendor-tools does not grab C code from Go repositories:
 Source3:        libsass-3.6.6.tar.gz
 
+# Avoid x/sys syscall trampoline crashes with external PIE linking on ppc64le.
+Patch0:         0001-unix-linux-revert-ppc64x-syscall-assembly-wrapper.patch
+
 BuildRequires:  go-vendor-tools
 BuildRequires:  gcc-c++
 
@@ -45,8 +48,12 @@ BuildRequires:  gcc-c++
 The world’s fastest framework for building websites.
 
 %prep
-%goprep -p1
+%goprep
 tar -xf %{S:1}
+
+%ifarch ppc64le
+%patch -P 0 -p1
+%endif
 
 # Needed for vendor/golibsass; go-vendor-tools does not grab C code from Go repositories:
 mkdir vendor/github.com/bep/golibsass/libsass_src

@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-DB_File
-Version:        1.860
-Release:        4%{?dist}
+Version:        1.861
+Release:        1%{?dist}
 Summary:        Perl5 access to Berkeley DB version 1.x
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DB_File
@@ -115,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 15 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.861-1
+- 1.861 bump (rhbz#2550298)
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.860-4
 - Perl 5.44 re-rebuild of bootstrapped packages
 

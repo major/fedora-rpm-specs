@@ -86,11 +86,13 @@
 
 Name:        libblockdev
 Version:     3.5.0
-Release:     4%{?dist}
+Release:     5%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}/%{name}-%{version}.tar.gz
+
+Patch0:      0001-Check-dm_task_run-return-value-in-bd_dm_map_exists.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel
@@ -958,6 +960,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Thu Oct 15 2026 Vojtech Trefny <vtrefny@redhat.com> - 3.5.0-5
+- dm: Check dm_task_run return value in bd_dm_map_exists (#2549531)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 3.5.0-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

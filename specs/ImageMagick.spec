@@ -13,7 +13,7 @@
 
 Name:           ImageMagick
 Epoch:          1
-Version:        7.1.2.33
+Version:        7.1.2.34
 Release:        1%{?dist}
 Summary:        An X application for displaying and manipulating images
 
@@ -424,6 +424,11 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Thu Oct 15 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.34-1
+- Update to version 7.1.2.34
+- Resolves: rhbz#2553022
+- Resolves: rhbz#2552953
+
 * Sun Oct 11 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.33-1
 - Update to version 7.1.2.33
 - Resolves: rhbz#2391123

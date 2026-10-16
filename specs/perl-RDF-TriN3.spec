@@ -1,33 +1,30 @@
 Name:           perl-RDF-TriN3
 Version:        0.206
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Notation 3 extensions for RDF::Trine
-# CONTRIBUTING: CC-BY-SA
-# other fiels:  GPL+ or Artistic
-# Automatically converted from old format: (GPL+ or Artistic) and CC-BY-SA - review is highly recommended.
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Callaway-CC-BY-SA
+# CONTRIBUTING: CC-BY-SA-2.0-UK
+# other fiels:  GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND CC-BY-SA-2.0-UK
 URL:            https://metacpan.org/release/RDF-TriN3
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/RDF-TriN3-%{version}.tar.gz
 # To boostrap this package without bundling
 Patch0:         RDF-TriN3-0.206-Build-without-bundled-Module-Package-modules.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(inc::Module::Package)
 BuildRequires:  perl(strict)
-BuildRequires:  sed
 # Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Data::UUID)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Log::Log4perl)
-BuildRequires:  perl(Module::Runtime)
-BuildRequires:  perl(namespace::clean)
+# Module::Runtime not used at tests
+# namespace::clean not used at tests
 BuildRequires:  perl(parent)
-BuildRequires:  perl(RDF::NS::Trine)
+# RDF::NS::Trine not used at tests
 BuildRequires:  perl(RDF::Trine) >= 0.135
 BuildRequires:  perl(RDF::Trine::Error)
 BuildRequires:  perl(RDF::Trine::Namespace)
@@ -49,7 +46,6 @@ BuildRequires:  perl(Test::More) >= 0.61
 BuildRequires:  perl(RDF::Trine::Store::DBI::SQLite)
 Requires:       perl(RDF::Trine) >= 0.135
 
-
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(RDF::Trine\\)$
 
@@ -62,27 +58,35 @@ it provides subclass for representing Notation 3 formulae literals.
 %patch -P0 -p1
 # Remove bundled modules
 rm -rf ./inc
-sed -i -e '/^inc\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes CONTRIBUTING COPYRIGHT CREDITS README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/RDF
+%{perl_vendorlib}/RDF/TriN3.pm
+%{perl_vendorlib}/RDF/Trine
+%{perl_vendorlib}/RDF/TrineX
+%{_mandir}/man3/RDF::TriN3.*
+%{_mandir}/man3/RDF::Trine::*
+%{_mandir}/man3/RDF::TrineX::*
 
 %changelog
+* Thu Oct 15 2026 Petr Pisar <ppisar@redhat.com> - 0.206-30
+- Remove unused build dependencies
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.206-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,17 +2,13 @@
 %global pypi_name backrefs
 
 Name:           python-%{pypi_name}
-Version:        8.0
+Version:        8.1
 Release:        1%{?dist}
 Summary:        A wrapper around re and regex that adds additional back references
 
 License:        MIT
 URL:            https://github.com/facelessuser/backrefs
 Source0:        %{pypi_source %{pypi_name} %{version}}
-
-# Fix compatibility with Unicode 17 (included in Python 3.15)
-# https://github.com/facelessuser/backrefs/issues/196
-Patch:          fix-indicpositionalcategory-unicode17.patch
 
 BuildArch:      noarch
 
@@ -66,6 +62,9 @@ py.test-3
 %doc README.md
 
 %changelog
+* Thu Oct 15 2026 Parag Nemade <pnemade AT redhat DOT com> - 8.1-1
+- Update to 8.1 version (#2548987)
+
 * Wed Aug 26 2026 Parag Nemade <pnemade AT redhat DOT com> - 8.0-1
 - Update to 8.0 version (#2520176)
 

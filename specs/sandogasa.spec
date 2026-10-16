@@ -21,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.25.3
+Version:        0.26.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -61,6 +61,7 @@ License:        %{shrink:
 
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:          %{url}/commit/2d3897848363dc8523f86d515c73be48ba554000.patch#/ebranch-always-cmp-provides.patch
 
 BuildRequires:  cargo-rpm-macros
 %if %{with build_and_test_all}
@@ -69,6 +70,8 @@ BuildRequires:  git-core
 %endif
 
 Requires:       koji
+Recommends:     bodhi-client
+Recommends:     createrepo_c
 Recommends:     fedora-packager
 Recommends:     fedrq
 # ebranch reads the base of an EPEL minor still in freeze from the
@@ -76,6 +79,9 @@ Recommends:     fedrq
 # pre-release content rather than SIG content, so unlike the two SIG
 # configs it carries no Supplements and this is what pulls it in.
 Recommends:     fedrq-config-centos-snapshot
+# for multimedia packages, ebranch can flag if counterpart packages
+# need to be updated in RPM Fusion as well
+Recommends:     fedrq-config-rpmfusion
 Recommends:     tzdata
 Suggests:       centos-packager
 
@@ -137,6 +143,19 @@ Requires:       fedrq
 Repository definitions to allow querying CentOS snapshot (RHEL minor
 pre-release) packages with fedrq.
 
+%package -n fedrq-config-rpmfusion
+Summary:        RPM Fusion repositories for fedrq
+License:        Apache-2.0 OR MIT
+
+BuildArch:      noarch
+
+Requires:       fedrq
+
+%description -n fedrq-config-rpmfusion
+Repository definitions to allow querying RPM Fusion packages with
+fedrq, free and nonfree, for both Fedora and EL.
+
+
 %prep
 %autosetup -p1
 %cargo_prep
@@ -163,6 +182,7 @@ pre-release) packages with fedrq.
 %install
 install -dm 0755 %{buildroot}%{_bindir}
 install -dm 0755 %{buildroot}%{_mandir}/man1
+install -dm 0755 %{buildroot}%{_datadir}/ebranch
 install -dm 0755 %{buildroot}%{_datadir}/koji-lag
 for tool in %{tools}; do
   install -pm 0755 target/rpm/${tool} %{buildroot}%{_bindir}/
@@ -172,8 +192,8 @@ for tool in %{tools}; do
 done
 
 # fedrq repos
-for r in hyperscale proposed-updates snapshot; do
-  for f in centos-${r}.toml repos/centos-${r}.repo; do
+for r in centos-{hyperscale,proposed-updates,snapshot} rpmfusion; do
+  for f in ${r}.toml repos/${r}.repo; do
     install -Dpm 0644 configs/fedrq/${f} \
       %{buildroot}%{_sysconfdir}/fedrq/${f}
   done
@@ -183,11 +203,12 @@ done
 for action in backup fetch publish vacuum; do
   install -pm 0755 scripts/${action}-store.sh %{buildroot}%{_bindir}/koji-lag-${action}-store
 done
-cp -p configs/fedora-cve-triage/run.toml %{buildroot}%{_sysconfdir}/fedora-cve-triage/
-cp -p configs/fesco-chair/config.toml %{buildroot}%{_sysconfdir}/fesco-chair/
 for i in FINDINGS.md notebooks queries; do
   cp -pr tools/koji-lag/${i} %{buildroot}%{_datadir}/koji-lag/
 done
+cp -pr configs/rpmfusion %{buildroot}%{_datadir}/ebranch/
+cp -p configs/fedora-cve-triage/run.toml %{buildroot}%{_sysconfdir}/fedora-cve-triage/
+cp -p configs/fesco-chair/config.toml %{buildroot}%{_sysconfdir}/fesco-chair/
 
 
 %check
@@ -223,6 +244,7 @@ done
 %{_bindir}/sandogasa-pkg-acl
 %{_bindir}/sandogasa-pkg-health
 %{_bindir}/sandogasa-report
+%{_datadir}/ebranch/
 %{_datadir}/koji-lag/
 %{_mandir}/man1/cpu-sig-tracker.1*
 %{_mandir}/man1/ebranch.1*
@@ -294,6 +316,14 @@ done
 %config(noreplace) %{_sysconfdir}/fedrq/centos-snapshot.toml
 %dir %{_sysconfdir}/fedrq/repos
 %config(noreplace) %{_sysconfdir}/fedrq/repos/centos-snapshot.repo
+
+%files -n fedrq-config-rpmfusion
+%license LICENSE-APACHE
+%license LICENSE-MIT
+%dir %{_sysconfdir}/fedrq
+%config(noreplace) %{_sysconfdir}/fedrq/rpmfusion.toml
+%dir %{_sysconfdir}/fedrq/repos
+%config(noreplace) %{_sysconfdir}/fedrq/repos/rpmfusion.repo
 
 
 %changelog

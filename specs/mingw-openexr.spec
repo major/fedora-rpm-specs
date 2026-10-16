@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.4.15
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
@@ -149,6 +149,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Thu Oct 15 2026 Simone Caronni <negativo17@gmail.com> - 3.4.15-2
+- Rebuilt for updated dependencies.
+
 * Tue Aug 25 2026 Sandro Mani <manisandro@gmail.com> - 3.4.15-1
 - Update to 3.4.15
 

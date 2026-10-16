@@ -7,7 +7,7 @@
 
 Name:       perl-%{cpan_name}
 Version:    0.82
-Release:    17%{?dist}
+Release:    18%{?dist}
 Summary:    Set of classes for core data, message and XML handling
 # LGPL version and Artistic variant are clarified in README.license.
 # etc/make_method:      Artistic-2.0 OR LGPL-2.1-only
@@ -61,10 +61,10 @@ BuildRequires:  perl(XML::LibXML) >= 1.85
 BuildRequires:  perl(XML::Parser) >= 2.46
 %if %{with perl_RPC_XML_enables_mod_perl}
 # Run-time for Apache stuff:
-BuildRequires:  perl(Apache)
-BuildRequires:  perl(Apache::Constants)
-BuildRequires:  perl(Apache::File)
-BuildRequires:  perl(CGI)
+# Apache not directly loadable, not used at tests
+# Apache::Constants not used at tests
+# Apache::File not used at tests
+# CGI not used at tests
 # Socket not used at tests
 %endif
 # Recommended run-time:
@@ -201,6 +201,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 15 2026 Petr Pisar <ppisar@redhat.com> - 0.82-18
+- Remove unused build dependencies
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

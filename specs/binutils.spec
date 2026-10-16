@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -473,6 +473,10 @@ BuildRequires: zlib-devel
 
 %if %{with debuginfod}
 BuildRequires: elfutils-debuginfod-client-devel
+# These libraries are needed by elfutils-debuginfod-client-devel.  It is not
+# clear why they are not being brought in automatically, but their absence is
+# causing failures in the Bodhi testsuite.
+BuildRequires: libcurl-minimal elfutils-libelf-devel openssl-libs json-c libzstd-devel
 %endif
 
 %if %{with xxhash}
@@ -1792,6 +1796,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Oct 15 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-10
+- Add more BuildRequires when building with debuginfod.
+
 * Wed Oct 14 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-18
 - Fix problems with the Post stage for cross binutils.
 

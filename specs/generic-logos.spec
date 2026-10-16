@@ -1,10 +1,10 @@
 Name:       generic-logos
 Version:    18.0.0
-Release:    29%{?dist}
+Release:    30%{?dist}
 Summary:    Icons and pictures
 
-URL:        https://pagure.io/generic-logos
-Source0:    https://releases.pagure.org/%{name}/%{name}-%{version}.tar.bz2
+URL:        https://codeberg.org/fedora-offbrand/generic-logos
+Source0:    %{url}/archive/%{name}-%{version}-1.tar.gz#/%{name}-%{version}.tar.gz
 License:    GPL-2.0-only
 BuildArch:  noarch
 
@@ -47,7 +47,7 @@ The generic-logos-httpd package contains image files which can be used by
 httpd.
 
 %prep
-%setup -q
+%setup -qC
 
 %build
 make
@@ -128,6 +128,9 @@ popd
 %{_datadir}/pixmaps/poweredby.png
 
 %changelog
+* Thu Oct 15 2026 Neal Gompa <ngompa@fedoraproject.org> - 18.0.0-30
+- Move to new upstream location
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.0.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

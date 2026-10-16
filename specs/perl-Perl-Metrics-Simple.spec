@@ -3,7 +3,7 @@
 
 Name:           perl-Perl-Metrics-Simple
 Version:        1.0.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Count packages, subs, lines, etc. of many files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Metrics-Simple
@@ -35,8 +35,6 @@ BuildRequires:  perl(Readonly) >= 1.03
 BuildRequires:  perl(Statistics::Basic::Mean)
 BuildRequires:  perl(Statistics::Basic::Median)
 BuildRequires:  perl(Statistics::Basic::StdDev)
-# Recommended:
-BuildRequires:  perl(Readonly::XS) >= 1.02
 # Tests:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(FindBin)
@@ -51,7 +49,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 %endif
-Recommends:     perl(Readonly::XS) >= 1.02
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Test::Compile\\)$
@@ -137,6 +134,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 15 2026 Petr Pisar <ppisar@redhat.com> - 1.0.3-9
+- Remove a dependency on obsolete Readonly::XS
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

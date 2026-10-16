@@ -1,6 +1,6 @@
 %global	gem_name	json
 
-%global	pkg_version_num		3.0.2
+%global	pkg_version_num		3.1.0
 %dnl		%global	pkg_version_alpha
 %global	gem_version()		%{pkg_version_num}%{?pkg_version_alpha:.%pkg_version_alpha}
 
@@ -26,6 +26,7 @@ BuildRequires:  rubygem(rake)
 BuildRequires:  rubygem(bigdecimal)
 BuildRequires:  rubygem(test-unit-ruby-core)
 BuildRequires:  rubygem(test-unit)
+BuildRequires:  rubygem(zlib)
 
 Obsoletes:	rubygem-%{gem_name}-gui < %{version}
 Obsoletes:	ruby-%{gem_name}-gui < %{version}
@@ -134,6 +135,9 @@ popd
 
 
 %changelog
+* Wed Oct 14 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.0-1
+- 3.1.0
+
 * Thu Sep 10 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.2-1
 - 3.0.2
 

@@ -12,7 +12,7 @@
 Name:          gr-osmosdr
 URL:           http://sdr.osmocom.org/trac/wiki/GrOsmoSDR
 Version:       0.2.5
-Release:       32%{?dist}
+Release:       33%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 BuildRequires: cmake
@@ -107,6 +107,9 @@ sed -i 's|/lib/|/%{_lib}/|g' CMakeLists.txt
 %doc %{_docdir}/%{name}/xml
 
 %changelog
+* Thu Oct 15 2026 Richard Shaw <hobbes1069@gmail.com> - 0.2.5-33
+- Rebuild for SoapySDR 0.3.4.
+
 * Thu Sep 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.5-32
 - Rebuilt for rtl-sdr
   Resolves: rhbz#2531327

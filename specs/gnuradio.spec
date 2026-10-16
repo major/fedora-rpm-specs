@@ -8,7 +8,7 @@
 
 Name:		gnuradio
 Version:	3.10.12.0
-Release:	20%{?alphatag:.%{alphatag}}%{?dist}
+Release:	21%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPL-3.0-or-later
@@ -207,6 +207,9 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Thu Oct 15 2026 Richard Shaw <hobbes1069@gmail.com> - 3.10.12.0-21
+- Rebuild for SoapySDR 0.3.4.
+
 * Mon Oct 12 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 3.10.12.0-20
 - Rebuild for IIO 1.0
 - Drop arm NEON conditionals

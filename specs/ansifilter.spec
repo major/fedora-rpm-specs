@@ -1,5 +1,5 @@
 %global forgeurl https://gitlab.com/saalen/ansifilter
-Version:        2.23
+Version:        2.24
 %forgemeta
 
 %bcond_without  gui

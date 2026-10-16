@@ -71,7 +71,7 @@
 
 Name:           rocal%{pkg_suffix}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm Augmentation Library
 
 Url:            https://github.com/ROCm/rocAL
@@ -265,6 +265,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/librocal.s
 %endif
 
 %changelog
+* Thu Oct 15 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-6
+- Rebuild for 10.1
+
 * Fri Sep 25 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-5
 - Rebuild for 10.0
 

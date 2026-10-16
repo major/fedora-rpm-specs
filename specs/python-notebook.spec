@@ -3,7 +3,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:           python-notebook
-Version:        7.6.2
+Version:        7.6.3
 Release:        %autorelease
 Summary:        A web-based notebook environment for interactive computing
 # SPDX
@@ -52,6 +52,11 @@ Obsoletes:      python-notebook-doc < 7
 for pkg in nbval "selenium==.*" coverage pytest-cov pytest-tornasync; do
   sed -Ei "/\"$pkg\",?/d" pyproject.toml
 done
+
+# notebook 7.6.3 requires jupyterlab >=4.6.4, but Fedora currently ships
+# jupyterlab 4.6.3. The difference is only a patch release, so relax the
+# lower bound to the available version.
+sed -Ei 's/"jupyterlab>=4.6.4,<4.7"/"jupyterlab>=4.6.3,<4.7"/' pyproject.toml
 
 # Remove all backup files
 find ./ -name "*.json.orig" -delete

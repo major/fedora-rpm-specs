@@ -1,5 +1,5 @@
 Name:           noctalia
-Version:        5.2.1
+Version:        5.3.0
 Release:        %autorelease
 ExcludeArch:    %{ix86}
 Summary:        A sleek, customizable desktop shell crafted for Wayland

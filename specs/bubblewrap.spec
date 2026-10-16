@@ -1,5 +1,5 @@
 Name:    bubblewrap
-Version: 0.12.0
+Version: 0.13.1
 Release: 1%{?dist}
 Summary: Core execution tool for unprivileged containers
 
@@ -47,6 +47,12 @@ user namespaces.
 %{_mandir}/man1/bwrap.1*
 
 %changelog
+* Thu Oct 15 2026 David King <amigadave@amigadave.com> - 0.13.0-1
+- Update to 0.13.1 (#2537824)
+
+* Fri Oct 02 2026 David King <amigadave@amigadave.com> - 0.13.0-1
+- Update to 0.13.0 (#2537824)
+
 * Wed Aug 26 2026 Debarshi Ray <rishi@fedoraproject.org> - 0.12.0-1
 - Update to 0.12.0 (#2524340)
 

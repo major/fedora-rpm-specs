@@ -1,11 +1,12 @@
 Name:           perl-Reply
 Version:        0.42
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Plugin-based read-evaluate-print loop for Perl
 License:        MIT
 URL:            https://metacpan.org/release/Reply
 Source0:        https://cpan.metacpan.org/authors/id/D/DO/DOY/Reply-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -28,7 +29,7 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::HomeDir)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Getopt::Long) >= 2.36
-BuildRequires:  perl(IO::Pager)
+# IO::Pager not used at tests
 BuildRequires:  perl(Module::Runtime)
 BuildRequires:  perl(mro)
 # MRO::Compat not used with perl >= 5.10
@@ -63,11 +64,11 @@ pluggable commands.
 %setup -q -n Reply-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -77,11 +78,16 @@ make test
 %license LICENSE
 %doc Changes README
 %{_bindir}/reply
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Reply.pm
+%{perl_vendorlib}/Reply
+%{_mandir}/man1/reply.*
+%{_mandir}/man3/Reply.*
+%{_mandir}/man3/Reply::*
 
 %changelog
+* Thu Oct 15 2026 Petr Pisar <ppisar@redhat.com> - 0.42-29
+- Remove an unused build dependency on IO::Pager
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.42-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

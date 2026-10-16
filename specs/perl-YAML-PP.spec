@@ -1,5 +1,5 @@
 Name:           perl-YAML-PP
-Version:        0.42.0
+Version:        0.43.0
 Release:        1%{?dist}
 Summary:        YAML 1.2 processor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -40,9 +40,9 @@ BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(Tie::StdArray)
 BuildRequires:  perl(Tie::StdHash)
+BuildRequires:  perl(File::Spec)
 # Tests
 BuildRequires:  perl(blib) >= 1.01
-BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Handle)
@@ -146,6 +146,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 15 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.43.0-1
+- 0.43.0 bump (rhbz#2550357)
+
 * Mon Oct 12 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.42.0-1
 - 0.42.0 bump (rhbz#2549360)
 

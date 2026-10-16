@@ -1,10 +1,16 @@
 Name:           rust
-Version:        1.99.0
+Version:        1.99.1
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
 # ^ written as: (rust itself) and (bundled libraries)
 URL:            https://www.rust-lang.org
+
+# Use `autorelease -p -s YYYYMMDD` for stable prerelease testing, and the
+# source will be set from the corresponding path on upstream's "dev-static"
+# server. Remember to download the final release anew from the normal server!
+
+# Betas may be tested by appending a version suffix like `~beta.1`.
 
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
@@ -104,8 +110,22 @@ URL:            https://www.rust-lang.org
   rpm.define("channel " .. (subs ~= 0 and version_channel or "stable"))
   rpm.define("rustc_package rustc-" .. version_channel .. "-src")
 end}
-Source0:        https://static.rust-lang.org/dist/%{rustc_package}.tar.xz
-Source1:        https://static.rust-lang.org/dist/%{rustc_package}.tar.xz.asc
+
+# Detect prerelease dates from the release, like 0.1.20261013.fc46,
+# and if found then use upstream's "dev-static" source instead.
+%{lua: do
+  local release = rpm.expand("%{release}")
+  local year, month, day = release:match("^0%.%d+%.(%d%d%d%d)(%d%d)(%d%d)%.")
+  if year then
+    local date = year .. "-" .. month .. "-" .. day
+    rpm.define("source_dist https://dev-static.rust-lang.org/dist/" .. date)
+  else
+    rpm.define("source_dist https://static.rust-lang.org/dist")
+  end
+end}
+
+Source0:        %{source_dist}/%{rustc_package}.tar.xz
+Source1:        %{source_dist}/%{rustc_package}.tar.xz.asc
 Source2:        https://static.rust-lang.org/rust-key.gpg.ascii
 
 Source10:        %{wasi_libc_source}
@@ -140,9 +160,6 @@ Patch8:         0001-Enable-SHSTK-by-default-on-x86_64-unknown-linux-gnu.patch
 
 # Ensure llvm worker threads have sufficient stack space. Backport of #163289.
 Patch9:		0001-Ensure-llvm-worker-threads-have-sufficient-stack-spa.patch
-
-# Fix for #160827, uefi targets failing to link due to missing wcslen builtin.
-Patch10:	0001-Add-wcslen-builtin.patch
 
 ### RHEL-specific patches below ###
 
@@ -724,7 +741,6 @@ test "$(cut -d' ' -f1 ./version)" = "%{lua: print((rpm.expand('%version'):gsub('
 %patch -P7 -p1
 %patch -P8 -p1
 %patch -P9 -p1
-%patch -P10 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1

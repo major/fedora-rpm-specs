@@ -1,5 +1,5 @@
 Name: ipcalc
-Version: 1.1.0
+Version: 1.2.0
 Release: %autorelease
 Summary: IP network address calculator
 License: GPL-2.0-or-later

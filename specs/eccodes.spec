@@ -3,7 +3,7 @@
 %endif
 
 Name:           eccodes
-Version:        2.48.0
+Version:        2.50.0
 Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
@@ -14,21 +14,7 @@ Summary:        WMO data format decoding and encoding
 # note that the test_data package provided on the ECMWF version
 # is unversioned, so use the download date to discriminate
 # between different versions.
-%global datapack_date    20250202
-
-# latest fedora-38/rawhide grib_api version is 1.27.0-18
-# but this version number is to be updated as soon as we know
-# what the final release of grib_api by upstream will be.
-# latest upstream grib_api release is 1.28.0 (05-Dec-2018)
-# as was written on https://confluence.ecmwf.int/display/GRIB/Home
-# (Note that this page is no longer available, 17-Oct-2020)
-%global final_grib_api_version 1.28.1-1%{?dist}
-
-%ifarch i686 ppc64 armv7hl
-  %global obsolete_grib_api 0
-%else
-  %global obsolete_grib_api 1
-%endif
+%global datapack_date    20261015
 
 # license remarks:
 # Most of eccodes is licensed ASL 2.0 (which is identical to the SPDX
@@ -69,12 +55,12 @@ BuildRequires:  openjpeg2-devel >= 2.5.2
 BuildRequires:  libpng-devel
 BuildRequires:  netcdf-devel
 BuildRequires:  libaec-devel >= 1.1.4
-BuildRequires:  libaec-static >= 1.1.4
+# BuildRequires:  libaec-static >= 1.1.4 # not needed
 
 # For tests
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(File::Compare)
+# BuildRequires:  perl(File::Compare) # not needed
 
 # For creation of man pages
 BuildRequires:  help2man
@@ -85,27 +71,6 @@ BuildRequires:  help2man
 # unless a user wishes to read and study all these grib and bufr
 # file format definitions.
 Requires: %{name}-data = %{version}-%{release}
-
-# NOTE: upstream writes:
-# """
-# For GRIB encoding and decoding, the GRIB-API functionality is provided
-# fully in ecCodes with only minor interface and behaviour changes.
-# Interfaces for C, Fortran 90 and Python are all maintained as in GRIB-API.
-# However, the GRIB-API Fortran 77 interface is no longer available.
-# """
-# Therefore, since the library name and pkg-config file content changes
-# and fortran77 support was removed, this replacement package cannot be
-# considered compatible enough and no Provides can be defined.
-#
-# Furthermore, upstream writes:
-# "Please note that GRIB-API support is being discontinued at the end of 2018."
-# So the old grib_api will need to be obsoleted.
-
-%if 0%{obsolete_grib_api}
-# as stated in the note above, setting provides seems not correct here
-# Provides:       grib_api = %%{final_grib_api_version}
-Obsoletes:      grib_api < %{final_grib_api_version}
-%endif
 
 # as explained in bugzilla #1562066
 ExcludeArch: i686
@@ -127,19 +92,19 @@ a simple set of functions to access data from several formats with a key/value
 approach.
 
 For GRIB encoding and decoding, the GRIB-API functionality is provided fully
-in ecCodes with only minor interface and behaviour changes. Interfaces for C,
+in ecCodes with only minor interface and behavior changes. Interfaces for C,
 and Fortran 90 are all maintained as in GRIB-API.  However, the
 GRIB-API Fortran 77 interface is no longer available.
 
 In addition, a new set of functions with the prefix "codes_" is provided to
 operate on all the supported message formats. These functions have the same
-interface and behaviour as the "grib_" functions. 
+interface and behavior as the "grib_" functions. 
 
 A selection of GRIB-API tools has been included in ecCodes (ecCodes GRIB
 tools), while new tools are available for the BUFR (ecCodes BUFR tools) and
 GTS formats. The new tools have been developed to be as similar as possible
 to the existing GRIB-API tools maintaining, where possible, the same options
-and behaviour. A significant difference compared with GRIB-API tools is that
+and behavior. A significant difference compared with GRIB-API tools is that
 bufr_dump produces output in JSON format suitable for many web based
 applications.
 
@@ -149,11 +114,6 @@ Summary:    Contains ecCodes development files
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 Requires:   gcc-gfortran%{?_isa}
 Requires:   jasper-devel%{?_isa}
-
-%if 0%{obsolete_grib_api}
-# Provides:   grib_api-devel = %%{final_grib_api_version}
-Obsoletes:  grib_api-devel < %{final_grib_api_version}
-%endif
 
 %description devel
 Header files and libraries for ecCodes.
@@ -249,9 +209,6 @@ end
 Summary:    Documentation and example code
 BuildArch:  noarch
 
-# a sub package grib_api-doc did not exist
-# so no obsoletes needed here
-
 %description doc
 This package contains the html documentation for ecCodes
 and a fair number of example programs and scripts to use it
@@ -305,7 +262,7 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # added -DCMAKE_Fortran_FLAGS="-fPIC"
 # because the koji build crashes with the error that it needs this setting
 # when I try to build for armv7hl (other archs do not complain ......)
-# I have no idea what causes this difference in behaviour.
+# I have no idea what causes this difference in behavior.
 
 # Note: the option:
 #      -DENABLE_MEMFS=ON
@@ -485,6 +442,9 @@ export LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Thu Oct 15 2026 Jos de Kloe <josdekloe@gmail.com> - 2.50.0-1
+- Update to 2.50.0
+- Remove old grib_api obsoletes logic
 
 * Mon Jul 20 2026 Jos de Kloe <josdekloe@gmail.com> - 2.48.0-1
 - Update to 2.48.0

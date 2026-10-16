@@ -2,7 +2,7 @@
 %global pypi_name wcmatch
 
 Name:           python-%{pypi_name}
-Version:        11.0.1
+Version:        11.1
 Release:        1%{?dist}
 Summary:        Wildcard/glob file name matcher
 
@@ -62,6 +62,9 @@ globmatch which functions like fnmatch, but for paths.
 %doc README.md
 
 %changelog
+* Thu Oct 15 2026 Parag Nemade <pnemade AT redhat DOT com> - 11.1-1
+- Update to 11.1 version (#2548982)
+
 * Wed Aug 26 2026 Parag Nemade <pnemade AT redhat DOT com> - 11.0.1-1
 - Update to 11.0.1 version (#2516083)
 

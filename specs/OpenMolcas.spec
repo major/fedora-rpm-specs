@@ -1,5 +1,5 @@
 Name:           OpenMolcas
-Version:        26.06
+Version:        26.10
 Release:        1%{?dist}
 Summary:        A multiconfigurational quantum chemistry software package
 License:        LGPL-2.1-only
@@ -120,6 +120,9 @@ cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 %{_bindir}/pymolcas
 
 %changelog
+* Thu Oct 15 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 26.10-1
+- Update to 26.10.
+
 * Thu Jul 23 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 26.06-1
 - Update to 26.06.
 

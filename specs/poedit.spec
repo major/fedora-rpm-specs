@@ -1,11 +1,11 @@
 Name:           poedit
-Version:        3.9.1
-Release:        4%{?dist}
+Version:        3.10
+Release:        1%{?dist}
 Summary:        GUI editor for GNU gettext .po files
 Summary(de):    Grafischer Editor für GNU Gettext-Dateien
 
 License:        MIT
-URL:            https://poedit.net/
+URL:            https://poedit.com/
 Source0:        https://github.com/vslavik/%{name}/releases/download/v%{version}-oss/%{name}-%{version}.tar.gz
 Source1:        https://src.fedoraproject.org/rpms/%{name}/raw/rawhide/f/%{name}.1.de.po
 
@@ -94,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.%{nam
 
 
 %changelog
+* Thu Oct 15 2026 Wolfgang Stöggl <c72578@yahoo.de> - 3.10-1
+- New upstream version
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

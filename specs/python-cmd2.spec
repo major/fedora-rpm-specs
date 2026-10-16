@@ -1,7 +1,7 @@
 %global pypi_name cmd2
 
 Name:             python-%{pypi_name}
-Version:          4.2.4
+Version:          4.3.0
 Release:          %{autorelease}
 Summary:          Extra features for standard library's cmd module
 
@@ -12,10 +12,10 @@ Source0:          https://files.pythonhosted.org/packages/source/c/cmd2/cmd2-%{v
 BuildArch:        noarch
 
 BuildRequires:    python3-devel
-BuildRequires:    python3-pytest
-BuildRequires:    python3-pytest-mock
 # An editor is needed for tests; vim works too
 BuildRequires:    nano
+# Tests use ps command
+BuildRequires:    procps-ng
 
 %global _description %{expand:
 Enhancements for standard library's cmd module.
@@ -51,18 +51,23 @@ Requires:         /usr/bin/which
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -g test
 
 
 %description -n python3-%{pypi_name} %_description
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
+# https://github.com/python-cmd2/cmd2/pull/1775
+rm docs/.DS_Store
 
 # Disable coverage checks
 sed -i '/"\-\-cov/d' pyproject.toml
 
 %pyproject_patch_dependency prompt-toolkit:set_lower:3.0.52
+%pyproject_patch_dependency codecov:ignore
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency pytest-cov:ignore
 
 
 %build

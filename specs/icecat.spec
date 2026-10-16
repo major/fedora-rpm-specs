@@ -321,7 +321,7 @@ Extensions included to this version of IceCat:
 %if %{with langpacks_subpkg}
 %package langpacks
 Summary: IceCat langpacks
-Requires: %{name} = 4:%{version}-%{release}
+Requires: %{name} = 5:%{version}-%{release}
 %description langpacks
 The icecat-langpacks package contains all the localization
 and translations langpack add-ons.
