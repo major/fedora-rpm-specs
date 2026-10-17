@@ -1,5 +1,5 @@
 Name:           python-exabgp
-Version:        5.0.13
+Version:        5.0.14
 Release:        1%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
@@ -10,9 +10,6 @@ Source1:        exabgp.sysusers.exabgp.conf
 Source2:        exabgp.tmpfiles.exabgp.conf
 Source3:        exabgp.systemd.exabgp.service
 Source4:        exabgp.systemd.exabgp@.service
-
-# Post release fix for test harness
-Patch0001:      0001-pytest-fix.patch
 
 BuildArch:      noarch
 
@@ -94,7 +91,7 @@ rm -rf %{buildroot}%{_usr}/etc
 
 %check
 %pyproject_check_import -t
-exabgp_log_enable=false %pytest --ignore=tests/fuzz --cov --cov-reset ./tests
+exabgp_log_enable=false %pytest --ignore=tests/fuzz --cov --cov-reset --deselect tests/unit/test_network_tcp.py::TestSocketCreation::test_a_refused_setsockopt_is_reported_as_itself --deselect=tests/unit/test_network_tcp.py::TestSocketCreation::test_a_real_interface_is_bound_with_a_nul_terminated_name ./tests
 
 %pre -n exabgp
 %sysusers_create_package exabgp %{SOURCE1}
@@ -128,6 +125,11 @@ exabgp_log_enable=false %pytest --ignore=tests/fuzz --cov --cov-reset ./tests
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Fri Oct 16 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.14-1
+- Update to version 5.0.14 (resolves rhbz#2549946)
+  Remove patch for test harness
+  Add specific exclude for a unit test that does not work in mock
+
 * Tue Aug 25 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.13-1
 - Update to version 5.0.13 (resolves rhbz#2521279)
   remove patch for PEP 639 compliance (fixed upstream in commit 9a35bf07)

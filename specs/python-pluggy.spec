@@ -2,8 +2,8 @@
 %bcond tests 1
 
 Name:           python-pluggy
-Version:        1.6.0
-Release:        8%{?dist}
+Version:        1.7.0
+Release:        1%{?dist}
 Summary:        The plugin manager stripped of pytest specific details
 
 # SPDX
@@ -59,6 +59,9 @@ Summary:  %summary
 
 
 %changelog
+* Fri Oct 16 2026 Federico Pellegrin <fede@evolware.org> - 1.7.0-1
+- Bump to 1.7.0 (rhbz#2553405)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -14,7 +14,7 @@ Memtest86+.
 %endif
 
 Name:          memtest86+
-Version:       8.10
+Version:       9.00
 Release:       %autorelease
 Summary:       Stand-alone memory tester for x86-64 computers
 License:       GPL-2.0-only

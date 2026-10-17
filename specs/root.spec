@@ -40,7 +40,7 @@
 Name:		root
 Version:	6.40.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -96,6 +96,8 @@ Patch12:	%{name}-tree-df-Do-not-fail-test-on-32-bit-due-to-mis-aligne.patch
 Patch13:	%{name}-tree-nt-Compare-size-to-the-size-of-the-struct.patch
 #		https://github.com/root-project/root/pull/23188
 Patch14:	%{name}-pdf-Fix-calculation-of-kerning-distances-in-generate.patch
+#		Use the normal text fonts for cyrillic in TMathText
+Patch15:	%{name}-Use-the-normal-text-font-for-cyrillic.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -185,9 +187,9 @@ BuildRequires:	perl-generators
 BuildRequires:	gtest-devel
 BuildRequires:	gmock-devel
 #		Fonts
-BuildRequires:	font(freesans)
-BuildRequires:	font(freeserif)
-BuildRequires:	font(freemono)
+BuildRequires:	font(nimbussans)
+BuildRequires:	font(nimbusroman)
+BuildRequires:	font(nimbusmonops)
 BuildRequires:	font(standardsymbolsps)
 BuildRequires:	font(d050000l)
 BuildRequires:	font(z003)
@@ -303,9 +305,9 @@ Requires:	json-devel >= 3.9
 %endif
 #		Fonts
 Requires:	xorg-x11-fonts-ISO8859-1-75dpi
-Requires:	font(freesans)
-Requires:	font(freeserif)
-Requires:	font(freemono)
+Requires:	font(nimbussans)
+Requires:	font(nimbusroman)
+Requires:	font(nimbusmonops)
 Requires:	font(standardsymbolsps)
 Requires:	font(d050000l)
 Requires:	font(z003)
@@ -498,6 +500,7 @@ This package contains a genetic minimizer module for ROOT.
 %package geom
 Summary:	Geometry library for ROOT
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
+Requires:	%{name}-genvector%{?_isa} = %{version}-%{release}
 Requires:	%{name}-io%{?_isa} = %{version}-%{release}
 Requires:	%{name}-mathcore%{?_isa} = %{version}-%{release}
 #		Package split (geom-builder and geom-painter from geom)
@@ -1946,6 +1949,7 @@ This package contains a library for histogramming in ROOT 7.
 %patch -P12 -p1
 %patch -P13 -p1
 %patch -P14 -p1
+%patch -P15 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * ftgl
@@ -3541,6 +3545,11 @@ fi
 %endif
 
 %changelog
+* Wed Oct 14 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.04-4
+- Rebuild for pythia8 8.3.18
+- Use the URW fonts (Nimbus Roman/Sans/Mono) for text for consistency
+- Use the normal text fonts for cyrillic in TMathText
+
 * Tue Sep 22 2026 Orion Poplawski <orion@nwra.com> - 6.40.04-3
 - Rebuild for libarrow 25
 

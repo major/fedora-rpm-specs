@@ -3,8 +3,8 @@
 %global pkgname libzip
 
 Name:           mingw-%{pkgname}
-Version:        1.11.4
-Release:        4%{?dist}
+Version:        1.12.1
+Release:        1%{?dist}
 Summary:        C library for reading, creating, and modifying zip archives
 
 License:        BSD-3-Clause
@@ -107,6 +107,9 @@ rm -r %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 1.12.1-1
+- Update to 1.12.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global trustmuxlibdir %{_prefix}/lib/trustmux
 
 Name:		byobu
-Version:	7.19
+Version:	7.21
 Release:	%autorelease
 Summary:	Light-weight, configurable window manager built upon GNU screen
 
@@ -162,7 +162,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/trustmux/static/trustmux.svg
 %{_datadir}/trustmux/static/icons/icon-192.png
 %{_datadir}/trustmux/static/icons/icon-512.png
-
+%{_datadir}/trustmux/static/fonts/DejaVuSansMono-Bold.woff2
+%{_datadir}/trustmux/static/fonts/DejaVuSansMono.woff2
+%{_datadir}/trustmux/static/fonts/LICENSE
 
 %changelog
 %autochangelog

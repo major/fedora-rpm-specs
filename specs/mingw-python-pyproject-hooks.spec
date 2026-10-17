@@ -10,8 +10,8 @@
 
 Name:           mingw-python-%{pkgname}
 Summary:        MinGW Python %{pypi_name} library
-Version:        1.2.0
-Release:        6%{?dist}
+Version:        1.3.3
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -63,7 +63,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: 1.2.0
+Version: 1.3.3
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -108,6 +108,9 @@ cp -a src/pyproject_hooks %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 1.3.3-1
+- Update to 1.3.3
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 1.2.0-6
 - Rebuild (mingw-python)
 

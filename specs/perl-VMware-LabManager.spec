@@ -1,37 +1,29 @@
 Name:           perl-VMware-LabManager
 Version:        0.01
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Perl module to provide basic VMware Lab Manager operations
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/VMware-LabManager
 Source0:        https://cpan.metacpan.org/authors/id/A/AI/AIVATURI/VMware-LabManager-%{version}.tar.gz
-Patch0:         VMware-LabManager-0.01-Fix-building-on-Perl-without-dot-in-INC.patch
+Patch0:         VMware-LabManager-0.01-Do-not-install-dependencies-from-CPAN.patch
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
-# inc
-BuildRequires:  perl(Carp)
-BuildRequires:  perl(Config)
-BuildRequires:  perl(CPAN)
-BuildRequires:  perl(Cwd)
-BuildRequires:  perl(ExtUtils::MM_Unix)
-BuildRequires:  perl(File::Find)
-BuildRequires:  perl(File::Path)
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(FindBin)
-# Runtime, SOAP::Lite is needed for the debug mode
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::WriteAll)
+# Run-time:
+# SOAP::Lite is needed for the debug mode
 BuildRequires:  perl(SOAP::Lite)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(Time::HiRes)
-# Tests only
+BuildRequires:  perl(warnings)
+# Tests only:
 BuildRequires:  perl(Test::More)
 # Optional tests
 BuildRequires:  perl(Pod::Coverage) >= 0.18
-BuildRequires:  perl(Test::CheckManifest) >= 0.9
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 # In evals, not autodetected
@@ -46,17 +38,20 @@ broader audience as it still does provide overall functionality that
 might be required.
 
 %prep
-%setup -q -n VMware-LabManager-%{version}
-%patch -P0 -p1
+%autosetup -p1 -n VMware-LabManager-%{version}
+# Remove bundled modules
+rm -r inc
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
+# Remove always skipped tests
+rm t/manifest.t
+perl -i -ne 'print $_ unless m{^\Qt/manifest.t\E}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -64,10 +59,14 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/VMware
+%{perl_vendorlib}/VMware/LabManager.pm
+%{_mandir}/man3/VMware::LabManager.*
 
 %changelog
+* Fri Oct 16 2026 Petr Pisar <ppisar@redhat.com> - 0.01-42
+- Correct dependencies
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

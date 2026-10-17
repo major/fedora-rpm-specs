@@ -83,7 +83,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %install
 %cargo_install
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE10}'
+install -D --target='%{buildroot}%{_mandir}/man1' \
+    --preserve-timestamps --mode=0644 '%{SOURCE10}'
 
 %if %{with check}
 %check

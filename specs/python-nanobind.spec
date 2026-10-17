@@ -12,18 +12,20 @@
 %global debug_package %{nil}
 
 Name:           python-nanobind
-Version:        3.1.0
-Release:        %autorelease
+# WARNING: Before updating the version, check if LLVM and sundials support the new version:
+# https://github.com/llvm/llvm-project/blob/main/mlir/cmake/modules/MLIRDetectPythonEnv.cmake
+# https://github.com/llnl/sundials/blob/main/pyproject.toml
+Version:        2.12.0
+# TODO: Remove the '-b 5' part when the version is updated.
+#       This was a temporary measure in order to deal with a revert in the
+#       version.
+Release:        %autorelease -b 5
 Summary:        Tiny and efficient C++/Python bindings
 
 License:        BSD-3-Clause
 URL:            https://nanobind.readthedocs.org/
 VCS:            git:%{nanobind_giturl}.git
 Source0:        %{nanobind_giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# Fixes i686 build.
-# https://github.com/wjakob/nanobind/pull/1453
-Patch:          1453.patch
 
 BuildRequires:  clang
 BuildRequires:  cmake

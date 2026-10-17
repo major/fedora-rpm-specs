@@ -14,7 +14,10 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop vendored feature from openssl dependency
 # * Relax clap dependency
+# * Update sev dependency to 7.1.0 and enable serde feature
 Patch:          sevctl-fix-metadata.diff
+# Fix sev 7.x API incompatibility: replace codicon traits with sev::parser
+Patch:          sevctl-sev-7x-compat.patch
 
 # SEV is an AMD x86_64 CPU feature so doesn't make sense to
 # try to build on other arches

@@ -4,7 +4,7 @@
 %global crate snpguest
 
 Name:           rust-snpguest
-Version:        0.9.2
+Version:        0.10.0
 Release:        %autorelease
 Summary:        AMD SEV-SNP guest utility tool
 

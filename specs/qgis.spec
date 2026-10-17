@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        4.2.2
-Release:        2%{?dist}
+Version:        4.2.3
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -322,6 +322,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 4.2.3-1
+- Update to 4.2.3
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.2.2-2
 - Rebuilt for libxml-2.5.4
 

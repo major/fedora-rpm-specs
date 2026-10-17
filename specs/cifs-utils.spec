@@ -2,7 +2,7 @@
 %define pre_release %nil
 
 Name:            cifs-utils
-Version:         7.8
+Version:         7.9
 Release:         %autorelease
 Summary:         Utilities for mounting and managing CIFS mounts
 

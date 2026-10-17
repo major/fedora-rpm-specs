@@ -1,9 +1,8 @@
 Name:           perl-Template-Alloy
 Version:        1.022
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Templating tool supporting multiple markup formats 
 # see lib/Template/Alloy.pod
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Template-Alloy
 Source0:        https://cpan.metacpan.org/authors/id/R/RH/RHANDOM/Template-Alloy-%{version}.tar.gz
@@ -23,7 +22,7 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Digest::MD5) >= 1
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Path)
-BuildRequires:  perl(JSON)
+# JSON not used at tests
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(strict)
@@ -32,7 +31,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Scalar::Util)
 # Tests:
-BuildRequires:  perl(Taint::Runtime)
+# Taint::Runtime not used
 BuildRequires:  perl(Template::Filters)
 BuildRequires:  perl(Template::Stash)
 BuildRequires:  perl(Template::View)
@@ -68,7 +67,6 @@ Requires:       coreutils
 Requires:       perl-Test-Harness
 Requires:       perl(Encode)
 Requires:       perl(File::Path)
-Requires:       perl(Taint::Runtime)
 Requires:       perl(Template::Filters)
 Requires:       perl(Template::Stash)
 Requires:       perl(Template::View)
@@ -118,13 +116,20 @@ make test
 
 %files
 %doc Changes README samples/
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Template
+%{perl_vendorlib}/Template/Alloy
+%{perl_vendorlib}/Template/Alloy.pm
+%{perl_vendorlib}/Template/Alloy.pod
+%{_mandir}/man3/Template::Alloy.*
+%{_mandir}/man3/Template::Alloy::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 16 2026 Petr Pisar <ppisar@redhat.com> - 1.022-17
+- Remove a dependency on unused Taint::Runtime and build-time JSON
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.022-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

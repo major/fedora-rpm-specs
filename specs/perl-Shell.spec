@@ -3,7 +3,7 @@
 
 Name:       perl-Shell
 Version:    0.73
-Release:    32%{?dist}
+Release:    33%{?dist}
 Summary:    Run shell commands transparently within perl
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/Shell
@@ -48,7 +48,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Shell-%{version}
-%if !%{with perl_shell_enables_optional_tests}
+%if !%{with perl_Shell_enables_optional_tests}
 rm t/99_pod.t
 perl -i -ne 'print $_ unless m{^t/99_pod\.t}' MANIFEST
 %endif
@@ -68,8 +68,8 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
-%if %{with perl_shell_enables_optional_tests}
-rm %{buildroot}%{_libexecdir}/%{name}/t/99pod.t
+%if %{with perl_Shell_enables_optional_tests}
+rm %{buildroot}%{_libexecdir}/%{name}/t/99_pod.t
 %endif
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 16 2026 Petr Pisar <ppisar@redhat.com> - 0.73-33
+- Correct performing optional tests
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

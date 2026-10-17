@@ -5,8 +5,8 @@
 
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.1.2
-Release:       4%{?dist}
+Version:       2.2.0
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
@@ -94,6 +94,9 @@ export NO_GEOS_CONFIG=1
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 2.2.0-1
+- Update to 2.2.0
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 2.1.2-4
 - Rebuild (mingw-python)
 

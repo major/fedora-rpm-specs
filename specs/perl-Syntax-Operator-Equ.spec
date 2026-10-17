@@ -10,7 +10,7 @@
 
 Name:           perl-Syntax-Operator-Equ
 Version:        0.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Equality operators that distinguish undef
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Operator-Equ
@@ -42,7 +42,6 @@ BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Syntax::Keyword::Match) >= %{Syntax_Keyword_Match_min_ver}
 %if 0%{?fedora} >= 39
 # Requires PL_infix_plugin support in Perl (since 5.37.7)
-BuildRequires:  perl(Syntax::Operator::Equ)
 %global Syntax_Operator_In_min_ver 0.03
 BuildRequires:  perl(Syntax::Operator::In) >= %{Syntax_Operator_In_min_ver}
 %endif
@@ -75,7 +74,6 @@ Requires:       perl-Test-Harness
 Requires:       perl(Syntax::Keyword::Match) >= %{Syntax_Keyword_Match_min_ver}
 %if 0%{?fedora} >= 39
 # Requires PL_infix_plugin support in Perl (since 5.37.7)
-Requires:       perl(Syntax::Operator::Equ)
 Requires:       perl(Syntax::Operator::In) >= %{Syntax_Operator_In_min_ver}
 %endif
 %endif
@@ -135,6 +133,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 16 2026 Petr Pisar <ppisar@redhat.com> - 0.11-2
+- Remove a bogus reflexive dependency
+
 * Wed Sep 02 2026 Petr Pisar <ppisar@redhat.com> - 0.11-1
 - 0.11 bump
 

@@ -15,6 +15,9 @@ License:        MIT
 URL:            https://github.com/pypa/build
 Source:         %{pypi_source build}
 
+# Compatibility with new pyproject-hooks
+Patch:          https://github.com/pypa/build/commit/58c921aa.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

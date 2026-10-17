@@ -2,7 +2,7 @@
 %bcond_without tests
 
 Name:           python-pyproject-hooks
-Version:        1.2.0
+Version:        1.3.3
 Release:        %autorelease
 Summary:        Wrappers to call pyproject.toml-based build backend hooks
 
@@ -10,9 +10,6 @@ Summary:        Wrappers to call pyproject.toml-based build backend hooks
 License:        MIT
 URL:            https://pypi.org/project/pyproject_hooks/
 Source:         %{pypi_source pyproject_hooks}
-
-# Upstream fix for compatibility with Python 3.15
-Patch:          f230da76.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

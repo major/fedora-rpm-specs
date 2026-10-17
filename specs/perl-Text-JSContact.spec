@@ -1,6 +1,6 @@
 Name:           perl-Text-JSContact
-Version:        0.02
-Release:        2%{?dist}
+Version:        0.03
+Release:        1%{?dist}
 Summary:        Convert between vCard and JSContact
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Text-JSContact
@@ -83,6 +83,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 16 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.03-1
+- 0.03 bump
+
 * Tue Sep 15 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.02-2
 - Add missing LICENSE file
 

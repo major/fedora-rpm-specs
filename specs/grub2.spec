@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	86%{?dist}
+Release:	87%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -39,6 +39,34 @@ Source13:	gen_grub_cfgstub
 Source14:	95-set-boot-entry.install
 
 %include %{SOURCE1}
+
+# ELN uses Fedora signing process, so just define valid values for RHEL/CentOS
+%if 0%{?rhel}%{?centos} && !0%{?eln}
+%ifarch x86_64 aarch64
+%define sb_ca	%{_datadir}/pki/sb-certs/secureboot-ca-%{_arch}.cer
+%define sb_cer	%{_datadir}/pki/sb-certs/secureboot-grub2-%{_arch}.cer
+%endif
+%ifarch ppc64le
+%define sb_ca	%{_datadir}/pki/sb-certs/secureboot-ca-%{_arch}.cer
+%define sb_cer	%{_datadir}/pki/sb-certs/secureboot-kernel-%{_arch}.cer
+%endif
+%if 0%{?centos}
+%ifarch x86_64 aarch64 ppc64le
+%define sb_key	centossecureboot802
+%endif
+%else
+%ifarch x86_64 aarch64
+%define sb_key	redhatsecureboot802
+%endif
+%ifarch ppc64le
+%define sb_key	redhatsecureboot702
+%endif
+%endif
+%else
+%define sb_ca	 %{nil}
+%define sb_cer	 %{nil}
+%define sb_key	 %{nil}
+%endif
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -73,6 +101,11 @@ BuildRequires:	pesign >= 0.99-8
 
 %if %{?_with_ccache: 1}%{?!_with_ccache: 0}
 BuildRequires:	ccache
+%endif
+
+# ELN uses Fedora signing process, so exclude
+%if 0%{?rhel}%{?centos} && !0%{?eln}
+BuildRequires:	system-sb-certs
 %endif
 
 ExcludeArch:	s390 s390x %{ix86}
@@ -241,10 +274,10 @@ git commit -m "After making subdirs"
 
 %build
 %if 0%{with_efi_arch}
-%{expand:%do_primary_efi_build %%{grubefiarch} %%{grubefiname} %%{grubeficdname} %%{_target_platform} %%{efi_target_cflags} %%{efi_host_cflags}}
+%{expand:%do_primary_efi_build %%{grubefiarch} %%{grubefiname} %%{grubeficdname} %%{_target_platform} %%{efi_target_cflags} %%{efi_host_cflags} %{sb_ca} %{sb_cer} %{sb_key}}
 %endif
 %if 0%{with_alt_efi_arch}
-%{expand:%do_alt_efi_build %%{grubaltefiarch} %%{grubaltefiname} %%{grubalteficdname} %%{_alt_target_platform} %%{alt_efi_target_cflags} %%{alt_efi_host_cflags}}
+%{expand:%do_alt_efi_build %%{grubaltefiarch} %%{grubaltefiname} %%{grubalteficdname} %%{_alt_target_platform} %%{alt_efi_target_cflags} %%{alt_efi_host_cflags} %{sb_ca} %{sb_cer} %{sb_key}}
 %endif
 %if 0%{with_legacy_arch}
 %{expand:%do_legacy_build %%{grublegacyarch}}
@@ -686,6 +719,10 @@ fi
 %endif
 
 %changelog
+* Wed Oct 14 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-87
+- spec: Include CentOS/RHEL signing macros and parameters
+- Resolves: #2536244
+
 * Tue Oct 13 2026 Dennis Gilmore <dennis@ausil.us> - 2.12-86
 - Add patch to try try allocating in the lower 4GB first
 - Resolves: #2459477

@@ -41,7 +41,7 @@
 
 Summary: A Modern Concurrent Version Control System
 Name: subversion
-Version: 1.14.5
+Version: 1.15.0
 Release: %autorelease
 License: Apache-2.0
 URL: https://subversion.apache.org/
@@ -53,22 +53,14 @@ Source5: psvn-init.el
 Source6: svnserve.service
 Source7: svnserve.tmpfiles
 Source8: svnserve.sysconf
-Patch1: subversion-1.12.0-linking.patch
+Patch1: subversion-1.15.0-linking.patch
 Patch2: subversion-1.14.0-testwarn.patch
-Patch3: subversion-1.14.2-soversion.patch
+Patch3: subversion-1.15.0-soversion.patch
 Patch4: subversion-1.8.0-rubybind.patch
 Patch5: subversion-1.8.5-swigplWall.patch
-Patch6: subversion-1.14.1-testnomagic.patch
-Patch7: subversion-1.14.2-modsyms.patch
+Patch6: subversion-1.15.0-testnomagic.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2255746
 Patch8: subversion-1.14.3-zlib-ng.patch
-Patch9: subversion-1.14.5-progenv.patch
-# Fix tests with Python 3.14, https://github.com/apache/subversion/pull/30
-Patch10: subversion-1.14.5-python314.patch
-# https://github.com/apache/subversion/pull/28
-Patch11: subversion-1.14.5-davgetpath.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2405291
-Patch12: subversion-1.14.5-r1929560.patch
 BuildRequires: make
 BuildRequires: libxcrypt-devel
 BuildRequires: autoconf, libtool, texinfo, which, gcc, gcc-c++
@@ -432,7 +424,7 @@ ln -s svnauthz $RPM_BUILD_ROOT%{_bindir}/svnauthz-validate
 
 for f in svn-populate-node-origins-index fsfs-access-map \
     svnauthz svnauthz-validate svnmucc svnraisetreeconflict svnbench \
-    svn-mergeinfo-normalizer fsfs-stats svnmover svnconflict; do
+    svn-mergeinfo-normalizer fsfs-stats svnconflict; do
     echo %{_bindir}/$f
     if test -f $RPM_BUILD_ROOT%{_mandir}/man?/${f}.*; then
        echo %{_mandir}/man?/${f}.*

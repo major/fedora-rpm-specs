@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       6.1.1
-Release:       4%{?dist}
+Version:       6.1.3
+Release:       1%{?dist}
 BuildArch:     noarch
 
 # The lxml project is licensed under BSD-3-Clause
@@ -89,6 +89,9 @@ export MINGW64_CFLAGS="%{mingw64_cflags} -fpermissive"
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 6.1.3-1
+- Update to 6.1.3
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 6.1.1-4
 - Rebuild (mingw-python)
 

@@ -17,7 +17,6 @@ ExcludeArch: %{ix86}
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  libdwarf-devel
-BuildRequires:  libcxxabi-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  gtest-devel
 BuildRequires:  gmock-devel

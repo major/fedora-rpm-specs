@@ -28,7 +28,7 @@
 %define baseversion 9.2
 # get bug url from /etc/os-release
 %define bugurl %(source /etc/os-release; echo ${BUG_REPORT_URL})
-%define patchlevel 1129
+%define patchlevel 1202
 %define vimdir vim92
 
 %if %{with desktop_file}
@@ -335,6 +335,8 @@ BuildRequires: libXt-devel
 BuildRequires: libappstream-glib
 # for sound support
 BuildRequires: libcanberra-devel
+# for rendering images in popup window
+BuildRequires: pkgconfig(pixman-1)
 
 Provides: gvim
 Provides: vim(plugins-supported)
@@ -465,6 +467,7 @@ perl -pi -e "s/vimrc/virc/"  os_unix.h
   --exec-prefix=/ \
   --disable-canberra \
   --disable-gpm \
+  --disable-pixman \
   --disable-hardcopy-pango \
   --disable-libsodium \
   --disable-netbeans \
@@ -503,6 +506,7 @@ mv -f os_unix.h.save os_unix.h
   --enable-fips-warning \
   --enable-gui=no \
   --enable-multibyte \
+  --enable-pixman \
   --enable-python3interp=dynamic \
   --enable-year2038 \
   --exec-prefix=%{_prefix} \
@@ -572,6 +576,7 @@ cp vim enhanced-vim
   --enable-fail-if-missing \
   --enable-fips-warning \
   --enable-hardcopy-pango \
+  --enable-pixman \
   --enable-multibyte \
   --enable-python3interp=dynamic \
   --enable-socketserver \
@@ -1061,6 +1066,9 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Fri Oct 16 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.1202-1
+- patchlevel 1202
+
 * Fri Sep 25 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.1129-1
 - patchlevel 1129
 

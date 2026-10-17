@@ -6,8 +6,8 @@
 
 Name:          mingw-python-%{pkgname}
 Summary:       MinGW Windows Python %{pkgname} library
-Version:       2.4.1
-Release:       3%{?dist}
+Version:       2.5.0
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -69,6 +69,9 @@ MinGW Windows Python3 %{pkgname} library.
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 2.5.0-1
+- Update to 2.5.0
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 2.4.1-3
 - Rebuild (mingw-python)
 

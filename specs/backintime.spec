@@ -1,6 +1,6 @@
 Name:             backintime
-Version:          1.6.1
-Release:          2%{?dist}
+Version:          1.6.2
+Release:          1%{?dist}
 Summary:          Simple backup tool inspired from the Flyback project and TimeVault
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -148,7 +148,7 @@ account         include         config-util
 session         include         config-util
 EOF
 
-rm %{buildroot}%{_mandir}/man5
+rm -d %{buildroot}%{_mandir}/man5
 
 %check
 rm common/test/test_tools.py
@@ -194,6 +194,9 @@ rm common/test/test_snapshots.py
 
 
 %changelog
+* Fri Oct 16 2026 Johannes Lips <hannes@fedoraproject.org> - 1.6.2-1
+- update to latest upstream release
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

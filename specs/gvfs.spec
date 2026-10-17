@@ -28,6 +28,12 @@ License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
 URL:     https://wiki.gnome.org/Projects/gvfs
 Source0: https://download.gnome.org/sources/%{name}/%{gnome_major_minor_version}/%{name}-%{version}.tar.xz
 
+# Fix SSH agent discovery with oo7
+# https://gitlab.gnome.org/GNOME/gvfs/-/commit/bce2cdc57ee9c9cb8b799996230e5ed2294dd512
+# https://gitlab.gnome.org/GNOME/gvfs/-/commit/5524028eba7c382be2b9e8a674e37badf311e3ca
+Patch: build-Add-an-option-to-start-an-SSH-agent-before-GVfs.patch
+Patch: sftp-Prefer-SSH_AUTH_SOCK-over-GNOME-Keyring.patch
+
 BuildRequires: meson
 BuildRequires: gcc
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
@@ -58,6 +64,7 @@ BuildRequires: pkgconfig(polkit-gobject-1)
 BuildRequires: pkgconfig(libcap)
 
 Requires: %{name}-client%{?_isa} = %{version}-%{release}
+Requires: gcr
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gsettings-desktop-schemas >= %{gsettings_desktop_schemas_version}
 Requires: polkit
@@ -191,6 +198,7 @@ file services.
 %build
 %meson \
        -Dman=true \
+       -Dsystemd_ssh_agent_unit=gcr-ssh-agent.socket \
 %ifarch s390 s390x
        -Dafc=false \
        -Dgphoto2=false \

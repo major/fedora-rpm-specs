@@ -7,8 +7,8 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.5.3
-Release:       2%{?dist}
+Version:       2.5.4
+Release:       1%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
 License:       BSD-3-Clause AND Apache-2.0
@@ -228,6 +228,9 @@ ln -s %{mingw64_python3_sitearch}/numpy/_core/include/numpy/ %{buildroot}%{mingw
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 2.5.4-1
+- Update to 2.5.4
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 2.5.3-2
 - Rebuild (mingw-python)
 

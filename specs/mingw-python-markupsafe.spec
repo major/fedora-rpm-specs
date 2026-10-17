@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{mod_name} library
-Version:       3.0.3
-Release:       4%{?dist}
+Version:       3.0.4
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
@@ -74,6 +74,9 @@ sed -i '/setuptools/s/>=.*"/"/' pyproject.toml
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 3.0.4-1
+- Update to 3.0.4
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 3.0.3-4
 - Rebuild (mingw-python)
 

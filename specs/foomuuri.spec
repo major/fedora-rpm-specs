@@ -1,11 +1,12 @@
 Name:           foomuuri
-Version:        0.33
-Release:        3%{?dist}
+Version:        0.34
+Release:        1%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
 URL:            https://github.com/FoobarOy/foomuuri
 Source0:        https://github.com/FoobarOy/foomuuri/archive/v%{version}/foomuuri-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  jq
 BuildRequires:  make
 BuildRequires:  nftables
 BuildRequires:  python3-devel
@@ -186,6 +187,9 @@ fi
 
 
 %changelog
+* Fri Oct 16 2026 Kim B. Heino  <b@bbbs.net> - 0.34-1
+- Upgrade to 0.34
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

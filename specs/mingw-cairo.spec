@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-cairo
-Version:        1.18.4
-Release:        4%{?dist}
+Version:        1.18.6
+Release:        1%{?dist}
 Summary:        MinGW Windows Cairo library
 
 License:        LGPL-2.1-only OR MPL-1.1
@@ -157,6 +157,9 @@ Static version of the MinGW Windows Cairo library.
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 1.18.6-1
+- Update to 1.18.6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

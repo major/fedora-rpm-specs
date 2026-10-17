@@ -46,6 +46,11 @@
 %global        upstream_sources 0 2
 %global        pgp_signature_sources 2
 
+%global        git_commit d0a87358dad598e830664c78349c31cd0eafacbc
+%global        git_short %{sub %git_commit 1 8}
+# git log --format=%ai -1 $COMMIT | tr -d - | cut -d' ' -f1
+%global        git_date 20261003
+
 ## The order of libs is important. See lib/Makefile.in for details
 %define bind_export_libs isc dns isccfg irs
 %{!?_export_dir:%global _export_dir /bind9-export/}
@@ -70,16 +75,31 @@
 # lib*-%%{version}-RH.so is provided as an internal implementation detail
 
 # priority of this srpm executables
-%global alternatives_prio 10
+%global alternatives_prio 100
 
 # Upstream package name
-%global upname bind
+%global upname bind9
+
+# original name of this package
+%global oldname bind
+
+# Used on shared libraries, snapshot adds -dev suffix
+%global lib_version 9.18.51
+
 # Epoch is intentionally missing from Provides to be lower than bind package
-%define upname_compat() \
+# Conflict with all packages not yet using alternatives
+%define upname_compat(as:) \
 %if "%{name}" != "%{upname}" \
-Provides: %1 = %{version}-%{release} \
-Provides: alternative(%1) = %{version}-%{release} \
-%endif
+Provides: %{upname}%{-s:-}%{-s*} = %{?epoch:%{epoch}:}%{version}-%{release} \
+%endif \
+%if "%{name}" != "%{oldname}" \
+Provides: %{oldname}%{-s:-}%{-s*} = %{?epoch:%{epoch}:}%{version}-%{release} \
+%endif \
+%if 0%{-a:1} \
+Provides: alternative(%{upname}%{-s:-}%{-s*}) = %{version}-%{release} \
+%endif \
+Conflicts: ((%{upname}%{-s:-}%{-s*} < %{epoch}:%{version}-%{release} or %{oldname}%{-s:-}%{-s*} < %{epoch}:%{version}-%{release}) unless alternative(%{upname}%{-s:-}%{-s*})) \
+# end of upname_compat. Conflict only with lower versions, not itself.
 
 Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) server
 Name:     bind
@@ -101,14 +121,15 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 #
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
-Version:  9.18.50
+Version:  %{lib_version}^git%{git_date}.%{git_short}
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
-Source0:  https://downloads.isc.org/isc/bind9/%{version}/%{upname}-%{version}.tar.xz
+%dnl Source0:  https://downloads.isc.org/isc/bind9/%{version}/%{oldname}-%{version}.tar.xz
+Source0:  https://gitlab.isc.org/isc-projects/bind9/-/archive/%{git_commit}/bind9-%{git_commit}.tar.bz2
 Source1:  named.sysconfig
-Source2:  https://downloads.isc.org/isc/bind9/%{version}/%{upname}-%{version}.tar.xz.asc
+%dnl Source2:  https://downloads.isc.org/isc/bind9/%{version}/%{oldname}-%{version}.tar.xz.asc
 Source3:  named.logrotate
 Source4:  https://www.isc.org/docs/isc-keyblock.asc
 Source16: named.conf
@@ -160,33 +181,12 @@ Patch33: bind-9.18-dig-idn-input-always.patch
 Patch34: bind-9.18-dig-idn-input-always-test.patch
 # downstream only, https://redhat.atlassian.net/browse/IDM-6189
 Patch35: 0001-Use-variable-PROGRAM_SUFFIX-in-install-target.patch
-# https://gitlab.isc.org/isc-projects/bind9/commit/4fd0755bdd08471f74e6e4c76cd2326f356e0a61
-# https://gitlab.isc.org/isc-projects/bind9/-/work_items/5856
-Patch36: bind-9.18-CVE-2026-11331.patch
-Patch37: bind-9.18-CVE-2026-11331-test.patch
-# https://gitlab.isc.org/isc-projects/bind9/commit/c5d2fc706ca3635d9928c1cc68db73bffb35d772
-Patch38: bind-9.18-CVE-2026-10822.patch
-Patch40: bind-9.18-CVE-2026-10822-test.patch
-# https://gitlab.isc.org/isc-projects/bind9/commit/5a0cef5bdb077df73fa59504efb8ca4c8b0a84c5
-Patch41: bind-9.18-CVE-2026-12617.patch
-# https://gitlab.isc.org/isc-projects/bind9/commit/26437be900c68bbe0974ec9ab804c2894c19c419
-Patch42: bind-9.18-CVE-2026-12617-test.patch
-# https://gitlab.isc.org/isc-projects/bind9/commit/14d23a4955c62efe974266a8e96a8c5d7caad040
-Patch43: bind-9.18-CVE-2026-11622.patch
-# https://gitlab.isc.org/isc-projects/bind9/commit/58812f64bf14b3930f5bb90a2d0e1f59bc8260b4
-Patch44: bind-9.18-CVE-2026-11721.patch
-Patch45: bind-9.18-CVE-2026-11721-test.patch
-# https://gitlab.isc.org/isc-projects/bind9/commit/348fd47f7636f610a39ba98427fcacab8e62389b
-Patch46: bind-9.18-CVE-2026-10723.patch
-Patch47: bind-9.18-CVE-2026-10723-test.patch
-# https://gitlab.isc.org/isc-projects/bind9/commit/b9ff2c9a36bb678fd1393d4f932b35a6882cd2a8
-Patch48: bind-9.18-CVE-2026-13204.patch
-Patch49: bind-9.18-CVE-2026-13204-test.patch
-# https://gitlab.isc.org/isc-projects/bind9/commit/36f3d50f9c8ebc8d25ee033e707ca502e20b083f
-Patch50: bind-9.18-CVE-2026-13321.patch
-Patch51: bind-9.18-CVE-2026-13321-test.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/12420
-Patch52: bind-9.20-tsig-keygen-suffix.patch
+Patch36: bind-9.20-tsig-keygen-suffix.patch
+# Downstream only, required on very long build paths.
+Patch37: bind-9.18-d-unittest-dnstap-relative.patch
+# Downstream only, do not use -E pkcs11 in keyfromlabel
+Patch38: bind-9.18-d-systest-keyfromlabel-noengine.patch
 
 
 %{?systemd_ordering}
@@ -196,11 +196,11 @@ Requires:       coreutils
 Requires(post): shadow-utils
 Requires(post): glibc-common
 Requires(post): grep
-Requires(post):   %{_sbindir}/alternatives
-Requires(postun): %{_sbindir}/alternatives
+Requires(post):   alternatives
+Requires(postun): alternatives
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Recommends:     %{name}-utils %{name}-dnssec-utils
-%upname_compat  %{upname}
+%upname_compat -a
 Obsoletes:      %{name}-pkcs11 < 32:9.18.4-2
 
 BuildRequires:  gcc
@@ -298,9 +298,9 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # For compatibility with Debian package
 Provides: dnsutils = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-pkcs11-utils < 32:9.18.4-2
-Requires(post):   %{_sbindir}/alternatives
-Requires(postun): %{_sbindir}/alternatives
-%upname_compat %{upname}-utils
+Requires(post):   alternatives
+Requires(postun): alternatives
+%upname_compat -a -s utils
 
 %description utils
 Bind-utils contains a collection of utilities for querying DNS (Domain
@@ -318,9 +318,9 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Recommends: %{name}-utils
 Obsoletes: python3-%{name} < 32:9.18.0
 Obsoletes: %{name}-dnssec-doc < 32:9.18.4-2
-Requires(post):   %{_sbindir}/alternatives
-Requires(postun): %{_sbindir}/alternatives
-%upname_compat %{upname}-dnssec-utils
+Requires(post):   alternatives
+Requires(postun): alternatives
+%upname_compat -a -s dnssec-utils
 
 %description dnssec-utils
 %{name}-dnssec-utils contains a collection of utilities for editing
@@ -338,9 +338,9 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig(libcrypto) pkgconfig(libssl)
 Requires: pkgconfig(libxml-2.0)
 Requires: pkgconfig(libcap)
-Requires(post):   %{_sbindir}/alternatives
-Requires(postun): %{_sbindir}/alternatives
-%upname_compat %{upname}-devel
+Requires(post):   alternatives
+Requires(postun): alternatives
+%upname_compat -a -s devel
 %if %{with GSSTSIG}
 Requires: pkgconfig(krb5)
 %endif
@@ -369,10 +369,15 @@ Prefix:         %{chroot_prefix}
 # grep is required due to setup-named-chroot.sh script
 Requires:       grep
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-%upname_compat %{upname}-chroot
-%if "%{name}" != "%{upname}"
+# chroot does not use alternatives (yet)
+%upname_compat -s chroot
+%if "%{name}" != "%{upname}" && "%{name}" != "%{oldname}"
 Conflicts:      %{upname}-chroot
 Conflicts:      %{upname}-sdb-chroot
+%endif
+%if "%{name}" != "%{oldname}"
+Conflicts:      %{oldname}-chroot
+Conflicts:      %{oldname}-sdb-chroot
 %endif
 
 %description chroot
@@ -406,17 +411,18 @@ in HTML and PDF format.
 %global bind_include %{_includedir}/bind%{mver}
 
 # use this suffix for binaries
-%global program_suffix -%{mver}
+%global program_suffix -9
 # preparation scripts directory
 %global bind_libexecdir %{_libexecdir}/%{name}
 
 
 %prep
-%if 0%{?fedora}
+# no signatures for git snapshots
+%if 0%{?fedora} && 0%{?!git_date:1}
 # RHEL does not yet support this verification
 %{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
 %endif
-%autosetup -n %{upname}-%{version} -p1
+%autosetup -n %{upname}-%{git_commit} -p1
 
 # Sparc and s390 arches need to use -fPIE
 %ifarch sparcv9 sparc64 s390 s390x
@@ -848,32 +854,10 @@ mkdir -p ${RPM_BUILD_ROOT}%{_includedir}/bind9
       rm -f -- "$UNITX"; \
     fi
 
-
-%post
-%{?ldconfig}
-if [ "$1" -eq 1 ]; then
-  # Initial installation
-  [ -x /sbin/restorecon ] && /sbin/restorecon /etc/rndc.* /etc/named.* >/dev/null 2>&1 ;
-  # rndc.key has to have correct perms and ownership, CVE-2007-6283
-  [ -e /etc/rndc.key ] && chown root:named /etc/rndc.key
-  [ -e /etc/rndc.key ] && chmod 0640 /etc/rndc.key
-else
-  # Upgrade, use invalid shell
-  if getent passwd named | grep ':/bin/false$' >/dev/null; then
-    /sbin/usermod -s /sbin/nologin named
-  fi
-  # Checkconf will parse out comments
-  if /usr/bin/named-checkconf -p /etc/named.conf 2>/dev/null | grep -q named.iscdlv.key
-  then
-    echo "Replacing obsolete named.iscdlv.key with named.root.key..."
-    if cp -Rf --preserve=all --remove-destination /etc/named.conf /etc/named.conf.rpmbackup; then
-      sed -e 's/named\.iscdlv\.key/named.root.key/' \
-        /etc/named.conf.rpmbackup > /etc/named.conf || \
-      mv /etc/named.conf.rpmbackup /etc/named.conf
-    fi
-  fi
-fi
-%if "%{program_suffix}" != ""
+# now create separate install scripts for each supported subpackage
+mkdir -p ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/
+cat << 'EOF' > ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/alternatives-install-named.sh
+#!/bin/sh
   ALTS=""
   for BIN in %{main_bin1}; do
     ALTS+="%{altfbinman $BIN 1}"
@@ -904,6 +888,90 @@ fi
                       %{altfunit named-setup-rndc.service %{name}-setup-rndc.service} \
                       --initscript %{name} \
                       ${ALTS}
+EOF
+
+cat << 'EOF' > ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/alternatives-install-utils.sh
+#!/bin/sh
+  ALTS=""
+  for BIN in %{utils_bin1}; do
+    %{altrmbinman ${BIN} 1}
+    [ "$BIN" != dig ] && ALTS+="%{altfbinman $BIN 1}"
+  done
+  for BIN in %{utils_bin8}; do
+    %{altrmsbinman ${BIN} 8}
+    ALTS+="%{altfbinman $BIN 8}"
+  done
+  alternatives --install %{_bindir}/dig %{upname}-utils-dig %{_bindir}/dig%{program_suffix} %{alternatives_prio} \
+  %{altfman dig 1}          \
+  ${ALTS}
+EOF
+
+cat << 'EOF' > ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/alternatives-install-dnssec-utils.sh
+#!/bin/sh
+  ALTS=""
+  for BIN in %{dnssec_utils_bin1}; do
+    BINX="%{_bindir}/${BIN}"
+    MANX="%{_mandir}/man1/${BIN}.1%{manext}"
+    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then
+      rm -f -- "$BINX"
+    fi
+    if ! [ -L "$MANX" ] && [ -f "$MANX" ]; then
+      rm -f -- "$MANX"
+    fi
+    [ "$BIN" != dnssec-verify ] && ALTS+="%{altfbinman $BIN 1}"
+  done
+  alternatives --install %{_bindir}/dnssec-verify %{upname}-dnssec-utils %{_bindir}/dnssec-verify%{program_suffix} %{alternatives_prio} \
+  %{altfman dnssec-verify 1}          \
+  $ALTS
+EOF
+
+cat << 'EOF' > ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/alternatives-install-devel.sh
+#!/bin/sh
+  ALTS=""
+  for BIN in %{devel_lib}; do
+    BINX="%{_libdir}/${BIN}.so"
+    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then
+      rm -f -- "$BINX"
+    fi
+    ALTS+="%{altflib $BIN}"
+  done
+  alternatives --install %{_includedir}/bind9 %{upname}-devel %{bind_include} %{alternatives_prio} \
+    ${ALTS}
+EOF
+
+chmod a+x ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/alternatives-install-*.sh
+
+# end of install
+
+%post
+%{?ldconfig}
+if [ "$1" -eq 1 ]; then
+  # Initial installation
+  [ -x /sbin/restorecon ] && /sbin/restorecon /etc/rndc.* /etc/named.* >/dev/null 2>&1 ;
+  # rndc.key has to have correct perms and ownership, CVE-2007-6283
+  [ -e /etc/rndc.key ] && chown root:named /etc/rndc.key
+  [ -e /etc/rndc.key ] && chmod 0640 /etc/rndc.key
+else
+  # Upgrade, use invalid shell
+  if getent passwd named | grep ':/bin/false$' >/dev/null; then
+    /sbin/usermod -s /sbin/nologin named
+  fi
+  # Checkconf will parse out comments
+  if /usr/bin/named-checkconf -p /etc/named.conf 2>/dev/null | grep -q named.iscdlv.key
+  then
+    echo "Replacing obsolete named.iscdlv.key with named.root.key..."
+    if cp -Rf --preserve=all --remove-destination /etc/named.conf /etc/named.conf.rpmbackup; then
+      sed -e 's/named\.iscdlv\.key/named.root.key/' \
+        /etc/named.conf.rpmbackup > /etc/named.conf || \
+      mv /etc/named.conf.rpmbackup /etc/named.conf
+    fi
+  fi
+fi
+%if "%{program_suffix}" != ""
+  if [ $1 -gt 1 ]; then
+    alternatives --remove %{oldname}-named  %{_sbindir}/named-%{mver} 2>/dev/null || :
+  fi
+  %{_libexecdir}/%{name}/alternatives-install-named.sh
 %endif
 %systemd_post %{name}.service
 :;
@@ -925,18 +993,10 @@ fi
 
 %post utils
 %if "%{program_suffix}" != ""
-  ALTS=""
-  for BIN in %{utils_bin1}; do
-    %{altrmbinman ${BIN} 1}
-    [ "$BIN" != dig ] && ALTS+="%{altfbinman $BIN 1}"
-  done
-  for BIN in %{utils_bin8}; do
-    %{altrmsbinman ${BIN} 8}
-    ALTS+="%{altfbinman $BIN 8}"
-  done
-  alternatives --install %{_bindir}/dig %{upname}-utils-dig %{_bindir}/dig%{program_suffix} %{alternatives_prio} \
-  %{altfman dig 1}          \
-  ${ALTS}
+  if [ $1 -gt 1 ] ; then
+    alternatives --remove %{oldname}-utils-dig %{_bindir}/dig-%{mver} 2>/dev/null || :
+  fi
+  %{_libexecdir}/%{name}/alternatives-install-utils.sh
 %endif
 %end
 
@@ -950,21 +1010,10 @@ fi
 
 %post dnssec-utils
 %if "%{program_suffix}" != ""
-  ALTS=""
-  for BIN in %{dnssec_utils_bin1}; do
-    BINX="%{_bindir}/${BIN}"
-    MANX="%{_mandir}/man1/${BIN}.1%{manext}"
-    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then
-      rm -f -- "$BINX"
-    fi
-    if ! [ -L "$MANX" ] && [ -f "$MANX" ]; then
-      rm -f -- "$MANX"
-    fi
-    [ "$BIN" != dnssec-verify ] && ALTS+="%{altfbinman $BIN 1}"
-  done
-  alternatives --install %{_bindir}/dnssec-verify %{upname}-dnssec-utils %{_bindir}/dnssec-verify%{program_suffix} %{alternatives_prio} \
-  %{altfman dnssec-verify 1}          \
-  $ALTS
+  if [ $1 -gt 1 ] ; then
+    alternatives --remove %{oldname}-dnssec-utils %{_bindir}/dnssec-verify-%{mver} 2>/dev/null || :
+  fi
+  %{_libexecdir}/%{name}/alternatives-install-dnssec-utils.sh
 %endif
 %end
 
@@ -1000,25 +1049,20 @@ if [ -x %{_sbindir}/selinuxenabled ] && [ -x %{_sbindir}/getsebool ] && [ -x %{_
   fi
 fi
 
+
 %post devel
 %if "%{program_suffix}" != ""
-  ALTS=""
-  for BIN in %{devel_lib}; do
-    BINX="%{_libdir}/${BIN}.so"
-    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then
-      rm -f -- "$BINX"
-    fi
-    ALTS+="%{altflib $BIN}"
-  done
-  alternatives --install %{_includedir}/bind9 %{upname}-devel %{bind_include} %{alternatives_prio} \
-    ${ALTS}
+  if [ $1 -gt 1 ] ; then
+    alternatives --remove %{oldname}-devel %{bind_include} 2>/dev/null || :
+  fi
+  %{_libexecdir}/%{name}/alternatives-install-devel.sh
 %endif
 
 %postun devel
 %if "%{program_suffix}" != ""
-if [ $1 -eq 0 ] ; then
-  alternatives --remove %{upname}-devel %{bind_include}
-fi
+  if [ $1 -eq 0 ] ; then
+    alternatives --remove %{upname}-devel %{bind_include}
+  fi
 %endif
 %end
 
@@ -1081,6 +1125,8 @@ fi;
 %{_sbindir}/named-checkconf%{program_suffix}
 %ghost %attr(0755,-,-) %{_sbindir}/named-checkconf
 %endif
+%dir %{_libexecdir}/%{name}/
+%{_libexecdir}/%{name}/alternatives-install-named.sh
 %{_libexecdir}/%{name}/generate-rndc-key.sh
 %{_libexecdir}/%{name}/setup-named-softhsm.sh
 %ghost %attr(0755,-,-) %{_libexecdir}/generate-rndc-key.sh
@@ -1137,13 +1183,13 @@ fi;
 %dir %{_rundir}/named
 
 %files libs
-%{_libdir}/libbind9-%{version}*.so
-%{_libdir}/libisccc-%{version}*.so
-%{_libdir}/libns-%{version}*.so
-%{_libdir}/libdns-%{version}*.so
-%{_libdir}/libirs-%{version}*.so
-%{_libdir}/libisc-%{version}*.so
-%{_libdir}/libisccfg-%{version}*.so
+%{_libdir}/libbind9-%{lib_version}*.so
+%{_libdir}/libisccc-%{lib_version}*.so
+%{_libdir}/libns-%{lib_version}*.so
+%{_libdir}/libdns-%{lib_version}*.so
+%{_libdir}/libirs-%{lib_version}*.so
+%{_libdir}/libisc-%{lib_version}*.so
+%{_libdir}/libisccfg-%{lib_version}*.so
 %{!?_licensedir:%global license %%doc}
 %license COPYRIGHT
 
@@ -1209,10 +1255,14 @@ fi;
 %ghost %attr(0644,-,-) %{_mandir}/man8/ddns-confgen.8%{manext}
 %ghost %attr(0644,-,-) %{_mandir}/man8/tsig-keygen.8%{manext}
 %{_sysconfdir}/trusted-key.key
+%dir %{_libexecdir}/%{name}/
+%{_libexecdir}/%{name}/alternatives-install-utils.sh
 
 %files dnssec-utils
 %{_bindir}/%{dnssec_utils_bin1}%{program_suffix}
 %{_mandir}/man1/%{dnssec_utils_bin1}%{program_suffix}.1*
+%dir %{_libexecdir}/%{name}/
+%{_libexecdir}/%{name}/alternatives-install-dnssec-utils.sh
 %ghost %attr(0755,-,-) %{_bindir}/dnssec-cds
 %ghost %attr(0755,-,-) %{_bindir}/dnssec-dsfromkey
 %ghost %attr(0755,-,-) %{_bindir}/dnssec-importkey
@@ -1243,6 +1293,8 @@ fi;
 %ghost %attr(0755,-,-) %{_libdir}/libisccfg.so
 %ghost %attr(0755,-,-) %{_libdir}/libns.so
 %dir %{bind_include}
+%dir %{_libexecdir}/%{name}/
+%{_libexecdir}/%{name}/alternatives-install-devel.sh
 %{bind_include}/bind9
 %{bind_include}/dns
 %{bind_include}/dst

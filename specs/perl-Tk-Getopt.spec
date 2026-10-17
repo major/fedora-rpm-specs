@@ -1,6 +1,6 @@
 Name:           perl-Tk-Getopt
 Version:        0.52
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        User configuration window for Tk with interface to Getopt::Long
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tk-Getopt
@@ -19,7 +19,7 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Getopt::Long)
-BuildRequires:  perl(Safe)
+# Safe not uset at tests
 BuildRequires:  perl(Tk) >= 804
 # Optional      perl(Tk::Balloon)
 BuildRequires:  perl(Tk::BrowseEntry)
@@ -118,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 16 2026 Petr Pisar <ppisar@redhat.com> - 0.52-6
+- Remove an unused build dependency on Safe
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

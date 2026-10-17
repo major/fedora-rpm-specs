@@ -1,7 +1,7 @@
 %global soversion 0
 
 Name:           mctc-lib
-Version:        0.5.2
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Modular computation tool chain library
 License:        Apache-2.0
@@ -39,6 +39,7 @@ developing applications that use %{name}.
   -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_lib}/gfortran/modules \
   -Dmctc-lib-module-dir:STRING=mctc-lib \
   -DMCTCLIB_WITH_OpenMP:BOOL=ON \
+  -DWITH_JSON:BOOL=ON \
   -DMCTCLIB_WITH_JSON:BOOL=ON
 
 

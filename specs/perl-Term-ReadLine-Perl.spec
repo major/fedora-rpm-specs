@@ -1,8 +1,7 @@
 Name:           perl-Term-ReadLine-Perl
 Version:        1.0303
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Readline implementation in Perl
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-ReadLine-Perl
 Source0:        https://cpan.metacpan.org/authors/id/I/IL/ILYAZ/modules/Term-ReadLine-Perl-%{version}.tar.gz
@@ -14,10 +13,11 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Term::Cap is optional
 # Run-time:
-BuildRequires:  perl(Carp)
-BuildRequires:  perl(SelfLoader)
-BuildRequires:  perl(Term::ReadKey)
+# Carp not used at tests
+# SelfLoader not used at tests
+# Term::ReadKey not used at tests
 # Tests:
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(Term::ReadLine)
 Requires:       perl(Term::ReadKey)
 
@@ -45,9 +45,15 @@ AUTOMATED_TESTING=1 make test
 
 %files
 %doc CHANGES README
-%{perl_vendorlib}/*
+%dir %{perl_vendorlib}/Term
+%dir %{perl_vendorlib}/Term/ReadLine
+%{perl_vendorlib}/Term/ReadLine/Perl.pm
+%{perl_vendorlib}/Term/ReadLine/readline.pm
 
 %changelog
+* Fri Oct 16 2026 Petr Pisar <ppisar@redhat.com> - 1.0303-43
+- Remove unused build-time dependencies
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0303-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

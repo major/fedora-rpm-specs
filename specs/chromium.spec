@@ -282,7 +282,7 @@
 %endif
 
 Name:	chromium
-Version: 155.0.8059.79
+Version: 155.0.8059.84
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1988,6 +1988,19 @@ fi
 %endif
 
 %changelog
+* Fri Oct 16 2026 Than Ngo <than@redhat.com> - 155.0.8059.84-1
+- Update to 155.0.8059.84, includes 10 security fixes
+  * CVE-2026-110913: Memory corruption in DOM
+  * CVE-2026-110914: Memory corruption in Workers
+  * CVE-2026-110915: Use after free in Compositing
+  * CVE-2026-110916: Improper input validation in Desktop
+  * CVE-2026-110917: Memory corruption in SVG
+  * CVE-2026-110918: Memory corruption in Core
+  * CVE-2026-110919: Use after free in V8
+  * CVE-2026-110920: Memory corruption in V8
+  * CVE-2026-110921: Use after free in V8
+  * CVE-2026-110922: Use after free in Prerender
+
 * Wed Oct 14 2026 Than Ngo <than@redhat.com> - 155.0.8059.79-1
 - Update to 155.0.8059.39, includes 37 security fixes
   * CVE-2026-110136: Use after free in PDF

@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.9.12
-Release:       3%{?dist}
+Version:       2.9.13
+Release:       1%{?dist}
 BuildArch:     noarch
 
 
@@ -83,6 +83,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 2.9.13-1
+- Update to 2.9.13
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 2.9.12-3
 - Rebuild (mingw-python)
 

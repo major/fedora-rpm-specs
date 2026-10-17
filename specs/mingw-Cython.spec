@@ -8,8 +8,8 @@
 
 Name:          mingw-%{mod_name}
 Summary:       MinGW Windows Python %{mod_name} library
-Version:       3.2.8
-Release:       3%{?dist}
+Version:       3.2.9
+Release:       1%{?dist}
 
 License:       Apache-2.0
 URL:           http://www.cython.org
@@ -109,6 +109,9 @@ MinGW Windows Python3 %{mod_name} library.
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 3.2.9-1
+- Update to 3.2.9
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 3.2.8-3
 - Rebuild (mingw-python)
 

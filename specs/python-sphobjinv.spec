@@ -1,9 +1,9 @@
 %global pypi_name sphobjinv
 
 Name:           python-%{pypi_name}
-Version:        2.3.1.1
-Release:        5%{?dist}
-Summary:        Sphinx objects.inv inspection/manipulation tool
+Version:        2.4
+Release:        %autorelease
+Summary:        Toolkit for manipulation and inspection of Sphinx objects.inv files
 
 License:        MIT
 URL:            https://github.com/bskinn/sphobjinv
@@ -21,7 +21,7 @@ sphobjinv comes in.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+Provides:       vendored(python3-fuzzywuzzy) = 0.18.0
 
 %description -n python3-%{pypi_name}
 The syntax required for a functional Sphinx cross-reference is highly
@@ -32,80 +32,27 @@ sphobjinv comes in.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
+sed -i -e '1{\@^#!/usr/bin/env python@d}' src/sphobjinv/_vendored/fuzzywuzzy/{fuzz,process}.py
+sed -i -e '/pytest-retry\|stdio-mgr/d' tox.ini requirements-dev.txt
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
-%files -n python3-%{pypi_name}
-%license LICENSE.txt
+%check
+# Ignore test that requires stdio-mgr
+%tox -- -- -v --ignore tests/test_api_good_nonlocal.py --ignore tests/test_cli.py --ignore tests/test_cli_nonlocal.py --ignore tests/test_cli_textconv.py --ignore tests/test_cli_textconv.py
+
+%files -n python3-%{pypi_name} -f %pyproject_files
 %doc README.md
 %{_bindir}/sphobjinv
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
+%{_bindir}/sphobjinv-textconv
 
 %changelog
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3.1.1-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.3.1.1-3
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Sep 28 2024 Fabian Affolter <mail@fabian-affolter.ch> - 2.3.1.1-1
-- Update to latest upstream release
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 2.0.1-15
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 2.0.1-11
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.0.1-8
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.0.1-5
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.0.1-2
-- Rebuilt for Python 3.9
-
-* Mon Mar 02 2020 Fabian Affolter <mail@fabian-affolter.ch> - 2.0.1-1
-- Initial package for Fedora
+%autochangelog

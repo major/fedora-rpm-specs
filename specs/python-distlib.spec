@@ -2,24 +2,14 @@
 %bcond_without check
 
 Name:       python-distlib
-Version:    0.4.0
+Version:    0.4.3
 Release:    %autorelease
 Summary:    Low-level components of distutils2/packaging, augmented with higher-level APIs
 
-# Automatically converted from old format: Python - review is highly recommended.
-License:    LicenseRef-Callaway-Python
+# https://github.com/pypa/distlib/issues/275
+License:    Python-2.0.1
 URL:        https://readthedocs.org/projects/distlib/
 Source0:    %pypi_source %{srcname} %{version}
-
-# Compatibility with python 3.14
-# Fixed upstream:
-# https://github.com/pypa/distlib/commit/6286442857de9f734686d08f0e59ca8048ee357a
-Patch:      fix-test-scripts.patch
-
-# Compatibility with python 3.15
-# Sent upstream:
-# https://github.com/pypa/distlib/pull/256
-Patch:      fix-python3.15-ftbfs.patch
 
 BuildArch:  noarch
 

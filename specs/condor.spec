@@ -1,6 +1,6 @@
 # Set the version and release here
-%global condor_version 25.13.2
-%global condor_release 3
+%global condor_version 25.14.1
+%global condor_release 1
 
 # set uw_build to 0 for downstream (Fedora or EPEL)
 # UW build includes stuff for testing and tarballs
@@ -35,8 +35,6 @@ Source1: %{name}.sysusers.conf
 %if %uw_build
 Source2: htcondor.pp
 %endif
-
-Patch1: fix-arm-warning.patch
 
 ExcludeArch: %{ix86}
 
@@ -546,7 +544,6 @@ exit 0
 %prep
 # For release tarballs
 %setup -q -n %{name}-%{condor_version}
-%patch 1 -p1
 
 # fix errant execute permissions
 find src -perm /a+x -type f -name "*.[Cch]" -exec chmod a-x {} \;
@@ -904,12 +901,19 @@ rm -rf %{buildroot}
 %_libexecdir/condor/condor_defrag
 %_libexecdir/condor/interactive.sub
 %_libexecdir/condor/condor_gangliad
+%_libexecdir/condor/condor_metricd
 %_libexecdir/condor/ce-audit.so
 %_libexecdir/condor/adstash/__init__.py
-%_libexecdir/condor/adstash/adstash.py
 %_libexecdir/condor/adstash/config.py
-%_libexecdir/condor/adstash/convert.py
+%_libexecdir/condor/adstash/index_setup.py
+%_libexecdir/condor/adstash/main.py
+%_libexecdir/condor/adstash/settings.py
 %_libexecdir/condor/adstash/utils.py
+%_libexecdir/condor/adstash/ad_converters/__init__.py
+%_libexecdir/condor/adstash/ad_converters/generic.py
+%_libexecdir/condor/adstash/ad_converters/job.py
+%_libexecdir/condor/adstash/ad_converters/job_epoch.py
+%_libexecdir/condor/adstash/ad_converters/transfer_epoch.py
 %_libexecdir/condor/adstash/ad_sources/__init__.py
 %_libexecdir/condor/adstash/ad_sources/ad_file.py
 %_libexecdir/condor/adstash/ad_sources/generic.py
@@ -923,8 +927,13 @@ rm -rf %{buildroot}
 %_libexecdir/condor/adstash/interfaces/opensearch.py
 %_libexecdir/condor/adstash/interfaces/generic.py
 %_libexecdir/condor/adstash/interfaces/json_file.py
-%_libexecdir/condor/adstash/interfaces/null.py
 %_libexecdir/condor/adstash/interfaces/registry.py
+%_libexecdir/condor/adstash/mapping/__init__.py
+%_libexecdir/condor/adstash/mapping/common.py
+%_libexecdir/condor/adstash/mapping/functions.py
+%_libexecdir/condor/adstash/mapping/job.py
+%_libexecdir/condor/adstash/mapping/job_epoch.py
+%_libexecdir/condor/adstash/mapping/transfer_epoch.py
 %_libexecdir/condor/annex
 %_mandir/man1/condor_advertise.1.gz
 %_mandir/man1/condor_check_userlogs.1.gz
@@ -1118,6 +1127,7 @@ rm -rf %{buildroot}
 %_libexecdir/condor/condor_gpu_discovery
 %_libexecdir/condor/condor_gpu_utilization
 %config(noreplace) %_sysconfdir/condor/ganglia.d/00_default_metrics
+%config(noreplace) %_sysconfdir/condor/metrics.d/00_default_metrics
 %defattr(-,condor,condor,-)
 %dir %_var/lib/condor/
 %dir %_var/lib/condor/execute/
@@ -1138,6 +1148,7 @@ rm -rf %{buildroot}
 %config %_sysconfdir/blahp/lsf_local_submit_attributes.sh
 %config %_sysconfdir/blahp/nqs_local_submit_attributes.sh
 %config %_sysconfdir/blahp/pbs_local_submit_attributes.sh
+%config %_sysconfdir/blahp/sfapi_local_submit_attributes.sh
 %config %_sysconfdir/blahp/sge_local_submit_attributes.sh
 %config %_sysconfdir/blahp/slurm_local_submit_attributes.sh
 %_bindir/blahpd
@@ -1285,6 +1296,7 @@ rm -rf %{buildroot}
 %files credmon-vault
 %doc examples/condor_credmon_oauth
 %_sbindir/condor_credmon_vault
+%_bindir/condor_credential_storer
 %_bindir/condor_vault_storer
 %_libexecdir/condor/credmon
 %config(noreplace) %_sysconfdir/condor/config.d/40-vault-credmon.conf
@@ -1292,6 +1304,7 @@ rm -rf %{buildroot}
 %ghost %_var/lib/condor/oauth_credentials/pid
 
 %files credmon-multi
+%_bindir/condor_credential_storer
 %_bindir/condor_vault_storer
 
 %files -n minicondor
@@ -1347,6 +1360,18 @@ fi
 # configuration
 
 %changelog
+* Fri Oct 16 2026 Tim Theisen <tim@cs.wisc.edu> - 25.14.1-1
+- HTCondor no longer accepts multiple queue statements in a submit file
+- The credmon can now obtain and renew OAuth2 access tokens from Pelican
+- HTCondor now detects AMD GPUs that use ROCM 7
+- Container universe adds the detected GPU flag the container command line
+- New self-service annex mode that works with any Slurm cluster
+- New metric daemon that can export metrics to Prometheus and Ganglia
+- Improvements to condor_adstash (see version history)
+- condor_rm now accepts the -held option
+- condor_watch_q now restores the terminal after exiting
+- Fix condor_q crash when using both -batch and -af
+
 * Tue Aug 25 2026 Tim Theisen <ttheisen@fedoraproject.org> - 25.13.2-3
 - Fix warning on ARM plaform
 

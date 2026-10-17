@@ -2,8 +2,8 @@
 %global gem_name fog-json
 
 Name: rubygem-%{gem_name}
-Version: 1.2.0
-Release: 18%{?dist}
+Version: 1.5.0
+Release: 1%{?dist}
 Summary: JSON parsing for fog providers
 License: MIT
 URL: http://github.com/fog/fog-json
@@ -12,8 +12,8 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(fog-core)
+BuildRequires: rubygem(json)
 BuildRequires: rubygem(minitest)
-BuildRequires: rubygem(multi_json)
 BuildArch: noarch
 
 %description
@@ -65,6 +65,7 @@ popd
 %doc %{gem_instdir}/CHANGELOG.md
 %doc %{gem_instdir}/CONTRIBUTING.md
 %doc %{gem_instdir}/CONTRIBUTORS.md
+%doc %{gem_instdir}/SECURITY.md
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
@@ -72,6 +73,10 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Oct 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5.0-1
+- Update to fog-json 1.5.0
+  Resolves: rhbz#2460452
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

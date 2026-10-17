@@ -606,6 +606,13 @@ done
 # === Common test environment
 export LD_LIBRARY_PATH="${RPM_BUILD_ROOT}%{_libdir}:${LD_LIBRARY_PATH}"
 
+# Use non-SIMD llhttp build to fix:
+# - parallel/test-inspector-network-content-type.js
+# - es-module/test-wasm-web-api.js
+%ifarch riscv64
+export UNDICI_NO_WASM_SIMD=1
+%endif
+
 # "aliases" to the just-build binaries
 node() {
     "${RPM_BUILD_ROOT}%{_bindir}/node-%{node_version_major}" \

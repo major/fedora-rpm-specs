@@ -3,7 +3,7 @@
 %bcond          mypyc %[v"0%{?__default_python3_pkgversion}" <= v"3.14"]
 
 Name:           python-tomli
-Version:        2.4.1
+Version:        2.5.0
 Release:        %autorelease
 Summary:        A little TOML parser for Python
 

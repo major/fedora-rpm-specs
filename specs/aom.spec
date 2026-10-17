@@ -1,5 +1,5 @@
 %global sover           3
-%global aom_version     v3.13.3
+%global aom_version     v3.15.2
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %ifarch x86_64
@@ -13,7 +13,7 @@
 %endif
 
 Name:       aom
-Version:    3.13.3
+Version:    3.15.2
 Release:    %autorelease
 Summary:    Royalty-free next-generation video format
 
@@ -86,7 +86,7 @@ video format.
 %prep
 %autosetup -p1 -c %{name}-%{version}
 # Set GIT revision in version
-sed -i 's@set(aom_version "")@set(aom_version "%{aom_version}")@' build/cmake/version.cmake
+sed -i 's@set(aom_version "")@set(aom_version "%{aom_version}")@' cmake/version.cmake
 # Disable PDF generation which is buggy
 sed -i "s@GENERATE_LATEX         = YES@GENERATE_LATEX         = NO@" libs.doxy_template
 

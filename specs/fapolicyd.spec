@@ -32,7 +32,7 @@ BuildRequires: systemd systemd-devel openssl-devel rpm-devel file-devel file
 BuildRequires: libcap-ng-devel libseccomp-devel lmdb-devel
 BuildRequires: python3-devel
 %if 0%{?fedora} || 0%{?rhel} > 10
-BuildRequires: gpgverify
+BuildRequires: openpgpverify
 %else
 BuildRequires: gnupg
 %endif
@@ -67,8 +67,8 @@ BuildArch: noarch
 The %{name}-selinux package contains selinux policy for the %{name} daemon.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE10}' --data='%{SOURCE0}'
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE11}' --data='%{SOURCE1}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE10}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE11}' --data='%{SOURCE1}'
 
 %setup -q
 

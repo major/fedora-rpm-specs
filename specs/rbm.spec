@@ -1,9 +1,9 @@
-%global commit0 865f2c9842520958879665d5c9b820d9ed51761e
+%global commit0 da5ae582089a791e482ab36d53aed728be323dbd
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:       rbm
-Version:    0.4^20260622git%{shortcommit0}
-Release:    2%{?dist}
+Version:    0.4^20261016git%{shortcommit0}
+Release:    1%{?dist}
 Summary:    Reproducible Build Manager
 License:    CC0-1.0
 # A bug tracker is at <https://gitlab.torproject.org/tpo/applications/rbm/>.
@@ -38,9 +38,10 @@ BuildRequires:  perl(File::Copy::Recursive)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
+# Getopt::Long not used at tests
 BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(IO::Handle)
-BuildRequires:  perl(open)
+# open not used at tests
 BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Sort::Versions)
 BuildRequires:  perl(strict)
@@ -153,6 +154,12 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 16 2026 Petr Pisar <ppisar@redhat.com> - 0.4^20261016gitda5ae58-1
+- Rebase to a git snapshot taken on 2026-10-16
+
+* Fri Oct 16 2026 Petr Pisar <ppisar@redhat.com> - 0.4^20260622git865f2c9-3
+- Remove unused build dependency on perl(open)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4^20260622git865f2c9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

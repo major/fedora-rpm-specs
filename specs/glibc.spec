@@ -309,6 +309,7 @@ Source26: allowed-failures-x86_64.txt
 %global glibc_has_libnsl 1
 %global glibc_has_libanl 1
 %global glibc_has_libutil 1
+%define glibc_rtld_early_cflags -march=rv64gc
 %endif
 %ifarch s390
 %global glibc_ldso /lib/ld.so.1
@@ -1311,6 +1312,7 @@ inherit_flags.cc_main = string_to_array [[
 -march=armv8.1-a
 -march=haswell
 -march=i686
+-march=rva23u64
 -march=x86-64
 -march=x86-64-v2
 -march=x86-64-v3

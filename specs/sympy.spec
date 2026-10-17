@@ -29,6 +29,8 @@ Patch:          %{name}-sphinx9.patch
 # Fix compatibility with llvmlite 0.48
 # https://github.com/sympy/sympy/pull/30006
 Patch:          %{giturl}/pull/30006.patch
+# Adapt to test output changes caused by llvm 23
+Patch:          %{name}-llvm23.patch
 
 # We have to build on an architecture that:
 # - Supports Java (for antlr4), which excludes 32-bit x86
@@ -121,6 +123,7 @@ Recommends:     %{py3_dist numexpr}
 Recommends:     %{py3_dist pycosat}
 Recommends:     %{py3_dist pyglet}
 Recommends:     %{py3_dist scipy}
+Recommends:     python3-z3
 
 %description -n python3-%{name}
 %_description

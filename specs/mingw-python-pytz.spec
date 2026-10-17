@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2026.3
-Release:       2%{?dist}
+Version:       2026.5
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -65,6 +65,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 2026.5-1
+- Update to 2026.5
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 2026.3-2
 - Rebuild (mingw-python)
 

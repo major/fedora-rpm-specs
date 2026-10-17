@@ -27,7 +27,7 @@
 
 Name:           netgen-mesher
 # Also update version in netgen_fallback-version.patch!
-Version:        6.2.2607
+Version:        6.2.2608
 Release:        1%{?dist}
 Summary:        Automatic mesh generation tool
 # FIXME https://github.com/NGSolve/netgen/issues/226
@@ -53,6 +53,8 @@ Patch4:         netgen_libjpeg.patch
 # /usr/include/mpich-x86_64/mpicxx.h:160:18: error: expected identifier before ‘int’
 #   160 |     friend class Status;
 Patch5:         netgen_include-order.patch
+# Revert change which adds RPATH
+Patch6:         netgen_norpath.patch
 # Port bundled togl to tk9
 # Patch8:         netgen-togl-tk9.patch
 
@@ -414,6 +416,9 @@ install -Dpm 0644 nglib/nglib.h %{buildroot}%{_includedir}/%{name}/nglib.h
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 6.2.2608-1
+- Update to 6.2.2608
+
 * Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 6.2.2607-1
 - Update to 6.2.2607
 

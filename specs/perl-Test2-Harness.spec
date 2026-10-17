@@ -4,7 +4,7 @@
 Name:           perl-Test2-Harness
 %global cpan_version 1.000180
 Version:        1.0.180
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Test2 Harness designed for the Test2 event system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Harness
@@ -75,7 +75,7 @@ BuildRequires:  perl(Test2::Hub)
 # perl(Test2::Plugin::Cover) >= %%{test2_plugin_cover_min_version} not used at
 # tests
 # Test2::Plugin::DBIProfile not used at tests
-BuildRequires:  perl(Test2::Plugin::IOEvents) >= 0.001001
+# Test2::Plugin::IOEvents 0.001001 not used at tests
 BuildRequires:  perl(Test2::Plugin::MemUsage) >= 0.002003
 BuildRequires:  perl(Test2::Plugin::UUID) >= 0.002001
 BuildRequires:  perl(Test2::Tools::Compare)
@@ -297,6 +297,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 16 2026 Petr Pisar <ppisar@redhat.com> - 1.0.180-2
+- Remove a build dependency on unused Test2::Plugin::IOEvents
+
 * Tue Sep 29 2026 Petr Pisar <ppisar@redhat.com> - 1.0.180-1
 - 1.000180 bump
 

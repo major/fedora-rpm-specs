@@ -83,7 +83,6 @@ Summary: A general purpose cryptography library with TLS implementation
 Requires: ca-certificates >= 2008-5
 Requires: crypto-policies >= 20250404-3
 Recommends: pkcs11-provider%{?_isa}
-Requires(pre): (openssl3-libs if openssl3-libs)
 Requires: fips-provider-so
 
 %description libs

@@ -9,8 +9,8 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name}
-Version:        3.3.2
-Release:        3%{?dist}
+Version:        3.3.3
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -62,7 +62,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: 3.3.2
+Version: 3.3.3
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -107,6 +107,9 @@ cp -a pyparsing %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 3.3.3-1
+- Update to 3.3.3
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 3.3.2-3
 - Rebuild (mingw-python)
 
