@@ -70,7 +70,11 @@ BuildRequires:  libarchive-devel
 BuildRequires:  libcpuid-devel
 %endif
 BuildRequires:  libcurl-devel
+%if 0%{?fedora} >= 45 || %{defined rhel}
 BuildRequires:  libgit2_1.9-devel
+%else
+BuildRequires:  libgit2-devel
+%endif
 BuildRequires:  libseccomp-devel
 BuildRequires:  libsodium-devel
 BuildRequires:  libzstd-devel
@@ -290,7 +294,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 %config(noreplace) %{_sysconfdir}/nix/nix.conf
 %config(noreplace) %{_sysconfdir}/nix/registry.json
 %config(noreplace) %{_sysconfdir}/profile.d/nix.sh
-%config(noreplace) %{_fishconf}/nix.fish
+%{_fishconf}/nix.fish
 %{bash_completions_dir}/nix
 %{fish_completions_dir}/nix.fish
 %{zsh_completions_dir}/_nix

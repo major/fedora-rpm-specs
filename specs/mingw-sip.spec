@@ -3,8 +3,8 @@
 
 Name:           mingw-%{pypi_name}
 Summary:        MinGW Windows SIP6
-Version:        6.16.1
-Release:        2%{?dist}
+Version:        6.17.1
+Release:        1%{?dist}
 
 License:        BSD-2-Clause
 Url:            http://www.riverbankcomputing.com/software/sip/intro
@@ -121,6 +121,9 @@ done
 
 
 %changelog
+* Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 6.17.1-1
+- Update to 6.17.1
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 6.16.1-2
 - Rebuild (mingw-python)
 

@@ -4,7 +4,7 @@
 %global srcname Vulkan-Utility-Libraries
 
 Name:          mingw-%{pkgname}
-Version:       1.4.357.0
+Version:       1.4.363.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -59,20 +59,27 @@ MinGW Windows %{pkgname}.
 %files -n mingw32-%{pkgname}
 %license LICENSES/Apache-2.0.txt
 %{mingw32_includedir}/vulkan/
-%{mingw32_libdir}/libVulkanLayerSettings.a
-%{mingw32_libdir}/libVulkanSafeStruct.a
+%{mingw32_bindir}/libVulkanLayerSettings.dll
+%{mingw32_libdir}/libVulkanLayerSettings.dll.a
+%{mingw32_bindir}/libVulkanSafeStruct.dll
+%{mingw32_libdir}/libVulkanSafeStruct.dll.a
 %{mingw32_libdir}/cmake/VulkanUtilityLibraries/
 
 
 %files -n mingw64-%{pkgname}
 %license LICENSES/Apache-2.0.txt
 %{mingw64_includedir}/vulkan/
-%{mingw64_libdir}/libVulkanLayerSettings.a
-%{mingw64_libdir}/libVulkanSafeStruct.a
+%{mingw64_bindir}/libVulkanLayerSettings.dll
+%{mingw64_libdir}/libVulkanLayerSettings.dll.a
+%{mingw64_bindir}/libVulkanSafeStruct.dll
+%{mingw64_libdir}/libVulkanSafeStruct.dll.a
 %{mingw64_libdir}/cmake/VulkanUtilityLibraries/
 
 
 %changelog
+* Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 1.4.363.0-1
+- Update to 1.4.363.0
+
 * Sat Sep 19 2026 Sandro Mani <manisandro@gmail.com> - 1.4.357.0-1
 - Update to 1.4.357.0
 

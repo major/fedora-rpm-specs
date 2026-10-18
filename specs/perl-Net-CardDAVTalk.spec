@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Net-CardDAVTalk
-Version:        0.12
+Version:        0.13
 Release:        1%{?dist}
 Summary:        CardDAV client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Oct 17 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.13-1
+- 0.13 bump
+
 * Wed Sep 09 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.12-1
 - 0.12 bump
 

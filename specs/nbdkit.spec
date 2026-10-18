@@ -54,8 +54,8 @@
 %global source_directory 1.49-development
 
 Name:           nbdkit
-Version:        1.49.3
-Release:        4%{?dist}
+Version:        1.49.4
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Sat Oct 17 2026 Richard W.M. Jones <rjones@redhat.com> - 1.49.4-1
+- New upstream development version 1.49.4
+
 * Wed Sep 16 2026 Richard W.M. Jones <rjones@redhat.com> - 1.49.3-4
 - Bump and rebuild
 

@@ -1,7 +1,7 @@
 %global srcname calcephpy
 
 Name:           python-%{srcname}
-Version:        5.0.0
+Version:        5.0.1
 Release:        %autorelease
 Summary:        Astronomical library to access planetary ephemeris files
 

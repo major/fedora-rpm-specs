@@ -3,13 +3,13 @@
 %global release_build 1
 
 # Set new source-code build version for Fedora and, not necessarily, for upstream too
-%global redhat_ver rh1
+%global redhat_ver rh2
 
 ExcludeArch: %{ix86} %{arm}
 
 # Bundled cbindgen-0.29.4
 # Enable only if system cbindgen is not available and/or incompatible
-%global use_bundled_cbindgen 0
+%global use_bundled_cbindgen 1
 
 ####################
 
@@ -117,7 +117,8 @@ Version: 153.5.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
-License: (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND GPL-3.0-or-later AND MIT AND BSD-4-Clause-UC AND ISC AND Apache-2.0 AND MPL-2.0
+# LibRedirect extension is released under GPL-3.0-only license
+License: (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND GPL-3.0-or-later AND MIT AND BSD-4-Clause-UC AND ISC AND Apache-2.0 AND MPL-2.0 AND GPL-3.0-only
 URL:     http://www.gnu.org/software/gnuzilla/
 
 # Source archive created by scripts based on Gnuzilla files.

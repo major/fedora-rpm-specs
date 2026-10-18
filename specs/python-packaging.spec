@@ -1,33 +1,22 @@
-%global pypi_name packaging
-
 # Specify --with bootstrap to build in bootstrap mode
 # This mode is needed, because python3-rpm-generators need packaging
-%bcond_with bootstrap
-
+%bcond bootstrap 0
 # When bootstrapping, the tests and docs are disabled because the dependencies are not yet available.
 # We don't want python-pretend in future RHEL, so we disable tests on RHEL as well.
 # No reason to ship the documentation in RHEL either, so it is also disabled by default.
-%if %{without bootstrap} && %{undefined rhel}
-# Specify --without docs to prevent the dependency loop on python-sphinx
+%bcond tests %[%{without bootstrap} && %{undefined rhel}]
 # Doc subpackage is disabled because it requires sphinx-toolbox since packaging 24.1
 # and that package is not available in Fedora yet.
-%bcond_with docs
+%bcond docs %[%{without bootstrap} && 0]
 
-# Specify --without tests to prevent the dependency loop on python-pytest
-%bcond_without tests
-%else
-%bcond_with docs
-%bcond_with tests
-%endif
-
-Name:           python-%{pypi_name}
+Name:           python-packaging
 Version:        26.3
 Release:        %autorelease
 Summary:        Core utilities for Python packages
 
 License:        BSD-2-Clause OR Apache-2.0
 URL:            https://github.com/pypa/packaging
-Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/packaging-%{version}.tar.gz
 
 
 BuildArch:      noarch
@@ -60,7 +49,7 @@ dealing with versions, specifiers, markers etc.}
 %description %_description
 
 
-%package -n python%{python3_pkgversion}-%{pypi_name}
+%package -n python%{python3_pkgversion}-packaging
 Summary:        %{summary}
 
 %if %{with bootstrap}
@@ -69,29 +58,30 @@ Provides:       python%{python3_version}dist(packaging) = %{version}
 Requires:       python(abi) = %{python3_version}
 %endif
 
-%description -n python%{python3_pkgversion}-%{pypi_name}  %_description
+%description -n python%{python3_pkgversion}-packaging  %_description
 
 
 %if %{with docs}
-%package -n python-%{pypi_name}-doc
+%package -n python-packaging-doc
 Summary:        python-packaging documentation
 
-%description -n python-%{pypi_name}-doc
+%description -n python-packaging-doc
 Documentation for python-packaging
 %endif
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n packaging-%{version}
 
 
 %if %{without bootstrap}
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 %endif
 
 
 %build
+%pyproject_verify_license
 %if %{with bootstrap}
 %{python3} -m flit_core.wheel
 %else
@@ -115,7 +105,7 @@ unzip dist/packaging-%{version}-py3-none-any.whl -d %{buildroot}%{python3_siteli
 echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 %else
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files --assert-license packaging
 %endif
 
 
@@ -126,13 +116,12 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 %endif
 
 
-%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
-%license LICENSE LICENSE.APACHE LICENSE.BSD
+%files -n python%{python3_pkgversion}-packaging -f %{pyproject_files}
 %doc README.rst CHANGELOG.rst CONTRIBUTING.rst
 
 
 %if %{with docs}
-%files -n python-%{pypi_name}-doc
+%files -n python-packaging-doc
 %doc html
 %license LICENSE LICENSE.APACHE LICENSE.BSD
 %endif

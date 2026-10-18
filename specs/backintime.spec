@@ -148,7 +148,7 @@ account         include         config-util
 session         include         config-util
 EOF
 
-rm -d %{buildroot}%{_mandir}/man5
+rm -rf %{buildroot}%{_mandir}/man5
 
 %check
 rm common/test/test_tools.py
@@ -159,8 +159,10 @@ rm common/test/test_lint.py qt/test/test_lint.py
 rm common/test/test_uniquenessset.py
 rm common/test/test_backintime.py
 rm common/test/test_snapshots.py
+rm common/test/test_applicationinstance.py
+rm qt/test/test_statedata.py
 %pytest common 
-%pytest qt
+
 
 %files common -f %{name}.lang
 %doc %{_datadir}/doc/%{name}-common/

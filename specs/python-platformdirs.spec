@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-platformdirs
-Version:        4.13.0
+Version:        4.13.3
 Release:        %autorelease
 Summary:        A small Python package for determining appropriate platform-specific dirs
 License:        MIT

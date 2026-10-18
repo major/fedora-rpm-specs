@@ -3,7 +3,7 @@
 %bcond check_jsonschema 0
 
 Name:           bids-schema
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        BIDS schema description
 
@@ -50,7 +50,7 @@ Source0:        %{url}/archive/schema-%{version}/bids-specification-schema-%{ver
 # tools/schemacode/src/bidsschematools/conftest.py, which contains code to download
 # these if they are not present.
 %global examples_url https://github.com/bids-standard/bids-examples
-%global examples_commit 7150efcf2c040465e9fcb6745f0b5aa4e84919c1
+%global examples_commit 5e00d47b6f1db106dda1b776d5243eb41b4cb95b
 %global error_examples_url https://github.com/bids-standard/bids-error-examples
 %global error_examples_commit dd3bb7c8fe29cfcd1b72f809e8e254b3f824260d
 #

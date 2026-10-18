@@ -1,7 +1,7 @@
 Name:           snapraid
 Summary:        Disk array backup for many large rarely-changed files
-Version:        14.9
-Release:        1%{?dist}
+Version:        15.0
+Release:        %autorelease
 # snapraid itself is GPL-3.0-or-later but uses other source codes, breakdown:
 # Apache-2.0 AND GPL-3.0-or-later: cmdline/metro.c
 # BSD-2-Clause: tommyds/*
@@ -42,112 +42,5 @@ make check
 %{_mandir}/*/man1/snapraid*
 
 %changelog
-* Wed Aug 26 2026 Jens Kuehnel <JensKuehnel@users.noreply.github.com> - 14.9-1
-- update to 14.9
+%autochangelog
 
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Wed Apr 1 2026 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 14.1-1
-- update to 14.1
-
-* Mon Mar 30 2026 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 14.0-1
-- update to 14.0
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Nov 12 2025 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 13.0-1
-- Update to 13.0
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 24 2025 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 12.4-1
-- Update to 12.4
-- only released to fix gcc errors needed for F42
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jan 29 2024 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 12.3-1
-- Update to 12.3
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 12.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Aug 05 2023 Jens Kuehnel <bugzilla-redhat@jens.kuehnel.org> - 12.2-1
-- Update to 12.2
-
-* Sun Apr 19 2020 Filipe Rosset <rosset.filipe@gmail.com> - 11.3-1
-- Update to 11.3
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 11.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 11.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 11.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 11.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Mon Feb 12 2018 Eric Smith <brouhaha@fedoraproject.org> - 11.2-1
-- Updated to latest upstream.
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 10.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 10.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 10.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 10.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Sat Oct 01 2016 Eric Smith <brouhaha@fedoraproject.org> - 10.0-1
-- Updated to latest upstream.
-
-* Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 8.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sun May 24 2015 Eric Smith <brouhaha@fedoraproject.org> - 8.1-1
-- Updated to latest upstream.
-
-* Sat Feb 14 2015 Eric Smith <brouhaha@fedoraproject.org> - 7.1-1
-- Updated to latest upstream.
-
-* Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Mon Jul 14 2014 Eric Smith <brouhaha@fedoraproject.org> - 6.3-1
-- Updated to latest upstream.
-
-* Thu Jun 12 2014 Eric Smith <brouhaha@fedoraproject.org> - 6.2-1
-- Updated to latest upstream.
-
-* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 6.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Fri May 16 2014 Eric Smith <brouhaha@fedoraproject.org> - 6.1-3
-- Revert to using bundled tommyds library, per request of the author
-  of both, and bundling exception granted by FPC ticket #423.
-
-* Fri Apr 18 2014 Eric Smith <brouhaha@fedoraproject.org> - 6.1-2
-- Use separately packaged tommyds library.
-
-* Fri Apr 18 2014 Eric Smith <brouhaha@fedoraproject.org> - 6.1-1
-- Updated to latest upstream.
-
-* Sun Jan 19 2014 Eric Smith <brouhaha@fedoraproject.org> - 5.2-1
-- Initial build.

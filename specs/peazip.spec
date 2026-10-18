@@ -12,7 +12,7 @@ Summary: File archiver utility
 # The AppStream metainfo file borrowed from FlatHub is subject to FTL.
 License: LGPL-3.0-only AND Zlib AND FTL
 
-Version: 11.3.0
+Version: 11.4.0
 Release: 1%{?dist}
 
 URL:     https://peazip.github.io
@@ -281,6 +281,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}-*
 
 
 %changelog
+* Sat Oct 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 11.4.0-1
+- Update to v11.4.0
+
 * Sat Sep 26 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 11.3.0-1
 - Update to v11.3.0
 

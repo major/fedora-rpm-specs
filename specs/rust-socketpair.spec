@@ -17,6 +17,7 @@ Patch:          socketpair-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Update io-extras to 0.19, io-lifetimes to 3.0:
 #   https://github.com/sunfishcode/socketpair/pull/20
+# * add dependency on rustix/time to work around weird issue in rustix v1.1
 Patch:          socketpair-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

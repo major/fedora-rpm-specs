@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/tsyrogit/zxcvbn-c
-Version:        2.6
+Version:        2.7
 %forgemeta
 
 Name:           zxcvbn-c

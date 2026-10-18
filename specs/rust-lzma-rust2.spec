@@ -12,7 +12,7 @@
 %global crate lzma-rust2
 
 Name:           rust-lzma-rust2
-Version:        0.21.0
+Version:        0.22.0
 Release:        %autorelease
 Summary:        LZMA / LZMA2 / LZIP / XZ compression ported from 'tukaani xz for java'
 

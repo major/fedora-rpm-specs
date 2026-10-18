@@ -5,8 +5,8 @@
 
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       3.1.8
-Release:       3%{?dist}
+Version:       3.1.9
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
@@ -68,6 +68,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 3.1.9-1
+- Update to 3.1.9
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 3.1.8-3
 - Rebuild (mingw-python)
 

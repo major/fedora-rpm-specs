@@ -4,7 +4,7 @@
 %global srcname Vulkan-Tools
 
 Name:          mingw-%{pkgname}
-Version:       1.4.357.0
+Version:       1.4.363.0
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -88,6 +88,9 @@ MINGW64_CMAKE_ARGS="-Dvolk_DIR=$PWD/volk-vulkan-sdk-%{version}/dist/%{mingw64_li
 
 
 %changelog
+* Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 1.4.363.0-1
+- Update to 1.4.363.0
+
 * Sat Sep 19 2026 Sandro Mani <manisandro@gmail.com> - 1.4.357.0-1
 - Update to 1.4.357.0
 

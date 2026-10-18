@@ -16,6 +16,7 @@ Source:         %{crates_source}
 # * allow indicatif 0.18 and console 0.16:
 #   https://github.com/facebookexperimental/resctl-demo/pull/332
 Patch:          resctl-bench-fix-metadata.diff
+Patch:          0001-Fix-compilation-with-recent-versions-of-Rust.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

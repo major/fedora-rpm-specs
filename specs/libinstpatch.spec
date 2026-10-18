@@ -38,6 +38,14 @@ SourceLicense:  %{license} AND GPL-2.0-only
 %global forgeurl https://github.com/swami/libinstpatch
 Source:         %{forgeurl}/archive/v%{version}/libinstpatch-%{version}.tar.gz
 
+# Fix for CVE-2026-111136
+# https://github.com/swami/libinstpatch/pull/87
+# https://github.com/swami/libinstpatch/issues/86
+# https://www.cve.org/CVERecord?id=CVE-2026-111136
+# https://bugzilla.redhat.com/show_bug.cgi?id=2554067
+# https://bugzilla.redhat.com/show_bug.cgi?id=2554068
+Patch:          %{forgeurl}/pull/87.patch
+
 BuildSystem:    cmake
 BuildOption(conf): -DGTKDOC_ENABLED:BOOL=ON
 BuildOption(conf): -DINTROSPECTION_ENABLED:BOOL=%{with introspection}

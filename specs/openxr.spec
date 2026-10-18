@@ -2,7 +2,7 @@
 %global         libmajor 1
 
 Name:           openxr
-Version:        1.1.63
+Version:        1.1.65
 Release:        %autorelease
 Summary:        Cross-platform VR/AR runtime and API
 License:        Apache-2.0

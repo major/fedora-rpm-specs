@@ -4,8 +4,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1}')
 
 Name:           mingw-gsettings-desktop-schemas
-Version:        50.1
-Release:        2%{?dist}
+Version:        51.0
+Release:        1%{?dist}
 Summary:        MinGW Windows gsettings-desktop-schemas
 
 License:        LGPL-2.1-or-later
@@ -71,10 +71,6 @@ settings shared by various components of a desktop.
 %dir %{mingw32_datadir}/glib-2.0/
 %dir %{mingw32_datadir}/glib-2.0/schemas/
 %{mingw32_datadir}/glib-2.0/schemas/*
-%dir %{mingw32_datadir}/GConf/
-%dir %{mingw32_datadir}/GConf/gsettings/
-%{mingw32_datadir}/GConf/gsettings/gsettings-desktop-schemas.convert
-%{mingw32_datadir}/GConf/gsettings/wm-schemas.convert
 
 %files -n mingw64-gsettings-desktop-schemas -f mingw64-%{name}.lang
 %license COPYING
@@ -83,13 +79,12 @@ settings shared by various components of a desktop.
 %dir %{mingw64_datadir}/glib-2.0/
 %dir %{mingw64_datadir}/glib-2.0/schemas/
 %{mingw64_datadir}/glib-2.0/schemas/*
-%dir %{mingw64_datadir}/GConf/
-%dir %{mingw64_datadir}/GConf/gsettings/
-%{mingw64_datadir}/GConf/gsettings/gsettings-desktop-schemas.convert
-%{mingw64_datadir}/GConf/gsettings/wm-schemas.convert
 
 
 %changelog
+* Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 51.0-1
+- Update to 51.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 50.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,21 +1,16 @@
 %global pkg flycheck
 
 Name:           emacs-%{pkg}
-Version:        36.0
-Release:        2%{?dist}
+Version:        39.0
+Release:        1%{?dist}
 Summary:        On the fly syntax checking for GNU Emacs
 
 License:        GPL-3.0-or-later
 URL:            https://www.flycheck.org/
 Source0:        https://github.com/%{pkg}/%{pkg}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:        %{pkg}-init.el
 
-BuildRequires:  emacs
-BuildRequires:  emacs-dash
-BuildRequires:  emacs-pkg-info
-Requires:       emacs(bin) >= %{_emacs_version}
-Requires:       emacs-dash
-Requires:       emacs-pkg-info
+BuildRequires:  emacs-nw
+Requires:       emacs(bin)%{?_emacs_version: >= %{_emacs_version}}
 BuildArch:      noarch
 
 %description
@@ -26,29 +21,33 @@ Emacs.
 
 %prep
 %autosetup -n %{pkg}-%{version}
+# Test file, not needed at runtime. Tests are not run since they depend on
+# buttercup, which is not yet available in Fedora
+rm %{pkg}-buttercup.el
 
 
 %build
-for i in *.el; do
-    %{_emacs_bytecompile} $i
-done
+%{_emacs_bytecompile} %{pkg}.el
+emacs --batch --no-init-file --no-site-file --eval '(loaddefs-generate "." (expand-file-name "%{pkg}-init.el"))'
 
 
 %install
 install -dm 0755 $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
-install -pm 0644 *.el* -t $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
-
-install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.el
+install -pm 0644 %{pkg}.el %{pkg}.elc -t $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
+install -Dpm 0644 %{pkg}-init.el $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.el
 
 
 %files
-%doc CHANGES.old CHANGES.rst MAINTAINERS README.md
+%doc CHANGELOG.md MAINTAINERS README.md
 %license COPYING
 %{_emacs_sitelispdir}/%{pkg}/
-%{_emacs_sitestartdir}/*.el
+%{_emacs_sitestartdir}/%{pkg}-init.el
 
 
 %changelog
+* Sun Oct 18 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 39.0-1
+- Update to 39.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 36.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

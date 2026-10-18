@@ -46,13 +46,13 @@ EOF
 %make_install
 
 %post
-%systemd_post 'bees@*.service'
+%systemd_post beesd@.service
  
 %preun
-%systemd_preun 'bees@*.service'
+%systemd_preun beesd@.service
 
 %postun
-%systemd_postun_with_restart 'bees@*.service'
+%systemd_postun_with_restart beesd@.service
 
 %check
 make test

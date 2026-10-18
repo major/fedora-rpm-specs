@@ -20,6 +20,8 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{gap_upname}-%{version}.tar.gz
 # Write vole.trace in /tmp instead of failing to write it under /usr
 Patch:          %{name}-write-to-tmp.patch
+# Migrate from structopt to clap (rhbz#2554591)
+Patch:          %{giturl}/pull/89.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       0.22.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Library for reading RAW files obtained from digital photo cameras
 
 # LibRaw base package is dual licensed (actually triple licensed LGPLv2+, CDDL, LibRaw Software License)
@@ -13,6 +13,8 @@ License:       BSD-3-Clause AND (CDDL-1.0 OR LGPL-2.1-only)
 BuildArch:     noarch
 URL:           http://www.libraw.org
 Source0:       http://www.libraw.org/data/%{pkgname}-%{version}.tar.gz
+# Backport fix for CVE-2026-88387
+Patch0:        https://github.com/LibRaw/LibRaw/commit/b41cbbd61951783e0440590dae55411a16185bdf.patch
 
 BuildRequires: make
 BuildRequires: autoconf automake libtool
@@ -144,6 +146,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 0.22.2-2
+- Backport fix for CVE-2026-88387
+
 * Fri Jul 17 2026 Sandro Mani <manisandro@gmail.com> - 0.22.2-1
 - Update to 0.22.2
 

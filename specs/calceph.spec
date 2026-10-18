@@ -1,11 +1,11 @@
 Name:           calceph
-Version:        5.0.0
+Version:        5.0.1
 Release:        %autorelease
 Summary:        Astronomical library to access planetary ephemeris files
 
 License:        CECILL-2.0 OR CECILL-B OR CECILL-C
-URL:            https://www.imcce.fr/inpop/calceph
-Source0:        https://www.imcce.fr/content/medias/recherche/equipes/asd/%{name}/%{name}-%{version}.tar.gz
+URL:            https://calceph.imcce.fr/
+Source0:        https://calceph.imcce.fr/releases/%{name}-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

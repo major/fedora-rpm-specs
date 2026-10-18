@@ -1,8 +1,8 @@
 %global upname bubblemail-gnome-shell
 
 Name:           gnome-shell-extension-bubblemail
-Version:        30
-Release:        2%{?dist}
+Version:        31
+Release:        1%{?dist}
 Summary:        GNOME Shell indicator for new and unread mail using Bubblemail 
 
 License:        GPL-2.0-or-later
@@ -43,6 +43,9 @@ mv src/LICENSE ./
 %{_datadir}/gnome-shell/extensions/bubblemail@razer.framagit.org/
 
 %changelog
+* Sat Oct 17 2026 Alexander Ploumistos <alexpl@fedoraproject.org> - 31-1
+- Update to v31
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

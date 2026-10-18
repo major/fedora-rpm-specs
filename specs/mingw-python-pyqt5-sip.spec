@@ -5,7 +5,7 @@
 
 Name:           mingw-python-%{mod_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        12.19.0
+Version:        12.20.0
 Release:        2%{?dist}
 BuildArch:      noarch
 
@@ -78,6 +78,12 @@ MinGW Python 3 %{pypi_name} library.
 
 
 %changelog
+* Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 12.20.0-2
+- Rebuild
+
+* Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 12.20.0-1
+- Update to 12.20.0
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 12.19.0-2
 - Rebuild (mingw-python)
 

@@ -1,5 +1,5 @@
 Name:           python-pyqt-feedback-flow
-Version:        0.3.6
+Version:        0.3.7
 Release:        %autorelease
 Summary:        Show feedback in toast-like notifications
 

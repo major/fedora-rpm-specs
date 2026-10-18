@@ -91,6 +91,7 @@ Patch:          nu-command-fix-for-quick-xml-0_33.diff
 Patch:          nu-command-0.99.1-roxmltree-0.21.diff
 Patch:          nu-command-0.99.1-port-to-uutils-0.7.0.diff
 Patch:          nu-lsp-0.99.1-port-to-lsp-server-0.10.diff
+Patch:          nu-plugin-core-0.99.1-interprocess-2.4-breakage-fix.diff
 
 # OOM when linking. We don't ship binaries on ix86 anyway, exclude it
 ExcludeArch:    %{ix86}

@@ -23,7 +23,7 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.14.7
+Version:       3.14.8
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -431,6 +431,9 @@ chmod +x %{buildroot}%{_prefix}/%{mingw64_target}/bin/python3
 
 
 %changelog
+* Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 3.14.8-1
+- Update to 3.14.8
+
 * Tue Sep 22 2026 Sandro Mani <manisandro@gmail.com> - 3.14.7-1
 - Update to 3.14.7
 
