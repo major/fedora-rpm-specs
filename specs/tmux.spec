@@ -1,5 +1,5 @@
 Name:           tmux
-Version:        3.7c
+Version:        3.8
 Release:        %autorelease
 Summary:        A terminal multiplexer
 
@@ -9,8 +9,6 @@ Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{n
 Source2:        tmux@.service
 Source3:        README.polkit
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  byacc
 BuildRequires:  gcc
 BuildRequires:  libutempter-devel
@@ -36,7 +34,6 @@ as GNU Screen.
 %prep
 %autosetup
 cp %{SOURCE3} .
-./autogen.sh
 
 
 %build

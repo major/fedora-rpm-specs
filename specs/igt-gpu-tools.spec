@@ -6,7 +6,7 @@
 %undefine _debugsource_packages
 
 Name:           igt-gpu-tools
-Version:        2.5
+Version:        2.6
 Release:        %autorelease
 Summary:        Test suite and tools for DRM drivers
 
@@ -240,7 +240,6 @@ find %{buildroot}%{_libexecdir}/igt-gpu-tools -type f -exec chmod 755 {} +
 %{_bindir}/intel_vbt_decode
 %{_bindir}/intel_watermark
 %{_bindir}/intel_pm_rpm
-%{_bindir}/amd_hdmi_compliance
 %{_bindir}/msm_dp_compliance
 %{_bindir}/lsgpu
 %{_bindir}/gputop

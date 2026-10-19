@@ -1,5 +1,5 @@
 Name:           gifsicle
-Version:        1.97
+Version:        1.98
 Release:        %autorelease
 Summary:        Powerful program for manipulating GIF images and animations
 

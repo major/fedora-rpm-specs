@@ -1,7 +1,7 @@
 %global _configure ../configure
 
 Name:		lis
-Version:	2.1.11
+Version:	2.1.17
 Release:	%autorelease
 Summary:	A library for solving linear equations and eigenvalue problems
 License:	BSD-3-Clause
@@ -59,7 +59,7 @@ mkdir -p omp
 pushd omp
 %configure --disable-static --enable-shared \
     --enable-saamg \
-    --enable-quad --disable-rpath
+    --disable-rpath
 %make_build
 popd
 

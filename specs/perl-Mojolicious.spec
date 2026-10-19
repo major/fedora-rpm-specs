@@ -1,5 +1,5 @@
 Name:           perl-Mojolicious
-Version:        9.49
+Version:        9.50
 Release:        1%{?dist}
 Summary:        A next generation web framework for Perl
 License:        Artistic-2.0
@@ -113,7 +113,6 @@ a new attempt at implementing this idea using state of the art technology.
 
 %prep
 %setup -q -n Mojolicious-%{version}
-mv README.md lib/Mojolicious/
 
 %build
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -128,19 +127,24 @@ mv README.md lib/Mojolicious/
 
 %files
 %license LICENSE
-%doc Changes examples
+%doc Changes examples README.md SECURITY.md
 %{_bindir}/mojo
 %{_bindir}/hypnotoad
 %{_bindir}/morbo
 %{perl_vendorlib}/*
 %exclude %{perl_vendorlib}/Test
 %{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_mandir}/man3/Mojo*
+%{_mandir}/man3/ojo*
 
 %files -n perl-Test-Mojo
 %{perl_vendorlib}/Test
+%{_mandir}/man3/Test::Mojo*
 
 %changelog
+* Sun Oct 18 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 9.50-1
+- Update to 9.50 (fixes a security issue in Mojo::DOM)
+
 * Sun Aug 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 9.49-1
 - Update to 9.49
 

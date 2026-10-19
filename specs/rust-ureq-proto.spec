@@ -5,7 +5,7 @@
 %global crate ureq-proto
 
 Name:           rust-ureq-proto
-Version:        0.6.4
+Version:        0.6.5
 Release:        %autorelease
 Summary:        Ureq support crate
 

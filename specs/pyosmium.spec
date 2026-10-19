@@ -1,7 +1,7 @@
 %global libosmium_version 2.23.1
 
 Name:           pyosmium
-Version:        4.3.1
+Version:        4.3.2
 Release:        %autorelease
 Summary:        Python bindings for libosmium
 

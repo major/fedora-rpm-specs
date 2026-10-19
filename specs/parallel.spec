@@ -1,12 +1,16 @@
 Name:           parallel
 Summary:        Shell tool for executing jobs in parallel
-Version:        20260822
+Version:        20260922
 Release:        %autorelease
 License:        GPL-3.0-or-later AND GFDL-1.3-or-later
 URL:            https://www.gnu.org/software/parallel/
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.bz2
 Source1:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.bz2.sig
 Source2:        cda01a4208c4f74506107e7bd1ab451688888888.asc
+# Fix env_parallel to use the same config directory precedence as parallel
+# (PARALLEL_HOME, XDG_CONFIG_HOME/parallel, XDG_CONFIG_DIRS/parallel, ~/.parallel)
+# Resolves: rhbz#2521562
+Patch0:         env_parallel-config-dir-precedence.patch
 BuildArch:      noarch
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -47,7 +51,7 @@ additional features.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 # Fix shebangs in env_parallel scripts to use direct interpreter paths instead of env
 sed -i '1s:/env :/:' src/env_parallel.*
 

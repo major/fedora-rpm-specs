@@ -1,31 +1,34 @@
 Name:           perl-Signal-Mask
 Version:        0.009
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Signal masks made easy
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/Signal-Mask
+URL:            https://metacpan.org/dist/Signal-Mask
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/Signal-Mask-%{version}.tar.gz
 
 BuildArch:      noarch
 
-BuildRequires:  %{__make}
+# build requirements
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(:VERSION) >= 5.6
+# runtime requirements
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(IPC::Signal)
+BuildRequires:  perl(POSIX)
+BuildRequires:  perl(Thread::SigMask)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# testing requirements
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
-BuildRequires:  perl(IPC::Signal)
-BuildRequires:  perl(POSIX)
-BuildRequires:  perl(blib)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Thread::SigMask)
-BuildRequires:  perl(warnings)
-
+BuildRequires:  perl(blib)
 
 %description
 Signal::Mask is an abstraction around your process or thread signal mask.
@@ -37,7 +40,7 @@ blocked for the caller. It is available as the global hash Signal::Mask.
 %setup -q -n Signal-Mask-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -45,7 +48,7 @@ blocked for the caller. It is available as the global hash Signal::Mask.
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-%{__make} test
+%{make_build} test
 
 %files
 %doc Changes README
@@ -54,6 +57,9 @@ blocked for the caller. It is available as the global hash Signal::Mask.
 %{_mandir}/man3/Signal::*
 
 %changelog
+* Sun Oct 18 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.009-3
+- Modernize spec file
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.009-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

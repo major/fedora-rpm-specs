@@ -153,8 +153,7 @@ ipuz2pdf is a tool to export IPUZ puzzles to printable PDF documents.
 sed -i 's:^regex==.*$:regex:' requirements.txt
 
 # Update image references in README
-mkdir images
-cp -p data/images/{a-dogs-day,hero}.png images/
+cp -pr data/images images
 sed -i 's:data/images/:images/:g' README.md
 
 # Relax lxml version pin on older releases

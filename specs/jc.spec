@@ -2,7 +2,7 @@ Name: jc
 Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
-Version: 1.26.0
+Version: 1.26.1
 Release: 1%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
@@ -70,6 +70,9 @@ TZ="America/Los_Angeles" ./runtests.sh
 
 
 %changelog
+* Sun Oct 18 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.26.1-1
+- Update to v1.26.1
+
 * Sun Sep 20 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.26.0-1
 - Update to v1.26.0
 

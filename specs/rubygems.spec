@@ -4,16 +4,16 @@
 
 # Bundled libraries versions
 %global rubygems_molinillo_version 0.8.0
-%global rubygems_net_http_version 0.7.0
-%global rubygems_net_protocol_version 0.2.2
-%global rubygems_optparse_version 0.8.0
+%global rubygems_net_http_version 0.10.0
+%global rubygems_net_protocol_version 0.4.0
+%global rubygems_optparse_version 0.8.1
 %global rubygems_securerandom_version 0.4.1
-%global rubygems_timeout_version 0.4.4
+%global rubygems_timeout_version 0.6.1
 %global rubygems_tsort_version 0.2.0
-%global rubygems_uri_version 1.1.1
+%global rubygems_uri_version 1.1.2
 
 # Requires versions
-%global bundler_version 4.0.22
+%global bundler_version 4.0.23
 %global psych_version 5.3.1
 %global rdoc_version 7.0.3
 
@@ -37,7 +37,7 @@
 
 Summary: The Ruby standard for packaging ruby libraries
 Name: rubygems
-Version: 4.0.22
+Version: 4.0.23
 Release: 1%{?dist}
 # BSD-2-Clause OR Ruby:
 #   lib/rubygems/net-http/
@@ -320,6 +320,9 @@ ruby %{SOURCE12}
 
 
 %changelog
+* Sun Oct 18 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.23-1
+- Update to RubyGems 4.0.23
+
 * Tue Oct 06 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.22-1
 - Update to RubyGems 4.0.22
 

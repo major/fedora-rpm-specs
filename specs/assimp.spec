@@ -2,7 +2,7 @@
 
 Name:           assimp
 Version:        6.0.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -43,6 +43,10 @@ Patch7:         CVE-2026-19999.patch
 Patch8:         CVE-2026-14604.patch
 # https://github.com/assimp/assimp/pull/6869
 Patch9:         CVE-2025-15666.patch
+# https://github.com/assimp/assimp/pull/6870
+Patch10:        CVE-2026-19969.patch
+# https://github.com/assimp/assimp/pull/6885
+Patch11:        CVE-2026-19967.patch
 
 
 BuildRequires:  boost-devel
@@ -188,6 +192,9 @@ exclude="utMD5Importer.importBoarMan|utMD5Importer.importBob|utMD2Importer.impor
 
 
 %changelog
+* Sun Oct 18 2026 Sandro Mani <manisandro@gmail.com> - 6.0.5-6
+- Backport fixes for CVE-2026-19967,  CVE-2026-19969
+
 * Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 6.0.5-5
 - Add fixes for CVE-2026-14610, CVE-2026-19968, CVE-2026-19999, CVE-2026-14604,
   CVE-2025-15666

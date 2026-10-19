@@ -1,6 +1,6 @@
 Name:          python-paramiko
-Version:       5.0.0
-Release:       3%{?dist}
+Version:       5.1.0
+Release:       1%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -86,6 +86,36 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/
 
 %changelog
+* Sun Oct 18 2026 Paul Howarth <paul@city-fan.org> - 5.1.0-1
+- Update to 5.1.0 (rhbz#2554705)
+  - An API gap between '~paramiko.agent.AgentKey' and the other, 'concrete'
+    '~paramiko.pkey.PKey' subclasses was triggering 'AttributeError' any time
+    the agent-hosted key couldn't be loaded internally (an optional behavior
+    that isn't, normally, required for successful auth) (GH#2462, GH#2465,
+    GH#2475)
+    - This could be due to new key types Paramiko doesn't yet support, or to
+      bugs in loading types we do
+    - The issue has been fixed by making sure '~paramiko.agent.AgentKey''s
+      initialization behavior w.r.t. '.public_blob' matches those of its
+      siblings; we've also made a related attribute access in
+      '~paramiko.auth_handler.AuthHandler' more defensive, for good measure
+  - The SHA2 transition left 'RSAKey.sign_ssh_data' incorrectly trying to look
+    up its default signature algorithm via the key type's name string, which is
+    still '"ssh-rsa"', and thus no longer a valid/implemented choice (which
+    would be one of '"rsa-sha2-256[-cert...]"' or '"rsa-sha2-512[-cert...]"')
+    (GH#2628)
+    - This went unnoticed because most calls to this method have decided on an
+      explicit signature algorithm during a protocol handshake and aren't
+      relying on an implicit default; to restore that ability, this method now
+      defaults to the strongest implemented algorithm, namely '"rsa-sha2-512"'
+  - Added support for the 'mlkem768x25519-sha256' post-quantum hybrid key
+    exchange method described in 'draft-ietf-sshm-mlkem-hybrid-kex'; it pairs
+    ML-KEM-768 (FIPS 203) with X25519 and is interoperable with OpenSSH 10.0+;
+    the new method is enabled automatically when the installed 'cryptography'
+    library exposes ML-KEM (which requires OpenSSL 3.5+, AWS-LC, or BoringSSL);
+    it is preferred over the existing classical methods when available
+    - See 'paramiko.kex_mlkem.KexMLKEM768X25519'
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

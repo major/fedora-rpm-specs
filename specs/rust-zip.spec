@@ -18,7 +18,7 @@ Source:         %{crates_source}
 #   files are required for any of the tests that are present in the published
 #   crates.
 Source10:       zip2-%{version}-filtered.tar.gz
-# * Script used to generate Source11: ./get_test_data.sh %%{version}
+# * Script used to generate Source10: ./get_test_data.sh %%{version}
 Source11:       get_test_data.sh
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          zip-fix-metadata-auto.diff
@@ -27,12 +27,13 @@ Patch:          zip-fix-metadata-auto.diff
 # * Patch out the nt-time features; rust-nt-time not yet packaged
 # * Patch out the deflate-flate2-zlib-ng-compat feature, which requires
 #   flate2/zlib-ng-compat, not packaged.
-# * Update lzma-rust2 to 0.22: https://github.com/zip-rs/zip2/pull/891,
+# * Update lzma-rust2 to 0.23: https://github.com/zip-rs/zip2/pull/891,
 #   https://github.com/zip-rs/zip2/pull/905,
 #   https://github.com/zip-rs/zip2/pull/942,
 #   https://github.com/zip-rs/zip2/pull/963,
 #   https://github.com/zip-rs/zip2/pull/1017,
-#   https://github.com/zip-rs/zip2/pull/1060
+#   https://github.com/zip-rs/zip2/pull/1060,
+#   https://github.com/zip-rs/zip2/pull/1096
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile

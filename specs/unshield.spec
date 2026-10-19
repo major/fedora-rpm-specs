@@ -6,7 +6,8 @@ SourceLicense: MIT and LicenseRef-RSA
 License:       MIT
 URL:           https://github.com/twogood/unshield
 VCS:           git:%{url}.git
-Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:         0001-Validate-the-file-table-against-the-header-size.patch
 BuildRequires: gcc
 BuildRequires: openssl-devel
 BuildRequires: zlib-devel

@@ -1,5 +1,5 @@
 Name:           libgedit-gfls
-Version:        0.4.1
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Gedit Technology File Loading and Saving library
 

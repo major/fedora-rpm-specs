@@ -1,5 +1,5 @@
 Name:           python-binary-manager
-Version:        0.0.7
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Binman firmware-packaging tool
 
@@ -13,7 +13,9 @@ BuildRequires:  python3-libfdt
 BuildRequires:  python3-pkg-resources
 BuildRequires:  python3dist(jsonschema)
 BuildRequires:  python3dist(pycryptodomex)
+BuildRequires:  python3dist(pyelftools)
 BuildRequires:  python3dist(pyyaml)
+BuildRequires:  python3dist(u-boot-pylib)
 BuildRequires:  python3dist(yamllint)
 BuildRequires:  sed
 
@@ -31,7 +33,9 @@ Summary:        %{summary}
 Requires:       python3-libfdt
 Requires:       python3dist(jsonschema)
 Requires:       python3dist(pycryptodomex)
+Requires:       python3dist(pyelftools)
 Requires:       python3dist(pyyaml)
+Requires:       python3dist(u-boot-pylib)
 Requires:       python3dist(yamllint)
 
 %description -n python3-binary-manager %_description
@@ -39,11 +43,16 @@ Requires:       python3dist(yamllint)
 %prep
 %autosetup -p1 -n binary_manager-%{version}
 
-# Fix dependency name
-sed -i 's:"pylibfdt", ::' pyproject.toml
+# Drop pylibfdt; it is provided by python3-libfdt
+sed -i '/pylibfdt/d' pyproject.toml
 
-# Remove unnecessary shebangs
-sed -i "\|#!/usr/bin/env python3|d" src/binman/*.py
+# u-boot-pylib 0.1.0 is not yet in rawhide; relax the lower bound so the
+# 0.0.7 package can satisfy it
+%pyproject_patch_dependency 'u-boot-pylib:drop_lower'
+
+# Remove unnecessary shebangs (the tool is run via the binman console script,
+# not these module files directly)
+find binman -name '*.py' -exec sed -i '1{/^#!/d}' {} +
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -56,10 +65,16 @@ sed -i "\|#!/usr/bin/env python3|d" src/binman/*.py
 %pyproject_save_files binman
 
 %check
-%pyproject_check_import -e binman.setup
+%pyproject_check_import -e binman.main
 
 %files -n python3-binary-manager -f %{pyproject_files}
 %doc README.rst
+# .c and .h files are runtime test data compiled by binman's test suite, not devel files
+%doc %{python3_sitelib}/binman/test/*.c
+%doc %{python3_sitelib}/binman/test/fit/*.c
+%doc %{python3_sitelib}/binman/test/generated/*.h
+%doc %{python3_sitelib}/binman/test/include/*.h
+%doc %{python3_sitelib}/binman/test/include/linux/*.h
 %{_bindir}/binman
 
 %changelog

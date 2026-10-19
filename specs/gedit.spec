@@ -1,28 +1,25 @@
-%global amtk_version 5.10
+%global amtk_version 5.11
 %global glib2_version 2.76
 %global gtk3_version 3.24
-%global gtksourceview_version 299.7
+%global gtksourceview_version 299.8
 %global libpeas_version 1.14.1
 %global gspell_version 1.0
-%global tepl_version 6.14
+%global tepl_version 6.15
 
 # Filter provides for plugin .so files
 %global __provides_exclude_from ^%{_libdir}/gedit/plugins/
 
 %global api_version %%(ver=%%{version}; echo ${ver%%.*})
 %global tarball_version %%(ver=%%{version}; echo ${ver//~/.})
-%global libgd_commit 3cccf99234288a6121b3945a25cd4ec3b7445c74
 
 Name:		gedit
 Epoch:		2
-Version:	50.0
+Version:	51.0
 Release:	%autorelease
 Summary:	Text editor for the GNOME desktop
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:		https://gedit-text-editor.org/
 Source:         https://gitlab.gnome.org/World/gedit/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
-# libgd is a git submodule by design, but those are not included in git forge snapshot tarballs
-Source:         https://gitlab.gnome.org/GNOME/libgd/-/archive/%{libgd_commit}/libgd-%{libgd_commit}.tar.bz2
 
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0)
@@ -42,8 +39,6 @@ BuildRequires: itstool
 BuildRequires: meson
 BuildRequires: /usr/bin/appstream-util
 
-Provides: bundled(libgd) = %{libgd_commit}
-
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gspell%{?_isa} >= %{gspell_version}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
@@ -52,6 +47,7 @@ Requires: libgedit-tepl%{?_isa} >= %{tepl_version}
 Requires: python3-gobject
 Requires: gsettings-desktop-schemas
 
+# dropped in previous releases
 Obsoletes: gedit-collaboration < 3.6.1-6
 Obsoletes: gedit-plugin-zeitgeist < 3.35.90
 Obsoletes: gedit-plugin-commander < 43.0
@@ -72,6 +68,12 @@ Obsoletes: gedit-plugin-joinlines < 48.2
 Obsoletes: gedit-plugin-multiedit < 48.2
 Obsoletes: gedit-plugin-sessionsaver < 48.2
 Obsoletes: gedit-plugin-terminal < 48.2
+# merged into gedit
+Obsoletes: gedit-plugins < 51.0
+Obsoletes: gedit-plugin-bookmarks < 51.0
+Obsoletes: gedit-plugin-drawspaces < 51.0
+Obsoletes: gedit-plugin-smartspaces < 51.0
+Obsoletes: gedit-plugin-wordcompletion < 51.0
 
 
 %description
@@ -99,7 +101,6 @@ Install gedit-devel if you want to write plugins for gedit.
 
 %prep
 %autosetup -p1 -n %{name}-%{tarball_version}
-tar --strip-components=1 -xf %{S:1} -C subprojects/libgd
 
 %build
 %meson -Dgtk_doc=true
@@ -128,8 +129,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %dir %{_libdir}/gedit
 %dir %{_libdir}/gedit/plugins
 %{_libdir}/gedit/libgedit-%{api_version}.so
+%{_libdir}/gedit/plugins/bookmarks.plugin
+%{_libdir}/gedit/plugins/libbookmarks.so
 %{_libdir}/gedit/plugins/codecomment.plugin
 %{_libdir}/gedit/plugins/libcodecomment.so
+%{_libdir}/gedit/plugins/drawspaces.plugin
+%{_libdir}/gedit/plugins/libdrawspaces.so
 %{_libdir}/gedit/plugins/docinfo.plugin
 %{_libdir}/gedit/plugins/libdocinfo.so
 %{_libdir}/gedit/plugins/filebrowser.plugin
@@ -138,6 +143,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_libdir}/gedit/plugins/libmodelines.so
 %{_libdir}/gedit/plugins/quickhighlight.plugin
 %{_libdir}/gedit/plugins/libquickhighlight.so
+%{_libdir}/gedit/plugins/libsmartspaces.so
+%{_libdir}/gedit/plugins/smartspaces.plugin
 %{_libdir}/gedit/plugins/sort.plugin
 %{_libdir}/gedit/plugins/libsort.so
 %{_libdir}/gedit/plugins/spell.plugin
@@ -146,13 +153,17 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.gedit.deskt
 %{_libdir}/gedit/plugins/libtextsize.so
 %{_libdir}/gedit/plugins/time.plugin
 %{_libdir}/gedit/plugins/libtime.so
+%{_libdir}/gedit/plugins/libwordcompletion.so
+%{_libdir}/gedit/plugins/wordcompletion.plugin
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.enums.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.drawspaces.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.filebrowser.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.filebrowser.enums.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.spell.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.time.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.time.enums.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.gedit.plugins.wordcompletion.gschema.xml
 %{_datadir}/dbus-1/services/org.gnome.gedit.service
 %{_datadir}/icons/hicolor/*/apps/org.gnome.gedit.png
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.gedit-symbolic.svg

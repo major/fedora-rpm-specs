@@ -7,7 +7,7 @@ License:        Apache-2.0 OR MIT
 URL:            https://github.com/Nitrokey/nitrokey-sdk-py
 Source:         %{url}/archive/refs/tags/v%{version}.tar.gz
 
-%if 0%{fedora} <= 45
+%if 0%{fedora} < 45
 # Rebased version of https://github.com/Nitrokey/nitrokey-sdk-py/blob/2221ef1fa9dc30ab50f538446d6262e23a19a0be/ci-scripts/linux/rpm/protobuf.patch
 # No longer required since https://fedoraproject.org/wiki/Changes/Protobuf_5.x/6.x
 Patch:          protobuf.patch

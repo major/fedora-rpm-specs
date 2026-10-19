@@ -1,17 +1,16 @@
 %global pkg s
 
 Name:           emacs-%{pkg}
-Version:        1.13.0
-Release:        11%{?dist}
+Version:        1.13.1
+Release:        1%{?dist}
 Summary:        The long lost Emacs string manipulation library
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/magnars/%{pkg}.el/
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  emacs
-Requires:       emacs(bin) >= %{_emacs_version}
+BuildRequires:  emacs-nw
+Requires:       emacs(bin)%{?_emacs_version: >= %{_emacs_version}}
 BuildArch:      noarch
 
 %description
@@ -28,7 +27,7 @@ BuildArch:      noarch
 
 %install
 install -dm 0755 $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
-install -pm 0644 %{pkg}.el* -t $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
+install -pm 0644 %{pkg}.el %{pkg}.elc -t $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
 
 
 %check
@@ -42,6 +41,9 @@ install -pm 0644 %{pkg}.el* -t $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}/
 
 
 %changelog
+* Sun Oct 18 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 1.13.1-1
+- Update to 1.13.1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

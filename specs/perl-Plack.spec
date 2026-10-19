@@ -35,7 +35,7 @@
 %bcond_without perl_Plack_enables_ssl
 
 Name:           perl-Plack
-Version:        1.0054
+Version:        1.0055
 Release:        1%{?dist}
 Summary:        Perl Superglue for Web frameworks and Web Servers (PSGI toolkit)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -357,6 +357,9 @@ export TEST_APACHE2=0
 %{perl_vendorlib}/auto/*
 
 %changelog
+* Sun Oct 18 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0055-1
+- Update to 1.0055 (CVE-2026-110333, CVE-2026-110335, CVE-2026-110334, CVE-2026-110336)
+
 * Sun Aug 30 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0054-1
 - Update to 1.0054
 

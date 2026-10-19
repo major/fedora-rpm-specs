@@ -3,7 +3,7 @@
 %endif
 
 Name:           pdns-recursor
-Version:        5.4.6
+Version:        5.4.7
 Release:        %autorelease
 Summary:        Modern, advanced and high performance recursing/non authoritative name server
 

@@ -5,7 +5,7 @@ care of all the details like building RADIUS packets, sending them and decoding
 responses.}
 
 Name:           python-%{pypi_name}
-Version:        2.5.4
+Version:        2.6.0
 Release:        %autorelease
 Summary:        Python RADIUS client
 License:        BSD-3-Clause
@@ -13,6 +13,7 @@ URL:            https://github.com/pyradius/%{pypi_name}
 VCS:            git:%{url}.git
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  python3-pytest
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
 BuildRequires:  python3-twisted
@@ -40,7 +41,7 @@ rm -rf %{buildroot}%{python3_sitelib}/example/
 rm -rf %{buildroot}%{python3_sitelib}/docs/
 
 %check -a
-%python3 -m unittest -v
+%pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc CHANGES.rst README.rst example/ docs/_build/html/

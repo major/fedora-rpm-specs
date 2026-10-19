@@ -1,5 +1,5 @@
 Name:		worker
-Version:	5.4.0
+Version:	6.0.0
 Release:	%autorelease
 Summary:	File Manager for the X11
 # Automatically converted from old format: GPLv2+ - review is highly recommended.

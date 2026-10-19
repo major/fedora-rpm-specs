@@ -1,6 +1,6 @@
 %global         jqversion 1.8.2
 Name:           python-jq
-Version:        1.12.0
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Python bindings for jq
 

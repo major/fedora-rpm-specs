@@ -1,5 +1,5 @@
 Name:           feh
-Version:        3.12.4
+Version:        3.13
 Release:        %autorelease
 Summary:        Fast command line image viewer using Imlib2
 License:        MIT
@@ -43,9 +43,8 @@ sed -i \
     curl=1 exif=1 test=1 xinerama=1
 
 %install
-%make_install PREFIX="%{_prefix}"
+%make_install PREFIX="%{_prefix}" install_fonts=0
 
-rm -f %{buildroot}%{_datadir}/%{name}/fonts/yudit.ttf
 find %{buildroot} -type f -name "*.la" -delete
 rm -f %{buildroot}%{_pkgdocdir}/examples/find-lowres
 

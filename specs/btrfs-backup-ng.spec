@@ -1,11 +1,13 @@
 Name:           btrfs-backup-ng
-Version:        0.9.12
+Version:        0.9.13
 Release:        %autorelease
-Summary:        Intelligent, feature-rich backups for btrfs
+Summary:        Btrfs backups with snapshots, incremental transfers and restore
 
 License:        MIT
 URL:            https://github.com/berrym/btrfs-backup-ng
 Source:         %{pypi_source btrfs_backup_ng}
+# pytest < 8.4 (Fedora 43) has no public pytest.TerminalReporter; drop with upstream fix
+Patch:          btrfs-backup-ng-pytest-8.3-terminalreporter.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -13,9 +15,19 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
 # External tools the test suite invokes
 BuildRequires:  btrfs-progs
+BuildRequires:  bzip2
 BuildRequires:  dash
+BuildRequires:  fish
+BuildRequires:  gzip
+BuildRequires:  lz4
+BuildRequires:  lzop
 BuildRequires:  openssl
+BuildRequires:  pbzip2
+BuildRequires:  pigz
 BuildRequires:  procps-ng
+BuildRequires:  xz
+BuildRequires:  zsh
+BuildRequires:  zstd
 
 Requires:       btrfs-progs
 Requires:       openssh-clients
@@ -25,15 +37,35 @@ Requires:       bzip2
 Requires:       zstd
 Requires:       xz
 Requires:       lz4
-Requires:       lzo
+Requires:       lzop
 Requires:       pigz
 Requires:       pbzip2
 
 
 %description
-Complete btrfs backup solution with automated snapshots,
-incremental transfers, restore functionality,
-snapper integration, btrbk migration, and systemd scheduling
+btrfs-backup-ng creates, transfers, prunes and restores btrfs snapshots: to
+local disks, to other machines over SSH, or as raw send-stream files on any
+filesystem (NFS, SMB, cloud storage). It is configured with TOML and driven by
+subcommands such as run, snapshot, transfer, prune, restore and verify, with an
+interactive wizard to write the first configuration.
+
+Features:
+- Incremental transfers, with the parent matched by btrfs UUID so a re-created
+  snapshot is never used as the wrong parent
+- Time-based retention: hourly, daily, weekly, monthly and yearly
+- Restore from local, SSH and raw targets, as full or incremental chains
+- Stream compression with zstd, gzip, lz4, xz, bzip2, lzop, pigz and pbzip2
+- Raw backups with GPG or OpenSSL encryption and a checksummed metadata
+  sidecar that raw verify can check
+- SSH host-key verification, bandwidth limits and sudo support on the remote
+- Locks kept on the remote target, so a prune running elsewhere cannot delete
+  a snapshot that a restore is reading
+- Snapper integration, including restoring snapshots with their metadata
+- Import of btrbk configuration, snapshots and systemd timers
+- systemd timer installation, email and webhook notifications, and a doctor
+  command that diagnoses and repairs common problems
+
+Man pages and bash, zsh and fish completions are included.
 
 %prep
 %autosetup -p1 -n btrfs_backup_ng-%{version}
@@ -62,10 +94,10 @@ install -m 0644 completions/btrfs-backup-ng.zsh  %{buildroot}%{zsh_completions_d
 install -m 0644 completions/btrfs-backup-ng.fish %{buildroot}%{fish_completions_dir}/btrfs-backup-ng.fish
 
 %check
-# test_source_checkout_still_resolves: looks for man/ and completions/ relative
-#   to the imported module, which lives in the buildroot during %%check.
-# test_ssh_commit_wraps_in_sudo_when_configured: executes `sudo -n` for real.
-%{pytest} -k "not test_source_checkout_still_resolves and not test_ssh_commit_wraps_in_sudo_when_configured"
+# Tests that run an external program skip when it is missing; listing a tool
+# here turns its skips into failures, so a dropped BuildRequires fails the build.
+export BBNG_TEST_REQUIRE_TOOLS=awk,btrfs,bzip2,dash,fish,gzip,lz4,lzop,openssl,pbzip2,pigz,ps,xz,zsh,zstd
+%{pytest}
 
 
 %files -n btrfs-backup-ng -f %{pyproject_files}

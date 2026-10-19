@@ -16,12 +16,12 @@
 %bcond tests 0
 
 Name:           %{pkg_name}
-Version:        2.14.0
+Version:        2.15.1
 # can only be reset when all subpkgs bumped
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Dockerfile linter, validate inline bash
 
-License:        GPL-3.0-or-later
+License:        GPL-3.0-only
 URL:            https://hackage.haskell.org/package/hadolint
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
@@ -51,7 +51,6 @@ BuildRequires:  ghc-email-validate-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-foldl-devel
 BuildRequires:  ghc-gitrev-devel
-BuildRequires:  ghc-ilist-devel
 BuildRequires:  ghc-language-docker-devel
 BuildRequires:  ghc-megaparsec-devel
 # BuildRequires:  ghc-monoidsubclasses-devel
@@ -89,7 +88,6 @@ BuildRequires:  ghc-email-validate-prof
 BuildRequires:  ghc-filepath-prof
 BuildRequires:  ghc-foldl-prof
 BuildRequires:  ghc-gitrev-prof
-BuildRequires:  ghc-ilist-prof
 BuildRequires:  ghc-language-docker-prof
 BuildRequires:  ghc-megaparsec-prof
 # BuildRequires:  ghc-monoidsubclasses-prof
@@ -195,6 +193,7 @@ This package provides the Haskell %{name} profiling library.
 %setup -q -a1 -a2 -a3 -a4
 # End cabal-rpm setup
 cabal-tweak-dep-ver optparse-applicative '>=0.19.0' '>=0.18.1'
+cabal-tweak-dep-ver time '>=1.14' '>=1.12'
 
 
 %build
@@ -263,6 +262,10 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Sun Oct 18 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.15.1-26
+- https://hackage.haskell.org/package/hadolint-2.15.1/changelog
+- Fix license to GPL-3.0-only
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

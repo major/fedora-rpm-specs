@@ -3,9 +3,14 @@
 # dependent
 %global debug_package %{nil}
 
+# Filter perl(utils) dep from %%{_libdir}/nagios/plugins/utils.pm
+%global __requires_exclude ^perl\\(utils\\)
+# All of the default filters
+%{?perl_default_filter}
+
 Name:    nagios-plugins-ltb
 Version: 0.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: LDAP Tool Box Nagios plugins
 License: GPL-3.0-only
 URL:     https://github.com/ltb-project/nagios-plugins
@@ -14,7 +19,7 @@ Source0: https://github.com/ltb-project/nagios-plugins/archive/v%{version}/%{nam
 Patch0:  nagios-plugins-ltb-0.9-rename_licence.patch
 
 BuildRequires: perl-generators
-Requires: nagios-common
+Requires: nagios-plugins-perl
 
 
 %description
@@ -43,6 +48,10 @@ install -p -m 0755 restart_slapd.sh %{buildroot}%{_libdir}/nagios/plugins/eventh
 
 
 %changelog
+* Sat Oct 17 2026 Todd Zullinger <tmz@pobox.com> - 0.9-4
+- Filter deps from %%{_libdir}/nagios/plugins
+- Require nagios-plugins-perl for utils.pm
+
 * Wed Oct 14 2026 Xavier Bachelot <xavier@bachelot.org> - 0.9-3
 - Tweaks following review
 

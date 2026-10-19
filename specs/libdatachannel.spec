@@ -1,7 +1,7 @@
 %define soversion() %(echo "%1" | awk -F. '{print $1"."$2}')
 
 Name:           libdatachannel
-Version:        0.24.5
+Version:        0.24.6
 Release:        1%{?dist}
 Summary:        WebRTC network library featuring Data Channels, Media Transport, and WebSockets
 
@@ -19,6 +19,8 @@ BuildRequires:  cmake(nlohmann_json)
 BuildRequires:  cmake(plog)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(gnutls)
+BuildRequires:  pkgconfig(nettle)
 BuildRequires:  pkgconfig(nice)
 BuildRequires:  libsrtp-devel
 BuildRequires:  usrsctp-devel
@@ -63,6 +65,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Oct 18 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.24.6-1
+- Update to 0.24.6
+
 * Tue Sep 01 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.24.5-1
 - Update to v0.24.5
 

@@ -1,7 +1,7 @@
-%define glib2_version 2.38.0
+%define glib2_version 2.62.0
 
 Name:           libnotify
-Version:        0.8.8
+Version:        0.8.9
 Release:        %autorelease
 Summary:        Desktop notification library
 
@@ -48,7 +48,7 @@ development of programs using %{name}.
 %license COPYING
 %doc NEWS AUTHORS README.md
 %{_bindir}/notify-send
-%{_libdir}/libnotify.so.*
+%{_libdir}/libnotify.so.4{,.*}
 %{_libdir}/girepository-1.0/Notify-0.7.typelib
 %{_mandir}/man1/notify-send.1*
 

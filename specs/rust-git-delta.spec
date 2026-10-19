@@ -4,7 +4,7 @@
 %global crate git-delta
 
 Name:           rust-git-delta
-Version:        0.19.1
+Version:        0.20.1
 Release:        %autorelease
 Summary:        Syntax-highlighting pager for git
 
@@ -40,7 +40,6 @@ A syntax-highlighting pager for git.}
 Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Apache-2.0 AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND CC-BY-SA-3.0 AND MIT AND Unlicense AND WTFPL
-# (MIT OR Apache-2.0) AND BSD-3-Clause AND GPL-2.0-only WITH GCC-exception-2.0 AND MIT
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
@@ -63,7 +62,6 @@ License:        %{shrink:
                 BSD-2-Clause-Views AND
                 BSD-3-Clause AND
                 CC-BY-SA-3.0 AND
-                GPL-2.0-only WITH GCC-exception-2.0 AND
                 LGPL-3.0-or-later AND
                 MIT AND
                 MPL-2.0 AND

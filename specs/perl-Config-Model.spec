@@ -2,12 +2,12 @@
 %bcond_with test_fuse
 
 Name:           perl-Config-Model
-Version:        2.166
+Version:        2.168
 Release:        1%{?dist}
 Summary:        Framework to create configuration validation tools and editors
 License:        LGPL-2.1-or-later
 
-URL:            https://metacpan.org/release/Config-Model
+URL:            https://metacpan.org/dist/Config-Model
 Source0:        https://cpan.metacpan.org/authors/id/D/DD/DDUMONT/Config-Model-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
@@ -129,6 +129,9 @@ modprobe fuse
 %{_mandir}/man3/Config::Model*
 
 %changelog
+* Sun Oct 18 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.168-1
+- Update to 2.168
+
 * Tue Aug 04 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.166-1
 - 2.166 bump (rhbz#2510692)
 

@@ -1,10 +1,14 @@
 Name: mbedtls
 Version: 3.6.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
 License: Apache-2.0 OR GPL-2.0-or-later
 URL: https://www.trustedfirmware.org/projects/mbed-tls
 Source0: https://github.com/Mbed-TLS/%{name}/archive/refs/tags/%{name}-%{version}.tar.bz2
+
+# MbedTLS is EOL in 2027-04:
+# https://lists.trustedfirmware.org/archives/list/mbed-tls@lists.trustedfirmware.org/thread/YPIGCB7WN6GCHOGEGKOJXUYAP7OK527W/#BSRM3JY6JFNWWEHKMY4JQQON5QB3LP5U
+Provides: deprecated()
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -23,6 +27,7 @@ applications with as little hassle as possible.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       deprecated()
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -31,6 +36,7 @@ developing applications that use %{name}.
 %package        doc
 Summary:        Documentation files for %{name}
 BuildArch:      noarch
+Provides:       deprecated()
 
 %description    doc
 The %{name}-doc package contains documentation.
@@ -93,6 +99,9 @@ chmod 755 %{buildroot}%{_libdir}/*.so.*
 %doc apidoc/*
 
 %changelog
+* Sun Oct 18 2026 Bill Roberts <bill.roberts@arm.com> - 3.6.7-3
+- Mark the package as deprecated
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

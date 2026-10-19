@@ -1,5 +1,5 @@
 Name:           plantuml
-Version:        1.2026.8
+Version:        1.2026.9
 Release:        %autorelease
 Epoch:          1
 Summary:        Program to generate UML diagram from a text description
@@ -64,7 +64,7 @@ help2man --help-option='-h' --version-option='--version' --no-info --output='%{b
 %{_bindir}/plantuml
 %doc README.md
 %{_mandir}/man1/plantuml.1*
-%license COPYING plantuml-lgpl/lgpl-license.txt
+%license COPYING license-variants/plantuml-lgpl/lgpl-license.txt
 
 %changelog
 %autochangelog

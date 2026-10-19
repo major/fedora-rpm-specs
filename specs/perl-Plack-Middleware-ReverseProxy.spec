@@ -1,10 +1,9 @@
 Name:           perl-Plack-Middleware-ReverseProxy
-Version:        0.16
-Release:        22%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        Supports app to run as a reverse proxy back-end
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/Plack-Middleware-ReverseProxy
+URL:            https://metacpan.org/dist/Plack-Middleware-ReverseProxy
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Plack-Middleware-ReverseProxy-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires: make
@@ -42,15 +41,15 @@ requests using 'enable_if' directive in your app.psgi.
 %setup -q -n Plack-Middleware-ReverseProxy-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install} DESTDIR=%{buildroot}
 %{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README
@@ -58,6 +57,9 @@ make test
 %{_mandir}/man3/Plack*
 
 %changelog
+* Sun Oct 18 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.17-1
+- Update to 0.17
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
