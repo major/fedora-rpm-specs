@@ -5,22 +5,21 @@
 %global crate kbs-types
 
 Name:           rust-kbs-types
-Version:        0.14.0
+Version:        0.18.0
 Release:        %autorelease
-Summary:        Rust (de)serializable types for KBS
+Summary:        Rust types for KBS serialization and deserialization
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/kbs-types
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Remove unused dev-dependencies: codicon, curl, procfs:
-#   https://github.com/confidential-containers/kbs-types/pull/80
+# * Remove unused ear dependency and its transitive dep chain: https://github.com/confidential-containers/kbs-types/pull/93
 Patch:          kbs-types-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Rust (de)serializable types for KBS.}
+Rust types for KBS serialization and deserialization.}
 
 %description %{_description}
 

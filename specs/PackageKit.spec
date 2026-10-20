@@ -10,11 +10,13 @@ URL:       http://www.freedesktop.org/software/PackageKit/
 Source0:   http://www.freedesktop.org/software/PackageKit/releases/%{name}-%{version}.tar.xz
 
 # Backports from upstream (1~500)
-
-# Patches proposed upstream (501~1000)
 ## Use RepoConfigOverride API to support repo config in /usr
 ## Reference: https://fedoraproject.org/wiki/Changes/RelocateRpmRepoConfigsToUsr
-Patch0501:    https://github.com/PackageKit/PackageKit/pull/1014.patch
+Patch0001:    https://github.com/PackageKit/PackageKit/pull/1014.patch
+## Fix various progress reporting issues
+Patch0002:    https://github.com/PackageKit/PackageKit/pull/1028.patch
+
+# Patches proposed upstream (501~1000)
 
 # Downstream only patches (1001+)
 ## https://pagure.io/fedora-workstation/issue/233

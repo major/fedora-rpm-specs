@@ -19,9 +19,11 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 ExcludeArch:    %{ix86}
 
 BuildRequires:  blueprint-compiler
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gjs-devel
+BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  pkgconfig(glycin-gtk4-2)
 BuildRequires:  pkgconfig(gobject-2.0)
@@ -50,6 +52,9 @@ file manager.
 
 %prep
 %autosetup -p1 -n %{name}-%{gnome_tarball_version}
+# intended for snapshots, this results in a duplicate release entry
+# which will not validate with appstream-util
+sed -i -e '/<release.*@release-version@/d' data/*.metainfo.xml.in.in
 
 
 %build
@@ -60,6 +65,11 @@ file manager.
 %install
 %meson_install
 %find_lang %{name}
+
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %files -f %{name}.lang

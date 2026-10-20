@@ -3,8 +3,8 @@
 %bcond_without perl_Atomic_Pipe_enables_zstd
 
 Name:           perl-Atomic-Pipe
-Version:        0.032
-Release:        3%{?dist}
+Version:        0.033
+Release:        1%{?dist}
 Summary:        Send atomic messages from multiple writers across a POSIX pipe
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Atomic-Pipe
@@ -86,6 +86,9 @@ with "%{_libexecdir}/%{name}/test".
 rm t/compression.t
 perl -i -ne 'print $_ unless m{\At/compression\.t\b}' MANIFEST
 %endif
+# Remove always skipped tests
+rm t/linear_scaling.t
+perl -i -ne 'print $_ unless m{\At/linear_scaling.t\b}' MANIFEST
 
 %build
 unset AUTOMATED_TESTING
@@ -123,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 19 2026 Petr Pisar <ppisar@redhat.com> - 0.033-1
+- 0.033 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.032-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

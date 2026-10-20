@@ -8,7 +8,7 @@
 %global firefox_inst_dir %{moz_extensions}/%{firefox_app_id}
 
 Name:           mozilla-privacy-badger
-Version:        2026.6.16
+Version:        2026.9.15
 Release:        %autorelease
 Summary:        Protects your privacy by blocking spying ads and invisible trackers
 License:        Apache-2.0 AND GPL-3.0-or-later AND (GPL-3.0-or-later OR MPL-2.0) AND MIT AND OFL-1.1 AND LicenseRef-Fedora-Public-Domain AND CC-BY-SA-3.0
@@ -100,8 +100,6 @@ PATCHER=scripts/patch_manifest.py
 mkdir pkg
 
 $PATCHER src/manifest.json 'set' 'author' 'privacybadger-owner@eff.org'
-
-$PATCHER src/manifest.json 'del' 'update_url'
 
 rm -fv pkg/privacybadger-%{version}.zip
 pushd src

@@ -1,8 +1,8 @@
 %global soversion 6
 
 Name:           qcint
-Version:        6.1.3
-Release:        4%{?dist}
+Version:        6.2.0
+Release:        1%{?dist}
 Summary:        An optimized libcint branch for X86 platform with SSE3 intrinsics
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -70,6 +70,9 @@ export CFLAGS="%{optflags} -msse3 -Wl,--as-needed"
 %{_libdir}/libcint.so
 
 %changelog
+* Mon Oct 19 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.2.0-1
+- Update to 6.2.0.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

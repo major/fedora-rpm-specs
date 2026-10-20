@@ -7,7 +7,7 @@ Summary:	A riak_pb message compiler for Rebar3
 License:	BSD-3-Clause
 URL:		https://github.com/basho/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
+Source:		%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 BuildArch:	noarch
 BuildSystem:	rebar3
 

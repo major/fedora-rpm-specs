@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/chapel-lang/chapel
-Version:        2.9.0
-%global shortversion 2.9
+Version:        2.10.0
+%global shortversion 2.10
 %forgemeta
 
 Name:           chapel
@@ -32,6 +32,7 @@ BuildRequires:  patchelf
 BuildRequires:  clang20-devel
 BuildRequires:  cmake
 BuildRequires:  diffutils
+BuildRequires:  doxygen
 BuildRequires:  gawk
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -149,13 +150,19 @@ mkdir -p %{buildroot}%{_libdir}/cmake
 mv %{buildroot}%{_prefix}/lib/cmake/chpl %{buildroot}%{_libdir}/cmake/chpl
 patchelf --set-rpath "%{_libdir}/chapel/%{shortversion}/compiler:%{_libdir}/llvm20/lib64" %{buildroot}%{_libdir}/chapel/%{shortversion}/compiler/libChplFrontendShared.so
 %ifarch ppc64le
+re2target=linux_ppc_le64-%{_arch}-unknown-gnu-pic
 patchelf --set-rpath "%{_libdir}/chapel/%{shortversion}/compiler:%{_libdir}/llvm20/lib64" %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/lib/compiler/linux_ppc_le64-%{_arch}/libChplFrontendShared.so
 %elifarch s390x
+re2target=linux32-%{_arch}-unknown-gnu-pic
 patchelf --set-rpath "%{_libdir}/chapel/%{shortversion}/compiler:%{_libdir}/llvm20/lib64" %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/lib/compiler/linux32-%{_arch}/libChplFrontendShared.so
 %else
+re2target=linux64-%{_arch}-unknown-gnu-pic
 patchelf --set-rpath "%{_libdir}/chapel/%{shortversion}/compiler:%{_libdir}/llvm20/lib64" %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/lib/compiler/linux64-%{_arch}/libChplFrontendShared.so
 %endif
 patchelf --set-rpath "%{_libdir}/chapel/%{shortversion}/compiler" %{buildroot}%{_bindir}/chpl
+# libchpl.so links re2 statically; re-point its RUNPATH at the installed re2 dir
+re2dir=%{_libdir}/chapel/%{shortversion}/third-party/re2/install/${re2target}/lib
+find %{buildroot}%{_libdir}/chapel -name 'libchpl.so' -exec patchelf --set-rpath "${re2dir}" {} +
 
 # Remove development files
 rm %{buildroot}%{_libdir}/chapel/%{shortversion}/runtime/include/.gitignore

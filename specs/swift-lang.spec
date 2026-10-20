@@ -6,7 +6,18 @@
 %global debug_package %{nil}
 %undefine _auto_set_build_flags
 
-Version: 6.3.2
+# By default, build using a previously installed Swift toolchain (from
+# BuildRequires) as the host compiler to build the compiler's own
+# Swift-in-Swift sources. This is fast, but depends on swift-lang already
+# being available.
+#
+# Pass --with bootstrap to instead perform the full four-stage, from-scratch
+# C++ bootstrap (stage0 -> stage1 -> stage2 -> fedora_final), which does not
+# require any previously built swift-lang. Use this when bootstrapping a new
+# architecture, or recovering when no prior swift-lang build is available.
+%bcond bootstrap 0
+
+Version: 6.4.0
 
 # Main swift source and version
 %global forgeurl0  https://github.com/swiftlang/swift
@@ -47,9 +58,6 @@ Version: 6.3.2
 %global tag8       swift-%{version0}-RELEASE
 %global subdir8    swift-lmdb
 
-%global forgeurl9  https://github.com/KitWare/CMake
-%global tag9       v3.30.2
-%global subdir9    cmake
 
 %global forgeurl10  https://github.com/apple/swift-collections
 %global tag10       1.1.6
@@ -80,11 +88,11 @@ Version: 6.3.2
 %global subdir16    libxml2
 
 %global forgeurl17  https://github.com/swiftlang/swift-toolchain-sqlite
-%global tag17       1.0.7
+%global tag17       1.0.9
 %global subdir17    swift-toolchain-sqlite
 
 %global forgeurl18  https://github.com/WebAssembly/wasi-libc
-%global tag18       wasi-sdk-27
+%global tag18       wasi-sdk-31
 %global subdir18    wasi-libc
 
 %global forgeurl19  https://github.com/swiftlang/swift-format
@@ -100,16 +108,13 @@ Version: 6.3.2
 %global subdir21    swift-llvm-bindings
 
 %global forgeurl22  https://github.com/swiftwasm/WasmKit
-%global tag22       0.1.6
+%global tag22       0.3.1
 %global subdir22    wasmkit
 
 %global forgeurl23  https://github.com/swiftlang/swift-syntax
 %global tag23       swift-%{version0}-RELEASE
 %global subdir23    swift-syntax
 
-%global forgeurl24  https://github.com/ninja-build/ninja
-%global tag24       v1.13.1
-%global subdir24    ninja
 
 %global forgeurl25  https://github.com/swiftlang/swift-corelibs-libdispatch
 %global tag25       swift-%{version0}-RELEASE
@@ -144,7 +149,7 @@ Version: 6.3.2
 %global subdir32    swift-stress-tester
 
 %global forgeurl33  https://github.com/apple/swift-nio
-%global tag33       2.65.0
+%global tag33       2.92.2
 %global subdir33    swift-nio
 
 %global forgeurl34  https://github.com/swiftlang/indexstore-db
@@ -212,7 +217,7 @@ Version: 6.3.2
 %global subdir49    swift-docc
 
 %global forgeurl50  https://github.com/swiftlang/swift-tools-protocols
-%global tag50       0.0.9
+%global tag50       swift-%{version0}-RELEASE
 %global subdir50    swift-tools-protocols
 
 %global forgeurl51  https://github.com/swiftlang/swift-corelibs-blocksruntime
@@ -220,12 +225,16 @@ Version: 6.3.2
 %global subdir51    swift-corelibs-blocksruntime
 
 %global forgeurl52  https://github.com/google/brotli
-%global tag52       v1.1.0
+%global tag52       v1.2.0
 %global subdir52    brotli
 
 %global forgeurl53  https://github.com/swiftlang/swift-subprocess
-%global tag53       0.2.1
+%global tag53       0.4
 %global subdir53    swift-subprocess
+
+%global forgeurl54  https://github.com/google/boringssl
+%global tag54       817ab07ebb53da35afea409ab9328f578492832d
+%global subdir54    boringssl
 
 # End forge sources
 
@@ -238,7 +247,7 @@ License:        Apache-2.0
 URL:            https://www.swift.org
 
 %{lua:
-for i = 0, 53 do
+for i = 0, 54 do
   local forgesource = rpm.expand("%{?forgesource" .. i .. "}")
   if forgesource ~= "" then
     print("Source" .. i .. ":    " .. forgesource .. "\n")
@@ -249,18 +258,32 @@ Source99:       swiftlang.conf
 Source100:      fedora-presets.ini
 
 # NOTE: The patch number corresponds to the source it's packaging. For example,
-# Patch25 is patching Source25, swift-foundation.
+# Patch25 is patching Source25. The 01 suffix marks a second patch for the same source.
 Patch0:         swift.patch
 Patch44:        llvm-project.patch
 Patch15:        cmark.patch
 Patch5:         llbuild.patch
 Patch7:         swiftpm.patch
 Patch13:        swift-foundation.patch
+Patch1301:      swift-foundation-memberimportvisibility.patch
 Patch25:        swift-corelibs-libdispatch.patch
-Patch9:         cmake.patch
+Patch42:        swift-crypto-CVE-2026-43823.patch
+Patch3501:      swift-build-toolchain-layout.patch
+Patch3502:      swift-build-ld-version-regex.patch
+Patch1101:      swift-driver-swiftscan-symlink.patch
+Patch701:       swiftpm-toolchain-layout.patch
 
 BuildRequires:  clang
+BuildRequires:  cmake
+BuildRequires:  ninja-build
 BuildRequires:  swig
+%if !%{with bootstrap}
+# The compiler's own Swift-in-Swift sources are built with a previously
+# released host compiler. Bounded above by %{version} so we never bootstrap
+# off a newer release than the one being built. Not needed with
+# --with bootstrap, which builds a host compiler from scratch in stage0.
+BuildRequires:  (swift-lang >= 6.3.2 with swift-lang <= %{version})
+%endif
 BuildRequires:  rsync
 BuildRequires:  python3
 BuildRequires:  python3-devel
@@ -333,7 +356,7 @@ applications built with Swift.
 %forgesetup -a
 cd %{builddir}
 %{lua:
-for i = 0, 53 do
+for i = 0, 54 do
   local subdir = rpm.expand("%{?subdir" .. i .. "}")
   if subdir ~= "" then
     print(rpm.expand("mv %{archivename" .. i .. "} " .. subdir .. "\n"))
@@ -347,8 +370,13 @@ end
 %patch 5
 %patch 7
 %patch 13
+%patch 1301 -p1 -d swift-foundation
 %patch 25
-%patch 9
+%patch 42
+%patch 3501 -p1 -d swift-build
+%patch 3502 -p1 -d swift-build
+%patch 1101 -p1 -d swift-driver
+%patch 701 -p1 -d swiftpm
 
 # Install custom Fedora preset
 cp %{SOURCE100} swift/utils/fedora-presets.ini
@@ -365,6 +393,7 @@ export VERBOSE=1
 export CFLAGS="-O2 -g -fno-builtin-logf"
 export CXXFLAGS="-O2 -g -fno-builtin-logf"
 
+%if %{with bootstrap}
 # Four-stage bootstrap to build Swift from scratch without external Swift compiler
 # Stage 0: Build minimal Swift toolchain from C++ using gold linker
 #          Produces: Swift compiler with C++ legacy driver (no SwiftPM, no swift-driver)
@@ -375,7 +404,7 @@ export CXXFLAGS="-O2 -g -fno-builtin-logf"
 # Stage 2: Build Swift compiler using Stage 1 with lld linker
 #          Produces: Swift compiler + SwiftPM + basic tools (still no swift-driver)
 #          Stage 2 clang defaults to lld
-# Stage 3: Build final production toolchain using Stage 2
+# Stage 3 (below): Build final production toolchain using Stage 2
 #          Produces: Complete toolchain with swift-driver, sourcekit-lsp, swift-format, etc.
 #          This matches upstream first-party distributions
 
@@ -405,8 +434,22 @@ export PATH=%{_builddir}/stage1/usr/bin:%{_builddir}/stage0/usr/bin:$PATH
     extra-cmake-options="-DLLVM_USE_LINKER=lld -DCLANG_DEFAULT_LINKER=ld.lld" \
     swift-cmake-options="-DSWIFT_USE_LINKER=lld"
 
-echo "=== Stage 3: Building final production toolchain with swift-driver ==="
 export PATH=%{_builddir}/stage2/usr/bin:%{_builddir}/stage1/usr/bin:%{_builddir}/stage0/usr/bin:$PATH
+%else
+# Use the previously released Swift toolchain (from BuildRequires) as the host
+# compiler to build the compiler's own Swift-in-Swift sources. Pass
+# --with bootstrap to instead perform a full from-scratch C++ bootstrap (see
+# above), which does not require any previously built swift-lang.
+for swift_host_bin in %{_libexecdir}/swift/*/bin; do
+    if [ -x "$swift_host_bin/swiftc" ]; then
+        export PATH="$swift_host_bin:$PATH"
+        break
+    fi
+done
+command -v swiftc
+%endif
+
+echo "=== Building production toolchain ==="
 %{builddir}/swift/utils/build-script --preset=fedora_final \
     --preset-file=%{builddir}/swift/utils/fedora-presets.ini \
     build_subdir=fedora_final \
@@ -432,7 +475,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
 cp -a %{_builddir}/usr/bin/* %{buildroot}%{_libexecdir}/swift/%{version}/bin/
 
 # Create symlinks in %{_bindir} for user-facing tools
-TOOLS="swift swiftc swift-build swift-run swift-package swift-test sourcekit-lsp swift-format swift-demangle"
+TOOLS="swift swiftc swift-build swift-run swift-package swift-test sourcekit-lsp swift-format swift-demangle swift-autolink-extract"
 for tool in ${TOOLS}; do
     if [ -f %{buildroot}%{_libexecdir}/swift/%{version}/bin/$tool ]; then
         ln -sf %{_libexecdir}/swift/%{version}/bin/$tool %{buildroot}%{_bindir}/$tool
@@ -489,11 +532,22 @@ fi
 
 # Install compiler private libraries and modules to %{_libexecdir}
 mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift
-cp -a %{_builddir}/usr/lib/swift/* %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/
-# Remove the runtime .so files we already installed to %{_libdir}
-if [ -d %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/linux ]; then
-    find %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/linux -name '*.so*' -type f -delete
-    find %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/linux -name '*.so*' -type l -delete
+# Copy everything except the runtime .so files (which go to %{_libdir})
+rsync -a --exclude='*.so' --exclude='*.so.*' \
+    %{_builddir}/usr/lib/swift/ \
+    %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/
+# Create symlinks from toolchain lib path to runtime libs in %{_libdir} (RHBZ#2521988)
+# The toolchain reports /usr/libexec/swift/<ver>/lib/swift/linux in -print-target-info,
+# so the runtime libraries must be findable there.
+if [ -d %{_builddir}/usr/lib/swift/linux ]; then
+    mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/linux
+    for lib in %{_builddir}/usr/lib/swift/linux/*.so*; do
+        if [ -e "$lib" ]; then
+            libname=$(basename "$lib")
+            ln -s %{_libdir}/$libname \
+                %{buildroot}%{_libexecdir}/swift/%{version}/lib/swift/linux/$libname
+        fi
+    done
 fi
 
 # Install clang resource directory (sanitizer libraries, builtins)
@@ -516,6 +570,12 @@ fi
 # Install data files
 if [ -d %{_builddir}/usr/share/swift ]; then
     cp -a %{_builddir}/usr/share/swift/* %{buildroot}%{_datadir}/swift/
+fi
+
+# Install SwiftPM resources beside the relocated toolchain
+if [ -d %{_builddir}/usr/share/pm ]; then
+    mkdir -p %{buildroot}%{_libexecdir}/swift/%{version}/share/pm
+    cp -a %{_builddir}/usr/share/pm/. %{buildroot}%{_libexecdir}/swift/%{version}/share/pm/
 fi
 
 # Install man pages
@@ -548,6 +608,7 @@ export QA_SKIP_RPATHS=1
 %{_bindir}/sourcekit-lsp
 %{_bindir}/swift-format
 %{_bindir}/swift-demangle
+%{_bindir}/swift-autolink-extract
 
 # Man pages
 %{_mandir}/man1/swift.1.gz

@@ -6,7 +6,7 @@
 %endif
 
 Name:           pcsc-lite
-Version:        2.5.2
+Version:        2.5.3
 Release:        %autorelease
 Summary:        PC/SC Lite smart card framework and applications
 

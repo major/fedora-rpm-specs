@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.3.0
 %define specversion 7.3.0
 %define patchversion 7.3
-%define pkgrelease 0.rc7.261016g2f2f7eeef8b0.62
+%define pkgrelease 65
 %define kversion 7
-%define tarfile_release 7.3-rc7-105-g2f2f7eeef8b0
+%define tarfile_release 7.3
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.261016g2f2f7eeef8b0.62%{?buildid}%{?dist}
+%define specrelease 65%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.3.0
 
@@ -4835,10 +4835,22 @@ fi\
 #
 #
 %changelog
-* Fri Oct 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.2f2f7eeef8b0.62]
+* Mon Oct 19 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.3.0-65]
+- Turn on EROFS_FS_PAGE_CACHE_SHARE for Fedora (Justin M. Forbes)
+
+* Mon Oct 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-65]
 - Revert "isofs: Drop support of directory entries straddling blocks" (Justin M. Forbes)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
 - automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
+
+* Mon Oct 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-64]
+- Linux v7.3.0
+
+* Sun Oct 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.32c52ec87d62.63]
+- Linux v7.3.0-0.rc7.32c52ec87d62
+
+* Sat Oct 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.58161ead29e5.62]
+- Linux v7.3.0-0.rc7.58161ead29e5
 
 * Fri Oct 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.2f2f7eeef8b0.61]
 - Linux v7.3.0-0.rc7.2f2f7eeef8b0

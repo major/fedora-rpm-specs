@@ -1,5 +1,5 @@
 Name:           python-elevenlabs
-Version:        2.73.0
+Version:        2.73.1
 Release:        %autorelease
 Summary:        The official Python SDK for ElevenLabs
 

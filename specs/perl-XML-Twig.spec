@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-XML-Twig
-Version:        3.54
-Release:        4%{?dist}
+Version:        3.55
+Release:        1%{?dist}
 Summary:        Perl module for processing huge XML documents in tree mode
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Twig
@@ -32,6 +32,7 @@ BuildRequires:  perl(File::Spec)
 # Keep HTML::Tidy optional
 BuildRequires:  perl(HTML::TreeBuilder) >= 4.00
 BuildRequires:  perl(IO::Scalar)
+BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::Wrap)
@@ -69,7 +70,6 @@ BuildRequires:  perl(XML::Simple)
 Requires:       perl(Encode)
 Requires:       perl(HTML::TreeBuilder) >= 4.00
 Requires:       perl(IO::Scalar)
-Requires:       perl(Scalar::Util)
 Requires:       perl(Text::Wrap)
 Requires:       perl(XML::Parser) >= 2.23
 
@@ -160,6 +160,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 19 2026 Michal Josef Špaček <mspacek@redhat.com> - 3.55-1
+- 3.55 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.54-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

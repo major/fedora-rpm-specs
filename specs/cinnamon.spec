@@ -10,23 +10,24 @@
 %global cinnamon_translations_version 6.7.0
 %global muffin_version 6.7.9
 
-Name:           cinnamon
-Version:        %{tagver}^unstable
-Release:        %{autorelease}
+Name:    cinnamon
+Version: %{tagver}^unstable
+Release: %{autorelease}
 %{forgemeta}
-Summary:        Window management and application launching for Cinnamon
-License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
-URL:            %{forgeurl}
-Source0:        %{forgesource}
-Source1:        10_cinnamon-common.gschema.override
-Source2:        10_cinnamon-apps.gschema.override.in
-Source3:        22_fedora.styles
+Summary: Window management and application launching for Cinnamon
+License: GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
+URL:     %{forgeurl}
+Source0: %{forgesource}
+Source1: 10_cinnamon-common.gschema.override
+Source2: 10_cinnamon-apps.gschema.override.in
+Source3: 22_fedora.styles
 
-Patch0:         set_wheel.patch
-Patch1:         default_panal_launcher.patch
-Patch2:         remove_crap_from_menu.patch
-Patch3:         set_menu_defaults.patch
-Patch4:         %url/pull/13947.patch#/glycin_ratelimit.patch
+Patch0:  set_wheel.patch
+Patch1:  default_panal_launcher.patch
+Patch2:  remove_crap_from_menu.patch
+Patch3:  set_menu_defaults.patch
+Patch4:  %url/pull/13947.patch#/glycin_ratelimit.patch
+Patch5:  %url/pull/14062.patch#/add_pam_oo7.patch
 
 ExcludeArch:    %{ix86}
 
@@ -35,6 +36,7 @@ BuildOption(conf): --libexecdir=%{_libexecdir}/cinnamon/
 BuildOption(conf): -Ddeprecated_warnings=false
 BuildOption(conf): -Dpy3modules_dir=%{python3_sitelib}
 BuildOption(conf): -Ddocs=false
+
 BuildRequires:  gcc-c++
 BuildRequires:  systemd
 BuildRequires:  desktop-file-utils
@@ -95,7 +97,7 @@ Requires:       %{name}-session%{?_isa}
 Requires:       accountsservice-libs%{?_isa}
 
 # needed for the screen locker
-Requires: gnome-keyring-pam%{?_isa}
+Requires: (gnome-keyring-pam%{?_isa} or pam_oo7%{?_isa})
 
 # needed for settings
 Requires:       gsound%{?_isa}

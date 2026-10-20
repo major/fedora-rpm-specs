@@ -43,9 +43,11 @@ Summary:        System Information and Benchmark for Linux Systems
 # includes/loadgraph.h: LGPL-2.1-only
 # shell/loadgraph.c: LGPL-2.1-only
 
-License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-only
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.1-only AND GPL-3.0-or-later
 URL:            https://github.com/hardinfo2/hardinfo2
 Source0:        %{url}/archive/release-%{version}/hardinfo2-release-%{version}.tar.gz
+# PACKAGE ELN and RHEL 11
+Patch0:         %{url}/pull/294.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -112,6 +114,10 @@ Features include:
 # respect %%_prefix used in %%cmake call
 sed -i -e '/^SET.CMAKE_INSTALL_PREFIX/d' CMakeLists.txt
 
+# rename ua.po -> uk.po: file declares Language: uk but is misnamed, which
+# would install to invalid locale dir locale/ua/ (upstream bug, not fixed yet)
+mv po/ua.po po/uk.po
+
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release \
 %if 0%{?fedora} || 0%{?rhel} >= 10
@@ -154,10 +160,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_mandir}/man1/hardinfo2.1*
 
 %changelog
-%if %{defined autochangelog}
 %autochangelog
-%else
-* Mon May 01 2023 RH Container Bot <rhcontainerbot@fedoraproject.org>
-- Placeholder changelog for envs that are not autochangelog-ready
-%endif
-

@@ -1,7 +1,7 @@
 %global apiver 16
 
 Name:           weston
-Version:        16.0.0
+Version:        16.0.1
 Release:        %autorelease
 Summary:        A lightweight and functional Wayland compositor
 

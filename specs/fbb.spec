@@ -5,7 +5,7 @@
 
 Name:             fbb
 URL:              https://sourceforge.net/projects/linfbb/
-Version:          7.0.13
+Version:          7.0.14
 Release:          %{?prerel:0.}1%{?prerel:.%{prerel}}%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -213,6 +213,10 @@ statis.dat,themes.dat,tpstat.sys,wfbid.sys,sat/satel.dat,wp/wp.sys}
 %{_datadir}/polkit-1/actions/org.fbb.gui.policy
 
 %changelog
+* Mon Oct 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 7.0.14-1
+- New version
+  Resolves: rhbz#2555554
+
 * Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 7.0.13-1
 - New version
   Resolves: rhbz#2549654

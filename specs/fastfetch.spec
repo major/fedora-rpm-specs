@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        2.68.1
+Version:        2.70.0
 Release:        1%{?dist}
 Summary:        Fast neofetch-like system information tool
 
@@ -24,12 +24,7 @@ BuildRequires:  glib2-devel
 BuildRequires:  ocl-icd-devel
 BuildRequires:  rpm-devel
 BuildRequires:  libdrm-devel
-BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  elfutils-libelf-devel
-# not available on s390x
-%if "%{_arch}" != "s390x"
-BuildRequires:  libddcutil-devel
-%endif
 # vulkan-loader not available in el8 on some arches
 %if 0%{?rhel} == 8
   %if "%{_arch}" != "s390x" && "%{_arch}" != "ppc64le"
@@ -112,6 +107,9 @@ mechanisms like multithreading and caching to finish as fast as possible.
 
 
 %changelog
+* Mon Oct 19 2026 Jonathan Wright <jonathan@almalinux.org> - 2.70.0-1
+- update to 2.70.0 rhbz#2541339
+
 * Wed Sep 09 2026 Jonathan Wright <jonathan@almalinux.org> - 2.68.1-1
 - update to 2.68.1 rhbz#2511968
 - Remove logo exclusion conditionals

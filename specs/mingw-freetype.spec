@@ -3,7 +3,7 @@
 Name:           mingw-freetype
 # NOTE See comment for Patch2 below
 Version:        2.14.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Free and portable font rendering engine
 
 License:        FTL OR GPL-2.0-or-later
@@ -18,6 +18,9 @@ Patch0:         freetype-2.3.0-enable-spr.patch
 Patch1:         freetype-2.2.1-enable-valid.patch
 # Re-add symbol downstream for ABI compatibility only. Remove once soname has been bumped from -6.
 Patch2:         freetype-2.10.0-internal-outline.patch
+# Backport fix for CVE-2026-95512
+# https://gitlab.freedesktop.org/freetype/freetype/-/commit/f3ca71c9900fe860849b3163a6e2c1e765b291d9
+Patch3:         CVE-2026-95512.patch
 
 BuildArch:      noarch
 
@@ -133,6 +136,9 @@ rm -rf %{buildroot}%{mingw32_mandir} %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Mon Oct 19 2026 Sandro Mani <manisandro@gmail.com> - 2.14.3-3
+- Backport fix for CVE-2026-95512
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -8,8 +8,8 @@
 %global modname pycurl
 
 Name:           python-%{modname}
-Version:        7.47.0
-Release:        3%{?dist}
+Version:        7.48.0
+Release:        1%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -95,6 +95,9 @@ export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
 %doc ChangeLog README.rst examples doc
 
 %changelog
+* Fri Oct 16 2026 Jacek Migacz <jmigacz@redhat.com> - 7.48.0-1
+- Update to 7.48.0 (#2535595)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.47.0-3
 - Rebuilt for Python 3.15.0b4 ABI change
 

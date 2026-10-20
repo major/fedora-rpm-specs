@@ -6,7 +6,7 @@
 %endif
 
 Name:           packit
-Version:        1.16.3
+Version:        1.17.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -78,6 +78,13 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Mon Oct 19 2026 Packit <hello@packit.dev> - 1.17.0-1
+- Packit now supports the `use_copr_dist_git_build` config option, which is used to indicate that the git project is in the dist-git format so that Packit selects the appropriate workflow when submitting Copr build jobs. This option is currently only intended to be used in CI once support is added to the service. When used in the CLI, this config option is disregarded. (#2778)
+- Pull requests created by Packit in Fedora Dist-git now contain information in their descriptions that Packit force-pushes to its own PR branches when a new upstream PR lands. (#2780)
+- New `skip_install` option for test jobs to omit automatic installation of COPR packages on Testing Farm runner. (#2776)
+- Status.get_downstream_prs() now uses itertools.islice() to consume only the required number of PRs from the Iterable returned by ForgejoProject.get_pr_list(), avoiding loading all PRs into memory. (#2771)
+- Resolves: rhbz#2554153
+
 * Fri Sep 04 2026 Packit <hello@packit.dev> - 1.16.3-1
 - Packit now retries when it encounters connection errors during authentication when attempting to create a Bodhi update. (#2749)
 - Fixed an issue where a relative `--dist-git-path` (e.g. `.`) could cause packit to incorrectly identify a dist-git directory as an upstream repository. (#2736)

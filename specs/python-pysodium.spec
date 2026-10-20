@@ -1,7 +1,7 @@
 %global pypi_name pysodium
 
 Name:           python-%{pypi_name}
-Version:        0.7.18
+Version:        0.7.19
 Release:        %autorelease
 Summary:        A Python libsodium wrapper
 

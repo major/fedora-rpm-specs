@@ -3,8 +3,17 @@
 # Since this has never worked, we do not have %%files entries for the result.
 %bcond introspection 0
 
+# EPEL doesn’t have the fluid-soundfont-gm
+%bcond ctest %{undefined rhel}
+# List copied from gcc.spec
+# Current as of 16.0.1 (line 83)
+# Note that asan is available on all Fedora primary architectures.
+%ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64 riscv64
+%global arch_has_asan 1
+%endif
+
 Name:           libinstpatch
-Version:        1.1.7
+Version:        1.1.8
 %global api_version 1.0
 %global so_version 2
 Release:        %autorelease
@@ -38,14 +47,6 @@ SourceLicense:  %{license} AND GPL-2.0-only
 %global forgeurl https://github.com/swami/libinstpatch
 Source:         %{forgeurl}/archive/v%{version}/libinstpatch-%{version}.tar.gz
 
-# Fix for CVE-2026-111136
-# https://github.com/swami/libinstpatch/pull/87
-# https://github.com/swami/libinstpatch/issues/86
-# https://www.cve.org/CVERecord?id=CVE-2026-111136
-# https://bugzilla.redhat.com/show_bug.cgi?id=2554067
-# https://bugzilla.redhat.com/show_bug.cgi?id=2554068
-Patch:          %{forgeurl}/pull/87.patch
-
 BuildSystem:    cmake
 BuildOption(conf): -DGTKDOC_ENABLED:BOOL=ON
 BuildOption(conf): -DINTROSPECTION_ENABLED:BOOL=%{with introspection}
@@ -62,6 +63,13 @@ BuildRequires:  pkgconfig(gtk-doc)
 %if %{with introspection}
 # INTROSPECTION_ENABLED
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
+%endif
+%if %{with ctest}
+# Test app loads hard-coded path /usr/share/soundfonts/FluidR3_GM.sf2
+BuildRequires:  fluid-soundfont-gm
+%if 0%{?arch_has_asan}
+BuildRequires:  libasan
+%endif
 %endif
 
 # This is a forked copy:
@@ -124,6 +132,33 @@ libinstpatch.
 %prep -a
 # Remove example for nonexistent Python bindings
 find examples -type f -name '*.py' -print -delete
+
+# -Werror and similar make sense for upstream CI, but are too strict for
+# downstream packaging with various compiler and dependency versions
+sed --regexp-extended --in-place \
+    's/([" ])-Wfatal-errors([" ])/\1\2/' CMakeLists.txt
+
+
+%if %{with ctest}
+%build -a
+# There are no tests that can be run with ctest, but we can build a sample
+# application that loads a soundfont from a hard-coded path. There is a
+# test-app/Makefile, but the details are rigid and don’t fit well with our
+# build process; it’s easier to do this manually.
+mkdir --parents %{_vpath_builddir}/test-app
+${CC} -c test-app/src/main.c -o %{_vpath_builddir}/test-app/main.o \
+    ${CFLAGS} %{?arch_has_asan:-fsanitize=address} -I%{_vpath_builddir} -I. \
+    $(pkg-config --cflags glib-2.0 gobject-2.0)
+${CC} -o %{_vpath_builddir}/test-app/test_instpa_a \
+    %{_vpath_builddir}/test-app/main.o %{?arch_has_asan:-fsanitize=address} \
+    ${LDFLAGS} -L%{_vpath_builddir}/libinstpatch \
+    -linstpatch-%{api_version} $(pkg-config --libs glib-2.0 gobject-2.0)
+
+
+%check
+LD_LIBRARY_PATH=%{_vpath_builddir}/libinstpatch \
+    %{_vpath_builddir}/test-app/test_instpa_a
+%endif
 
 
 %files

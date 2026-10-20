@@ -104,9 +104,6 @@
 %global build_type RelWithDebInfo
 %endif
 
-# Enable ppc and aarch64 builds
-%bcond_with alt_arch
-
 # buid the static analyzer
 %bcond_without sa
 %if %{with sa}
@@ -135,7 +132,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        1000.rocm%{rocm_version}%{?dist}
 %else
-Release:        1.rocm%{rocm_version}%{?dist}
+Release:        2.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -195,28 +192,10 @@ BuildRequires:  python-devel
 
 Provides:       bundled(llvm-project) = %{llvm_maj_ver}
 
-%if 0%{?rhel} || 0%{?suse_version}
 ExclusiveArch:  x86_64
-%global targets_to_build "X86;AMDGPU"
-%else
-%if %{with alt_arch}
-ExclusiveArch:  x86_64 aarch64 ppc64le
-%else
-ExclusiveArch:  x86_64
-%endif
-
-%ifarch x86_64
 %global targets_to_build "X86;AMDGPU;SPIRV"
 %global build_spirv ON
 %global comgr_spirv OFF
-%endif
-%ifarch aarch64
-%global targets_to_build "AArch64;AMDGPU"
-%endif
-%ifarch ppc64le
-%global targets_to_build "PowerPC;AMDGPU"
-%endif
-%endif
 
 %description
 %{summary}
@@ -1158,6 +1137,9 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %{bundle_prefix}/lib/libomp*.so
 
 %changelog
+* Mon Oct 19 2026 Tom Rix <Tom.Rix@amd.com> - 24-2.rocm10.1.0
+- Simplify arches
+
 * Fri Oct 9 2026 Tom Rix <Tom.Rix@amd.com> - 24-1.rocm10.1.0
 - Update to 10.1
 

@@ -31,15 +31,22 @@ for %{name} package.
 
 %prep
 %autosetup
+# Remove empty test config files (0 bytes upstream)
+rm -f doc/single_host/test_app1.conf doc/single_host/test_app2.conf
 
 %build
 %cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_TYPE=None . -Wno-dev
 %cmake_build
 
-# tests are disabled due error testcnx.c
-#  6/11 Test #10: testcnx ..........................***Failed    0.04 sec
-#%check
-#%test
+# testcnx requires a running peer, testsctp requires SCTP kernel support;
+# both fail in the build environment
+%check
+# testostr's expected hash is endianness-dependent; fails on s390x
+%ifnarch s390x
+%ctest -E 'testcnx|testsctp'
+%else
+%ctest -E 'testcnx|testsctp|testostr'
+%endif
 
 %install
 %cmake_install

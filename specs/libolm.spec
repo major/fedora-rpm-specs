@@ -78,7 +78,7 @@ popd
 
 %files python3
 %{python3_sitearch}/%{appname}
-%{python3_sitearch}/_%{name}.abi3.so
+%{python3_sitearch}/_%{name}.abi3*.so
 %{python3_sitearch}/python_%{appname}-*.egg-info
 
 %changelog

@@ -5,20 +5,20 @@
 %global cargo_install_lib 0
 
 %global crate clock-bound
-%global crate_version 3.0.0-beta.0
+%global crate_version 3.0.0-beta.1
 
 # compile and run tests only on supported architectures
 %global supported_arches x86_64 aarch64
 
 Name:           rust-clock-bound
-Version:        3.0.0~beta.0
+Version:        3.0.0~beta.1
 Release:        %autorelease
 Summary:        To provide error bounded timestamp intervals
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/clock-bound
 Source:         %{crates_source %{crate} %{crate_version}}
-Source:         clock-bound-3.0.0-beta.0-vendor.tar.xz
+Source:         clock-bound-3.0.0-beta.1-vendor.tar.xz
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  systemd-rpm-macros

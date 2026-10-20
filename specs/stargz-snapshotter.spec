@@ -15,7 +15,7 @@
 %global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
 %global git0 https://%{import_path}
 
-%global built_tag v0.14.3
+%global built_tag v0.19.0
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
@@ -91,6 +91,7 @@ export GOPATH=$(pwd)/_build:$(pwd)
 %gobuild -o out/%{project}-stargz-grpc %{import_path}/cmd/%{project}-stargz-grpc
 %gobuild -o out/ctr-remote %{import_path}/cmd/ctr-remote
 %gobuild -o out/stargz-store %{import_path}/cmd/stargz-store
+%gobuild -o out/stargz-fuse-manager %{import_path}/cmd/stargz-fuse-manager
 
 %install
 export GOPATH=$(pwd)/_build:$(pwd):%{gopath}
@@ -116,6 +117,7 @@ install -D -m 644 script/config-cri-o/etc/systemd/system/stargz-store.service %{
 %{_bindir}/%{project}-stargz-grpc
 %{_bindir}/ctr-remote
 %{_bindir}/stargz-store
+%{_bindir}/stargz-fuse-manager
 %{_unitdir}/stargz-store.service
 
 %changelog

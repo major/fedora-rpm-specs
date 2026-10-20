@@ -48,6 +48,7 @@ BuildRequires:  pkgconfig(libgit2)
 
 # Runtime Reqs
 Requires:       hicolor-icon-theme
+Requires:       bup
 Requires:       qt6qml(org.kde.kcmutils)
 Requires:       qt6qml(org.kde.kirigami)
 Requires:       qt6qml(org.kde.kquickcontrolsaddons)

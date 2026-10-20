@@ -3,8 +3,8 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        10.4.1
-Release:        3%{?dist}
+Version:        11.3.0
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPL-2.0-or-later AND LGPL-2.1-only AND MIT AND BSD-4-Clause-UC AND MS-PL AND MPL-1.1
@@ -50,6 +50,8 @@ BuildRequires:  wine-core
 BuildRequires:  /usr/bin/python
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
+# widl
+BuildRequires:  wine-devel
 
 # https://bugs.winehq.org/show_bug.cgi?id=48937
 # fixed in wine 5.7
@@ -103,6 +105,9 @@ cp -rp image/* \
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Tue Sep 01 2026 Michael Cronenworth <mike@cchtml.com> - 11.3.0-1
+- version upgrade
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

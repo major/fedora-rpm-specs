@@ -61,7 +61,7 @@ developing applications that use libp11.
 %build
 autoreconf -fvi
 export CFLAGS="%{optflags}"
-%configure --disable-static --enable-api-doc
+%configure --disable-static --enable-api-doc --with-modulesdir=%{_libdir}/ossl-modules
 make V=1 %{?_smp_mflags}
 
 %install

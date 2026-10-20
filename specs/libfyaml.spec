@@ -66,7 +66,7 @@ cp %{SOURCE1} .
 cp %{SOURCE2} .
 
 autoreconf -fi
-%configure --disable-static
+%configure --disable-static --disable-network
 sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 %make_build
 

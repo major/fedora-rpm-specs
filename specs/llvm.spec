@@ -627,6 +627,9 @@ Patch2207: 0001-AggressiveInstCombine-Fix-crash-when-folding-consecu.patch
 # https://github.com/llvm/llvm-project/pull/227851
 Patch2307: 227851.patch
 
+# Fix bolt rpminspect failure.
+Patch2308: 80ef20addc82619c07b6deaec5f9995000b5dd16.patch
+
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
 %global __python3 /usr/bin/python3.12

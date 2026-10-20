@@ -1,6 +1,6 @@
-%global commit 74b6fe45751bd60be749bc80766f38745d29ed72
+%global commit 24783b448511b8f6bce2829286a3f00015430236
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20260209
+%global commitdate 20260928
 
 
 Name:     stepcode
@@ -66,22 +66,14 @@ mv %{buildroot}/usr/lib %{buildroot}%{_libdir}
 %{_bindir}/print_schemas
 %{_bindir}/schema_scanner
 %{_mandir}/man1/fedex.1*
-%{_libdir}/libexppp.so.0
-%{_libdir}/libexppp.so.0.9.1
-%{_libdir}/libexpress.so.0
-%{_libdir}/libexpress.so.0.9.1
-%{_libdir}/libstepcore.so.0
-%{_libdir}/libstepcore.so.0.9.1
-%{_libdir}/libstepdai.so.0
-%{_libdir}/libstepdai.so.0.9.1
-%{_libdir}/libstepeditor.so.0
-%{_libdir}/libstepeditor.so.0.9.1
-%{_libdir}/libsteplazyfile.so.0
-%{_libdir}/libsteplazyfile.so.0.9.1
-%{_libdir}/libsteputils.so.0
-%{_libdir}/libsteputils.so.0.9.1
-%{_libdir}/libsdai_*.so.0
-%{_libdir}/libsdai_*.so.0.9.1
+%{_libdir}/libexppp.so.0*
+%{_libdir}/libexpress.so.0*
+%{_libdir}/libstepcore.so.0*
+%{_libdir}/libstepdai.so.0*
+%{_libdir}/libstepeditor.so.0*
+%{_libdir}/libsteplazyfile.so.0*
+%{_libdir}/libsteputils.so.0*
+%{_libdir}/libsdai_*.so.0*
 
 %files devel
 %doc README.md

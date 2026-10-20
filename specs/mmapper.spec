@@ -9,6 +9,7 @@ Source0:        https://github.com/MUME/MMapper/archive/v%{version}/MMapper-%{ve
 Source1:        https://github.com/g-truc/glm/releases/download/0.9.9.7/glm-0.9.9.7.zip
 Patch0:         %{name}-miniupnp228.patch
 Patch1:         0001-Add-missing-include-for-uint64_t.patch
+Patch2:         %{name}-openssl4.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

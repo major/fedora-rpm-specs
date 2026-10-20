@@ -37,7 +37,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Apache-2.0:  everything
 # RSA-MD:      https://gitlab.com/fedora/legal/fedora-legal-docs/-/merge_requests/187
 #              include\apr_md5.h, passwd\apr_md5.c, crypto\apr_md4.c, include\apr_md4.h
@@ -206,8 +206,11 @@ export ac_cv_ldap_set_rebind_proc_style=three
 rm -rf $RPM_BUILD_ROOT
 %{make_install}
 
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/aclocal
+mkdir -p $RPM_BUILD_ROOT/%{_datadir}/aclocal \
+      $RPM_BUILD_ROOT%{_libdir}/apr-%{aprver}/build
 install -m 644 build/find_apu.m4 $RPM_BUILD_ROOT/%{_datadir}/aclocal
+ln -s %{_datadir}/aclocal/find_apu.m4 \
+   $RPM_BUILD_ROOT%{_libdir}/apr-%{aprver}/build/find_apu.m4
 
 # Unpackaged files; remove the static libaprutil
 rm -f $RPM_BUILD_ROOT%{_libdir}/aprutil.exp \
@@ -279,8 +282,12 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_includedir}/apr-%{apuver}/*.h
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/*.m4
+%{_libdir}/apr-%{aprver}/build/*.m4
 
 %changelog
+* Mon Oct 19 2026 Joe Orton  <jorton@redhat.com> - 1.6.5-3
+- symlink find_apu.m4 into libdir/apr-1/build as well
+
 * Mon Oct 05 2026 Joe Orton  <jorton@redhat.com> - 1.6.5-2
 - fix compatibility with OpenSSL 4 (#2545511)
 

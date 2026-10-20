@@ -1,13 +1,13 @@
-%global commit 2c980bb59875b0d32144a71867fbdebb2f77cd20
-%global snapdate 20260802
+%global commit a7d4c2175630e1ea5b6f8dd00ab96fed0b97b96d
+%global snapdate 20261009
 
 # We choose not to package the “stb_include” library (stb_include.h) because,
 # during the package review, it was observed that it follows coding practices
 # that make it dangerous to use on untrusted inputs, including but not limited
 # to:
 #
-# - It uses of strcat/strcpy into a fixed-length buffer that is assumed (but
-#   not proven) to be large enough for all possible uses
+# - It uses strcat/strcpy into a fixed-length buffer that is assumed (but not
+#   proven) to be large enough for all possible uses
 # - It ignores I/O errors (possibly leading to undefined behavior from reading
 #   uninitialized memory), and so on.
 #
@@ -16,6 +16,28 @@
 # necessary rewrite may be done and offered upstream. For now, we omit the
 # library and expect it will not be missed.
 %bcond stb_include 0
+# This is deprecated upstream in favor of stb_image_resize2, but we haven’t
+# deprecated it downstream, and things still depend on it. If the
+# stb_image_resize-devel binary package ever becomes a leaf, then we should
+# drop it.
+%bcond stb_image_resize 1
+# This is deprecated upstream as an stb library; it’s actively developed, but
+# in a separate repository, https://github.com/nothings/stb_image_resize.
+# We continue to ship the copy from the deprecated/ directory until we can
+# introduce a new source package to replace it.
+%bcond stb_image_resize2 1
+# This is deprecated upstream as an stb library; it’s actively developed, but
+# in a separate repository, https://github.com/nothings/stb_sprintf, and a new
+# source package should be introduced if stb_sprintf is ever needed at all.
+# We continue to ship the copy from the deprecated/ directory in stable
+# releases for backwards-compatibility.
+%bcond stb_sprintf %[ %{defined fc45} || %{defined fc44} || %{defined fc43} || %{defined el10} ]
+# The various things in docs/ really aren’t that useful.
+%bcond doc %[ %{defined fc45} || %{defined fc44} || %{defined fc43} || %{defined el10} ]
+# While we formerly had an stb-devel metapackage that brought in everything,
+# this isn’t really useful. Upstream treats these as separate libraries, and
+# we should too. We drop it beginning with F46.
+%bcond devel_metapackage %[ %{defined fc45} || %{defined fc44} || %{defined fc43} || %{defined el10} ]
 
 Name:           stb
 # While the individual header-only libraries are versioned, the overall
@@ -269,7 +291,7 @@ Patch:          issue-1929.patch
 #
 # Patch rejected upstream without comment, presumably because the PR was
 # drafted with AI/LLM assistance.
-Patch:          %{url}/pull/1995.patch
+Patch:          cve-2026-79516.patch
 
 %global stb_c_lexer_version 0.12
 %global stb_connected_components_version 0.96
@@ -280,14 +302,22 @@ Patch:          %{url}/pull/1995.patch
 %global stb_herringbone_wang_tile_version 0.7
 %global stb_hexwave_version 0.5
 %global stb_image_version 2.30
+%if %{with stb_image_resize}
 %global stb_image_resize_version 0.97
+%endif
+%if %{with stb_image_resize2}
 %global stb_image_resize2_version 2.18
+%endif
 %global stb_image_write_version 1.16
+%if %{with stb_include}
 %global stb_include_version 0.2
+%endif
 %global stb_leakcheck_version 0.6
 %global stb_perlin_version 0.5
 %global stb_rect_pack_version 1.1
+%if %{with stb_sprintf}
 %global stb_sprintf_version 1.10
+%endif
 %global stb_textedit_version 1.14
 %global stb_tilemap_editor_version 0.42
 %global stb_truetype_version 1.26
@@ -307,6 +337,7 @@ BuildRequires:  /usr/bin/convert
 %{summary}.
 
 
+%if %{with devel_metapackage}
 %package devel
 Summary:        Development files for stb
 # As a metapackage, the License field of this subpackage is rather arbitrary
@@ -337,14 +368,16 @@ Requires:       stb_hexwave-static = %{stb_hexwave_version}%{snapinfo}-%{release
 Requires:       stb_image-devel%{?_isa} = %{stb_image_version}%{snapinfo}-%{release}
 Requires:       stb_image-static = %{stb_image_version}%{snapinfo}-%{release}
 # For compatibility, we still depend on the subpackages for the original,
-# deprecated-upstream stb_image_library in existing stable releases, but we
-# drop the dependendency going forward as an acknowledgement of its status.
-%if 0%{?el9} || 0%{?el8}
+# deprecated-upstream stb_image_resize library in existing stable releases, but
+# we drop the dependendency going forward as an acknowledgement of its status.
+%if %{with stb_image_resize} && %[ %{defined el9} || %{defined el8} ]
 Requires:       stb_image_resize-devel%{?_isa} = %{stb_image_resize_version}%{snapinfo}-%{release}
 Requires:       stb_image_resize-static = %{stb_image_resize_version}%{snapinfo}-%{release}
 %endif
+%if %{with stb_image_resize2}
 Requires:       stb_image_resize2-devel%{?_isa} = %{stb_image_resize2_version}%{snapinfo}-%{release}
 Requires:       stb_image_resize2-static = %{stb_image_resize2_version}%{snapinfo}-%{release}
+%endif
 Requires:       stb_image_write-devel%{?_isa} = %{stb_image_write_version}%{snapinfo}-%{release}
 Requires:       stb_image_write-static = %{stb_image_write_version}%{snapinfo}-%{release}
 %if %{with stb_include}
@@ -357,8 +390,10 @@ Requires:       stb_perlin-devel%{?_isa} = %{stb_perlin_version}%{snapinfo}-%{re
 Requires:       stb_perlin-static = %{stb_perlin_version}%{snapinfo}-%{release}
 Requires:       stb_rect_pack-devel%{?_isa} = %{stb_rect_pack_version}%{snapinfo}-%{release}
 Requires:       stb_rect_pack-static = %{stb_rect_pack_version}%{snapinfo}-%{release}
+%if %{with stb_sprintf}
 Requires:       stb_sprintf-devel%{?_isa} = %{stb_sprintf_version}%{snapinfo}-%{release}
 Requires:       stb_sprintf-static = %{stb_sprintf_version}%{snapinfo}-%{release}
+%endif
 Requires:       stb_textedit-devel%{?_isa} = %{stb_textedit_version}%{snapinfo}-%{release}
 Requires:       stb_textedit-static = %{stb_textedit_version}%{snapinfo}-%{release}
 Requires:       stb_tilemap_editor-devel%{?_isa} = %{stb_tilemap_editor_version}%{snapinfo}-%{release}
@@ -375,6 +410,7 @@ The stb-devel package contains libraries and header files for developing
 applications that use stb.
 
 This is a metapackage that requires the -devel packages for all stb libraries.
+%endif
 
 
 %package -n stb_c_lexer-devel
@@ -523,9 +559,7 @@ Primarily of interest to game developers and other people who can avoid
 problematic images and only need the trivial interface.
 
 
-# We still package (and have chosen not to deprecate) the original
-# stb_image_resize even though upstream has deprecated it. We do not want to
-# drive dependent packages back to bundling.
+%if %{with stb_image_resize}
 %package -n stb_image_resize-devel
 Summary:        Resize images larger/smaller with good quality (original version)
 Version:        %{stb_image_resize_version}%{snapinfo}
@@ -543,8 +577,10 @@ w/Mitchell filter, upsamples w/cubic interpolation.
 
 This is the original version of the stb_image_resize library. It has been
 deprecated by its developer; consider porting to stb_image_resize2 instead.
+%endif
 
 
+%if %{with stb_image_resize2}
 %package -n stb_image_resize2-devel
 Summary:        Resize images larger/smaller with good quality
 Version:        %{stb_image_resize2_version}%{snapinfo}
@@ -554,6 +590,7 @@ Provides:       stb_image_resize2-static = %{stb_image_resize2_version}%{snapinf
 
 %description -n stb_image_resize2-devel
 Image resizing.
+%endif
 
 
 %package -n stb_image_write-devel
@@ -640,6 +677,7 @@ Please note: better rectangle packers are welcome! Please implement them to the
 same API, but with a different init function.
 
 
+%if %{with stb_sprintf}
 %package -n stb_sprintf-devel
 Summary:        Fast sprintf, snprintf for C/C++
 Version:        %{stb_sprintf_version}%{snapinfo}
@@ -670,6 +708,7 @@ most platforms.
 
 It compiles to roughly 8K with float support, and 4K without. As a comparison,
 when using MSVC static libs, calling sprintf drags in 16K.
+%endif
 
 
 %package -n stb_textedit-devel
@@ -777,6 +816,7 @@ slight reduction in shader features, but no roadmap for actually implementing
 them.
 
 
+%if %{with doc}
 %package doc
 Summary:        Documentation for stb
 # We may reasonably assume that the LICENSE file covers documentation.
@@ -786,6 +826,7 @@ BuildArch:      noarch
 
 %description doc
 Documentation for stb.
+%endif
 
 
 %prep
@@ -815,9 +856,14 @@ find . -type f -name '*.exe' -print -delete
 
 # Remove some unused parts of the source tree that could contribute different
 # (but acceptable) license terms if they were used—just to prove that we do not
-# use them.
+# use them. We keep some more recently deprecated libraries because they don’t
+# have weird licenses and it’s easier than disconnecting them from the tests.
 rm --recursive --verbose tests/caveview
-find deprecated -type f ! -name 'stb_image_resize.h' -print -delete
+find deprecated -type f \
+     ! -name stb_image_resize.h \
+     ! -name stb_image_resize2.h \
+     ! -name stb_sprintf.h \
+     -print -delete
 
 %if %{without stb_include}
 sed --regexp-extended --in-place \
@@ -828,7 +874,7 @@ sed --regexp-extended --in-place \
 %build
 # There is no compiled code to install, since all stb libraries are
 # header-only. We do need to build the tests.
-%make_build --directory=tests
+%make_build --directory=tests INCLUDES='-I.. -I../deprecated'
 
 
 %install
@@ -845,10 +891,21 @@ sed --regexp-extended --in-place \
 # library without having to make their own local symlinks or patch their
 # sources.
 install -D --preserve-timestamps --mode=0644 \
-    --target='%{buildroot}%{_includedir}/stb' \
-    stb_*.h stb_*.c deprecated/stb_image_resize.h
+    --target='%{buildroot}%{_includedir}/stb' stb_*.h stb_*.c
 %if %{without stb_include}
 rm '%{buildroot}%{_includedir}/stb/stb_include.h'
+%endif
+%if %{with stb_image_resize}
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}/stb' deprecated/stb_image_resize.h
+%endif
+%if %{with stb_image_resize2}
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}/stb' deprecated/stb_image_resize2.h
+%endif
+%if %{with stb_sprintf}
+install -D --preserve-timestamps --mode=0644 \
+    --target='%{buildroot}%{_includedir}/stb' deprecated/stb_sprintf.h
 %endif
 pushd '%{buildroot}%{_includedir}'
 ln --symbolic --verbose stb/stb_*.? .
@@ -894,14 +951,22 @@ done <<'EOF'
 %{stb_herringbone_wang_tile_version} stb_herringbone_wang_tile.h
 %{stb_hexwave_version} stb_hexwave.h
 %{stb_image_version} stb_image.h
+%if %{with stb_image_resize}
 %{stb_image_resize_version} stb_image_resize.h
+%endif
+%if %{with stb_image_resize2}
 %{stb_image_resize2_version} stb_image_resize2.h
+%endif
 %{stb_image_write_version} stb_image_write.h
+%if %{with stb_include}
 %{stb_include_version} stb_include.h
+%endif
 %{stb_leakcheck_version} stb_leakcheck.h
 %{stb_perlin_version} stb_perlin.h
 %{stb_rect_pack_version} stb_rect_pack.h
+%if %{with stb_sprintf}
 %{stb_sprintf_version} stb_sprintf.h
+%endif
 %{stb_textedit_version} stb_textedit.h
 %{stb_tilemap_editor_version} stb_tilemap_editor.h
 %{stb_truetype_version} stb_truetype.h
@@ -910,15 +975,19 @@ done <<'EOF'
 EOF
 
 
+%if %{with devel_metapackage}
 %files devel
 # Empty metapackage
+%endif
 
 
+%if %{with doc}
 %files doc
 %license LICENSE
 %doc docs
 %doc README.md
 %doc tests/tilemap_editor_integration_example.c
+%endif
 
 
 %files -n stb_c_lexer-devel
@@ -993,20 +1062,24 @@ EOF
 %{_includedir}/stb_image.h
 
 
+%if %{with stb_image_resize}
 %files -n stb_image_resize-devel
 %license LICENSE
 # Directory has shared ownership across stb subpackages:
 %dir %{_includedir}/stb
 %{_includedir}/stb/stb_image_resize.h
 %{_includedir}/stb_image_resize.h
+%endif
 
 
+%if %{with stb_image_resize2}
 %files -n stb_image_resize2-devel
 %license LICENSE
 # Directory has shared ownership across stb subpackages:
 %dir %{_includedir}/stb
 %{_includedir}/stb/stb_image_resize2.h
 %{_includedir}/stb_image_resize2.h
+%endif
 
 
 %files -n stb_image_write-devel
@@ -1051,12 +1124,14 @@ EOF
 %{_includedir}/stb_rect_pack.h
 
 
+%if %{with stb_sprintf}
 %files -n stb_sprintf-devel
 %license LICENSE
 # Directory has shared ownership across stb subpackages:
 %dir %{_includedir}/stb
 %{_includedir}/stb/stb_sprintf.h
 %{_includedir}/stb_sprintf.h
+%endif
 
 
 %files -n stb_textedit-devel

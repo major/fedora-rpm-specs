@@ -1,13 +1,11 @@
 Name:           btrfs-backup-ng
-Version:        0.9.13
+Version:        0.9.15
 Release:        %autorelease
 Summary:        Btrfs backups with snapshots, incremental transfers and restore
 
 License:        MIT
 URL:            https://github.com/berrym/btrfs-backup-ng
 Source:         %{pypi_source btrfs_backup_ng}
-# pytest < 8.4 (Fedora 43) has no public pytest.TerminalReporter; drop with upstream fix
-Patch:          btrfs-backup-ng-pytest-8.3-terminalreporter.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

@@ -1,7 +1,7 @@
 
 Name: qt6
 # This version MUST remain in sync with Qt6 versions!
-Version: 6.11.2
+Version: 6.12.0
 Release: 1%{?dist}
 Summary: Qt6 meta package
 License: GPL-3.0-only
@@ -212,6 +212,9 @@ echo "- Qt6 devel meta package" > %{buildroot}%{_docdir}/qt6-devel/README
 
 
 %changelog
+* Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Thu Aug 20 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

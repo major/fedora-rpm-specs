@@ -6,7 +6,7 @@
 
 # https://github.com/openpubkey/opkssh
 %global goipath         github.com/openpubkey/opkssh
-Version:                0.17.0
+Version:                0.19.0
 
 %gometa -L -f
 
@@ -31,6 +31,12 @@ Source5:        ssh-opkssh.conf
 Source6:        sudoers-opkssh
 Source7:        sysuser-opkssh.conf
 Source8:        logrotate.conf
+# Label the JWKS cache directory, see the comment in the file
+Source9:        opkssh.fc
+# Taken from https://github.com/openpubkey/opkssh/blob/main/scripts/install-linux.sh
+Source10:       opkssh-cache-clean.service
+Source11:       opkssh-cache-clean.timer
+Source12:       README.Fedora
 # Overwrite logfile path to adhere to Packaging Guidelines, see https://docs.fedoraproject.org/en-US/packaging-guidelines/#_log_files
 Patch0:         opkssh.logfile-in-subdir.patch
 
@@ -53,6 +59,7 @@ Summary:        Server configuration for OpenPubkey SSH
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 Requires:       (opkssh-server-selinux if selinux-policy-%{selinuxtype})
+%{?systemd_requires}
 
 %description server
 Server configuration for opkssh (OpenPubkey SSH).
@@ -91,6 +98,7 @@ export GO_LDFLAGS="-X main.Version=%{version}"
 %if 0%{?fedora} >= 43
 sed -i "s/sshd_t/sshd_session_t/g" opkssh.te
 %endif
+cp -p %{SOURCE9} opkssh.fc
 make -f %{_datadir}/selinux/devel/Makefile opkssh.pp
 bzip2 -9 opkssh.pp
 
@@ -105,6 +113,11 @@ install -m 0440 -vp -D %{SOURCE6} %{buildroot}%{_sysconfdir}/sudoers.d/opkssh
 install -m 0644 -vp -D %{SOURCE7} %{buildroot}%{_sysusersdir}/opkssh.conf
 install -m 0644 -vp -D opkssh.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/targeted/opkssh.pp.bz2
 install -m 0644 -vp -D %{SOURCE8} %{buildroot}%{_sysconfdir}/logrotate.d/opkssh.conf
+install -m 0644 -vp -D %{SOURCE10} %{buildroot}%{_unitdir}/opkssh-cache-clean.service
+install -m 0644 -vp -D %{SOURCE11} %{buildroot}%{_unitdir}/opkssh-cache-clean.timer
+install -m 0644 -vp %{SOURCE12} .
+# JWKS cache directory, the cache itself is disabled by default.
+install -m 0700 -vd %{buildroot}%{_localstatedir}/cache/opkssh
 # Create log file stub.
 mkdir -p %{buildroot}%{_localstatedir}/log/opkssh
 touch %{buildroot}%{_localstatedir}/log/opkssh/opkssh.log
@@ -112,11 +125,23 @@ touch %{buildroot}%{_localstatedir}/log/opkssh/opkssh.log
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
-%gotest ./...
+# This test validates an in-memory directory, but on an SELinux-enabled build
+# host Validate() also reads the SELinux label of the real path, which does not
+# exist.
+%gotest ./... -skip 'TestFilesystemDiscoveryCacheValidate/safe_permissions_pass'
 %endif
 
 %pre server
 %sysusers_create_compat %{SOURCE6}
+
+%post server
+%systemd_post opkssh-cache-clean.timer
+
+%preun server
+%systemd_preun opkssh-cache-clean.timer
+
+%postun server
+%systemd_postun opkssh-cache-clean.timer
 
 %pre server-selinux
 %selinux_relabel_pre -s %{selinuxtype}
@@ -142,6 +167,10 @@ fi
 %config(noreplace) %{_sysconfdir}/logrotate.d/opkssh.conf
 %dir %{_localstatedir}/log/opkssh
 %attr(0660, root, opksshuser) %config(noreplace) %{_localstatedir}/log/opkssh/opkssh.log
+%dir %attr(0700, opksshuser, opksshuser) %{_localstatedir}/cache/opkssh
+%{_unitdir}/opkssh-cache-clean.service
+%{_unitdir}/opkssh-cache-clean.timer
+%doc README.Fedora
 
 # These files should not be modified by the user, so we do not use 'noreplace' here.
 %config %{_sysconfdir}/ssh/sshd_config.d/60-opkssh.conf

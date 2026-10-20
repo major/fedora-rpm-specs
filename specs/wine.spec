@@ -11,7 +11,7 @@
 
 %global no64bit   0
 %global winegecko 2.47.4
-%global winemono  10.4.1
+%global winemono  11.3.0
 %if 0%{?fedora}
 %global opencl    1
 %endif
@@ -46,14 +46,14 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        11.0
-Release:        4%{?dist}
+Version:        11.20
+Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
 URL:            https://www.winehq.org/
-Source0:        https://dl.winehq.org/wine/source/10.x/wine-%{version}.tar.xz
-Source10:       https://dl.winehq.org/wine/source/10.x/wine-%{version}.tar.xz.sign
+Source0:        https://dl.winehq.org/wine/source/11.x/wine-%{version}.tar.xz
+Source10:       https://dl.winehq.org/wine/source/11.x/wine-%{version}.tar.xz.sign
 
 Source1:        wine.systemd
 Source2:        wine-README-Fedora
@@ -691,7 +691,7 @@ This package adds the opencl driver for wine.
 # setup and apply wine-staging patches
 gzip -dc %{SOURCE900} | tar -xf - --strip-components=1
 
-staging/patchinstall.py DESTDIR="`pwd`" --all -W server-Stored_ACLs
+staging/patchinstall.py DESTDIR="`pwd`" --all
 
 %endif
 # 0%%{?wine_staging}
@@ -712,6 +712,11 @@ staging/patchinstall.py DESTDIR="`pwd`" --all -W server-Stored_ACLs
 # Disable Red Hat specs for package notes (Fedora 38+) and annobin.
 # MinGW GCC does not support these options.
 export LDFLAGS="$(echo "%{build_ldflags}" | sed -e 's/-Wl,-z,relro//' -e 's/-Wl,--build-id=sha1//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-package-notes//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//')"
+%if 0%{?fedora} >= 46
+# Revert linker to not rearrange segments for F46+
+# https://sourceware.org/bugzilla/show_bug.cgi?id=34714
+sed -i -e 's/wine_preloader_LDFLAGS = $(WINEPRELOADER_LDFLAGS)/wine_preloader_LDFLAGS = $(WINEPRELOADER_LDFLAGS) -Wl,--no-rosegment/' loader/Makefile.in
+%endif
 %ifarch x86_64
 export CFLAGS="$(echo "%{optflags}" | sed -e 's/-O2//' -e 's/-fcf-protection//' -e 's/-fstack-protector-strong//' -e 's/-fstack-clash-protection//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//') -O2"
 %else
@@ -775,14 +780,12 @@ mv %{buildroot}%{_bindir}/wineserver %{buildroot}%{_bindir}/wineserver32
 touch %{buildroot}%{_bindir}/wine
 touch %{buildroot}%{_bindir}/wineserver
 mv %{buildroot}%{_libdir}/wine/%{winepedir}/dxgi.dll %{buildroot}%{_libdir}/wine/%{winepedir}/wine-dxgi.dll
-mv %{buildroot}%{_libdir}/wine/%{winepedir}/d3d8.dll %{buildroot}%{_libdir}/wine/%{winepedir}/wine-d3d8.dll
 mv %{buildroot}%{_libdir}/wine/%{winepedir}/d3d9.dll %{buildroot}%{_libdir}/wine/%{winepedir}/wine-d3d9.dll
 mv %{buildroot}%{_libdir}/wine/%{winepedir}/d3d10.dll %{buildroot}%{_libdir}/wine/%{winepedir}/wine-d3d10.dll
 mv %{buildroot}%{_libdir}/wine/%{winepedir}/d3d10_1.dll %{buildroot}%{_libdir}/wine/%{winepedir}/wine-d3d10_1.dll
 mv %{buildroot}%{_libdir}/wine/%{winepedir}/d3d10core.dll %{buildroot}%{_libdir}/wine/%{winepedir}/wine-d3d10core.dll
 mv %{buildroot}%{_libdir}/wine/%{winepedir}/d3d11.dll %{buildroot}%{_libdir}/wine/%{winepedir}/wine-d3d11.dll
 touch %{buildroot}%{_libdir}/wine/%{winepedir}/dxgi.dll
-touch %{buildroot}%{_libdir}/wine/%{winepedir}/d3d8.dll
 touch %{buildroot}%{_libdir}/wine/%{winepedir}/d3d9.dll
 touch %{buildroot}%{_libdir}/wine/%{winepedir}/d3d10.dll
 touch %{buildroot}%{_libdir}/wine/%{winepedir}/d3d10_1.dll
@@ -790,12 +793,14 @@ touch %{buildroot}%{_libdir}/wine/%{winepedir}/d3d10core.dll
 touch %{buildroot}%{_libdir}/wine/%{winepedir}/d3d11.dll
 %if %[ "x86_64" == "%{_target_cpu}" && %{with new_wow64} ]
 mv %{buildroot}%{_libdir}/wine/i386-windows/dxgi.dll %{buildroot}%{_libdir}/wine/i386-windows/wine-dxgi.dll
+mv %{buildroot}%{_libdir}/wine/i386-windows/d3d8.dll %{buildroot}%{_libdir}/wine/i386-windows/wine-d3d8.dll
 mv %{buildroot}%{_libdir}/wine/i386-windows/d3d9.dll %{buildroot}%{_libdir}/wine/i386-windows/wine-d3d9.dll
 mv %{buildroot}%{_libdir}/wine/i386-windows/d3d10.dll %{buildroot}%{_libdir}/wine/i386-windows/wine-d3d10.dll
 mv %{buildroot}%{_libdir}/wine/i386-windows/d3d10_1.dll %{buildroot}%{_libdir}/wine/i386-windows/wine-d3d10_1.dll
 mv %{buildroot}%{_libdir}/wine/i386-windows/d3d10core.dll %{buildroot}%{_libdir}/wine/i386-windows/wine-d3d10core.dll
 mv %{buildroot}%{_libdir}/wine/i386-windows/d3d11.dll %{buildroot}%{_libdir}/wine/i386-windows/wine-d3d11.dll
 touch %{buildroot}%{_libdir}/wine/i386-windows/dxgi.dll
+touch %{buildroot}%{_libdir}/wine/i386-windows/d3d8.dll
 touch %{buildroot}%{_libdir}/wine/i386-windows/d3d9.dll
 touch %{buildroot}%{_libdir}/wine/i386-windows/d3d10.dll
 touch %{buildroot}%{_libdir}/wine/i386-windows/d3d10_1.dll
@@ -949,6 +954,11 @@ desktop-file-install \
   --delete-original \
   %{buildroot}%{_datadir}/applications/wine.desktop
 
+# remove MIME line per security reasoning of launching wine apps within flatpaks
+# install wine-systemd to use binfmt automatic binary launching
+sed -i 's/MimeType=.*//g' \
+    %{buildroot}%{_datadir}/applications/wine.desktop
+
 #mime-types
 desktop-file-install \
   --dir=%{buildroot}%{_datadir}/applications \
@@ -1028,7 +1038,6 @@ oldPath = "%{_oldlibdir}/wine/%{winepedir}/wine-dxgi.dll"
 opStat = posix.stat(oldPath)
 if opStat and opStat.type == "regular" then
 os.execute("%{_sbindir}/alternatives --remove 'wine-dxgi%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-dxgi.dll")
-os.execute("%{_sbindir}/alternatives --remove 'wine-d3d8%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d8.dll")
 os.execute("%{_sbindir}/alternatives --remove 'wine-d3d9%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d9.dll")
 os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10core%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d10core.dll")
 os.execute("%{_sbindir}/alternatives --remove 'wine-d3d10_1%{?_isa}' %{_oldlibdir}/wine/%{winepedir}/wine-d3d10_1.dll")
@@ -1045,7 +1054,6 @@ end
 
 %posttrans core
 # handle upgrades for a few package updates
-rm -f %{_libdir}/wine/%{winepedirs}/d3d8.dll
 rm -f %{_bindir}/wine-preloader
 %ifarch x86_64 aarch64
 %{_sbindir}/alternatives --remove wine %{_bindir}/wine64
@@ -1062,8 +1070,6 @@ rm -f %{_bindir}/wine-preloader
 %endif
 %{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/dxgi.dll \
   'wine-dxgi%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-dxgi.dll 10
-%{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d8.dll \
-  'wine-d3d8%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d8.dll 10
 %{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d9.dll \
   'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d9.dll 10
 %{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d10core.dll \
@@ -1076,6 +1082,8 @@ rm -f %{_bindir}/wine-preloader
 %if %[ "x86_64" == "%{_target_cpu}" && %{with new_wow64} ]
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/dxgi.dll \
   'wine-dxgi(x86-32)' %{_libdir}/wine/i386-windows/wine-dxgi.dll 10
+%{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/d3d8.dll \
+  'wine-dxgi(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d8.dll 10
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/d3d9.dll \
   'wine-d3d9(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d9.dll 10
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/d3d10.dll \
@@ -1097,7 +1105,6 @@ if [ $1 -eq 0 ] ; then
   %{_sbindir}/alternatives --remove wineserver %{_bindir}/wineserver32
 %endif
   %{_sbindir}/alternatives --remove 'wine-dxgi%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-dxgi.dll
-  %{_sbindir}/alternatives --remove 'wine-d3d8%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d8.dll
   %{_sbindir}/alternatives --remove 'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d9.dll
   %{_sbindir}/alternatives --remove 'wine-d3d10core%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d10core.dll
   %{_sbindir}/alternatives --remove 'wine-d3d10_1%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d10_1.dll
@@ -1105,6 +1112,7 @@ if [ $1 -eq 0 ] ; then
   %{_sbindir}/alternatives --remove 'wine-d3d11%{?_isa}' %{_libdir}/wine/%{winepedir}/wine-d3d11.dll || :
 %if %[ "x86_64" == "%{_target_cpu}" && %{with new_wow64} ]
   %{_sbindir}/alternatives --remove 'wine-dxgi(x86-32)' %{_libdir}/wine/i386-windows/wine-dxgi.dll
+  %{_sbindir}/alternatives --remove 'wine-d3d8(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d8.dll
   %{_sbindir}/alternatives --remove 'wine-d3d9(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d9.dll
   %{_sbindir}/alternatives --remove 'wine-d3d10(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d10.dll
   %{_sbindir}/alternatives --remove 'wine-d3d11(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d11.dll || :
@@ -1124,7 +1132,6 @@ fi
 
 %files core
 %license LICENSE
-%license LICENSE.OLD
 %license COPYING.LIB
 %doc ANNOUNCE.md
 %doc AUTHORS
@@ -1261,6 +1268,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/adsldpc.dll
 %{_libdir}/wine/%{winepedirs}/advapi32.dll
 %{_libdir}/wine/%{winepedirs}/advpack.dll
+%{_libdir}/wine/%{winepedirs}/aero.msstyles
 %{_libdir}/wine/%{winepedirs}/amsi.dll
 %{_libdir}/wine/%{winepedirs}/amstream.dll
 %{_libdir}/wine/%{winepedirs}/apisetschema.dll
@@ -1280,7 +1288,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/avifil32.dll
 %{_libdir}/wine/%{winepedirs}/avrt.dll
 %{_libdir}/wine/%{winepedirs}/bcp47langs.dll
-%{_libdir}/wine/%{winesodir}/bcrypt.so
+#%%{_libdir}/wine/%{winesodir}/bcrypt.so
 %{_libdir}/wine/%{winepedirs}/bcrypt.dll
 %{_libdir}/wine/%{winepedirs}/bcryptprimitives.dll
 %{_libdir}/wine/%{winepedirs}/bluetoothapis.dll
@@ -1290,7 +1298,9 @@ fi
 %{_libdir}/wine/%{winepedirs}/cards.dll
 %{_libdir}/wine/%{winepedirs}/cdosys.dll
 %{_libdir}/wine/%{winepedirs}/cfgmgr32.dll
+%{_libdir}/wine/%{winepedirs}/chakra.dll
 %{_libdir}/wine/%{winepedirs}/chcp.com
+%{_libdir}/wine/%{winepedirs}/cldapi.dll
 %{_libdir}/wine/%{winepedirs}/clock.exe
 %{_libdir}/wine/%{winepedirs}/clusapi.dll
 %{_libdir}/wine/%{winepedirs}/cng.sys
@@ -1367,7 +1377,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/dmloader.dll
 %{_libdir}/wine/%{winepedirs}/dmscript.dll
 %{_libdir}/wine/%{winepedirs}/dmstyle.dll
-%{_libdir}/wine/%{winepedirs}/dmsynth.dll
+#%%{_libdir}/wine/%{winepedirs}/dmsynth.dll
 %{_libdir}/wine/%{winepedirs}/dmusic.dll
 %{_libdir}/wine/%{winepedirs}/dmusic32.dll
 %{_libdir}/wine/%{winepedirs}/dplay.dll
@@ -1383,6 +1393,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/dsound.dll
 %{_libdir}/wine/%{winepedirs}/dsdmo.dll
 %{_libdir}/wine/%{winepedirs}/dsquery.dll
+%{_libdir}/wine/%{winepedirs}/dsrole.dll
 %{_libdir}/wine/%{winepedirs}/dssenh.dll
 %{_libdir}/wine/%{winepedirs}/dsuiext.dll
 %{_libdir}/wine/%{winepedirs}/dswave.dll
@@ -1440,6 +1451,8 @@ fi
 %{_libdir}/wine/%{winepedirs}/icinfo.exe
 %{_libdir}/wine/%{winepedirs}/icmp.dll
 %{_libdir}/wine/%{winepedirs}/icmui.dll
+%{_libdir}/wine/%{winepedirs}/icuin.dll
+%{_libdir}/wine/%{winepedirs}/icuuc.dll
 %{_libdir}/wine/%{winepedirs}/ieframe.dll
 %{_libdir}/wine/%{winepedirs}/ieproxy.dll
 %{_libdir}/wine/%{winepedirs}/iertutil.dll
@@ -1459,6 +1472,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/ir50_32.dll
 %{_libdir}/wine/%{winepedirs}/itircl.dll
 %{_libdir}/wine/%{winepedirs}/itss.dll
+%{_libdir}/wine/%{winepedirs}/iyuv_32.dll
 %{_libdir}/wine/%{winepedirs}/joy.cpl
 %{_libdir}/wine/%{winepedirs}/jscript.dll
 %{_libdir}/wine/%{winepedirs}/jsproxy.dll
@@ -1472,12 +1486,13 @@ fi
 %{_libdir}/wine/%{winepedirs}/ktmw32.dll
 %{_libdir}/wine/%{winepedirs}/l3codeca.acm
 %{_libdir}/wine/%{winepedirs}/l3codecx.ax
-%{_libdir}/wine/%{winepedirs}/light.msstyles
+#%%{_libdir}/wine/%{winepedirs}/light.msstyles
 %{_libdir}/wine/%{winepedirs}/loadperf.dll
 %{_libdir}/wine/%{winesodir}/localspl.so
 %{_libdir}/wine/%{winepedirs}/localspl.dll
 %{_libdir}/wine/%{winepedirs}/localui.dll
 %{_libdir}/wine/%{winepedirs}/lodctr.exe
+%{_libdir}/wine/%{winepedirs}/lsass.exe
 %{_libdir}/wine/%{winepedirs}/lz32.dll
 %{_libdir}/wine/%{winepedirs}/magnification.dll
 %{_libdir}/wine/%{winepedirs}/mapi32.dll
@@ -1596,6 +1611,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/mtxdm.dll
 %{_libdir}/wine/%{winepedirs}/nddeapi.dll
 %{_libdir}/wine/%{winepedirs}/ncrypt.dll
+%{_libdir}/wine/%{winepedirs}/ndfapi.dll
 %{_libdir}/wine/%{winepedirs}/ndis.sys
 %{_libdir}/wine/%{winesodir}/netapi32.so
 %{_libdir}/wine/%{winepedirs}/netapi32.dll
@@ -1625,6 +1641,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/objsel.dll
 %{_libdir}/wine/%{winesodir}/odbc32.so
 %{_libdir}/wine/%{winepedirs}/odbc32.dll
+%{_libdir}/wine/%{winepedirs}/odbcad32.exe
 %{_libdir}/wine/%{winepedirs}/odbcbcp.dll
 %{_libdir}/wine/%{winepedirs}/odbccp32.dll
 %{_libdir}/wine/%{winepedirs}/odbccu32.dll
@@ -1675,6 +1692,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/rsabase.dll
 %{_libdir}/wine/%{winepedirs}/rsaenh.dll
 %{_libdir}/wine/%{winepedirs}/rstrtmgr.dll
+%{_libdir}/wine/%{winepedirs}/rtscom.dll
 %{_libdir}/wine/%{winepedirs}/rtutils.dll
 %{_libdir}/wine/%{winepedirs}/rtworkq.dll
 %{_libdir}/wine/%{winepedirs}/samlib.dll
@@ -1731,6 +1749,8 @@ fi
 %{_libdir}/wine/%{winepedirs}/tdh.dll
 %{_libdir}/wine/%{winepedirs}/tdi.sys
 %{_libdir}/wine/%{winepedirs}/threadpoolwinrt.dll
+%{_libdir}/wine/%{winepedirs}/thumbcache.dll
+%{_libdir}/wine/%{winepedirs}/tiptsf.dll
 %{_libdir}/wine/%{winepedirs}/traffic.dll
 %{_libdir}/wine/%{winepedirs}/twinapi.appcore.dll
 %{_libdir}/wine/%{winepedirs}/tzres.dll
@@ -1787,10 +1807,12 @@ fi
 %{_libdir}/wine/%{winepedirs}/windows.applicationmodel.dll
 %{_libdir}/wine/%{winepedirs}/windows.devices.bluetooth.dll
 %{_libdir}/wine/%{winepedirs}/windows.devices.enumeration.dll
+%{_libdir}/wine/%{winepedirs}/windows.devices.radios.dll
 %{_libdir}/wine/%{winepedirs}/windows.devices.usb.dll
 %{_libdir}/wine/%{winepedirs}/windows.gaming.ui.gamebar.dll
 %{_libdir}/wine/%{winepedirs}/windows.gaming.input.dll
 %{_libdir}/wine/%{winepedirs}/windows.globalization.dll
+%{_libdir}/wine/%{winepedirs}/windows.graphics.dll
 %{_libdir}/wine/%{winepedirs}/windows.media.dll
 %{_libdir}/wine/%{winepedirs}/windows.media.devices.dll
 %{_libdir}/wine/%{winepedirs}/windows.media.mediacontrol.dll
@@ -1844,14 +1866,17 @@ fi
 %{_libdir}/wine/%{winepedirs}/winprint.dll
 %{_libdir}/wine/%{winepedirs}/winspool.drv
 %{_libdir}/wine/%{winesodir}/winspool.so
+%{_libdir}/wine/%{winepedirs}/winsqlite3.dll
 %{_libdir}/wine/%{winepedirs}/winsta.dll
 %{_libdir}/wine/%{winepedirs}/wintypes.dll
+%{_libdir}/wine/%{winepedirs}/wkscli.dll
 %{_libdir}/wine/%{winepedirs}/wldp.dll
 %{_libdir}/wine/%{winepedirs}/wmadmod.dll
 %{_libdir}/wine/%{winepedirs}/wmasf.dll
 %{_libdir}/wine/%{winepedirs}/wmi.dll
 %{_libdir}/wine/%{winepedirs}/wmic.exe
 %{_libdir}/wine/%{winepedirs}/wmilib.sys
+%{_libdir}/wine/%{winepedirs}/wminet_utils.dll
 %{_libdir}/wine/%{winepedirs}/wmiutils.dll
 %{_libdir}/wine/%{winepedirs}/wmp.dll
 %{_libdir}/wine/%{winepedirs}/wmvcore.dll
@@ -1878,6 +1903,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/wpc.dll
 %{_libdir}/wine/%{winepedirs}/wpcap.dll
 %{_libdir}/wine/%{winesodir}/wpcap.so
+%{_libdir}/wine/%{winepedirs}/wpnapps.dll
 %{_libdir}/wine/%{winepedirs}/ws2_32.dll
 %{_libdir}/wine/%{winesodir}/ws2_32.so
 %{_libdir}/wine/%{winepedirs}/wsdapi.dll
@@ -1892,14 +1918,15 @@ fi
 %{_libdir}/wine/%{winepedirs}/sfc.dll
 %{_libdir}/wine/%{winepedirs}/wineps.drv
 %{_libdir}/wine/%{winesodir}/wineps.so
-%ghost %{_libdir}/wine/%{winepedirs}/d3d8.dll
-%{_libdir}/wine/%{winepedirs}/wine-d3d8.dll
+%ghost %{_libdir}/wine/i386-windows/d3d8.dll
+%{_libdir}/wine/i386-windows/wine-d3d8.dll
 %{_libdir}/wine/%{winepedirs}/d3d8thk.dll
 %ghost %{_libdir}/wine/%{winepedirs}/d3d9.dll
 %{_libdir}/wine/%{winepedirs}/wine-d3d9.dll
 %{_libdir}/wine/%{winesodir}/opengl32.so
 %{_libdir}/wine/%{winepedirs}/opengl32.dll
 %{_libdir}/wine/%{winepedirs}/wined3d.dll
+%{_libdir}/wine/%{winesodir}/wined3d.so
 %{_libdir}/wine/%{winepedirs}/dnsapi.dll
 %{_libdir}/wine/%{winesodir}/dnsapi.so
 %{_libdir}/wine/%{winepedirs}/iexplore.exe
@@ -2297,11 +2324,11 @@ fi
 
 
 %files pulseaudio
-%{_libdir}/wine/%{winepedirs}/winepulse.drv
+#%%{_libdir}/wine/%{winepedirs}/winepulse.drv
 %{_libdir}/wine/%{winesodir}/winepulse.so
 
 %files alsa
-%{_libdir}/wine/%{winepedirs}/winealsa.drv
+#%%{_libdir}/wine/%{winepedirs}/winealsa.drv
 %{_libdir}/wine/%{winesodir}/winealsa.so
 
 %if 0%{?opencl}
@@ -2311,6 +2338,10 @@ fi
 %endif
 
 %changelog
+* Mon Oct 19 2026 Michael Cronenworth <mike@cchtml.com> - 11.20-1
+- version update
+- Strip MimeType from wine.desktop
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

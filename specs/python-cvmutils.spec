@@ -1,5 +1,5 @@
 Name:           python-cvmutils
-Version:        0.3.2
+Version:        0.3.3
 Release:        %autorelease
 Summary:        Toolkit for preparing Linux OS images for confidential virtual machines
 

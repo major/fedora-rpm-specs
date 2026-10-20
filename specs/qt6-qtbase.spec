@@ -47,8 +47,8 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.11.2
-Release: 3%{?dist}
+Version: 6.12.0
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -99,8 +99,6 @@ Patch58: qtbase-libglvnd.patch
 
 
 # Upstream patches
-Patch100: qtbase-qiconloader-dont-consider-fallbackthemename-in-themename.patch
-Patch101: qtbase-fix-crash-when-fontconfig-fallback-pattern-has-no-charset.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -443,7 +441,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.11.2
+Version: 6.12.0
 EOF
 
 # rpm macros
@@ -614,6 +612,9 @@ make check -k ||:
 %{_bindir}/androiddeployqt
 %{_bindir}/androiddeployqt6
 %{_bindir}/androidtestrunner
+%{_bindir}/harmonydeployqt
+%{_bindir}/harmonydeployqt6
+%{_bindir}/harmonyostestrunner
 %{_bindir}/wasmdeployqt
 %{_bindir}/wasmdeployqt6
 %{_bindir}/qdbuscpp2xml*
@@ -626,6 +627,9 @@ make check -k ||:
 %{_qt6_bindir}/androiddeployqt
 %{_qt6_bindir}/androiddeployqt6
 %{_qt6_bindir}/androidtestrunner
+%{_qt6_bindir}/harmonydeployqt
+%{_qt6_bindir}/harmonydeployqt6
+%{_qt6_bindir}/harmonyostestrunner
 %{_qt6_bindir}/wasmdeployqt
 %{_qt6_bindir}/wasmdeployqt6
 %{_qt6_bindir}/qdbuscpp2xml
@@ -952,6 +956,9 @@ make check -k ||:
 %{_qt6_datadir}/wayland/protocols/
 
 %changelog
+* Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Thu Oct 01 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-3
 - Upstream backport:
   Fix crash when fontconfig fallback pattern has no charset

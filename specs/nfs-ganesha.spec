@@ -70,9 +70,6 @@ Requires: openSUSE-release
 %bcond_with statd
 %global internal_statd %{on_off_switch statd}
 
-%bcond_with 9P
-%global use_9P %{on_off_switch 9P}
-
 %bcond_with jemalloc
 
 %bcond_with tcmalloc
@@ -169,7 +166,7 @@ Requires: openSUSE-release
 %global kmip_ver_short	4f553ecaf
 
 Name:		nfs-ganesha
-Version:	15.8
+Version:	15.9
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -283,15 +280,6 @@ Requires: nfs-ganesha-selinux = %{version}-%{release}
 nfs-ganesha : NFS-GANESHA is a NFS Server running in user space.
 It comes with various back-end modules (called FSALs) provided as
 shared objects to support different file systems and name-spaces.
-
-%if ( 0%{?with_9P} )
-%package mount-9P
-Summary: a 9p mount helper
-
-%description mount-9P
-This package contains the mount.9P script that clients can use
-to simplify mounting to NFS-GANESHA. This is a 9p mount helper.
-%endif
 
 %package -n ganesha_monitoring
 Summary: The NFS-GANESHA Monitoring module
@@ -635,7 +623,6 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_PRIO_INHERIT=%{use_prio_inherit}		\
 	-DUSE_OPENSSL=%{use_openssl}			\
 	-DUSE_GNUTLS=%{use_gnutls}			\
-	-DUSE_9P_RDMA=%{use_mooshika}			\
 	-DUSE_LTTNG=%{use_lttng}			\
 	-DUSE_UNWIND=%{use_unwind}			\
 	-DUSE_UNWIND_ENRICHED_BT=%{use_unwind_enriched_bt}	\
@@ -649,7 +636,6 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_FSAL_PROXY_V3=ON				\
 	-DUSE_DBUS=ON					\
 	-DINTERNAL_STATD=%{internal_statd}		\
-	-DUSE_9P=%{use_9P}				\
 	-DDISTNAME_HAS_GIT_DATA=OFF			\
 	-DUSE_MAN_PAGE=%{use_man_page}			\
 	-DRPCBIND=%{use_rpcbind}			\
@@ -691,9 +677,6 @@ cd src
 install -m 644 config_samples/logrotate_ganesha	%{buildroot}%{_sysconfdir}/logrotate.d/ganesha
 install -m 644 scripts/ganeshactl/org.ganesha.nfsd.conf	%{buildroot}%{_sysconfdir}/dbus-1/system.d
 install -m 755 scripts/nfs-ganesha-config.sh	%{buildroot}%{_libexecdir}/ganesha
-%if ( 0%{?with_9P} )
-install -m 755 tools/mount.9P	%{buildroot}%{_sbindir}/mount.9P
-%endif
 install -m 644 config_samples/vfs.conf %{buildroot}%{_sysconfdir}/ganesha
 %if ( 0%{?with_rgw} )
 install -m 644 config_samples/rgw.conf %{buildroot}%{_sysconfdir}/ganesha
@@ -854,14 +837,6 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %{_libdir}/libganesha_rados_urls.so*
 %endif
 
-%if ( 0%{?with_9P} )
-%files mount-9P
-%{_sbindir}/mount.9P
-%if ( 0%{?with_man_page} )
-%{_mandir}/*/ganesha-9p-config.8.gz
-%endif
-%endif
-
 %files -n ganesha_monitoring
 %{_libdir}/libganesha_monitoring*
 
@@ -1005,13 +980,6 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %{_bindir}/manage_logger
 %{_bindir}/ganeshactl
 %{python3_sitelib}/Ganesha/*
-%if ( 0%{?with_9P} )
-%{_bindir}/client_stats_9pOps
-%{_bindir}/export_stats_9pOps
-%else
-%exclude %{_bindir}/client_stats_9pOps
-%exclude %{_bindir}/export_stats_9pOps
-%endif
 %endif
 %{_bindir}/fake_recall
 %{_bindir}/get_clientids
@@ -1031,6 +999,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Oct 16 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 15.9-1
+- NFS-Ganesha 15.9 GA
+
 * Fri Oct 9 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 15.8-1
 - NFS-Ganesha 15.8 GA
 

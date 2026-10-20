@@ -12,7 +12,7 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.14.1
+Version:        4.14.2
 Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
@@ -25,6 +25,8 @@ URL:            http://ccache.dev/
 Source0:        https://github.com/ccache/ccache/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{name}.sh.in
 Source2:        %{name}.csh.in
+
+Patch0:         a71fe22a9f480e9c785ee65997c2fcaeeb8bc350.patch
 
 BuildRequires:  /usr/bin/asciidoctor
 BuildRequires:  cmake
@@ -240,6 +242,9 @@ done\
 
 
 %changelog
+* Mon Oct 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.14.2-1
+- 4.14.2
+
 * Sun Sep 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.14.1-1
 - 4.14.1
 

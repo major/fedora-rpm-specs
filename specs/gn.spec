@@ -26,10 +26,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit 0e7d98e041b01eb5fed29a9a80482ed8ca9efe5b
-%global access 20261002
+%global commit f90c3d9df882a9da4a66457f47dd3d99b3df3dd5
+%global access 20261019
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2586
+%global position 2598
 Version:        %{position}^%{access}.%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -156,10 +156,6 @@ The gn-doc package contains detailed documentation for GN.
 %prep
 %autosetup -c -n gn-%{commit} -p1
 
-# Use pre-generated last_commit_position.h.
-mkdir ./out
-cp --preserve '%{SOURCE1}' ./out/
-
 # Copy and rename vim extensions readme for use in the main documentation
 # directory.
 cp --preserve misc/vim/README.md README-vim.md
@@ -197,6 +193,16 @@ AR='gcc-ar'; export AR
     --no-last-commit-position \
     --no-strip \
     --no-static-libstdc++
+
+# Even with --no-last-commit-position, build/gen.py now generates a dummy
+# out/last_commit_position.h with:
+#
+#   #define LAST_COMMIT_POSITION_NUM 0
+#   #define LAST_COMMIT_POSITION "0 (UNKNOWN)"
+#
+# Therefore, we must wait until after we have run build/gen.py to copy in the
+# correct, pre-generated last_commit_position.h.
+cp --preserve '%{SOURCE1}' ./out/
 
 
 %build

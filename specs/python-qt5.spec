@@ -238,7 +238,7 @@ sed -i \
 %files -n python%{python3_pkgversion}-qt5-base
 %doc NEWS README.md
 %license LICENSE
-%{python3_dbus_dir}/pyqt5.abi3.so
+%{python3_dbus_dir}/pyqt5.abi3*.so
 %dir %{python3_sitearch}/PyQt5/
 %{python3_sitearch}/pyqt5-%{version}%{?snap:.%{snap}}.dist-info
 %{python3_sitearch}/PyQt5/__pycache__/__init__.*
@@ -265,10 +265,10 @@ sed -i \
 %{_bindir}/pylupdate5
 %{_bindir}/pyrcc5
 %{_bindir}/pyuic5
-%{python3_sitearch}/PyQt5/pylupdate.abi3.so
+%{python3_sitearch}/PyQt5/pylupdate.abi3*.so
 %{python3_sitearch}/PyQt5/pylupdate_main.py*
 %{python3_sitearch}/PyQt5/__pycache__/pylupdate_main*
-%{python3_sitearch}/PyQt5/pyrcc.abi3.so
+%{python3_sitearch}/PyQt5/pyrcc.abi3*.so
 %{python3_sitearch}/PyQt5/pyrcc_main.py*
 %{python3_sitearch}/PyQt5/__pycache__/pyrcc_main*
 %{python3_sitearch}/PyQt5/py.typed

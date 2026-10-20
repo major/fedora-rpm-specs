@@ -16,9 +16,10 @@ BuildArch:      noarch
 BuildSystem:    pyproject
 BuildOption(install): -l wheel
 
+# We need setuptools for the import check even without tests
+BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 %if %{defined fedora}
 # optional test dependencies (flit is unwanted in RHEL, a test is skipped without both of those)
 BuildRequires:  python3-build

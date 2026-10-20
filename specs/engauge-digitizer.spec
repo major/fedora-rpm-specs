@@ -20,7 +20,10 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: fftw-devel
-BuildRequires: log4cpp-devel
+# incompatible with log4cpp 1.1.6
+# https://github.com/akhuettel/engauge-digitizer/issues/4
+# when fixed, remove log4cpp_null from CONFIG below
+#BuildRequires: log4cpp-devel
 BuildRequires: desktop-file-utils
 BuildRequires: qt6-qtbase-devel
 BuildRequires: qt6-qttools-devel
@@ -149,7 +152,7 @@ export OPENJPEG_INCLUDE=`pkg-config --cflags libopenjp2 | sed 's/-I//'`
 export OPENJPEG_LIB=%{_libdir}
 export POPPLER_INCLUDE=`pkg-config --cflags poppler-qt6 | sed 's/-I//'`
 export POPPLER_LIB=%{_libdir}
-%{qmake_qt6} engauge.pro "CONFIG+=pdf jpeg2000" QT_SELECT=qt6 \
+%{qmake_qt6} engauge.pro "CONFIG+=pdf jpeg2000 log4cpp_null" QT_SELECT=qt6 \
  DEFINES+=HELPDIR=%{_datadir}/doc/%{name}/help \
  QMAKE_CXXFLAGS_RELEASE="%{optflags} %(pkgconf --cflags Qt6Widgets)"
 %make_build

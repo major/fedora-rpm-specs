@@ -11,6 +11,11 @@ You can also create new TOML documents from scratch using the provided helpers.
 
 Part of the implementation has been adapted, improved and fixed from Molten.}
 
+# Break a circular dependency on tomlkit-hatchling-pygments-pytest
+# during the new Python bootstrap
+%bcond bootstrap 0
+%bcond tests %{without bootstrap}
+
 Name:           python-%{pypi_name}
 Summary:        Style preserving TOML library
 Version:        0.13.2
@@ -39,9 +44,11 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
+%if %{with tests}
 # test dependencies
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pyyaml)
+%endif
 
 %description %{common_description}
 
@@ -70,7 +77,10 @@ Summary:        %{summary}
 
 
 %check
+%pyproject_check_import
+%if %{with tests}
 %pytest
+%endif
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

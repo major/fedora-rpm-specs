@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla
-Version:        6.039
-Release:        3%{?dist}
+Version:        6.040
+Release:        1%{?dist}
 Summary:        Distribution builder; installer not included!
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla
@@ -80,7 +80,7 @@ BuildRequires:  perl(Path::Tiny) >= 0.052
 BuildRequires:  perl(Perl::PrereqScanner) >= 1.016
 BuildRequires:  perl(Pod::Simple)
 BuildRequires:  perl(PPI)
-BuildRequires:  perl(PPI::Document) >= 1.222
+BuildRequires:  perl(PPI::Document) >= 1.256
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Software::License) >= 0.104001
 BuildRequires:  perl(Software::LicenseUtils)
@@ -128,7 +128,7 @@ Requires:       perl(Hash::Merge::Simple)
 Requires:       perl(Module::CoreList)
 Requires:       perl(Path::Class) >= 0.22
 Requires:       perl(Pod::Simple)
-Requires:       perl(PPI::Document) >= 1.222
+Requires:       perl(PPI::Document) >= 1.256
 Requires:       perl(Software::LicenseUtils) >= 0.104001
 Requires:       perl(Term::ANSIColor) >= 5.00
 Requires:       perl(Term::Encoding)
@@ -139,6 +139,10 @@ Requires:       perl(Term::UI)
 %{?perl_default_filter}
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((App::Cmd::Setup|CPAN::Meta::Requirements|Moose|Path::Class|String::RewritePrefix)\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(String::RewritePrefix\\) >= 0.005\s*$
+%global __requires_exclude %__requires_exclude|^perl\\(Log::Dispatchouli\\) >= 1.100712\s*$
+%global __requires_exclude %__requires_exclude|^perl\\(List::Util\\) >= 1.29\s*$
+%global __requires_exclude %__requires_exclude|^perl\\(List::Util\\) >= 1.33\s*$
 # Remove private modules
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(DZPA.*\\)
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\((DZPA.*|DZ1|DZT::Sample|Dist::Zilla::Plugin::(BrokenPlugin|JustForManifestSkipTests|MungerThatPrunesPodFiles|TestArchiveBuilder|TestAutoLicense|TestAutoName|TestReleaseProvider|Versioned)|Dist::Zilla::Stash::Heap|Foo|Foo::Bar)\\)
@@ -209,6 +213,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 19 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.040-1
+- 6.040 bump
+- Remove duplicite dependencies
+
 * Thu Sep 17 2026 Michal Josef Špaček <mspacek@redhat.com> - 6.039-3
 - Fix tests in *tests package
 

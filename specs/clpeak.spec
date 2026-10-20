@@ -1,5 +1,5 @@
 Name:       clpeak
-Version:    2.1.4
+Version:    3.0.1
 Release:    %autorelease
 Summary:    Measure the peak achievable performance of GPU compute devices
 License:    Apache-2.0
@@ -7,6 +7,7 @@ URL:        https://github.com/krrishnarraj/%{name}
 Source:     %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: cmake
+ExcludeArch:   %{ix86}
 # ROCm is available on x86_64 only
 %ifarch x86_64
 BuildRequires: cmake(hip)

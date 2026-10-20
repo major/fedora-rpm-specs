@@ -7,7 +7,7 @@
 %global crate onefetch
 
 Name:           rust-onefetch
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Command-line Git information tool
 
@@ -18,7 +18,7 @@ Source:         %{crates_source}
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
-# * Use older gix 0.85 (upstream wants 0.88):
+# * Use older gix 0.85 (upstream wants 0.89):
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2506441. We must carry a
 #   downstream patch reverting the source-code change from
 #   https://github.com/o2sh/onefetch/commit/f43b0cb3ad4076974e942b54751ee462ce2a6ca5;
@@ -33,9 +33,13 @@ Patch:          onefetch-fix-metadata-auto.diff
 # * Allow older rstest 0.26 for now,
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2529211
 Patch:          onefetch-fix-metadata.diff
-# * Downstream-only: revert the source-code change for gix 0.86+ so we can
-#   temporarily keep using gix 0.85.
+# * Revert the source-code change for gix 0.86+
+# * This allows us to temporarily keep using gix 0.85.
 Patch10:        0001-Revert-chore-deps-Update-Rust-crate-gix-to-0.86.0-18.patch
+# * Patch for functions that were infallible before gix 0.89
+# * Previously, path::from_bstr and Repository::is_shallow were infallible.
+# * We revert the changes to keep using older gix for now
+Patch11:        0002-Patch-for-functions-that-were-infallible-before-gix-.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  help2man
@@ -87,6 +91,7 @@ License:        %{shrink:
 %files       -n %{crate}
 %license LICENSE.md
 %license LICENSE.dependencies
+%doc ARCHITECTURE.md
 %doc CHANGELOG.md
 %doc CONTRIBUTING.md
 %doc README.md
@@ -128,7 +133,9 @@ install -Dpm 0644 _onefetch -t %{buildroot}/%{zsh_completions_dir}
 
 %if %{with check}
 %check
-%cargo_test
+# * Since tests/fixtures/cargo/ is not included in the released crate, we cannot
+#   run tests that require it.
+%cargo_test -- -- --skip should_detect_and_parse_cargo_manifest
 %endif
 
 %changelog
