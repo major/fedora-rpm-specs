@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           krdp
 Summary:        Desktop sharing using RDP
-Version:        6.8.0
+Version:        6.8.1
 Release:        1%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
@@ -127,6 +127,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
+- 6.8.1
+
 * Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
 - 6.8.0
 

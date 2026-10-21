@@ -119,7 +119,9 @@ Summary:        AMD Xilinx Runtime (XRT) - development files
 Requires:       python3-xrt%{?_isa} = %{version}-%{release}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libuuid-devel
+%ifarch x86_64
 Requires:       rocm-hip-devel%{?_isa}
+%endif
 
 %description devel
 AMD Xilinx Runtime (XRT) provides a runtime environment for AMD Ryzen
@@ -210,7 +212,11 @@ rm -rf xrt/XRT/tests
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DXRT_NPU=1 \
   -DCMAKE_BUILD_RPATH_USE_ORIGIN=ON \
+%ifarch x86_64
   -DXRT_ENABLE_HIP=ON \
+%else
+  -DXRT_ENABLE_HIP=OFF \
+%endif
   -DXRT_ENABLE_TRACER=OFF \
   -DXRT_ENABLE_DKMS=OFF \
   -DXRT_INSTALL_STATIC_LIBRARY=OFF \
@@ -296,7 +302,9 @@ XILINX_XRT=%{buildroot}/usr \
 %doc xdna/xdna-driver/README.md
 %{_libdir}/libxrt_core.so.%{xrt_major}{,.*}
 %{_libdir}/libxrt_coreutil.so.%{xrt_major}{,.*}
+%ifarch x86_64
 %{_libdir}/libxrt_hip.so.%{xrt_major}{,.*}
+%endif
 %{_libdir}/libxrt_driver_xdna.so.%{xrt_major}{,.*}
 %{_libdir}/libxdp*.so.%{xrt_major}{,.*}
 %dir %{_libdir}/xrt
@@ -323,7 +331,9 @@ XILINX_XRT=%{buildroot}/usr \
 %files devel
 %dir %{_includedir}/xrt
 %{_includedir}/xrt/*
+%ifarch x86_64
 %{_includedir}/hip/*
+%endif
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/*.so
 %dir %{_datadir}/cmake/XRT

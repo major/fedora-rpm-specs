@@ -8,13 +8,13 @@
 %{?aud_plugin_dep}
 
 Name: audacious-plugins
-Version: 4.6.1
-Release: 9%{?dist}
+Version: 4.6.2
+Release: 1%{?dist}
 
 %global tar_ver %{version}
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
-%global aud_ver 4.6.1
+%global aud_ver 4.6.2
 Requires: audacious%{?_isa} >= %{aud_ver}
 
 Summary: Plugins for the Audacious audio player
@@ -35,10 +35,6 @@ Source102: audacious-plugins-jack.metainfo.xml
 Patch0: audacious-plugins-3.7-alpha1-xmms-skindir.patch
 # Fedora customization: add default system-wide module_path
 Patch2: audacious-plugins-3.6-ladspa.patch
-# upstream fix for the accidental Turkish translations in en_GB
-Patch3: audacious-plugins-4.6.1-en_GB.patch
-# upstream #1873
-Patch4: audacious-plugins-streamtuner.patch
 
 BuildRequires: gcc-c++
 BuildRequires: meson
@@ -358,6 +354,12 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Tue Oct 20 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.2-1
+- update to 4.6.2 (also make it the minimum BR version to match meson.build)
+
+* Sun Oct 11 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.1-10.20261011git11ffccd
+- switch to git snapshot
+
 * Thu Sep 24 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.1-9
 - rebuilt with libsidplayfp v3 that includes the residfp builder again
   after libresidfp has been split off

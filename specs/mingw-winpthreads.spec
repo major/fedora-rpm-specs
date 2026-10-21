@@ -6,7 +6,7 @@
 
 Name:           mingw-winpthreads
 Version:        14.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW pthread library
 
 # The main license of winpthreads is MIT, but parts of this library
@@ -15,6 +15,9 @@ Summary:        MinGW pthread library
 License:        BSD-3-Clause AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:            http://mingw-w64.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/mingw-w64/mingw-w64-v%{version}%{?pre:-%{pre}}.tar.bz2
+# Clear TLS slot to avoid recycled _pthread_v
+# https://sourceforge.net/p/mingw-w64/mingw-w64/ci/c4ec7b6e63fcdcb9d5d9aebd7bf513c28b055cdf/
+Patch0:         clear_tls.patch
 
 BuildArch:      noarch
 
@@ -231,6 +234,9 @@ rm -rf /tmp/wine-winpthreads
 
 
 %changelog
+* Tue Oct 20 2026 Sandro Mani <manisandro@gmail.com> - 14.0.0-3
+- Add clear_tls.patch
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

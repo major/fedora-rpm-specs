@@ -14,12 +14,11 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302225
+Version:        1.302226
 Release:        1%{?dist}
-# CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
 # GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND CC0-1.0 AND LicenseRef-Fedora-Public-Domain
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/Test-Simple
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Test-Simple-%{version}.tar.gz
 Patch0:         Test-Simple-1.302200-add_perl.patch
@@ -66,6 +65,7 @@ BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Errno)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(if)
 BuildRequires:  perl(IO::Pipe)
@@ -409,6 +409,15 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 20 2026 Paul Howarth <paul@city-fan.org> - 3:1.302226-1
+- Update to 1.302226
+  - Distribute ok and Test::use::ok under the same terms as Perl, with
+    permission from original author Audrey Tang; the original CC0 notice is
+    kept (GH#1092)
+  - Test2::IPC::Driver::Files now aborts with the OS error when a hub file
+    cannot be written, and names an empty or truncated hub file instead of
+    reporting it as closed by the wrong process
+
 * Fri Sep  4 2026 Paul Howarth <paul@city-fan.org> - 3:1.302225-1
 - Update to 1.302225
   - Name the failing check when an IPC abort escapes a capture block in

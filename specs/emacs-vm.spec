@@ -20,9 +20,8 @@ Summary(sv): Emacs postläsare VM
 Name: emacs-vm
 %global forgeurl https://gitlab.com/emacs-vm/vm/
 %global version0 9.0.0
-%global commit e1a00b9c9143dad6182cfb3069bc040a6434077e
 %forgemeta
-Version: %forgeversion -p
+Version: %forgeversion
 Release: %autorelease
 License: GPL-1.0-or-later AND GPL-2.0-or-later
 URL: %forgeurl
@@ -72,6 +71,8 @@ make
 
 %install
 make install DESTDIR=%{buildroot}
+# This file is managed by the "info" package
+rm %{buildroot}%{_infodir}/dir
 
 # Create initialization file.
 install -d %{buildroot}/%{_emacs_sitestartdir}
@@ -81,8 +82,7 @@ install -d %{buildroot}%{_datadir}/metainfo
 cp -p %{SOURCE1} %{buildroot}%{_datadir}/metainfo
 
 %check
-# Disabled because of https://gitlab.com/emacs-vm/vm/-/work_items/911
-# make test-no-opt
+make test-no-opt
 appstream-util validate-relax --nonet \
 	       %{buildroot}%{_datadir}/metainfo/%{name}.metainfo.xml
 

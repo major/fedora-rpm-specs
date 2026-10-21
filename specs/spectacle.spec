@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
-Version: 6.8.0
+Version: 6.8.1
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -138,6 +138,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 %{_kf6_datadir}/config.kcfg/spectacle.kcfg
 
 %changelog
+* Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 1:6.8.1-1
+- 6.8.1
+
 * Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 1:6.8.0-1
 - 6.8.0
 

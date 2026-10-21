@@ -159,7 +159,12 @@ Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
 Patch8:         0001-Enable-SHSTK-by-default-on-x86_64-unknown-linux-gnu.patch
 
 # Ensure llvm worker threads have sufficient stack space. Backport of #163289.
-Patch9:		0001-Ensure-llvm-worker-threads-have-sufficient-stack-spa.patch
+Patch9:         0001-Ensure-llvm-worker-threads-have-sufficient-stack-spa.patch
+
+# Add a `-static-pie` fallback when `rcrt1.o` is missing
+# https://github.com/rust-lang/rust/issues/164448
+# https://github.com/rust-lang/rust/pull/164451
+Patch10:        0001-Add-a-fallback-for-static-pie-missing-CRT-objects.patch
 
 ### RHEL-specific patches below ###
 
@@ -741,6 +746,7 @@ test "$(cut -d' ' -f1 ./version)" = "%{lua: print((rpm.expand('%version'):gsub('
 %patch -P7 -p1
 %patch -P8 -p1
 %patch -P9 -p1
+%patch -P10 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -1094,6 +1100,9 @@ TMP_HELLO=$(mktemp -d)
     LD_LIBRARY_PATH="%{buildroot}%{_libdir}:$LD_LIBRARY_PATH"
   %{buildroot}%{_bindir}/cargo init --name hello-world
   %{buildroot}%{_bindir}/cargo run --verbose
+
+  # Sanity-check that a static executable builds and runs
+  env RUSTFLAGS="-Ctarget-feature=+crt-static" %{buildroot}%{_bindir}/cargo run --verbose
 
   # Sanity-check that code-coverage builds and runs
   env RUSTFLAGS="-Cinstrument-coverage" %{buildroot}%{_bindir}/cargo run --verbose

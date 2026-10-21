@@ -12,6 +12,7 @@ Release:        %autorelease
 
 URL:            https://github.com/sogou/workflow
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         workflow-aarch64-valgrind-guard-pages.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

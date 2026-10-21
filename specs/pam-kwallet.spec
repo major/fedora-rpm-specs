@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:    pam-kwallet
 Summary: PAM module for KWallet
-Version: 6.8.0
+Version: 6.8.1
 Release: 1%{?dist}
 License: LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{base_name}.git
@@ -59,6 +59,9 @@ Requires: kf6-kwallet
 
 
 %changelog
+* Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
+- 6.8.1
+
 * Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
 - 6.8.0
 

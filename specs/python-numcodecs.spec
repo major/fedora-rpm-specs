@@ -7,15 +7,15 @@
 }
 
 Name:           python-%{srcname}
-Version:        0.17.0
+Version:        0.17.1
 Release:        %autorelease
 Summary:        Buffer compression and transformation for data storage and communication
 
 License:        MIT
 URL:            https://github.com/zarr-developers/numcodecs
 Source:         %pypi_source %{srcname}
-# https://github.com/zarr-developers/numcodecs/pull/860
-Patch:          0001-Allow-building-against-a-system-Zlib.patch
+# Fedora does not build with bundled c-blosc.
+Patch:          0001-Drop-the-extra-licenses.patch
 # Fedora is not missing Snappy support in Blosc.
 Patch:          0002-Re-add-Snappy-to-tests.patch
 # We don't need coverage reports, and don't want to test the current directory.

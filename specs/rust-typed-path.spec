@@ -5,7 +5,7 @@
 %global crate typed-path
 
 Name:           rust-typed-path
-Version:        0.12.3
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Typed variants of Path and PathBuf for Unix and Windows
 
@@ -45,6 +45,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

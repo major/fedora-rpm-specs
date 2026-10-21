@@ -3,7 +3,7 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        10.2.0
+Version:        10.2.1
 Release:        1%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
@@ -269,6 +269,9 @@ fi
 
 
 %changelog
+* Tue Oct 20 2026 Jered Floyd <jered@convivian.com> - 10.2.1-1
+- Update to upstream 10.2.1
+
 * Tue Aug 11 2026 Jered Floyd <jered@redhat.com> - 10.2.0-1
 - Update to upstream 10.2.0
 

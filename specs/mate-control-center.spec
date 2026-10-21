@@ -37,7 +37,8 @@ Requires: gsettings-desktop-schemas
 # rhbz (#1234438)
 Requires: mate-settings-daemon
 # keyring support
-Requires: gnome-keyring
+Requires: (oo7-daemon or gnome-keyring)
+Suggests: oo7-daemon
 Requires: %{name}-filesystem%{?_isa} = %{version}-%{release}
 
 

@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 %global testurl https://github.com/ocaml/opam-repository
 
 Name:           opam
-Version:        2.5.2
+Version:        2.6.1
 Release:        %autorelease
 Summary:        Source-based package manager for OCaml
 
@@ -40,30 +40,32 @@ BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  gpgverify
 BuildRequires:  make
-BuildRequires:  ocaml >= 4.08.0
+BuildRequires:  ocaml >= 4.11.0
 BuildRequires:  ocaml-base64-devel >= 3.1.0
 BuildRequires:  ocaml-cudf-devel >= 0.7
 BuildRequires:  ocaml-dose3-devel >= 6.1
+BuildRequires:  ocaml-checkseum-devel >= 0.5.2
+BuildRequires:  ocaml-decompress-devel >= 1.5.1
 BuildRequires:  ocaml-dune >= 2.8.0
 BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-jsonm-devel
+BuildRequires:  ocaml-jsonm-devel >= 1.0.2
 BuildRequires:  ocaml-mccs-devel >= 1.1.17
-BuildRequires:  ocaml-ocamlgraph-devel
+BuildRequires:  ocaml-ocamlgraph-devel >= 1.8.8
 BuildRequires:  ocaml-opam-0install-cudf-devel >= 0.5.0
 BuildRequires:  ocaml-opam-file-format-devel >= 2.1.4
-BuildRequires:  ocaml-patch-devel >= 3.0.0~alpha1
+BuildRequires:  ocaml-patch-devel >= 3.0.0
 BuildRequires:  ocaml-re-devel >= 1.10.0
 BuildRequires:  ocaml-sha-devel >= 1.13
-BuildRequires:  ocaml-spdx-licenses-devel >= 1.0.0
-BuildRequires:  ocaml-swhid-core-devel
-BuildRequires:  ocaml-uutf-devel
-BuildRequires:  ocaml-z3-devel
+BuildRequires:  ocaml-spdx-licenses-devel >= 1.4.0
+BuildRequires:  ocaml-swhid-core-devel >= 0.1
+BuildRequires:  ocaml-uutf-devel >= 1.0.3
+BuildRequires:  ocaml-tar-devel >= 3.5.0
+BuildRequires:  ocaml-z3-devel >= 4.8.4
 BuildRequires:  openssl
 
 # Testing dependencies
 BuildRequires:  bubblewrap
 BuildRequires:  bzip2
-BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  rsync
 BuildRequires:  unzip
 BuildRequires:  xxd

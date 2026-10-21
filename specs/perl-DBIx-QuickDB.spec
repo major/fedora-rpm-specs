@@ -2,7 +2,7 @@
 %bcond_with perl_DBIx_QuickDB_duckdb
 
 Name:           perl-DBIx-QuickDB
-Version:        0.000065
+Version:        0.000066
 Release:        1%{?dist}
 Summary:        Quickly start a database server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -61,6 +61,7 @@ BuildRequires:  perl(File::Copy::Recursive)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::Select)
+BuildRequires:  perl(IO::Socket::UNIX)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test2::IPC)
 BuildRequires:  perl(Test2::Tools::Basic)
@@ -71,7 +72,6 @@ BuildRequires:  perl(Test2::Util::Table)
 BuildRequires:  perl(Test2::V0) >= 0.000097
 BuildRequires:  perl(Test::More) >= 1.302120
 # Optional tests:
-BuildRequires:  perl(IO::Socket::UNIX)
 # File::Copy::Recursive or coreutils or rsync; prefer coreutils
 Requires:       coreutils
 Requires:       perl(DBI)
@@ -142,7 +142,6 @@ Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(Capture::Tiny) >= 0.20
 Requires:       perl(File::Copy::Recursive)
-Requires:       perl(IO::Socket::UNIX)
 Requires:       perl(Test2::API) >= 1.302120
 # Optional run-time:
 Requires:       %{name}-Driver-MySQL = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -247,6 +246,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 20 2026 Petr Pisar <ppisar@redhat.com> - 0.000066-1
+- 0.000066 bump
+
 * Wed Aug 12 2026 Petr Pisar <ppisar@redhat.com> - 0.000065-1
 - 0.000065 bump
 

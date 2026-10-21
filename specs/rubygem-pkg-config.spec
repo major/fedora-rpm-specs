@@ -5,8 +5,8 @@
 
 Summary:	A pkg-config implementation by Ruby
 Name:		rubygem-%{gem_name}
-Version:	1.6.5
-Release:	3%{?dist}
+Version:	1.6.6
+Release:	1%{?dist}
 # SPDX confirmed
 License:	LGPL-2.0-or-later
 URL:		http://github.com/rcairo/pkg-config
@@ -83,6 +83,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Tue Oct 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.6-1
+- 1.6.6
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

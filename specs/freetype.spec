@@ -2,8 +2,8 @@
 %bcond_with bootstrap
 
 Name: freetype
-Version: 2.14.3
-Release: 2%{?dist}
+Version: 2.15.0
+Release: 1%{?dist}
 Summary: A free and portable font rendering engine
 License: (FTL OR GPL-2.0-or-later) AND BSD-3-Clause AND MIT AND MIT-Modern-Variant AND LicenseRef-Fedora-Public-Domain AND Zlib
 URL: http://www.freetype.org
@@ -209,6 +209,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 %{_mandir}/man1/*
 
 %changelog
+* Sat Oct 17 2026 Michael Kuhn <suraia@fedoraproject.org> - 2.15.0-1
+- Update to 2.15.0
+- Resolves: #2549995
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           xmlgraphics-commons
-Version:        2.11
-Release:        7%{?dist}
+Version:        2.12
+Release:        1%{?dist}
 Epoch:          0
 Summary:        XML Graphics Commons
 
@@ -68,6 +68,9 @@ find -name "*.jar" -delete
 %license LICENSE NOTICE
 
 %changelog
+* Tue Oct 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 0:2.12-1
+- 2.12
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

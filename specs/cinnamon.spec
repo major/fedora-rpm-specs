@@ -28,6 +28,7 @@ Patch2:  remove_crap_from_menu.patch
 Patch3:  set_menu_defaults.patch
 Patch4:  %url/pull/13947.patch#/glycin_ratelimit.patch
 Patch5:  %url/pull/14062.patch#/add_pam_oo7.patch
+Patch6:  %url/pull/14066.patch#/add_oo7-portal.patch
 
 ExcludeArch:    %{ix86}
 
@@ -97,7 +98,8 @@ Requires:       %{name}-session%{?_isa}
 Requires:       accountsservice-libs%{?_isa}
 
 # needed for the screen locker
-Requires: (gnome-keyring-pam%{?_isa} or pam_oo7%{?_isa})
+Requires: (pam_oo7%{?_isa} or gnome-keyring-pam%{?_isa})
+Suggests: pam_oo7%{?_isa}
 
 # needed for settings
 Requires:       gsound%{?_isa}
@@ -180,6 +182,7 @@ Recommends:     touchegg
 
 # required for flatpak support
 Recommends:     xdg-desktop-portal-xapp
+Recommends:     oo7-portal
 
 Requires:       libsoup3
 
@@ -250,6 +253,11 @@ rm -rf %{buildroot}%{_datadir}/%{name}/*.gir
 rm -rf %{buildroot}%{_bindir}/cinnamon2d
 rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 
+# fix pam config dir
+mkdir -p %{buildroot}%{_prefix}/lib
+mv %{buildroot}%{_sysconfdir}/pam.d %{buildroot}%{_prefix}/lib
+
+
 %check
 %{_bindir}/desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
@@ -257,7 +265,7 @@ rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
 %files
 %doc README.rst AUTHORS
 %license COPYING
-%config(noreplace) %{_sysconfdir}/pam.d/cinnamon
+%{_prefix}/lib/pam.d/cinnamon
 %{_bindir}/cinnamon
 %{_bindir}/cinnamon-dbus-command
 %{_bindir}/cinnamon-desktop-editor

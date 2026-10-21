@@ -59,8 +59,10 @@ Secret Service provider.
 
 %package        daemon
 Summary:        oo7 daemon
-
-Recommends:     oo7-portal
+Requires:       (oo7-portal = %{version}-%{release} if xdg-desktop-portal)
+%if ! (0%{?fedora} && 0%{?fedora} < 45)
+Obsoletes:      gnome-keyring < 51
+%endif
 
 %description    daemon
 Service providing the Secret Service D-Bus API.
@@ -86,6 +88,9 @@ Service providing the Secret Service D-Bus API.
 %package     -n pam_oo7
 Summary:        oo7 PAM module
 Requires:       oo7-daemon = %{version}-%{release}
+%if ! (0%{?fedora} && 0%{?fedora} < 45)
+Obsoletes:      gnome-keyring-pam < 51
+%endif
 
 %description -n pam_oo7
 A PAM (Pluggable Authentication Modules) module that integrates with the
@@ -100,6 +105,8 @@ authentication.
 
 %package        portal
 Summary:        oo7 Portal
+Provides:       xdg-desktop-portal-oo7 = %{version}-%{release}
+Provides:       xdg-desktop-portal-oo7%{?_isa} = %{version}-%{release}
 Requires:       oo7-daemon = %{version}-%{release}
 Requires:       dbus-common
 Requires:       xdg-desktop-portal

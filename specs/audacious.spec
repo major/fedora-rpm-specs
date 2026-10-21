@@ -2,8 +2,8 @@
 %bcond_without gtk
 
 Name: audacious
-Version: 4.6.1
-Release: 2%{?dist}
+Version: 4.6.2
+Release: 1%{?dist}
 
 %global tar_ver %{version}
 
@@ -183,6 +183,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/metainfo/%{na
 
 
 %changelog
+* Tue Oct 20 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.2-1
+- update to 4.6.2
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -195,7 +195,7 @@ done
 
 %build
 %cmake_build
-for mpi in %{mpi_list}
+for mpi in %{?mpi_list}
 do
   module load mpi/$mpi-%{_arch}
   %cmake_build
@@ -210,9 +210,9 @@ do
   module load mpi/$mpi-%{_arch}
   %cmake_install
   module purge
+  # rpaths are still present in MPI builds
+  chrpath --delete %{buildroot}%{_libdir}/$mpi/hdf5/plugin/lib__*.so %{buildroot}%{_libdir}/$mpi/bin/nc[cdg]*
 done
-# rpaths are still present in MPI builds
-chrpath --delete %{buildroot}%{_libdir}/*/hdf5/plugin/lib__*.so %{buildroot}%{_libdir}/*/bin/nc[cdg]*
 
 
 %check

@@ -20,7 +20,7 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        65.11
+Version:        65.12
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -203,6 +203,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Tue Oct 20 2026 Petr Pisar <ppisar@redhat.com> - 1:65.12-1
+- 65.12 bump
+
 * Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 1:65.11-1
 - 65.11 bump
 

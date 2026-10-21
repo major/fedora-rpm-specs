@@ -4,7 +4,7 @@
 %global crate siguldry-pkcs11
 
 Name:           rust-siguldry-pkcs11
-Version:        2.2.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Minimal PKCS#11 module to sign content using a Siguldry server
 

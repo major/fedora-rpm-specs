@@ -8,7 +8,7 @@
 
 Summary: Qt6 - Qt Shader Tools module builds on the SPIR-V Open Source Ecosystem
 Name:    qt6-%{qt_module}
-Version: 6.11.2
+Version: 6.12.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -127,6 +127,9 @@ popd
 %{_qt6_libdir}/pkgconfig/Qt6ShaderTools.pc
 
 %changelog
+* Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

@@ -8,7 +8,7 @@
 Name:           ArborX
 Version:        2.1
 %global         sover 0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Performance-portable geometric search library
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 # mpi is broken on s390x see: bug#2322073 
@@ -24,7 +24,6 @@ BuildRequires:  kokkos-devel
 BuildRequires:  openmpi-devel
 BuildRequires:  mpich-devel
 BuildRequires:  boost-devel
-BuildRequires:  google-benchmark-devel
 
 %global arborx_desc \
 ArborX is an open-source library designed to provide performance portable \
@@ -36,6 +35,8 @@ algorithms for geometric search, similarly to nanoflann and Boost Geometry.
 %package devel
 Summary:        Development package for  %{name} packages
 BuildArch:      noarch
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
+Provides:       %{name}-static = %{version}-%{release}
 %description devel
 %{arborx_desc}
 
@@ -43,6 +44,8 @@ This package contains the development files of %{name}.
 
 %package openmpi-devel
 Summary:    openmpi development headers and libraries for %{name}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
+Provides:   %{name}-openmpi-static = %{version}-%{release}
 Requires:   openmpi-devel
 
 %description openmpi-devel
@@ -52,6 +55,8 @@ This package contains openmpi development files of %{name}.
 
 %package mpich-devel
 Summary:    mpich development headers and libraries for %{name}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
+Provides:   %{name}-mpich-static = %{version}-%{release}
 Requires:   mpich-devel
 
 %description mpich-devel
@@ -122,6 +127,10 @@ done
 %{_libdir}/mpich*/lib/cmake/%{name}
 
 %changelog
+* Tue Oct 20 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1-3
+- Remove unnecessary BuildRequires on google-benchmark
+- Add -static Provides required by policy for header-only libraries
+
 * Wed Sep 09 2026 Christoph Junghans <junghans@votca.org> - 2.1-2
 - Initial import
 - Fixes: rhbz#2457814

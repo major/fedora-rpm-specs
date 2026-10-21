@@ -1,6 +1,6 @@
 Name:    sugar
 Version: 0.121
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Constructionist learning platform
 URL:     http://sugarlabs.org/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -29,7 +29,11 @@ Requires: avahi-tools
 Requires: dbus-x11
 Requires: dconf
 Requires: ethtool
+%if 0%{?fedora} && 0%{?fedora} < 45
 Requires: gnome-keyring-pam
+%else
+Requires: pam_oo7
+%endif
 Requires: gstreamer-plugins-espeak
 Requires: gtksourceview3
 Requires: gvfs
@@ -245,6 +249,9 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/sugar/data/activities.defaults
 %{_datadir}/sugar/extensions/cpsection/webaccount
 
 %changelog
+* Tue Oct 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.121-12
+- Replace GNOME Keyring with oo7 for F45+
+
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.121-11
 - Rebuilt for Python 3.15
 

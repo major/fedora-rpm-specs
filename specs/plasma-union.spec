@@ -1,7 +1,7 @@
 %global upstream_name union
 
 Name:           plasma-union
-Version:        6.8.0
+Version:        6.8.1
 Release:        1%{?dist}
 Summary:        A Qt style supporting both QtQuick and QtWidgets
 
@@ -85,6 +85,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libUnion.so
 
 %changelog
+* Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
+- 6.8.1
+
 * Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
 - 6.8.0
 

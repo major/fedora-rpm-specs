@@ -9,9 +9,13 @@ License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://pub.mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
 
+# Support oo7
+Patch0:        https://github.com/mate-desktop/mate-screensaver/pull/331.patch
+
 Requires:      redhat-menus
 Requires:      system-logos
-Requires:      gnome-keyring-pam
+Requires:      (pam_oo7 or gnome-keyring-pam)
+Suggests:      pam_oo7
 
 BuildRequires: dbus-glib-devel
 BuildRequires: desktop-file-utils
@@ -66,11 +70,11 @@ Development files for mate-screensaver
             --enable-pam            \
             --without-console-kit
 
-make %{?_smp_mflags} V=1
+%make_build
 
 
 %install
-%{make_install}
+%make_install
 
 desktop-file-install --delete-original             \
   --dir %{buildroot}%{_datadir}/applications    \
@@ -85,13 +89,17 @@ desktop-file-install                                          \
 mkdir -p %{buildroot}%{_docdir}/mate-screensaver
 mv %{buildroot}%{_docdir}/mate-screensaver-%{version}/mate-screensaver.html %{buildroot}%{_docdir}/mate-screensaver/mate-screensaver.html
 
+# fix pam config dir
+mkdir -p %{buildroot}%{_prefix}/lib
+mv %{buildroot}%{_sysconfdir}/pam.d %{buildroot}%{_prefix}/lib
+
 %find_lang %{name} --with-gnome --all-name
 
 
 %files -f %{name}.lang
 %doc AUTHORS NEWS README COPYING
 %{_bindir}/mate-screensaver*
-%{_sysconfdir}/pam.d/mate-screensaver
+%{_prefix}/lib/pam.d/mate-screensaver
 %{_sysconfdir}/xdg/menus/mate-screensavers.menu
 %{_sysconfdir}/xdg/autostart/mate-screensaver.desktop
 %{_libexecdir}/mate-screensaver-*

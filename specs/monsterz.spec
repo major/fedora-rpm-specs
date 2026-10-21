@@ -1,6 +1,6 @@
 Name:           monsterz
 Version:        0.7.1
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Puzzle game, similar to Bejeweled or Zookeeper
 License:        WTFPL
 URL:            http://sam.zoy.org/monsterz/
@@ -10,6 +10,7 @@ Patch0:         %{name}-0.7.1-userpmopts.patch
 Patch1:         %{name}-0.7.1-64bitfix.patch
 Patch2:         %{name}-0.7.1-blit-crash.patch
 Patch3:         %{name}-0.7.1-py3.patch
+Patch4:         intoverflow.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
@@ -34,6 +35,7 @@ board again. Chain reactions earn you even more points.
 %patch -P1 -p1
 %patch -P2 -p0
 %patch -P3 -p1
+%patch -P4 -p0
 %py3_shebang_fix .
 
 %build
@@ -86,6 +88,9 @@ install -pm0644 graphics/icon.png %{buildroot}%{_datadir}/icons/hicolor/64x64/ap
 
 
 %changelog
+* Mon Oct 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.7.1-42
+- Patch for integer overflow
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

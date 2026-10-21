@@ -1,6 +1,6 @@
 Name:           perl-B-Utils
-Version:        0.27
-Release:        37%{?dist}
+Version:        0.28
+Release:        1%{?dist}
 Summary:        Helper functions for op tree manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Utils
@@ -30,8 +30,10 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Config)
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies
+# (none)
 
 %{?perl_default_filter}
 
@@ -62,6 +64,11 @@ make test
 %{_mandir}/man3/B::Utils::OP.3*
 
 %changelog
+* Tue Oct 20 2026 Paul Howarth <paul@city-fan.org> - 0.28-1
+- Update to 0.28 (rhbz#2555817)
+  - Update ppport.h to the latest version, and keep it updated
+  - Adjust tests to handle a change in perl 5.45.4 (GH#2, Perl issue #24845)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.27-37
 - Perl 5.44 rebuild
 

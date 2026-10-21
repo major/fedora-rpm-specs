@@ -88,6 +88,10 @@ Summary:        Shared libraries for units-llnl
 %package devel
 Summary:        Development files for units-llnl
 Requires:       units-llnl-libs%{?_isa} = %{version}-%{release}
+# For some reason, unitsTargets-relwithdebinfo.cmake checks for the
+# units_convert command-line tool, so we must depend on the base package, not
+# just the -libs subpackage.
+Requires:       units-llnl%{?_isa} = %{version}-%{release}
 
 %description devel %{common_description}
 

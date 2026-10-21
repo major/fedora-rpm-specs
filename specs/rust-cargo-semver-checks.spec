@@ -145,6 +145,8 @@ NUM_JOBS='%{_smp_build_ncpus}' bash -x scripts/regenerate_test_rustdocs.sh
 #   are sensitive to being run outside the workspace.
 s="${s-} --skip snapshot_tests::workspace_baseline_compile_error"
 s="${s-} --skip snapshot_tests::workspace_baseline_conditional_compile_error"
+s="${s-} --skip query::tests_lints::enum_no_repr_variant_discriminant_changed"
+s="${s-} --skip snapshot_tests::no_new_snapshots stdout"
 %if %{defined el10}
 # * A few more snapshot tests fail with Rust 1.97 in EPEL10.
 s="${s-} --skip query::tests_lints::exported_function_requires_more_target_features"

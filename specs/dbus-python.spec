@@ -1,16 +1,19 @@
+%define srcname dbus_python
+
 Name:    dbus-python
-Version: 1.4.0
+Version: 1.5.0
 Release: %autorelease
 Summary: D-Bus Python Bindings
 
 License: MIT
 URL:     http://www.freedesktop.org/wiki/Software/DBusBindings/
-Source0: http://dbus.freedesktop.org/releases/dbus-python/%{name}-%{version}.tar.xz
+Source0: http://dbus.freedesktop.org/releases/dbus-python/%{srcname}-%{version}.tar.gz
+Source1: http://dbus.freedesktop.org/releases/dbus-python/%{srcname}-%{version}.tar.gz.asc
+# gpg --keyserver keyring.debian.org --recv-keys 7A073AD1AE694FA25BFF62E5235C099D3EB33076
+# gpg --export --export-options export-minimal > gpgkey-7A073AD1AE694FA25BFF62E5235C099D3EB33076.gpg
+Source2: gpgkey-7A073AD1AE694FA25BFF62E5235C099D3EB33076.gpg
 
-# Compatibility with Python 3.15
-# https://gitlab.freedesktop.org/dbus/dbus-python/-/work_items/59
-Patch:   Revert-using-Py_TPFLAGS_MANAGED_WEAKREF.patch
-
+BuildRequires: gnupg2
 BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(glib-2.0)
 # for %%check
@@ -47,7 +50,8 @@ Headers and static libraries for hooking up custom mainloops to the dbus python
 bindings.
 
 %prep
-%autosetup -p1
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup -p1 -n %{srcname}-%{version}
 
 %build
 %meson
@@ -68,7 +72,7 @@ bindings.
 %{python3_sitearch}/dbus_python*egg-info
 
 %files devel
-%doc README ChangeLog doc/API_CHANGES.txt doc/tutorial.txt
+%doc README doc/API_CHANGES.txt doc/tutorial.txt
 %{_includedir}/dbus-1.0/dbus/dbus-python.h
 %{_libdir}/pkgconfig/dbus-python.pc
 

@@ -1,5 +1,5 @@
 Name:    qqc2-breeze-style
-Version: 6.8.0
+Version: 6.8.1
 Release: 1%{?dist}
 Summary: QtQuickControls2 breeze style
 
@@ -54,6 +54,9 @@ This is a pure Qt Quick/Kirigami Qt Quick Controls style.
 %{_kf6_libdir}/cmake/QQC2BreezeStyle/
 
 %changelog
+* Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
+- 6.8.1
+
 * Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
 - 6.8.0
 

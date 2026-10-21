@@ -34,6 +34,8 @@ Source2:        vendor-config-%{version_no_tilde}.toml
 Source10:       %{name}.pam
 
 Patch:          0001-Make-service-a-display-manager.patch
+# Backport kmscon conflict fix
+Patch:          https://github.com/pop-os/cosmic-greeter/pull/568.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc

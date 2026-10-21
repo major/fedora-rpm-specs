@@ -4,7 +4,7 @@
 %endif
 
 Name:           nextcloud-client
-Version:        34.0.4
+Version:        35.0.0
 Release:        %autorelease
 Summary:        The Nextcloud Client
 
@@ -32,7 +32,7 @@ BuildRequires:  libcloudproviders-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libp11-devel
 BuildRequires:  neon-devel
-%if 0%{?fedora} >= 45
+%if 0%{?fedora}
 BuildRequires:  openssl3-devel
 BuildRequires:  openssl3-devel-engine
 %else

@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -476,7 +476,7 @@ BuildRequires: elfutils-debuginfod-client-devel
 # These libraries are needed by elfutils-debuginfod-client-devel.  It is not
 # clear why they are not being brought in automatically, but their absence is
 # causing failures in the Bodhi testsuite.
-BuildRequires: libcurl-minimal elfutils-libelf-devel openssl-libs json-c libzstd-devel
+BuildRequires: libcurl-minimal elfutils-libelf openssl-libs json-c libzstd-devel
 %endif
 
 %if %{with xxhash}
@@ -1026,11 +1026,17 @@ run_target_configuration()
         # No extra targets are supported.
         TARGS=""
 
+	# For host == target cross builds use the host sysroot.
+	if test x$target == x%{_target_platform}; then
+            SARGS="--with-sysroot=/" ;
+	else
+	    SARGS="--with-sysroot=yes" ;
+	fi
+	   
         # Always disable the GOLD linker for cross builds because although it
 	# does support sysroots specified on the command line, it does not
 	# support them in linker scripts via the =/$SYSROOT prefix.
-        SARGS="--with-sysroot=yes \
-               --program-prefix=$target- \
+        SARGS="--program-prefix=$target- \
                --prefix=%{_prefix}/$target \
                --libdir=%{_libdir} \
                --exec-prefix=%{_usr} \
@@ -1796,7 +1802,10 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
-* Thu Oct 15 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-10
+* Tue Oct 20 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-20
+- Fix sysroot of host == target cross linker.  (#2554470)
+
+* Thu Oct 15 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-19
 - Add more BuildRequires when building with debuginfod.
 
 * Wed Oct 14 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-18

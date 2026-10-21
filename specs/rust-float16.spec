@@ -34,7 +34,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/AGENTS.md
+%license %{crate_instdir}/LICENSES/Apache-2.0.txt
+%license %{crate_instdir}/LICENSES/MIT.txt
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/CLAUDE.md
 %doc %{crate_instdir}/README.md

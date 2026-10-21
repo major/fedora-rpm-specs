@@ -12,8 +12,8 @@
 %undefine _annotated_build
 
 Name: criu
-Version: 4.2.1
-Release: 2%{?dist}
+Version: 4.3
+Release: 1%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -41,6 +41,7 @@ BuildRequires: gnutls-devel
 BuildRequires: libdrm-devel
 BuildRequires: libuuid-devel
 BuildRequires: nftables-devel
+BuildRequires: lz4-devel
 # Checkpointing containers with a tmpfs requires tar
 Recommends: tar
 %if 0%{?fedora}
@@ -98,6 +99,7 @@ Requires: %{py_prefix}-protobuf
 %package -n crit
 Summary: CRIU image tool
 Requires: %{py_prefix}-%{name} = %{version}-%{release}
+Requires: %{py_prefix}-lz4
 
 %description -n crit
 crit is a tool designed to decode CRIU binary dump files and show
@@ -202,6 +204,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Tue Oct 20 2026 Radostin Stoyanov <rstoyanov@fedoraproject.org> - 4.3-1
+- Update to 4.3
+- Enable LZ4 compression support
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.2.1-2
 - Rebuilt for Python 3.15.0b4 ABI change
 

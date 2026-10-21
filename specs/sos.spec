@@ -1,6 +1,9 @@
+# bash_completions_dir is not defined by redhat-rpm-config on RHEL 9
+%{!?bash_completions_dir: %global bash_completions_dir %{_datadir}/bash-completion/completions}
+
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
-Version: 4.12.0
+Version: 4.12.1
 Release: %autorelease
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPL-2.0-only
@@ -27,8 +30,6 @@ Recommends: python3-boto3
 # Address duplicate man pages
 BuildRequires:  fdupes
 %endif
-Patch1: 0001-cleaner-refuse-out-of-tree-tar-members-on-extract.patch
-Patch2: 0002-cleaner-refuse-out-of-tree-tar-members-for-hardlinks.patch
 
 %description
 Sos is a set of tools that gathers information about system
@@ -98,6 +99,7 @@ rm -rf %{buildroot}/usr/config/
 %{python3_sitelib}/sos-*info/
 %{_mandir}/man1/*
 %{_mandir}/man5/*
+%{bash_completions_dir}/sos
 %doc AUTHORS README.md
 %license LICENSE
 %config(noreplace) %{_sysconfdir}/sos/sos.conf

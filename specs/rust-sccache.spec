@@ -21,9 +21,10 @@ Patch:          sccache-fix-metadata-auto.diff
 # * Removed dist-server feature and rouille dependency
 # * Allow opendal 0.55
 # * Allow which version 8
-# * Allow serde_json version 1.0.149
+# * Unpin serde_json, allowing < 2.0; pinned upstream only for MSRV
 # * Allow tokio-serde version < 1.0
 # * Allow shlex version 2: https://github.com/mozilla/sccache/pull/2836
+# * Allow typed-path 0.13: https://github.com/mozilla/sccache/pull/2924
 Patch:          sccache-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -63,7 +64,6 @@ Summary:        %{summary}
 # MPL-2.0
 # Unicode-3.0
 # Unlicense OR MIT
-# Zlib
 License:        %{shrink:
     Apache-2.0 AND (Apache-2.0 OR MIT)
     AND BSD-3-Clause
@@ -73,7 +73,6 @@ License:        %{shrink:
     AND MPL-2.0
     AND Unicode-3.0
     AND Unicode-DFS-2016
-    AND Zlib
     AND (0BSD OR MIT OR Apache-2.0)
     AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception)
     AND (Apache-2.0 OR BSL-1.0)

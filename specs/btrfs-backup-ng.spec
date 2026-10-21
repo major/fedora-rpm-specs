@@ -1,5 +1,5 @@
 Name:           btrfs-backup-ng
-Version:        0.9.15
+Version:        0.9.16
 Release:        %autorelease
 Summary:        Btrfs backups with snapshots, incremental transfers and restore
 

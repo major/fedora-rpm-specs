@@ -12,6 +12,7 @@ Release: %{autorelease}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     %{forgeurl}
 Source0: %{forgesource}
+Patch0:  start_oo7-daemon.patch
 
 ExcludeArch: %{ix86}
 
@@ -46,6 +47,9 @@ Requires: dbus-x11
 
 # an artificial requires to make sure we get dconf, for now
 Requires: dconf
+
+# Needed for cinnamon-session.target wants
+Requires: oo7-daemon
 
 Requires: cinnamon-desktop >= %{cinnamon_desktop_version}
 

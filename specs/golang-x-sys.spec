@@ -5,7 +5,7 @@
 # https://github.com/golang/sys
 %global goipath         golang.org/x/sys
 %global forgeurl        https://github.com/golang/sys
-Version:                0.45.0
+Version:                0.49.0
 
 %gometa
 
@@ -25,6 +25,7 @@ Summary:        Go packages for low-level interaction with the operating system
 License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
+Patch0:         ppc64-syscall-register.patch
 
 %description %{common_description}
 
@@ -32,6 +33,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

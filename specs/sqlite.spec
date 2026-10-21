@@ -5,9 +5,9 @@
 %bcond_without check
 
 %define majorver 3
-%define realver 3530400
-%define docver 3530400
-%define rpmver 3.53.4
+%define realver 3540100
+%define docver 3540100
+%define rpmver 3.54.1
 %define year 2026
 
 Summary: Library that implements an embeddable SQL database engine
@@ -22,8 +22,8 @@ Source1: http://www.sqlite.org/%{year}/sqlite-doc-%{docver}.zip
 # Support a system-wide lemon template
 Patch1: sqlite-3.6.23-lemon-system-template.patch
 Patch2: sqlite-3.49.0-fix-lemon-missing-cflags.patch
-Patch3: sqlite-3.53.0-fix-testrunner-exiting-0.patch
-Patch4: sqlite-3.53.3-fix-fts3corrupt4-test.patch
+Patch3: sqlite-3.53.3-fix-fts3corrupt4-test.patch
+Patch4: sqlite-3.54.1-fix-ppc64le-waliter-test.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -354,6 +354,10 @@ make test || (echo "Tests failed, printing full log..." && cat testrunner.log &&
 %endif
 
 %changelog
+* Fri Oct 16 2026 Packit <hello@packit.dev> - 3.54.1-1
+- Update to version 3.54.1
+- Resolves: rhbz#2548711
+
 * Tue Jul 28 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.53.4-1
 - Update to version 3.53.4
 

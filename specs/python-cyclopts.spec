@@ -42,7 +42,17 @@ Patch:          patch-docs-conf-for-downstream-build.patch
 # Change from `autoexception` to `autoclass` the exception classes that are
 # inherinting from `Exception` directly instead of `CycloptsError`, due to
 # sphinx not being able to call `autodoc` on it.
-Patch1:         exclude-init-members-from-exception-class.patch
+Patch:          exclude-init-members-from-exception-class.patch
+# fix: accept the field name for pydantic models with `validate_by_alias=False`
+# on pydantic 2.14
+# https://github.com/BrianPugh/cyclopts/pull/1010
+# Rebased on v4.25.3, without changes to uv.lock.
+#
+# Fixes:
+#
+# Test regression with Pydantic 2.14
+# https://github.com/BrianPugh/cyclopts/issues/1009
+Patch:          pydantic-2.14.patch
 
 BuildArch:      noarch
 

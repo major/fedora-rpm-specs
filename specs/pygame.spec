@@ -1,6 +1,6 @@
 Name:           pygame
 Version:        2.6.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python modules for writing games
 
 License:        LGPL-2.0-or-later
@@ -49,6 +49,7 @@ pygame.
 %package -n python%{python3_pkgversion}-pygame
 Summary:        Python3 modules for writing games
 Requires:       gnu-free-sans-fonts
+Requires:       libxmp
 Recommends:     python%{python3_pkgversion}-numpy
 
 %description -n python%{python3_pkgversion}-pygame
@@ -116,6 +117,9 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 %{_includedir}/python*/%{name}/
 
 %changelog
+* Mon Oct 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.6.1-14
+- Require libxmp, see 2554603
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.6.1-13
 - Rebuilt for Python 3.15.0b4 ABI change
 

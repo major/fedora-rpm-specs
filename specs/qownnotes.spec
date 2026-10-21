@@ -23,11 +23,9 @@ ExcludeArch: %{ix86}
 
 %global appname QOwnNotes
 %global url1 https://github.com/pbek
-%global forgeurl %{url1}/%{appname}
 
 Name:           qownnotes
 Version:        26.10.8
-%forgemeta
 Release:        %autorelease
 Summary:        Plain-text file notepad and todo-list manager with Markdown support
 
@@ -44,7 +42,7 @@ Summary:        Plain-text file notepad and todo-list manager with Markdown supp
 # Apache-2.0:           diff_match_patch
 License:        MIT AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-3.0-or-later AND LGPL-2.1-or-later AND Apache-2.0
 URL:            https://www.qownnotes.org
-Source0:        %{forgesource}
+Source0:        %{url1}/%{appname}/archive/v%{version}/%{appname}-%{version}.tar.gz
 Source1:        %{url1}/qmarkdowntextedit/archive/%{qmarkdowntextedit_commit}/qmarkdowntextedit-%{qmarkdowntextedit_shortcommit}.tar.gz
 Source2:        %{url1}/Qt-Toolbar-Editor/archive/%{qttoolbareditor_commit}/qttoolbareditor-%{qttoolbareditor_shortcommit}.tar.gz
 Source3:        %{url1}/qtcsv/archive/%{qtcsv_commit}/qtcsv-%{qtcsv_shortcommit}.tar.gz
@@ -62,7 +60,6 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  libappstream-glib
-BuildRequires:  make
 
 BuildRequires:  cmake(Qt6)
 BuildRequires:  cmake(Qt6Concurrent)
@@ -83,7 +80,7 @@ BuildRequires:  pkgconfig(md4c-html)
 Requires:       hicolor-icon-theme
 Requires:       qt6-qtbase%{?_isa}
 
-Recommends:     %{name}-translations = %{version}-%{release}
+Recommends:     git-core
 Recommends:     hunspell
 
 Provides:       bundled(fakevim) = 0.0.1
@@ -93,6 +90,8 @@ Provides:       bundled(qmarkdowntextedit) = 2019.4.0~git%{qmarkdowntextedit_sho
 Provides:       bundled(qt-piwik-tracker) = 0~git%{piwiktracker_shortcommit}
 Provides:       bundled(qt-toolbar-editor) = 0~git%{qttoolbareditor_shortcommit}
 Provides:       bundled(qtcsv) = 1.2.2
+
+Obsoletes:      %{name}-translations < %{version}-%{release}
 
 %description
 QOwnNotes is the open source notepad with Markdown support and todo list manager
@@ -112,24 +111,9 @@ is done in the Nextcloud / ownCloud notes apps to gain a maximum of freedom then
 QOwnNotes is for you.
 
 
-%package        translations
-Summary:        Translations files for %{name}
-BuildArch:      noarch
-
-Requires:       %{name} = %{version}-%{release}
-
-%description    translations
-Translations files for %{name}.
-
-
 %prep
-%forgeautosetup -S git
-%setup -n %{appname}-%{version} -D -T -a1
-%setup -n %{appname}-%{version} -D -T -a2
-%setup -n %{appname}-%{version} -D -T -a3
-%setup -n %{appname}-%{version} -D -T -a5
-%setup -n %{appname}-%{version} -D -T -a6
-%setup -n %{appname}-%{version} -D -T -a8
+%setup -q -n %{appname}-%{version} -a1 -a2 -a3 -a5 -a6 -a8
+%autopatch -p1
 
 mv qmarkdowntextedit-%{qmarkdowntextedit_commit}/*      src/libraries/qmarkdowntextedit/
 mv Qt-Toolbar-Editor-%{qttoolbareditor_commit}/*        src/libraries/qttoolbareditor/
@@ -137,26 +121,18 @@ mv qtcsv-%{qtcsv_commit}/*                              src/libraries/qtcsv/
 mv qt-piwik-tracker-%{piwiktracker_commit}/*            src/libraries/piwiktracker/
 mv qkeysequencewidget-%{qkeysequencewidget_commit}/*    src/libraries/qkeysequencewidget/
 mv QHotkey-%{qhotkey_commit}/*                          src/libraries/qhotkey/
-mkdir -p src/%{_target_platform}
 
 
 %build
-# Build translations
-# * https://github.com/pbek/QOwnNotes/issues/1744
-lrelease-qt6 src/%{appname}.pro
-
-pushd src/%{_target_platform}
-%qmake_qt6                        \
-    PREFIX=%{buildroot}%{_prefix} \
-    USE_SYSTEM_BOTAN=1            \
-    CONFIG+=c++20                 \
-    ..
-popd
-%make_build -C src/%{_target_platform}
+%cmake                            \
+    -DQON_QT6_BUILD=ON            \
+    -DBUILD_WITH_SYSTEM_BOTAN=ON  \
+    -S src
+%cmake_build
 
 
 %install
-%make_install -C src/%{_target_platform}
+%cmake_install
 # AppData manifest
 install -D -p -m 0644 %{SOURCE100} -t %{buildroot}%{_metainfodir}/
 %find_lang %{appname} --with-qt
@@ -167,7 +143,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
-%files
+%files -f %{appname}.lang
 %license LICENSE
 %doc README.md CHANGELOG.md
 %{_bindir}/%{appname}
@@ -176,7 +152,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/*/*.svg
 %{_metainfodir}/*.xml
 
-%files -f %{appname}.lang translations
 
 %changelog
 %autochangelog

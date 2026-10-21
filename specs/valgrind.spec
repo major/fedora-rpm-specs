@@ -2,8 +2,8 @@
 
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
-Version: 3.27.1
-Release: 3%{?dist}
+Version: 3.28.0
+Release: 0.1.RC1%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -71,7 +71,7 @@ URL: https://www.valgrind.org/
 # So those will already have their full symbol table.
 %undefine _include_minidebuginfo
 
-Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.tar.bz2
+Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.RC1.tar.bz2
 
 # Needs investigation and pushing upstream
 Patch1: valgrind-3.9.0-cachegrind-improvements.patch
@@ -84,10 +84,6 @@ Patch3: valgrind-3.26.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
 Patch4: valgrind-3.26.0-some-Wl-z-now.patch
-
-# VALGRIND_3_27_BRANCH patches
-Patch5: 0001-Prepare-NEWS-for-branch-3.27.x-fixes.patch
-Patch6: 0002-Valgrind-s-vgdb-extended-remote-mode-broken-on-aarch.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -261,15 +257,12 @@ Valgrind User Manual for details.
 %endif
 
 %prep
-%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}
+%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}.RC1
 
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
-
-%patch -P5 -p1
-%patch -P6 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -510,6 +503,10 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Tue Oct 20 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.28.0-0.1.RC1
+- Upstream 3.28.0-RC1
+- Remove VALGRIND_3_27_BRANCH patches
+
 * Mon Sep 14 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.27.1-3
 - Add VALGRIND_3_27_BRANCH patches
   - 0001-Prepare-NEWS-for-branch-3.27.x-fixes.patch

@@ -3,8 +3,8 @@
 
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
-Version: 1.1.3
-Release: 4%{?dist}
+Version: 1.2.1
+Release: 1%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -49,12 +49,14 @@ BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(libzstd)
 BuildRequires: pkgconfig(pango)
 BuildRequires: pkgconfig(Qt6Core) >= 6.2.4
+BuildRequires: pkgconfig(vips)
 BuildRequires: pkgconfig(xmlb) >= 0.3.14
 BuildRequires: pkgconfig(yaml-0.1)
 # lrelease
 BuildRequires: qt6-linguist
 BuildRequires: sed
 BuildRequires: vala
+BuildRequires: vips-jxl
 BuildRequires: xmlto
 
 Requires: (appstream-data if (PackageKit or libdnf5-plugin-appstream))
@@ -75,6 +77,7 @@ Provides: appstream-vala = %{version}-%{release}
 %package compose
 Summary: Library for generating AppStream data
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: vips-jxl
 %description compose
 %{summary}.
 
@@ -103,19 +106,22 @@ Requires: pkgconfig(Qt6Core) >= 6.2.4
 %autosetup -n AppStream-%{version} -S git_am
 
 
-%build
-%{meson} \
+%conf
+%meson \
+ -Dmediaworker-dir=libexecdir \
  -Dcompose=true \
  -Dqt=true \
  -Dblake3-support=%{?with_blake3:true}%{!?with_blake3:false} \
  -Dstemming=%{?with_stemming:true}%{!?with_stemming:false} \
  -Dvapi=true
 
-%{meson_build}
+
+%build
+%meson_build
 
 
 %install
-%{meson_install}
+%meson_install
 
 mkdir -p %{buildroot}/var/cache/swcatalog/{icons,gv,xml}
 touch %{buildroot}/var/cache/swcatalog/cache.watch
@@ -131,7 +137,7 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %check
-%{meson_test} ||:
+%meson_test ||:
 
 
 %posttrans
@@ -182,8 +188,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 %files compose
 %{_libexecdir}/appstreamcli-compose
+%{_libexecdir}/asc-mediaworker
 %{_mandir}/man1/appstreamcli-compose.1*
-%{_libdir}/libappstream-compose.so.0
+%{_libdir}/libappstream-compose.so.1
 %{_libdir}/libappstream-compose.so.%{version}
 %{_libdir}/girepository-1.0/AppStreamCompose-1.0.typelib
 %{_metainfodir}/org.freedesktop.appstream.compose.metainfo.xml
@@ -208,6 +215,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Tue Oct 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.1-1
+- Update to 1.2.1
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.3-4
 - Rebuilt for libxml-2.5.4
 

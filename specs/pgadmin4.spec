@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        9.18
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -182,7 +182,8 @@ rm -rf node_modules .yarn .yarnrc.yml corepack.tgz
 )
 
 %ifarch %{qt6_qtwebengine_arches}
-g++ -o %{name}-qt %{SOURCE2} %{optflags} $(pkg-config --cflags --libs Qt6Core Qt6Widgets Qt6Network Qt6WebEngineCore Qt6WebEngineWidgets)
+cp %{SOURCE2} %{name}-qt.cpp
+g++ -o %{name}-qt %{name}-qt.cpp %{optflags} $(pkg-config --cflags --libs Qt6Core Qt6Widgets Qt6Network Qt6WebEngineCore Qt6WebEngineWidgets)
 %endif
 make docs PYTHON=%{__python3} SPHINXBUILD=sphinx-build
 
@@ -248,6 +249,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Oct 20 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 9.18-3
+- Enable RISC-V support
+
+* Tue Oct 20 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 9.18-2
+- Fix empty debugsource package
+
 * Thu Sep 17 2026 Sandro Mani <manisandro@gmail.com> - 9.18-1
 - Update to 9.18
 

@@ -1,6 +1,6 @@
 Name:      optee_client
-Version:   4.10.0
-Release:   2%{?dist}
+Version:   4.11.0
+Release:   1%{?dist}
 Summary:   OP-TEE Client API and supplicant
 License:   BSD
 URL:       https://www.trustedfirmware.org/
@@ -43,6 +43,7 @@ Development file for optee_client
 %files
 %license LICENSE
 %{_sbindir}/tee-supplicant
+%{_libdir}/libasteec.so.1*
 %{_libdir}/libckteec.so.0*
 %{_libdir}/libseteec.so.0*
 %{_libdir}/libteeacl.so.0*
@@ -54,14 +55,18 @@ Development file for optee_client
 %{_includedir}/ck_debug.h
 %{_includedir}/pkcs11*.h
 %{_includedir}/se_tee.h
-%{_includedir}/tee*.h
-%{_libdir}/pkgconfig/tee*.pc
+%{_includedir}/*tee*.h
+%{_libdir}/pkgconfig/*tee*.pc
+%{_libdir}/libasteec.so
 %{_libdir}/libckteec.so
 %{_libdir}/libseteec.so
 %{_libdir}/libteeacl.so
 %{_libdir}/libteec.so
 
 %changelog
+* Tue Oct 20 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.11.0-1
+- Update to 4.11.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

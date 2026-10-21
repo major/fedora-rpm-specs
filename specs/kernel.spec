@@ -169,18 +169,18 @@ Summary: The Linux kernel
 #  unreleased kernel development snapshot.
 %global released_kernel 0
 # define buildid .local
-%define specrpmversion 7.3.0
-%define specversion 7.3.0
-%define patchversion 7.3
-%define pkgrelease 65
+%define specrpmversion 7.4.0
+%define specversion 7.4.0
+%define patchversion 7.4
+%define pkgrelease 0.rc0.261020gf47d223627f8.1
 %define kversion 7
-%define tarfile_release 7.3
+%define tarfile_release 7.3-341-gf47d223627f8
 # This is needed to do merge window version magic
-%define patchlevel 3
+%define patchlevel 4
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 65%{?buildid}%{?dist}
+%define specrelease 0.rc0.261020gf47d223627f8.1%{?buildid}%{?dist}
 # This defines the kabi tarball version
-%define kabiversion 7.3.0
+%define kabiversion 7.4.0
 
 # If this variable is set to 1, a bpf selftests build failure will cause a
 # fatal kernel package build error
@@ -4835,94 +4835,23 @@ fi\
 #
 #
 %changelog
-* Mon Oct 19 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.3.0-65]
+* Tue Oct 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.f47d223627f8.1]
+- Reset RHEL_RELEASE for 7.4 series (Justin M. Forbes)
+- redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
+- Merge configs into common for 7.3 (Justin M. Forbes)
 - Turn on EROFS_FS_PAGE_CACHE_SHARE for Fedora (Justin M. Forbes)
-
-* Mon Oct 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-65]
-- Revert "isofs: Drop support of directory entries straddling blocks" (Justin M. Forbes)
-- sched: move stack_canary to the start of the randomizable region (Scott Weaver)
-- automotive: enable HUGETLBFS to workaround build error (Scott Weaver)
-
-* Mon Oct 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-64]
-- Linux v7.3.0
-
-* Sun Oct 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.32c52ec87d62.63]
-- Linux v7.3.0-0.rc7.32c52ec87d62
-
-* Sat Oct 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.58161ead29e5.62]
-- Linux v7.3.0-0.rc7.58161ead29e5
-
-* Fri Oct 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.2f2f7eeef8b0.61]
-- Linux v7.3.0-0.rc7.2f2f7eeef8b0
-
-* Fri Oct 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.0fcb05b72344.60]
 - Turn on POWERCTRL_GENERIC for RHEL aarch64 (Justin M. Forbes)
 - Finalize 7.3 configs for Fedora (Justin M. Forbes)
 - redhat/configs: enable additional fedora riscv64 options (Jason Montleon)
-- Linux v7.3.0-0.rc7.0fcb05b72344
-
-* Wed Oct 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.4056b3c9d3c9.59]
-- Linux v7.3.0-0.rc7.4056b3c9d3c9
-
-* Tue Oct 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.58]
 - Enable AMDXDNA on RHEL x86_64. (John Wiele)
 - redhat/configs: enable CONFIG_IMA_INIT_LATE_SYNC for aarch64 (Bruno Meneguele) [RHEL-261837]
 - redhat: Move CONFIG_CRYPTO_PHMAC_S390 to the s390x subfolder (Thomas Huth)
 - redhat: Remove config files for non-existing CONFIG_CRYPTO_SHA256_ARM64 (Thomas Huth)
-
-* Mon Oct 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc7.57]
-- Linux v7.3.0-0.rc7
-
-* Sun Oct 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.a5ebb76233b7.56]
-- Linux v7.3.0-0.rc6.a5ebb76233b7
-
-* Sat Oct 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.3857c2fe5449.55]
-- Linux v7.3.0-0.rc6.3857c2fe5449
-
-* Fri Oct 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.af32da41b032.54]
-- Linux v7.3.0-0.rc6.af32da41b032
-
-* Thu Oct 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.0c2669a9f4a1.53]
-- Linux v7.3.0-0.rc6.0c2669a9f4a1
-
-* Wed Oct 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.602042bf29f6.52]
-- Linux v7.3.0-0.rc6.602042bf29f6
-
-* Tue Oct 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.22430ae5d90a.51]
-- Linux v7.3.0-0.rc6.22430ae5d90a
-
-* Mon Oct 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc6.50]
 - fedora: updates for the 7.3 merge window (Peter Robinson)
 - redhat/genlog: exclude only the merged branch of an excluded merge (Oleksii Baranov)
 - fedora: switch from old Android binder driver to rust (Peter Robinson)
-- Linux v7.3.0-0.rc6
-
-* Sun Oct 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc5.6addb4f38557.49]
-- Linux v7.3.0-0.rc5.6addb4f38557
-
-* Sat Oct 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc5.e767a4ea70a3.48]
-- Linux v7.3.0-0.rc5.e767a4ea70a3
-
-* Fri Oct 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc5.ce1e0223d8ad.47]
-- Linux v7.3.0-0.rc5.ce1e0223d8ad
-
-* Thu Oct 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc5.551c722f4080.46]
 - redhat: resolve rpmbuild via PATH and fail early if missing (Julio Faracco)
 - block: disable ublk (Jeff Moyer) [RHEL-266578]
-
-* Wed Sep 30 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc5.551c722f4080.45]
-- Linux v7.3.0-0.rc5.551c722f4080
-
-* Mon Sep 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc5.44]
-- Linux v7.3.0-0.rc5
-
-* Sun Sep 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.fd179f8a05be.43]
-- Linux v7.3.0-0.rc4.fd179f8a05be
-
-* Sat Sep 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.6812ce4e4379.42]
-- Linux v7.3.0-0.rc4.6812ce4e4379
-
-* Fri Sep 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.165768bb7026.41]
 - redhat: correct the scriptlet name in the posttrans doc comment (Jan Stancek)
 - redhat: drop the pre-5.11 archaeology from the build-id comment (Jan Stancek)
 - redhat: modernize the devel build-link comment (Jan Stancek)
@@ -4964,157 +4893,42 @@ fi\
 - redhat: add realtime_arm64_64k to the supported variants table (Jan Stancek)
 - redhat: fix realtime typo in the build-switch comment (Jan Stancek)
 - add net/af_unix category to kernel-selftests-internal (Davide Caratti)
-- Linux v7.3.0-0.rc4.165768bb7026
-
-* Thu Sep 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.62f4c998b297.40]
 - redhat/configs/fedora: Enable AW88399 HDA side codec (Junjie Cao) [2537033]
-- Linux v7.3.0-0.rc4.62f4c998b297
-
-* Wed Sep 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.fe2ec83746e5.39]
 - fedora: arm64: enable Samsung S6E3FA7 panel driver (Sam Day)
 - fedora: arm64: SDM670 pinctrl+NoC drivers (Sam Day)
 - fedora: arm64: built-in SDM845 core drivers (Sam Day)
 - Enable kmod ML-DSA-87 signing for Fedora (Justin M. Forbes)
 - fedora: riscv: Enable SpacemiT K1 and K3 configs (Jennifer Berringer)
-- Linux v7.3.0-0.rc4.fe2ec83746e5
-
-* Tue Sep 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.f0100363d8c3.38]
 - redhat/configs/rhel: Enable kmod ML-DSA-87 signing for RHEL (Lenny Szubowicz)
-- Linux v7.3.0-0.rc4.f0100363d8c3
-
-* Mon Sep 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc4.37]
-- Linux v7.3.0-0.rc4
-
-* Sat Sep 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.40288c9206c1.36]
 - Keep the older NTFS3 module around as well for Fedora (Justin M. Forbes)
-- Linux v7.3.0-0.rc3.40288c9206c1
-
-* Fri Sep 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.5dd1818b15d9.35]
 - redhat: add vfio selftests to kernel-modules-internal package (Rodolfo Vick) [RHEL-237560]
 - random: set vdso is_ready later during boot process (Vladislav Dronov) [RHEL-127733]
 - configs: rhel: riscv: Enable THERMAL_OF and UFSHCD (Jennifer Berringer)
 - redhat: kernel.spec: allow overriding CROSS_COMPILE (Scott Weaver)
 - redhat/configs: riscv: Enable SpacemiT V100 RISC-V platform support (Iker Pedrosa)
-- Linux v7.3.0-0.rc3.5dd1818b15d9
-
-* Thu Sep 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.238650ef6c7c.34]
-- Linux v7.3.0-0.rc3.238650ef6c7c
-
-* Wed Sep 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.9b87fdc9af2f.33]
-- Linux v7.3.0-0.rc3.9b87fdc9af2f
-
-* Tue Sep 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.587858367581.32]
 - redhat/configs/fedora: Enable dwc dual-role and ulpi phy support (Hans de Goede)
 - redhat/configs/fedora: Enable some drivers for x86 tablets (Hans de Goede)
-- Linux v7.3.0-0.rc3.587858367581
-
-* Mon Sep 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc3.704340f1cd0d.31]
 - redhat/configs: automotive: disable CONFIG_CRYPTO_DEV_TEGRA (Erico Nunes)
 - redhat/configs: automotive: disable CONFIG_CRYPTO_DEV_VIRTIO (Erico Nunes)
-- Linux v7.3.0-0.rc3.704340f1cd0d
-
-* Sun Sep 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.2f0c1cf72f46.30]
-- Linux v7.3.0-0.rc2.2f0c1cf72f46
-
-* Sat Sep 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.5225b8eec4c9.29]
 - Switch to NTFS_FS module for Fedora (Justin M. Forbes)
 - redhat: configs: fedora: Enable Sony IMX471 image sensor (Kate Hsuan)
-- Linux v7.3.0-0.rc2.5225b8eec4c9
-
-* Fri Sep 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.08df884136f1.28]
 - gitlab-ci: remove default gitlab config file (Scott Weaver)
-- Linux v7.3.0-0.rc2.08df884136f1
-
-* Thu Sep 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.50d05c7c76c9.27]
-- Linux v7.3.0-0.rc2.50d05c7c76c9
-
-* Wed Sep 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.893e11787f78.26]
-- Linux v7.3.0-0.rc2.893e11787f78
-
-* Tue Sep 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.28924df2a08f.25]
 - redhat: remove the dead debugbuildsenabled machinery (Jan Stancek)
 - Fix the statement regarding CONFIG_RHEL_DIFFERENCES in the FAQ (Vladislav Dronov)
-- Linux v7.3.0-0.rc2.28924df2a08f
-
-* Mon Sep 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc2.24]
-- Linux v7.3.0-0.rc2
-
-* Sun Sep 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.1fc5a74b108f.23]
-- Linux v7.3.0-0.rc1.1fc5a74b108f
-
-* Sat Sep 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.4d7d9486c04d.22]
-- Linux v7.3.0-0.rc1.4d7d9486c04d
-
-* Fri Sep 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.bc35965f6940.21]
-- Linux v7.3.0-0.rc1.bc35965f6940
-
-* Thu Sep 03 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.940de590b839.20]
 - random: Drop the extrng module reference when import_ubuf() fails (Junjie Cao) [2524262]
-- Linux v7.3.0-0.rc1.940de590b839
-
-* Wed Sep 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.89a312991dc6.19]
 - rh_messages.h: Disable ConnectX-10 NVLink-C2C device (Benjamin Poirier)
-- Linux v7.3.0-0.rc1.89a312991dc6
-
-* Tue Sep 01 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.786262be6048.18]
 - Turn off CONFIG_DRIVER_PE_KUNIT_TEST (Justin M. Forbes)
-- Linux v7.3.0-0.rc1.786262be6048
-
-* Mon Aug 31 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc1.17]
-- Linux v7.3.0-0.rc1
-
-* Sun Aug 30 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.08dbfad3f504.16]
-- Linux v7.3.0-0.rc0.08dbfad3f504
-
-* Sat Aug 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.cf72cbb39da8.15]
-- Linux v7.3.0-0.rc0.cf72cbb39da8
-
-* Fri Aug 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.1b78070aaef6.14]
-- Linux v7.3.0-0.rc0.1b78070aaef6
-
-* Thu Aug 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.3ba13f5e7180.13]
 - One more mismatch for automotive (Justin M. Forbes)
 - redhat/configs: disable CONFIG_INTERCONNECT_QCOM_MAILI (Brian Masney)
 - Fix up mismatches for aarch64 (Justin M. Forbes)
-- Linux v7.3.0-0.rc0.3ba13f5e7180
-
-* Wed Aug 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.45c13f3f9e3b.12]
-- Linux v7.3.0-0.rc0.45c13f3f9e3b
-
-* Tue Aug 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.66498c75b4f8.11]
-- Linux v7.3.0-0.rc0.66498c75b4f8
-
-* Mon Aug 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.47096fc3d064.10]
 - Fix up an s390 mismatch (Justin M. Forbes)
 - Switch CPU_IDLE for a mismatch (Justin M. Forbes)
 - Build drm_log (Jocelyn Falempe)
-- Linux v7.3.0-0.rc0.47096fc3d064
-
-* Sun Aug 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.2709dd5ae32f.9]
-- Linux v7.3.0-0.rc0.2709dd5ae32f
-
-* Sat Aug 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.26260251022f.8]
-- Linux v7.3.0-0.rc0.26260251022f
-
-* Fri Aug 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.818bebeb63dd.7]
-- Linux v7.3.0-0.rc0.818bebeb63dd
-
-* Thu Aug 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.11260c335ec6.6]
 - Fix up some s390x mismatches for Fedora (Justin M. Forbes)
 - A number of mismatch fixes for 7.3 merge window (Justin M. Forbes)
-- Linux v7.3.0-0.rc0.11260c335ec6
-
-* Thu Aug 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.bd5f485f3f02.5]
 - Turn off RUST in pending for ppc to revisit after merge window (Justin M. Forbes)
-
-* Wed Aug 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.bd5f485f3f02.4]
 - Turn on QCOM_PAS in pending (Justin M. Forbes)
-- Linux v7.3.0-0.rc0.bd5f485f3f02
-
-* Wed Aug 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.0f23d56f17fd.3]
 - Trim changelog for rebase (Justin M. Forbes)
-
-* Tue Aug 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.3.0-0.rc0.0f23d56f17fd.2]
 - Turn on CONFIG_BLK_INLINE_ENCRYPTION for RHEL pending too (Justin M. Forbes)
 - Turn on BLK_INLINE_ENCRYPTION_FALLBACK for mismatch (Justin M. Forbes)
 - Reset Makefile.rhelver for the 7.3 cycle (Justin M. Forbes)
@@ -8468,11 +8282,5 @@ fi\
 - [initial commit] Add scripts (Laura Abbott)
 - [initial commit] Add configs (Laura Abbott)
 - [initial commit] Add Makefiles (Laura Abbott)
-- Linux v7.3.0-0.rc0.0f23d56f17fd
+- Linux v7.4.0-0.rc0.f47d223627f8
 
-###
-# The following Emacs magic makes C-c C-e use UTC dates.
-# Local Variables:
-# rpm-change-log-uses-utc: t
-# End:
-###

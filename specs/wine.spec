@@ -712,8 +712,8 @@ staging/patchinstall.py DESTDIR="`pwd`" --all
 # Disable Red Hat specs for package notes (Fedora 38+) and annobin.
 # MinGW GCC does not support these options.
 export LDFLAGS="$(echo "%{build_ldflags}" | sed -e 's/-Wl,-z,relro//' -e 's/-Wl,--build-id=sha1//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-package-notes//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//')"
-%if 0%{?fedora} >= 46
-# Revert linker to not rearrange segments for F46+
+%if 0%{?fedora} >= 45
+# Revert linker to not rearrange segments for F45+
 # https://sourceware.org/bugzilla/show_bug.cgi?id=34714
 sed -i -e 's/wine_preloader_LDFLAGS = $(WINEPRELOADER_LDFLAGS)/wine_preloader_LDFLAGS = $(WINEPRELOADER_LDFLAGS) -Wl,--no-rosegment/' loader/Makefile.in
 %endif
@@ -776,6 +776,8 @@ mv %{buildroot}%{_bindir}/wineserver %{buildroot}%{_bindir}/wineserver64
 %ifarch %{ix86}
 mv %{buildroot}%{_bindir}/wine %{buildroot}%{_bindir}/wine32
 mv %{buildroot}%{_bindir}/wineserver %{buildroot}%{_bindir}/wineserver32
+mv %{buildroot}%{_libdir}/wine/i386-windows/d3d8.dll %{buildroot}%{_libdir}/wine/i386-windows/wine-d3d8.dll
+touch %{buildroot}%{_libdir}/wine/i386-windows/d3d8.dll
 %endif
 touch %{buildroot}%{_bindir}/wine
 touch %{buildroot}%{_bindir}/wineserver

@@ -2,7 +2,7 @@
 %global projectname kup
 
 Name:           kup-backup
-Version:        6.8.0
+Version:        6.8.1
 Release:        1%{?dist}
 Summary:        Backup scheduler for the Plasma desktop
 
@@ -11,6 +11,7 @@ License:        GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only
 URL:            https://apps.kde.org/%{projectname}/
 Source0:        http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{projectname}-%{version}.tar.xz
 Source1:        http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{projectname}-%{version}.tar.xz.sig
+
 
 # Base
 BuildRequires:  cmake
@@ -100,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ku
 
 
 %changelog
+* Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
+- 6.8.1
+
 * Wed Oct 14 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
 - 6.8.0
 

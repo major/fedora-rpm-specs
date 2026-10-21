@@ -159,10 +159,14 @@ Source100:      packaging-scripts.tar.gz
 # - Additional SRPM macros
 Source101:      nodejs.srpm.macros
 
-%patchlist
-0001-Remove-unused-OpenSSL-config.patch
-0002-Disable-FIPS-options.patch
-0006-v8-memcopy-include-climits-for-CHAR_BIT.patch
+Patch001:       0001-Remove-unused-OpenSSL-config.patch
+Patch002:       0002-Disable-FIPS-options.patch
+Patch003:       0006-v8-memcopy-include-climits-for-CHAR_BIT.patch
+
+# RISC-V only patches
+Patch101:       0101-riscv-Replace-JAL-with-AUIPC-JALR-in-lazy-compile-ju.patch
+Patch102:       0102-riscv-disable-rvv.patch
+
 
 %description
 Node.js is a platform built on Chrome's JavaScript runtime
@@ -329,7 +333,13 @@ which contains the appropriate version of Node.js Package Manager.
 # ↪ %%{with rolling_stream}
 
 %prep
-%autosetup -n node-v%{node_version} -S git_am
+%autosetup -n node-v%{node_version} -S git_am -N
+%autopatch -M 99
+
+%ifarch riscv64
+%autopatch -m 100
+%endif
+
 # clean the archive of the de-vendored dependencies, ensuring they are not used
 readonly -a devendored_paths=(
     deps/v8/third_party/jinja2 tools/inspector_protocol/jinja2

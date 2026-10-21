@@ -1,15 +1,12 @@
 Name:           robotraconteur
-Version:        1.2.8
+Version:        1.2.9
 Release:        1%{?dist}
 Summary:        Robot Raconteur is a communication framework for Robotics and Automation
 
 License:        Apache-2.0
 URL:            https://github.com/robotraconteur/robotraconteur
 Source0:        %{url}/releases/download/v%{version}/RobotRaconteur-%{version}-Source.tar.gz
-Source1:        %{url}/releases/download/v%{version}/robotraconteur.rpmlintrc
-Patch0:         https://patch-diff.githubusercontent.com/raw/robotraconteur/robotraconteur/pull/456.patch
-Patch1:         https://patch-diff.githubusercontent.com/raw/robotraconteur/robotraconteur/pull/458.patch
-Patch2:         https://patch-diff.githubusercontent.com/raw/robotraconteur/robotraconteur/pull/470.patch
+Source1:        https://github.com/johnwason/robotraconteur_fedora/blob/137d98ef9022bbf84b4e91b9c8ca1ab5022cbb8f/robotraconteur.rpmlintrc
 ExcludeArch:    s390x
 
 %global rpmlintrc %{SOURCE1}
@@ -165,6 +162,9 @@ find %{buildroot}%{_docdir} -name ".doctrees" -type d -exec rm -rf {} +
 %{_docdir}/python3-robotraconteur-doc/
 
 %changelog
+* Sun Oct 18 2026 John Wason <wason@wasontech.com> - 1.2.9-1
+- Update to upstream version 1.2.9
+
 * Fri May 22 2026 John Wason <wason@wasontech.com> - 1.2.8-1
 - Update to upstream version 1.2.8
 

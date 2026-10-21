@@ -3,7 +3,7 @@
 Summary:    X.Org X11 X Window System xinit startup scripts
 Name:       xorg-x11-%{pkgname}
 Version:    1.4.3
-Release:    5%{?dist}
+Release:    6%{?dist}
 License:    X11-distribute-modifications-variant AND MIT-open-group
 URL:        https://www.x.org
 
@@ -119,6 +119,10 @@ install -p -m644 -D %{SOURCE18} $RPM_BUILD_ROOT%{_datadir}/xsessions/xinit-compa
 %{_datadir}/xsessions/xinit-compat.desktop
 
 %changelog
+* Mon Oct 19 2026 Leigh Scott <leigh123linux@gmail.com> - 1.4.3-6
+- xinitrc-common: prefer gcr-ssh-agent socket over wrapping the session in
+  ssh-agent
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
