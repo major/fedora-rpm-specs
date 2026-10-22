@@ -5,7 +5,7 @@
 
 Name:           kbd
 Version:        2.10.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPL-2.0-or-later
 URL:            http://www.kbd-project.org/
@@ -34,6 +34,10 @@ Patch5:         kbd-2.0.2-unicode-start-font.patch
 Patch6:         kbd-2.4.0-covscan-fixes.patch
 # Patch7: adds vlock option to issue prompt before invokation of pam stack
 Patch7:         kbd-2.0.4-vlock-add-prompt-option.patch
+# Patch8: makes sure vlock -a holds the foreground VT, otherwise it reports
+#   the console as locked without actually locking it
+#   https://github.com/legionus/kbd/commit/991f1caa678cbb5e486c5d847e1617f275e7184b
+Patch8:         kbd-2.10.0-vlock-foreground-vt.patch
 
 BuildRequires:  gcc, bison, flex, gettext, pam-devel, check-devel, automake, make
 BuildRequires:  console-setup, xkeyboard-config, libxkbcommon-devel
@@ -186,6 +190,9 @@ fi
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Wed Oct 21 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.10.0-4
+- Make sure vlock -a holds the foreground VT
+
 * Fri Oct 02 2026 Adam Williamson <adamwill@fedoraproject.org> - 2.10.0-3
 - Fix xkb conversion to include layouts with no variants
 

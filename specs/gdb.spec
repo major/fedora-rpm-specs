@@ -41,11 +41,11 @@ Name: %{?scl_prefix}gdb
 # See timestamp of source gnulib installed into gnulib/ .
 %global snapgnulib 20220501
 %global tarname gdb-%{version}
-Version: 17.2
+Version: 18.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 6%{?dist}
+Release: 1%{?dist}
 
 License: GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception AND MIT
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -439,7 +439,7 @@ COMMON_GDB_CONFIGURE_FLAGS="\
 # targets that every GDB build, regardless of host architecture,
 # supports debugging.  This means that these targets can be used as
 # remote debug targets.
-ENABLED_TARGETS="aarch64-linux-gnu,powerpc-linux-gnu,riscv64-linux-gnu,s390-linux-gnu,x86_64-redhat-linux-gnu"
+ENABLED_TARGETS="aarch64-linux-gnu,powerpc-linux-gnu,riscv64-linux-gnu,s390x-linux-gnu,x86_64-redhat-linux-gnu"
 
 # Fedora, and older RHEL also have 32-bit ARM support.
 %if 0%{?fedora:1} || (0%{?rhel:1} && 0%{?rhel} < 10)
@@ -928,6 +928,27 @@ fi
 # endif scl
 
 %changelog
+* Tue Oct 20 2026 Kevin Buettner <kevinb@redhat.com> - 18.1-1
+- Rebase to FSF GDB 18.1 (RH BZ 2558063).
+  Deleted: gdb-rhbz2424325-c23-const-build-warnings.patch,
+  gdb-rhbz2424325-c23-more-const-fixes.patch,
+  gdb-rhbz2424325-c++20-implicit-lambda-capture.patch,
+  gdb-rhbz2403580-misplaced-symtabs.patch,
+  gdb-index-generation-fixes.patch,
+  gdb-rhbz2413405-gcore-unreadable-pages.patch,
+  gdb-fileio-test-fixes.patch, gdb-fix-testsuite-newer-tcl.patch,
+  gdb-rhbz2366461-missing-thread.patch,
+  gdb-rhbz2366461-bad-solib-entry-addr.patch,
+  gdb-rhbz2467251-computed-location-synthetic-pointers.patch,
+  gdb-tcl9-utf8-encoding-fix.patch,
+  gdb-backport-dap-core-file-support.patch,
+  gdb-backport-libiberty-sync.patch,
+  gdb-backport-corefile-use-after-free-fix.patch,
+  gdb-backport-s390x-return-crash.patch,
+  gdb-backport-ifunc-lookup-fix.patch (all upstream in GDB 18.1).
+- Replace s390-linux-gnu with s390x-linux-gnu in ENABLED_TARGETS;
+  upstream bfd has made the 31-bit s390-* target obsolete.
+
 * Wed Sep 2 2026  Andrew Burgess <aburgess@redhat.com> - 17.2-6
 - Backport two patches, de930032d8832195 and ca0908d623605250, to fix
   upstream bug PR gdb/34330.  This bug is triggered when malloc is

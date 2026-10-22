@@ -2,7 +2,7 @@
 %bcond_without perl_Sereal_Decoder_enables_optional_test
 
 Name:           perl-Sereal-Decoder
-Version:        5.010
+Version:        5.011
 Release:        1%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
@@ -25,6 +25,7 @@ BuildRequires:  miniz-devel
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Devel::CheckLib) >= 1.16
@@ -117,6 +118,12 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Wed Oct 21 2026 Paul Howarth <paul@city-fan.org> - 5.011-1
+- Update to 5.011 (rhbz#2558321)
+  - Robustness fixes
+  - Preserve zstd deprecation warnings when building with IBM XL C on AIX
+  - Raise the minimum supported Perl version to 5.14
+
 * Wed Aug  5 2026 Paul Howarth <paul@city-fan.org> - 5.010-1
 - Update to 5.010 (rhbz#2511545)
   - Reset the pending frozen-object state (thaw_av and ref_thawhash) at the

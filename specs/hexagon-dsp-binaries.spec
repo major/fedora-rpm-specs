@@ -12,7 +12,7 @@ Version:	20260916
 Release:	%autorelease
 Summary:	Hexagon DSP binaries for FastRPC
 
-License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
+License:	LicenseRef-Fedora-Firmware
 URL:		https://github.com/linux-msm/hexagon-dsp-binaries
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc

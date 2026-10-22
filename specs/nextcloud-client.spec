@@ -32,13 +32,8 @@ BuildRequires:  libcloudproviders-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libp11-devel
 BuildRequires:  neon-devel
-%if 0%{?fedora}
-BuildRequires:  openssl3-devel
-BuildRequires:  openssl3-devel-engine
-%else
 BuildRequires:  openssl-devel
-BuildRequires:  openssl-devel-engine
-%endif
+#BuildRequires:  openssl-devel-engine
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  python3-sphinx
 BuildRequires:  qtlockedfile-qt6-devel

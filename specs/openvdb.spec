@@ -237,7 +237,7 @@ printf '%s\n' 'cmake(GTest)'
     -DOPENVDB_AX_STATIC=OFF \
     -DOPENVDB_BUILD_VDB_AX=ON \
     -DUSE_AX=ON \
-    -DLLVM_DIR="$("%{_bindir}/llvm-config-%{llvm_compat}" --cmakedir)" \
+    -DLLVM_DIR="$("llvm-config-%{llvm_compat}" --cmakedir)" \
 %if %{with tests}
     -DOPENVDB_BUILD_AX_UNITTESTS=ON \
 %else

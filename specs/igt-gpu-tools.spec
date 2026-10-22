@@ -62,6 +62,8 @@ Source0:        igt-gpu-tools-%{gitdate}.tar.bz2
 Source0:        https://www.x.org/archive/individual/app/%{name}-%{version}.tar.xz
 %endif
 
+Patch0:         amd_basic-fix-riscv64-pause.patch
+
 %global provobs_version 2.99.917-42.20180618
 Provides:       xorg-x11-drv-intel-devel = %{provobs_version}
 Provides:       intel-gpu-tools = %{provobs_version}
@@ -131,10 +133,6 @@ igt-gpu-tools, such as i915-perf.
 %ifarch s390x ppc64 ppc64le
 sed -i -e "/panthor/d" lib/meson.build
 sed -i -e "/panthor/d" tests/meson.build
-%endif
-# Temporarily disable AMDGPU on BE+AArch64 due assembler-related test failures
-%ifarch s390x ppc64 ppc64le aarch64
-sed -i -e "/amdgpu/d" tests/meson.build
 %endif
 
 %build

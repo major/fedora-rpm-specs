@@ -1,5 +1,5 @@
 Name:           ntpsec
-Version:        1.2.5
+Version:        1.2.6
 Release:        1%{?dist}
 Summary:        NTP daemon and utilities
 
@@ -209,6 +209,10 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %{_sysusersdir}/ntpsec.conf
 
 %changelog
+* Wed Oct 21 2026 Miroslav Lichvar <mlichvar@redhat.com> 1.2.6-1
+- update to 1.2.6 (CVE-2026-102483 CVE-2026-102484 CVE-2026-102485
+  CVE-2026-102486)
+
 * Mon Aug 03 2026 Miroslav Lichvar <mlichvar@redhat.com> 1.2.5-1
 - update to 1.2.5 (CVE-2026-18321)
 

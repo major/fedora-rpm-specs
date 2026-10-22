@@ -46,6 +46,7 @@ sed -i -e "s|/usr/include/mariadb|$(pkg-config --variable=includedir libmariadb)
        -DINSTALL_LAYOUT=%{!?flatpak:RPM}%{?flatpak:DEFAULT} \
        -DINSTALL_LIBDIR="%{_lib}/odbc" \
        -DINSTALL_LIB_SUFFIX="%{_lib}/odbc" \
+       -DINSTALL_PCDIR="%{_lib}/pkgconfig" \
        -DINSTALL_DOCDIR="%{_defaultdocdir}/%{name}" \
        -DINSTALL_LICENSEDIR="%{_defaultlicensedir}/%{name}" \
        \

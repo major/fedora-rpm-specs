@@ -11,7 +11,7 @@ Name:           guayadeque
 Version:        0.7.6
 Release:        0.1.beta9.git%{shortcommit0}%{?dist}
 %else
-Version:        1.0.1
+Version:        1.0.2
 Release:        1%{?dist}
 %endif
 Summary:        Music player
@@ -43,6 +43,7 @@ BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  sqlite-devel
+BuildRequires:  libprojectM-devel
 BuildRequires:  wxGTK-devel
 BuildRequires:  wxsqlite3-devel
 BuildRequires:  dbus-devel
@@ -174,6 +175,10 @@ desktop-file-install --delete-original  \
         --remove-category Application \
         %{buildroot}%{_datadir}/applications/%{metadata_name}.desktop
 
+desktop-file-edit  \
+        --set-key=Exec --set-value='env GDK_BACKEND=x11 guayadeque %U' \
+        %{buildroot}%{_datadir}/applications/%{metadata_name}.desktop
+
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
@@ -193,12 +198,20 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 %{_datadir}/metainfo/%{metadata_name}.metainfo.xml
 %{_datadir}/%{name}/Radios/FrenchRadioStations.xml
+%{_datadir}/%{name}/projectm-presets/
 
 %files wiki
 %doc %{_docdir}/%{name}/wiki
 
 
 %changelog
+* Tue Oct 20 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.0.2-1
+- Update to 1.0.2-1
+- Add GDK_BACKEND=x11 to desktop-file as the visualizer crashes on wayland
+
+* Mon Oct 19 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.0.1-2
+- Add BR libprojectM-devel
+
 * Wed Oct 14 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.0.1-1
 - Update to 1.0.1-1
 

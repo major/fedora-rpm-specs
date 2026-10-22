@@ -20,8 +20,8 @@
 
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
-Version: 6.11.2
-Release: 2%{?dist}
+Version: 6.12.0
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -198,10 +198,12 @@ rm -r %{buildroot}%{_qt6_archdatadir}/mkspecs/features/ios/add_ios_ffmpeg_librar
 %dir %{_qt6_libdir}/cmake/Qt6GstreamerMediaPluginImplPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Multimedia
 %dir %{_qt6_libdir}/cmake/Qt6MultimediaPrivate
+%dir %{_qt6_libdir}/cmake/Qt6MultimediaQuick
 %dir %{_qt6_libdir}/cmake/Qt6MultimediaTestLibPrivate/
 %dir %{_qt6_libdir}/cmake/Qt6MultimediaWidgets
 %dir %{_qt6_libdir}/cmake/Qt6MultimediaWidgetsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins
+%dir %{_qt6_libdir}/cmake/Qt6Quick3DSpatialAudio
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DSpatialAudioPrivate
 %dir %{_qt6_libdir}/cmake/Qt6SpatialAudio/
 %dir %{_qt6_libdir}/cmake/Qt6SpatialAudioPrivate
@@ -214,11 +216,13 @@ rm -r %{buildroot}%{_qt6_archdatadir}/mkspecs/features/ios/add_ios_ffmpeg_librar
 %{_qt6_libdir}/cmake/Qt6GstreamerMediaPluginImplPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Multimedia/*.cmake
 %{_qt6_libdir}/cmake/Qt6MultimediaPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6MultimediaQuick/*.cmake
 %{_qt6_libdir}/cmake/Qt6MultimediaQuickPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6MultimediaTestLibPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6MultimediaWidgets/*.cmake
 %{_qt6_libdir}/cmake/Qt6MultimediaWidgetsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick3DSpatialAudio/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DSpatialAudioPrivate/*cmake
 %{_qt6_libdir}/cmake/Qt6SpatialAudio/*cmake
 %{_qt6_libdir}/cmake/Qt6SpatialAudioPrivate/*.cmake
@@ -234,6 +238,9 @@ rm -r %{buildroot}%{_qt6_archdatadir}/mkspecs/features/ios/add_ios_ffmpeg_librar
 
 
 %changelog
+* Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 6.11.2-2
 - Rebuilt for FFmpeg 9
 

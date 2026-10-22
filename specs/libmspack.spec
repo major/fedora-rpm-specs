@@ -1,17 +1,21 @@
 Name:           libmspack
-Version:        0.10.1
-Release:        0.17.alpha%{?dist}
+Version:        0.11
+Release:        0.1.alpha%{?dist}
 Summary:        Library for CAB and related files compression and decompression
 
 # CRC32 is LicenseRef-Fedora-UltraPermissive
 License:        LGPL-2.1-only AND LicenseRef-Fedora-UltraPermissive AND MIT
 URL:            http://www.cabextract.org.uk/libmspack/
 Source0:        http://www.cabextract.org.uk/libmspack/%{name}-%{version}alpha.tar.gz
-#Source0:        https://github.com/kyz/libmspack/archive/v%{version}alpha/%{name}-v%{version}alpha.tar.gz
+#Source0:        https://github.com/kyz/libmspack/archive/v%%{version}alpha/%%{name}-v%%{version}alpha.tar.gz
+# https://bugzilla.redhat.com/show_bug.cgi?id=2558186
+# backported from https://github.com/kyz/libmspack/commit/4d868504114346aa767d435fbb89a8b76603493f
+Patch0:         4d868504114346aa767d435fbb89a8b76603493f.patch
 
 BuildRequires:  doxygen
 BuildRequires:  gcc
-BuildRequires: make
+BuildRequires:  make
+BuildRequires:  git
 
 # Temporarily while building from github tarball:
 #BuildRequires:  autoconf, automake, libtool
@@ -32,7 +36,8 @@ for developing applications that use %{name}.
 
 
 %prep
-%setup -q -n %{name}-%{version}alpha
+# use git style for the binary content in the patch
+%autosetup -n %{name}-%{version}alpha -p2 -S git
 
 chmod a-x mspack/mspack.h
 
@@ -66,7 +71,9 @@ rm -f html/installdox
 popd
 
 
-%ldconfig_scriptlets
+%check
+make check
+
 
 %files
 %doc README TODO ChangeLog AUTHORS
@@ -81,6 +88,11 @@ popd
 
 
 %changelog
+* Wed Oct 21 2026 Dan Horák <dan[at]danny.cz> - 0.11-0.1.alpha
+- updated to 0.11alpha
+- fix CVE-2026-110602 (rhbz#2558186)
+- add %check section
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-0.17.alpha
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

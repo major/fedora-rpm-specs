@@ -5,7 +5,7 @@
 %global upstream_url https://github.com/cryptopp-modern/cryptopp-modern
 
 Name:           cryptopp
-Version:        2026.9.1
+Version:        2026.10.0
 Release:        %autorelease
 Summary:        C++ class library of cryptographic schemes
 License:        BSL-1.0

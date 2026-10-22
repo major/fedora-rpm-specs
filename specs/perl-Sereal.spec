@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal
-Version:        5.010
+Version:        5.011
 Release:        1%{?dist}
 Summary:        Fast, compact, powerful binary (de-)serialization
 # Makefile.PL defines LICENSE
@@ -20,6 +20,7 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 # blib not used
+BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Cwd)
@@ -99,6 +100,14 @@ make test
 %{_mandir}/man3/Sereal.3*
 
 %changelog
+* Wed Oct 21 2026 Paul Howarth <paul@city-fan.org> - 5.011-1
+- Update to 5.011 (rhbz#2558320)
+  - Robustness fixes
+  - Preserve zstd deprecation warnings when building with IBM XL C on AIX
+  - Raise the minimum supported Perl version to 5.14
+  - Fix the Sereal::Decoder prerequisite version in generated Sereal-Encoder
+    package metadata (see https://github.com/Sereal/Sereal/issues/317)
+
 * Wed Aug  5 2026 Paul Howarth <paul@city-fan.org> - 5.010-1
 - Update to 5.010 (rhbz#2511543)
   - Reset the pending frozen-object state at the start of every decode

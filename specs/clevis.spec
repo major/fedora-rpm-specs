@@ -6,7 +6,7 @@
 %global dracut_prio 50
 
 Name:           clevis
-Version:        23
+Version:        24
 Release:        %autorelease
 Summary:        Automated decryption framework
 
@@ -15,7 +15,9 @@ URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        clevis.sysusers
 
-Patch0001:      0001-add-force-password-to-cryptsetup-luksChangeKey.patch
+Patch0001:      0001-Fix-truncation-errors-happening-when-O2-enabled.patch
+Patch0002:      0002-pkcs11-test-non-root-rejection-in-afunix-socket-unlo.patch
+Patch0003:      0003-include-setgroups-and-set-library-as-shared-mod.patch
 
 BuildRequires:  git-core
 BuildRequires:  gcc

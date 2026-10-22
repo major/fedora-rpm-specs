@@ -5,7 +5,7 @@
 %global crate ppmd-rust
 
 Name:           rust-ppmd-rust
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 Summary:        PPMd compression / decompression
 

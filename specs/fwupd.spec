@@ -107,7 +107,7 @@ Obsoletes: %{name}-plugin-flashrom < 2.1.4
 
 # optional, but a really good idea
 Recommends: udisks2
-Recommends: bluez
+Suggests: bluez
 Recommends: jq
 %if 0%{?have_passim}
 Recommends: passim

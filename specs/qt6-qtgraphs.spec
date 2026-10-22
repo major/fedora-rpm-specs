@@ -9,7 +9,7 @@
 
 Summary: The Qt Graphs module enables you to visualize data in 3D
 Name:    qt6-%{qt_module}
-Version: 6.11.2
+Version: 6.12.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only
@@ -93,11 +93,14 @@ popd
 %{_qt6_archdatadir}/sbom/%{qt_module}-%{qt_version}.spdx
 %{_qt6_libdir}/libQt6Graphs.so.6*
 %{_qt6_libdir}/libQt6GraphsWidgets.so.6*
+%{_qt6_libdir}/libQt6Graphs2DImpl.so.6*
 %{_qt6_qmldir}/QtGraphs
+%{_qt6_qmldir}/QtGraphs2D/impl/
 
 %files devel
 %{_qt6_headerdir}/QtGraphs
 %{_qt6_headerdir}/QtGraphsWidgets
+%{_qt6_headerdir}/QtGraphs2DImpl/
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtGraphsTestsConfig.cmake
 %dir %{_qt6_libdir}/cmake/Qt6Graphs
 %{_qt6_libdir}/cmake/Qt6Graphs/*.cmake
@@ -107,11 +110,16 @@ popd
 %{_qt6_libdir}/cmake/Qt6GraphsWidgets/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6GraphsWidgetsPrivate
 %{_qt6_libdir}/cmake/Qt6GraphsWidgetsPrivate/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6Graphs2DImpl
+%{_qt6_libdir}/cmake/Qt6Graphs2DImpl/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6Graphsplugin*.cmake
+%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtgraphs2dimplplugin*.cmake
 %{_qt6_libdir}/libQt6Graphs.so
 %{_qt6_libdir}/pkgconfig/Qt6Graphs*.pc
 %{_qt6_libdir}/libQt6Graphs.prl
 %{_qt6_libdir}/libQt6GraphsWidgets.prl
+%{_qt6_libdir}/libQt6Graphs2DImpl.so
+%{_qt6_libdir}/libQt6Graphs2DImpl.prl
 %{_qt6_libdir}/libQt6GraphsWidgets.so
 %{_qt6_libdir}/qt6/mkspecs/modules/qt_lib_graphs*.pri
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
@@ -124,6 +132,9 @@ popd
 %endif
 
 %changelog
+* Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

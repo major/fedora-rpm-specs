@@ -18,8 +18,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           perl-DBD-MySQL
-Version:        5.013
-Release:        7%{?dist}
+Version:        5.014
+Release:        1%{?dist}
 Summary:        A MySQL interface for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -93,6 +93,7 @@ management system.
 
 %package tests
 Summary:        Tests for %{name}
+BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       coreutils
@@ -200,6 +201,10 @@ make test %{?with_perl_DBD_MySQL_enables_leak_test:EXTENDED_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 21 2026 Michal Josef Špaček <mspacek@redhat.com> - 5.014-1
+- 5.014 bump
+- Tests are noarch
+
 * Sun Jul 26 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.013-7
 - Rebuilt for MySQL 9.7
 

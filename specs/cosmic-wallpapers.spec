@@ -5,10 +5,10 @@
 # environment variables in multiple sections of the spec file.
 %global commit da595bba495cb8fc57f26505621fc25000218349
 %global commitdatestring 2026-09-30 09:56:38 -0600
-%global cosmic_minver 1.10.0
+%global cosmic_minver 1.11.0
 
 Name:           cosmic-wallpapers
-Version: 1.10.0
+Version: 1.11.0
 Release:        %autorelease
 Summary:        Default wallpapers for the COSMIC Desktop Environment
 

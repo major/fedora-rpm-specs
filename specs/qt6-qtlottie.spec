@@ -6,11 +6,11 @@
 %global prerelease rc
 %endif
 
-%global examples 1
+#global examples 1
 
 Summary: Qt6 - Lottie Animation
 Name:    qt6-%{qt_module}
-Version: 6.11.2
+Version: 6.12.0
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -31,6 +31,7 @@ BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 BuildRequires: qt6-qtdeclarative-devel >= %{version}
+BuildRequires: qt6-qtquicktimeline-devel >= %{version}
 BuildRequires: qt6-qtsvg-devel >= %{version}
 BuildRequires: pkgconfig(xkbcommon)
 
@@ -58,7 +59,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-%cmake_qt6
+%cmake_qt6 \
+  -DQT_BUILD_EXAMPLES=%{?examples:ON}%{!?examples:OFF} \
+  -DQT_INSTALL_EXAMPLES_SOURCES=%{?examples:ON}%{!?examples:OFF}
 
 %cmake_build
 
@@ -70,8 +73,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %license LICENSES/GPL*
 %{_qt6_archdatadir}/sbom/%{qt_module}-%{qt_version}.spdx
 %{_qt6_libdir}/libQt6Lottie.so.6*
-%{_qt6_libdir}/libQt6LottieVectorImageGenerator.so.6*
 %{_qt6_libdir}/libQt6LottieVectorImageHelpers.so.6*
+%{_qt6_libdir}/libQt6LottieVectorImageGenerator.so.6*
 %{_qt6_plugindir}/vectorimageformats/libqlottievectorimage.so
 %{_qt6_qmldir}/Qt/labs/lottieqt/
 
@@ -112,6 +115,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

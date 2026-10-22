@@ -9,7 +9,7 @@
 
 Summary: Qt6 - Canvas Painter component
 Name:    qt6-%{qt_module}
-Version: 6.11.2
+Version: 6.12.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only AND (GPL-3.0-only WITH Qt-GPL-exception-1.0) AND OFL-1.1 AND Zlib
@@ -75,16 +75,24 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_archdatadir}/sbom/%{qt_module}-%{qt_version}.spdx
 %{_qt6_bindir}/qcshadergen
 %{_qt6_libdir}/libQt6CanvasPainter.so.6{,.*}
+%{_qt6_libdir}/libQt6Canvas2D.so.6{,.*}
+%{_qt6_libdir}/qt6/qml/QtCanvas2D/
 
 %files devel
 %{_qt6_headerdir}/QtCanvasPainter/
+%{_qt6_headerdir}/QtCanvas2D/
 %{_qt6_libdir}/libQt6CanvasPainter.so
 %{_qt6_libdir}/libQt6CanvasPainter.prl
+%{_qt6_libdir}/libQt6Canvas2D.so
+%{_qt6_libdir}/libQt6Canvas2D.prl
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtCanvasPainterTestsConfig.cmake
 %dir %{_qt6_libdir}/cmake/Qt6CanvasPainter/
 %{_qt6_libdir}/cmake/Qt6CanvasPainter/*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6CanvasPainterPrivate/
 %{_qt6_libdir}/cmake/Qt6CanvasPainterPrivate/*.cmake
+%dir %{_qt6_libdir}/cmake/Qt6Canvas2DPrivate/
+%{_qt6_libdir}/cmake/Qt6Canvas2DPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6canvas2dplugin*.cmake
 %dir %{_qt6_libdir}/cmake/Qt6CanvasPainterTools/
 %{_qt6_libdir}/cmake/Qt6CanvasPainterTools/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*
@@ -98,5 +106,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Tue Sep 15 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2

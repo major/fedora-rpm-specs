@@ -1,5 +1,5 @@
 Name:           emacs-posframe
-Version:        1.5.3
+Version:        1.5.4
 Release:        %autorelease
 Summary:        Pop up a child frame at point
 

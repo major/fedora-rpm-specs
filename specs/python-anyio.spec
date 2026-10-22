@@ -7,7 +7,7 @@ on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
 Version:        4.15.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
@@ -16,6 +16,8 @@ Source:         %{pypi_source %{srcname}}
 # Add the `network` marker to `test_sourceless_install`
 # https://github.com/agronholm/anyio/pull/1377
 Patch:          %{url}/pull/1377.patch
+# Don't pass hostname to TLSStream.wrap() for the server stream
+Patch:          %{url}/commit/818e4ac441fa27e9fac893496fc5a4fbe0a58689.patch
 
 BuildArch:      noarch
 
@@ -74,6 +76,9 @@ tomcli set pyproject.toml lists delitem \
 
 
 %changelog
+* Wed Oct 21 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.15.1-2
+- Fix tests with latest Python interpreter releases
+
 * Sat Oct 03 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 4.15.1-1
 - Update to 4.15.1 (close RHBZ#2527800)
 

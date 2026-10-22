@@ -475,12 +475,13 @@ popd
 %if 0%{?with_openmpi_check}
 %{_openmpi_load}
 pushd %{name}-%{version}-openmpi/examples
-export LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB
+export LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB:${LD_LIBRARY_PATH}
 ./ssimpletest < input_simpletest_real
 ./dsimpletest < input_simpletest_real
 ./csimpletest < input_simpletest_cmplx
 ./zsimpletest < input_simpletest_cmplx
 mpirun -np 3 ./c_example
+unset LD_LIBRARY_PATH
 popd
 %{_openmpi_unload}
 %endif
@@ -488,12 +489,13 @@ popd
 %if 0%{?with_mpich_check}
 %{_mpich_load}
 pushd %{name}-%{version}-mpich/examples
-export LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB
+export LD_LIBRARY_PATH=$RPM_BUILD_ROOT$MPI_LIB:${LD_LIBRARY_PATH}
 ./ssimpletest < input_simpletest_real
 ./dsimpletest < input_simpletest_real
 ./csimpletest < input_simpletest_cmplx
 ./zsimpletest < input_simpletest_cmplx
 mpirun -np 3 ./c_example
+unset LD_LIBRARY_PATH
 popd
 %{_mpich_unload}
 %endif

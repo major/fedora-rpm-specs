@@ -1,7 +1,7 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
 Version:	7.2.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
@@ -29,6 +29,8 @@ Requires:       filesystem(unmerged-sbin-symlinks)
 Provides:       /usr/sbin/fsck.xfs
 Provides:       /usr/sbin/mkfs.xfs
 %endif
+
+Patch0: 20261021_aalbersh_libxfs_remove_stale_xfs_trans_mod_sb_declaration.patch
 
 %description
 A set of commands to use the XFS filesystem, including mkfs.xfs.
@@ -159,6 +161,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Wed Oct 21 2026 Pavel Reichl <preichl@redhat.com> - 7.2.1-2
+- Fix FTBFS on i686
+- Related: rhbz#2555429
+
 * Tue Oct 20 2026 Pavel Reichl <preichl@redhat.com> - 7.2.1-1
 - Related: rhbz#2555429
 

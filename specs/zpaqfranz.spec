@@ -20,8 +20,8 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        65.12
-Release:        1%{?dist}
+Version:        65.13
+Release:        2%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
 # man/LICENSE:  Unlicense text
@@ -100,6 +100,9 @@ BuildRequires:  pkgconfig(mbedx509)
 # rpm-build for elfdeps tool
 BuildRequires:  rpm-build
 BuildRequires:  sed
+# Tests:
+# diffutils for cmp
+BuildRequires:  diffutils
 # libdivsufsort-lite-2.00 is bundled to libzpaq.cpp from
 # <https://libdivsufsort.googlecode.com/files/libdivsufsort-lite.zip> that
 # is simplified version of
@@ -190,7 +193,12 @@ pod2man --utf8 man/zpaqfranz.pod man/zpaqfranz.1
 ./zpaqfranz autotest
 # Test compress-decopress idempotency
 ./zpaqfranz a test.zpaq LICENSE
-./zpaqfranz v test.zpaq
+mkdir testdir
+pushd testdir
+../zpaqfranz e ../test.zpaq
+popd
+cmp LICENSE testdir/LICENSE
+rm -r test.zpaq testdir
 
 %install
 install -m 0755 -D -t %{buildroot}%{_bindir} zpaqfranz
@@ -203,6 +211,12 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Wed Oct 21 2026 Petr Pisar <ppisar@redhat.com> - 1:65.13-2
+- Correct idempotency check at build time
+
+* Wed Oct 21 2026 Petr Pisar <ppisar@redhat.com> - 1:65.13-1
+- 65.13 bump
+
 * Tue Oct 20 2026 Petr Pisar <ppisar@redhat.com> - 1:65.12-1
 - 65.12 bump
 

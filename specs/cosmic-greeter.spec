@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 98df07df93df1cb091c95451f7162dca1a2ae2dd
-%global commitdatestring 2026-10-07 21:19:02 +0200
-%global cosmic_minver 1.10.0
+%global commit 80e8a104b75a01ab8df52bca7b8bde6dbcdb8133
+%global commitdatestring 2026-10-20 15:54:44 -0400
+%global cosmic_minver 1.11.0
 
 Name:           cosmic-greeter
-Version: 1.10.0
+Version: 1.11.0
 Release:        %autorelease
 # Release:        %%autorelease
 Summary:        Login and display manager for the COSMIC Desktop Environment
@@ -34,8 +34,6 @@ Source2:        vendor-config-%{version_no_tilde}.toml
 Source10:       %{name}.pam
 
 Patch:          0001-Make-service-a-display-manager.patch
-# Backport kmscon conflict fix
-Patch:          https://github.com/pop-os/cosmic-greeter/pull/568.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc

@@ -69,7 +69,6 @@ BuildRequires:  libXv-devel
 %{?_with_openh264:BuildRequires:  pkgconfig(openh264)}
 %{?_with_x264:BuildRequires:  x264-devel}
 BuildRequires:  pam-devel
-BuildRequires:  xmlto
 BuildRequires:  zlib-devel
 %{!?rhel:BuildRequires:  multilib-rpm-config}
 

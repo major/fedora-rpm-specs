@@ -1,3 +1,5 @@
+%bcond docs %{undefined rhel}
+
 %global srcname lz4
 
 Name:           python-%{srcname}
@@ -8,8 +10,6 @@ Summary:        LZ4 Bindings for Python
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 Source:         https://files.pythonhosted.org/packages/source/l/%{srcname}/%{srcname}-%{version}.tar.gz
-# Reduce setuptools_scm dep to >= 6
-Patch:          python-lz4-deps.patch
 # Support Python 3.14
 Patch:          https://github.com/python-lz4/python-lz4/pull/303.patch
 
@@ -19,9 +19,11 @@ BuildRequires:  gcc
 
 # For tests
 BuildRequires:  python3-psutil
+%if %{with docs}
 # For docs
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx-bootstrap-theme
+%endif
 
 
 %description
@@ -38,7 +40,8 @@ Python 3 bindings for the lz4 compression library.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
-sed -i -e '/pytest-cov/d' setup.py
+%pyproject_patch_dependency pytest-cov:ignore
+%pyproject_patch_dependency wheel:ignore
 sed -i -e 's/--cov=lz4\/block --cov=lz4\/frame//' tox.ini
 
 rm lz4libs/lz4*.[ch]
@@ -58,11 +61,13 @@ rm lz4libs/lz4*.[ch]
 find %{buildroot}%{python3_sitearch} -name 'lz4*.so' \
     -exec chmod 0755 {} \;
 
+%if %{with docs}
 # Build HTML docs
 pushd docs
 PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch} make html
 popd
 mv docs/_build/html ./html
+%endif
 
 
 %check
@@ -71,7 +76,7 @@ mv docs/_build/html ./html
 
 %files -n python3-lz4 -f %{pyproject_files}
 %license LICENSE
-%doc README.rst html
+%doc README.rst %{?with_docs:html}
 
 
 %changelog

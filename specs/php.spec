@@ -77,7 +77,7 @@
 %endif
 
 %global upver        8.5.12
-%global rcver        RC1
+#global rcver        RC1
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -1675,6 +1675,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Oct 21 2026 Jitka Plesnikova <jplesnik@redhat.com> - 8.5.12-1
+- Update to 8.5.12 - http://www.php.net/releases/8_5_12.php
+
 * Wed Oct  7 2026 Remi Collet <remi@remirepo.net> - 8.5.12~RC1-1
 - update to 8.5.12RC1
 

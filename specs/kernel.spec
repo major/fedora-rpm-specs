@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc0.261020gf47d223627f8.1
+%define pkgrelease 0.rc0.261021ga804c5742bff.2
 %define kversion 7
-%define tarfile_release 7.3-341-gf47d223627f8
+%define tarfile_release 7.3-1703-ga804c5742bff
 # This is needed to do merge window version magic
 %define patchlevel 4
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.261020gf47d223627f8.1%{?buildid}%{?dist}
+%define specrelease 0.rc0.261021ga804c5742bff.2%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -4835,6 +4835,10 @@ fi\
 #
 #
 %changelog
+* Wed Oct 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.a804c5742bff.2]
+- Trim changelog for 7.4 rebase (Justin M. Forbes)
+- Linux v7.4.0-0.rc0.a804c5742bff
+
 * Tue Oct 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.f47d223627f8.1]
 - Reset RHEL_RELEASE for 7.4 series (Justin M. Forbes)
 - redhat: fix builds by disabling HYPERV_MOUSE_KUNIT_TEST (Nico Pache)
@@ -8284,3 +8288,9 @@ fi\
 - [initial commit] Add Makefiles (Laura Abbott)
 - Linux v7.4.0-0.rc0.f47d223627f8
 
+###
+# The following Emacs magic makes C-c C-e use UTC dates.
+# Local Variables:
+# rpm-change-log-uses-utc: t
+# End:
+###

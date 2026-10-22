@@ -6,7 +6,7 @@
 %global rustflags_debuginfo 1
 
 Name:           fractal
-Version:        14.1
+Version:        14.2
 Release:        1%{?dist}
 Summary:        Matrix group messaging app
 
@@ -105,6 +105,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Oct 21 2026 Gwyn Ciesla <gwync@protonmail.com> - 14.2-1
+- 14.2
+
 * Mon Jul 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 14.1-1
 - 14.1
 

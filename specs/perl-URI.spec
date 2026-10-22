@@ -8,7 +8,7 @@
 %endif
 
 Name:           perl-URI
-Version:        5.38
+Version:        5.40
 Release:        1%{?dist}
 Summary:        A Perl module implementing URI parsing and manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -96,6 +96,9 @@ Requires:       perl(Business::ISBN) >= 3.005
 Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
+# Remove bogus URI::_foreign
+%global __provides_exclude ^perl\\(URI::_foreign\\)$
+
 %prep
 %setup -q -n URI-%{version}
 chmod -c 644 uri-test
@@ -158,6 +161,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 21 2026 Michal Josef Špaček <mspacek@redhat.com> - 5.40-1
+- 5.40 bump
+
 * Mon Oct 19 2026 Jitka Plesnikova <jplesnik@redhat.com> - 5.38-1
 - 5.38 bump (rhbz#2555395)
 

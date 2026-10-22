@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	87%{?dist}
+Release:	88%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -719,6 +719,9 @@ fi
 %endif
 
 %changelog
+* Mon Oct 19 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-88
+- ieee1275: use namespace instead of disk for PCIe NVMe boot paths
+
 * Wed Oct 14 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-87
 - spec: Include CentOS/RHEL signing macros and parameters
 - Resolves: #2536244

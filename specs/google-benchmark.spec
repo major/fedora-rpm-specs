@@ -3,7 +3,7 @@
 %bcond libpfm 1
 
 Name:           google-benchmark
-Version:        1.9.5
+Version:        1.10.0
 %global so_version 1
 Release:        %autorelease
 
@@ -12,14 +12,14 @@ Summary:        A microbenchmark support library
 URL:            https://github.com/google/benchmark
 Source:         %{url}/archive/v%{version}/benchmark-%{version}.tar.gz
 
-# In PerfCountersTest.MultiThreaded, serialize worker threads
-# https://github.com/google/benchmark/pull/2175
+# Use the full version as the SOVERSION
+# https://github.com/google/benchmark/pull/2342
 #
-# Fixes:
+# A candidate fix for:
 #
-# [BUG] Flaky failure of PerfCountersTest.MultiThreaded
-# https://github.com/google/benchmark/issues/2173
-Patch:          0001-In-PerfCountersTest.MultiThreaded-serialize-worker-t.patch
+# [BUG] ABI break in 1.10.0 without SONAME version bump
+# https://github.com/google/benchmark/issues/2340
+Patch:          %{url}/pull/2342.patch
 
 BuildSystem:    cmake
 
@@ -38,37 +38,6 @@ BuildOption(conf): -DBENCHMARK_USE_BUNDLED_GTEST:BOOL=OFF
 BuildOption(conf): -DBENCHMARK_ENABLE_LIBPFM:BOOL=%{with libfpm}
 BuildOption(conf): -DBENCHMARK_ENABLE_GTEST_TESTS:BOOL=%{with ctest}
 BuildOption(conf): -DBENCHMARK_ENABLE_TESTING:BOOL=%{with ctest}
-%ifarch s390x
-# [BUG] Multiple PerfCountersTest failures with counter.num_counters() zero on
-# some s390x systems
-# https://github.com/google/benchmark/issues/2174
-#
-# Five of the nine tests in perf_counters_gtest fail with:
-#
-#   Expected equality of these values:
-#     counter.num_counters()
-#       Which is: 0
-#     1
-#
-# Tests in perf_counters_test also fail for similar reasons:
-#
-#   […]/test/output_test.h:146: GetAs: Check `sv != nullptr && !sv->empty()'
-#   failed.
-#
-# It’s likely that these are a “correct failures,” in that the library is
-# compiled with libpfm support (so performance counters are supported in
-# general) but even basic performance counters are not necessarily supported on
-# more recent s390x hardware versions (i.e., probably z14 and later).
-#
-# We don’t bother attempting to run the four tests that do succeed in
-# perf_counters_gtest; it’s much more straightforward to just skip these two
-# executables at the ctest level entirely, and little is lost by doing so.
-#
-# This is fixed upstream by https://github.com/google/benchmark/pull/2204, but
-# it is not trivial to backport, so we keep this workaround until the next
-# upstream release.
-BuildOption(check): --exclude-regex '^perf_counters_g?test$'
-%endif
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

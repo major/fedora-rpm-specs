@@ -8,7 +8,7 @@
 
 Summary: Qt6 - QtImageFormats component
 Name:    qt6-%{qt_module}
-Version: 6.11.2
+Version: 6.12.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -77,12 +77,14 @@ rm -rv src/3rdparty
 %{_qt6_plugindir}/imageformats/libqtiff.so
 %{_qt6_plugindir}/imageformats/libqwbmp.so
 %{_qt6_plugindir}/imageformats/libqicns.so
-%{_qt6_plugindir}/imageformats/libqjp2.so
 %{_qt6_plugindir}/imageformats/libqwebp.so
 %{_qt6_libdir}/cmake/Qt6/*.cmake
 %{_qt6_libdir}/cmake/Qt6Gui/*.cmake
 
 %changelog
+* Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

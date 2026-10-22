@@ -367,6 +367,7 @@ cp -a %{name}-%{version} buildmpich_dir
 %endif
 
 %build
+# TODO: Allow build rpath (i.e. drop the `CMAKE_SKIP_RPATH`)
 
 %global _smp_ncpus_max 1
 
@@ -866,7 +867,7 @@ rm -rf %{buildroot}%{python3_sitearch}/include
 %{_openmpi_load}
 %define _vpath_builddir buildopenmpi_dir
 %define _vpath_builddir buildopenmpi_dir/build
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:${LD_LIBRARY_PATH}
 %if %{with debug}
 %ctest -VV --debug
 %else
@@ -874,6 +875,7 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 %endif
 %endif
 %{_openmpi_unload}
+unset LD_LIBRARY_PATH
 %endif
 ## if with_openmpicheck
 ## if with_openmpi
@@ -883,7 +885,7 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 %{_mpich_load}
 %define _vpath_builddir buildmpich_dir
 %define _vpath_builddir buildmpich_dir/build
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:${LD_LIBRARY_PATH}
 %if %{with debug}
 %ctest -VV --debug
 %else
@@ -891,6 +893,7 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 %endif
 %endif
 %{_mpich_unload}
+unset LD_LIBRARY_PATH
 %endif
 ## if with_mpichcheck
 ## if with_mpich

@@ -34,12 +34,12 @@
 # rpm -ba|--rebuild --define 'no_gtk3 1'
 %{?no_gtk3:%global gtk3 0}
 
-%global openssh_ver 10.5p1
+%global openssh_ver 10.6p1
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 2%{?dist}
+Release: 1%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -522,6 +522,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Wed Oct 21 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.6p1-1
+- Rebasing OpenSSH to 10.6p1
+
 * Thu Sep 24 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.5p1-2
 - Make pkcs11-uri test compatible with GNOME
 

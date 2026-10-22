@@ -1,6 +1,6 @@
 Name:           bpftool
-Version:        7.7.0
-Release:        4%{?dist}
+Version:        7.8.1
+Release:        1%{?dist}
 Summary:        Inspection and simple manipulation of eBPF programs and maps
 
 %global libname libbpf
@@ -9,11 +9,6 @@ Summary:        Inspection and simple manipulation of eBPF programs and maps
 License:        GPL-2.0-only OR BSD-2-Clause
 URL:            https://github.com/libbpf/bpftool
 Source:         https://github.com/libbpf/bpftool/releases/download/v%{version}/%{sources}.tar.gz
-
-# https://github.com/libbpf/libbpf/pull/982, included in libbpf-1.8.0
-Patch:          0001-libbpf-include-add-128-bit-integer-types.patch
-# https://github.com/libbpf/bpftool/pull/297
-Patch:          0002-include-add-u128-to-linux-types.h.patch
 
 ExcludeArch:    %{ix86}
 
@@ -37,7 +32,9 @@ manipulation of eBPF programs and maps.
 %build
 # We need to use vmlinux.h from kernel-devel rather than the one from the running system
 %define kernel_version %(rpm -q --qf "%%{VERSION}-%%{RELEASE}.%%{ARCH}" kernel-devel)
-%make_build -C src/ EXTRA_CFLAGS="%{build_cflags}" EXTRA_LDFLAGS="%{build_ldflags}" VMLINUX_H="/usr/src/kernels/%{kernel_version}/vmlinux.h"
+# {build_clags} contains -Werror=security, which causes build failures for
+# libbpf bootstrap build. Just disable it via HOST_EXTRACFLAGS.
+%make_build -C src/ EXTRA_CFLAGS="%{build_cflags}" EXTRA_LDFLAGS="%{build_ldflags}" HOST_EXTRACFLAGS="-Wno-error=format-security" VMLINUX_H="/usr/src/kernels/%{kernel_version}/vmlinux.h"
 
 %install
 %make_install -C src/ prefix=%{_prefix} bash_compdir=%{bash_completions_dir} mandir=%{_mandir} doc-install
@@ -51,6 +48,9 @@ mv %{buildroot}%{_prefix}/sbin %{buildroot}%{_bindir}
 %{_mandir}/man8/bpftool*.8*
 
 %changelog
+* Wed Oct 21 2026 Viktor Malik <vmalik@redhat.com> - 7.8.0-1
+- Release 7.8.0-1
+
 * Tue Oct 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 7.7.0-4
 - Rebuilt for LLVM 23
 

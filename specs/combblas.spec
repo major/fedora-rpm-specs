@@ -25,7 +25,7 @@
 
 Name:          combblas
 Version:       2.0.0
-Release:       16%{?dist}
+Release:       17%{?dist}
 Summary:       The Combinatorial BLAS Library
 
 # Main license for CombBLAS is BSD-3-Clause-LBNL
@@ -42,7 +42,6 @@ Source1:       http://eecs.berkeley.edu/~aydin/%{truename}_FILES/testdata_%{name
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
-BuildRequires: chrpath
 
 # Use a versioned soname for all libraries
 Patch1: %{name}-sublibs_soname.patch
@@ -129,6 +128,8 @@ export LDFLAGS="%{__global_ldflags} -lm -lrt"
  -DCMAKE_INSTALL_LIBDIR:PATH=lib \
  -DCMAKE_INSTALL_INCLUDEDIR:PATH=${MPI_INCLUDE} \
  -DMPIEXEC_NUMPROC_FLAG=-n -DMPIEXEC_MAX_NUMPROCS:STRING="`/usr/bin/getconf _NPROCESSORS_ONLN`" \
+ -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
+ -DCMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH:BOOL=ON \
 %if %{with debug}
  -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
  -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" \
@@ -153,6 +154,8 @@ export LDFLAGS="%{__global_ldflags} -lm -lrt"
  -DCMAKE_INSTALL_LIBDIR:PATH=lib \
  -DCMAKE_INSTALL_INCLUDEDIR:PATH=${MPI_INCLUDE} \
  -DMPIEXEC_NUMPROC_FLAG=-n -DMPIEXEC_MAX_NUMPROCS:STRING="`/usr/bin/getconf _NPROCESSORS_ONLN`" \
+ -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON \
+ -DCMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH:BOOL=ON \
 %if %{with debug}
  -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
  -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" \
@@ -172,7 +175,6 @@ export LDFLAGS="%{__global_ldflags} -lm -lrt"
 %define _vpath_builddir build/openmpi
 %cmake_install
 
-chrpath -r $MPI_LIB %{buildroot}$MPI_LIB/libCombBLAS.so.*
 %{_openmpi_unload}
 %endif
 
@@ -181,7 +183,6 @@ chrpath -r $MPI_LIB %{buildroot}$MPI_LIB/libCombBLAS.so.*
 %define _vpath_builddir build/mpich
 %cmake_install
 
-chrpath -r $MPI_LIB %{buildroot}$MPI_LIB/libCombBLAS.so.*
 %{_mpich_unload}
 %endif
 
@@ -254,6 +255,9 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %endif
 
 %changelog
+* Tue Oct 20 2026 Cristian Le <git@lecris.dev> - 2.0.0-17
+- Use CMake native logic to strip rpath
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

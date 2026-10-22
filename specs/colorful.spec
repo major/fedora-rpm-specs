@@ -53,7 +53,7 @@ Data files (graphics, maps, sounds) required to play Colorful.
 
 
 %build 
-./configure.sh --assets=systemwide --flags="-g -gl -gw" --prefix=%{_prefix} --strip=false
+./configure.sh --assets=systemwide --flags="-g -gl -gw -Fl%{_libdir}" --prefix=%{_prefix} --strip=false
 %make_build
 
 

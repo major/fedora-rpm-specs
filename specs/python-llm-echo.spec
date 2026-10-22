@@ -1,12 +1,10 @@
 Summary:        Debug plugin for python-llm
 Name:           python-llm-echo
-Version:        0.4
-Release:        4%{?dist}
+Version:        0.5
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/simonw/llm-echo
 Source:         https://github.com/simonw/llm-echo/archive/%{version}/llm-echo-%{version}.tar.gz
-Patch:          python-llm-0.4-format-fix.patch
-Patch:          0001-Fix-tests.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -42,6 +40,9 @@ Summary:        %{summary}
 %files -n python3-llm-echo -f %{pyproject_files}
 
 %changelog
+* Wed Oct 21 2026 Terje Røsten <terjeros@gmail.com> - 0.5-1
+- 0.5
+
 * Sat Sep 26 2026 Terje Røsten <terjeros@gmail.com> - 0.4-4
 - Fix tests
 

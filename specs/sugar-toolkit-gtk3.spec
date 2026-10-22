@@ -2,7 +2,7 @@
 
 Name:    sugar-toolkit-gtk3
 Version: 0.121
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Sugar toolkit GTK+ 3
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -11,6 +11,8 @@ URL:     http://wiki.laptop.org/go/Sugar
 Source0: http://download.sugarlabs.org/sources/sucrose/glucose/%{name}/%{name}-%{version}.tar.xz
 Source1: macros.sugar
 Patch0: Fix-logging-usage.patch
+Patch1: Add-pyproject.toml.patch
+Patch2: Add-bundlebuilder-executable.patch
 
 BuildRequires: make
 BuildRequires: alsa-lib-devel
@@ -85,6 +87,7 @@ find %{buildroot} -type f -name "*.la" -delete
 %license COPYING
 %exclude %{_bindir}/sugar-activity
 %{_bindir}/sugar-activity3
+%{_bindir}/bundlebuilder
 %{python3_sitelib}/*
 %{_bindir}/sugar-activity-web
 %{_rpmconfigdir}/macros.d/macros.sugar
@@ -96,6 +99,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Wed Oct 21 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 0.121-16
+- Add patches
+
 * Sat Jul 25 2026 Python Maint <python-maint@redhat.com> - 0.121-15
 - Rebuilt for Python 3.15.0b4 ABI change
 

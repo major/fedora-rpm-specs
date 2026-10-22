@@ -1,10 +1,16 @@
 Name:       clpeak
-Version:    3.0.1
+Version:    3.0.3
 Release:    %autorelease
 Summary:    Measure the peak achievable performance of GPU compute devices
 License:    Apache-2.0
 URL:        https://github.com/krrishnarraj/%{name}
 Source:     %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# GCC 14 accepts -mavxvnniint16 but lacks the _mm256_dpwsud_epi32 intrinsic
+# (added in GCC 15) -- breaks the build on EL10, temporary patch
+# upstream bug report: https://github.com/krrishnarraj/clpeak/issues/223
+%if 0%{?rhel} == 10
+Patch0:     0001-cpu-skip-avxvnniint16-on-gcc-older-than-15.patch
+%endif
 
 BuildRequires: cmake
 ExcludeArch:   %{ix86}
@@ -39,12 +45,10 @@ numbers.
 
 %prep
 %autosetup -p1
-# fix the 'clpeak --version' output - https://github.com/krrishnarraj/clpeak/issues/198
-sed -i 's/"2.0.16"/"%{version}"/' src/common/cmake/version.cmake
 
 
 %build
-%cmake
+%cmake -DCLPEAK_VERSION_OVERRIDE=%{version}
 %cmake_build
 
 

@@ -101,6 +101,8 @@ install -D -p -m 0644 usr/share/byobu/pixmaps/byobu.svg %{buildroot}%{_iconsscal
 %py3_shebang_fix %{buildroot}%{_bindir}/*
 %py3_shebang_fix %{buildroot}%{_libexecdir}/%{name}/*
 %py3_shebang_fix %{buildroot}%{trustmuxlibdir}/trustmux/_daemon.py
+# _daemon.py is executed directly (has a shebang) but installed as 644 data
+chmod 0755 %{buildroot}%{trustmuxlibdir}/trustmux/_daemon.py
 
 # install README.md manually to the doc dir
 install -d %{buildroot}%{_docdir}/%{name}

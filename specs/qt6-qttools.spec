@@ -11,8 +11,8 @@
 
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
-Version: 6.11.2
-Release: 2%{?dist}
+Version: 6.12.0
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -25,12 +25,6 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
 
-# Support LLVM/Clang 22
-Patch1: qdoc-support-newer-clang.patch
-
-## upstream patches
-# QDoc LLVM 22 fixes (backported from dev branch)
-Patch10: qttools-llvm22-qdoc-fixes.patch
 
 Source20: assistant.desktop
 Source21: designer.desktop
@@ -148,9 +142,6 @@ Requires: %{name}-common = %{version}-%{release}
 
 %prep
 %setup -q -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}}
-
-%patch -P1 -p1 -b .llvm22
-%patch -P10 -p1 -b .llvm22-qdoc-fixes
 
 %build
 %cmake_qt6 \
@@ -390,6 +381,9 @@ popd
 
 
 %changelog
+* Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Tue Oct 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 6.11.2-2
 - Rebuild (LLVM-23)
 

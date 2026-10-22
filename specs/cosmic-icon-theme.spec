@@ -5,10 +5,10 @@
 # environment variables in multiple sections of the spec file.
 %global commit f1a282a0822aed1f0083dd2ab2e6c65bd5b401eb
 %global commitdatestring 2026-09-30 09:55:41 -0600
-%global cosmic_minver 1.10.0
+%global cosmic_minver 1.11.0
 
 Name:           cosmic-icon-theme
-Version: 1.10.0
+Version: 1.11.0
 Release:        %autorelease
 Summary:        Icon theme for the COSMIC Desktop Environment
 

@@ -12,10 +12,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit cb953ea0e6fb45ac8f62f9c52f1347c971388e03
 %global commitdatestring 2026-09-30 09:56:47 -0600
-%global cosmic_minver 1.10.0
+%global cosmic_minver 1.11.0
 
 Name:           cosmic-workspaces
-Version: 1.10.0
+Version: 1.11.0
 Release:        %autorelease
 Summary:        Workspaces overview for the COSMIC Desktop Environment
 

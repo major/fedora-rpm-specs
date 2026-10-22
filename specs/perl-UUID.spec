@@ -1,11 +1,11 @@
 Name:           perl-UUID
-Version:        0.39
+Version:        0.40
 Release:        1%{?dist}
 Summary:        Universally Unique Identifier library for Perl
 # lib/UUID.pm:  Artistic-2.0
 # README:       Artistic-2.0
 # ulib/hash.c:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD AND LicenseRef-Fedora-Public-Domain
-# RSA-MD was raplaced by 2000 RSA grant and should not be enumerated
+# RSA-MD was replaced by 2000 RSA grant and should not be enumerated
 # <https://docs.fedoraproject.org/en-US/legal/misc/#_licensing_of_rsa_implementations_of_md5>.
 License:        Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Fedora-Public-Domain
 URL:            https://metacpan.org/release/UUID
@@ -118,6 +118,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 21 2026 Petr Pisar <ppisar@redhat.com> - 0.40-1
+- 0.40 bump
+
 * Mon Sep 07 2026 Petr Pisar <ppisar@redhat.com> - 0.39-1
 - 0.39 bump
 

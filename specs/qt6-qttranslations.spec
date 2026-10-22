@@ -7,7 +7,7 @@
 
 Summary: Qt6 - QtTranslations module
 Name:    qt6-%{qt_module}
-Version: 6.11.2
+Version: 6.12.0
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -50,6 +50,7 @@ Provides: %{_qt6}-hr = %{version}-%{release}
 Provides: %{_qt6}-it = %{version}-%{release}
 Provides: %{_qt6}-ja = %{version}-%{release}
 Provides: %{_qt6}-ka = %{version}-%{release}
+Provides: %{_qt6}-kk = %{version}-%{release}
 Provides: %{_qt6}-ko = %{version}-%{release}
 Provides: %{_qt6}-lg = %{version}-%{release}
 Provides: %{_qt6}-lt = %{version}-%{release}
@@ -111,6 +112,7 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 %lang(it) %{_qt6_translationdir}/*_it.qm
 %lang(ja) %{_qt6_translationdir}/*_ja.qm
 %lang(ka) %{_qt6_translationdir}/*_ka.qm
+%lang(kk) %{_qt6_translationdir}/*_kk.qm
 %lang(ko) %{_qt6_translationdir}/*_ko.qm
 %lang(lg) %{_qt6_translationdir}/*_lg.qm
 %lang(lt) %{_qt6_translationdir}/*_lt.qm
@@ -131,6 +133,9 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 
 
 %changelog
+* Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

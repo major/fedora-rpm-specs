@@ -1036,7 +1036,7 @@ pushd buildopenmpi_dir
 export PETSC_ARCH=%{_arch}
 export PETSC_DIR=./
 export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:${LD_LIBRARY_PATH}
 export MPIEXEC=lib/petsc/bin/petscmpiexec
 export PMIX_MCA_gds=hash
 export PMIX_MCA_psec=native
@@ -1044,6 +1044,7 @@ make V=1 petsc4pytest PETSC4PY_NP=2
 unset PETSC_ARCH
 unset PETSC_DIR
 %{_openmpi_unload}
+unset LD_LIBRARY_PATH
 popd
 %endif
 %endif
@@ -1054,7 +1055,7 @@ pushd buildopenmpi_dir
 export PETSC_DIR=%{_builddir}/%{name}-%{version}/buildopenmpi_dir
 export PETSC_ARCH=%{_arch}
 export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
-export LD_LIBRARY_PATH=${PETSC_DIR}/${PETSC_ARCH}/lib
+export LD_LIBRARY_PATH=${PETSC_DIR}/${PETSC_ARCH}/lib:${LD_LIBRARY_PATH}
 export MPI_INTERFACE_HOSTNAME=localhost
 export OMPI_MCA_btl_base_warn_component_unused=0
 export wPETSC_DIR=./
@@ -1076,6 +1077,7 @@ make print-test test-fail=1 | tr ' ' '\n' | sort
 make check V=0 NP=2
 %endif
 %{_openmpi_unload}
+unset LD_LIBRARY_PATH
 popd
 %endif
 %endif
@@ -1088,7 +1090,7 @@ pushd buildmpich_dir
 export PETSC_ARCH=%{_arch}
 export PETSC_DIR=./
 export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:${LD_LIBRARY_PATH}
 export MPIEXEC=lib/petsc/bin/petscmpiexec
 export PMIX_MCA_gds=hash
 export PMIX_MCA_psec=native
@@ -1097,6 +1099,7 @@ export PMIX_MCA_psec=native
 unset PETSC_ARCH
 unset PETSC_DIR
 %{_mpich_unload}
+unset LD_LIBRARY_PATH
 popd
 %endif
 %endif
@@ -1106,7 +1109,7 @@ pushd buildmpich_dir
 %{_mpich_load}
 export PETSC_DIR=%{_builddir}/%{name}-%{version}/buildmpich_dir
 export PETSC_ARCH=%{_arch}
-export LD_LIBRARY_PATH=${PETSC_DIR}/${PETSC_ARCH}/lib
+export LD_LIBRARY_PATH=${PETSC_DIR}/${PETSC_ARCH}/lib:${LD_LIBRARY_PATH}
 export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export MPI_INTERFACE_HOSTNAME=localhost
 export OMPI_MCA_btl_base_warn_component_unused=0
@@ -1127,6 +1130,7 @@ make print-test test-fail=1 | tr ' ' '\n' | sort
 make check V=0 NP=2
 %endif
 %{_mpich_unload}
+unset LD_LIBRARY_PATH
 popd
 %endif
 %endif

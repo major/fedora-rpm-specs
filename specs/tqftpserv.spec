@@ -1,5 +1,5 @@
 Name:           tqftpserv
-Version:        1.2
+Version:        1.3
 Release:        %autorelease
 Summary:        Trivial File Transfer Protocol server over AF_QIPCRTR
 
@@ -33,17 +33,22 @@ other processors on the Qualcomm SoCs as requested.
 
 %post
 %systemd_post %{name}.service
+%systemd_post %{name}-populate-readwrite.service
 
 %preun
 %systemd_preun %{name}.service
+%systemd_preun %{name}-populate-readwrite.service
 
 %postun
 %systemd_postun_with_restart %{name}.service
+%systemd_postun_with_restart %{name}-populate-readwrite.service
 
 %files
 %license LICENSE
 %{_bindir}/%{name}
+%{_bindir}/populate-readwrite.sh
 %{_unitdir}/%{name}.service
+%{_unitdir}/%{name}-populate-readwrite.service
 
 %changelog
 %autochangelog
