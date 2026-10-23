@@ -1,6 +1,6 @@
 Name:    sugar-datastore
-Version: 0.121
-Release: 13%{?dist}
+Version: 0.122
+Release: 1%{?dist}
 Summary: Sugar Datastore
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -49,6 +49,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/dbus-1/services/*.service
 
 %changelog
+* Thu Oct 22 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 0.122-1
+- New Release 0.122
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.121-13
 - Rebuilt for Python 3.15.0b4 ABI change
 

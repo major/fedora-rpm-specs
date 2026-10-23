@@ -1,6 +1,6 @@
 Name:    sugar
-Version: 0.121
-Release: 12%{?dist}
+Version: 0.122
+Release: 1%{?dist}
 Summary: Constructionist learning platform
 URL:     http://sugarlabs.org/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -249,6 +249,9 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/sugar/data/activities.defaults
 %{_datadir}/sugar/extensions/cpsection/webaccount
 
 %changelog
+* Thu Oct 22 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 0.122-1
+- New Release 0.122
+
 * Tue Oct 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.121-12
 - Replace GNOME Keyring with oo7 for F45+
 

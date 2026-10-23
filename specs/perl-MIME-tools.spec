@@ -1,6 +1,6 @@
 Summary:	Modules for parsing and creating MIME entities in Perl
 Name:		perl-MIME-tools
-Version:	5.519
+Version:	5.520
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MIME-tools
@@ -135,6 +135,19 @@ TEST_POD_COVERAGE=0 make test
 %{_mandir}/man3/MIME::Words.3*
 
 %changelog
+* Thu Oct 22 2026 Paul Howarth <paul@city-fan.org> - 5.520-1
+- Update to 5.520
+  - MIME::Parser used O(N^2) CPU time and memory parsing a MIME message nested
+    N levels deep, and a smallish specially-crafted message could DOS the
+    computer by making it consume enormous amounts of memory and CPU time
+    - The parser was modified to use O(N) time and memory in this case
+    - Additionally, a new MIME::Parser::max_depth() function was added to limit
+      the nesting depth before declaring a parse failure
+  - MIME::Parser would ignore multiple blank lines in a message when parsing
+    it; this could break DKIM
+  - If a MIME boundary includes trailing whitespace, we mark the parse as
+    ambiguous
+
 * Wed Sep 23 2026 Paul Howarth <paul@city-fan.org> - 5.519-1
 - Update to 5.519
   - Some (buggy) software creates base64-encoded parts as a concatenation of

@@ -2,7 +2,7 @@
 %define             catalogue %{_sysconfdir}/X11/fontpath.d
 
 Name:               zvbi
-Version:            0.2.45
+Version:            0.2.46
 Release:            1%{?dist}
 Summary:            Raw VBI, Teletext and Closed Caption decoding library
 License:            GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND MIT
@@ -168,6 +168,10 @@ make check
 
 
 %changelog
+* Thu Oct 22 2026 Xavier Bachelot <xavier@bachelot.org> - 0.2.46-1
+- Update to 0.2.46 (RHBZ#2559223)
+  - Fixes CVE-2026-11065 (RHBZ#2552379)
+
 * Wed Aug 12 2026 Xavier Bachelot <xavier@bachelot.org> - 0.2.45-1
 - Update to 0.2.45 (RHBZ#2514825)
 

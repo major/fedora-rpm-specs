@@ -1,6 +1,6 @@
 Name:    kwin
 Version: 6.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -143,13 +143,9 @@ Provides:  %{name}-wayland%{?_isa} = %{version}-%{release}
 # by kwin-wayland
 Obsoletes:      %{name}-wayland-nvidia < 5.20.2-2
 Provides:       %{name}-wayland-nvidia = %{version}-%{release}
-# Obsolete -x11 for Plasma 6
-%if 0%{?fedora}
-Obsoletes:      %{name}-x11 < 5.92.0
-%else
-Obsoletes:      %{name}-x11 < %{version}-%{release}
-Conflicts:      %{name}-x11 < %{version}-%{release}
-%endif
+# Obsolete -x11 for Plasma 6.8
+Obsoletes:      %{name}-x11 < 6.7.90
+Conflicts:      %{name}-x11 < 6.7.90
 %if ! 0%{?rhel} >= 10
 Requires:       (kwayland-integration%{?_isa} if kf5-kwindowsystem%{?_isa})
 %endif
@@ -164,7 +160,7 @@ Requires:       xorg-x11-server-Xwayland
 
 
 %package        common
-Summary:        Common files for KWin X11 and KWin Wayland
+Summary:        Common files for KWin
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       kwayland%{?_isa}
 # Split of X11 variant into subpackage
@@ -284,6 +280,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Thu Oct 22 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.8.1-2
+- Obsolete kwin-x11
+
 * Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
 - 6.8.1
 

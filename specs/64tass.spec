@@ -25,6 +25,9 @@ DTV, and 65EL02, using a syntax similar to that of Omicron TASS and TASM.
 # be verbose during build
 sed -i -e 's/.SILENT://' Makefile
 
+# fix CRLF line endings in doc files
+find examples syntax -type f -exec sed -i 's/\r$//' {} +
+
 %build
 %make_build CFLAGS='%{build_cflags} -DREVISION="\""%{revision}"\""' LDFLAGS="%{build_ldflags}"
 

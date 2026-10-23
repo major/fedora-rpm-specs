@@ -76,9 +76,10 @@
 # and designer plugins
 %global __provides_exclude_from ^%{_qt6_plugindir}/.*\\.so$
 
-# FIXME: we cannot use any ~rc or similar suffix as the build
-# would fail for having too long filename
-#global unstable 1
+# Chromium/Ninja embeds the build directory in response-file names.
+%global _vpath_builddir build
+
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -87,24 +88,24 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.11.2
-Release: 4%{?dist}
+Version: 6.140.0%{?unstable:~rc}
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
 # The other licenses are from Chromium and the code it bundles
 License: (LGPLv2 with exceptions or GPLv3 with exceptions) and BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
 URL:     http://www.qt.io
-%global  majmin %(echo %{version} | cut -d. -f1-2)
-%global  qt_version %(echo %{version} | cut -d~ -f1)
+%global  qt_version %(echo %{version} | cut -d. -f1)
+%global  chromium_version %(echo %{version} | cut -d. -f2- | cut -d~ -f1)
 
 # cleaned tarball with patent-encumbered codecs removed from the bundled FFmpeg
 # ./qtwebengine-release.sh
-# ./clean_qtwebengine.sh 6.9.0
+# ./clean_qtwebengine.sh 6.140.0-rc
 %if 0%{?unstable}
-Source0: %{qt_module}-everywhere-src-%{qt_version}-%{prerelease}-clean.tar.xz
+Source0: %{qt_module}-everywhere-src-%{qt_version}.%{chromium_version}-%{prerelease}-clean.tar.xz
 %else
-Source0: %{qt_module}-everywhere-src-%{version}-clean.tar.xz
+Source0: %{qt_module}-everywhere-src-%{qt_version}.%{chromium_version}-clean.tar.xz
 %endif
 
 # cleanup scripts used above
@@ -177,7 +178,7 @@ BuildRequires: bison
 BuildRequires: flex
 BuildRequires: perl-interpreter
 
-BuildRequires: nodejs >= 14.9, /usr/bin/node
+BuildRequires: nodejs22
 BuildRequires: krb5-devel
 BuildRequires: git-core
 
@@ -478,7 +479,7 @@ Requires: qt6-qtsvg%{?_isa}
 %{summary}.
 
 %prep
-%setup -q -n %{qt_module}-everywhere-src-%{qt_version}%{?prerelease:-%{prerelease}} -a20
+%setup -q -n %{qt_module}-everywhere-src-%{qt_version}.%{chromium_version}%{?prerelease:-%{prerelease}} -a20
 
 mv pulse src/3rdparty/chromium/
 
@@ -680,8 +681,8 @@ done
 
 %files
 %license LICENSE.*
-%{_qt6_archdatadir}/sbom/%{qt_module}-%{version}.spdx
-%{_qt6_archdatadir}/sbom/qtpdf-%{version}.spdx
+%{_qt6_archdatadir}/sbom/%{qt_module}-%{qt_version}.%{chromium_version}.spdx
+%{_qt6_archdatadir}/sbom/qtpdf-%{qt_version}.%{chromium_version}.spdx
 %{_qt6_libdir}/libQt6WebEngineCore.so.*
 %{_qt6_libdir}/libQt6WebEngineQuick.so.*
 %{_qt6_libdir}/libQt6WebEngineQuickDelegatesQml.so.*
@@ -784,6 +785,7 @@ done
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineWidgets
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineWidgetsPrivate
 %{_qt6_libdir}/cmake/Qt6/*.cmake
+%{_qt6_libdir}/cmake/Qt6/ConfigVersionOverrides/WebEngine*/*.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebEngine*
 %{_qt6_libdir}/cmake/Qt6Designer/Qt6QWebEngine*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qtwebengine*.cmake
@@ -841,6 +843,7 @@ done
 %dir %{_qt6_libdir}/cmake/Qt6PdfWidgets
 %dir %{_qt6_libdir}/cmake/Qt6PdfWidgetsPrivate
 %{_qt6_libdir}/cmake/Qt6Gui/Qt6QPdf*.cmake
+%{_qt6_libdir}/cmake/Qt6/ConfigVersionOverrides/Pdf*/*.cmake
 %{_qt6_libdir}/cmake/Qt6Pdf/*.cmake
 %{_qt6_libdir}/cmake/Qt6PdfPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6PdfQuick/*.cmake
@@ -859,6 +862,9 @@ done
 %endif
 
 %changelog
+* Thu Oct 22 2026 Jan Grulich <jgrulich@redhat.com>
+- 6.140.0
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.11.2-4
 - Rebuilt for libxml-2.5.4
 

@@ -5,6 +5,8 @@ Release: 26%{?dist}
 License: GPL-2.0-or-later
 URL:     http://www.gnu.org/software/vcdimager/
 Source:  https://ftp.gnu.org/pub/gnu/vcdimager/vcdimager-%{version}.tar.gz
+# from Gentoo, also used by Debian
+Patch:   vcdimager-2.0.1-libxml2-2.14.patch
 
 BuildRequires: gcc-c++
 BuildRequires: libcdio-devel >= 0.72

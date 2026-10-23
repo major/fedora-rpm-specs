@@ -74,6 +74,35 @@ URL:            https://nodejs.org
 # Generate unversioned names; TODO: figure out the condition
 %bcond rolling_stream 0
 
+# === Build toolchain adjustments ===
+# Build with clang
+%global toolchain clang
+# Node.js is glued together from a number of other projects,
+# and not all of those projects handle global LTO flags well
+# (usual suspects are v8 and ICU).
+# Rely on --enable-lto configure flag instead;
+# that should enable the optimization only on supported parts.
+%global _lto_cflags %{nil}
+# Extra build flags
+%global _pkg_extra_cflags %{shrink:
+    %dnl Decrease debuginfo verbosity; otherwise, the linker will run out of memory when linking v8
+    -g1
+    %dnl For i686 compatibility, build with defines from libuv (rhbz%dnl892601)
+    -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
+    %dnl Do not use OpenSSL Engine API (RHEL-33743)
+    -DOPENSSL_NO_ENGINE
+    %dnl 2022-07-14: There's a bug in either torque or compiler that causes a
+    %dnl segmentation fault on ppc64le and s390x if compiled with -O2. Things
+    %dnl run fine on -O1 and -O3, so we'll just go with -O3 (like upstream)
+    %dnl while this gets sorted out.
+    -O3
+    %dnl v8 segfaults when certain optimizations are enabled
+    %dnl - https://github.com/nodejs/node/issues/47865
+    %dnl Use clang-specific flags to disable problematic optimizations
+    -fno-optimize-sibling-calls
+}
+%global _pkg_extra_cxxflags %{_pkg_extra_cflags}
+
 # === Additional definitions ===
 # Architecture-dependent suffix for requiring/providing .so names
 %if 0%{?__isa_bits} == 64
@@ -207,7 +236,7 @@ Release:        %{v8_release}
 Requires:       nodejs%{node_version_major}-devel%{?_isa} = %{node_evr}
 Requires:       nodejs%{node_version_major}-libs%{?_isa}  = %{node_evr}
 Provides:       v8-devel = %{v8_evr}
-Obsoletes:      v8-devel <= 2:10.2.154, v8-314-devel <= 2:3.14
+Obsoletes:      v8-devel <= 2:10.2.154
 
 %description -n v8-%{v8_version_major}.%{v8_version_minor}-devel
 Development headers for the v8 runtime.
@@ -269,10 +298,10 @@ Provides:       alternative-for(nodejs-bin) = %{node_evr}
 Conflicts:      alternative-for(nodejs-bin)
 
 %description    bin
-Binary symlinks for Node.js JavaScript runtime.
+Unversioned aliases (symlinks) for Node.js JavaScript runtime binaries.
 
 %package        npm-bin
-Summary:        Node.js Package Manager – binary symlinks
+Summary:        Node.js Package Manager – unversioned symlinks
 Epoch:          %{npm_epoch}
 Version:        %{npm_version}
 Release:        %{npm_release}
@@ -283,7 +312,7 @@ Provides:       alternative-for(nodejs-npm-bin) = %{npm_evr}
 Conflicts:      alternative-for(nodejs-npm-bin)
 
 %description    npm-bin
-Binary symlinks for Node.js Package Manager.
+Unversioned aliases (symlinks) for Node.js Package Manager binaries.
 
 # === Rolling stream metadata ===
 %if %{with rolling_stream}
@@ -359,28 +388,14 @@ readonly -a potential_python_scripts=(
 )
 %py3_shebang_fix "${potential_python_scripts[@]}"
 
+# prune empty and otherwise unused files
+find deps/npm/node_modules -type f \(\
+    -empty \
+    -o -name '.travis.yml' \
+    -o -name '.release-please-manifest.json' \
+\) -delete
+
 %build
-# additional build flags
-readonly -a extra_cflags=(
-    # Decrease debuginfo verbosity; otherwise,
-    # the linker will run out of memory when linking v8
-    -g1
-    # For i686 compatibility, build with defines from libuv (rhbz#892601)
-    -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
-    # Do not use OpenSSL Engine API (RHEL-33743)
-    -DOPENSSL_NO_ENGINE
-    # 2022-07-14: There's a bug in either torque or compiler that causes a
-    # segmentation fault on ppc64le and s390x if compiled with -O2. Things
-    # run fine on -O1 and -O3, so we'll just go with -O3 (like upstream)
-    # while this gets sorted out.
-    -O3
-    # v8 segfaults when certain optimizations are enabled
-    # - https://github.com/nodejs/node/issues/47865
-    # Use clang-specific flags to disable problematic optimizations
-    -fno-optimize-sibling-calls
-    # Disable thin LTO in CXXFLAGS to avoid conflict with --enable-lto
-    # -flto=thin
-)
 # configuration flags
 readonly -a configure_flags=(
     # Basic build options
@@ -392,6 +407,8 @@ readonly -a configure_flags=(
     --openssl-is-fips
     --openssl-conf-name=openssl_conf
     --openssl-use-def-ca-store
+    # Enable LTO in supported parts. Use this instead of %%_lto_cflags.
+    --enable-lto
     # Link with system libraries where appropriate
     %{?!with_bundled_brotli:--shared-brotli}
     %{?!with_bundled_c_ares:--shared-cares}
@@ -405,17 +422,17 @@ readonly -a configure_flags=(
 %if %{without bundled_nodejs_undici}
     --shared-builtin-undici/undici-path=%{nodejs_common_sitelib}/undici/loader.js
 %endif
-    # Disable LTO temporarily to fix linking issues with ICU/Abseil
-    #--enable-lto
     # Compile with small icu, extendable via full-i18n subpackage
     --with-intl=small-icu --with-icu-default-data-dir=%{nodejs_datadir}/icudata
     # Use local headers for native addons when available
     --use-prefix-to-find-headers
 )
-
-export CC=clang CXX=clang++ AR=llvm-ar RANLIB=llvm-ranlib
-export CFLAGS="${CFLAGS} ${extra_cflags[*]}" CXXFLAGS="${CXXFLAGS} ${extra_cflags[*]}"
 %python3 configure.py "${configure_flags[@]}"
+
+# Linking with --enable-lto tends to open lot of files.
+# Make sure we can utilize everything the build system offers us.
+ulimit -n hard
+
 %ninja_build -C out/Release
 
 %install
@@ -464,7 +481,9 @@ mv node/config.gypi node/config-%{_arch}.gypi
 popd  # ${RPM_BUILD_ROOT}%%{_includedir}
 
 # Install node-gyp configuration files
-install -p -Dt "${RPM_BUILD_ROOT}%{nodejs_datadir}" common.gypi
+# The common.gypi is already included in /usr/include/node by the install script; let's not duplicate it.
+mkdir -p "${RPM_BUILD_ROOT}%{nodejs_datadir}"
+ln -srt "${RPM_BUILD_ROOT}%{nodejs_datadir}" "${RPM_BUILD_ROOT}%{_includedir}/node/common.gypi"
 
 # Create pkg-config files
 readonly PKGCONFDIR="${RPM_BUILD_ROOT}%{_libdir}/pkgconfig"
@@ -475,11 +494,14 @@ mkconfig -e 's;@PKGCONFNAME@;v8-%{v8_version_major}.%{v8_version_minor};g' \
     <%{SOURCE4} >"${PKGCONFDIR}/v8-%{v8_version_major}.%{v8_version_minor}.pc"
 
 # Create automatic RPM requires generator for this stream
-mkdir -p "${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs"
-sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \
-    <%{SOURCE6} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs/nodejs%{node_version_major}_abi.attr"
-sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \
-    <%{SOURCE7} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/nodejs%{node_version_major}_abi.req"
+readonly RPMCONFIGDIR="${RPM_BUILD_ROOT}%{_rpmconfigdir}"
+readonly nodejs_abi_attr="${RPMCONFIGDIR}/fileattrs/nodejs%{node_version_major}_abi.attr"
+readonly nodejs_abi_req="${RPMCONFIGDIR}/nodejs%{node_version_major}_abi.req"
+
+mkdir -p "${RPMCONFIGDIR}/fileattrs"
+sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' <%{SOURCE6} >"${nodejs_abi_attr}"
+sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' <%{SOURCE7} >"${nodejs_abi_req}"
+chmod 0755 "${nodejs_abi_req}"
 
 # Install documentation
 mkdir -p "${RPM_BUILD_ROOT}%{_pkgdocdir}/html"
@@ -702,7 +724,8 @@ end
 %files      devel %{files_devel}
 
 %files -n   v8-%{v8_version_major}.%{v8_version_minor}-devel
-%license    LICENSE
+%doc        deps/v8/docs/README.md
+%license    deps/v8/LICENSE
 %{_includedir}/cppgc
 %{_includedir}/libplatform
 %{_includedir}/v8*.h
@@ -728,7 +751,7 @@ end
 # Versioned man pages for case when -bins are not installed
 %{_mandir}/man1/npm-%{node_version_major}.1*
 %{_mandir}/man1/npx-%{node_version_major}.1*
-# No %dir means recursive (own files)
+# No %%dir means recursive (own files)
 %{nodejs_datadir}/man
 %{nodejs_private_sitelib}/npm/
 %exclude    %{nodejs_datadir}/man/man1/node*.1*
@@ -737,7 +760,9 @@ end
 %license    deps/npm/LICENSE
 %{_bindir}/npm
 %{_bindir}/npx
-%{_mandir}/
+%{_mandir}/man1/*
+%{_mandir}/man5/*
+%{_mandir}/man7/*
 %exclude %{_mandir}/man1/node.1*
 %exclude %{_mandir}/man1/node-%{node_version_major}.1*
 %exclude %{_mandir}/man1/npm-%{node_version_major}.1*
@@ -746,7 +771,6 @@ end
 %files      npm-bin %{files_npm_bin}
 
 %files      docs
-%doc        doc/README.md
 %license    LICENSE
 %dir        %{_pkgdocdir}
 %{_pkgdocdir}/html/

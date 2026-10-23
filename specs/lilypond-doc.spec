@@ -1,6 +1,6 @@
 Name:           lilypond-doc
-Version:        2.27.3
-Release:        1%{?dist}
+Version:        2.27.4
+Release:        2%{?dist}
 Summary:        HTML documentation for LilyPond
 
 License:        GPL-3.0-only
@@ -31,9 +31,15 @@ mkdir -p $RPM_BUILD_ROOT
 %files
 %license share/doc/lilypond/html/COPYING*
 %doc share/doc/lilypond/html/Documentation
-
+%doc share/doc/lilypond/html/VERSION
 
 %changelog
+* Thu Oct 22 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.27.4-2
+- Add version file, 2558585
+
+* Thu Oct 22 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.27.4-1
+- 2.27.4
+
 * Thu Sep 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.27.3-1
 - 2.27.3
 

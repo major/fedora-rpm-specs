@@ -1,7 +1,7 @@
 %global giturl  https://github.com/unicode-org/icu
 
 Name:           icu4j
-Version:        78.3
+Version:        79.1
 Release:        %autorelease
 Epoch:          1
 Summary:        International Components for Unicode for Java
@@ -14,14 +14,10 @@ Source:         %{giturl}/archive/release-%{version}.tar.gz
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.code.gson:gson)
 BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-resources-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-shade-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-surefire-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-io)
 BuildRequires:  mvn(pl.pragmatists:JUnitParams)
 
 BuildArch:      noarch
@@ -78,29 +74,15 @@ cd icu4j
 %pom_remove_plugin -r :flatten-maven-plugin
 %pom_remove_plugin -r :maven-clean-plugin
 %pom_remove_plugin -r :maven-deploy-plugin
-%pom_remove_plugin :central-publishing-maven-plugin
-%pom_remove_plugin :maven-gpg-plugin
-%pom_remove_plugin :maven-install-plugin
-%pom_remove_plugin :maven-javadoc-plugin
-%pom_remove_plugin :maven-pmd-plugin
-%pom_remove_plugin :maven-project-info-reports-plugin
-%pom_remove_plugin :maven-release-plugin
-%pom_remove_plugin :maven-site-plugin
-
-# Plugins that are not actually used in the build
-%pom_remove_plugin -r :exec-maven-plugin
-%pom_remove_plugin -r :maven-dependency-plugin
-%pom_remove_plugin :maven-assembly-plugin
-%pom_remove_plugin :maven-failsafe-plugin
-%pom_remove_plugin :maven-source-plugin
 
 # Modules we do not want to ship
 %pom_disable_module demos
 %pom_disable_module perf-tests
 %pom_disable_module samples
-%pom_disable_module tools/build
-%pom_disable_module tools/misc
-%pom_disable_module tools/pmd
+%pom_disable_module build tools
+%pom_disable_module errorprone_report tools
+%pom_disable_module misc tools
+%pom_disable_module pmd tools
 cd -
 
 %build
@@ -119,7 +101,7 @@ rm %{buildroot}%{_datadir}/maven-metadata/icu4j-{common_tests,framework}.xml
 rm %{buildroot}%{_mavenpomdir}/icu4j/{common_tests,framework}.pom
 sed -i '/%dir/d' icu4j/.mfiles-{c,f,l,r,t}* icu4j/.mfiles-icu4j-charset
 
-%files -f icu4j/.mfiles-icu4j -f icu4j/.mfiles-collate -f icu4j/.mfiles-core -f icu4j/.mfiles-currdata -f icu4j/.mfiles-langdata -f icu4j/.mfiles-regiondata -f icu4j/.mfiles-tools_taglets -f icu4j/.mfiles-translit
+%files -f icu4j/.mfiles-icu4j -f icu4j/.mfiles-icu4j-main -f icu4j/.mfiles-icu4j-tools -f icu4j/.mfiles-collate -f icu4j/.mfiles-core -f icu4j/.mfiles-currdata -f icu4j/.mfiles-langdata -f icu4j/.mfiles-regiondata -f icu4j/.mfiles-tools_taglets -f icu4j/.mfiles-translit
 %license LICENSE
 %doc icu4j/readme.html icu4j/APIChangeReport.html
 

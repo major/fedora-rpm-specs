@@ -22,11 +22,6 @@
 # drop it.
 %bcond stb_image_resize 1
 # This is deprecated upstream as an stb library; it’s actively developed, but
-# in a separate repository, https://github.com/nothings/stb_image_resize.
-# We continue to ship the copy from the deprecated/ directory until we can
-# introduce a new source package to replace it.
-%bcond stb_image_resize2 1
-# This is deprecated upstream as an stb library; it’s actively developed, but
 # in a separate repository, https://github.com/nothings/stb_sprintf, and a new
 # source package should be introduced if stb_sprintf is ever needed at all.
 # We continue to ship the copy from the deprecated/ directory in stable
@@ -305,9 +300,6 @@ Patch:          cve-2026-79516.patch
 %if %{with stb_image_resize}
 %global stb_image_resize_version 0.97
 %endif
-%if %{with stb_image_resize2}
-%global stb_image_resize2_version 2.18
-%endif
 %global stb_image_write_version 1.16
 %if %{with stb_include}
 %global stb_include_version 0.2
@@ -345,64 +337,66 @@ Summary:        Development files for stb
 # although choosing just the “dominant” (MIT OR Unlicense) terms would be
 # equally defensible.
 
+BuildArch:      noarch
+
 # Dependent packages should prefer to BuildRequire the -static packages for the
 # specific stb libraries they use.
 Provides:       stb-static = %{version}-%{release}
 
-Requires:       stb_c_lexer-devel%{?_isa} = %{stb_c_lexer_version}%{snapinfo}-%{release}
+Requires:       stb_c_lexer-devel = %{stb_c_lexer_version}%{snapinfo}-%{release}
 Requires:       stb_c_lexer-static = %{stb_c_lexer_version}%{snapinfo}-%{release}
-Requires:       stb_connected_components-devel%{?_isa} = %{stb_connected_components_version}%{snapinfo}-%{release}
+Requires:       stb_connected_components-devel = %{stb_connected_components_version}%{snapinfo}-%{release}
 Requires:       stb_connected_components-static = %{stb_connected_components_version}%{snapinfo}-%{release}
-Requires:       stb_divide-devel%{?_isa} = %{stb_divide_version}%{snapinfo}-%{release}
+Requires:       stb_divide-devel = %{stb_divide_version}%{snapinfo}-%{release}
 Requires:       stb_divide-static = %{stb_divide_version}%{snapinfo}-%{release}
-Requires:       stb_ds-devel%{?_isa} = %{stb_ds_version}%{snapinfo}-%{release}
+Requires:       stb_ds-devel = %{stb_ds_version}%{snapinfo}-%{release}
 Requires:       stb_ds-static = %{stb_ds_version}%{snapinfo}-%{release}
-Requires:       stb_dxt-devel%{?_isa} = %{stb_dxt_version}%{snapinfo}-%{release}
+Requires:       stb_dxt-devel = %{stb_dxt_version}%{snapinfo}-%{release}
 Requires:       stb_dxt-static = %{stb_dxt_version}%{snapinfo}-%{release}
-Requires:       stb_easy_font-devel%{?_isa} = %{stb_easy_font_version}%{snapinfo}-%{release}
+Requires:       stb_easy_font-devel = %{stb_easy_font_version}%{snapinfo}-%{release}
 Requires:       stb_easy_font-static = %{stb_easy_font_version}%{snapinfo}-%{release}
-Requires:       stb_herringbone_wang_tile-devel%{?_isa} = %{stb_herringbone_wang_tile_version}%{snapinfo}-%{release}
+Requires:       stb_herringbone_wang_tile-devel = %{stb_herringbone_wang_tile_version}%{snapinfo}-%{release}
 Requires:       stb_herringbone_wang_tile-static = %{stb_herringbone_wang_tile_version}%{snapinfo}-%{release}
-Requires:       stb_hexwave-devel%{?_isa} = %{stb_hexwave_version}%{snapinfo}-%{release}
+Requires:       stb_hexwave-devel = %{stb_hexwave_version}%{snapinfo}-%{release}
 Requires:       stb_hexwave-static = %{stb_hexwave_version}%{snapinfo}-%{release}
-Requires:       stb_image-devel%{?_isa} = %{stb_image_version}%{snapinfo}-%{release}
+Requires:       stb_image-devel = %{stb_image_version}%{snapinfo}-%{release}
 Requires:       stb_image-static = %{stb_image_version}%{snapinfo}-%{release}
 # For compatibility, we still depend on the subpackages for the original,
 # deprecated-upstream stb_image_resize library in existing stable releases, but
 # we drop the dependendency going forward as an acknowledgement of its status.
 %if %{with stb_image_resize} && %[ %{defined el9} || %{defined el8} ]
-Requires:       stb_image_resize-devel%{?_isa} = %{stb_image_resize_version}%{snapinfo}-%{release}
+Requires:       stb_image_resize-devel = %{stb_image_resize_version}%{snapinfo}-%{release}
 Requires:       stb_image_resize-static = %{stb_image_resize_version}%{snapinfo}-%{release}
 %endif
-%if %{with stb_image_resize2}
-Requires:       stb_image_resize2-devel%{?_isa} = %{stb_image_resize2_version}%{snapinfo}-%{release}
-Requires:       stb_image_resize2-static = %{stb_image_resize2_version}%{snapinfo}-%{release}
-%endif
-Requires:       stb_image_write-devel%{?_isa} = %{stb_image_write_version}%{snapinfo}-%{release}
+# These are now packaged separately in the stb_image_resize package. We depend
+# on them only for backwards-compatibility.
+Requires:       stb_image_resize2-devel
+Requires:       stb_image_resize2-static
+Requires:       stb_image_write-devel = %{stb_image_write_version}%{snapinfo}-%{release}
 Requires:       stb_image_write-static = %{stb_image_write_version}%{snapinfo}-%{release}
 %if %{with stb_include}
-Requires:       stb_include-devel%{?_isa} = %{stb_include_version}%{snapinfo}-%{release}
+Requires:       stb_include-devel = %{stb_include_version}%{snapinfo}-%{release}
 Requires:       stb_include-static = %{stb_include_version}%{snapinfo}-%{release}
 %endif
-Requires:       stb_leakcheck-devel%{?_isa} = %{stb_leakcheck_version}%{snapinfo}-%{release}
+Requires:       stb_leakcheck-devel = %{stb_leakcheck_version}%{snapinfo}-%{release}
 Requires:       stb_leakcheck-static = %{stb_leakcheck_version}%{snapinfo}-%{release}
-Requires:       stb_perlin-devel%{?_isa} = %{stb_perlin_version}%{snapinfo}-%{release}
+Requires:       stb_perlin-devel = %{stb_perlin_version}%{snapinfo}-%{release}
 Requires:       stb_perlin-static = %{stb_perlin_version}%{snapinfo}-%{release}
-Requires:       stb_rect_pack-devel%{?_isa} = %{stb_rect_pack_version}%{snapinfo}-%{release}
+Requires:       stb_rect_pack-devel = %{stb_rect_pack_version}%{snapinfo}-%{release}
 Requires:       stb_rect_pack-static = %{stb_rect_pack_version}%{snapinfo}-%{release}
 %if %{with stb_sprintf}
-Requires:       stb_sprintf-devel%{?_isa} = %{stb_sprintf_version}%{snapinfo}-%{release}
+Requires:       stb_sprintf-devel = %{stb_sprintf_version}%{snapinfo}-%{release}
 Requires:       stb_sprintf-static = %{stb_sprintf_version}%{snapinfo}-%{release}
 %endif
-Requires:       stb_textedit-devel%{?_isa} = %{stb_textedit_version}%{snapinfo}-%{release}
+Requires:       stb_textedit-devel = %{stb_textedit_version}%{snapinfo}-%{release}
 Requires:       stb_textedit-static = %{stb_textedit_version}%{snapinfo}-%{release}
-Requires:       stb_tilemap_editor-devel%{?_isa} = %{stb_tilemap_editor_version}%{snapinfo}-%{release}
+Requires:       stb_tilemap_editor-devel = %{stb_tilemap_editor_version}%{snapinfo}-%{release}
 Requires:       stb_tilemap_editor-static = %{stb_tilemap_editor_version}%{snapinfo}-%{release}
-Requires:       stb_truetype-devel%{?_isa} = %{stb_truetype_version}%{snapinfo}-%{release}
+Requires:       stb_truetype-devel = %{stb_truetype_version}%{snapinfo}-%{release}
 Requires:       stb_truetype-static = %{stb_truetype_version}%{snapinfo}-%{release}
-Requires:       stb_vorbis-devel%{?_isa} = %{stb_vorbis_version}%{snapinfo}-%{release}
+Requires:       stb_vorbis-devel = %{stb_vorbis_version}%{snapinfo}-%{release}
 Requires:       stb_vorbis-static = %{stb_vorbis_version}%{snapinfo}-%{release}
-Requires:       stb_voxel_render-devel%{?_isa} = %{stb_voxel_render_version}%{snapinfo}-%{release}
+Requires:       stb_voxel_render-devel = %{stb_voxel_render_version}%{snapinfo}-%{release}
 Requires:       stb_voxel_render-static = %{stb_voxel_render_version}%{snapinfo}-%{release}
 
 %description devel
@@ -418,6 +412,8 @@ Summary:        Simplify writing parsers for C-like languages
 Version:        %{stb_c_lexer_version}%{snapinfo}
 License:        MIT OR Unlicense
 
+BuildArch:      noarch
+
 Provides:       stb_c_lexer-static = %{stb_c_lexer_version}%{snapinfo}-%{release}
 
 %description -n stb_c_lexer-devel
@@ -428,6 +424,8 @@ Lexer for making little C-like languages with recursive-descent parsers.
 Summary:        Incrementally compute reachability on grids
 Version:        %{stb_connected_components_version}%{snapinfo}
 License:        MIT OR Unlicense
+
+BuildArch:      noarch
 
 Provides:       stb_connected_components-static = %{stb_connected_components_version}%{snapinfo}-%{release}
 
@@ -443,6 +441,8 @@ their orthogonal neighbors, not diagonally.
 Summary:        More useful 32-bit modulus e.g. “Euclidean divide”
 Version:        %{stb_divide_version}%{snapinfo}
 License:        MIT OR Unlicense
+
+BuildArch:      noarch
 
 Provides:       stb_divide-static = %{stb_divide_version}%{snapinfo}-%{release}
 
@@ -461,6 +461,8 @@ Summary:        Typesafe dynamic array and hash tables for C, will compile in C+
 Version:        %{stb_ds_version}%{snapinfo}
 License:        MIT OR Unlicense
 
+BuildArch:      noarch
+
 Provides:       stb_ds-static = %{stb_ds_version}%{snapinfo}-%{release}
 
 %description -n stb_ds-devel
@@ -475,6 +477,8 @@ Summary:        Fabian “ryg” Giesen’s real-time DXT compressor
 Version:        %{stb_dxt_version}%{snapinfo}
 License:        MIT OR Unlicense
 
+BuildArch:      noarch
+
 Provides:       stb_dxt-static = %{stb_dxt_version}%{snapinfo}-%{release}
 
 %description -n stb_dxt-devel
@@ -485,6 +489,8 @@ DXT1/DXT5 compressor.
 Summary:        Quick-and-dirty easy-to-deploy bitmap font for printing frame rate, etc
 Version:        %{stb_easy_font_version}%{snapinfo}
 License:        MIT OR Unlicense
+
+BuildArch:      noarch
 
 Provides:       stb_easy_font-static = %{stb_easy_font_version}%{snapinfo}-%{release}
 
@@ -506,6 +512,8 @@ Doesn’t use any textures, instead builds characters out of quads.
 Summary:        Herringbone Wang tile map generator
 Version:        %{stb_herringbone_wang_tile_version}%{snapinfo}
 License:        LicenseRef-Fedora-Public-Domain OR LicenseRef-Fedora-UltraPermissive
+
+BuildArch:      noarch
 
 Provides:       stb_herringbone_wang_tile-static = %{stb_herringbone_wang_tile_version}%{snapinfo}-%{release}
 
@@ -533,6 +541,8 @@ Summary:        Audio waveform synthesizer
 Version:        %{stb_hexwave_version}%{snapinfo}
 License:        MIT OR Unlicense
 
+BuildArch:      noarch
+
 Provides:       stb_hexwave-static = %{stb_hexwave_version}%{snapinfo}-%{release}
 
 %description -n stb_hexwave-devel
@@ -550,6 +560,10 @@ Summary:        Image loading/decoding from file/memory: JPG, PNG, TGA, BMP, PSD
 Version:        %{stb_image_version}%{snapinfo}
 License:        MIT OR Unlicense
 
+# Make stb devel dependencies no longer arch-specific
+# https://src.fedoraproject.org/rpms/mlpack/pull-request/18
+# BuildArch:      noarch
+
 Provides:       stb_image-static = %{stb_image_version}%{snapinfo}-%{release}
 
 %description -n stb_image-devel
@@ -564,6 +578,8 @@ problematic images and only need the trivial interface.
 Summary:        Resize images larger/smaller with good quality (original version)
 Version:        %{stb_image_resize_version}%{snapinfo}
 License:        MIT OR Unlicense
+
+BuildArch:      noarch
 
 Provides:       stb_image_resize-static = %{stb_image_resize_version}%{snapinfo}-%{release}
 
@@ -580,23 +596,14 @@ deprecated by its developer; consider porting to stb_image_resize2 instead.
 %endif
 
 
-%if %{with stb_image_resize2}
-%package -n stb_image_resize2-devel
-Summary:        Resize images larger/smaller with good quality
-Version:        %{stb_image_resize2_version}%{snapinfo}
-License:        MIT OR Unlicense
-
-Provides:       stb_image_resize2-static = %{stb_image_resize2_version}%{snapinfo}-%{release}
-
-%description -n stb_image_resize2-devel
-Image resizing.
-%endif
-
-
 %package -n stb_image_write-devel
 Summary:        Image writing to disk: PNG, TGA, BMP
 Version:        %{stb_image_write_version}%{snapinfo}
 License:        MIT OR Unlicense
+
+# Make stb devel dependencies no longer arch-specific
+# https://src.fedoraproject.org/rpms/mlpack/pull-request/18
+# BuildArch:      noarch
 
 Provides:       stb_image_write-static = %{stb_image_write_version}%{snapinfo}-%{release}
 
@@ -615,6 +622,8 @@ run-time performance.
 Summary:        Implement recursive #include support, particularly for GLSL
 Version:        %{stb_include_version}%{snapinfo}
 License:        LicenseRef-Fedora-Public-Domain
+
+BuildArch:      noarch
 
 Provides:       stb_include-static = %{stb_include_version}%{snapinfo}-%{release}
 
@@ -637,6 +646,8 @@ Summary:        Quick-and-dirty malloc/free leak-checking
 Version:        %{stb_leakcheck_version}%{snapinfo}
 License:        MIT OR Unlicense
 
+BuildArch:      noarch
+
 Provides:       stb_leakcheck-static = %{stb_leakcheck_version}%{snapinfo}-%{release}
 
 %description -n stb_leakcheck-devel
@@ -648,6 +659,8 @@ Summary:        Perlin’s revised simplex noise w/ different seeds
 Version:        %{stb_perlin_version}%{snapinfo}
 License:        MIT OR Unlicense
 
+BuildArch:      noarch
+
 Provides:       stb_perlin-static = %{stb_perlin_version}%{snapinfo}-%{release}
 
 %description -n stb_perlin-devel
@@ -658,6 +671,8 @@ Provides:       stb_perlin-static = %{stb_perlin_version}%{snapinfo}-%{release}
 Summary:        Simple 2D rectangle packer with decent quality
 Version:        %{stb_rect_pack_version}%{snapinfo}
 License:        MIT OR Unlicense
+
+BuildArch:      noarch
 
 Provides:       stb_rect_pack-static = %{stb_rect_pack_version}%{snapinfo}-%{release}
 
@@ -682,6 +697,8 @@ same API, but with a different init function.
 Summary:        Fast sprintf, snprintf for C/C++
 Version:        %{stb_sprintf_version}%{snapinfo}
 License:        MIT OR Unlicense
+
+BuildArch:      noarch
 
 Provides:       stb_sprintf-static = %{stb_sprintf_version}%{snapinfo}-%{release}
 
@@ -716,6 +733,8 @@ Summary:        Guts of a text editor for games etc., implementing them from scr
 Version:        %{stb_textedit_version}%{snapinfo}
 License:        MIT OR Unlicense
 
+BuildArch:      noarch
+
 Provides:       stb_textedit-static = %{stb_textedit_version}%{snapinfo}-%{release}
 
 %description -n stb_textedit-devel
@@ -737,6 +756,8 @@ Summary:        Embeddable tilemap editor
 Version:        %{stb_tilemap_editor_version}%{snapinfo}
 License:        MIT OR Unlicense
 
+BuildArch:      noarch
+
 Provides:       stb_tilemap_editor-static = %{stb_tilemap_editor_version}%{snapinfo}-%{release}
 
 %description -n stb_tilemap_editor-devel
@@ -747,6 +768,8 @@ Embeddable tilemap editor for C/C++.
 Summary:        Parse, decode, and rasterize characters from TrueType fonts
 Version:        %{stb_truetype_version}%{snapinfo}
 License:        MIT OR Unlicense
+
+BuildArch:      noarch
 
 Provides:       stb_truetype-static = %{stb_truetype_version}%{snapinfo}-%{release}
 
@@ -774,6 +797,8 @@ Summary:        Decode Ogg Vorbis files from file/memory to float/16-bit signed 
 Version:        %{stb_vorbis_version}%{snapinfo}
 License:        MIT OR Unlicense
 
+BuildArch:      noarch
+
 Provides:       stb_vorbis-static = %{stb_vorbis_version}%{snapinfo}-%{release}
 
 %description -n stb_vorbis-devel
@@ -784,6 +809,8 @@ Ogg Vorbis audio decoder.
 Summary:        Helps render large-scale “voxel” worlds for games
 Version:        %{stb_voxel_render_version}%{snapinfo}
 License:        MIT OR Unlicense
+
+BuildArch:      noarch
 
 Provides:       stb_voxel_render-static = %{stb_voxel_render_version}%{snapinfo}-%{release}
 
@@ -899,10 +926,6 @@ rm '%{buildroot}%{_includedir}/stb/stb_include.h'
 install -D --preserve-timestamps --mode=0644 \
     --target='%{buildroot}%{_includedir}/stb' deprecated/stb_image_resize.h
 %endif
-%if %{with stb_image_resize2}
-install -D --preserve-timestamps --mode=0644 \
-    --target='%{buildroot}%{_includedir}/stb' deprecated/stb_image_resize2.h
-%endif
 %if %{with stb_sprintf}
 install -D --preserve-timestamps --mode=0644 \
     --target='%{buildroot}%{_includedir}/stb' deprecated/stb_sprintf.h
@@ -953,9 +976,6 @@ done <<'EOF'
 %{stb_image_version} stb_image.h
 %if %{with stb_image_resize}
 %{stb_image_resize_version} stb_image_resize.h
-%endif
-%if %{with stb_image_resize2}
-%{stb_image_resize2_version} stb_image_resize2.h
 %endif
 %{stb_image_write_version} stb_image_write.h
 %if %{with stb_include}
@@ -1069,16 +1089,6 @@ EOF
 %dir %{_includedir}/stb
 %{_includedir}/stb/stb_image_resize.h
 %{_includedir}/stb_image_resize.h
-%endif
-
-
-%if %{with stb_image_resize2}
-%files -n stb_image_resize2-devel
-%license LICENSE
-# Directory has shared ownership across stb subpackages:
-%dir %{_includedir}/stb
-%{_includedir}/stb/stb_image_resize2.h
-%{_includedir}/stb_image_resize2.h
 %endif
 
 

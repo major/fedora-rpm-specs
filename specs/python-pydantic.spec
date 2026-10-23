@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-pydantic
-Version:        2.13.5
+Version:        2.14.1
 #%%global srcversion %%{lua:return(rpm.expand("%%{version}"):gsub("~",""))}
 Release:        %autorelease
 Summary:        Data validation using Python type hinting
@@ -10,11 +10,6 @@ Summary:        Data validation using Python type hinting
 License:        MIT
 URL:            https://github.com/pydantic/pydantic
 Source:         %{url}/archive/v%{version}/pydantic-%{version}.tar.gz
-
-# Fix test failures with pytest >= 9.1.0 (non-Collection iterables in parametrize)
-Patch:          https://github.com/pydantic/pydantic/commit/53706f8f95585f2ae0cee43c1df944956dd2a31f.patch
-# Fix use of pytest.warns(match=...) with pytest >= 9.1.0
-Patch:          https://github.com/pydantic/pydantic/commit/e3fe82eba47c78758a21d8413c52063fc105550e.patch
 
 BuildArch:      noarch
 
@@ -44,11 +39,11 @@ BuildRequires:  %{py3_dist jsonschema}
 BuildRequires:  %{py3_dist cloudpickle}
 # devtools is not packaged; ansi2html is used only with devtools
 # sqlalchemy is "used in docs tests" that we do not run
-# pytest-memray is a profiler, therefore unwanted downstream
+# pytest-memray/memray is a profiler, therefore unwanted downstream
 %endif
 
 %global _description %{expand:
-Data validation and settings management using python type hinting.}
+%{summary}.}
 
 %description %{_description}
 
@@ -77,10 +72,10 @@ This package includes the documentation for Pydantic in Markdown format.
 rm -rv pydantic-core/
 
 # Delete pytest addopts. We don't care about benchmarking or coverage.
-tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
+tomcli-set pyproject.toml del tool.pytest.addopts
 # Work around patched-out pytest-run-parallel plugin dependency (avoid
 # "pytest.PytestUnknownMarkWarning: Unknown pytest.mark.thread_unsafe" error)
-tomcli-set pyproject.toml append 'tool.pytest.ini_options.markers' \
+tomcli-set pyproject.toml append tool.pytest.markers \
     'thread_unsafe: mark as incompatible with patched-out pytest-run-parallel'
 
 

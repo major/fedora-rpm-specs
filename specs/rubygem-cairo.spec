@@ -8,6 +8,9 @@
 %if 0%{?fedora} >= 42
 %bcond_with bootstrap
 %endif
+%if 0%{?fedora} >= 46
+%bcond_without bootstrap
+%endif
 
 # Upstream GIT http://github.com/rcairo/
 
@@ -16,7 +19,7 @@
 Summary:	Ruby bindings for cairo
 Name:		rubygem-%{gem_name}
 Version:	1.18.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 # From gemspec
 # SPDX confirmed
 License:	GPL-2.0-or-later OR Ruby
@@ -189,6 +192,9 @@ ruby ./test/run-test.rb
 %{header_dir}/rb_cairo.h
 
 %changelog
+* Thu Oct 22 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.5-3
+- Bump release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

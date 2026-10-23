@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 46.1
+Version: 46.3
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -528,6 +528,16 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 20 2026 Packit <hello@packit.dev> - 46.3-1
+- Bump petitboot firmware kernel version check to 5.19 (ppc64le) (tfratrik)
+- Advance system clock using buildstamp on RTC-less systems (kkoukiou)
+  Resolves: rhbz#2544626
+- Mount system filesystems into the OSTree rescue chroot
+  (69140827+Vaibhavbhope)
+- Wait for network when downloading Satellite provisioning script (abjo25)
+- storage: Avoid redundant "fedora_fedora" container name (adamkankovsky)
+  Resolves: rhbz#2536260
+
 * Thu Oct 08 2026 Packit <hello@packit.dev> - 46.1-1
 - fix: Fix pylint warning suppressions for pylint 4.1.2 (kkoukiou)
 - fix: Remove stale pylint false positives for s390, NM, OSTree, and GTK

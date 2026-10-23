@@ -116,6 +116,9 @@ developing applications that use %{name}.
 * Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
 - 6.7.91
 
+* Thu Sep 17 2026 Dominik Mierzejewski <dominik@greysector.net> - 6.7.5-2
+- Rebuilt for FFmpeg 9
+
 * Thu Sep 10 2026 Steve Cossette <farchord@gmail.com> - 6.7.90-1
 - 6.7.90
 

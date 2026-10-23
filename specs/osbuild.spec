@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        193
+Version:        194
 %global         osbuild_initrd_version 0.2
 
 %forgemeta
@@ -476,6 +476,7 @@ fi
 %files tools
 %{_bindir}/osbuild-image-info
 %{_bindir}/osbuild-mpp
+%{_bindir}/osbuild-add-selinux-labels
 %{?fedora:%{_bindir}/osbuild-dev}
 %{_libexecdir}/osbuild-store
 
@@ -488,6 +489,52 @@ fi
 %endif
 
 %changelog
+* Thu Oct 22 2026 Packit <hello@packit.dev> - 194-1
+Changes with 194
+----------------
+  - AGENTS: introduction (#2578)
+    - Author: Simon de Vlieger, Reviewers: Anna Vítová, Sanne Raymaekers
+  - Update images dependency ref to latest (#2559)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update images dependency ref to latest (#2562)
+    - Author: SchutzBot, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Update images dependency ref to latest (#2568)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update images dependency ref to latest (#2574)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Brian C. Lane
+  - Update images dependency ref to latest (#2576)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Brian C. Lane
+  - Update images dependency ref to latest (#2583)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update osbuild-ci container images (#2572)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Brian C. Lane
+  - Update osbuild-ci container images (#2580)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update snapshots to 20260915 (#2563)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update snapshots to 20261018 (#2582)
+    - Author: SchutzBot, Reviewers: Anna Vítová, Simon de Vlieger
+  - containers: recursively remount rw (#2581)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - devices/luks2: support parent partition numbers (#2570)
+    - Author: ArtiomDivak, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - org.osbuild.oci-archive: Correctly record xattrs (#2564)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - packit: enable riscv64 builds (#2538)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - rhsm: support cross major version builds (RHEL-215921) (#2565)
+    - Author: Lucas Garfield, Reviewers: Brian C. Lane, Simon de Vlieger
+  - rootless: Handle unknown selinux types (#2552)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - stages/xorrisofs: widen regex, anchor it (#2573)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Sanne Raymaekers
+  - test: skip xattr when not supported (#2561)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Anna Vítová
+  - xorrisofs: allow dots (#2584)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Sanne Raymaekers
+
+— Somewhere on the Internet, 2026-10-22
+
 * Sun Sep 06 2026 Packit <hello@packit.dev> - 193-1
 Changes with 193
 ----------------

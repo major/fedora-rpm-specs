@@ -1,5 +1,5 @@
 Name:           python-binary-manager
-Version:        0.1.3
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Binman firmware-packaging tool
 

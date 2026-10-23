@@ -24,7 +24,6 @@ BuildRequires:  python3-docs-theme >= 2022.1
 BuildRequires:  python3-sphinx >= 1:8.2.0
 BuildRequires:  python3-docutils
 BuildRequires:  python3-pygments
-BuildRequires:  gnupg2
 
 %bcond_without linkchecker
 %if %{with linkchecker}

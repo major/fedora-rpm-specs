@@ -1,7 +1,7 @@
 %global srcname getmac
 
 Name:           python-%{srcname}
-Version:        0.9.5
+Version:        0.9.6
 Release:        %autorelease
 Summary:        Python module to get the MAC address of local network interfaces and LAN hosts
 

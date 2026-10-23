@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/oprypin/pytest-golden
-Version:        1.0.1
+Version:        1.0.2
 %forgemeta
 
 Name:           python-pytest-golden

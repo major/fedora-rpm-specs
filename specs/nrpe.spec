@@ -6,12 +6,8 @@
 %global fromgit 0
 
 Name: nrpe
-Version: 4.1.3
-%if 0%{?fromgit}
-Release: 7%{?dist}
-%else
-Release: 7%{?dist}
-%endif
+Version: 4.2.0
+Release: 1%{?dist}
 Summary: Host/service/network monitoring agent for Nagios
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -31,7 +27,6 @@ Source7: nrpe.service.epel
 
 Patch3: nrpe-0003-Include-etc-npre.d-config-directory.patch
 Patch5: nrpe-0005-systemd-service.patch
-Patch6: nrpe-configure-c99.patch
 
 # For reconfiguration
 BuildRequires: make
@@ -215,6 +210,9 @@ fi
 %endif
 
 %changelog
+* Thu Oct 22 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.2.0-1
+- Update to upstream.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

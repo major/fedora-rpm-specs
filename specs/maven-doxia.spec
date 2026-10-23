@@ -15,7 +15,11 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  gpgverify
+%if 0%{?rhel} && 0%{?rhel} <= 10
+BuildRequires:  maven-local-openjdk21
+%else
 BuildRequires:  maven-local-openjdk25
+%endif
 BuildRequires:  mvn(com.vladsch.flexmark:flexmark)
 BuildRequires:  mvn(com.vladsch.flexmark:flexmark-ext-abbreviation)
 BuildRequires:  mvn(com.vladsch.flexmark:flexmark-ext-autolink)
@@ -196,6 +200,9 @@ done
 %pom_remove_plugin org.apache.maven.plugins:maven-site-plugin
 %pom_remove_plugin org.apache.rat:apache-rat-plugin
 %pom_remove_plugin :maven-install-plugin doxia-modules/doxia-module-markdown
+
+# Inject javaSource=8 for modello-maven-plugin to generate generics-compatible classes
+%pom_xpath_inject "pom:build/pom:plugins/pom:plugin[pom:artifactId='modello-maven-plugin']" "<configuration><javaSource>8</javaSource></configuration>" doxia-modules/doxia-module-fml
 
 # Needed for the tests
 %pom_add_dep org.apiguardian:apiguardian-api:1.1.2:test

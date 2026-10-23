@@ -97,6 +97,15 @@ Obsoletes:      plasma-nm-fortisslvpn < 6.7.91-2
 
 Provides:       kde-plasma-nm = %{version}-%{release}
 
+%if ! %{with vpnc}
+# vpnc is no longer maintained upstream
+Obsoletes:      plasma-nm-vpnc < 6.7.5-2
+%endif
+%if ! %{with fortissl}
+# fortissl is no longer maintained upstream
+Obsoletes:      plasma-nm-fortisslvpn < 6.7.5-2
+%endif
+
 %description
 Plasma applet and editor for managing your network connections in KDE 4 using
 the default NetworkManager service.
@@ -189,6 +198,7 @@ Provides:       kde-plasma-nm-vpnc = %{version}-%{release}
 %description    vpnc
 %{summary}.
 %endif
+
 %if 0%{?fedora}
 %package        ssh
 Summary:        SSH suppor for %{name}
@@ -354,6 +364,12 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 
 * Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-2
 - Disable vpnc and fortissl support for F45+
+
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-3
+- Reverting the obsolete bconds
+
+* Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.7.5-2
+- F45: Obsolete vpnc and fortissl
 
 * Thu Sep 24 2026 Steve Cossette <farchord@gmail.com> - 6.7.91-1
 - 6.7.91

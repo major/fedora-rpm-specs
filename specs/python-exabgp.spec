@@ -1,5 +1,5 @@
 Name:           python-exabgp
-Version:        5.0.14
+Version:        5.0.15
 Release:        1%{?dist}
 Summary:        The BGP swiss army knife of networking (Library)
 
@@ -91,7 +91,7 @@ rm -rf %{buildroot}%{_usr}/etc
 
 %check
 %pyproject_check_import -t
-exabgp_log_enable=false %pytest --ignore=tests/fuzz --cov --cov-reset --deselect tests/unit/test_network_tcp.py::TestSocketCreation::test_a_refused_setsockopt_is_reported_as_itself --deselect=tests/unit/test_network_tcp.py::TestSocketCreation::test_a_real_interface_is_bound_with_a_nul_terminated_name ./tests
+exabgp_log_enable=false %pytest --ignore=tests/fuzz --cov --cov-reset ./tests
 
 %pre -n exabgp
 %sysusers_create_package exabgp %{SOURCE1}
@@ -125,6 +125,10 @@ exabgp_log_enable=false %pytest --ignore=tests/fuzz --cov --cov-reset --deselect
 %{_tmpfilesdir}/exabgp.conf
 
 %changelog
+* Thu Oct 22 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.15-1
+- Update to verstion 5.0.15 (resolves rhbz#2554571)
+  Remove unit test exclude (fixed upstream in d9ba235)
+
 * Fri Oct 16 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 5.0.14-1
 - Update to version 5.0.14 (resolves rhbz#2549946)
   Remove patch for test harness

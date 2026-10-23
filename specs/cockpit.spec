@@ -55,7 +55,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        369
+Version:        370
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -370,10 +370,10 @@ Provides: cockpit-sosreport = %{version}-%{release}
 %endif
 
 Provides: bundled(npm(@patternfly/patternfly)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.2
 Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.2
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
@@ -382,15 +382,15 @@ Provides: bundled(npm(focus-trap)) = 7.6.6
 Provides: bundled(npm(ipaddr.js)) = 2.5.0
 Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
 Provides: bundled(npm(lodash)) = 4.18.1
+Provides: bundled(npm(markdown-to-jsx)) = 9.10.3
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(remarkable)) = 2.0.1
 Provides: bundled(npm(scheduler)) = 0.23.2
 Provides: bundled(npm(tabbable)) = 6.5.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
-Provides: bundled(npm(uuid)) = 14.0.2
+Provides: bundled(npm(uuid)) = 14.0.3
 
 %description system
 This package contains the Cockpit shell and system configuration interfaces.
@@ -666,6 +666,11 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Oct 22 2026 Packit <hello@packit.dev> - 370-1
+- systemd: Make chrony sources drop-in world-readable (RHEL-253609)
+- storaged: Recognize TPM2 key slots (RHEL-167807)
+- storaged: Support UTF-8 encoding for mount points
+
 * Wed Oct 07 2026 Packit <hello@packit.dev> - 369-1
 - Translations and dependency updates
 

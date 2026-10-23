@@ -39,14 +39,6 @@ It provides the following types of games:
     operations designed to prove your mental calculation skills.
 * Memory trainers. Games designed to challenge your short term memory.
 
-%package devel
-Summary:      Files needed for developing with gbrainy
-Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-
-%description devel
-This package provides the necessary development libraries and headers
-for writing gbrainy applications.
-
 %prep
 %autosetup -p0
 
@@ -88,8 +80,6 @@ chmod a-x $RPM_BUILD_ROOT%{_libdir}/%{name}/%{name}.exe.config
 %{_mandir}/man6/%{name}.6.gz
 %{_datadir}/pixmaps/%{name}*
 %{_datadir}/metainfo/%{name}.appdata.xml
-
-%files devel
 
 %changelog
 %autochangelog

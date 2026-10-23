@@ -6,7 +6,7 @@
 }
 
 Name:           python-%{srcname}
-Version:        1.36
+Version:        1.37
 Release:        %autorelease
 Summary:        Font Querying tool for Fedora
 License:        MIT

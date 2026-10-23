@@ -20,17 +20,20 @@
 
 Name:           numpy
 Version:        2.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
 # Everything is BSD-3-Clause except...
-# numpy/core/include/numpy/libdivide: Zlib OR BSL-1.0
-# numpy/core/src/multiarray/dragon4.*: MIT
+# numpy/_core/include/numpy/libdivide: Zlib
+# numpy/_core/src/multiarray/dragon4.*: MIT
 # numpy/random/src/mt19937/randomkit.h: MIT
-# numpy/random/src/pcg64: MIT AND Apache-2.0
+# numpy/random/src/pcg64: MIT
 # numpy/random/src/sfc64: MIT
-License:        BSD-3-Clause AND MIT AND Apache-2.0 AND (Zlib OR BSL-1.0)
+# numpy/_core/src/common/pythoncapi-compat 0BSD
+# numpy/_core/src/highway Dual-licensed: Apache 2.0 or BSD 3-Clause
+# numpy/random/src/splitmix64: CC0-1.0
+License:        BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0
 URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
@@ -261,6 +264,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Thu Oct 22 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.5.4-2
+- License updates 2558176
+
 * Sat Oct 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 1:2.5.4-1
 - 2.5.4
 

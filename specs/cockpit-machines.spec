@@ -3,7 +3,7 @@
 # Copyright (C) 2021 Red Hat, Inc.
 
 Name:           cockpit-machines
-Version:        358
+Version:        359
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -72,10 +72,10 @@ Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.6.2
 Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
 Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.6.2
 Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
@@ -123,6 +123,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Oct 22 2026 Packit <hello@packit.dev> - 359-1
+- disks: Use FileChooser for inserting media (RHEL-211920)
+
 * Wed Oct 07 2026 Packit <hello@packit.dev> - 358-1
 - spec: Don't recommend qemu-char-spice after Fedora 45
 - manifest: Update RHEL documentation link

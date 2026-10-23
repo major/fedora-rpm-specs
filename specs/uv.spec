@@ -440,7 +440,8 @@ rm --recursive --verbose crates/uv-trampoline
 # the uv crate’s build script.
 tomcli set Cargo.toml del workspace.dependencies.embed-manifest
 tomcli set crates/uv/Cargo.toml del build-dependencies.embed-manifest
-# The embed-manifest depenency is also used in uv-trampoline, which we removed.
+# The embed-manifest dependency is also used in uv-trampoline, which we
+# removed.
 
 # Do not strip the compiled executable; we need useful debuginfo. Upstream set
 # this intentionally, so this change makes sense to keep downstream-only.

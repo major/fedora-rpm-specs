@@ -13,7 +13,7 @@
 %endif
 
 Name:           libkrun
-Version:        1.19.6
+Version:        1.19.7
 Release:        1%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
@@ -241,6 +241,9 @@ capabilities.
 %endif
 
 %changelog
+* Thu Oct 22 2026 Sergio Lopez <slp@redhat.com> - 1.19.7-1
+- Update to version 1.19.7
+
 * Tue Sep 29 2026 Sergio Lopez <slp@redhat.com> - 1.19.6-1
 - Update to version 1.19.6
 

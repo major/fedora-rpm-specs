@@ -10,7 +10,7 @@
 
 Name:           gdm
 Epoch:          1
-Version:        51.0
+Version:        51.1.1
 Release:        %autorelease
 Summary:        The GNOME Display Manager
 

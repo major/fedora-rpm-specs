@@ -1,9 +1,9 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 26.8.1
+%global libo_version 26.8.2
 # This is the last (fourth) digit of LO version
-%global libo_min_version 1
+%global libo_min_version 2
 # Set this to 1 if this is a prerelease build
-%global prerelease 1
+%global prerelease 0
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
@@ -14,11 +14,11 @@
 %global libo_python_executable %{__python3}
 %global libo_python_sitearch %{python3_sitearch}
 # make it easier to download sources from pre-release site
-%if 0%{?prerelease}
+#%%if 0%%{?prerelease}
 %global source_url http://dev-builds.libreoffice.org/pre-releases/src
-%else
-%global source_url http://download.documentfoundation.org/libreoffice/src/%{libo_version}
-%endif
+#%%else
+#%%global source_url http://download.documentfoundation.org/libreoffice/src/%{libo_version}
+#%%endif
 # URL for external projects' tarballs
 %global external_url http://dev-www.libreoffice.org/src
 %global girapiversion 0.1

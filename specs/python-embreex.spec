@@ -1,5 +1,5 @@
 Name:           python-embreex
-Version:        4.4.0
+Version:        4.4.0.post1
 Release:        %autorelease
 Summary:        Python binding for Intel’s Embree ray engine
 

@@ -22,6 +22,10 @@ BuildRequires:    systemd-rpm-macros
 Patch0:           3proxy-1.0.0-config-path.patch
 # Adapt manpages to reflect renamed proxy binary
 Patch1:           3proxy-1.0.0-manpage.patch
+# Fix CVE-2026-109438 (rhbz#2553107, rhbz#2553106)
+# Backported from upstream:
+# https://github.com/3proxy/3proxy/commit/206c923d6cd433bd2e7196375442650c328b8bfa
+Patch2:           CVE-2026-109438.patch
 
 %description
 %{name} -- light proxy server.

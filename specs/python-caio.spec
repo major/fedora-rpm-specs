@@ -8,8 +8,10 @@ Summary:        Asynchronous file IO for Linux, MacOS or Windows
 License:        Apache-2.0
 URL:            https://github.com/mosquito/caio/
 Source:         %{pypi_source caio}
+ExcludeArch:    %{ix86}
 
 Patch0: 0001-Replace-aiomisc-with-pytest-timeout.patch
+Patch1: 0002-Fix-PyMemberDef-type-mismatches-for-big-endian-platf.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel

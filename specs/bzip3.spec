@@ -14,7 +14,7 @@
 %endif
 
 Name:           bzip3
-Version:        1.5.4
+Version:        1.5.5
 Release:        1%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # 3rdparty/libsais-LICENSE: Apache-2.0 text
@@ -41,7 +41,7 @@ Summary:        Tools for compressing and decompressing bzip3 files
 # build-aux/libtool.m4:     FSFULLR AND GPL-2.0-or-later WITH Libtool-exception
 #                           AND FSFUL
 # build-aux/ltmain.sh:      GPL-2.0-or-later WITH Libtool-exception AND
-#                           (GPL-2.0-or-later OR MIT)
+#                           (GPL-2.0-or-later OR MIT) AND GPL-2.0-or-later
 # build-aux/lt~obsolete.m4  FSFULLR
 # build-aux/ltoptions.m4:   FSFULLR
 # build-aux/ltsugar.m4:     FSFULLR
@@ -49,12 +49,15 @@ Summary:        Tools for compressing and decompressing bzip3 files
 # configure:                FSFUL AND GPL-2.0-or-later WITH Libtool-exception
 # Makefile.in:              FSFULLR
 License:        LGPL-3.0-or-later AND BSD-2-Clause
-SourceLicense:  GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-macro AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-2.0-or-later WITH Libtool-exception AND (GPL-2.0-or-later OR MIT) AND LGPL-3.0-or-later AND BSD-2-Clause AND Apache-2.0 AND X11 AND FSFULLR AND FSFUL AND FSFAP
+SourceLicense:  GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-macro AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-2.0-or-later WITH Libtool-exception AND (GPL-2.0-or-later OR MIT) AND GPL-2.0-or-later AND LGPL-3.0-or-later AND BSD-2-Clause AND Apache-2.0 AND X11 AND FSFULLR AND FSFUL AND FSFAP
 URL:            https://github.com/iczelia/%{name}
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 # Do not use /usr/bin/env in shell bangs, not suitable for upstream,
 # <https://github.com/kspalaiologos/bzip3/pull/75>.
 Patch0:         bzip3-1.5.0-Do-not-use-usr-bin-env-in-shell-bangs.patch
+# Fix a buffer overflow in bz3_compress() for small incompressible inputs, in
+# upstream after 1.5.5, <https://github.com/iczelia/bzip3/issues/193>
+Patch1:         bzip3-1.5.5-fix-193.patch
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
@@ -267,6 +270,11 @@ fi
 %{_mandir}/man1/%{programs}.1*
 
 %changelog
+* Thu Oct 22 2026 Petr Pisar <ppisar@redhat.com> - 1.5.5-1
+- 1.5.5 bump
+- Fix a buffer overflow in bz3_compress() for small incompressible inputs
+  (upstream GH#193)
+
 * Tue Sep 08 2026 Petr Pisar <ppisar@redhat.com> - 1.5.4-1
 - 1.5.4 bump
 

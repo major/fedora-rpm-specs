@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc0.261021ga804c5742bff.2
+%define pkgrelease 0.rc0.261022g7be4bc52fd9e.4
 %define kversion 7
-%define tarfile_release 7.3-1703-ga804c5742bff
+%define tarfile_release 7.3-2415-g7be4bc52fd9e
 # This is needed to do merge window version magic
 %define patchlevel 4
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.261021ga804c5742bff.2%{?buildid}%{?dist}
+%define specrelease 0.rc0.261022g7be4bc52fd9e.4%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -4835,6 +4835,14 @@ fi\
 #
 #
 %changelog
+* Thu Oct 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.7be4bc52fd9e.4]
+- Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
+- sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Thu Oct 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.7be4bc52fd9e.3]
+- Fix up a mismatch for Fedora (Justin M. Forbes)
+- Linux v7.4.0-0.rc0.7be4bc52fd9e
+
 * Wed Oct 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.a804c5742bff.2]
 - Trim changelog for 7.4 rebase (Justin M. Forbes)
 - Linux v7.4.0-0.rc0.a804c5742bff

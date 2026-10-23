@@ -29,6 +29,10 @@ Source10: discoverrc
 Patch200: discover-pk-refresh-timer.patch
 
 ## upstreamable patches
+# https://invent.kde.org/plasma/discover/-/merge_requests/1443
+# https://bugzilla.redhat.com/show_bug.cgi?id=2480694
+# make sure we install the highest available version of apps
+Patch201: 0001-PackageKitBackend-always-return-highest-versioned-av.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -320,6 +324,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.apps
 %changelog
 * Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
 - 6.8.1
+
+* Tue Oct 20 2026 Adam Williamson <adamwill@fedoraproject.org> - 6.7.5-2
+- Backport MR #1443 to fix RHBZ #2480694
 
 * Fri Oct 09 2026 Steve Cossette <farchord@gmail.com> - 6.8.0-1
 - 6.8.0

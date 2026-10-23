@@ -1,21 +1,19 @@
 Name:           perl-Module-Install-TrustMetaYml
 Version:        0.003
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Trusts META.yml list of dependencies
-# HACKING:      CC-BY-SA
-# other files:  GPL+ Artistic
-# Automatically converted from old format: (GPL+ or Artistic) and CC-BY-SA - review is highly recommended.
-License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LicenseRef-Callaway-CC-BY-SA
+# HACKING:      CC-BY-SA-2.0-UK
+# other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND CC-BY-SA-2.0-UK
 URL:            https://metacpan.org/release/Module-Install-TrustMetaYml
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/Module-Install-TrustMetaYml-%{version}.tar.gz
 # To boostrap this package without bundling
 Patch0:         Module-Install-TrustMetaYml-0.003-Build-without-bundled-Module-Package-modules.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(inc::Module::Package)
 # Run-time:
 BuildRequires:  perl(base)
@@ -32,19 +30,17 @@ passing through the dependencies from META.yml. It does nothing when run from
 the module author's development copy.
 
 %prep
-%setup -q -n Module-Install-TrustMetaYml-%{version}
-%patch -P0 -p1
+%autosetup -p1 -n Module-Install-TrustMetaYml-%{version}
 # Remove bundled modules
 rm -rf ./inc
-sed -i -e '/^inc\//d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -53,10 +49,15 @@ make test
 %files
 %license LICENSE
 %doc Changes COPYRIGHT CREDITS HACKING README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Module
+%dir %{perl_vendorlib}/Module/Install
+%{perl_vendorlib}/Module/Install/TrustMetaYml.pm
+%{_mandir}/man3/Module::Install::TrustMetaYml.*
 
 %changelog
+* Thu Oct 22 2026 Petr Pisar <ppisar@redhat.com> - 0.003-30
+- Modernize a spec file
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

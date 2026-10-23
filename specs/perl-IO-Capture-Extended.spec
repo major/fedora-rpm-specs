@@ -1,29 +1,35 @@
 Name:           perl-IO-Capture-Extended
-Version:        0.13
-Release:        33%{?dist}
+Version:        0.14
+Release:        1%{?dist}
 Summary:        Extend functionality of IO::Capture
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Capture-Extended
 Source0:        https://cpan.metacpan.org/authors/id/J/JK/JKEENAN/IO-Capture-Extended-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.6
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IO::Capture) >= 0.05
 BuildRequires:  perl(IO::Capture::Stderr)
 BuildRequires:  perl(IO::Capture::Stdout)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
 # Tests only:
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Simple) >= 0.44
+# Test::More version from Test::Simple in META.json
+BuildRequires:  perl(Test::More) >= 0.44
 Requires:       perl(IO::Capture) >= 0.05
+
+# Remove underspecified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
+# Hide private modules
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(_Auxiliary\\)$
 
 %description
 IO::Capture::Extended is a distribution consisting of two classes, each of
@@ -32,28 +38,64 @@ functionality of CPAN modules IO::Capture::Stdout and IO::Capture::Stderr,
 particularly when used in a testing context such as that provided by
 Test::Simple, Test::More or other modules built on Test::Builder.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(lib)
+Requires:       perl(Test::More) >= 0.44
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n IO-Capture-Extended-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/IO
+%dir %{perl_vendorlib}/IO/Capture
+%{perl_vendorlib}/IO/Capture/Extended
+%{perl_vendorlib}/IO/Capture/Extended.pm
+%dir %{perl_vendorlib}/IO/Capture/Stderr
+%{perl_vendorlib}/IO/Capture/Stderr/Extended.pm
+%dir %{perl_vendorlib}/IO/Capture/Stdout
+%{perl_vendorlib}/IO/Capture/Stdout/Extended.pm
+%{_mandir}/man3/IO::Capture::Extended.*
+%{_mandir}/man3/IO::Capture::Extended::*
+%{_mandir}/man3/IO::Capture::Stderr::Extended.*
+%{_mandir}/man3/IO::Capture::Stdout::Extended.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 22 2026 Petr Pisar <ppisar@redhat.com> - 0.14-1
+- 0.14 bump
+- Install the tests
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -17,7 +17,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.11.2
+Version:        6.12.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtActiveQt component
 
@@ -35,6 +35,7 @@ Patch0:         qtactiveqt_qt6suffix.patch
 Patch1:         0001-Handle-win64-in-dumpcpp-and-MetaObjectGenerator-read.patch
 # From ArchLinux package: don't attempt to build non-portable tools on host platform
 Patch2:         0002-Build-tools-for-the-target-platform.patch
+Patch3:         0003-fix-mingw-unknwn-header-case.patch
 
 BuildArch:      noarch
 
@@ -192,6 +193,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Wed Oct 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

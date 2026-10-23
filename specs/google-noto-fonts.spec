@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	2026.09.01
+%global srcver	2026.10.01
 # for default font
 %global hprio	56
 # for default font but static
@@ -477,7 +477,9 @@ local subpackages = {
     { alias="serif",      family="Serif Gurmukhi", lang={ "pa" },
       default=true
     },
-    { alias="serif",      family="Serif Hebrew", lang={ "he", "yi" } },
+    { alias="serif",      family="Serif Hebrew", lang={ "he", "yi" },
+      default=true
+    },
     { alias="serif",      family="Serif Hentaigana" },
     { alias="serif",      family="Serif Kannada", lang={ "kn" },
       default=true
@@ -706,7 +708,9 @@ local subpackages = {
     { alias="serif",      variable=true, family="Serif Gurmukhi", lang={ "pa" },
       default=true
     },
-    { alias="serif",      variable=true, family="Serif Hebrew", lang={ "he", "yi" } },
+    { alias="serif",      variable=true, family="Serif Hebrew", lang={ "he", "yi" },
+      default=true
+    },
     { alias="serif",      variable=true, family="Serif Hentaigana" },
     { alias="serif",      variable=true, family="Serif Kannada", lang={ "kn" },
       default=true

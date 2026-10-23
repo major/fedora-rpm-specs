@@ -1,6 +1,6 @@
 Name:           gummi
 Version:        0.8.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A simple LaTeX editor
 
 License:        MIT
@@ -19,6 +19,8 @@ BuildRequires:  texlive-lib-devel
 BuildRequires:  tex-synctex
 
 Requires:       texlive-latex
+Requires:       texlive-metafont
+Requires:       texlive-mfware
 
 %description
 Gummi is a LaTeX editor written in the C programming language using the
@@ -53,6 +55,10 @@ desktop-file-install                                 \
 %{_libdir}/%{name}/
 
 %changelog
+* Fri Oct 23 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.3-6
+- Fix runtime dependencies
+- Resolves: rhbz#2544922
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

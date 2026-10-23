@@ -25,7 +25,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -133,7 +133,7 @@ Requires: rocalution-devel >= %{rocm_release}
 Requires: rocdecode-devel >= %{rocm_release}
 Requires: rocjpeg-devel >= %{rocm_release}
 Requires: rocm-core-devel >= %{rocm_release}
-Requires: rocm-examples >= %{rocm_release}
+Requires: rocm-examples
 Requires: rocm-rdc-devel
 Requires: rocm-rpp-devel
 Requires: rocprofiler-register-devel >= %{rocm_release}
@@ -187,6 +187,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Thu Oct 22 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-2
+- rocm-examples does not follow therock releases
+
 * Sun Oct 11 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
 - Update to 10.1
 

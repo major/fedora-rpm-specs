@@ -1,9 +1,12 @@
-%global commit      01c1f6b23ab73c1459c8f4cfd2eb16d5142214c2
-%global date        20260820
+%global commit      f5da489383e12b7cc8e6277a3ef827266730bac1
+%global date        20261022
 %global shortcommit %{sub %{commit} 1 7}
 
 %global libmonado_somajor 25
 %global libmonado_sover   25.1.0
+
+# archive tarballs have no .git, so provide the version banner ourselves
+%global gitdesc     v%{libmonado_sover}-%{date}-g%{shortcommit}
 
 # dependency arches
 # results in perfetto tracing not enabled
@@ -33,8 +36,7 @@ License:        %{shrink:
                 CC-BY-4.0 AND
                 CC0-1.0 AND
                 MIT AND
-                Unlicense AND
-                Zlib}
+                Unlicense}
 # License breakdown for the files that reach the binary packages:
 #   Apache-2.0    src/external/glad, parts of src/xrt
 #   BSD-2-Clause  src/external/hungarian
@@ -45,15 +47,19 @@ License:        %{shrink:
 #   CC0-1.0       src/external/glad, doc/*.md
 #   MIT           src/external/imgui, and src/external/glad/include/KHR/khrplatform.h,
 #                 which is the Khronos variant of MIT using "Materials" for "Software"
-#   Unlicense     src/external/stb and src/external/imgui/imstb*, both MIT OR Unlicense
-#   Zlib          src/external/nanopb
+#   Unlicense     src/external/imgui/imstb*, MIT OR Unlicense
 
 
 URL:            https://gitlab.freedesktop.org/monado/monado
 Source0:        %{url}/-/archive/%{commit}/%{name}-%{commit}.tar.gz#/%{name}-%{shortcommit}.tar.gz
 
+# Use the system nanopb and stb_image_write instead of the bundled copies
+Patch0:         monado-system-nanopb-stb.patch
+
 
 BuildRequires:  cmake
+BuildRequires:  nanopb-devel
+BuildRequires:  stb_image_write-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  gcc-c++
 BuildRequires:  glslc
@@ -102,12 +108,16 @@ Requires:       basalt-monado
 Requires:       openxr
 
 # Bundled copies under src/external that are compiled into the binaries.
-Provides:       bundled(glad)
+Provides:       bundled(bcdec) = 0.97
+Provides:       bundled(cimgui) = 1.92.5
+Provides:       bundled(cimplot) = 0.17
+Provides:       bundled(flexkalman)
+Provides:       bundled(glad) = 2.0.8
 Provides:       bundled(hungarian)
 Provides:       bundled(imgui) = 1.92.5
-Provides:       bundled(nanopb) = 0.4.9.1
-Provides:       bundled(stb)
+Provides:       bundled(implot) = 0.17
 Provides:       bundled(tinyceres)
+Provides:       bundled(valve-file-vdf)
 
 # libopenxr_monado.so is a dlopen-only module with no SONAME. It only lands in the
 # loader path because %%{_libdir}/%%{name} is there for libmonado's sake, which makes
@@ -142,6 +152,7 @@ Devel information for Monado.
 %cmake -GNinja \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_INSTALL_LIBDIR=%{_lib}/%{name} \
+  -DGIT_DESC:STRING=%{gitdesc} \
 %ifarch %{percetto_arches}
   -DXRT_HAVE_PERCETTO:BOOL=ON \
   -DXRT_FEATURE_TRACING:BOOL=ON \

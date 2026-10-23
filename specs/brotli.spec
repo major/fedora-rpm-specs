@@ -1,6 +1,9 @@
 Name:           brotli
-Version:        1.2.0
-Release:        6%{?dist}
+# ** ALERT **: when bumping this version, you must also ensure
+# perl-Alien-Brotli is rebuilt and included in the update, as it
+# depends on the exact brotli version
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        Lossless compression algorithm
 
 License:        MIT
@@ -106,6 +109,10 @@ cd python
 %{_mandir}/man3/types.h.3brotli*
 
 %changelog
+* Thu Oct 22 2026 Andrei Radchenko <aradchen@redhat.com> - 1.2.1-1
+- Update to version 1.2.1
+- Fixes: CVE-2026-111497
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.2.0-6
 - Rebuilt for Python 3.15.0b4 ABI change
 

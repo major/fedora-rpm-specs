@@ -26,9 +26,10 @@ Patch0:  set_wheel.patch
 Patch1:  default_panal_launcher.patch
 Patch2:  remove_crap_from_menu.patch
 Patch3:  set_menu_defaults.patch
-Patch4:  %url/pull/13947.patch#/glycin_ratelimit.patch
-Patch5:  %url/pull/14062.patch#/add_pam_oo7.patch
-Patch6:  %url/pull/14066.patch#/add_oo7-portal.patch
+Patch4:  prefer-gcr-ssh-agent.patch
+Patch5:  %url/pull/13947.patch#/glycin_ratelimit.patch
+Patch6:  %url/pull/14062.patch#/add_pam_oo7.patch
+Patch7:  %url/pull/14066.patch#/add_oo7-portal.patch
 
 ExcludeArch:    %{ix86}
 
@@ -98,8 +99,7 @@ Requires:       %{name}-session%{?_isa}
 Requires:       accountsservice-libs%{?_isa}
 
 # needed for the screen locker
-Requires: (pam_oo7%{?_isa} or gnome-keyring-pam%{?_isa})
-Suggests: pam_oo7%{?_isa}
+Requires: pam_oo7%{?_isa}
 
 # needed for settings
 Requires:       gsound%{?_isa}

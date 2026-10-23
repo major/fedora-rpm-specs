@@ -109,8 +109,8 @@ Requires:  ensmallen-devel >= 2.10.0
 Requires:  cereal-devel
 Requires:  lapack-devel
 Requires:  pkg-config
-Requires:  stb_image-devel%{?_isa} >= %{min_stb_image}
-Requires:  stb_image_write-devel%{?_isa}
+Requires:  stb_image-devel >= %{min_stb_image}
+Requires:  stb_image_write-devel
 Provides:  %{name}-static = %{version}-%{release}
 
 %description devel

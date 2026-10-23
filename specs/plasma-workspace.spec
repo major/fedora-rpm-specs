@@ -3,7 +3,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.8.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -246,6 +246,9 @@ Requires:       kde-settings-plasma
 # Default look-and-feel theme
 Requires:       plasma-lookandfeel-fedora = %{version}-%{release}
 
+# New theming engine
+Recommends:     plasma-union
+
 Requires:       systemd
 
 # Default sound theme
@@ -306,6 +309,12 @@ Conflicts:  %{name}-wayland < 6.4.1-2
 Provides:   %{name}-wayland = %{version}-%{release}
 Provides:   %{name}-wayland%{?_isa} = %{version}-%{release}
 
+# Obsolete dead Plasma X11 package
+Obsoletes:  %{name}-x11 < 6.7.90
+Conflicts:  %{name}-x11 < 6.7.90
+Obsoletes:  %{name}-xorg < 6.7.90
+Conflicts:  %{name}-xorg < 6.7.90
+
 %description
 Plasma 6 libraries and runtime components
 
@@ -346,8 +355,7 @@ developing applications that use %{name}.
 
 %package        doc
 Summary:        Documentation and user manuals for %{name}
-# Automatically converted from old format: GFDL - review is highly recommended.
-License:        LicenseRef-Callaway-GFDL
+License:        GFDL-1.2-only
 # switch to noarch
 Obsoletes:      plasma-workspace-doc < 5.3.1-2
 Requires:       %{name}-common = %{version}-%{release}
@@ -658,6 +666,13 @@ fi
 
 
 %changelog
+* Thu Oct 22 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.8.1-3
+- Recommend plasma-union for new theming engine
+- Fix doc subpackage license to GFDL-1.2-only
+
+* Thu Oct 22 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.8.1-2
+- Obsolete plasma-workspace-x11
+
 * Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
 - 6.8.1
 
@@ -708,9 +723,6 @@ fi
 
 * Sat May 16 2026 Steve Cossette <farchord@gmail.com> - 6.6.90-1
 - 6.6.90
-
-* Mon May 18 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-2
-- Fix for notifications being partially broken since Qt 6.11.1
 
 * Thu May 14 2026 Steve Cossette <farchord@gmail.com> - 6.6.5-1
 - 6.6.5

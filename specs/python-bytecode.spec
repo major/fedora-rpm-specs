@@ -1,5 +1,5 @@
 Name:           python-bytecode
-Version:        0.19.0
+Version:        0.19.1
 Release:        %autorelease
 Summary:        Python module to generate and modify bytecode
 

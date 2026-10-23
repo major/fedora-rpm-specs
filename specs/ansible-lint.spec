@@ -7,8 +7,7 @@ Version:        26.10.1
 Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
-# README file says its just GPLv3
-License:        GPL-3.0-only
+License:        GPL-3.0-or-later
 URL:            https://github.com/ansible/ansible-lint
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{archive_name}-%{version}.tar.gz
 

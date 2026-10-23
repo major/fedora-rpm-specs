@@ -1,6 +1,6 @@
 Summary: Tracks and displays system calls associated with a running process
 Name: strace
-Version: 7.2
+Version: 7.3
 Release: 1%{?dist}
 # The test suite is GPLv2+, the bundled headers are GPLv2 with Linux syscall
 # exception, all the rest is LGPLv2.1+.
@@ -210,6 +210,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Thu Oct 22 2026 Dmitry V. Levin <ldv@strace.io> - 7.3-1
+- v7.2 -> v7.3.
+
 * Tue Aug 18 2026 Dmitry V. Levin <ldv@strace.io> - 7.2-1
 - v7.1 -> v7.2.
 

@@ -10,39 +10,23 @@
 %bcond inline_snapshot_tests 1
 
 Name:           python-pydantic-core
-Version:        2.46.5
+Version:        2.50.1
 Release:        %autorelease
-Summary:        Core validation logic for pydantic written in rust
+Summary:        Core functionality for Pydantic validation and serialization
 
 License:        MIT
 URL:            https://github.com/pydantic/pydantic-core
 Source:         %{pypi_source pydantic_core}
 
 # Manually created patch for downstream crate metadata changes
-# * Allow jiter 0.15 through 0.17. API changes from 0.14 to 0.17 are purely
-#   additive, plus switching to PyO3 0.29, which we are also doing here, so
-#   this is compatible. Downstream-only because jiter is developed by the
-#   Pydantic people, and we can reasonably assume that they will update in due
-#   course without prompting from us.
+# * Bump jiter to v0.17.0, https://github.com/pydantic/pydantic/pull/13806
 Patch:          pydantic-core-fix-metadata.diff
-# Upstream thinks it's a good idea to rely on exact formatting of error messages in other projects. Meh.
-# See the commit message in the patch for more info.
-Patch:          0001-Fix-test-assertion-to-account-for-change-in-rust-uuid.patch
-# update to PyO3 0.29
-# https://github.com/pydantic/pydantic/pull/13301
-Patch:          pydantic_core-2.46.4-pyo3-0.29.patch
-
-# Compatibility with pytest 9.1
-# The patch is manually adjusted from the upstream
-# https://github.com/pydantic/pydantic/commit/f257d01
-Patch:          fix-pytest-9.1.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  tomcli
 
 %global _description %{expand:
-The pydantic-core project provides the core validation logic for pydantic
-written in Rust.}
+%{summary}.}
 
 %description %_description
 
@@ -122,9 +106,6 @@ tomcli-set pyproject.toml del 'tool.pytest.ini_options.timeout'
 tomcli-set pyproject.toml list 'tool.pytest.ini_options.markers' \
     'thread_unsafe: mark as incompatible with patched-out pytest-run-parallel'
 
-# Remove Windows-only dependencies
-tomcli-set Cargo.toml lists delitem 'dependencies.pyo3.features' 'generate-import-lib'
-
 # Include LICENSE.dependencies in the .dist-info metadata and mark it %%license
 tomcli set pyproject.toml append project.license-files LICENSE.dependencies
 
@@ -132,7 +113,7 @@ tomcli set pyproject.toml append project.license-files LICENSE.dependencies
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-g testing-extra}
+%pyproject_buildrequires %{?with_tests:--dependency-groups testing-extra}
 %cargo_generate_buildrequires
 
 
@@ -150,11 +131,19 @@ tomcli set pyproject.toml append project.license-files LICENSE.dependencies
 
 %check
 %pyproject_check_import
+
+# Verify that LICENSE.dependencies was included with the .dist-info
+[ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSE.dependencies)" ]
+
 %if %{with tests}
 ignore="${ignore-} --ignore=tests/benchmarks"
 %if %{without inline_snapshot_tests}
 ignore="${ignore-} --ignore=tests/validators/test_allow_partial.py"
 %endif
+# Avoid a circular dependency on python-pydantic.
+ignore="${ignore-} --ignore=tests/test_tzinfo.py"
+# This would require python-pytest-examples, not packaged.
+ignore="${ignore-} --ignore=tests/test_docstrings.py"
 
 # Due to patching out the pytest-timeout dependency:
 warningsfilter="${warningsfilter-} -W ignore::pytest.PytestUnknownMarkWarning"

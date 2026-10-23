@@ -2,7 +2,7 @@
 %global srcname ipmi
 
 Name:           python-%{srcname}
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Pure python IPMI library
 License:        LGPL-2.1-or-later
@@ -47,7 +47,7 @@ sed -i 's/from mock import/from unittest.mock import/g' tests/*.py
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license COPYING
-%doc README.rst
+%doc README*
 %{_bindir}/ipmitool.py
 
 %changelog

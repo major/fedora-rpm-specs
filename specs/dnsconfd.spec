@@ -2,8 +2,8 @@
 %global selinuxtype targeted
 
 Name:           dnsconfd
-Version:        2.2.2
-Release:        2%{?dist}
+Version:        2.2.3
+Release:        1%{?dist}
 Summary:        Local DNS cache configuration daemon
 License:        MIT
 URL:            https://github.com/InfrastructureServices/dnsconfd
@@ -117,6 +117,7 @@ install -m 0644 -p distribution/dnsconfd.conf %{buildroot}%{_sysconfdir}/dnsconf
 install -m 0644 -p distribution/dnsconfd-tmpfiles.conf %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -m 0644 -p distribution/dnsconfd-unbound-tmpfiles.conf %{buildroot}%{_tmpfilesdir}/%{name}-unbound.conf
 install -m 0755 -p distribution/dracut_module/module-setup.sh %{buildroot}%{_prefix}/lib/dracut/modules.d/70dnsconfd
+install -m 0644 -p distribution/dracut_module/dnsconfd-initrd.conf %{buildroot}%{_prefix}/lib/dracut/modules.d/70dnsconfd
 install -m 0755 -p distribution/dnsconfd-prepare.sh %{buildroot}%{_libexecdir}/dnsconfd-prepare
 install -m 0755 -p distribution/dnsconfd-prepare.sh %{buildroot}%{_libexecdir}/dnsconfd-cleanup
 install -m 0755 -p distribution/dnsconfd-unbound-control.sh %{buildroot}%{_libexecdir}/dnsconfd-unbound-control.sh
@@ -230,7 +231,4 @@ fi
 %{_prefix}/lib/dracut/modules.d/70dnsconfd
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
 %autochangelog

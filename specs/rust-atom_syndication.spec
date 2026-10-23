@@ -2,21 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate joinery
+%global crate atom_syndication
 
-Name:           rust-joinery
-Version:        3.1.0
+Name:           rust-atom_syndication
+Version:        0.12.10
 Release:        %autorelease
-Summary:        Small crate for generically joining iterators with a separator
+Summary:        Library for serializing the Atom web content syndication format
 
-License:        MIT
-URL:            https://crates.io/crates/joinery
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/atom_syndication
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A small crate for generically joining iterators with a separator.}
+Library for serializing the Atom web content syndication format.}
 
 %description %{_description}
 
@@ -30,7 +31,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
@@ -47,52 +49,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+nightly-devel
+%package     -n %{name}+builders-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+nightly-devel %{_description}
+%description -n %{name}+builders-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "nightly" feature of the "%{crate}" crate.
+use the "builders" feature of the "%{crate}" crate.
 
-%files       -n %{name}+nightly-devel
+%files       -n %{name}+builders-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+proc-macro2-devel
+%package     -n %{name}+derive_builder-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+proc-macro2-devel %{_description}
+%description -n %{name}+derive_builder-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "proc-macro2" feature of the "%{crate}" crate.
+use the "derive_builder" feature of the "%{crate}" crate.
 
-%files       -n %{name}+proc-macro2-devel
+%files       -n %{name}+derive_builder-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+quote-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+quote-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "quote" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+quote-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+token-stream-devel
+%package     -n %{name}+with-serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+token-stream-devel %{_description}
+%description -n %{name}+with-serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "token-stream" feature of the "%{crate}" crate.
+use the "with-serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+token-stream-devel
+%files       -n %{name}+with-serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

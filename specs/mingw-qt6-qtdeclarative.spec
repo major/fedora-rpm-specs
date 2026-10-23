@@ -20,7 +20,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.11.2
+Version:        6.12.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
@@ -136,6 +136,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_bindir}/Qt6Qml.dll
 %{mingw32_bindir}/Qt6QmlCompiler.dll
 %{mingw32_bindir}/Qt6QmlCore.dll
+%{mingw32_bindir}/Qt6QmlDesignSupport.dll
 %{mingw32_bindir}/Qt6QmlLocalStorage.dll
 %{mingw32_bindir}/Qt6QmlMeta.dll
 %{mingw32_bindir}/Qt6QmlModels.dll
@@ -146,6 +147,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_bindir}/Qt6QuickControls2.dll
 %{mingw32_bindir}/Qt6QuickControls2Basic.dll
 %{mingw32_bindir}/Qt6QuickControls2BasicStyleImpl.dll
+%{mingw32_bindir}/Qt6QuickControls2FluentWinUI3.dll
 %{mingw32_bindir}/Qt6QuickControls2FluentWinUI3StyleImpl.dll
 %{mingw32_bindir}/Qt6QuickControls2Fusion.dll
 %{mingw32_bindir}/Qt6QuickControls2FusionStyleImpl.dll
@@ -154,14 +156,17 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_bindir}/Qt6QuickControls2Impl.dll
 %{mingw32_bindir}/Qt6QuickControls2Material.dll
 %{mingw32_bindir}/Qt6QuickControls2MaterialStyleImpl.dll
+%{mingw32_bindir}/Qt6QuickControls2Native.dll
 %{mingw32_bindir}/Qt6QuickControls2Universal.dll
 %{mingw32_bindir}/Qt6QuickControls2UniversalStyleImpl.dll
+%{mingw32_bindir}/Qt6QuickControls2Windows.dll
 %{mingw32_bindir}/Qt6QuickControls2WindowsStyleImpl.dll
 %{mingw32_bindir}/Qt6QuickDialogs2.dll
 %{mingw32_bindir}/Qt6QuickDialogs2QuickImpl.dll
 %{mingw32_bindir}/Qt6QuickDialogs2Utils.dll
 %{mingw32_bindir}/Qt6QuickEffects.dll
 %{mingw32_bindir}/Qt6QuickLayouts.dll
+%{mingw32_bindir}/Qt6QuickNativeStyle.dll
 %{mingw32_bindir}/Qt6QuickParticles.dll
 %{mingw32_bindir}/Qt6QuickShapes.dll
 %{mingw32_bindir}/Qt6QuickShapesDesignHelpers.dll
@@ -191,13 +196,16 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_includedir}/qt6/QtQmlCompiler/
 %{mingw32_includedir}/qt6/QtQmlCore/
 %{mingw32_includedir}/qt6/QtQmlDebug/
+%{mingw32_includedir}/qt6/QtQmlDesignSupport/
 %{mingw32_includedir}/qt6/QtQmlDom/
 %{mingw32_includedir}/qt6/QtQmlFormat/
 %{mingw32_includedir}/qt6/QtQmlIntegration/
+%{mingw32_includedir}/qt6/QtQmlLint/
 %{mingw32_includedir}/qt6/QtQmlLocalStorage/
 %{mingw32_includedir}/qt6/QtQmlMeta/
 %{mingw32_includedir}/qt6/QtQmlModels/
 %{mingw32_includedir}/qt6/QtQmlNetwork/
+%{mingw32_includedir}/qt6/QtQmlPreview/
 %{mingw32_includedir}/qt6/QtQmlToolingSettings/
 %{mingw32_includedir}/qt6/QtQmlTypeRegistrar/
 %{mingw32_includedir}/qt6/QtQmlWorkerScript/
@@ -207,6 +215,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_includedir}/qt6/QtQuickControls2/
 %{mingw32_includedir}/qt6/QtQuickControls2Basic/
 %{mingw32_includedir}/qt6/QtQuickControls2BasicStyleImpl/
+%{mingw32_includedir}/qt6/QtQuickControls2FluentWinUI3/
 %{mingw32_includedir}/qt6/QtQuickControls2FluentWinUI3StyleImpl/
 %{mingw32_includedir}/qt6/QtQuickControls2Fusion/
 %{mingw32_includedir}/qt6/QtQuickControls2FusionStyleImpl/
@@ -215,8 +224,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_includedir}/qt6/QtQuickControls2Impl/
 %{mingw32_includedir}/qt6/QtQuickControls2Material/
 %{mingw32_includedir}/qt6/QtQuickControls2MaterialStyleImpl/
+%{mingw32_includedir}/qt6/QtQuickControls2Native/
 %{mingw32_includedir}/qt6/QtQuickControls2Universal/
 %{mingw32_includedir}/qt6/QtQuickControls2UniversalStyleImpl/
+%{mingw32_includedir}/qt6/QtQuickControls2Windows/
 %{mingw32_includedir}/qt6/QtQuickControls2WindowsStyleImpl/
 %{mingw32_includedir}/qt6/QtQuickControlsTestUtils/
 %{mingw32_includedir}/qt6/QtQuickDialogs2/
@@ -224,6 +235,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_includedir}/qt6/QtQuickDialogs2Utils/
 %{mingw32_includedir}/qt6/QtQuickEffects/
 %{mingw32_includedir}/qt6/QtQuickLayouts/
+%{mingw32_includedir}/qt6/QtQuickNativeStyle/
 %{mingw32_includedir}/qt6/QtQuickParticles/
 %{mingw32_includedir}/qt6/QtQuickShapes/
 %{mingw32_includedir}/qt6/QtQuickShapesDesignHelpers/
@@ -249,12 +261,15 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/Qt6QmlCompiler.prl
 %{mingw32_libdir}/Qt6QmlCore.prl
 %{mingw32_libdir}/Qt6QmlDebug.prl
+%{mingw32_libdir}/Qt6QmlDesignSupport.prl
 %{mingw32_libdir}/Qt6QmlDom.prl
 %{mingw32_libdir}/Qt6QmlFormat.prl
+%{mingw32_libdir}/Qt6QmlLint.prl
 %{mingw32_libdir}/Qt6QmlLocalStorage.prl
 %{mingw32_libdir}/Qt6QmlMeta.prl
 %{mingw32_libdir}/Qt6QmlModels.prl
 %{mingw32_libdir}/Qt6QmlNetwork.prl
+%{mingw32_libdir}/Qt6QmlPreview.prl
 %{mingw32_libdir}/Qt6QmlToolingSettings.prl
 %{mingw32_libdir}/Qt6QmlTypeRegistrar.prl
 %{mingw32_libdir}/Qt6QmlWorkerScript.prl
@@ -264,6 +279,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/Qt6QuickControls2.prl
 %{mingw32_libdir}/Qt6QuickControls2Basic.prl
 %{mingw32_libdir}/Qt6QuickControls2BasicStyleImpl.prl
+%{mingw32_libdir}/Qt6QuickControls2FluentWinUI3.prl
 %{mingw32_libdir}/Qt6QuickControls2FluentWinUI3StyleImpl.prl
 %{mingw32_libdir}/Qt6QuickControls2Fusion.prl
 %{mingw32_libdir}/Qt6QuickControls2FusionStyleImpl.prl
@@ -272,8 +288,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/Qt6QuickControls2Impl.prl
 %{mingw32_libdir}/Qt6QuickControls2Material.prl
 %{mingw32_libdir}/Qt6QuickControls2MaterialStyleImpl.prl
+%{mingw32_libdir}/Qt6QuickControls2Native.prl
 %{mingw32_libdir}/Qt6QuickControls2Universal.prl
 %{mingw32_libdir}/Qt6QuickControls2UniversalStyleImpl.prl
+%{mingw32_libdir}/Qt6QuickControls2Windows.prl
 %{mingw32_libdir}/Qt6QuickControls2WindowsStyleImpl.prl
 %{mingw32_libdir}/Qt6QuickControlsTestUtils.prl
 %{mingw32_libdir}/Qt6QuickDialogs2.prl
@@ -281,6 +299,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/Qt6QuickDialogs2Utils.prl
 %{mingw32_libdir}/Qt6QuickEffects.prl
 %{mingw32_libdir}/Qt6QuickLayouts.prl
+%{mingw32_libdir}/Qt6QuickNativeStyle.prl
 %{mingw32_libdir}/Qt6QuickParticles.prl
 %{mingw32_libdir}/Qt6QuickShapes.prl
 %{mingw32_libdir}/Qt6QuickShapesDesignHelpers.prl
@@ -308,12 +327,16 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6QmlCompiler/
 %{mingw32_libdir}/cmake/Qt6QmlCore/
 %{mingw32_libdir}/cmake/Qt6QmlDebugPrivate/
+%{mingw32_libdir}/cmake/Qt6QmlDesignSupport/
+%{mingw32_libdir}/cmake/Qt6QmlDesignSupportPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlDomPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlIntegration/
+%{mingw32_libdir}/cmake/Qt6QmlLintPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlLocalStorage/
 %{mingw32_libdir}/cmake/Qt6QmlMeta/
 %{mingw32_libdir}/cmake/Qt6QmlModels/
 %{mingw32_libdir}/cmake/Qt6QmlNetwork/
+%{mingw32_libdir}/cmake/Qt6QmlPreviewPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlToolingSettingsPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlTypeRegistrarPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlWorkerScript/
@@ -322,6 +345,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6QuickControls2/
 %{mingw32_libdir}/cmake/Qt6QuickControls2Basic/
 %{mingw32_libdir}/cmake/Qt6QuickControls2BasicStyleImpl/
+%{mingw32_libdir}/cmake/Qt6QuickControls2FluentWinUI3/
+%{mingw32_libdir}/cmake/Qt6QuickControls2FluentWinUI3Private/
 %{mingw32_libdir}/cmake/Qt6QuickControls2FluentWinUI3StyleImpl/
 %{mingw32_libdir}/cmake/Qt6QuickControls2Fusion/
 %{mingw32_libdir}/cmake/Qt6QuickControls2FusionStyleImpl/
@@ -330,8 +355,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6QuickControls2Impl/
 %{mingw32_libdir}/cmake/Qt6QuickControls2Material/
 %{mingw32_libdir}/cmake/Qt6QuickControls2MaterialStyleImpl/
+%{mingw32_libdir}/cmake/Qt6QuickControls2Native/
 %{mingw32_libdir}/cmake/Qt6QuickControls2Universal/
 %{mingw32_libdir}/cmake/Qt6QuickControls2UniversalStyleImpl/
+%{mingw32_libdir}/cmake/Qt6QuickControls2Windows/
 %{mingw32_libdir}/cmake/Qt6QuickControls2WindowsStyleImpl/
 %{mingw32_libdir}/cmake/Qt6QuickControlsTestUtilsPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickDialogs2/
@@ -339,9 +366,12 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6QuickDialogs2Utils/
 %{mingw32_libdir}/cmake/Qt6QuickEffectsPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickLayouts/
+%{mingw32_libdir}/cmake/Qt6QuickNativeStyle/
+%{mingw32_libdir}/cmake/Qt6QuickParticles/
 %{mingw32_libdir}/cmake/Qt6QuickParticlesPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickShapes/
 %{mingw32_libdir}/cmake/Qt6QuickShapesPrivate/
+%{mingw32_libdir}/cmake/Qt6QuickShapesDesignHelpers/
 %{mingw32_libdir}/cmake/Qt6QuickShapesDesignHelpersPrivate
 %{mingw32_libdir}/cmake/Qt6QuickTemplates2/
 %{mingw32_libdir}/cmake/Qt6QuickTest/
@@ -389,6 +419,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6QuickDialogs2UtilsPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickEffects/
 %{mingw32_libdir}/cmake/Qt6QuickLayoutsPrivate/
+%{mingw32_libdir}/cmake/Qt6QuickNativeStylePrivate/
 %{mingw32_libdir}/cmake/Qt6QuickPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickTemplates2Private/
 %{mingw32_libdir}/cmake/Qt6QuickTestPrivate/
@@ -408,12 +439,15 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/libQt6QmlCompiler.dll.a
 %{mingw32_libdir}/libQt6QmlCore.dll.a
 %{mingw32_libdir}/libQt6QmlDebug.a
+%{mingw32_libdir}/libQt6QmlDesignSupport.dll.a
 %{mingw32_libdir}/libQt6QmlDom.a
 %{mingw32_libdir}/libQt6QmlFormat.a
+%{mingw32_libdir}/libQt6QmlLint.a
 %{mingw32_libdir}/libQt6QmlLocalStorage.dll.a
 %{mingw32_libdir}/libQt6QmlMeta.dll.a
 %{mingw32_libdir}/libQt6QmlModels.dll.a
 %{mingw32_libdir}/libQt6QmlNetwork.dll.a
+%{mingw32_libdir}/libQt6QmlPreview.a
 %{mingw32_libdir}/libQt6QmlToolingSettings.a
 %{mingw32_libdir}/libQt6QmlTypeRegistrar.a
 %{mingw32_libdir}/libQt6QmlWorkerScript.dll.a
@@ -423,6 +457,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/libQt6QuickControls2.dll.a
 %{mingw32_libdir}/libQt6QuickControls2Basic.dll.a
 %{mingw32_libdir}/libQt6QuickControls2BasicStyleImpl.dll.a
+%{mingw32_libdir}/libQt6QuickControls2FluentWinUI3.dll.a
 %{mingw32_libdir}/libQt6QuickControls2FluentWinUI3StyleImpl.dll.a
 %{mingw32_libdir}/libQt6QuickControls2Fusion.dll.a
 %{mingw32_libdir}/libQt6QuickControls2FusionStyleImpl.dll.a
@@ -431,8 +466,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/libQt6QuickControls2Impl.dll.a
 %{mingw32_libdir}/libQt6QuickControls2Material.dll.a
 %{mingw32_libdir}/libQt6QuickControls2MaterialStyleImpl.dll.a
+%{mingw32_libdir}/libQt6QuickControls2Native.dll.a
 %{mingw32_libdir}/libQt6QuickControls2Universal.dll.a
 %{mingw32_libdir}/libQt6QuickControls2UniversalStyleImpl.dll.a
+%{mingw32_libdir}/libQt6QuickControls2Windows.dll.a
 %{mingw32_libdir}/libQt6QuickControls2WindowsStyleImpl.dll.a
 %{mingw32_libdir}/libQt6QuickControlsTestUtils.a
 %{mingw32_libdir}/libQt6QuickDialogs2.dll.a
@@ -440,6 +477,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/libQt6QuickDialogs2Utils.dll.a
 %{mingw32_libdir}/libQt6QuickEffects.dll.a
 %{mingw32_libdir}/libQt6QuickLayouts.dll.a
+%{mingw32_libdir}/libQt6QuickNativeStyle.dll.a
 %{mingw32_libdir}/libQt6QuickParticles.dll.a
 %{mingw32_libdir}/libQt6QuickShapes.dll.a
 %{mingw32_libdir}/libQt6QuickShapesDesignHelpers.dll.a
@@ -463,6 +501,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/pkgconfig/Qt6Qml.pc
 %{mingw32_libdir}/pkgconfig/Qt6QmlCompiler.pc
 %{mingw32_libdir}/pkgconfig/Qt6QmlCore.pc
+%{mingw32_libdir}/pkgconfig/Qt6QmlDesignSupport.pc
 %{mingw32_libdir}/pkgconfig/Qt6QmlIntegration.pc
 %{mingw32_libdir}/pkgconfig/Qt6QmlLocalStorage.pc
 %{mingw32_libdir}/pkgconfig/Qt6QmlMeta.pc
@@ -474,6 +513,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2Basic.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2BasicStyleImpl.pc
+%{mingw32_libdir}/pkgconfig/Qt6QuickControls2FluentWinUI3.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2FluentWinUI3StyleImpl.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2Fusion.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2FusionStyleImpl.pc
@@ -482,15 +522,20 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2Impl.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2Material.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2MaterialStyleImpl.pc
+%{mingw32_libdir}/pkgconfig/Qt6QuickControls2Native.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2Universal.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2UniversalStyleImpl.pc
+%{mingw32_libdir}/pkgconfig/Qt6QuickControls2Windows.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickControls2WindowsStyleImpl.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickDialogs2.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickDialogs2QuickImpl.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickDialogs2Utils.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickEffects.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickLayouts.pc
+%{mingw32_libdir}/pkgconfig/Qt6QuickNativeStyle.pc
+%{mingw32_libdir}/pkgconfig/Qt6QuickParticles.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickShapes.pc
+%{mingw32_libdir}/pkgconfig/Qt6QuickShapesDesignHelpers.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickTemplates2.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickTest.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickVectorImage.pc
@@ -511,12 +556,15 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/metatypes/qt6qmlcompiler_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmlcore_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmldebugprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmldesignsupport_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmldomprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmlformatprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmllintprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmllocalstorage_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmlmeta_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmlmodels_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmlnetwork_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmlpreviewprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmltoolingsettingsprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmltyperegistrarprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6qmltcprivate_metatypes.json
@@ -526,6 +574,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2basic_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2basicstyleimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2fluentwinui3_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2fluentwinui3styleimpl_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2fusion_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2fusionstyleimpl_metatypes.json
@@ -534,8 +583,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2impl_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2material_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2materialstyleimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2native_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2universal_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2universalstyleimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2windows_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2windowsstyleimpl_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickcontrolstestutilsprivate_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickdialogs2_metatypes.json
@@ -543,9 +594,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/metatypes/qt6quickdialogs2utils_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickeffects_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quicklayouts_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickparticlesprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quicknativestyle_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickparticles_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quickshapes_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickshapesdesignhelpersprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickshapesdesignhelpers_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quicktemplates2_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quicktest_metatypes.json
 %{mingw32_libdir}/qt6/metatypes/qt6quicktestutilsprivate_metatypes.json
@@ -584,9 +636,12 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlcore.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlcore_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmldebug_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmldesignsupport.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmldesignsupport_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmldom_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlformat_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlintegration.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmllint_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlmeta.pri
@@ -595,6 +650,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlmodels_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlnetwork.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlnetwork_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlpreview_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmltest.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmltest_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmltoolingsettings_private.pri
@@ -612,6 +668,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2basic_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2basicstyleimpl.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2basicstyleimpl_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2fluentwinui3.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2fluentwinui3_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2fluentwinui3styleimpl.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2fluentwinui3styleimpl_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2fusion.pri
@@ -627,10 +685,12 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2material_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2materialstyleimpl.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2materialstyleimpl_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2native.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universal.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universal_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universalstyleimpl.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universalstyleimpl_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2windows.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2windowsstyleimpl.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrolstestutilsprivate_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickdialogs2.pri
@@ -643,9 +703,13 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickeffects_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicklayouts.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicklayouts_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicknativestyle.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicknativestyle_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickparticles.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickparticles_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickshapes.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickshapes_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickshapesdesignhelpers.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickshapesdesignhelpers_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2_private.pri
@@ -672,13 +736,16 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/modules/QmlCompiler.json
 %{mingw32_libdir}/qt6/modules/QmlCore.json
 %{mingw32_libdir}/qt6/modules/QmlDebugPrivate.json
+%{mingw32_libdir}/qt6/modules/QmlDesignSupport.json
 %{mingw32_libdir}/qt6/modules/QmlDomPrivate.json
 %{mingw32_libdir}/qt6/modules/QmlFormatPrivate.json
 %{mingw32_libdir}/qt6/modules/QmlIntegration.json
+%{mingw32_libdir}/qt6/modules/QmlLintPrivate.json
 %{mingw32_libdir}/qt6/modules/QmlLocalStorage.json
 %{mingw32_libdir}/qt6/modules/QmlMeta.json
 %{mingw32_libdir}/qt6/modules/QmlModels.json
 %{mingw32_libdir}/qt6/modules/QmlNetwork.json
+%{mingw32_libdir}/qt6/modules/QmlPreviewPrivate.json
 %{mingw32_libdir}/qt6/modules/QmlToolingSettingsPrivate.json
 %{mingw32_libdir}/qt6/modules/QmlTypeRegistrarPrivate.json
 %{mingw32_libdir}/qt6/modules/QmltcPrivate.json
@@ -688,6 +755,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/modules/QuickControls2.json
 %{mingw32_libdir}/qt6/modules/QuickControls2Basic.json
 %{mingw32_libdir}/qt6/modules/QuickControls2BasicStyleImpl.json
+%{mingw32_libdir}/qt6/modules/QuickControls2FluentWinUI3.json
 %{mingw32_libdir}/qt6/modules/QuickControls2FluentWinUI3StyleImpl.json
 %{mingw32_libdir}/qt6/modules/QuickControls2Fusion.json
 %{mingw32_libdir}/qt6/modules/QuickControls2FusionStyleImpl.json
@@ -696,8 +764,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/modules/QuickControls2Impl.json
 %{mingw32_libdir}/qt6/modules/QuickControls2Material.json
 %{mingw32_libdir}/qt6/modules/QuickControls2MaterialStyleImpl.json
+%{mingw32_libdir}/qt6/modules/QuickControls2Native.json
 %{mingw32_libdir}/qt6/modules/QuickControls2Universal.json
 %{mingw32_libdir}/qt6/modules/QuickControls2UniversalStyleImpl.json
+%{mingw32_libdir}/qt6/modules/QuickControls2Windows.json
 %{mingw32_libdir}/qt6/modules/QuickControls2WindowsStyleImpl.json
 %{mingw32_libdir}/qt6/modules/QuickControlsTestUtilsPrivate.json
 %{mingw32_libdir}/qt6/modules/QuickDialogs2.json
@@ -705,9 +775,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/modules/QuickDialogs2Utils.json
 %{mingw32_libdir}/qt6/modules/QuickEffects.json
 %{mingw32_libdir}/qt6/modules/QuickLayouts.json
-%{mingw32_libdir}/qt6/modules/QuickParticlesPrivate.json
+%{mingw32_libdir}/qt6/modules/QuickNativeStyle.json
+%{mingw32_libdir}/qt6/modules/QuickParticles.json
 %{mingw32_libdir}/qt6/modules/QuickShapes.json
-%{mingw32_libdir}/qt6/modules/QuickShapesDesignHelpersPrivate.json
+%{mingw32_libdir}/qt6/modules/QuickShapesDesignHelpers.json
 %{mingw32_libdir}/qt6/modules/QuickTemplates2.json
 %{mingw32_libdir}/qt6/modules/QuickTest.json
 %{mingw32_libdir}/qt6/modules/QuickTestUtilsPrivate.json
@@ -736,6 +807,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_bindir}/Qt6Qml.dll
 %{mingw64_bindir}/Qt6QmlCompiler.dll
 %{mingw64_bindir}/Qt6QmlCore.dll
+%{mingw64_bindir}/Qt6QmlDesignSupport.dll
 %{mingw64_bindir}/Qt6QmlLocalStorage.dll
 %{mingw64_bindir}/Qt6QmlMeta.dll
 %{mingw64_bindir}/Qt6QmlModels.dll
@@ -746,6 +818,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_bindir}/Qt6QuickControls2.dll
 %{mingw64_bindir}/Qt6QuickControls2Basic.dll
 %{mingw64_bindir}/Qt6QuickControls2BasicStyleImpl.dll
+%{mingw64_bindir}/Qt6QuickControls2FluentWinUI3.dll
 %{mingw64_bindir}/Qt6QuickControls2FluentWinUI3StyleImpl.dll
 %{mingw64_bindir}/Qt6QuickControls2Fusion.dll
 %{mingw64_bindir}/Qt6QuickControls2FusionStyleImpl.dll
@@ -754,14 +827,17 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_bindir}/Qt6QuickControls2Impl.dll
 %{mingw64_bindir}/Qt6QuickControls2Material.dll
 %{mingw64_bindir}/Qt6QuickControls2MaterialStyleImpl.dll
+%{mingw64_bindir}/Qt6QuickControls2Native.dll
 %{mingw64_bindir}/Qt6QuickControls2Universal.dll
 %{mingw64_bindir}/Qt6QuickControls2UniversalStyleImpl.dll
+%{mingw64_bindir}/Qt6QuickControls2Windows.dll
 %{mingw64_bindir}/Qt6QuickControls2WindowsStyleImpl.dll
 %{mingw64_bindir}/Qt6QuickDialogs2.dll
 %{mingw64_bindir}/Qt6QuickDialogs2QuickImpl.dll
 %{mingw64_bindir}/Qt6QuickDialogs2Utils.dll
 %{mingw64_bindir}/Qt6QuickEffects.dll
 %{mingw64_bindir}/Qt6QuickLayouts.dll
+%{mingw64_bindir}/Qt6QuickNativeStyle.dll
 %{mingw64_bindir}/Qt6QuickParticles.dll
 %{mingw64_bindir}/Qt6QuickShapes.dll
 %{mingw64_bindir}/Qt6QuickShapesDesignHelpers.dll
@@ -793,13 +869,16 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_includedir}/qt6/QtQmlCompiler/
 %{mingw64_includedir}/qt6/QtQmlCore/
 %{mingw64_includedir}/qt6/QtQmlDebug/
+%{mingw64_includedir}/qt6/QtQmlDesignSupport/
 %{mingw64_includedir}/qt6/QtQmlDom/
 %{mingw64_includedir}/qt6/QtQmlFormat/
 %{mingw64_includedir}/qt6/QtQmlIntegration/
+%{mingw64_includedir}/qt6/QtQmlLint/
 %{mingw64_includedir}/qt6/QtQmlLocalStorage/
 %{mingw64_includedir}/qt6/QtQmlMeta/
 %{mingw64_includedir}/qt6/QtQmlModels/
 %{mingw64_includedir}/qt6/QtQmlNetwork/
+%{mingw64_includedir}/qt6/QtQmlPreview/
 %{mingw64_includedir}/qt6/QtQmlToolingSettings/
 %{mingw64_includedir}/qt6/QtQmlTypeRegistrar/
 %{mingw64_includedir}/qt6/QtQmlWorkerScript/
@@ -809,6 +888,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_includedir}/qt6/QtQuickControls2/
 %{mingw64_includedir}/qt6/QtQuickControls2Basic/
 %{mingw64_includedir}/qt6/QtQuickControls2BasicStyleImpl/
+%{mingw64_includedir}/qt6/QtQuickControls2FluentWinUI3/
 %{mingw64_includedir}/qt6/QtQuickControls2FluentWinUI3StyleImpl/
 %{mingw64_includedir}/qt6/QtQuickControls2Fusion/
 %{mingw64_includedir}/qt6/QtQuickControls2FusionStyleImpl/
@@ -817,8 +897,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_includedir}/qt6/QtQuickControls2Impl/
 %{mingw64_includedir}/qt6/QtQuickControls2Material/
 %{mingw64_includedir}/qt6/QtQuickControls2MaterialStyleImpl/
+%{mingw64_includedir}/qt6/QtQuickControls2Native/
 %{mingw64_includedir}/qt6/QtQuickControls2Universal/
 %{mingw64_includedir}/qt6/QtQuickControls2UniversalStyleImpl/
+%{mingw64_includedir}/qt6/QtQuickControls2Windows/
 %{mingw64_includedir}/qt6/QtQuickControls2WindowsStyleImpl/
 %{mingw64_includedir}/qt6/QtQuickControlsTestUtils/
 %{mingw64_includedir}/qt6/QtQuickDialogs2/
@@ -826,6 +908,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_includedir}/qt6/QtQuickDialogs2Utils/
 %{mingw64_includedir}/qt6/QtQuickEffects/
 %{mingw64_includedir}/qt6/QtQuickLayouts/
+%{mingw64_includedir}/qt6/QtQuickNativeStyle/
 %{mingw64_includedir}/qt6/QtQuickParticles/
 %{mingw64_includedir}/qt6/QtQuickShapes/
 %{mingw64_includedir}/qt6/QtQuickShapesDesignHelpers/
@@ -851,12 +934,15 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/Qt6QmlCompiler.prl
 %{mingw64_libdir}/Qt6QmlCore.prl
 %{mingw64_libdir}/Qt6QmlDebug.prl
+%{mingw64_libdir}/Qt6QmlDesignSupport.prl
 %{mingw64_libdir}/Qt6QmlDom.prl
 %{mingw64_libdir}/Qt6QmlFormat.prl
+%{mingw64_libdir}/Qt6QmlLint.prl
 %{mingw64_libdir}/Qt6QmlLocalStorage.prl
 %{mingw64_libdir}/Qt6QmlMeta.prl
 %{mingw64_libdir}/Qt6QmlModels.prl
 %{mingw64_libdir}/Qt6QmlNetwork.prl
+%{mingw64_libdir}/Qt6QmlPreview.prl
 %{mingw64_libdir}/Qt6QmlToolingSettings.prl
 %{mingw64_libdir}/Qt6QmlTypeRegistrar.prl
 %{mingw64_libdir}/Qt6QmlWorkerScript.prl
@@ -866,6 +952,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/Qt6QuickControls2.prl
 %{mingw64_libdir}/Qt6QuickControls2Basic.prl
 %{mingw64_libdir}/Qt6QuickControls2BasicStyleImpl.prl
+%{mingw64_libdir}/Qt6QuickControls2FluentWinUI3.prl
 %{mingw64_libdir}/Qt6QuickControls2FluentWinUI3StyleImpl.prl
 %{mingw64_libdir}/Qt6QuickControls2Fusion.prl
 %{mingw64_libdir}/Qt6QuickControls2FusionStyleImpl.prl
@@ -874,8 +961,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/Qt6QuickControls2Impl.prl
 %{mingw64_libdir}/Qt6QuickControls2Material.prl
 %{mingw64_libdir}/Qt6QuickControls2MaterialStyleImpl.prl
+%{mingw64_libdir}/Qt6QuickControls2Native.prl
 %{mingw64_libdir}/Qt6QuickControls2Universal.prl
 %{mingw64_libdir}/Qt6QuickControls2UniversalStyleImpl.prl
+%{mingw64_libdir}/Qt6QuickControls2Windows.prl
 %{mingw64_libdir}/Qt6QuickControls2WindowsStyleImpl.prl
 %{mingw64_libdir}/Qt6QuickControlsTestUtils.prl
 %{mingw64_libdir}/Qt6QuickDialogs2.prl
@@ -883,6 +972,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/Qt6QuickDialogs2Utils.prl
 %{mingw64_libdir}/Qt6QuickEffects.prl
 %{mingw64_libdir}/Qt6QuickLayouts.prl
+%{mingw64_libdir}/Qt6QuickNativeStyle.prl
 %{mingw64_libdir}/Qt6QuickParticles.prl
 %{mingw64_libdir}/Qt6QuickShapes.prl
 %{mingw64_libdir}/Qt6QuickShapesDesignHelpers.prl
@@ -910,12 +1000,16 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6QmlCompiler/
 %{mingw64_libdir}/cmake/Qt6QmlCore/
 %{mingw64_libdir}/cmake/Qt6QmlDebugPrivate/
+%{mingw64_libdir}/cmake/Qt6QmlDesignSupport/
+%{mingw64_libdir}/cmake/Qt6QmlDesignSupportPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlDomPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlIntegration/
+%{mingw64_libdir}/cmake/Qt6QmlLintPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlLocalStorage/
 %{mingw64_libdir}/cmake/Qt6QmlMeta/
 %{mingw64_libdir}/cmake/Qt6QmlModels/
 %{mingw64_libdir}/cmake/Qt6QmlNetwork/
+%{mingw64_libdir}/cmake/Qt6QmlPreviewPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlToolingSettingsPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlTypeRegistrarPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlWorkerScript/
@@ -924,6 +1018,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6QuickControls2/
 %{mingw64_libdir}/cmake/Qt6QuickControls2Basic/
 %{mingw64_libdir}/cmake/Qt6QuickControls2BasicStyleImpl/
+%{mingw64_libdir}/cmake/Qt6QuickControls2FluentWinUI3/
+%{mingw64_libdir}/cmake/Qt6QuickControls2FluentWinUI3Private/
 %{mingw64_libdir}/cmake/Qt6QuickControls2FluentWinUI3StyleImpl/
 %{mingw64_libdir}/cmake/Qt6QuickControls2Fusion/
 %{mingw64_libdir}/cmake/Qt6QuickControls2FusionStyleImpl/
@@ -932,8 +1028,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6QuickControls2Impl/
 %{mingw64_libdir}/cmake/Qt6QuickControls2Material/
 %{mingw64_libdir}/cmake/Qt6QuickControls2MaterialStyleImpl/
+%{mingw64_libdir}/cmake/Qt6QuickControls2Native/
 %{mingw64_libdir}/cmake/Qt6QuickControls2Universal/
 %{mingw64_libdir}/cmake/Qt6QuickControls2UniversalStyleImpl/
+%{mingw64_libdir}/cmake/Qt6QuickControls2Windows/
 %{mingw64_libdir}/cmake/Qt6QuickControls2WindowsStyleImpl/
 %{mingw64_libdir}/cmake/Qt6QuickControlsTestUtilsPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickDialogs2/
@@ -941,9 +1039,12 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6QuickDialogs2Utils/
 %{mingw64_libdir}/cmake/Qt6QuickEffectsPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickLayouts/
+%{mingw64_libdir}/cmake/Qt6QuickNativeStyle/
+%{mingw64_libdir}/cmake/Qt6QuickParticles/
 %{mingw64_libdir}/cmake/Qt6QuickParticlesPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickShapes/
 %{mingw64_libdir}/cmake/Qt6QuickShapesPrivate/
+%{mingw64_libdir}/cmake/Qt6QuickShapesDesignHelpers/
 %{mingw64_libdir}/cmake/Qt6QuickShapesDesignHelpersPrivate
 %{mingw64_libdir}/cmake/Qt6QuickTemplates2/
 %{mingw64_libdir}/cmake/Qt6QuickTest/
@@ -991,6 +1092,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6QuickDialogs2UtilsPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickEffects/
 %{mingw64_libdir}/cmake/Qt6QuickLayoutsPrivate/
+%{mingw64_libdir}/cmake/Qt6QuickNativeStylePrivate/
 %{mingw64_libdir}/cmake/Qt6QuickPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickTemplates2Private/
 %{mingw64_libdir}/cmake/Qt6QuickTestPrivate/
@@ -1010,12 +1112,15 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/libQt6QmlCompiler.dll.a
 %{mingw64_libdir}/libQt6QmlCore.dll.a
 %{mingw64_libdir}/libQt6QmlDebug.a
+%{mingw64_libdir}/libQt6QmlDesignSupport.dll.a
 %{mingw64_libdir}/libQt6QmlDom.a
 %{mingw64_libdir}/libQt6QmlFormat.a
+%{mingw64_libdir}/libQt6QmlLint.a
 %{mingw64_libdir}/libQt6QmlLocalStorage.dll.a
 %{mingw64_libdir}/libQt6QmlMeta.dll.a
 %{mingw64_libdir}/libQt6QmlModels.dll.a
 %{mingw64_libdir}/libQt6QmlNetwork.dll.a
+%{mingw64_libdir}/libQt6QmlPreview.a
 %{mingw64_libdir}/libQt6QmlToolingSettings.a
 %{mingw64_libdir}/libQt6QmlTypeRegistrar.a
 %{mingw64_libdir}/libQt6QmlWorkerScript.dll.a
@@ -1025,6 +1130,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/libQt6QuickControls2.dll.a
 %{mingw64_libdir}/libQt6QuickControls2Basic.dll.a
 %{mingw64_libdir}/libQt6QuickControls2BasicStyleImpl.dll.a
+%{mingw64_libdir}/libQt6QuickControls2FluentWinUI3.dll.a
 %{mingw64_libdir}/libQt6QuickControls2FluentWinUI3StyleImpl.dll.a
 %{mingw64_libdir}/libQt6QuickControls2Fusion.dll.a
 %{mingw64_libdir}/libQt6QuickControls2FusionStyleImpl.dll.a
@@ -1033,8 +1139,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/libQt6QuickControls2Impl.dll.a
 %{mingw64_libdir}/libQt6QuickControls2Material.dll.a
 %{mingw64_libdir}/libQt6QuickControls2MaterialStyleImpl.dll.a
+%{mingw64_libdir}/libQt6QuickControls2Native.dll.a
 %{mingw64_libdir}/libQt6QuickControls2Universal.dll.a
 %{mingw64_libdir}/libQt6QuickControls2UniversalStyleImpl.dll.a
+%{mingw64_libdir}/libQt6QuickControls2Windows.dll.a
 %{mingw64_libdir}/libQt6QuickControls2WindowsStyleImpl.dll.a
 %{mingw64_libdir}/libQt6QuickControlsTestUtils.a
 %{mingw64_libdir}/libQt6QuickDialogs2.dll.a
@@ -1042,6 +1150,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/libQt6QuickDialogs2Utils.dll.a
 %{mingw64_libdir}/libQt6QuickEffects.dll.a
 %{mingw64_libdir}/libQt6QuickLayouts.dll.a
+%{mingw64_libdir}/libQt6QuickNativeStyle.dll.a
 %{mingw64_libdir}/libQt6QuickParticles.dll.a
 %{mingw64_libdir}/libQt6QuickShapes.dll.a
 %{mingw64_libdir}/libQt6QuickShapesDesignHelpers.dll.a
@@ -1065,6 +1174,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/pkgconfig/Qt6Qml.pc
 %{mingw64_libdir}/pkgconfig/Qt6QmlCompiler.pc
 %{mingw64_libdir}/pkgconfig/Qt6QmlCore.pc
+%{mingw64_libdir}/pkgconfig/Qt6QmlDesignSupport.pc
 %{mingw64_libdir}/pkgconfig/Qt6QmlIntegration.pc
 %{mingw64_libdir}/pkgconfig/Qt6QmlLocalStorage.pc
 %{mingw64_libdir}/pkgconfig/Qt6QmlMeta.pc
@@ -1076,6 +1186,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2Basic.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2BasicStyleImpl.pc
+%{mingw64_libdir}/pkgconfig/Qt6QuickControls2FluentWinUI3.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2FluentWinUI3StyleImpl.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2Fusion.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2FusionStyleImpl.pc
@@ -1084,15 +1195,20 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2Impl.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2Material.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2MaterialStyleImpl.pc
+%{mingw64_libdir}/pkgconfig/Qt6QuickControls2Native.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2Universal.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2UniversalStyleImpl.pc
+%{mingw64_libdir}/pkgconfig/Qt6QuickControls2Windows.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickControls2WindowsStyleImpl.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickDialogs2.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickDialogs2QuickImpl.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickDialogs2Utils.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickEffects.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickLayouts.pc
+%{mingw64_libdir}/pkgconfig/Qt6QuickNativeStyle.pc
+%{mingw64_libdir}/pkgconfig/Qt6QuickParticles.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickShapes.pc
+%{mingw64_libdir}/pkgconfig/Qt6QuickShapesDesignHelpers.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickTemplates2.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickTest.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickVectorImageHelpers.pc
@@ -1113,12 +1229,15 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/metatypes/qt6qmlcompiler_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmlcore_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmldebugprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmldesignsupport_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmldomprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmlformatprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmllintprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmllocalstorage_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmlmeta_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmlmodels_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmlnetwork_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmlpreviewprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmltoolingsettingsprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmltyperegistrarprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6qmltcprivate_metatypes.json
@@ -1128,6 +1247,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2basic_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2basicstyleimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2fluentwinui3_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2fluentwinui3styleimpl_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2fusion_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2fusionstyleimpl_metatypes.json
@@ -1136,8 +1256,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2impl_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2material_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2materialstyleimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2native_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2universal_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2universalstyleimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2windows_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2windowsstyleimpl_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickcontrolstestutilsprivate_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickdialogs2_metatypes.json
@@ -1145,9 +1267,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/metatypes/qt6quickdialogs2utils_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickeffects_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quicklayouts_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickparticlesprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quicknativestyle_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickparticles_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quickshapes_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickshapesdesignhelpersprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickshapesdesignhelpers_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quicktemplates2_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quicktest_metatypes.json
 %{mingw64_libdir}/qt6/metatypes/qt6quicktestutilsprivate_metatypes.json
@@ -1186,9 +1309,12 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlcore.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlcore_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmldebug_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmldesignsupport.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmldesignsupport_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmldom_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlformat_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlintegration.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmllint_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlmeta.pri
@@ -1197,6 +1323,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlmodels_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlnetwork.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlnetwork_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlpreview_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmltest.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmltest_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmltoolingsettings_private.pri
@@ -1214,6 +1341,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2basic_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2basicstyleimpl.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2basicstyleimpl_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2fluentwinui3.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2fluentwinui3_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2fluentwinui3styleimpl.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2fluentwinui3styleimpl_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2fusion.pri
@@ -1229,10 +1358,12 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2material_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2materialstyleimpl.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2materialstyleimpl_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2native.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universal.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universal_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universalstyleimpl.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universalstyleimpl_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2windows.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2windowsstyleimpl.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrolstestutilsprivate_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickdialogs2.pri
@@ -1245,9 +1376,13 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickeffects_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicklayouts.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicklayouts_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicknativestyle.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicknativestyle_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickparticles.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickparticles_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickshapes.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickshapes_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickshapesdesignhelpers.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickshapesdesignhelpers_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2_private.pri
@@ -1274,13 +1409,16 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/modules/QmlCompiler.json
 %{mingw64_libdir}/qt6/modules/QmlCore.json
 %{mingw64_libdir}/qt6/modules/QmlDebugPrivate.json
+%{mingw64_libdir}/qt6/modules/QmlDesignSupport.json
 %{mingw64_libdir}/qt6/modules/QmlDomPrivate.json
 %{mingw64_libdir}/qt6/modules/QmlFormatPrivate.json
 %{mingw64_libdir}/qt6/modules/QmlIntegration.json
+%{mingw64_libdir}/qt6/modules/QmlLintPrivate.json
 %{mingw64_libdir}/qt6/modules/QmlLocalStorage.json
 %{mingw64_libdir}/qt6/modules/QmlMeta.json
 %{mingw64_libdir}/qt6/modules/QmlModels.json
 %{mingw64_libdir}/qt6/modules/QmlNetwork.json
+%{mingw64_libdir}/qt6/modules/QmlPreviewPrivate.json
 %{mingw64_libdir}/qt6/modules/QmlToolingSettingsPrivate.json
 %{mingw64_libdir}/qt6/modules/QmlTypeRegistrarPrivate.json
 %{mingw64_libdir}/qt6/modules/QmltcPrivate.json
@@ -1290,6 +1428,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/modules/QuickControls2.json
 %{mingw64_libdir}/qt6/modules/QuickControls2Basic.json
 %{mingw64_libdir}/qt6/modules/QuickControls2BasicStyleImpl.json
+%{mingw64_libdir}/qt6/modules/QuickControls2FluentWinUI3.json
 %{mingw64_libdir}/qt6/modules/QuickControls2FluentWinUI3StyleImpl.json
 %{mingw64_libdir}/qt6/modules/QuickControls2Fusion.json
 %{mingw64_libdir}/qt6/modules/QuickControls2FusionStyleImpl.json
@@ -1298,8 +1437,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/modules/QuickControls2Impl.json
 %{mingw64_libdir}/qt6/modules/QuickControls2Material.json
 %{mingw64_libdir}/qt6/modules/QuickControls2MaterialStyleImpl.json
+%{mingw64_libdir}/qt6/modules/QuickControls2Native.json
 %{mingw64_libdir}/qt6/modules/QuickControls2Universal.json
 %{mingw64_libdir}/qt6/modules/QuickControls2UniversalStyleImpl.json
+%{mingw64_libdir}/qt6/modules/QuickControls2Windows.json
 %{mingw64_libdir}/qt6/modules/QuickControls2WindowsStyleImpl.json
 %{mingw64_libdir}/qt6/modules/QuickControlsTestUtilsPrivate.json
 %{mingw64_libdir}/qt6/modules/QuickDialogs2.json
@@ -1307,9 +1448,10 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/modules/QuickDialogs2Utils.json
 %{mingw64_libdir}/qt6/modules/QuickEffects.json
 %{mingw64_libdir}/qt6/modules/QuickLayouts.json
-%{mingw64_libdir}/qt6/modules/QuickParticlesPrivate.json
+%{mingw64_libdir}/qt6/modules/QuickNativeStyle.json
+%{mingw64_libdir}/qt6/modules/QuickParticles.json
 %{mingw64_libdir}/qt6/modules/QuickShapes.json
-%{mingw64_libdir}/qt6/modules/QuickShapesDesignHelpersPrivate.json
+%{mingw64_libdir}/qt6/modules/QuickShapesDesignHelpers.json
 %{mingw64_libdir}/qt6/modules/QuickTemplates2.json
 %{mingw64_libdir}/qt6/modules/QuickTest.json
 %{mingw64_libdir}/qt6/modules/QuickTestUtilsPrivate.json
@@ -1323,6 +1465,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 
 
 %changelog
+* Wed Oct 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Fri Aug 21 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.2-1
 - 6.11.2
 

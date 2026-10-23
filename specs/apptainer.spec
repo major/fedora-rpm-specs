@@ -27,7 +27,7 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.5.4
+%global package_version 1.5.5
 
 %global gocryptfs_version 2.6.1
 %global squashfuse_version 0.6.2
@@ -48,7 +48,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.5.4
+Version: 1.5.5
 Release: 1%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
 # See LICENSE_THIRD_PARTY.md for incorporated code (Apache-2.0)
@@ -524,7 +524,10 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
-* Tue Sep 22 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.5.4
+* Thu Oct 22 2026 Dave Dykstra <dwd@cern.ch> - 1.5.5
+- Update to upstream 1.5.5.
+
+* Tue Sep 22 2026 Dave Dykstra <dwd@cern.ch> - 1.5.4
 - Update to upstream 1.5.4.
 
 * Mon Sep 07 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.5.3-7
@@ -536,7 +539,7 @@ fi
 * Mon Aug  3 2026 Dave Dykstra <dwd@cern.ch> - 1.5.3-5
 - Migrated to SPDX licenses
 
-* Thu Jul 31 2026 Dave Dykstra <dwd@cern.ch> - 1.5.3-4
+* Thu Jul 30 2026 Dave Dykstra <dwd@cern.ch> - 1.5.3-4
 - Another rebuild for the libsubid library version bump, first time had a
   problem on fc45 side tag build
 
