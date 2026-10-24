@@ -28,7 +28,7 @@
 
 Name:           mixxx
 Version:        2.5.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Mixxx is open source software for DJ'ing
 # main sources are under GPL-2.0-or-later, except:
 # lib/fidlib LGPL-2.1
@@ -210,6 +210,9 @@ appstreamcli \
 %endif
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 2.5.6-7
+- Rebuild (qt6)
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.5.6-6
 - Rebuilt for FFmpeg 9
 

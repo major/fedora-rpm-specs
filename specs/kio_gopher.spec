@@ -1,32 +1,21 @@
-%undefine __cmake_in_source_build
-
 Name:           kio_gopher
-Version:        0.1.99
-Release:        19%{?dist}
-Summary:        Gopher KIO slave
-
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Version:        2.0.0
+Release:        1%{?dist}
+Summary:        Gopher KIO worker
 License:        GPL-2.0-or-later
 URL:            http://userbase.kde.org/Kio_gopher
-
-%global revision %(echo %{version} | cut -d. -f3)
-%if %{revision} >= 50
-%global stable unstable
-%else
-%global stable stable
-%endif
-Source0: https://download.kde.org/%{stable}/kio-gopher/kio-gopher-%{version}.tar.xz
+Source0:        https://download.kde.org/%{stable_kf6}/kio-gopher/kio-gopher-%{version}.tar.xz
 
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Codecs)
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5KIO)
+BuildRequires: gcc-c++
+BuildRequires: kf6-rpm-macros
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6KIO)
 
 %description
-This KIO slave adds support for the Gopher protocol to any KIO-enabled
+This KIO worker adds support for the Gopher protocol to any KIO-enabled
 application.
 
 
@@ -35,22 +24,25 @@ application.
 
 
 %build
-%{cmake_kf5}
+%{cmake_kf6}
 %cmake_build
 
 
 %install
 %cmake_install
 
-%find_lang kio5_gopher --all-name --with-html
+%find_lang kio6_gopher --all-name --with-html
 
-%files -f kio5_gopher.lang
+%files -f kio6_gopher.lang
 %doc README
-%license COPYING
-%{_kf5_plugindir}/kio/gopher.so
+%license LICENSES/GPL*
+%{_kf6_plugindir}/kio/gopher.so
 
 
 %changelog
+* Fri Oct 23 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0.0-1
+- Update to 2.0.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.99-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

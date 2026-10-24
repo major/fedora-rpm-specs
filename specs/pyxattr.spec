@@ -1,7 +1,7 @@
 Name:           pyxattr
 Summary:        Extended attributes library wrapper for Python
 Version:        0.7.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        LGPL-2.1-or-later
 URL:            https://pyxattr.k1024.org/
 Source0:        %{URL}/downloads/%{name}-%{version}.tar.gz
@@ -12,7 +12,7 @@ BuildRequires:  gcc
 BuildRequires:  libattr-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  %{py3_dist pytest}
 
 %global _description %{expand:
@@ -28,7 +28,7 @@ Summary: %{summary}
 %description -n python3-%{name} %_description
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build
@@ -53,6 +53,9 @@ python3 -m pytest tests %{?copr_projectname:-k 'not (binary_payload or create_on
 %doc NEWS README.md
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 0.7.2-23
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.7.2-22
 - Rebuilt for Python 3.15.0b4 ABI change
 

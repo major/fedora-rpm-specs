@@ -1,6 +1,6 @@
 Name:           tellico
 Version:        4.1.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A collection manager
 
 License:        GPL-2.0-or-later
@@ -118,6 +118,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.te
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 4.1.2-10
+- Rebuild (qt6)
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.1.2-9
 - Rebuilt for libxml-2.5.4
 

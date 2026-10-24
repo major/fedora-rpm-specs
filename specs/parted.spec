@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -19,7 +19,7 @@ BuildRequires: texinfo
 BuildRequires: device-mapper-devel
 BuildRequires: libuuid-devel
 BuildRequires: libblkid-devel >= 2.17
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: git
 BuildRequires: autoconf
 BuildRequires: automake
@@ -58,7 +58,7 @@ Parted library, you need to install this package.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE3}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -S git_am
 # Needed when .am files are modified by a patch
 autoreconf -v
@@ -114,6 +114,9 @@ make check
 
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 3.8-2
+- Verify upstream source signatures with openpgpverify
+
 * Wed Sep 23 2026 Brian C. Lane <bcl@redhat.com> - 3.8-1
 - New upstream release with updated gnulib
 

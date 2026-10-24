@@ -14,7 +14,7 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 9.1.0
-Release: 5%{?beta}%{?dist}
+Release: 6%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -90,7 +90,6 @@ BuildRequires: cmake(KF6Archive)
 BuildRequires: cmake(KF6Solid)
 BuildRequires: cmake(KF6Bookmarks)
 BuildRequires: kf6-rpm-macros
-BuildRequires: qt6-qtbase-private-devel
 %else
 BuildRequires: pkgconfig(Qt5NetworkAuth)
 BuildRequires: pkgconfig(Qt5OpenGL)
@@ -334,6 +333,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 9.1.0-6
+- Drop unused BR: qt6-qtbase-private-devel
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 9.1.0-5
 - Rebuilt for libxml-2.5.4
 

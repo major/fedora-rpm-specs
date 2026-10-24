@@ -162,7 +162,7 @@ BuildRequires: audit-libs >= 1.0.8
 
 BuildRequires: xauth
 # for tarball signature verification
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 # for regress tests
 BuildRequires: tmux
@@ -247,7 +247,7 @@ an X11 passphrase dialog for OpenSSH.
 This package contains a test SK driver used for OpenSSH test purposes
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyring='%{SOURCE3}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -T -b 0 -p1
 
 autoreconf

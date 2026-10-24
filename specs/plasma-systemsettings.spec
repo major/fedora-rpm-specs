@@ -3,7 +3,7 @@
 Name:    plasma-%{base_name}
 Summary: KDE System Settings application
 Version: 6.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-or-later AND (GPL-2.0-only OR GPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/systemsettings.deskto
 %{_kf6_datadir}/config.kcfg/systemsettings-config.kcfg
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
+- Rebuild (qt6)
+
 * Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
 - 6.8.1
 

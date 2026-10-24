@@ -3,7 +3,7 @@
 
 Name:           kup-backup
 Version:        6.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Backup scheduler for the Plasma desktop
 
 # CC0-1.0 is used but only in a couple upstream-related CI files, which we aren't using.
@@ -101,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ku
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
+- Rebuild (qt6)
+
 * Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
 - 6.8.1
 

@@ -32,7 +32,7 @@ Patch1:         libchewing-0.13.1-clap_mangen0.13.patch
 BuildRequires:  gcc cmake make pkgconf texinfo
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  cmake(Corrosion)
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  python3-devel
 # since f31
 Obsoletes:      python2-libchewing < 0.5.1-13
@@ -77,7 +77,7 @@ Python binding of libchewing.
 %{name_zh_TW} python 綁定
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n libchewing-%{version_no_tilde}
 %cargo_prep
 

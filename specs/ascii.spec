@@ -1,6 +1,6 @@
 Name:           ascii
-Version:        3.32
-Release:        2%{?dist}
+Version:        3.33
+Release:        1%{?dist}
 URL:            http://www.catb.org/~esr/ascii/
 Source0:        http://www.catb.org/~esr/ascii/ascii-%{version}.tar.gz
 BuildRequires:  gcc
@@ -38,6 +38,9 @@ cp ascii.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %license COPYING
 
 %changelog
+* Fri Oct 23 2026 Didier Fabert <didier.fabert@gmail.com> - 3.33-1
+- Update to 3.33 version
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

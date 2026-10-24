@@ -8,7 +8,7 @@ Summary: Image browser and viewer
 Name: geeqie
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
-Version: 3.2
+Version: 3.3
 Release: %autorelease
 URL: https://www.geeqie.org
 
@@ -38,8 +38,7 @@ BuildRequires: evince
 BuildRequires: gcc-c++
 BuildRequires: gettext
 BuildRequires: gnome-doc-utils
-# for %%gpgverify
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: intltool
 BuildRequires: make
 BuildRequires: meson
@@ -47,6 +46,7 @@ BuildRequires: yelp-tools
 # for /usr/bin/appstream-util
 BuildRequires: libappstream-glib
 
+BuildRequires: libavformat-free-devel
 BuildRequires: cfitsio-devel
 BuildRequires: clutter-devel
 BuildRequires: djvulibre-devel
@@ -107,7 +107,7 @@ support for external editors, previewing images using thumbnails, and zoom.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 %{?gitcommit:-n %{name}-%{gitcommit}}
 
 

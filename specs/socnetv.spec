@@ -2,7 +2,7 @@
 
 Name:		socnetv
 Version:	3.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
 Summary:	A Social Networks Analyser and Visualiser
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 3.8-2
+- Rebuild (qt6)
+
 * Thu Oct 01 2026 RI_Eugene <ti.eugene@gmail.com> - 3.8-1
 - Version bump
 

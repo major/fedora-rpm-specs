@@ -7,7 +7,7 @@ License:	BSD-2-Clause
 URL:		https://developers.yubico.com/yubico-piv-tool/
 Source0:	https://developers.yubico.com/yubico-piv-tool/Releases/yubico-piv-tool-%{version}.tar.gz
 Source1:	https://developers.yubico.com/yubico-piv-tool/Releases/yubico-piv-tool-%{version}.tar.gz.sig
-Source2:	gpgkey-9588EA0F.gpg
+Source2:	keyring-1D7308B0055F5AEF36944A8F27A9C24D9588EA0F.pgp
 
 # OpenSSL 4.0 build fixes
 # https://github.com/Yubico/yubico-piv-tool/pull/583
@@ -16,11 +16,12 @@ Patch1:         0001-Fix-const-correctness-in-OpenSSL-utils.patch
 BuildRequires:	pcsc-lite-devel
 BuildRequires:  openssl-devel
 BuildRequires:  chrpath
-BuildRequires:	gnupg2 gengetopt help2man
+BuildRequires:	gengetopt help2man
 BuildRequires:	check-devel
 BuildRequires:	gcc gcc-c++
 BuildRequires:	cmake
 BuildRequires:	zlib-devel
+BuildRequires:	openpgpverify
 Requires:		pcsc-lite-ccid
 
 %description
@@ -42,7 +43,7 @@ This package includes development files.
 
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

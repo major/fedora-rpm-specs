@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:          ktrip
 Version:       26.08.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Public transport navigation, allows you to find journeys between specified locations, departures for a specific station and shows real-time delay and disruption information.
 
 License:       GPL-2.0-or-later
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/config.kcfg/ktripsettings.kcfg
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
+- Rebuild (qt6)
+
 * Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
 - 26.08.2
 

@@ -1,5 +1,17 @@
+%ifarch x86_64
+%global toolchain clang
+%global _lto_cflags %{nil}
+%if 0%{?fedora} >= 45
+%global omp_devel libomp22-devel
+%global omp_libdir %{_libdir}/llvm22/lib64
+%else
+%global omp_devel libomp-devel
+%global omp_libdir %{_libdir}
+%endif
+%endif
+
 Name:           onednn
-Version:        3.13.4
+Version:        3.14
 Release:        %autorelease
 Summary:     The oneAPI Deep Neural Network Library
 
@@ -17,9 +29,16 @@ BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  chrpath
 
-# Optionals not yet enabled
+%ifarch x86_64
+BuildRequires:  intel-dpcpp
+BuildRequires:  intel-dpcpp-devel
+BuildRequires:  %{omp_devel}
+BuildRequires:  oneapi-level-zero-devel
+BuildRequires:  intel-level-zero-devel
+BuildRequires:  intel-metrics-discovery-devel
+%else
 BuildRequires:  pkgconfig(OpenCL)
-#BuildRequires:  pkgconfig(tbb)
+%endif
 
 # Virtual provides mkldnn
 Provides: mkldnn = %{version}-%{release}
@@ -27,6 +46,12 @@ Provides: mkl-dnn = %{version}-%{release}
 Obsoletes: mkl-dnn < 1.3
 # Provides oneDNN
 Provides: oneDNN = %{version}-%{release}
+%ifarch aarch64
+Provides:       bundled(kleidiai)
+%endif
+%ifarch x86_64
+Requires:       intel-dpcpp-runtime
+%endif
 
 
 %description
@@ -43,6 +68,11 @@ interested in improving application performance on Intel CPUs and GPUs.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+%ifarch x86_64
+Requires:       intel-dpcpp-devel
+Requires:       oneapi-level-zero-devel
+Requires:       opencl-headers
+%endif
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -71,13 +101,25 @@ functionality on target hardware.
 
 
 %build
+%ifarch x86_64
+export CFLAGS="$CFLAGS -idirafter %{_prefix}/lib/clang/22/include"
+export CXXFLAGS="$CXXFLAGS -idirafter %{_prefix}/lib/clang/22/include"
+export LDFLAGS="$LDFLAGS -L%{omp_libdir}"
+%endif
 %cmake \
   -DDNNL_ARCH_OPT_FLAGS="" \
   -DDNNL_BUILD_EXAMPLES=OFF \
   -DDNNL_BUILD_TESTS=ON \
-  -DCMAKE_C_STD=11 \
-  -DCMAKE_CPP_STD=17 \
+%ifarch x86_64
+  -DCMAKE_C_COMPILER=%{_bindir}/dpclang \
+  -DCMAKE_CXX_COMPILER=%{_bindir}/dpclang++ \
+  -DONEDNN_CPU_RUNTIME=OMP \
+  -DONEDNN_GPU_RUNTIME=SYCL \
+  -DONEDNN_OCL_INCLUDE_DIR=%{_includedir} \
+  -DONEDNN_ZE_INCLUDE_DIR=%{_includedir}
+%else
   -DONEDNN_GPU_RUNTIME=OCL
+%endif
 
 %cmake_build
 
@@ -87,6 +129,8 @@ functionality on target hardware.
 
 # Remove docs
 rm -rf %{buildroot}%{_docdir}/dnnl
+
+rm -rf %{buildroot}%{_includedir}/KleidiAIOps %{buildroot}%{_libdir}/cmake/KleidiAIOps %{buildroot}%{_libdir}/libkleidiai_ops.a
 
 # install benchdnn
 install -d %{buildroot}%{_libexecdir}/onednn
@@ -106,7 +150,8 @@ chmod 0755 %{buildroot}%{_bindir}/benchdnn
 install -d %{buildroot}%{_libexecdir}/onednn/gtests
 find %{_vpath_builddir}/tests/gtests -maxdepth 1 -type f -executable -name 'test_*' \
     -exec install -pm0755 {} %{buildroot}%{_libexecdir}/onednn/gtests/ \;
-install -pm0755 %{_vpath_builddir}/tests/api-c %{buildroot}%{_libexecdir}/onednn/gtests/
+[ -f %{_vpath_builddir}/tests/api-c ] && \
+  install -pm0755 %{_vpath_builddir}/tests/api-c %{buildroot}%{_libexecdir}/onednn/gtests/ || true
 [ -f %{_vpath_builddir}/tests/test_c_symbols-c ] && \
   install -pm0755 %{_vpath_builddir}/tests/test_c_symbols-c %{buildroot}%{_libexecdir}/onednn/gtests/ || true
 
@@ -121,10 +166,14 @@ chmod 0755 %{buildroot}%{_bindir}/onednn-test
 
 
 # Some ocl/gpu tests will fails if lacking an appropriate implementation
-%{?_with_tests:
 %check
+%ifarch x86_64
+%ctest -E "benchdnn|gpu|test_api_sycl"
+%else
+%{?_with_tests:
 %ctest
 }
+%endif
 
 
 %files

@@ -10,7 +10,7 @@ Name:    spectacle
 Summary: Screenshot capture utility
 Epoch:   1
 Version: 6.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -138,6 +138,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.spectacle
 %{_kf6_datadir}/config.kcfg/spectacle.kcfg
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 1:6.8.1-2
+- Rebuild (qt6)
+
 * Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 1:6.8.1-1
 - 6.8.1
 

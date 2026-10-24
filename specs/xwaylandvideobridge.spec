@@ -1,6 +1,6 @@
 Name:           xwaylandvideobridge
 Version:        0.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility to allow streaming Wayland windows to X applications
 
 License:        (GPL-2.0-only or GPL-3.0-only) and LGPL-2.0-or-later and BSD-3-Clause
@@ -13,7 +13,6 @@ BuildRequires:  cmake >= 3.16
 BuildRequires:  gcc-c++
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(KF6CoreAddons)
@@ -77,6 +76,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 0.5.2-2
+- Drop unused BR: qt6-qtbase-private-devel
+
 * Mon Aug 24 2026 Steve Cossette <farchord@gmail.com> - 0.5.2-1
 - 0.5.2
 

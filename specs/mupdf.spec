@@ -37,8 +37,8 @@ Patch:		0001-do-not-use-CXXFLAGS-with-swig.patch
 # for compatibility with SWIG 4.5.0
 # https://github.com/ArtifexSoftware/mupdf/pull/102
 Patch:		0001-Replace-removed-Python-2-C-API-macros-for-SWIG-4.5.0.patch
-# Upstreamable:
-Patch:		0001-mupdfwrap_test-adjust-to-mupdf-1.27.x.patch
+# Upstream patches:
+Patch:		0001-Bug-709768-Clear-list-pointer-to-avoid-double-free.patch
 
 BuildRequires:	gcc gcc-c++ make binutils desktop-file-utils coreutils pkgconfig
 BuildRequires:	openjpeg2-devel desktop-file-utils

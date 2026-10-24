@@ -1,6 +1,6 @@
 Name:    kontactinterface
 Version: 26.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Kontact Interface Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -72,6 +72,9 @@ find ./po -type f -name kontactinterfaces5.po -execdir mv {} kontactinterfaces6.
 %files doc
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
+- Rebuild (qt6)
+
 * Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
 - 26.08.2
 

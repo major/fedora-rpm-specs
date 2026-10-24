@@ -1,7 +1,7 @@
 Summary:    A GNU program for formatting C code
 Name:       indent
 Version:    2.2.13
-Release:    12%{?dist}
+Release:    13%{?dist}
 # COPYING:                      GPL-3.0 text
 # doc/indent.texi:              Latex2e-translated-notice
 #                               (AND a subset of Latex2e WITH a texinfo-commented GPL clause;
@@ -129,10 +129,10 @@ BuildRequires:  coreutils
 # egrep is not used
 BuildRequires:  gcc
 BuildRequires:  gettext-devel >= 0.18.3
-BuildRequires:  gnupg2
 # gperf to update pre-generated code to fix compiler warnings
 BuildRequires:  gperf
 BuildRequires:  make
+BuildRequires:  openpgpverify
 BuildRequires:  texinfo
 BuildRequires:  texi2html
 
@@ -146,7 +146,7 @@ Install the indent package if you are developing applications in C and
 you want a program to format your code.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 # Regenerate sources
 rm src/gperf.c src/gperf-cc.c
@@ -183,6 +183,9 @@ make check %{?_smp_mflags}
 %{_infodir}/indent.info*
 
 %changelog
+* Fri Oct 23 2026 Petr Pisar <ppisar@redhat.com> - 2.2.13-13
+- Verify upstream signature with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

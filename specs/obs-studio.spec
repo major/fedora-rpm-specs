@@ -47,7 +47,7 @@
 
 Name:           obs-studio
 Version:        32.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -139,7 +139,6 @@ BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  python3-devel
 BuildRequires:  libqrcodegencpp-devel
 BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  qt6-qtsvg-devel
 BuildRequires:  qt6-qtwayland-devel
 BuildRequires:  rnnoise-devel
@@ -406,6 +405,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 32.2.2-4
+- Drop unused BR: qt6-qtbase-private-devel
+
 * Thu Sep 17 2026 Nicolas Chauvet <kwizart@gmail.com> - 32.2.2-3
 - Lower nv-codec-headers to support older cards
 

@@ -7,7 +7,7 @@ License:	MIT
 URL:		https://gitlab.freedesktop.org/emersion/grim
 Source0:	%{url}/-/releases/v%{version}/downloads/%{name}-%{version}.tar.gz
 Source1:	%{url}/-/releases/v%{version}/downloads/%{name}-%{version}.tar.gz.sig
-Source2:	dj3498u4hyyarh35rkjfnghbjxug6b19
+Source2:	https://keys.openpgp.org/vks/v1/by-fingerprint/34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48
 
 BuildRequires:	pkgconfig(bash-completion)
 BuildRequires:	pkgconfig(libjpeg)
@@ -19,13 +19,13 @@ BuildRequires:	pkgconfig(wayland-scanner)
 BuildRequires:	scdoc
 BuildRequires:	meson >= 0.59.0
 BuildRequires:	gcc
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 
 %description
 Grim is a command-line tool to grab images from Sway.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

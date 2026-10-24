@@ -1,11 +1,15 @@
 Name:           fooyin
-Version:        0.13.1
+Version:        0.14.1
 Release:        %autorelease
 Summary:        A customizable music player
 
 License:        GPL-3.0-or-later
 URL:            https://www.fooyin.org/
 Source0:        https://github.com/fooyin/fooyin/archive/v%{version}/fooyin-%{version}.tar.gz
+Patch0:         https://github.com/fooyin/fooyin/commit/12b32d2c467f4351516ae066c1204b8867df4e94.patch
+Patch1:         https://github.com/fooyin/fooyin/commit/56dd74893588c4f1d25a9163ce3278bd414755c2.patch
+
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -17,25 +21,33 @@ BuildRequires:  cmake(Qt6Concurrent)
 BuildRequires:  cmake(Qt6Network)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6LinguistTools)
-BuildRequires:  cmake(KDSingleApplication-qt6)
-BuildRequires:  cmake(QCoro6)
-BuildRequires:  pkgconfig(icu-uc)
-BuildRequires:  pkgconfig(icu-i18n)
 BuildRequires:  pkgconfig(taglib)
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavfilter)
 BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libswresample)
-BuildRequires:  pkgconfig(alsa)
+BuildRequires:  libicu-devel
+BuildRequires:  zlib-devel
+BuildRequires:  libarchive-devel
+BuildRequires:  alsa-lib-devel
+BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libpipewire-0.3)
-BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(libspa-0.2)
+BuildRequires:  pulseaudio-libs-devel
+BuildRequires:  cmake(SDL2)
+BuildRequires:  cmake(KDSingleApplication-qt6)
+BuildRequires:  cmake(QCoro6)
 BuildRequires:  pkgconfig(sndfile)
+BuildRequires:  pkgconfig(flac)
+BuildRequires:  pkgconfig(libmpg123)
+BuildRequires:  pkgconfig(opusfile)
+BuildRequires:  pkgconfig(vorbisfile)
 BuildRequires:  pkgconfig(libopenmpt)
 BuildRequires:  pkgconfig(libgme)
-BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  pkgconfig(libebur128)
+BuildRequires:  pkgconfig(libcdio)
+BuildRequires:  pkgconfig(libcdio_cdda)
 BuildRequires:  pkgconfig(libcdio_paranoia)
 BuildRequires:  pkgconfig(soundtouch)
 BuildRequires:  pkgconfig(soxr)

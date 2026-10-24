@@ -3,7 +3,7 @@
 Name:           dolphin
 Summary:        KDE File Manager
 Version:        26.08.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/system/dolphin
@@ -167,6 +167,12 @@ xvfb-run -a bash -c "%ctest" || :
 
 
 %changelog
+* Tue Oct 20 2026 Than Ngo <than@redhat.com> - 26.08.1-2
+- Fix rhbz#2553643 - CVE-2026-110236 Arbitrary command execution via crafted folder name
+
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-3
+- Rebuild (qt6)
+
 * Fri Oct 16 2026 Than Ngo <than@redhat.com> - 26.08.2-2
 - Fix rhbz#2553643 - CVE-2026-110236 dolphin: dolphin: Arbitrary command execution via crafted folder name
 

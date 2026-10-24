@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.13.0
+Version:        0.13.5
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -86,7 +86,6 @@ Summary:        An extremely fast Python package installer and resolver, written
 # (MIT OR Apache-2.0) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# 0BSD
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
@@ -106,16 +105,13 @@ Summary:        An extremely fast Python package installer and resolver, written
 # MIT
 # MIT AND (MIT OR Apache-2.0)
 # MIT OR Apache-2.0
-# MIT OR LGPL-3.0-or-later
 # MIT OR Zlib OR Apache-2.0
-# MIT-0
 # MIT-0 OR Apache-2.0
 # MPL-2.0
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
 License:        %{shrink:
-    0BSD AND
     (0BSD OR Apache-2.0 OR MIT) AND
     Apache-2.0 AND
     (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
@@ -132,10 +128,8 @@ License:        %{shrink:
     CC0-1.0 AND
     CDLA-Permissive-2.0 AND
     ISC AND
-    (LGPL-3.0-or-later OR MIT) AND
     (LGPL-3.0-or-later OR MPL-2.0) AND
     MIT AND
-    MIT-0 AND
     (MIT OR Unlicense) AND
     MPL-2.0 AND
     Unicode-3.0 AND
@@ -216,6 +210,10 @@ BuildRequires:  /usr/bin/python3.14t
 BuildRequires:  /usr/bin/python3.15
 BuildRequires:  /usr/bin/python3.15t
 %endif
+
+# Because we set “system-certs = true” in uv.toml:
+BuildRequires:  ca-certificates
+Requires:       ca-certificates
 
 # In https://github.com/astral-sh/uv/issues/5588#issuecomment-2257823242,
 # upstream writes “These have diverged significantly and the upstream versions

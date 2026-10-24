@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        6.31.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QtQuick plugins to build user interfaces based on the KDE UX guidelines
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -131,6 +131,9 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.31.0-2
+- Rebuild (qt6)
+
 * Fri Oct 02 2026 Steve Cossette <farchord@gmail.com> - 6.31.0-1
 - 6.31.0
 

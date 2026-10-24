@@ -30,6 +30,7 @@ BuildRequires:  pkgconfig(tbb)
 BuildRequires:  polyclipping2-devel
 %if %{with python}
 BuildRequires:  chrpath
+BuildRequires:  python3-devel
 ## Tests
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist trimesh}
@@ -83,7 +84,8 @@ Docbook documentation for %{name}.
 
 # Nanobind can only be built statically from sources shipped in its Python
 # package; see https://github.com/wjakob/nanobind/issues/1042.
-sed -i "s|NB_STATIC|NB_STATIC NOSTRIP|" \
+sed -i -e "s|NB_STATIC|NB_STATIC NOSTRIP|" \
+    -e "s|\${Python_SITEARCH}|%{python3_sitearch}|" \
     bindings/python/CMakeLists.txt
 
 # Switch Doxygen to DocBook output

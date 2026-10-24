@@ -63,7 +63,7 @@ Patch:          0002-Add-INSTALLER-to-Python-metadata.patch
 # Fix a buffer overflow when decompressing solv pages (CVE-2026-48864),
 # rejected by upstream, <https://github.com/openSUSE/libsolv/pull/622>.
 Patch:          0003-Fix-a-buffer-overflow-when-decompressing-solv-pages.patch
-# Compute hashes with OpenSSL, proposed upstream,
+# Compute hashes with OpenSSL, in upstream after 0.7.40,
 # <https://github.com/openSUSE/libsolv/pull/627>.
 Patch:          0004-Add-support-for-computing-hashes-using-OpenSSL-3.1.0.patch
 # Use TAG_SHA256HEADER if no TAG_SHA1HEADER, merged upstream,

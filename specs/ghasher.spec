@@ -2,8 +2,7 @@ Name:           ghasher
 Version:        1.2.1
 Release:        %autorelease
 Summary:        GUI hasher for GTK+ 2
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-2-Clause
 URL:            http://asgaard.homelinux.org/code/ghasher/
 Source:         http://asgaard.homelinux.org/code/ghasher/ghasher-%{version}.tar.gz
 ExcludeArch:    %{ix86}

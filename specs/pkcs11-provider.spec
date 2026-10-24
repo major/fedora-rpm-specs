@@ -19,7 +19,7 @@ BuildRequires: openssl-devel >= 3.0.7
 BuildRequires: gcc
 BuildRequires: meson
 %if %{with gpgcheck}
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 %endif
 
 # for tests
@@ -46,7 +46,7 @@ compatible to previous versions as well.
 
 %prep
 %if %{with gpgcheck}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 
 %autosetup -p1

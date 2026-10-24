@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 * Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
 - 26.08.2
 
+* Thu Sep 17 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.08.1-2
+- Rebuilt for FFmpeg 9
+
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1
 

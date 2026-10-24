@@ -9,7 +9,7 @@
 Name:    amarok
 Summary: Media player
 Version: 3.3.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -256,6 +256,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}*.
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 3.3.3-5
+- Rebuild (qt6)
+
 * Fri Sep 04 2026 Dominik Mierzejewski <dominik@greysector.net> - 3.3.3-4
 - Rebuilt for FFmpeg 9
 

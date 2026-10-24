@@ -14,7 +14,7 @@ Source2:        https://chewing.im/.well-known/openpgpkey/hu/y84sdmnksfqswe7fxf5
 BuildRequires:  meson >= 0.57.0
 BuildRequires:  gcc
 BuildRequires:  pkgconf
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  pkgconfig(ibus-1.0)
 BuildRequires:  pkgconfig(chewing) >= 0.9.0
 BuildRequires:  pkgconfig(glib-2.0)
@@ -42,7 +42,7 @@ IBus-chewing 是新酷音輸入法的IBus前端。
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{name}-%{version_no_tilde}
 
 %build

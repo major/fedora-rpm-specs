@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 Name:           krdp
 Summary:        Desktop sharing using RDP
 Version:        6.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/plasma/krdp
@@ -127,6 +127,9 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
+- Rebuild (qt6)
+
 * Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
 - 6.8.1
 

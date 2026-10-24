@@ -20,7 +20,7 @@ BuildRequires: libXtst-devel, libXfixes-devel
 BuildRequires: kf6-knotifications-devel
 BuildRequires: kf6-kguiaddons-devel
 BuildRequires: kf6-rpm-macros
-BuildRequires: qt6-qtbase-devel, qt6-qtbase-private-devel
+BuildRequires: qt6-qtbase-devel
 BuildRequires: qt6-qtsvg-devel, qt6-qtdeclarative-devel
 BuildRequires: qt6-qttools-devel, kf6-kstatusnotifieritem-devel
 BuildRequires: qca-qt6-devel, qtkeychain-qt6-devel, miniaudio-devel

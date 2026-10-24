@@ -1,12 +1,13 @@
-%global gittag 2.2.6
+%global gittag 2.2.7
+%global gitname rdiff_backup
 
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
 Name: rdiff-backup
-Release: 17%{?dist}
+Release: 1%{?dist}
 
 URL: https://rdiff-backup.net/
-Source0: https://github.com/%{name}/%{name}/releases/download/v%{gittag}/%{name}-%{version}.tar.gz
+Source0: https://github.com/%{name}/%{name}/releases/download/v%{gittag}/%{gitname}-%{version}.tar.gz
 
 License: GPL-2.0-or-later
 BuildRequires: python3-devel >= 3.6, librsync-devel >= 1.0.0
@@ -34,7 +35,7 @@ securely back a hard drive up to a remote location, and only the
 differences from the previous backup will be transmitted.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{gitname}-%{version}
 
 %if ! 0%{?rhel} || 0%{?rhel} >= 9
 %generate_buildrequires
@@ -79,7 +80,10 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 %license COPYING
 
 %changelog
-* Mon Aug 17 2026 Python Maint <frank@crawford.emu.id.au> - 2.2.6-17
+* Fri Oct 23 2026 Frank Crawford <frank@crawford.emu.id.au> - 2.2.7-1
+- New upstream release - 2.2.7
+
+* Mon Aug 17 2026 Frank Crawford <frank@crawford.emu.id.au> - 2.2.6-17
 - Migrate spec file to pyproject macros - BZ2378431
 
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.2.6-16

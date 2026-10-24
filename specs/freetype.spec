@@ -1,9 +1,10 @@
 %{!?with_xfree86:%define with_xfree86 1}
 %bcond_with bootstrap
+%bcond_without ftinspect
 
 Name: freetype
 Version: 2.15.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A free and portable font rendering engine
 License: (FTL OR GPL-2.0-or-later) AND BSD-3-Clause AND MIT AND MIT-Modern-Variant AND LicenseRef-Fedora-Public-Domain AND Zlib
 URL: http://www.freetype.org
@@ -30,6 +31,11 @@ BuildRequires: zlib-devel
 BuildRequires: bzip2-devel
 BuildRequires: brotli-devel
 BuildRequires: make
+%if %{with ftinspect} && %{without bootstrap}
+BuildRequires: cmake
+BuildRequires: gcc-c++
+BuildRequires: qt6-qtbase-devel >= 6.8
+%endif
 %if %{without bootstrap}
 BuildRequires: harfbuzz-devel
 %endif
@@ -56,6 +62,16 @@ The FreeType engine is a free and portable font rendering
 engine, developed to provide advanced font support for a variety of
 platforms and environments.  The demos package includes a set of useful
 small utilities showing various capabilities of the FreeType library.
+
+%if %{with ftinspect} && %{without bootstrap}
+%package qt-demos
+Summary: Qt-based FreeType font inspection demo
+Requires: %{name} = %{version}-%{release}
+
+%description qt-demos
+The freetype-qt-demos package provides ftinspect, a Qt-based application
+for inspecting fonts and FreeType rendering behavior.
+%endif
 
 
 %package devel
@@ -105,6 +121,19 @@ make TOP_DIR=".."
 popd
 %endif
 
+%if %{with ftinspect} && %{without bootstrap}
+pushd ft2demos-%{version}/src/ftinspect
+ft_root="$(realpath ../../..)"
+%cmake \
+  -DUSE_QT_VERSION=6 \
+  -DFREETYPE_INCLUDE_DIR_ft2build="${ft_root}/include" \
+  -DFREETYPE_INCLUDE_DIR_freetype2="${ft_root}/include" \
+  -DFREETYPE_LIBRARY="${ft_root}/objs/.libs/libfreetype.so" \
+  -DCMAKE_SKIP_RPATH=ON
+%cmake_build
+popd
+%endif
+
 %install
 
 %make_install gnulocaledir=$RPM_BUILD_ROOT%{_datadir}/locale
@@ -120,6 +149,12 @@ popd
       builds/unix/libtool --mode=install install -m 755 ft2demos-%{version}/bin/$ftdemo $RPM_BUILD_ROOT/%{_bindir}
   done
 }
+%endif
+
+%if %{with ftinspect} && %{without bootstrap}
+install -D -p -m 0755 \
+  ft2demos-%{version}/src/ftinspect/%{_vpath_builddir}/ftinspect \
+  %{buildroot}%{_bindir}/ftinspect
 %endif
 
 # man pages for freetype-demos
@@ -194,6 +229,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 %endif
 %doc ChangeLog README
 
+%if %{with ftinspect} && %{without bootstrap}
+%files qt-demos
+%license LICENSE.TXT docs/FTL.TXT docs/GPLv2.TXT
+%{_bindir}/ftinspect
+%endif
+
 %files devel
 %doc docs/CHANGES docs/formats.txt docs/ft2faq.html
 %dir %{_includedir}/freetype2
@@ -209,6 +250,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.{a,la}
 %{_mandir}/man1/*
 
 %changelog
+* Fri Oct 23 2026 Infinality <infinality@infinality.net> - 2.15.0-2
+- Add ftinspect as the optional freetype-qt-demos subpackage (Qt 6)
+- Skip ftinspect when building with --without ftinspect or --with bootstrap
+
 * Sat Oct 17 2026 Michael Kuhn <suraia@fedoraproject.org> - 2.15.0-1
 - Update to 2.15.0
 - Resolves: #2549995

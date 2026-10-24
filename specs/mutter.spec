@@ -24,6 +24,8 @@ Summary:       Window and compositing manager based on Clutter
 License:       GPL-2.0-or-later
 URL:           http://www.gnome.org
 Source0:       http://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+# Backport crash fix, will be available in 51.2
+Patch:         0001-wayland-touch-Do-not-crash-on-empty-focus-surface.patch
 
 %gnome_check_version
 

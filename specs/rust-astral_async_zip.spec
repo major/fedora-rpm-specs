@@ -5,7 +5,7 @@
 %global crate astral_async_zip
 
 Name:           rust-astral_async_zip
-Version:        0.0.21
+Version:        0.0.22
 Release:        %autorelease
 Summary:        Asynchronous ZIP archive reading/writing crate
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit the actix-multipart example, allowing us to drop dev-dependencies on
 #   actix-multipart (not packaged), actix-web, derive_more, and uuid.
-# * Exclude release script from published crate:
-#   https://github.com/astral-sh/rs-async-zip/pull/69
 Patch:          astral_async_zip-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -80,6 +78,30 @@ use the "bzip2" feature of the "%{crate}" crate.
 %files       -n %{name}+bzip2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+bzip2-read-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bzip2-read-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bzip2-read" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bzip2-read-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+bzip2-write-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+bzip2-write-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "bzip2-write" feature of the "%{crate}" crate.
+
+%files       -n %{name}+bzip2-write-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+deflate-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -92,6 +114,30 @@ use the "deflate" feature of the "%{crate}" crate.
 %files       -n %{name}+deflate-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+deflate-read-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+deflate-read-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "deflate-read" feature of the "%{crate}" crate.
+
+%files       -n %{name}+deflate-read-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+deflate-write-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+deflate-write-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "deflate-write" feature of the "%{crate}" crate.
+
+%files       -n %{name}+deflate-write-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+deflate64-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -102,6 +148,18 @@ This package contains library source intended for building other packages which
 use the "deflate64" feature of the "%{crate}" crate.
 
 %files       -n %{name}+deflate64-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+deflate64-read-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+deflate64-read-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "deflate64-read" feature of the "%{crate}" crate.
+
+%files       -n %{name}+deflate64-read-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+full-devel
@@ -138,6 +196,30 @@ This package contains library source intended for building other packages which
 use the "lzma" feature of the "%{crate}" crate.
 
 %files       -n %{name}+lzma-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+lzma-read-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+lzma-read-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "lzma-read" feature of the "%{crate}" crate.
+
+%files       -n %{name}+lzma-read-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+lzma-write-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+lzma-write-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "lzma-write" feature of the "%{crate}" crate.
+
+%files       -n %{name}+lzma-write-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+tokio-devel
@@ -188,6 +270,30 @@ use the "xz" feature of the "%{crate}" crate.
 %files       -n %{name}+xz-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+xz-read-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+xz-read-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "xz-read" feature of the "%{crate}" crate.
+
+%files       -n %{name}+xz-read-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+xz-write-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+xz-write-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "xz-write" feature of the "%{crate}" crate.
+
+%files       -n %{name}+xz-write-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+zstd-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -198,6 +304,30 @@ This package contains library source intended for building other packages which
 use the "zstd" feature of the "%{crate}" crate.
 
 %files       -n %{name}+zstd-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zstd-read-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zstd-read-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zstd-read" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zstd-read-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zstd-write-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zstd-write-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zstd-write" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zstd-write-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

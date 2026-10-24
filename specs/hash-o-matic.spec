@@ -2,7 +2,7 @@
 
 Name:           hash-o-matic
 Version:        1.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        KDE file checksum utility
 License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND CC0-1.0 AND BSD-2-Clause
 URL:            https://apps.kde.org/hashomatic/
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{app_id}.
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.1-8
+- Rebuild (qt6)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

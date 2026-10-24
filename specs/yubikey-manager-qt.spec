@@ -6,12 +6,12 @@ Release: %autorelease
 URL: https://developers.yubico.com/yubikey-manager-qt/
 Source0: https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz
 Source1: https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz.sig
-Source2:  gpgkey-6690D8BC.gpg
+Source2: keyring-9E885C0302F9BB9167529C2D5CBA11E6ADC7BCD1.pgp
 Patch1: yubikey-manager-qt-1.2.5-remove-cloud-upload.patch
 
 License: BSD-2-Clause
 
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: python3
@@ -30,7 +30,7 @@ ExcludeArch:   %{ix86}
 Cross-platform application for configuring any YubiKey over all USB interfaces.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n %{name}
 %patch 1 -p1
 sed -i 's|python |python3 |g' ykman-cli/ykman-cli.pro

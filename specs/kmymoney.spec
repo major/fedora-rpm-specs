@@ -10,7 +10,7 @@
 Summary: Personal finance
 Name:    kmymoney
 Version: 5.2.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
@@ -199,6 +199,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmymoney.
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 5.2.2-7
+- Rebuild (qt6)
+
 * Fri Jul 24 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.2.2-6
 - Disable woob plugin with Python 3.15
 

@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.17.1
+Version:        0.17.2
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -108,7 +108,6 @@ SourceLicense:  %{shrink:
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # CC0-1.0
 # ISC
 # MIT
@@ -128,7 +127,6 @@ License:        %{shrink:
     MIT AND
     Apache-2.0 AND
     (Apache-2.0 OR BSD-2-Clause) AND
-    (Apache-2.0 OR BSD-2-Clause OR MIT) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 OR MIT OR Zlib) AND
@@ -151,11 +149,11 @@ URL:            https://github.com/astral-sh/ruff
 Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev b932d8ce0f893d7d9ef167f0379dcaf9f48bf70b
+%global typeshed_rev 86d68f86591c4bf97723350505d2cd28123ab3b6
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20261001
+%global typeshed_snapdate 20261014
 
 # Downstream patch: always find the system-wide ruff executable
 #
@@ -253,6 +251,16 @@ This package provides an importable Python module for ruff.
 #   https://github.com/astral-sh/ruff/pull/25582
 tomcli set Cargo.toml str workspace.dependencies.tikv-jemallocator.version \
     '>=0.6.0, <0.8.0'
+
+# phf, phf_codegen
+#   wanted: 0.14.0
+#   currently packaged: 0.13.1
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2491104
+for crate in phf phf_codegen
+do
+  tomcli set Cargo.toml str "workspace.dependencies.${crate}.version" \
+      '>=0.13.1, <0.15.0'
+done
 
 # Collect license files of vendored dependencies in the main source archive
 install -D --preserve-timestamps --mode=0644 \

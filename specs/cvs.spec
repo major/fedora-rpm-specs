@@ -275,6 +275,7 @@ License:    GPL-2.0-or-later AND GPL-1.0-or-later AND Latex2e-translated-notice 
 Source0:    https://ftp.gnu.org/non-gnu/cvs/source/stable/%{version}/cvs-%{version}.tar.bz2
 Source1:    https://ftp.gnu.org/non-gnu/cvs/source/stable/%{version}/cvs-%{version}.tar.bz2.sig
 # Retrieved from <hkp://keyserver.ubuntu.com> key server.
+# This is OpenPGP version 3 signature, unsupported by Sequoia.
 Source2:    gpgkey-CB6A07CA90C54234E8A3C8D02C3D4E4C17F231A4.gpg
 Source3:    cvs.xinetd
 Source4:    cvs.pam

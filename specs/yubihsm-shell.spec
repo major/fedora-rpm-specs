@@ -10,7 +10,7 @@ License:	Apache-2.0
 URL:		https://github.com/Yubico/%{name}/
 Source0:	https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz
 Source1:	https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz.sig
-Source2:	gpgkey-9588EA0F.gpg
+Source2:	keyring-1D7308B0055F5AEF36944A8F27A9C24D9588EA0F.pgp
 # https://github.com/Yubico/yubihsm-shell/pull/411
 Patch2:	yubihsm-shell-2.5.0-pcsc-lite.patch
 
@@ -30,7 +30,7 @@ BuildRequires:	clang
 BuildRequires:	pkg-config
 BuildRequires:	libusb-compat-0.1-devel
 BuildRequires:	chrpath
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 
 %description
 This package contains most of the components used to interact with
@@ -44,7 +44,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Development libraries for working with yubihsm 2.
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 

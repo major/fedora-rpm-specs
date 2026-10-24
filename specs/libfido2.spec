@@ -1,7 +1,7 @@
 Name:           libfido2
 
 Version:        1.17.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -13,12 +13,7 @@ Source1:        https://developers.yubico.com/%{name}/Releases/%{name}-%{version
 # provide a list of individuals that release code and their fingerprints at
 #   https://developers.yubico.com/Software_Projects/Software_Signing.html
 #
-# One must import all the keys and then export into the keyfile.
-#   gpg2 --homedir /tmp/ --receive-keys "keyid0"
-#   gpg2 --homedir /tmp/ --receive-keys "keyid1"
-#   gpg2 --homedir /tmp/ --export --armor --output yubico-release-gpgkeys.asc
-#
-# or using the equivalent Sequoia CLI:
+# One must import all the signing keys and then export into the keyfile.
 #
 #   sq network keyserver search "keyid0" --output keyid0.pgp
 #   sq network keyserver search "keyid1" --output keyid1.pgp
@@ -26,11 +21,7 @@ Source1:        https://developers.yubico.com/%{name}/Releases/%{name}-%{version
 #
 Source2:        yubico-release-gpgkeys.asc
 
-%if 0%{?fedora} >= 45
 BuildRequires:  openpgpverify
-%else
-BuildRequires:  gnupg2
-%endif
 BuildRequires:  cmake
 BuildRequires:  make
 BuildRequires:  gcc
@@ -72,11 +63,7 @@ authentication device.
 
 
 %prep
-%if 0%{?fedora} >= 45
 %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%else
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%endif
 %autosetup -p1 -n %{name}-%{version}
 
 
@@ -121,6 +108,9 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Mon Oct 12 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.17.0-7
+- Remove conditionals as all recent Fedora now support openpgpverify
+
 * Sat Oct 03 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.17.0-6
 - Migrate to using sequoia openpgpverify from legacy gpgverify
 

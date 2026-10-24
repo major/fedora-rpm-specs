@@ -2,7 +2,7 @@
 %global sum A python hardware description and verification language
 
 Name:           python-%{srcname}
-Version:        0.11
+Version:        0.11.52
 Release:        %autorelease
 Summary:        %{sum}
 License:        LGPL-2.1-or-later

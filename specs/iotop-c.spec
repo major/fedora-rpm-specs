@@ -1,6 +1,6 @@
 Name:           iotop-c
 Version:        1.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple top-like I/O monitor (implemented in C)
 
 License:        GPL-2.0-or-later
@@ -13,7 +13,7 @@ Provides:       iotop
 Obsoletes:      iotop < 0.7
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  ncurses-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig(ncursesw)
@@ -36,7 +36,7 @@ possible.
 %global _hardened_build 1
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n iotop-%{version}
 
 %build
@@ -53,6 +53,9 @@ V=1 STRIP=: BINDIR=$RPM_BUILD_ROOT%{_bindir} %make_install
 %{_mandir}/man8/iotop.8*
 
 %changelog
+* Thu Oct 22 2026 Jakub Jelen <jjelen@redhat.com> - 1.33-2
+- Verify upstream source signatures with openpgpverify
+
 * Wed Oct 21 2026 Boian Bonev <bbonev@ipacct.com> - 1.33-1
 - Update to latest ver 1.33
 

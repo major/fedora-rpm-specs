@@ -11,7 +11,7 @@
 
 Name:           gscan2pdf
 Version:        2.13.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
 # icons/scanner.svg:    GPL-2.0-only
@@ -39,8 +39,8 @@ BuildRequires:  desktop-file-utils
 # awk in Makefile.PL
 BuildRequires:  gawk
 BuildRequires:  gettext
-BuildRequires:  gnupg2
 BuildRequires:  make
+BuildRequires:  openpgpverify
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 # pod2html in Makefile.PL
@@ -254,7 +254,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 # Symlink identical files
 rm scanners/FujitsuS510.Lineart
@@ -380,6 +380,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 23 2026 Petr Pisar <ppisar@redhat.com> - 2.13.5-6
+- Verify upstream signature with openpgpverify
+
 * Tue Oct 13 2026 Petr Pisar <ppisar@redhat.com> - 2.13.5-5
 - Remove a build-time dependency on unused Gtk3::ImageView
 

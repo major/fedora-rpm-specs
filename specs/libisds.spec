@@ -9,7 +9,7 @@
 
 Name:           libisds
 Version:        0.11.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Library for accessing the Czech Data Boxes
 # COPYING:      LGPL-3.0 text
 # README:       LGPL-3.0-or-later
@@ -84,7 +84,6 @@ BuildRequires:  libxslt
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
-BuildRequires:  gnupg2
 BuildRequires:  libtool
 BuildRequires:  libxml2-devel
 %if %{with libisds_enables_net}
@@ -98,6 +97,7 @@ BuildRequires:  libgcrypt-devel
 %endif
 BuildRequires:  make
 BuildRequires:  expat-devel >= 2.0.0
+BuildRequires:  openpgpverify
 # Run-time:
 %if !%{with libisds_enables_openssl}
 BuildRequires:  gnupg2-smime
@@ -128,7 +128,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 autoreconf -fi
 
@@ -184,6 +184,9 @@ rm -rf client/.deps client/Makefile{,.in}
 %doc client
 
 %changelog
+* Fri Oct 23 2026 Petr Pisar <ppisar@redhat.com> - 0.11.2-18
+- Verify upstream signature with openpgpverify
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.11.2-17
 - Rebuilt for libxml-2.5.4
 

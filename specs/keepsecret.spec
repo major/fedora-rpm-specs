@@ -1,6 +1,6 @@
 Name:           keepsecret
 Version:        26.08.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client for a Secret Service compatible provider
 
 License:        BSD-2-Clause AND BSD-3-Clause AND CC-BY-4.0 AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.keepsecre
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.keepsecret.svg
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
+- Rebuild (qt6)
+
 * Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
 - 26.08.2
 

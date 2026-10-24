@@ -2,7 +2,7 @@
 Name:    skrooge
 Summary: Personal finances manager
 Version: 26.8.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -141,6 +141,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.skroogeco
 %{_kf6_datadir}/skrooge_source/
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.8.0-3
+- Rebuild (qt6)
+
 * Tue Aug 25 2026 Jan Grulich <jgrulich@redhat.com> - 26.8.0-2
 - Rebuild (qt6)
 

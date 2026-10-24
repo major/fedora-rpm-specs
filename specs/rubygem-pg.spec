@@ -2,21 +2,15 @@
 %global gem_name pg
 
 Name: rubygem-%{gem_name}
-Version: 1.6.3
-Release: 4%{?dist}
+Version: 1.7.0
+Release: 1%{?dist}
 Summary: Pg is the Ruby interface to the PostgreSQL RDBMS
 License: (BSD-2-Clause OR Ruby) AND PostgreSQL
 URL: https://github.com/ged/ruby-pg
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/ged/ruby-pg.git
-# git archive -v -o pg-1.6.3-spec.tar.gz v1.6.3 spec/
+# git archive -v -o pg-1.7.0-spec.tar.gz v1.7.0 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
-# Disable RPATH.
-# https://github.com/ged/ruby-pg/issues/183
-Patch0: rubygem-pg-1.3.0-remove-rpath.patch
-# Support json 3
-# https://github.com/ged/ruby-pg/pull/737
-Patch1: rubygem-pg-pr737-support-json3.patch
 # lib/pg/text_{de,en}coder.rb
 Requires: rubygem(json)
 # This is optional dependency now.
@@ -33,6 +27,8 @@ BuildRequires: postgresql-server libpq-devel
 # This is optional dependency now.
 # https://github.com/ged/ruby-pg/pull/556
 BuildRequires: rubygem(bigdecimal)
+# Used in TCPGateScheduler spec helper class.
+BuildRequires: rubygem(drb)
 BuildRequires: rubygem(rspec)
 
 %description
@@ -50,9 +46,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-
-%patch 0 -p1
-%patch 1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -77,6 +70,14 @@ rm -rf %{buildroot}%{gem_instdir}/ext/
 %check
 pushd .%{gem_instdir}
 ln -s %{_builddir}/spec .
+
+# These tests seem to allocate more than 32bit address space can provide.
+# the rspec process ends with NoMemoryError if any of the tests are attempted.
+# https://github.com/ged/ruby-pg/issues/756
+%ifarch %{ix86}
+sed -i -e '/^\t\{4\}it "should encode big strings without crash" do$/a skip "requires a 64-bit address space"' spec/pg/type_spec.rb
+sed -i -e '/^\t\{3\}it "should encode big strings with typecasting without overflow" do$/a skip "requires a 64-bit address space"' spec/pg/connection_spec.rb
+%endif
 
 # Assign a random port to consider a case of multi builds in parallel in a host.
 # https://github.com/ged/ruby-pg/pull/39
@@ -123,6 +124,10 @@ popd
 %{gem_instdir}/sample
 
 %changelog
+* Tue Oct 20 2026 Jarek Prokop <jprokop@redhat.com> - 1.7.0-1
+- Upgrade to pg 1.7.0.
+  Resolves: rhbz#2545227
+
 * Sun Sep 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.3-4
 - Apply upstream fix to support json 3
 

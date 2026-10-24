@@ -1,7 +1,7 @@
 Name:           Qt-Advanced-Docking-System
 Summary:        Advanced Docking System for Qt
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPL-2.1-or-later AND BSL-1.0 AND Apache-2.0
 URL:            https://github.com/githubuser0xFFFF/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -52,6 +52,9 @@ rm -rfv %{buildroot}%{_datadir}/ads/license
 %{_libdir}/libqtadvanceddocking-qt6.so
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 5.0.0-2
+- Rebuild (qt6)
+
 * Sat Aug 15 2026 Steve Cossette <farchord@gmail.com> - 5.0.0-1
 - 5.0.0
 

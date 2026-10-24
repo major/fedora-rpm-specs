@@ -17,7 +17,7 @@ Source4:        README.md
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  git-core
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel bzip2-devel openssl-devel
 Requires:       munge-libs = %{version}-%{release}
@@ -57,7 +57,7 @@ Runtime libraries for using MUNGE.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -N -S git
 cp "%{SOURCE4}"  README-Fedora.md
 

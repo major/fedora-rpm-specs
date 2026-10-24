@@ -2,7 +2,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-virtualenv
-Version:        21.7.10
+Version:        21.14.8
 Release:        %autorelease
 Summary:        Tool to create isolated Python environments
 

@@ -1,6 +1,6 @@
 Name:		xxhash
 Version:	0.8.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extremely fast hash algorithm
 
 #		The source for the library (xxhash.c and xxhash.h) is BSD-2-Clause
@@ -75,13 +75,20 @@ doxygen
 %make_install \
     PREFIX=%{_prefix} \
     LIBDIR=%{_libdir} \
+    MOREFLAGS="%{__global_cflags} %{?__global_ldflags} %{moreflags_dispatch}" \
     DISPATCH=%{dispatch} \
     LIBXXH_DISPATCH=%{dispatch}
 rm %{buildroot}/%{_libdir}/libxxhash.a
 
 %check
-make check
-make test-xxhsum-c
+make check \
+    MOREFLAGS="%{__global_cflags} %{?__global_ldflags} %{moreflags_dispatch}" \
+    DISPATCH=%{dispatch} \
+    LIBXXH_DISPATCH=%{dispatch}
+make test-xxhsum-c \
+    MOREFLAGS="%{__global_cflags} %{?__global_ldflags} %{moreflags_dispatch}" \
+    DISPATCH=%{dispatch} \
+    LIBXXH_DISPATCH=%{dispatch}
 
 %files
 %{_bindir}/xxh*sum
@@ -107,6 +114,9 @@ make test-xxhsum-c
 %doc doxygen/html
 
 %changelog
+* Fri Oct 23 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.4-2
+- Define MOREFLAGS and DISPATCH also during make check and make install
+
 * Sat Sep 19 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.4-1
 - Update to version 0.8.4
 

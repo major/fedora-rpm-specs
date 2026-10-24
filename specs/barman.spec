@@ -47,8 +47,8 @@ Python libraries used by Barman.
 # Change shebang in all relevant executable files in this directory and all subdirectories
 find -type f -executable -exec sed -i '1s=^#!/usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
 
-%generate_buildrequires
-%pyproject_buildrequires
+# We must work with what we have, and compatibility is quite good in practice.
+%pyproject_patch_dependency uv_build:drop_upper
 
 # Create a sysusers.d config file
 cat >barman.sysusers.conf <<EOF
@@ -57,6 +57,9 @@ EOF
 
 # Remove duplicate with old name
 rm -f docs/_build/man/%{name}-list_backups.1*
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

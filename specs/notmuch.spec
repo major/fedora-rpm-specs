@@ -26,6 +26,7 @@ Patch:		0003-test-reword-T380.2-to-be-clearer.patch
 Patch:		0004-test-set-up-the-outcount-for-T380.1.patch
 Patch:		0001-test-T450-emacs-show-id-buttonization-is-brohen-with.patch
 
+BuildRequires:	openpgpverify
 BuildRequires:	make
 BuildRequires:	bash-completion-devel
 BuildRequires:	desktop-file-utils
@@ -36,7 +37,6 @@ Buildrequires:	gcc gcc-c++
 BuildRequires:	libtool
 BuildRequires:	doxygen
 BuildRequires:	texinfo
-BuildRequires:	gnupg2
 BuildRequires:	gnupg2-smime
 BuildRequires:	gmime30-devel
 BuildRequires:	libtalloc-devel
@@ -170,7 +170,7 @@ interface, utilizing the notmuch framework.
 
 %prep
 %if %{with distrobuild}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 %else
 # unversioned dir for git build, no check

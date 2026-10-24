@@ -58,7 +58,7 @@ Patch200:       openssl-%{osslver}-kryoptic.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 %if %{with gpgcheck}
-BuildRequires: gnupg2
+BuildRequires:  openpgpverify
 %endif
 BuildRequires:  gcc, clang
 BuildRequires:  coreutils, perl-interpreter, sed, zlib-devel, /usr/bin/cmp
@@ -85,7 +85,7 @@ as well as a PKCS#11 software token.
 
 %prep
 %if %{with gpgcheck}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 
 # Preps kryoptic

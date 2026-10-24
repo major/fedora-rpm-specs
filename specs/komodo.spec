@@ -3,7 +3,7 @@ ExcludeArch:    %{ix86}
 
 Name:           komodo
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Todo manager that uses todo.txt specification
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 URL:            https://apps.kde.org/komodo/
@@ -87,5 +87,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ko
 %{_kf6_metainfodir}/org.kde.komodo.metainfo.xml
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 1.6.0-2
+- Rebuild (qt6)
+
 * Sat Aug 22 2026 Onuralp Sezer <thunderbirdtr@fedoraproject.org> - 1.6.0-1
 - Initial package for Fedora

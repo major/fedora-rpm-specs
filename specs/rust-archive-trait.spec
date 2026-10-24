@@ -5,7 +5,7 @@
 %global crate archive-trait
 
 Name:           rust-archive-trait
-Version:        0.0.14
+Version:        0.0.15
 Release:        %autorelease
 Summary:        Format-neutral, asynchronous archive construction and extraction
 
@@ -13,9 +13,9 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/archive-trait
 Source:         %{crates_source}
 # * Fix missing license texts in published crates
-# * https://github.com/astral-sh/tar-codec/pull/113
-Source10:       https://github.com/astral-sh/tar-codec/raw/refs/tags/v%{version}/LICENSE-APACHE
-Source11:       https://github.com/astral-sh/tar-codec/raw/refs/tags/v%{version}/LICENSE-MIT
+# * https://github.com/astral-sh/astral-codec/pull/113
+Source10:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{version}/LICENSE-APACHE
+Source11:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{version}/LICENSE-MIT
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          archive-trait-fix-metadata-auto.diff
 
@@ -70,7 +70,7 @@ cp --preserve '%{SOURCE10}' '%{SOURCE11}' .
 %if %{with check}
 %check
 # * Test extracts_through_deep_ambient_and_created_path in archive-trait reaches
-#   file descriptor limits: https://github.com/astral-sh/tar-codec/issues/114
+#   file descriptor limits: https://github.com/astral-sh/astral-codec/issues/114
 %cargo_test -- -- --exact --skip extracts_through_deep_ambient_and_created_path
 %endif
 

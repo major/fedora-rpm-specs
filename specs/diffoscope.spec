@@ -1,5 +1,5 @@
 Name:          diffoscope
-Version:       332
+Version:       335
 Release:       %autorelease
 Summary:       In-depth comparison of files, archives, and directories
 License:       GPL-3.0-or-later
@@ -71,7 +71,6 @@ ExcludeArch:  %{ix86}
     python3-pypdf
     python3-rpm
     gnumeric
-    odt2txt
     wabt
 }
 

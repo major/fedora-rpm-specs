@@ -1,6 +1,6 @@
 Name:          maui-mauikit-index-fm
 Version:       4.0.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       BSD-3-Clause AND MIT AND GPL-2.0-or-later AND GPL-3.0-or-later AND CC0-1.0
 Summary:       Simple file manager for desktops and Plasma Mobile
 URL:           https://apps.kde.org/%{name}/
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_datadir}/knotifications6/org.kde.index.notifyrc
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 4.0.0-8
+- Rebuild (qt6)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

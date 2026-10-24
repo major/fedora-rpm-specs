@@ -76,7 +76,6 @@ BuildRequires:    pcsc-lite-devel
 BuildRequires:    python3-devel
 %if 0%{?qt6_build}
 BuildRequires:    qt6-qtbase-devel
-BuildRequires:    qt6-qtbase-private-devel
 BuildRequires:    qt6-qtscxml-devel
 BuildRequires:    qt6-qtsvg-devel
 BuildRequires:    qt6-qttools-devel

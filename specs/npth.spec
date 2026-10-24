@@ -13,7 +13,7 @@ Source3:        npth-config.1
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 
 %description
 nPth is a non-preemptive threads implementation using an API very similar
@@ -31,7 +31,7 @@ This package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

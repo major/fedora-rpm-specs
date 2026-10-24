@@ -5,7 +5,7 @@
 %global crate webpki-root-certs
 
 Name:           rust-webpki-root-certs
-Version:        1.0.10
+Version:        1.0.11
 Release:        %autorelease
 Summary:        Mozilla trusted certificate authorities in self-signed X.509 format
 

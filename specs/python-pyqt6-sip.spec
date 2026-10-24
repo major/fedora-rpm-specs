@@ -1,12 +1,12 @@
 %global pkg_name pyqt6-sip
 %global pypi_name pyqt6_sip
 %global _sip_api_major 13
-%global _sip_api_minor 10
+%global _sip_api_minor 13
 %global _sip_api %{_sip_api_major}.%{_sip_api_minor}
 
 Name:           python-%{pkg_name}
-Version:        13.11.1
-Release:        4%{?dist}
+Version:        13.13.0
+Release:        1%{?dist}
 Summary:        The sip module support for PyQt6
 
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -55,6 +55,9 @@ Provides: python3-pyqt6-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 13.13.0-1
+- 13.13.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 13.11.1-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

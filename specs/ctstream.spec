@@ -1,6 +1,6 @@
 Name:           ctstream
 Version:        33
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Get URLs of Czech Television video streams
 License:        GPL-1.0-or-later
 URL:            http://xpisar.wz.cz/%{name}/
@@ -10,7 +10,7 @@ Source1:        %{url}%{name}-%{version}.asc
 Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  perl-generators
 Requires:       perl(LWP::Protocol::https)
 
@@ -18,7 +18,7 @@ Requires:       perl(LWP::Protocol::https)
 Get locators of Czech Television video streams for given web page.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %build
 # Empty %%build section for possible RPM hooks
@@ -31,6 +31,9 @@ install %{SOURCE0} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/ctstream
 
 %changelog
+* Thu Oct 22 2026 Jakub Jelen <jjelen@redhat.com> - 33-11
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 33-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

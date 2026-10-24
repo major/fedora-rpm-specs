@@ -6,31 +6,23 @@
 
 %global pypi_name pyside6
 %global camel_name PySide6
-%global qt6ver 6.11.2
+%global qt6ver 6.12.0
 
 Name:           python-%{pypi_name}
-Version:        6.11.2
-Release:        3%{?dist}
+Version:        6.12.0
+Release:        2%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://wiki.qt.io/Qt_for_Python
 
 Source0:        https://download.qt.io/official_releases/QtForPython/%{pypi_name}/%{camel_name}-%{qt6ver}-src/pyside-setup-everywhere-src-%{version}.tar.xz
+Patch0:         0001-Fix-lookupEnum-on-32-bit.patch
 # for documentation generation
 %global docs 0
 %global qt_module qtbase
 %global  majmin %(echo %{version} | cut -d. -f1-2)
-#Source1:	https://download.qt.io/official_releases/qt/%{majmin}/%{qt6ver}/submodules/%{qt_module}-everywhere-src-%{qt6ver}.tar.xz
 
-# Upstream post-6.11.1 fixes for header install paths (PYSIDE-3306)
-Patch:          0001-Fix-header-installation-path-to-follow-filesystem-st.patch
-Patch:          0001-Fix-header-packaging-and-include-path-regressions.patch
-Patch:          0001-Always-link-to-python-libraries.patch
-
-# Upstream Python 3.15 fixes (PYSIDE-3221)
-# https://codereview.qt-project.org/c/pyside/pyside-setup/+/729499
-Patch:          0001-Enumerations-Enable-the-forgiveness-feature-ENOPT_NO.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -296,12 +288,12 @@ done
 
 # Add symlinks for tools used by pyside_tool.py
 mkdir -p %{buildroot}%{python3_sitelib}/%{camel_name}/Qt/libexec
-ln -sf /usr/%{_lib}/qt6/libexec/{qmlcachegen,qmlimportscanner,qmltyperegistrar,rcc,uic} %{buildroot}%{python3_sitelib}/%{camel_name}/Qt/libexec
-ln -sf /usr/%{_lib}/qt6/bin/{assistant,balsam,balsamui,designer,linguist,lrelease,lupdate,qmlformat,qmllint,qmlls,qsb} %{buildroot}%{python3_sitelib}/%{camel_name}
+ln -sf ../../../../../../%{_lib}/qt6/libexec/{qmlcachegen,qmlimportscanner,qmltyperegistrar,rcc,uic} %{buildroot}%{python3_sitelib}/%{camel_name}/Qt/libexec
+ln -sf ../../../../%{_lib}/qt6/bin/{assistant,balsam,balsamui,designer,linguist,lrelease,lupdate,qmlformat,qmllint,qmlls,qsb} %{buildroot}%{python3_sitelib}/%{camel_name}
 
 # Create scripts folders (this basically replicates prepare_packages() in build_scripts/main.py)
 mkdir -p %{buildroot}%{python3_sitelib}/%{camel_name}/scripts
-mv %{buildroot}%{_bindir}/{android_deploy.py,deploy_lib,deploy.py,metaobjectdump.py,project_lib,project.py,pyside_tool.py,qml.py,qtpy2cpp_lib,qtpy2cpp.py,requirements-android.txt} %{buildroot}%{python3_sitelib}/%{camel_name}/scripts
+mv %{buildroot}%{_bindir}/{android_deploy.py,deploy_lib,deploy.py,ios_deploy.py,metaobjectdump.py,project_lib,project.py,pyside_tool.py,qml.py,qtpy2cpp_lib,qtpy2cpp.py,requirements-android.txt,requirements-ios.txt} %{buildroot}%{python3_sitelib}/%{camel_name}/scripts
 mkdir -p %{buildroot}%{python3_sitelib}/shiboken6_generator/scripts
 mv %{buildroot}%{_bindir}/shiboken_tool.py %{buildroot}%{python3_sitelib}/shiboken6_generator/scripts
 
@@ -326,7 +318,7 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %license LICENSES/*
 %doc README.md
-%{_libdir}/libpyside6*.so.6.11*
+%{_libdir}/libpyside6*.so.6.12*
 %{python3_sitelib}/%{camel_name}/
 %{python3_sitearch}/%{camel_name}-%{version}-py%{python3_version}.egg-info/
 
@@ -352,7 +344,7 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %files -n python%{python3_pkgversion}-shiboken6
 %doc README.shiboken6.md
 %license LICENSES/*
-%{_libdir}/libshiboken6*.so.6.11*
+%{_libdir}/libshiboken6*.so.%{majmin}*
 %{python3_sitelib}/shiboken6/
 %{python3_sitearch}/shiboken6-%{version}-py%{python3_version}.egg-info/
 
@@ -371,6 +363,12 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-2
+- Rebuild (qt6)
+
+* Thu Oct 22 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Tue Oct 13 2026 LuK1337 <priv.luk@gmail.com> - 6.11.2-3
 - Apply ENOPT_NO_ZERODEFAULT support patch from upstream
 

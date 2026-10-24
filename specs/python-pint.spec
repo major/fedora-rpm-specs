@@ -12,7 +12,7 @@
 %bcond dask 0
 
 Name:           python-pint
-Version:        0.26.1
+Version:        0.26.2
 Release:        %autorelease
 Summary:        Physical quantities module
 

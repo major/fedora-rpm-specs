@@ -33,6 +33,11 @@
 # this isn’t really useful. Upstream treats these as separate libraries, and
 # we should too. We drop it beginning with F46.
 %bcond devel_metapackage %[ %{defined fc45} || %{defined fc44} || %{defined fc43} || %{defined el10} ]
+# Make stb devel dependencies no longer arch-specific
+# https://src.fedoraproject.org/rpms/mlpack/pull-request/18
+# Merged and built in F46+ for now; we can expand this later if the dependency
+# change is shipped in stable branches.
+%bcond mlpack_arched_dep %[ %{defined fc45} || %{defined fc44} || %{defined fc43} || %{defined el9} ]
 
 Name:           stb
 # While the individual header-only libraries are versioned, the overall
@@ -364,7 +369,7 @@ Requires:       stb_image-static = %{stb_image_version}%{snapinfo}-%{release}
 # For compatibility, we still depend on the subpackages for the original,
 # deprecated-upstream stb_image_resize library in existing stable releases, but
 # we drop the dependendency going forward as an acknowledgement of its status.
-%if %{with stb_image_resize} && %[ %{defined el9} || %{defined el8} ]
+%if %{with stb_image_resize} && %{defined el9}
 Requires:       stb_image_resize-devel = %{stb_image_resize_version}%{snapinfo}-%{release}
 Requires:       stb_image_resize-static = %{stb_image_resize_version}%{snapinfo}-%{release}
 %endif
@@ -560,9 +565,9 @@ Summary:        Image loading/decoding from file/memory: JPG, PNG, TGA, BMP, PSD
 Version:        %{stb_image_version}%{snapinfo}
 License:        MIT OR Unlicense
 
-# Make stb devel dependencies no longer arch-specific
-# https://src.fedoraproject.org/rpms/mlpack/pull-request/18
-# BuildArch:      noarch
+%if %{without mlpack_arched_dep}
+BuildArch:      noarch
+%endif
 
 Provides:       stb_image-static = %{stb_image_version}%{snapinfo}-%{release}
 
@@ -601,9 +606,9 @@ Summary:        Image writing to disk: PNG, TGA, BMP
 Version:        %{stb_image_write_version}%{snapinfo}
 License:        MIT OR Unlicense
 
-# Make stb devel dependencies no longer arch-specific
-# https://src.fedoraproject.org/rpms/mlpack/pull-request/18
-# BuildArch:      noarch
+%if %{without mlpack_arched_dep}
+BuildArch:      noarch
+%endif
 
 Provides:       stb_image_write-static = %{stb_image_write_version}%{snapinfo}-%{release}
 

@@ -1,21 +1,13 @@
-%global tag     1.4.1-58-gbae968a2f
+%global tag     1.4.2-55-g4c062729d
 
 Name:           clementine
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        A music player and library organizer
 
-# Apache-2.0:
-#   - ext/libclementine-common/core/latch.cpp
-#   - ext/libclementine-common/core/latch.h
-#   - ext/libclementine-remote/remotecontrolmessages.proto
-#   - ext/libclementine-common/core/logging.cpp
-#   - ext/libclementine-common/core/logging.h
-#   - ext/libclementine-common/core/messagehandler.cpp
-#   - ext/libclementine-common/core/messagehandler.h
-#   - ext/libclementine-common/core/override.h
-#   - ext/libclementine-common/core/timeconstants.h
-# BSL-1.0: 3rdparty/utf8-cpp
+# BSD-3-clause:
+#   - 3rdparty/cast_channel
+#   - 3rdparty/qxt
 # GPL-2.0-or-later:
 #   - src/engines/gstengine.cpp
 #   - src/engines/gstengine.h
@@ -25,8 +17,9 @@ Summary:        A music player and library organizer
 #   - gst/moodbar/gstfastspectrum.cpp
 #   - gst/moodbar/gstfastspectrum.h
 # LGPL-2.1-only:
-#   - 3rdparty/taglib
 #   - src/widgets/stylehelper:
+# LGPL-2.1-or-later:
+#   - 3rdparty/libprojectm
 # LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR GPL-3.0-only:
 #   - 3rdparty/qsqlite/clementinesqlcachedresult.cpp
 #   - 3rdparty/qsqlite/clementinesqlcachedresult.h
@@ -40,15 +33,16 @@ Summary:        A music player and library organizer
 #   - 3rdparty/qsqlite/smain.cpp
 #   - 3rdparty/qsqlite/smain.h
 # MIT: 3rdparty/qocoa
-License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSL-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
+License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND Apache-2.0 AND BSD-3-Clause AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://www.clementine-player.org/
 VCS:            https://github.com/clementine-player/Clementine
 Source:         %vcs/archive/%{tag}/%{name}-%{tag}.tar.gz
 
-# Use qt5 libraries (qtiocompressor)
-Patch:          0001-Use-QtIoCompressor-from-Qt5.patch
-# Bump CMake minimum to 3.16
-Patch:          %{vcs}/pull/7431.patch
+# Use system libraries (qtiocompressor)
+Patch:          0001-Use-QtIoCompressor-from-Qt6.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -56,26 +50,24 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
-BuildRequires:  liblastfm-qt5-devel
-BuildRequires:  pkgconfig(Qt5Concurrent)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5DBus)
-BuildRequires:  pkgconfig(Qt5Gui)
-BuildRequires:  pkgconfig(Qt5Network)
-BuildRequires:  pkgconfig(Qt5OpenGL)
-BuildRequires:  pkgconfig(Qt5Sql)
-BuildRequires:  pkgconfig(Qt5Test)
-BuildRequires:  pkgconfig(Qt5Widgets)
-BuildRequires:  pkgconfig(Qt5X11Extras)
-BuildRequires:  pkgconfig(Qt5Xml)
-BuildRequires:  pkgconfig(QxtCore-qt5)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Sql)
+BuildRequires:  cmake(Qt6Xml)
+BuildRequires:  cmake(Qt6OpenGL)
+BuildRequires:  cmake(Qt6OpenGLWidgets)
+BuildRequires:  cmake(Qt6Test)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(glew)
 BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(gmock)
 BuildRequires:  pkgconfig(gstreamer-1.0)
@@ -83,39 +75,32 @@ BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildRequires:  pkgconfig(gstreamer-audio-1.0)
 BuildRequires:  pkgconfig(gstreamer-base-1.0)
 BuildRequires:  pkgconfig(gstreamer-tag-1.0)
+BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  pkgconfig(gthread-2.0)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libchromaprint)
-BuildRequires:  (pkgconfig(libcryptopp) or pkgconfig(cryptopp))
+BuildRequires:  pkgconfig(libgpod-1.0)
 BuildRequires:  pkgconfig(libmtp)
-BuildRequires:  pkgconfig(libmygpo-qt5)
-BuildRequires:  pkgconfig(libnotify)
-BuildRequires:  pkgconfig(libplist-2.0)
-BuildRequires:  pkgconfig(libprojectM) >= 2.0.1-7
+BuildRequires:  pkgconfig(libmygpo-qt6)
+#BuildRequires:  pkgconfig(libprojectM) >= 4.2
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libsparsehash)
-BuildRequires:  pkgconfig(libudf)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(protobuf)
 BuildRequires:  pkgconfig(sqlite3) >= 3.7
 BuildRequires:  pkgconfig(taglib) >= 1.11
-BuildRequires:  pkgconfig(udisks)
-BuildRequires:  qt5-linguist
-#BuildRequires:  qtiocompressor-devel
-BuildRequires:  qtsingleapplication-qt5-devel >= 2.6.1-2
-BuildRequires:  qtsinglecoreapplication-qt5-devel >= 2.6.1-2
-%ifnarch s390 s390x
-BuildRequires:  pkgconfig(libgpod-1.0)
-BuildRequires:  pkgconfig(libimobiledevice-1.0)
-%endif
+BuildRequires:  qtiocompressor-devel
+BuildRequires:  qtsingleapplication-qt6-devel
+BuildRequires:  qtsinglecoreapplication-qt6-devel
 
 Requires:       gstreamer1-plugins-good
 Requires:       hicolor-icon-theme
 
+Provides:       bundled(cast_channel)
+Provides:       bundled(libprojectM) = 4.2.0
+Provides:       bundled(libqxt) = 0.7.0
 Provides:       bundled(qocoa)
 Provides:       bundled(qsqlite)
-Provides:       bundled(qtiocompressor)
-Provides:       bundled(utf8-cpp)
 
 %description
 Clementine is a modern music player and library organiser.
@@ -142,21 +127,22 @@ Features include:
 %prep
 %autosetup -p1 -n Clementine-%{tag}
 
+# fix dependency naming for Fedora
+sed -i -e '/pkg_check_modules.*LIBMYGPO_QT/s/qt5/qt6/' CMakeLists.txt
+
 # Remove most 3rdparty libraries
-mv 3rdparty/{qocoa,qsqlite,qtiocompressor,utf8-cpp}/ .
+mv 3rdparty/{cast_channel,libprojectm,qocoa,qsqlite,qxt}/ .
 rm -rfv 3rdparty/*
-mv {qocoa,qsqlite,qtiocompressor,utf8-cpp}/ 3rdparty/
+mv {cast_channel,libprojectm,qocoa,qsqlite,qxt}/ 3rdparty/
 
 %build
 %cmake \
   -DBUILD_WERROR:BOOL=OFF \
   -DCMAKE_BUILD_TYPE:STRING=Release \
-  -DCMAKE_CXX_STANDARD:INT=17 \
   -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
   -DFORCE_GIT_REVISION:STRING=%{tag} \
-  -DUSE_SYSTEM_PROJECTM:BOOL=ON \
+  -DUSE_SYSTEM_PROJECTM:BOOL=OFF \
   -DUSE_SYSTEM_QTSINGLEAPPLICATION:BOOL=ON \
-  -DUSE_SYSTEM_QXT:BOOL=ON \
   -DUSE_SYSTEM_TAGLIB:BOOL=ON
 %cmake_build
 

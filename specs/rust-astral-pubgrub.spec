@@ -5,7 +5,7 @@
 %global crate astral-pubgrub
 
 Name:           rust-astral-pubgrub
-Version:        0.6.1
+Version:        0.7.1
 Release:        %autorelease
 Summary:        PubGrub version solving algorithm
 
@@ -62,6 +62,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unstable-state-api-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-state-api-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable-state-api" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-state-api-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

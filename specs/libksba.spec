@@ -18,8 +18,8 @@ Patch1: libksba-1.3.0-multilib.patch
 BuildRequires: gcc
 BuildRequires: gawk
 %if %{without bootstrap}
-# Require gnupg2 to verify sources, unless bootstrapping
-BuildRequires: gnupg2
+# Require sqv to verify sources, unless bootstrapping
+BuildRequires: openpgpverify
 %endif
 BuildRequires: libgpg-error-devel >= 1.8
 BuildRequires: make
@@ -40,7 +40,7 @@ Requires: pkgconfig
 
 %prep
 %if %{without bootstrap}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -p1
 

@@ -1,6 +1,6 @@
 %global major_version 4
 %global minor_version 0
-%global teeny_version 7
+%global teeny_version 9
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -81,7 +81,7 @@
 %global optparse_version 0.8.1
 %global pp_version 0.6.3
 %global prettyprint_version 0.2.0
-%global prism_version 1.8.1
+%global prism_version 1.8.2
 %global psych_version 5.3.1
 %global resolv_version 0.7.2
 %global ruby2_keywords_version 0.0.5
@@ -188,7 +188,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 40%{?dist}
+Release: 41%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -1944,6 +1944,14 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Fri Oct 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.9-41
+- Update to Ruby 4.0.9
+- Fixes the following bugs in Omigumo regexp compilation
+- Resolves: CVE-2026-93577
+- Resolves: CVE-2026-97229
+- Resolves: CVE-2026-110264
+- Resolves: CVE-2026-89078 (actually fixed in 4.0.0)
+
 * Thu Sep 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.7-40
 - Update to Ruby 4.0.7
 - Backport rubygems side change to stop vendoring resolv in rubygems tree

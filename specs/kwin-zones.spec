@@ -1,6 +1,6 @@
 Name:          kwin-zones
 Version:       1.0.12
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Wayland ext-zones for KWin
 
 License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND MIT
@@ -46,6 +46,9 @@ BuildRequires: pkgconfig(wayland-client)
 %{_kf6_qmldir}/org/kde/zones/
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.12-7
+- Rebuild (qt6)
+
 * Fri Aug 28 2026 Steve Cossette <farchord@gmail.com> - 1.0.12-6
 - Bump for new kwin
 

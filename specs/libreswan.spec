@@ -30,7 +30,7 @@
 Name: libreswan
 Summary: Internet Key Exchange (IKEv1 and IKEv2) implementation for IPsec
 # version is generated in the release script
-Version: 5.4
+Version: 5.4.1
 Release: %autorelease
 # The code in lib/libswan/nss_copies.c is under MPL-2.0, while the
 # rest is under GPL-2.0-or-later

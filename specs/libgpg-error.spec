@@ -11,11 +11,11 @@ Source2: https://gnupg.org/signature_key.asc
 Patch1: libgpg-error-1.29-multilib.patch
 
 BuildRequires: gcc
-BuildRequires: gnupg2
 BuildRequires: gawk, gettext, autoconf, automake, gettext-devel, libtool
 BuildRequires: texinfo
 BuildRequires: gettext-autopoint
 BuildRequires: make
+BuildRequires: openpgpverify
 
 %description
 This is a library that defines common error values for all GnuPG
@@ -34,7 +34,7 @@ pinentry, SmartCard Daemon and possibly more in the future. This package
 contains files necessary to develop applications using libgpg-error.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 autoreconf -f

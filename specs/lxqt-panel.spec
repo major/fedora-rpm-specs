@@ -1,7 +1,7 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
 Version:       2.4.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 2.4.1-4
+- Rebuild (qt6)
+
 * Mon Oct 12 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.1-3
 - Remove stale and unused BuildRequires
 

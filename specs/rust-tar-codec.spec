@@ -5,7 +5,7 @@
 %global crate tar-codec
 
 Name:           rust-tar-codec
-Version:        0.0.14
+Version:        0.0.15
 Release:        %autorelease
 Summary:        Tar-codec is a small, fast, constrained tar encoder and decoder for Rust
 
@@ -13,12 +13,11 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tar-codec
 Source:         %{crates_source}
 # * Fix missing license texts in published crates
-# * https://github.com/astral-sh/tar-codec/pull/113
-Source10:       https://github.com/astral-sh/tar-codec/raw/refs/tags/v%{version}/LICENSE-APACHE
-Source11:       https://github.com/astral-sh/tar-codec/raw/refs/tags/v%{version}/LICENSE-MIT
+# * https://github.com/astral-sh/astral-codec/pull/113
+Source10:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{version}/LICENSE-APACHE
+Source11:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{version}/LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
-# * Remove unused, benchmark-only dev-dependency on criterion
-# * Allow astral-tokio-tar 0.7: https://github.com/astral-sh/tar-codec/pull/119
+# * Remove unused, benchmark-only dev-dependency on codspeed-divan-compat
 Patch:          tar-codec-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -41,6 +40,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/BENCHMARKS.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

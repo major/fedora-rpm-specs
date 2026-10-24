@@ -89,7 +89,6 @@ BuildRequires:  cmake(cerf)
 
 BuildRequires:  liborigin-devel
 BuildRequires:  QXlsx-devel
-BuildRequires:  qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 
 BuildRequires:  matio-devel

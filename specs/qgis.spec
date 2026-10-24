@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        4.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -322,6 +322,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 4.2.3-2
+- Rebuild (qt6)
+
 * Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 4.2.3-1
 - Update to 4.2.3
 

@@ -1,10 +1,11 @@
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
-Version: 6.1
-Release: 4%{?dist}
+Version: 7.2
+Release: 1%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
-Source0: https://www.kernel.org/pub/software/network/tftp/tftp-hpa-%{version}.tar.gz
+
+Source0: https://www.kernel.org/pub/software/network/tftp/tftp-hpa-%{version}.tar.xz
 Source1: https://www.kernel.org/pub/software/network/tftp/tftp-hpa-%{version}.tar.sign
 # gpg --keyserver pgp.mit.edu --recv-key 6D0107BC69EE5A274FD9B60C2DB3C3321B6DDF86
 # gpg --output hpa.gpg --armor --export hpa@zytor.com
@@ -14,15 +15,16 @@ Source4: tftp.service
 Source5: tftp-server-sysusers.conf
 Source6: tftp-server-tmpfiles.conf
 
-# Upstreamed patches
-# https://github.com/hpax/tftp-hpa/commit/ab93a245747ada8948f4594de54a4b2b30c4b462
-Patch: tftp-enhanced-logging.patch
-# https://github.com/hpax/tftp-hpa/commit/43a86cbcbfd38e992d6f5d5009eea60f436711e4
-Patch: tftp-hpa-5.2-osh.patch
-# https://github.com/hpax/tftp-hpa/commit/85b246c2bb3887ec19367841b342312f89090aaf
-Patch: tftp-hpa-5.3-tftp-exit-code-cmdmode.patch
+# Post-release patches from upstream (mainly affects the test script only)
+Patch: 0001-tftp-add-verbosity-level-remove-mention-of-verbose-l.patch
+Patch: 0002-tests-control-the-verbosity-of-test-tftp.sh.patch
+Patch: 0003-tests-redirect-tftpd-log-output-to-a-file.patch
+Patch: 0004-tests-allow-the-user-to-set-output-verbosity-control.patch
+Patch: 0005-tftp-fix-type-of-r_timeout.patch
 
 # Downstream-only patches
+# https://github.com/hpax/tftp-hpa/pull/11
+Patch: 0006-tftp-fix-type-of-r_timeout-2.patch
 Patch: tftp-fedora-tftpboot.patch
 
 BuildRequires: bc
@@ -54,7 +56,7 @@ enabled unless it is expressly needed.  The TFTP server is run by using
 systemd socket activation, and is disabled by default.
 
 %prep
-gzip -cd '%{SOURCE0}' > 'tftp-hpa-%{version}.tar'
+xz -cd '%{SOURCE0}' > 'tftp-hpa-%{version}.tar'
 %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='tftp-hpa-%{version}.tar'
 %autosetup -p1 -n tftp-hpa-%{version}
 
@@ -75,7 +77,7 @@ mkdir -p %{buildroot}%{_sysconfdir}/tftp
 echo '# See tftpd(8) for the definition of remap rules' > %{buildroot}%{_sysconfdir}/%{name}/map-file
 
 %check
-tests/test-tftp.sh
+PCAP=0 tests/test-tftp.sh -q
 
 %post server
 %systemd_post tftp.socket
@@ -106,6 +108,12 @@ tests/test-tftp.sh
 %{_unitdir}/tftp.socket
 
 %changelog
+* Fri Oct 23 2026 Lukáš Zaoral <lzaoral@redhat.com> - 7.2-1
+- rebase to 7.2 (rhbz#2537118)
+- sync with upstream systemd unit files
+- kudos to H. Peter Anvin for the SRPM patch!
+- change --blksize 1468 to --blksize mtu in tftp.service
+
 * Tue Oct 06 2026 Andrew Naessens <anaessen@redhat.com> - 6.1-4
 - Use openpgpverify
 

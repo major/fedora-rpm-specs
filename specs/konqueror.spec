@@ -5,7 +5,7 @@
 
 Name:    konqueror
 Version: 26.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE File Manager and Browser
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and GFDL - review is highly recommended.
@@ -209,6 +209,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_plugindir}/parts/webenginepart.so
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
+- Rebuild (qt6)
+
 * Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
 - 26.08.2
 

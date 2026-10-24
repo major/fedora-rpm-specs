@@ -6,8 +6,8 @@
 
 Summary: PyQt6 is Python bindings for Qt6
 Name:    python-pyqt6
-Version: 6.11.0
-Release: 8%{?dist}
+Version: 6.12.0
+Release: 2%{?dist}
 License: gpl-3.0-only
 Url:     http://www.riverbankcomputing.com/software/pyqt/
 Source0: https://pypi.python.org/packages/source/P/PyQt6/pyqt6-%{version}%{?snap:.%{snap}}.tar.gz
@@ -36,11 +36,6 @@ BuildRequires: cmake(Qt6Multimedia)
 BuildRequires: cmake(Qt6Nfc)
 BuildRequires: cmake(Qt6Network)
 BuildRequires: cmake(Qt6OpenGL)
-%if 0%{?fedora} || 0%{?epel}
-%ifarch %{qt6_qtwebengine_arches}
-BuildRequires: cmake(Qt6Pdf) cmake(Qt6PdfWidgets)
-%endif
-%endif
 BuildRequires: cmake(Qt6Positioning)
 BuildRequires: cmake(Qt6Quick) cmake(Qt6QuickWidgets)
 BuildRequires: cmake(Qt6Sensors)
@@ -176,12 +171,6 @@ sed -i \
 %{python3_sitearch}/PyQt6/QtMultimedia.*
 %{python3_sitearch}/PyQt6/QtMultimediaWidgets.*
 %{python3_sitearch}/PyQt6/QtNfc.*
-%if 0%{?fedora} || 0%{?epel}
-%ifarch %{qt6_qtwebengine_arches}
-%{python3_sitearch}/PyQt6/QtPdf.*
-%{python3_sitearch}/PyQt6/QtPdfWidgets.*
-%endif
-%endif
 %{python3_sitearch}/PyQt6/QtPositioning.*
 %{python3_sitearch}/PyQt6/QtQml.*
 %{python3_sitearch}/PyQt6/QtQuick.*
@@ -243,6 +232,12 @@ sed -i \
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-2
+- Rebuild (qt6)
+
+* Thu Oct 22 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
+- 6.12.0
+
 * Tue Aug 25 2026 Jan Grulich <jgrulich@redhat.com> - 6.11.0-8
 - Rebuild (qt6)
 

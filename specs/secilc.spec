@@ -19,7 +19,7 @@ Requires:       libsepol >= %{libsepolver}
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libsepol-static >= %{libsepolver}, dblatex, flex, xmlto, pandoc-pdf, texlive-mdwtools
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 
 %description
 The SELinux CIL Compiler is a compiler that converts the CIL language as
@@ -40,7 +40,7 @@ http://github.com/SELinuxProject/cil/wiki/
 for more information about the goals and features on the CIL language.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p 2 -n secilc-%{version}
 
 

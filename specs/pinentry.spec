@@ -40,7 +40,7 @@ BuildRequires: pkgconfig(Qt6Core) pkgconfig(Qt6Gui) pkgconfig(Qt6Widgets)
 BuildRequires: pkgconfig(KF6WindowSystem) pkgconfig(KF6GuiAddons)
 %endif
 BuildRequires: desktop-file-utils
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 Provides: %{name}-curses = %{version}-%{release}
 
@@ -109,7 +109,7 @@ http://www.gnupg.org/aegypten/ for details.
 This package contains the tty version of the PIN entry dialog.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 

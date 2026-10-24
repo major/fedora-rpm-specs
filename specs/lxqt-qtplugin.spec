@@ -1,7 +1,7 @@
 Name:          lxqt-qtplugin
 Summary:       Qt plugin framework for LXQt Desktop Suite
 Version:       2.4.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/lxqt-qtplugin/archive/%{version}/lxqt-qtplugin-%{version}.tar.gz
@@ -36,6 +36,9 @@ BuildRequires: qt6-qtbase-private-devel
 %{_libdir}/qt6/plugins/platformthemes/libqtlxqt.so
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 2.4.0-5
+- Rebuild (qt6)
+
 * Mon Oct 12 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-4
 - Remove stale BuildRequires
 

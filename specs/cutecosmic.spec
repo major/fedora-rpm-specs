@@ -9,7 +9,7 @@
 
 Name:           cutecosmic
 Version:        0.1%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Qt platform plugins for the COSMIC desktop
 
 # Main sources are GPL-3.0-or-later, rest are rust licenses
@@ -122,6 +122,9 @@ popd
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 0.1^git20260121.8e58441-6
+- Rebuild (qt6)
+
 * Thu Sep 03 2026 Maxwell G <maxwell@gtmx.me> - 0.1^git20260121.8e58441-5
 - Rebuild with latest Rust compiler to enable SHSTK support
 

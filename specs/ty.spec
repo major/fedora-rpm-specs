@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.90
+Version:        0.0.91
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -159,9 +159,9 @@ Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev 3f0cdd9114894cc3b308833eccb956ae6e980bdf
-%global ruff_baseversion 0.17.1
-%global ruff_snapdate 20261020
+%global ruff_rev 59a9e85a7b6dc4e4592cd29de32a214c150d663c
+%global ruff_baseversion 0.17.2
+%global ruff_snapdate 20261022
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
@@ -283,6 +283,16 @@ popd
 #   https://github.com/astral-sh/ruff/pull/25582
 tomcli set ruff/Cargo.toml str \
     workspace.dependencies.tikv-jemallocator.version '>=0.6.0, <0.8.0'
+
+# phf, phf_codegen
+#   wanted: 0.14.0
+#   currently packaged: 0.13.1
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2491104
+for crate in phf phf_codegen
+do
+  tomcli set ruff/Cargo.toml str "workspace.dependencies.${crate}.version" \
+      '>=0.13.1, <0.15.0'
+done
 
 # Collect license files of vendored dependencies in the main source archive
 install -D --preserve-timestamps --mode=0644 \

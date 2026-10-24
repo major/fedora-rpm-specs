@@ -3,8 +3,8 @@
 #define snap dev2510252014
 
 Name:          python-pyqt6-webengine
-Version:       6.11.0
-Release:       4%{?dist}
+Version:       6.140.0
+Release:       2%{?dist}
 Summary:       Python bindings for Qt6WebEngine
 License:       GPL-3.0-only
 Url:           https://www.riverbankcomputing.com/software/pyqtwebengine/
@@ -77,10 +77,14 @@ done
 %{python3_sitearch}/PyQt6/QtWebEngineCore.*
 %{python3_sitearch}/PyQt6/QtWebEngineQuick.*
 %{python3_sitearch}/PyQt6/QtWebEngineWidgets.*
+%{python3_sitearch}/PyQt6/QtPdf.*
+%{python3_sitearch}/PyQt6/QtPdfWidgets.*
 
 %files -n python%{python3_pkgversion}-pyqt6-webengine-devel
 %license LICENSE
 %{python3_sitearch}/PyQt6/bindings/QtWebEngine*/
+%{python3_sitearch}/PyQt6/bindings/QtPdf/
+%{python3_sitearch}/PyQt6/bindings/QtPdfWidgets/
 %dir %{_qt6_datadir}/qsci/
 %dir %{_qt6_datadir}/qsci/api/
 %dir %{_qt6_datadir}/qsci/api/python/
@@ -88,6 +92,12 @@ done
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.140.0-2
+- Rebuild (qt6)
+
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.140.0-1
+- 6.140.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.11.0-4
 - Rebuilt for Python 3.15.0b4 ABI change
 

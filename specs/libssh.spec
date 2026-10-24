@@ -38,6 +38,7 @@ BuildRequires:  opensc
 BuildRequires:  softhsm
 BuildRequires:  gnutls-utils
 BuildRequires:  hostname
+BuildRequires:  openpgpverify
 
 Requires:       %{name}-config = %{version}-%{release}
 
@@ -75,7 +76,7 @@ Obsoletes:      %{name} < 0.9.0-3
 The %{name}-config package provides the default configuration files for %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    dragon
 Summary: Media player
 Version: 26.08.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
 # docs: GFDL
@@ -81,8 +81,14 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.dragonpla
 
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
+- Rebuild (qt6)
+
 * Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
 - 26.08.2
+
+* Thu Sep 17 2026 Dominik Mierzejewski <dominik@greysector.net> - 26.08.1-2
+- Rebuilt for FFmpeg 9
 
 * Wed Sep 09 2026 Steve Cossette <farchord@gmail.com> - 26.08.1-1
 - 26.08.1

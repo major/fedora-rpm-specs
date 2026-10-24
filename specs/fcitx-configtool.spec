@@ -1,6 +1,6 @@
 Name:		fcitx-configtool
 Version:	0.4.10
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Gtk+-based configuring tools for Fcitx
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -41,6 +41,9 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 
 %changelog
+* Fri Oct 23 2026 Steve Cossette <steve@ninjasinpajamas.com> - 0.4.10-27
+- Bump for libplasma update
+
 * Mon Jul 27 2026 Parag Nemade <panemade AT redhat DOT com> - 0.4.10-26
 - Allow to build with CMake 4.0 (rhbz#2380576)
 

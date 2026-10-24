@@ -10,7 +10,7 @@ compression, so it can be used at runtime (rather than during a preprocessing
 step).}
 
 Name:		python-%{pypi_name}
-Version:	1.2.2
+Version:	1.3.0
 Release:	%autorelease
 Summary:	CSS Minifier
 

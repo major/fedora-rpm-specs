@@ -11,7 +11,6 @@ URL:		https://www.reiner-sct.com/
 Source0:	https://support.reiner-sct.de/downloads/LINUX/V%{version_prefix}_%{version_suffix}/%{name}-%{version}.tar.bz2
 Source1:	%{name}-3.99.5final.SP09-README-FEDORA
 Source2:	libifd-cyberjack6.udev
-Source3:	%{name}.sysusersd
 # this patch replaces the obsoleted AC_PROG_LIBTOOLT macro with LT_INIT
 # the patch is sent to upstream per email (20160528)
 Patch0:		%{name}-3.99.5final.SP09-configure.patch
@@ -59,6 +58,10 @@ https://www.reiner-sct.com/
 %description cjflash
 Tool to flash Reiner SCT cyberJack card readers.
 
+Note: cjflash requires administrative privileges (root/sudo) to access the
+raw USB device node. Additionally, pcscd must be stopped before flashing,
+as the daemon holds an exclusive lock on the reader's USB interface.
+
 %description examples
 Sample code to use/test SCardControl() API by Ludovic Rousseau.
 
@@ -102,20 +105,12 @@ rm %{buildroot}%{readers_dir}/libifd-cyberjack.bundle/Contents/Linux/libifd-cybe
 mv %{buildroot}/etc/cyberjack.conf.default %{buildroot}/etc/cyberjack.conf
 
 # udev rule from Debian, historically part of the debian sub-folder
-# we need the devices to be in group cyberjack, not in group pcscd
 install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_udevrulesdir}/93-cyberjack.rules
-sed -e 's/GROUP="pcscd"/GROUP="cyberjack"/' -i %{buildroot}%{_udevrulesdir}/93-cyberjack.rules
-touch -c -r %{SOURCE2} %{buildroot}%{_udevrulesdir}/93-cyberjack.rules
 
 # cjflash does not get installed automatically
 pushd tools/cjflash
 %make_install
 popd
-
-install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
-
-%pre
-%sysusers_create_compat %{SOURCE3}
 
 %post
 %udev_rules_update
@@ -140,7 +135,6 @@ exit 0
 %{readers_dir}/libifd-cyberjack.bundle/
 
 %config(noreplace) %{_sysconfdir}/cyberjack.conf
-%{_sysusersdir}/%{name}.conf
 
 
 %files cjflash

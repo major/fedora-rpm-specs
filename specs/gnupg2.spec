@@ -58,8 +58,8 @@ BuildRequires: curl-devel
 BuildRequires: docbook-utils
 BuildRequires: gettext
 %if %{without bootstrap}
-# Require gnupg2 to verify sources, unless bootstrapping
-BuildRequires: gnupg2
+# Require sqv to verify sources, unless bootstrapping
+BuildRequires: openpgpverify
 %endif
 BuildRequires: libassuan-devel >= 2.5.0
 BuildRequires: libgcrypt-devel >= 1.9.1
@@ -215,7 +215,7 @@ package contains the GnuPG Web Key Service client and server.
 
 %prep
 %if ! %{with bootstrap}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %setup -q -n gnupg-%{version}
 

@@ -1,4 +1,4 @@
-%global version 0.18.0
+%global version 0.18.1
 %global reponame WasmEdge
 %global capi_soname 0
 %global capi_version 0.1.1
@@ -25,7 +25,7 @@ Requires:      spdlog
 # Currently wasmedge could only be built on specific arches
 ExclusiveArch: x86_64 aarch64 riscv64
 Provides: %{reponame} = %{version}-%{release}
-Provides: bundled(blake3) = 1.2.0
+Provides: bundled(blake3) = 1.5.0
 Provides: bundled(wasi-cpp-header) = 0.0.1
 Provides: wasm-library
 Conflicts: %{name}-rt
@@ -37,7 +37,7 @@ High performance WebAssembly Virtual Machine
 Summary: %{reponame} Runtime
 Requires: spdlog
 Provides: %{reponame}-rt = %{version}-%{release}
-Provides: bundled(blake3) = 1.3.3
+Provides: bundled(blake3) = 1.5.0
 Provides: bundled(wasi-cpp-header) = 0.0.1
 Provides: wasm-library
 Conflicts: %{name}
@@ -63,7 +63,7 @@ This package contains necessary header files for %{reponame} development.
 %cmake_build
 mkdir rt
 cd rt
-%cmake -S .. -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=OFF -DWASMEDGE_BUILD_TESTS=OFF -DWASMEDGE_BUILD_AOT_RUNTIME=OFF -DLLVM_DIR=/usr/lib64/llvm18/lib/cmake/llvm
+%cmake -S .. -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=OFF -DWASMEDGE_BUILD_TESTS=OFF -DWASMEDGE_USE_LLVM=OFF -DLLVM_DIR=/usr/lib64/llvm18/lib/cmake/llvm
 %cmake_build
 
 %install

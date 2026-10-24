@@ -3,7 +3,7 @@
 %global gomodulesmode GO111MODULE=on
 
 Name:           vhs
-Version:        0.11.0
+Version:        0.12.1
 Release:        %autorelease
 ExclusiveArch:  %{golang_arches_future}
 Summary:        Your CLI home video recorder

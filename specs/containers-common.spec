@@ -31,7 +31,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 0.69.2
+Version: 0.70.0
 Release: %autorelease
 License: Apache-2.0
 BuildArch: noarch
@@ -80,12 +80,13 @@ Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: container-network-stack
 Requires: oci-runtime
 Requires: passt >= 0:0^20260716.g090d739
+# go's mime.TypeByExtension needs a local mime database present
+Recommends: shared-mime-info
 %if %{defined fedora}
 Recommends: composefs
 Recommends: crun
 Requires: (crun if fedora-release-identity-server)
 Requires: netavark >= %{netavark_epoch}:2
-Suggests: slirp4netns
 Recommends: qemu-user-static
 Requires: (qemu-user-static-aarch64 if fedora-release-identity-server)
 Requires: (qemu-user-static-arm if fedora-release-identity-server)

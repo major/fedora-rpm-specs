@@ -1,7 +1,7 @@
 %global pypi_name pyunormalize
 
 Name:          python-%{pypi_name}
-Version:       17.0.0
+Version:       18.0.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Unicode normalization forms (NFC, NFKC, NFD, NFKD)
@@ -11,9 +11,7 @@ License:       MIT AND Unicode-3.0
 URL:           https://github.com/mlodewijck/pyunormalize
 VCS:           git:%{url}.git
 Source0:       %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-BuildRequires: tox
 BuildSystem:   pyproject
-BuildOption(generate_buildrequires): -t
 BuildOption(install): -l %{pypi_name}
 
 %description
@@ -26,7 +24,7 @@ Summary: %{summary}
 %{summary}.
 
 %check -a
-%tox
+%{py3_test_envvars} %{python3} -m unittest discover -s tests -v
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md

@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    bluedevil
 Summary: Bluetooth stack for KDE
 Version: 6.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://cgit.kde.org/%{name}.git
@@ -102,6 +102,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 %{_kf6_datadir}/config.kcfg/bluedevilglobalsettings.kcfg
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
+- Rebuild (qt6)
+
 * Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.1-1
 - 6.8.1
 

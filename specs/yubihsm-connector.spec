@@ -23,12 +23,12 @@ Source0:        %{gosource}
 Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 Source3:        %{gosource}.sig
-Source4:        gpgkey-9588EA0F.gpg
+Source4:        keyring-1D7308B0055F5AEF36944A8F27A9C24D9588EA0F.pgp
 
 %{?systemd_requires}
 BuildRequires:  go-vendor-tools
 BuildRequires:  systemd-rpm-macros
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  libusb-compat-0.1-devel
 Recommends:     yubihsm-shell
 
@@ -36,10 +36,9 @@ Recommends:     yubihsm-shell
 %{common_description}
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE4} %{SOURCE3} %{SOURCE0}
+%{openpgpverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE0}'
 %goprep -A
 %setup -q -T -D -a1 %{forgesetupargs}
-%autopatch -p1
 
 # Create a sysusers.d config file
 cat >yubihsm-connector.sysusers.conf <<EOF

@@ -5,7 +5,7 @@
 %global crate tar-framing
 
 Name:           rust-tar-framing
-Version:        0.0.14
+Version:        0.0.15
 Release:        %autorelease
 Summary:        Framing layer for tar archives
 
@@ -13,11 +13,11 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tar-framing
 Source:         %{crates_source}
 # * Fix missing license texts in published crates
-# * https://github.com/astral-sh/tar-codec/pull/113
-Source10:       https://github.com/astral-sh/tar-codec/raw/refs/tags/v%{version}/LICENSE-APACHE
-Source11:       https://github.com/astral-sh/tar-codec/raw/refs/tags/v%{version}/LICENSE-MIT
+# * https://github.com/astral-sh/astral-codec/pull/113
+Source10:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{version}/LICENSE-APACHE
+Source11:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{version}/LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
-# * Remove unused, benchmark-only dev-dependency on criterion
+# * Remove unused, benchmark-only dev-dependency on codspeed-divan-compat
 Patch:          tar-framing-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

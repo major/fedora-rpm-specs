@@ -24,7 +24,7 @@
 
 Name:           %{upstream_name}%{?v2_suffix}
 Version:        2.15.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -42,7 +42,11 @@ Source1:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz.a
 # Key exported from Petr Pisar's keyring
 Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
 
+%if (0%{?rhel} && 0%{?rhel} <= 7)
 BuildRequires:  gnupg2
+%else
+BuildRequires:  openpgpverify
+%endif
 BuildRequires:  meson >= 0.47
 BuildRequires:  pkgconfig
 BuildRequires:  gcc
@@ -109,7 +113,11 @@ Development files for %{name}.
 
 
 %prep
+%if (0%{?rhel} && 0%{?rhel} <= 7)
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%else
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 %autosetup -p1 -n modulemd-%{version}
 
 
@@ -182,6 +190,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 2.15.3-4
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.15.3-3
 - Rebuilt for Python 3.15.0b4 ABI change
 
