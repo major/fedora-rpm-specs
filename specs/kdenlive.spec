@@ -10,6 +10,11 @@ URL:     http://www.kdenlive.org
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
+# https://github.com/KDE/kdenlive/commit/614a6d686ca158043f12dd0227894917f2bd9b5e
+Patch:   kdenlive-fix-timeline-qml-property-access.patch
+# https://github.com/KDE/kdenlive/commit/2a40ef90e699ae270fc8c1e4b0db36c0c9b9a029
+Patch:   kdenlive-fix-confusing-expression-statement-qml-error.patch
+
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
@@ -69,7 +74,7 @@ Requires: frei0r-plugins
 Requires: kf6-qqc2-desktop-style
 Requires: kf6-kirigami2
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval            
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
 %description
@@ -766,7 +771,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 * Tue Jul  8 2008 jeff <moe@blagblagblag.org> - 0.6-1.svn2298.0blag.f9
 - Update to svn r2298
 - New Requires
-- kdenlive-svn-r2298-renderer-CMakeLists.patch 
+- kdenlive-svn-r2298-renderer-CMakeLists.patch
 
 * Sun Nov 11 2007 jeff <moe@blagblagblag.org> - 0.5-1blag.f7
 - Update to 0.5 final

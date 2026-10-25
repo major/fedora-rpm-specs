@@ -4,7 +4,7 @@
 Summary:       Code coverage analysis tool for Ruby 1.9
 Name:          rubygem-%{gem_name}
 Version:       0.13.0
-Release:       21%{?dist}
+Release:       22%{?dist}
 License:       MIT
 URL:           http://github.com/colszowka/simplecov
 Source0:       http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -51,6 +51,11 @@ gem unpack %{SOURCE0}
 %setup -q -D -T -n  %{gem_name}-%{version}
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
+# https://github.com/simplecov-ruby/simplecov/commit/fed8377f21d63cb9b2dc10e89881c8840d866d10
+# silently removes json runtime deps, although it is actually used.
+# Anyway relax json deps
+sed -i %{gem_name}.gemspec -e '\@runtime.*json@s|< 3|< 4|'
+
 %build
 gem build %{gem_name}.gemspec
 %gem_install
@@ -96,6 +101,9 @@ popd
 %{gem_instdir}/CONTRIBUTING.md
 
 %changelog
+* Sat Oct 24 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.13.0-22
+- Relax json runtime deps to allow 3.x
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

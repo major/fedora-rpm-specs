@@ -10,11 +10,11 @@
 
 %global api_version_major 2
 %global api_version_minor 0
-%global api_version_patch 11
+%global api_version_patch 12
 %global api_version %{api_version_major}.%{api_version_minor}.%{api_version_patch}
 
 Name: janus
-Version: 1.4.2
+Version: 1.4.3
 Release: %autorelease
 Summary: An open source WebRTC server designed and developed by Meetecho
 
@@ -139,6 +139,7 @@ This is a trivial logger plugin for %{name}.
 Summary: An audio conference bridge plugin for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides: bundled(speexdsp)
+Provides: bundled(webrtc-audio-processing)
 
 %description plugins-audiobridge
 This is a plugin implementing an audio conference bridge for %{name},
@@ -301,6 +302,7 @@ This is an implementation of a WebSockets transport for the %{name} API.
 %autosetup -p 1 -n %{name}-gateway-%{version}
 # Copy bundled licenses for %%license
 cp src/plugins/audiobridge-deps/COPYING COPYING.speexdsp
+cp src/plugins/audiobridge-deps/limiter/LICENSE.webrtc LICENSE.webrtc
 cp src/plugins/duktape-deps/LICENSE.txt LICENSE.duktape-add-ons
 
 
@@ -361,6 +363,7 @@ find %{buildroot} -type f -iname '*.la' -delete
 # licenses and docs
 %license COPYING
 %license COPYING.speexdsp
+%license LICENSE.webrtc
 %license LICENSE.duktape-add-ons
 %doc README.md
 %doc SECURITY.md

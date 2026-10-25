@@ -1,5 +1,5 @@
 Name:           tmt
-Version:        1.79.0
+Version:        1.80.0
 Release:        %autorelease
 Summary:        Test Management Tool
 
@@ -14,6 +14,8 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-docutils
 
 Requires:       git-core rsync sshpass
+# See note in pyproject.toml
+Requires:       python3dist(ruamel-yaml-clib)
 
 %if 0%{?fedora} < 40
 Obsoletes:      python3-tmt < %{version}-%{release}
@@ -84,13 +86,14 @@ Provides:       tmt-provision-virtual == %{version}-%{release}
 Obsoletes:      tmt-provision-virtual < %{version}-%{release}
 %endif
 Requires:       tmt == %{version}-%{release}
-Requires:       python3-testcloud >= 0.11.7
+Requires:       python3-testcloud >= 0.12.0
 Requires:       openssh-clients
 # Recommend qemu system emulators for supported arches
 Recommends:     qemu-kvm-core
 %if 0%{?fedora}
 Recommends:     qemu-system-aarch64-core
 Recommends:     qemu-system-ppc-core
+Recommends:     qemu-system-riscv-core
 Recommends:     qemu-system-s390x-core
 Recommends:     qemu-system-x86-core
 %endif

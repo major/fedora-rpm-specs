@@ -15,7 +15,7 @@
 %bcond manifold   1   # Manifold support
 %bcond manpage    1   # Generate manpage
 %bcond materialx  1   # MaterialX support
-%bcond meshoptimizer 0 # Meshoptimizer support (enable when available in the buildroot)
+%bcond meshoptimizer 1 # Meshoptimizer support
 %bcond nanovdb    1   # NanoVDB support
 %bcond openvdb    1   # OpenVDB support
 %bcond vulkan     1   # Vulkan rendering support
@@ -46,7 +46,7 @@
 # GPU kernel generation and OSL/path-guiding support are currently x86_64-only.
 %ifarch x86_64
 %bcond hip 1
-%bcond hiprt 0
+%bcond hiprt 1
 %bcond oidn 1
 # Blender requires a SYCL compiler in addition to Level Zero. The Fedora
 # buildroot currently lacks the required SYCL toolchain.
@@ -63,9 +63,13 @@
 %bcond opgl 0
 %endif
 
+%if %{with hiprt} && %{without hip}
+%{error:HIPRT requires HIP; use --without hiprt together with --without hip}
+%endif
+
 Name:           blender
 Epoch:          1
-Version:        5.2.2
+Version:        5.2.3
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production
@@ -90,6 +94,12 @@ Source1:        %{name}-macros-source
 
 # Backport support for FFmpeg 9
 Patch0:         https://github.com/blender/blender/commit/e3c92c22817dc0310a460c22f6b1e8e397517e3b.patch#/blender-ffmpeg9.patch
+
+# Adapt Cycles logging to the system HIPRT API
+Patch1:         blender-hiprt-log-level-upstream.patch
+
+# Temporary workaround for the SPIRV-Tools shader optimization crash.
+Patch2:         blender-vulkan-disable-shaderc-optimization.patch
 
 # versions.cmake pins the libraries used for Blender's official precompiled
 # dependency bundle. Those pins are tested versions, not general minimums for
@@ -377,6 +387,10 @@ BuildRequires:  pkgconfig(vpl)
 %endif
 
 Requires:       hicolor-icon-theme
+%if %{with hip} && %{with hiprt}
+# Cycles' Linux HIPRT availability check loads libamdhip64.so.
+Requires:       rocm-hip-devel%{?_isa}
+%endif
 Requires:       rsms-inter-fonts
 Requires:       shared-mime-info
 Provides:       blender(ABI) = %{blender_api}

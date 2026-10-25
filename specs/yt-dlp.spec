@@ -14,7 +14,7 @@
 
 
 Name:           yt-dlp
-Version:        2026.08.19
+Version:        2026.10.21
 Release:        %autorelease
 Summary:        A command-line program to download videos from online video platforms
 
@@ -22,10 +22,6 @@ License:        Unlicense
 URL:            https://github.com/yt-dlp/yt-dlp
 Source0:        %{url}/archive/%{version}/yt-dlp-%{version}.tar.gz
 Source1:        yt-dlp.conf
-
-# https://github.com/yt-dlp/yt-dlp/pull/17491
-# Relax handshake error regexp
-Patch:          17491.patch
 
 # Needed for compatibility with Fedora <= 44
 Patch:          0002-Restore-compatibility-with-pytest-9.patch
@@ -71,6 +67,8 @@ additional features and fixes.
 
 %prep
 %autosetup -p1
+# Fedora's python-certify uses system ca-certificate bundle
+sed -i -E 's/(certifi)(>=|==)[0-9]+(\.[0-9]+)*/\1/g' pyproject.toml
 
 # Filter out ejs if the bcond is disabled
 %if %{without ejs}

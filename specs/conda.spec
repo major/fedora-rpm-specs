@@ -1,7 +1,7 @@
 %bcond bootstrap 0
 
 Name:           conda
-Version:        26.9.3
+Version:        26.9.4
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -90,17 +90,22 @@ Provides:       bundled(python%{python3_pkgversion}-auxlib) = 0.0.43
 
 # Re-enable dep on conda-libmamba-solver when not bootstrapping
 %if !%{with bootstrap}
-sed -i -e '/"conda-libmamba-solver/s/# *//' pyproject.toml
+%pyproject_patch_dependency conda-libmamba-solver:ignore
 %endif
 
+# CA certs are updated separately
+%pyproject_patch_dependency certifi:drop_lower
+
 # Do not restrict upper bound of ruamel-yaml
-sed -i -e '/ruamel.yaml/s/,<[0-9.]*//' pyproject.toml
+%pyproject_patch_dependency ruamel-yaml:drop_upper
 
 # pytest-split/xdoctest not packaged, store-duration not needed
-sed -i -e '/splitting-algorithm/d' -e '/store-durations/d' -e '/xdoctest/d' pyproject.toml
+%pyproject_patch_dependency splitting-algorithm:ignore
+%pyproject_patch_dependency store-duration:ignore
+%pyproject_patch_dependency xdoctest:ignore
 
 # Unpackaged - really only applicable for macOS/Windows?
-sed -i -e '/"truststore *>/d' pyproject.toml
+%pyproject_patch_dependency truststore:ignore
 
 # Remove checks that require an installed conda
 sed -i -e '/assert expected_/d' tests/conftest.py

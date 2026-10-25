@@ -1,17 +1,13 @@
 %global srcname python_fontconfig
 
 Name:           python-fontconfig
-Version:        0.6.2.post1
-Release:        5%{?dist}
+Version:        0.6.3
+Release:        1%{?dist}
 Summary:        Python bindings for Fontconfig library
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/lilydjwg/%{name}
 Source0:        %{pypi_source}
-# Fix build against fontconfig >= 2.18
-# Originally proposed by Akira Tagoh in
-# https://src.fedoraproject.org/rpms/python-fontconfig/pull-request/1
-Patch0:         %{name}-0.6.2.post1-fcfreetype.patch
 
 BuildRequires:  gcc
 BuildRequires:  fontconfig-devel
@@ -61,6 +57,9 @@ yes | %{py3_test_envvars} %{python3} test/test.py
 
 
 %changelog
+* Sat Oct 24 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.6.3-1
+- Update to 0.6.3
+
 * Sun Jul 26 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.6.2.post1-5
 - Add patch from Akira Tagoh to include fontconfig/fcfreetype.h header for FcFreeType* functions
 

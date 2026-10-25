@@ -15,7 +15,7 @@
 %bcond test 0
 
 Name:           z3
-Version:        5.1.0
+Version:        5.3.1
 Release:        %autorelease
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
@@ -26,8 +26,6 @@ License:        MIT
 URL:            https://github.com/Z3Prover/z3/wiki
 VCS :           git:%{giturl}.git
 Source:         %{giturl}/archive/%{name}-%{version}.tar.gz
-# Do not try to build or install native OCaml artifacts on bytecode-only arches
-Patch:          %{name}-ocaml.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -38,6 +36,7 @@ BuildOption(conf): -DZ3_BUILD_DOCUMENTATION:BOOL=ON
 %ifarch %{java_arches}
 BuildOption(conf): -DZ3_BUILD_JAVA_BINDINGS:BOOL=ON
 %endif
+BuildOption(conf): -DZ3_BUILD_OCAML_BINDINGS:BOOL=ON
 BuildOption(conf): -DZ3_BUILD_PYTHON_BINDINGS:BOOL=ON
 BuildOption(conf): -DCMAKE_INSTALL_PYTHON_PKG_DIR=%{python3_sitelib}
 BuildOption(conf): -DZ3_INCLUDE_GIT_HASH:BOOL=OFF
@@ -125,6 +124,7 @@ Ocaml interface to z3.
 
 %package -n ocaml-z3-devel
 Summary:        Files for building ocaml applications that use z3
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 Requires:       ocaml-z3%{?_isa} = %{version}-%{release}
 Requires:       ocaml-zarith-devel%{?_isa}
 
@@ -144,22 +144,6 @@ Python 3 interface to z3.
 
 %prep
 %autosetup -N -n %{name}-%{name}-%{version}
-%ifnarch %{ocaml_native_compiler}
-%patch 0 -p1
-%endif
-
-# Enable verbose builds, use Fedora CFLAGS, preserve timestamps when installing,
-# include the entire contents of the archives in the library, link the library
-# with the correct flags, and build the ocaml files with debuginfo.
-sed \
-  -e 's/@$(CXX)/$(CXX)/' \
-  -e '/O3/d' \
-  -e "s/\(['\"]\)cp\([^[:alnum:]]\)/\1cp -p\2/" \
-  -e "s/\(SLIBEXTRAFLAGS = '\)'/\1-Wl,--no-whole-archive'/" \
-  -e '/SLIBFLAGS/s|-shared|& %{build_ldflags} -Wl,--whole-archive|' \
-  -e 's/\(libz3$(SO_EXT)\)\( \$(SLINK\)/\1 -Wl,--no-whole-archive\2/' \
-  -e "s/OCAML_FLAGS = ''/OCAML_FLAGS = '-g'/" \
-  -i scripts/mk_util.py
 
 # Comply with the Java packaging guidelines and fill in the version for python
 sed -e '/libz3java/s,\(System\.load\)Library("\(.*\)"),\1("%{_libdir}/z3/\2.so"),' \
@@ -168,6 +152,9 @@ sed -e '/libz3java/s,\(System\.load\)Library("\(.*\)"),\1("%{_libdir}/z3/\2.so")
 
 # Turn off HTML timestamps for reproducible builds
 sed -i '/HTML_TIMESTAMP/s/YES/NO/' doc/z3api.cfg.in doc/z3code.dox
+
+# We are Linux, not OS X
+sed -i 's/DYLD_LIBRARY_PATH/LD_LIBRARY_PATH/g' src/api/ml/CMakeLists.txt
 
 %build -p
 export PYTHON=%{python3}
@@ -180,23 +167,6 @@ sed -ri 's/, handle [0-9a-fA-F]+//' \
 sed -ri 's/ at 0x[0-9a-fA-F]+//g' \
     %{_vpath_builddir}/doc/api/html/z3.z3core.html
 
-# The cmake build system does not build the OCaml interface.  Do that manually.
-#
-# First, run the configure script to generate several files.
-# This is NOT an autoconf-generated configure script.
-./configure -p %{_prefix} --gmp --ml
-
-# Second, to prevent make from rebuilding the entire library, copy the
-# cmake-built library to where make expects it.
-cp -dp %{_vpath_builddir}/libz3.so* build
-
-# Third, make wants to rebuild libz3.so since its dependencies do not exist.
-# Do selective Makefile surgery to prevent this.
-sed -i '/^api/s/ libz3\$(SO_EXT)//g' build/Makefile
-
-# Fourth, build the OCaml interface
-%make_build -C build ml
-
 %install -a
 %ifarch %{java_arches}
 # Move the Java interface to its correct location
@@ -207,19 +177,20 @@ ln -s %{_jnidir}/com.microsoft.z3.jar %{buildroot}%{_libdir}/z3
 mv %{buildroot}%{_libdir}/libz3java.so %{buildroot}%{_libdir}/z3
 %endif
 
-# Install the OCaml interface
-cd build/api/ml
-mkdir -p %{buildroot}%{ocamldir}/Z3
+# Fix permissions
+chmod 0755 %{buildroot}%{ocamldir}/stublibs/dllz3ml.so
 %ifarch %{ocaml_native_compiler}
-cp -p *.cmx{,a,s} %{buildroot}%{ocamldir}/Z3
+chmod 0755 %{buildroot}%{ocamldir}/z3/z3ml.cmxs
 %endif
-cp -p META *.{a,cma,cmi,mli} %{buildroot}%{ocamldir}/Z3
-mkdir -p %{buildroot}%{ocamldir}/stublibs
-cp -p *.so %{buildroot}%{ocamldir}/stublibs
-cd -
+
+# Fix the python symlink
+rm %{buildroot}%{python3_sitelib}/z3/libz3.so.%{majver}
+ln -s %{_libdir}/libz3.so.%{majver} \
+      %{buildroot}%{python3_sitelib}/z3/libz3.so.%{majver}
 
 # We handle the documentation files below
 rm -rf %{buildroot}%{_docdir}/Z3
+rm -f examples/ml/*.{cmi,cmo,cmx,o}
 
 # Make a man page
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -244,7 +215,7 @@ cd -
 
 %files libs
 %license LICENSE.txt
-%{_libdir}/libz3.so.5.1{,.*}
+%{_libdir}/libz3.so.5.3{,.*}
 
 %files devel
 %{_includedir}/z3/
@@ -263,22 +234,22 @@ cd -
 %endif
 
 %files -n ocaml-z3
-%dir %{ocamldir}/Z3/
-%{ocamldir}/Z3/META
-%{ocamldir}/Z3/*.cma
-%{ocamldir}/Z3/*.cmi
+%dir %{ocamldir}/z3/
+%{ocamldir}/z3/META
+%{ocamldir}/z3/*.cma
+%{ocamldir}/z3/*.cmi
 %ifarch %{ocaml_native_compiler}
-%{ocamldir}/Z3/*.cmxs
+%{ocamldir}/z3/*.cmxs
 %endif
 %{ocamldir}/stublibs/dllz3ml.so
 
 %files -n ocaml-z3-devel
-%{ocamldir}/Z3/*.a
+%{ocamldir}/z3/*.a
 %ifarch %{ocaml_native_compiler}
-%{ocamldir}/Z3/*.cmx
-%{ocamldir}/Z3/*.cmxa
+%{ocamldir}/z3/*.cmx
+%{ocamldir}/z3/*.cmxa
 %endif
-%{ocamldir}/Z3/*.mli
+%{ocamldir}/z3/*.mli
 
 %files -n python3-z3
 %{python3_sitelib}/z3/

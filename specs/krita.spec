@@ -21,11 +21,15 @@ Source4:        https://github.com/vanyossi/gmic/releases/download/v%{gmic_versi
 
 ## upstream patches
 Patch0: krita-gmic-CVE-2026-42144.patch
+Patch1: krita-fix-invalid-widget-class-name.patch
 
 ## downstream patches
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 514 char 120: <caption> already set 'xxOr the active' and tried to replace with 'xx'
 Patch: krita-6.0.2.1-appstream_validate.patch
+
+# upstream patches
+# https://github.com/KDE/krita/commit/3f5b2882017f4e12c9b021de0ea24e6dd2eb26dd
 Patch: krita-sip-abi-version.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

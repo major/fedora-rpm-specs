@@ -1,12 +1,22 @@
 Name:           wildmidi
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Softsynth midi player
 License:        GPL-3.0-or-later
 URL:            https://github.com/Mindwerks/wildmidi
 Source0:        https://github.com/Mindwerks/%{name}/archive/%{name}-%{version}.tar.gz
+
+# Fix signed-integer-overflow UB in big-endian 32-bit reads across format parsers
+# https://github.com/Mindwerks/wildmidi/pull/293
+Patch0:         293.patch
+
+# Bound variable-length shift and clamp float->uint casts in parsers
+# https://github.com/Mindwerks/wildmidi/pull/294
+Patch1:         294.patch
+
 BuildRequires:  gcc
 BuildRequires:  alsa-lib-devel cmake
+
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
@@ -73,6 +83,9 @@ ln -s ../timidity.cfg $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/%{name}.cfg
 
 
 %changelog
+* Sat Oct 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.0-2
+- Backport some upstream patches adding better bounds checking and integer overflow protection
+
 * Sun Aug 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.0-1
 - Update to v0.5.0 (rhbz#2509263, rhbz#2520292)
 

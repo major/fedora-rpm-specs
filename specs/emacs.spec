@@ -92,7 +92,7 @@ BuildRequires: freetype-devel
 BuildRequires: gcc
 BuildRequires: giflib-devel
 BuildRequires: glibc-devel
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: gnutls-devel
 BuildRequires: gtk3-devel
 BuildRequires: gzip
@@ -335,7 +335,7 @@ Development header files for Emacs.
 
 %prep
 cat '%{SOURCE100}' '%{SOURCE101}' '%{SOURCE102}' '%{SOURCE103}' > keyring
-%{gpgverify} --keyring=keyring --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring=keyring --signature='%{SOURCE1}' --data='%{SOURCE0}'
 rm keyring
 
 %autosetup -N -c

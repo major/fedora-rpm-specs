@@ -1,6 +1,6 @@
 Name:           sugar-abacus
 Version:        61
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A simple abacus activity for Sugar
 
 License:        LGPL-3.0-or-later
@@ -29,18 +29,11 @@ below (it uses base 20).
 
 sed -i 's/python/python3/' abacus.py
 
-%generate_buildrequires
-%pyproject_buildrequires
-
 %build
-#python3 ./setup.py build
-%pyproject_wheel
-
-# %find_lang org.sugarlabs.AbacusActivity
+bundlebuilder build
 
 %install
-#python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
-%pyproject_install
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -54,6 +47,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/Abacus.activity/
 
 %changelog
+* Sat Oct 24 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 61-18
+- Replace deprecated setup.py commands with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 61-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

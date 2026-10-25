@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.7
-Release: 36%{?dist}
+Release: 37%{?dist}
 Summary: Ruby/EventMachine library
 # Automatically converted from old format: GPLv2 or Ruby - review is highly recommended.
 License: GPL-2.0-only OR Ruby
@@ -35,6 +35,9 @@ Patch6: rubygem-eventmachine-1.2.7-Fix-intermittent-tests.patch
 # https://github.com/eventmachine/eventmachine/pull/970
 # Backport some OpenSSL related upstream fix
 Patch7: rubygem-eventmachine-1.2.7-openssl4-test-fix.patch
+# https://github.com/eventmachine/eventmachine/pull/1027/
+# Use TypedData API, needed for ruby4.1
+Patch8: rubygem-eventmachine-pr1027-TypedData.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -82,6 +85,7 @@ sed -i '/SSL_CTX_set_cipher_list/ s/".*"/"PROFILE=SYSTEM"/' ext/ssl.cpp
 %patch 5 -p1
 %patch 6 -p1
 %patch 7 -p1
+%patch 8 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -163,6 +167,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Sat Oct 24 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.7-37
+- Backport upstream patch to use TypedData API
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

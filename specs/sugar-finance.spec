@@ -1,6 +1,6 @@
 Name:           sugar-finance
 Version:        15
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Financial planning for Sugar
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -35,11 +35,11 @@ chmod -x {icons/help.svg,finance.py}
 sed -i 's/python/python3/' setup.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -56,6 +56,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Oct 24 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 15-18
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 15-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

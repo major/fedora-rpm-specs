@@ -1,6 +1,6 @@
 Name:		sugar-deducto
 Version:	11
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	A learning activity aimed towards improving children’s skills to deducing logic
 
 # sprites.py is in MIT and all other files in GPLv3+
@@ -25,10 +25,10 @@ to deducing logic through pattern recognition.
 #sed -i "s|python|python2|g" setup.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}%{_prefix}
+bundlebuilder install --prefix=%{buildroot}%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -44,6 +44,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Oct 24 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 11-16
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 11-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 Summary:	Ruby binding of GTK+-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	30%{?dist}
+Release:	31%{?dist}
 # gemspec	LGPL-2.1-or-later
 # SPDX confirmed
 License:	LGPL-2.1-or-later
@@ -26,6 +26,7 @@ Patch2:	gtk2-3.4.3-rb_define_method_arg_number.patch
 Patch3:	gtk2-3.4.3-pointer-type-extra-cast-c99.patch
 Patch4:	gtk2-3.4.3-c23-strict-function-prototype.patch
 Patch5:	gtk2-3.4.3-c23-port-to-glib2_426.patch
+Patch6:	gtk2-3.4.3-rb_data_type_t.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -118,6 +119,8 @@ find sample/ -name \*.rb | xargs chmod 0644
 
 # rb_cData is deprecated, removed in ruby32
 grep -rl rb_cData . | xargs sed -i -e 's|rb_cData|rb_cObject|'
+
+%patch -P6 -p1 -b .rb_data_type
 
 %build
 gem build ./%{gem_name}-%{version}.gemspec
@@ -215,6 +218,9 @@ xvfb-run \
 %{gem_instdir}/sample/
 
 %changelog
+* Sat Oct 24 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-31
+- Port to use rb_data_type_t
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

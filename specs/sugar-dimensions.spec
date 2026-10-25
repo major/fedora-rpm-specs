@@ -1,6 +1,6 @@
 Name:           sugar-dimensions
 Version:        60
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A pattern matching game
 
 # namingalert.py is licensed as LGPLv2+
@@ -36,11 +36,11 @@ for lib in $(find . -name "*.py" -type f); do
 done
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 
 %install
-python3 ./setup.py install --prefix=$RPM_BUILD_ROOT/%{_prefix}
+bundlebuilder install --prefix=$RPM_BUILD_ROOT/%{_prefix}
 chmod 0644 %{buildroot}/%{sugaractivitydir}/Dimensions.activity/gencards.py
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
@@ -57,6 +57,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Oct 24 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> 60-15
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 60-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

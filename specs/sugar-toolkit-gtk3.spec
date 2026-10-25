@@ -2,7 +2,7 @@
 
 Name:    sugar-toolkit-gtk3
 Version: 0.122
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Sugar toolkit GTK+ 3
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -10,6 +10,7 @@ URL:     http://wiki.laptop.org/go/Sugar
 
 Source0: http://download.sugarlabs.org/sources/sucrose/glucose/%{name}/%{name}-%{version}.tar.xz
 Source1: macros.sugar
+Patch0:  Make-bundlebuilder-run-from-current-working-director.patch
 
 BuildRequires: make
 BuildRequires: alsa-lib-devel
@@ -96,6 +97,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sat Oct 24 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 0.122-2
+- Apply bundlebuilder patch
+
 * Thu Oct 22 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 0.122-1
 - New Release 0.122
 

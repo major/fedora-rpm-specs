@@ -2,8 +2,8 @@
 %global project  slika
 Name: php-%{author}-%{project}
 
-Version: 1.2.1
-Release: 2%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 
 Summary: Image handling library for PHP
 License: MIT
@@ -103,6 +103,9 @@ phpunit8 --verbose --bootstrap ./bootstrap.php
 
 
 %changelog
+* Sat Oct 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.3.0-1
+- Update to v1.3.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

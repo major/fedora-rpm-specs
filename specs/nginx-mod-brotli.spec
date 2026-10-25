@@ -10,7 +10,12 @@ Summary:        NGINX module for Brotli compression
 License:        BSD-2-Clause
 URL:            https://github.com/google/ngx_brotli
 Source:         %{url}/archive/v%{upstream_tag}/ngx_brotli-%{upstream_tag}.tar.gz
+# check if accept encoding is not empty
+# https://github.com/google/ngx_brotli/pull/133
+Patch:          https://patch-diff.githubusercontent.com/raw/google/ngx_brotli/pull/133.patch
 # Patches to ensure system's brotli library is used
+# https://github.com/google/ngx_brotli/pull/150
+# https://github.com/google/ngx_brotli/pull/172
 Patch:          https://patch-diff.githubusercontent.com/raw/google/ngx_brotli/pull/150.patch
 Patch:          https://patch-diff.githubusercontent.com/raw/google/ngx_brotli/pull/172.patch
 

@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.4.11
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Ruby wrapper for the ncurses library, with wide character support
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -13,6 +13,9 @@ Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/sup-heliotrope/ncursesw-ruby/pull/40
 # https://github.com/sup-heliotrope/ncursesw-ruby/commit/bd468ad296ed5bed2e51ad335858e0c92290e492
 Patch0:         %{gem_name}-pr40-c23.patch
+# Migrate to TypedData_Wrap_Struct, needed for ruby4.1
+# https://github.com/sup-heliotrope/ncursesw-ruby/commit/ecd4c8300b813f6dc26c7ffe2ba4b0bbad124415
+Patch1:         %{gem_name}-ecd4c83-migrate-typeddata.patch
 Requires:       ruby
 BuildRequires:  ruby
 BuildRequires:  rubygems-devel
@@ -47,6 +50,7 @@ Documentation for %{name}
 %prep
 %setup -q -n %{gem_name}-%{version}
 %patch -P0 -p1 -b .c23
+%patch -P1 -p1 -b .typed
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -81,6 +85,9 @@ rm -rf %{buildroot}%{gem_instdir}/extconf.rb/
 %{gem_instdir}/examples
 
 %changelog
+* Sat Oct 24 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.11-11
+- Backport upstream patch to migrate to TypedData_Wrap_Struct
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 
 
 Name:           mariadb-connector-odbc
-Version:        3.2.8
-Release:        6%{?with_debug:.debug}%{?dist}
+Version:        3.2.10
+Release:        1%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (ODBC driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-odbc-%{version}/%{name}-%{version}-src.tar.gz
@@ -14,7 +14,7 @@ Url:            https://mariadb.org/en/
 # Online documentation can be found at: https://mariadb.com/kb/en/library/mariadb-connector-odbc/
 
 BuildRequires:  cmake unixODBC-devel gcc-c++
-BuildRequires:  mariadb-connector-c-devel >= 3.4.5
+BuildRequires:  mariadb-connector-c-devel >= 3.4.11
 
 %description
 MariaDB Connector/ODBC is a standardized, LGPL licensed database driver using
@@ -94,7 +94,4 @@ install -m644 %{SOURCE1} %{buildroot}%{_prefix}/lib/odbc/odbcinst.d/
 %{_libdir}/pkgconfig/libmaodbc.pc
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
 %autochangelog

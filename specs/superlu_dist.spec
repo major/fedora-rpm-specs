@@ -65,7 +65,7 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 9.2.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch:   1
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
 License: BSD-3-Clause
@@ -80,11 +80,14 @@ Patch5: %{name}-fix_pythonpath.patch
 Patch6: %{name}-fix_openmpi_example_path.patch
 Patch7: %{name}-fix_mpich_example_path.patch
 
+# https://github.com/xiaoyeli/superlu_dist/issues/232
+# Be abble to override CMAKE_INSTALL_RPATH_USE_LINK_PATH
+Patch8: superlu_dist-9.2.1-unset_hardocded_rpath_handling.patch
+
 BuildRequires: scotch-devel
 BuildRequires: gcc-c++
 BuildRequires: gcc-gfortran
 BuildRequires: make
-BuildRequires: patchelf
 BuildRequires: cmake
 %if %{with optimized_blas}
 BuildRequires: %{blaslib}-devel
@@ -232,6 +235,7 @@ pushd superlu_dist-%{version}
 %patch -P 1 -p1 -b .fix_pkgconfig_creation
 %patch -P 4 -p1 -b .only_short_tests
 %patch -P 5 -p1 -b .pythonpath
+%patch -P 8 -p1 -b .rpath_cmake_fix
 
 # Rename different README files
 cp -p EXAMPLE/README EXAMPLE/README-examples
@@ -265,12 +269,16 @@ export CXX=$MPI_BIN/mpic++
 export CFLAGS="%{optflags} -DPRNTlevel=0 -DDEBUGlevel=0"
 export CXXFLAGS="%{optflags} -I$MPI_INCLUDE"
 export LDFLAGS="%{build_ldflags} -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
+# TODO: Something is interfering with CMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH and it cannot clean the rpath well
+# use CMAKE_SKIP_RPATH for now
 %cmake -DCMAKE_BUILD_TYPE:STRING=Release \
  -DBUILD_STATIC_LIBS:BOOL=FALSE \
  -DCMAKE_Fortran_COMPILER:FILEPATH=$MPI_BIN/mpifort \
  -DMPIEXEC_EXECUTABLE:FILEPATH=$MPI_BIN/mpiexec \
  -DCMAKE_SKIP_RPATH:BOOL=YES \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
+ -DCMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH:BOOL=YES \
+ -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=NO \
  -DMPI_C_LINK_FLAGS:STRING="%(pkgconf --libs ompi)" \
  -DMPI_CXX_LINK_FLAGS:STRING="%(pkgconf --libs ompi-cxx)" \
  -DMPI_Fortran_LINK_FLAGS:STRING=-lgfortran \
@@ -317,12 +325,16 @@ export CXX=$MPI_BIN/mpic++
 export CFLAGS="%{optflags} -DPRNTlevel=0 -DDEBUGlevel=0"
 export CXXFLAGS="%{optflags} -I$MPI_INCLUDE"
 export LDFLAGS="%{build_ldflags} -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit"
+# TODO: Something is interfering with CMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH and it cannot clean the rpath well
+# use CMAKE_SKIP_RPATH for now
 %cmake -DCMAKE_BUILD_TYPE:STRING=Release \
  -DBUILD_STATIC_LIBS:BOOL=FALSE \
  -DCMAKE_Fortran_COMPILER:FILEPATH=$MPI_BIN/mpifort \
  -DMPIEXEC_EXECUTABLE:FILEPATH=$MPI_BIN/mpiexec \
  -DCMAKE_SKIP_RPATH:BOOL=YES \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
+ -DCMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH:BOOL=YES \
+ -DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=NO \
  -DMPI_C_LINK_FLAGS:STRING="%(pkgconf --libs mpich)" \
  -DMPI_CXX_LINK_FLAGS:STRING="%(pkgconf --libs mpich)" \
  -DMPI_Fortran_LINK_FLAGS:STRING=-lgfortran \
@@ -368,9 +380,6 @@ pushd openmpi-build
 %{_openmpi_load}
 %cmake_install
 
-# Fix rpaths of example files
-patchelf --shrink-rpath --allowed-rpath-prefixes $MPI_LIB %{buildroot}%{_libexecdir}/superlu_dist-openmpi/*drive*
-
 # Disable INT64 if 64bit integer is not used (require superlu_dist to be compiled with 64-bit indexing)
 %if %{with python}
 %if %{without index64}
@@ -386,9 +395,6 @@ popd
 pushd mpich-build
 %{_mpich_load}
 %cmake_install
-
-# Fix rpaths of example files
-patchelf --shrink-rpath --allowed-rpath-prefixes $MPI_LIB %{buildroot}%{_libexecdir}/superlu_dist-mpich/*drive*
 
 # Disable INT64 if 64bit integer is not used (require superlu_dist to be compiled with 64-bit indexing)
 %if %{with python}
@@ -406,12 +412,13 @@ popd
 %if %{with openmpi}
 pushd openmpi-build
 %{_openmpi_load}
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+# TODO: Something is interfering with CMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH and it cannot clean the rpath well
+# use the installed artifacts files since build dir does not have rpath
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:${LD_LIBRARY_PATH}
 %ctest --timeout 3000
 
 %if %{with python}
 export SUPERLU_PYTHON_LIB_PATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{name}
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 # Disable INT64 if 64bit integer is not used (require superlu_dist to be compiled with 64-bit indexing)
 %if %{without index64}
 sed -i -e 's|INT64 = 1|INT64 = 0|' PYTHON/pddrive.py
@@ -420,6 +427,7 @@ sed -i -e 's|INT64 = 1|INT64 = 0|' PYTHON/pddrive_master.py
 mpirun --wdir PYTHON -np 2 %{__python3} pddrive.py -c 2 -r 1
 %endif
 %{_openmpi_unload}
+unset LD_LIBRARY_PATH
 popd
 %endif
 
@@ -427,12 +435,13 @@ popd
 %if %{with mpich}
 pushd mpich-build
 %{_mpich_load}
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
+# TODO: Something is interfering with CMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH and it cannot clean the rpath well
+# use the installed artifacts files since build dir does not have rpath
+export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:${LD_LIBRARY_PATH}
 %ctest --timeout 3000
 
 %if %{with python}
 export SUPERLU_PYTHON_LIB_PATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{name}
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 # Disable INT64 if 64bit integer is not used (require superlu_dist to be compiled with 64-bit indexing)
 %if %{without index64}
 sed -i -e 's|INT64 = 1|INT64 = 0|' PYTHON/pddrive.py
@@ -441,6 +450,7 @@ sed -i -e 's|INT64 = 1|INT64 = 0|' PYTHON/pddrive_master.py
 mpirun --wdir PYTHON -np 2 %{__python3} pddrive.py -c 2 -r 1
 %endif
 %{_mpich_unload}
+unset LD_LIBRARY_PATH
 popd
 %endif
 %endif
@@ -517,6 +527,10 @@ popd
 
 
 %changelog
+* Tue Oct 20 2026 Cristian Le <fedora@lecris.me> - 1:9.2.1-7
+- Better handle rpaths in CMake
+- Account for the LD_LIBRARY_PATH in the mpi module
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:9.2.1-6
 - Rebuilt for Python 3.15.0b4 ABI change
 

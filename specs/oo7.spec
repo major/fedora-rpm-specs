@@ -44,6 +44,10 @@ Patch:          0003-meson-pass-through-rpm-profile-to-cargo-build.patch
 # this avoids pulling in unused dependencies
 Patch:          0004-drop-yet-unused-Python-bindings-from-cargo-workspace.patch
 
+# backport from upstream: client: Stop validation content-type
+# workaround for RHBZ#2549530 (gnome-abrt / libreport cannot store credentials)
+Patch:          https://github.com/linux-credentials/oo7/commit/5283f65.patch
+
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  systemd-rpm-macros
 

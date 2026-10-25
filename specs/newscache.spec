@@ -1,23 +1,16 @@
-%define srcnamever	NewsCache-1.2rc6
-%define socketver	1.12.13
 
 Name: 		newscache
 Summary: 	Free cache server for USENET News
-Version: 	1.2
-Release: 	0.55.rc6%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Version: 	1.3.22
+Release: 	1%{?dist}
 License:	GPL-2.0-or-later
-URL:		https://github.com/hstraub/NewsCache
-Source0: 	http://src.linuxhacker.at/NewsCache/%{srcnamever}.tar.gz
-Source1:	http://src.linuxhacker.at/socket++/socket++-%{socketver}.tar.gz
-Source2:	%{name}.init
-Source3:	%{name}.service
-Patch1:		newscache-1.2rc6-config.patch
-Patch2:		newscache-1.2rc6-gcc43.patch
-Patch3:		socket++-1.12.12-drop_doc.patch
-Patch4:		newscache-glibc.patch
-BuildRequires: make
-BuildRequires: libxcrypt-devel
+URL:		https://github.com/go-while/NewsCache
+Source0: 	https://github.com/go-while/NewsCache/releases/download/%{version}/NewsCache-%{version}.tar.gz
+
+Patch1:		newscache-1.3.22-config.patch
+
+BuildRequires:	make
+BuildRequires:	libxcrypt-devel
 BuildRequires:  gcc-c++
 BuildRequires:	libtool, texinfo, pam-devel
 BuildRequires:	systemd-units
@@ -37,49 +30,68 @@ bandwidth consumption or the IO load caused by news clients.
 
 
 %prep
-%setup -q -n %{srcnamever} -a 1
+%setup -q -n NewsCache-%{version}
 
 cp etc/newscache.conf-dist newscache.conf
 %patch -P1 -p0
-%patch -P2 -p1
 
-#  to satisfy g++ >= 8.0
-sed -i 's/^main/int main/' configure.in
 
-#  place socket++ source at least 2 level deeper,
-#  to avoid autotools inheritance with the newscache sources...
-mkdir -p too/deep
-mv socket++-%{socketver} too/deep
+cat >%{name}.service <<'EOF'
+[Unit]
+Description=NewsCache caching news server
+After=syslog.target network.target remote-fs.target
 
-pushd too/deep/socket++-%{socketver}
-%patch -P3 -p1
-popd
+[Service]
+Type=forking
+ExecStart=/usr/sbin/newscache
+PIDFile=/var/run/newscache.pid
+ExecReload=/bin/kill -HUP $MAINPID
 
-%patch -P4 -p1
-
-# Create a sysusers.d config file
-cat >newscache.sysusers.conf <<EOF
-u news - 'News user' /etc/news -
+[Install]
+WantedBy=multi-user.target
 EOF
+
+
+cat >newscacheclean.service <<'EOF'
+[Unit]
+Description=NewsCache spool cleanup
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/newscacheclean
+EOF
+
+
+cat >newscacheclean.timer <<'EOF'
+[Unit]
+Description=Daily NewsCache spool cleanup
+
+[Timer]
+OnCalendar=daily
+RandomizedDelaySec=3hours
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+
+
+#  sysusers.d config file
+cat >newscache.sysusers.conf <<EOF
+u news - 'News user' /var/cache/newscache -
+EOF
+
+#  pam.d config file
+cat >newscache.pam <<EOF
+#%PAM-1.0
+auth    include		password-auth
+account include		password-auth
+
+EOF
+
 
 %build
 
-# socket++ is a library from the same site as NewScache.
-# While it is used by newscache only, there is no reason
-# to ship it separately.
-
-pushd too/deep/socket++-%{socketver}
-./autogen
-%configure --enable-static --disable-shared
-make %{?_smp_mflags}
-popd
-
-
-SOCKDIR=$PWD/too/deep/socket++-%{socketver}
-export CPPFLAGS=-I$SOCKDIR
-export LDFLAGS=-L$SOCKDIR/socket++/.libs 
-
-./autogen
 %configure --with-pam
 make %{?_smp_mflags}
 
@@ -95,71 +107,54 @@ rm -f $RPM_BUILD_ROOT%{_sysconfdir}/newscache.auth-dist
 # info stuff is too obsolete
 rm -f $RPM_BUILD_ROOT%{_infodir}/*
 
-install -d $RPM_BUILD_ROOT%{_localstatedir}/cache/newscache
 
 install -d $RPM_BUILD_ROOT%{_sysconfdir}
-install -m644 -p newscache.conf $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.conf
+install -p -m644 newscache.conf $RPM_BUILD_ROOT%{_sysconfdir}/%{name}.conf
 
-#install -d $RPM_BUILD_ROOT%{_initrddir}
-#install -m755 -p %SOURCE2 $RPM_BUILD_ROOT%{_initrddir}/%{name}
+install -d $RPM_BUILD_ROOT%{_localstatedir}/cache/newscache
+install -d $RPM_BUILD_ROOT%{_sysusersdir}
+install -p -m644 newscache.sysusers.conf $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
 
 install -d $RPM_BUILD_ROOT%{_unitdir}
-install -p -m644 %SOURCE3 $RPM_BUILD_ROOT%{_unitdir}/%{name}.service
+install -p -m644 %{name}.service newscacheclean.service newscacheclean.timer $RPM_BUILD_ROOT%{_unitdir}/
 
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
-pushd $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
-cat <<EOF >%{name}
-#%PAM-1.0
-auth    include		password-auth
-account include		password-auth
-
-EOF
-popd
-
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily
-pushd $RPM_BUILD_ROOT%{_sysconfdir}/cron.daily
-cat <<EOF >%{name}
-#!/bin/bash
-/usr/sbin/newscacheclean
-
-EOF
-chmod 755 %{name}
-popd
-
-install -m0644 -D newscache.sysusers.conf %{buildroot}%{_sysusersdir}/newscache.conf
-
-
+install -p -m644 newscache.pam $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/%{name}
 
 
 %post
 %systemd_post %{name}.service
+%systemd_post newscacheclean.timer
 
 
 %preun
 %systemd_preun %{name}.service
+%systemd_preun newscacheclean.timer
 
 
 %postun
 %systemd_postun_with_restart %{name}.service
+%systemd_postun newscacheclean.timer
 
 
 
 %files
 %attr(755,news,news) %dir %{_localstatedir}/cache/newscache
+%{_sysusersdir}/newscache.conf
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/pam.d/*
-%config(noreplace) %{_sysconfdir}/cron.daily/*
-#%config(noreplace) %{_initrddir}/*
-%{_unitdir}/%{name}.service
+%{_unitdir}/*
 %{_bindir}/*
 %{_sbindir}/*
-%doc AUTHORS COPYING NEWS README THANKS TODO
+%doc AUTHORS COPYING NEWS README README.md THANKS
 %doc doc/newscache*.txt etc/*-dist
 %{_mandir}/*/*
-%{_sysusersdir}/newscache.conf
 
 
 %changelog
+* Sat Oct 24 2026 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.3.22-1
+- Upgrade to 1.3.22
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-0.55.rc6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -269,7 +264,7 @@ install -m0644 -D newscache.sysusers.conf %{buildroot}%{_sysusersdir}/newscache.
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2-0.20.rc6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
-* Sat Aug  8 2013 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.2-0.19.rc6
+* Thu Aug  8 2013 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.2-0.19.rc6
 - update socket++ to 1.12.13
 - fix socket++ autotool stuff
 - avoid building socket++ docs (seems broken with makeinfo >= 5.0)
@@ -355,7 +350,7 @@ install -m0644 -D newscache.sysusers.conf %{buildroot}%{_sysusersdir}/newscache.
 - update the runlevel information
 - New upstream version 1.2rc5
 
-* Tue Jul 22 2004 Herbert Straub <herbert@linuxhacker.at>
+* Thu Jul 22 2004 Herbert Straub <herbert@linuxhacker.at>
 - Updated to version 1.2rc4
 
 * Tue Mar 18 2003 Carles Arjona <nospammer@bigfoot.com>

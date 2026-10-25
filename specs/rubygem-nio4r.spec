@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: New IO for Ruby
 # The entire source code is MIT, bundled libev is BSD-2-Clause OR GPL-2.0-or-later
 License: MIT AND (BSD-2-Clause OR GPL-2.0-or-later)
@@ -13,7 +13,10 @@ URL: https://github.com/socketry/nio4r
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/socketry/nio4r/pull/328
 # ruby3.5.0dev removes SSLContext#set_minmax_proto_version
-Patch0:  %{gem_name}-pr328-support-rubu35-openssl.patch
+Patch0:  %{gem_name}-pr328-support-ruby35-openssl.patch
+# https://github.com/socketry/nio4r/pull/310
+# Use TypedData API, needed for ruby4.1
+Patch1:  %{gem_name}-pr310-TypedData.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -48,6 +51,7 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -104,6 +108,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sat Oct 24 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.1-12
+- Backport upstream patch to use TypedData API
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

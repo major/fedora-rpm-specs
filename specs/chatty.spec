@@ -10,7 +10,7 @@ Summary: A libpurple messaging client
 License: GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:     https://gitlab.gnome.org/World/Chatty
 Source0: %{url}/-/archive/v%{version}/Chatty-v%{version}.tar.gz
-Source1: https://source.puri.sm/Librem5/libcmatrix/-/archive/v%{libcmatrix_version}/libcmatrix-v%{libcmatrix_version}.tar.gz
+Source1: https://gitlab.gnome.org/guidog/libcmatrix/-/archive/v%{libcmatrix_version}/libcmatrix-v%{libcmatrix_version}.tar.gz
 
 # Chatty links against a libpurple private library (libjabber).
 # Obviously, Fedora build tooling doesn't support that, so we have to use
@@ -18,9 +18,8 @@ Source1: https://source.puri.sm/Librem5/libcmatrix/-/archive/v%{libcmatrix_versi
 # We do not want to provide a private library, which is from another
 # project, to be used in other packages.
 Patch0:  0001-hacky-hack.patch
-# https://source.puri.sm/Librem5/libcmatrix/-/merge_requests/116
-Patch1:  116.patch
-
+# https://gitlab.gnome.org/guidog/libcmatrix/-/merge_requests/121
+Patch1:  121.patch
 # https://gitlab.gnome.org/World/Chatty/-/merge_requests/1493
 Patch2: 0002-fix-history-test.patch
 

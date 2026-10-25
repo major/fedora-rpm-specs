@@ -10,6 +10,10 @@ which refines the familiar ideas of componentized layout and inheritance to
 produce one of the most straightforward and flexible models available, while
 also maintaining close ties to Python calling and scoping semantics.}
 
+# Break a circular dependency (mako->dogpile-cache->mako) during the new Python bootstrap
+%bcond bootstrap 0
+%bcond tests %{without bootstrap}
+
 Name:		python-%{src_name}
 Version:	1.4.1
 Release:	%autorelease
@@ -49,7 +53,7 @@ Obsoletes:	python-mako-doc < 1.1.4-6
 %endif
 
 %generate_buildrequires
-%pyproject_buildrequires -g tests
+%pyproject_buildrequires %{?with_tests:-g tests}
 
 %build
 %pyproject_wheel
@@ -59,7 +63,11 @@ Obsoletes:	python-mako-doc < 1.1.4-6
 %pyproject_save_files %{src_name}
 
 %check
+# the excluded imports need additional dependencies (babel, lingua)
+%pyproject_check_import --exclude mako.ext.babelplugin --exclude mako.ext.linguaplugin
+%if %{with tests}
 %pytest -v
+%endif
 
 %files -n python3-%{src_name} -f %{pyproject_files}
 %license LICENSE

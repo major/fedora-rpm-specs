@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Version:	6.31.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 KCalendarCore Library
 License:	BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-3.0-or-later
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -93,6 +93,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sat Oct 24 2026 Jan Grulich <jgrulich@redhat.com> - 6.31.0-2
+- Rebuild (qt6)
+
 * Fri Oct 02 2026 Steve Cossette <farchord@gmail.com> - 6.31.0-1
 - 6.31.0
 

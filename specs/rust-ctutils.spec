@@ -5,7 +5,7 @@
 %global crate ctutils
 
 Name:           rust-ctutils
-Version:        0.4.3
+Version:        0.4.5
 Release:        %autorelease
 Summary:        Constant-time utility library with selection and equality testing support
 

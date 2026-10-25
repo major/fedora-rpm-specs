@@ -1,6 +1,6 @@
 Name:           sugar-clock
 Version:        22.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Clock activity for Sugar
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -33,10 +33,10 @@ telling time.
 sed -i 's/python/python3/' speaker.py clock.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -51,6 +51,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Oct 24 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 22.1-17
+- Replace setup.py commands with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 22.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

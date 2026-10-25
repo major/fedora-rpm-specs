@@ -4,15 +4,16 @@ codes. python-iso3166 is a self-contained module that converts between these\
 codes and the corresponding country name.
 
 Name:           python-%{srcname}
-Version:        2.1.1
-Release:        16%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Self-contained ISO 3166-1 country definitions
 
 License:        MIT
 URL:            https://github.com/deactivated/%{name}/
-Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+Source0:        %{pypi_source}
 
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 BuildArch:      noarch
 
 %description
@@ -27,11 +28,14 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup
+%autosetup -n %{srcname}-%{version}
+
+# Drop uv_build upper bound
+tomcli set pyproject.toml arrays replace "build-system.requires" "(uv_build\s*>=[^,]+),\s*<.*" "\1"
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -g test-env
 
 
 %build
@@ -44,7 +48,6 @@ Summary:        %{summary}
 
 
 %check
-# Tox tests include mypy run but doesn't work ("Can't find package 'iso3166'")
 %pytest
 
 
@@ -54,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Sat Oct 24 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.0.0-1
+- Update to 3.0.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

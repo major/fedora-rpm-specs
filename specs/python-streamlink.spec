@@ -7,26 +7,16 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        8.4.0
-Release:        5%{?dist}
+Version:        8.6.2
+Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
 License:        BSD-2-Clause AND Apache-2.0
 URL:            https://streamlink.github.io
 Source0:        %{pypi_source %{srcname}}
-# Fix documentation build
-Patch0:         %{name}-8.1.0-documentation.patch
 # Fix tests with pytest < 8.4.0 (F43)
-Patch1:         %{name}-8.1.0-pytest_8.3.patch
-# Fix tests with Python 3.15 argparse colorization API
-Patch2:         %{name}-8.4.0-python3.15_tests.patch
-# Fix HTTPSession.request() params handling with requests >= 2.34 (partially
-# backported from https://github.com/streamlink/streamlink/commit/1ec2b2f)
-Patch3:         %{name}-8.4.0-requests_2.34.patch
-# session.http: fix urllib3 2.8.0 compatibility
-# https://github.com/streamlink/streamlink/commit/8f276a3362a2b9fbe3b3d822673524bbd0e95a32
-Patch4:         python-streamlink-8.4.0-urllib3-2.8.0.patch
+Patch0:         %{name}-8.1.0-pytest_8.3.patch
 BuildRequires:  make
 BuildRequires:  python3-devel
 # For easy patching of pyproject.toml
@@ -83,19 +73,31 @@ tomcli set pyproject.toml arrays replace "project.dependencies" "(pycryptodome)(
 # Drop useless dependencies (only needed for building the HTML documentation)
 tomcli set pyproject.toml arrays delitem "dependency-groups.docs" "furo\s*[><=]+.*"
 
+# Allow shtab < 1.9.0, as shtab >= 1.9.0 (required for fish completion) is not
+# available in Fedora yet, and drop the pre-built fish completion file
+tomcli set pyproject.toml arrays replace "dependency-groups.script" "(shtab)\s*[><=]+.*" "\1"
+rm -r completions/fish/
+
+# Allow Sphinx 9 (sphinx-doc/sphinx#14332 only affects the HTML documentation)
+%if 0%{?fedora} > 44
+tomcli set pyproject.toml arrays replace "dependency-groups.docs" "(sphinx\s*>=[^,]+),\s*<9" "\1"
+%endif
+
 
 %generate_buildrequires
-%pyproject_buildrequires -g test -g build -g docs
+%pyproject_buildrequires -g test,docs,script
 
 
 %build
 %pyproject_wheel
 
 # Generate man pages
-PYTHONPATH=$PWD/src %make_build -C docs/ man SPHINXOPTS=-j%{?_smp_build_ncpus}
+PYTHONPATH=$PWD/src %make_build -C docs/ man SPHINXOPTS=-j%{?_smp_build_ncpus} SPHINXTAGS="-t no_intersphinx"
 
 # Generate shell completion files
-PYTHONPATH=$PWD/src ./script/build-shell-completions.sh
+# TODO: drop the shell list (and the shtab/fish workarounds in %%prep) once
+# shtab >= 1.9.0 is available in Fedora
+PYTHONPATH=$PWD/src %{python3} script/build-shell-completions.py bash zsh
 
 
 %install
@@ -130,6 +132,9 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 
 
 %changelog
+* Sat Oct 24 2026 Mohamed El Morabity <melmorabity@fedoraproject.org> - 8.6.2-1
+- Update to 8.6.2
+
 * Fri Sep 18 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 8.4.0-5
 - Backport fix for urllib 2.8.0 compatibility
 

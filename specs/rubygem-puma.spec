@@ -12,7 +12,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.4.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: A simple, fast, threaded, and highly concurrent HTTP 1.1 server
 # MIT: lib/puma/sd_notify.rb
 # https://github.com/puma/puma/issues/3311
@@ -58,6 +58,9 @@ Patch9: rubygem-puma-pr3615-ruby40-OpenSSL-set_minmax_proto_version-removal.patc
 # support minitest 6
 # ref: https://github.com/rails/rails/commit/99395e1ea401acbc23d4f6b2a8657cdb82f921bd
 Patch10: rubygem-puma-6.4.2-minitest6.patch
+# https://github.com/puma/puma/pull/4039
+# Regenerate expired chain cert
+Patch11: rubygem-puma-pr4039-regenerate-cert.patch
 
 BuildRequires: openssl-devel
 BuildRequires: ruby(release)
@@ -116,6 +119,7 @@ pushd %{builddir}
 %patch 8 -p1
 %patch 9 -p1
 %patch 10 -p1
+%patch 11 -p1
 popd
 
 %if %{with ragel}
@@ -256,6 +260,9 @@ popd
 %{gem_instdir}/tools
 
 %changelog
+* Sat Oct 24 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.4.2-15
+- Backport upstream change for updating SSL certs again for testsuite
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

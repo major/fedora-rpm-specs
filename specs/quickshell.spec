@@ -23,6 +23,9 @@ License:            LGPL-3.0-or-later and BSD-3-Clause and HPND-sell-variant
 URL:                https://quickshell.org/
 Source:             https://git.outfoxxed.me/%{name}/%{name}/archive/%{tarversion}.%{tarext}#/%{tarbasename}.%{tarext}
 
+# https://github.com/quickshell-mirror/quickshell/commit/5d5d49873fe8cf1f99ddfd5006ceb2057c5c9b13
+Patch:              quickshell-use-moc-includes-instead-opaque-pointer-definitions.patch
+
 BuildRequires:      cmake
 BuildRequires:      cmake(Qt6Core)
 BuildRequires:      cmake(Qt6Qml)
@@ -69,7 +72,7 @@ It can be used alongside a Wayland compositor to build
 a complete desktop environment.
 
 %prep
-%autosetup -C
+%autosetup -C -p1
 
 %conf
 %cmake  -GNinja \

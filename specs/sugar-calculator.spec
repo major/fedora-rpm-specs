@@ -1,6 +1,6 @@
 Name:           sugar-calculator
 Version:        47
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Calculator for Sugar
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -20,11 +20,11 @@ The calculate activity provides a calculator for the Sugar interface.
 sed -i 's/python/python3/' setup.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{sugaractivitydir}
-python3 ./setup.py install --prefix=$RPM_BUILD_ROOT/%{_prefix}
+bundlebuilder install --prefix=$RPM_BUILD_ROOT/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -37,6 +37,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/Calculate.activity/
 
 %changelog
+* Sat Oct 24 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 47-14
+- Replace setup.py commands with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 47-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

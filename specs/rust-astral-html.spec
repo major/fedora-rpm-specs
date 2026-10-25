@@ -12,11 +12,22 @@ Summary:        High-performance HTML parser designed for document traversal
 License:        (MIT OR Apache-2.0) AND BSD-3-Clause
 URL:            https://crates.io/crates/astral-html
 Source:         %{crates_source}
+# * https://github.com/astral-sh/astral-html/commit/1134050ad2cb9dee61861d28786cc36bf4f9ea73
+#   > Correct WHATWG license metadata and package notice (#93)
+#   >
+#   > We record the BSD-3-Clause terms for WHATWG's named character reference
+#   > data in the crate license expression and distribute the notice with the
+#   > repository and crate. The generator reads the packaged notice to
+#   > preserve the existing source header.
+Source10:       https://github.com/astral-sh/astral-html/raw/1134050ad2cb9dee61861d28786cc36bf4f9ea73/LICENSE-BSD
 # Manually created patch for downstream crate metadata changes
-# * Add a BSD-3-Clause term to the SPDX license expression for named character
-#   reference data from the WHATWG HTML Living Standard, as suggested upstream
-#   in “Possible improvements to WHATWG license handling,”
-#   https://github.com/astral-sh/astral-html/issues/81.
+# * https://github.com/astral-sh/astral-html/commit/1134050ad2cb9dee61861d28786cc36bf4f9ea73
+#   > Correct WHATWG license metadata and package notice (#93)
+#   >
+#   > We record the BSD-3-Clause terms for WHATWG's named character reference
+#   > data in the crate license expression and distribute the notice with the
+#   > repository and crate. The generator reads the packaged notice to
+#   > preserve the existing source header.
 Patch:          astral-html-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -58,14 +69,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Provide the BSD-3-Clause text for named character reference data from the
-# WHATWG HTML Living Standard in its own file, as suggested upstream in
-# “Possible improvements to WHATWG license handling,”
-# https://github.com/astral-sh/astral-html/issues/81.
-awk '$1 == "//" && !output && $2 == "Copyright" { output=1 }
-$1 == "//" && output { print $0 };
-$1 != "//" && output { exit 0 }' src/entities_data.rs | tee LICENSE-BSD
-
+cp --preserve '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

@@ -1,6 +1,6 @@
 Name:           sugar-distance
 Version:        36
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Distance measurement for Sugar
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -25,12 +25,11 @@ between them.
 sed -i 's/python/python3/' setup.py
 
 %build
-python3 ./setup.py build
-
+bundlebuilder build
 
 %install
 mkdir -p %{buildroot}%{sugaractivitydir}
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 find %{buildroot}%{sugaractivitydir}Distance.activity/arange.py -type f -name \* -exec chmod 644 {} \;
 
@@ -45,6 +44,9 @@ find %{buildroot}%{sugaractivitydir}Distance.activity/arange.py -type f -name \*
 
 
 %changelog
+* Sat Oct 24 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> 36-18
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 36-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
