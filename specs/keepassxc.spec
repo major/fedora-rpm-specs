@@ -2,7 +2,7 @@
 
 Name:           keepassxc
 Version:        2.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform password manager
 License:        GPL-2.0-or-later AND BSD-2-Clause AND MIT AND CC0-1.0 AND Apache-2.0 AND LGPL-2.0-only AND LGPL-2.1-only
 URL:            https://keepassxc.org/
@@ -170,6 +170,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Oct 25 2026 Jan Grulich <jgrulich@redhat.com> - 2.8.0-3
+- Rebuild (qt6)
+
 * Thu Oct 22 2026 Germano Massullo <germano.massullo@thetra.eu> - 2.8.0-2
 - Disable 32bit x86
 

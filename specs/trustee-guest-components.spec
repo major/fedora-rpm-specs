@@ -4,7 +4,7 @@
 %global projectname guest-components
 
 Name:           trustee-guest-components
-Version:        0.17.0
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Tools that run in confidential VMs, attest and get secrets from Trustee
 
@@ -13,9 +13,12 @@ Summary:        Tools that run in confidential VMs, attest and get secrets from 
 # Apache-2.0
 # Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
 # Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
+# BSD-3-Clause
+# CDLA-Permissive-2.0
 # ISC
 # MIT
 # MIT OR Apache-2.0
@@ -29,6 +32,9 @@ License:        %{shrink:
   (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
   (Apache-2.0 OR BSD-2-Clause OR MIT) AND
   (Apache-2.0 OR BSL-1.0) AND
+  (Apache-2.0 OR ISC OR MIT) AND
+  BSD-3-Clause AND
+  CDLA-Permissive-2.0 AND
   ISC AND
   MIT AND
   (MIT OR Unlicense) AND
@@ -43,22 +49,30 @@ License:        %{shrink:
 URL:            https://github.com/confidential-containers/guest-components
 Source:         https://github.com/confidential-containers/%{projectname}/archive/refs/tags/v%{version}/%{projectname}-%{version}.tar.gz
 
-# * Remove workspace members which are not built
-Patch1:         0001-Fedora-Remove-workspace-members-which-are-not-built.patch
-# * deps/crypto defaults to openssl
-Patch2:         0002-Fedora-AA-deps-crypto-default-to-openssl.patch
-# * kbs_protocol defaults to openssl
-Patch3:         0003-Fedora-kbs_protocol-default-to-openssl.patch
-# * pick attesters to build
-Patch4:         0004-Fedora-attester-pick-attesters-in-all-attesters.patch
+# * Remove workspace members which are not built in Fedora
+Patch1:         0001-Fedora-Remove-workspace-members-which-are-not-built-.patch
+# * deps/crypto: use system openssl, remove pure-Rust crypto stack
+Patch2:         0002-Fedora-AA-deps-crypto-use-system-openssl-remove-pure.patch
+# * kbs_protocol: default to system openssl
+Patch3:         0003-Fedora-kbs_protocol-default-to-system-openssl.patch
+# * attester: pick attesters for Fedora, fix git-only deps
+Patch4:         0004-Fedora-attester-pick-attesters-for-Fedora-fix-git-on.patch
 # * remove dependency ttrpc - not in Fedora
 Patch5:         0005-Fedora-remove-ttrpc-dependency.patch
-# * remove dependency jwt-simple - not in Fedora
-Patch6:         0006-Fedora-remove-jwt-simple-dependency.patch
-# * remove dependency testcontainers - not in Fedora
-Patch7:         0007-Fedora-remove-testcontainers-dependency.patch
-# * update clap version (rhbz#2505038)
-Patch8:         0008-Fedora-clap-4.6.1.diff
+# * remove dependency jwt-simple - not in Fedora; replace with std::time
+Patch6:         0006-Fedora-remove-jwt-simple-replace-time-checks-with-st.patch
+# * replace serde_json_canonicalizer with canon-json (Fedora ships canon-json)
+Patch7:         0007-Fedora-replace-serde_json_canonicalizer-with-canon-j.patch
+# * remove dependency testcontainers - not in Fedora; Docker-based tests
+Patch8:         0008-Fedora-remove-testcontainers-dependency.patch
+# * remove shadow-rs (2.0.0 not in Fedora); use CARGO_PKG_VERSION
+Patch9:         0009-Fedora-remove-shadow-rs-fall-back-to-CARGO_PKG_VERSI.patch
+# * pin serde_with to 3.16.1 (Fedora ships 3.16.1; upstream requires 3.21.0)
+Patch10:        0010-Fedora-pin-serde_with-to-3.16.1.patch
+# * backport sev 7.1.0 API fixes (upstream PR#1743)
+Patch11:        0011-Fedora-backport-sev-7.1.0-API-fixes-upstream-PR-1743.patch
+# * pin serial_test to 3 (Fedora ships 3.4.0; upstream requires 4)
+Patch12:        0012-Fedora-pin-serial_test-to-3-Fedora-ships-3.4.0-upstr.patch
 
 ExclusiveArch:  x86_64
 BuildRequires:  cargo-rpm-macros >= 24

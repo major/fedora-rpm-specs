@@ -1,6 +1,6 @@
 Name:           perl-Starman
-Version:        0.4018
-Release:        2%{?dist}
+Version:        0.4019
+Release:        1%{?dist}
 Summary:        High-performance preforking PSGI/Plack web server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -40,6 +40,7 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(HTTP::Response)
+BuildRequires:  perl(HTTP::Tiny) >= 0.064
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(LWP::Protocol::https)
 BuildRequires:  perl(LWP::UserAgent)
@@ -86,6 +87,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
 %{_mandir}/man3/*
 
 %changelog
+* Sun Oct 25 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.4019-1
+- Update to 0.4019 (fixes CVE-2026-115824, CVE-2026-115822, CVE-2026-115823 and CVE-2026-115817)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4018-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,12 +1,11 @@
 Name:           perl-HTTP-Headers-ActionPack
-Version:        0.09
-Release:        15%{?dist}
+Version:        0.10
+Release:        1%{?dist}
 Summary:        A Perl module to handle the inflation and deflation of complex HTTP header types
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            http://search.cpan.org/dist/HTTP-Headers-ActionPack/
-Source0:        http://www.cpan.org/authors/id/D/DR/DROLSKY/HTTP-Headers-ActionPack-%{version}.tar.gz
+URL:            https://metacpan.org/dist/HTTP-Headers-ActionPack
+Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/HTTP-Headers-ActionPack-%{version}.tar.gz
 
 BuildArch:      noarch
 # build requirements
@@ -39,6 +38,7 @@ BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(Plack::Request)
 BuildRequires:  perl(Test::Fatal) >= 0.0003
 BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test::Timer)
 BuildRequires:  perl(Test::Warnings)
 # Commented out to break the cycle 'perl(Web::Machine) <-> perl(HTTP::Headers::ActionPack)'
 # BuildRequires:  perl(Web::Machine)
@@ -65,12 +65,15 @@ these headers as easy as calling inflate on a compatible object.
 %{make_build} test
 
 %files
-%doc Changes README.md eg
+%doc Changes CONTRIBUTING.md README.md eg
 %license LICENSE
 %{perl_vendorlib}/HTTP*
 %{_mandir}/man3/HTTP*
 
 %changelog
+* Sun Oct 25 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.10-1
+- Update to 0.10 (fixes CVE-2026-113877)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

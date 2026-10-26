@@ -20,7 +20,7 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.8.3
+%define radicale_version  3.9.0
 %define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -526,6 +526,9 @@ fi
 
 
 %changelog
+* Sun Oct 25 2026 Peter Bieringer <pb@bieringer.de> - 3.9.0-1
+- Update to 3.9.0
+
 * Thu Oct 08 2026 Peter Bieringer <pb@bieringer.de> - 3.8.3-1
 - Update to 3.8.3
 

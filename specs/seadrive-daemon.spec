@@ -2,7 +2,7 @@
 
 %global gh_name seadrive-fuse
 Name:           seadrive-daemon
-Version:        3.0.24
+Version:        3.0.27
 Release:        1%{?dist}
 Summary:        Daemon part of Seafile Drive client
 
@@ -77,6 +77,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{python3_sitearch}/seadrive/
 
 %changelog
+* Sun Oct 25 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.27-1
+- Update to 3.0.27
+
 * Sun Aug 02 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.24-1
 - Update to 3.0.24
 

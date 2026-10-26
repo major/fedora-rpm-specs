@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-qtbase
 Version:        5.15.18
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -102,6 +102,13 @@ Patch19:        qtbase-5.15.8-fix-missing-qtsan-include.patch
 
 # Fix linking against static harfbuzz
 Patch20:        qtbase-fix-linking-against-static-harfbuzz.patch
+
+# Backport fix for CVE-2026-19248
+Patch21:        CVE-2026-19248.patch
+
+# Backport fix for CVE-2026-11573
+Patch22:        CVE-2026-11573.patch
+
 
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
 # git diff v5.15.15-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
@@ -818,6 +825,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Sun Oct 25 2026 Sandro Mani <manisandro@gmail.com> - 5.15.18-4
+- Backport fixes for CVE-2026-19248 and CVE-2026-11573
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           python-huggingface-hub
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Client library to handle repos on the huggingface.co hub
 

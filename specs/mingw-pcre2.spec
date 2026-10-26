@@ -3,7 +3,7 @@
 %global pkgname pcre2
 
 Name:          mingw-%{pkgname}
-Version:       10.48
+Version:       10.49
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -169,6 +169,9 @@ chmod 0644 %{buildroot}%{mingw64_libdir}/*.dll.a
 
 
 %changelog
+* Sun Oct 25 2026 Sandro Mani <manisandro@gmail.com> - 10.49-1
+- Update to 10.49
+
 * Tue Sep 15 2026 Sandro Mani <manisandro@gmail.com> - 10.48-1
 - Update to 10.48
 

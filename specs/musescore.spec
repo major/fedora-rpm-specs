@@ -33,7 +33,7 @@ Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
 # IMPORTANT: Change all the release numbers above, too!
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -92,7 +92,7 @@ Emmentaler font created for Lilypond, but has been modified for MuseScore.}
 %global fontpkgheader1  %{expand:
 Epoch:          1
 Version:        %{mscore_font_ver}
-Release:        %{mscore_font_rel}
+Release:        %{mscore_font_rel}.1
 }
 
 %global fontfamily2     MScoreText
@@ -103,7 +103,7 @@ Release:        %{mscore_font_rel}
 %global fontdescription2 This package contains the base MuseScore text font.
 %global fontpkgheader2  %{expand:
 Version:        %{mscoretext_font_ver}
-Release:        %{mscoretext_font_rel}
+Release:        %{mscoretext_font_rel}.1
 }
 
 %global fontfamily3     MusescoreIcon
@@ -114,7 +114,7 @@ Release:        %{mscoretext_font_rel}
 %global fontdescription3 This package contains a set of MuseScore icons.
 %global fontpkgheader3  %{expand:
 Version:        %{musescoreicon_font_ver}
-Release:        %{musescoreicon_font_rel}
+Release:        %{musescoreicon_font_rel}.1
 }
 
 %global fontfamily4     MScoreBC
@@ -126,7 +126,7 @@ Release:        %{musescoreicon_font_rel}
 matching glyphs in the main MuseScore font.}
 %global fontpkgheader4  %{expand:
 Version:        %{mscorebc_font_ver}
-Release:        %{mscorebc_font_rel}
+Release:        %{mscorebc_font_rel}.1
 }
 
 %global fontfamily5     MScoreTabulature
@@ -137,7 +137,7 @@ Release:        %{mscorebc_font_rel}
 %global fontdescription5 This package contains a MuseScore font with Renaissance-style tabulatures.
 %global fontpkgheader5  %{expand:
 Version:        %{mscoretabulature_font_ver}
-Release:        %{mscoretabulature_font_rel}
+Release:        %{mscoretabulature_font_rel}.1
 }
 
 %global fontfamily6     MuseJazz
@@ -150,7 +150,7 @@ Release:        %{mscoretabulature_font_rel}
 names, etc.}
 %global fontpkgheader6  %{expand:
 Version:        %{musejazz_font_ver}
-Release:        %{musejazz_font_rel}
+Release:        %{musejazz_font_rel}.1
 }
 
 %global fontfamily7     MuseJazz Text
@@ -162,7 +162,7 @@ Release:        %{musejazz_font_rel}
 %global fontdescription7 The MuseJazz Text font is designed to complement the MuseJazz font.
 %global fontpkgheader7  %{expand:
 Version:        %{musejazz_font_ver}
-Release:        %{musejazz_font_rel}
+Release:        %{musejazz_font_rel}.1
 }
 
 %global fontfamily8     Gootville
@@ -176,7 +176,7 @@ Lilypond.  The two fonts have common graphic aspects, but the registration,
 glyph order, and other aspects of Gootville have been modified for MuseScore.}
 %global fontpkgheader8  %{expand:
 Version:        %{gootville_font_ver}
-Release:        %{gootville_font_rel}
+Release:        %{gootville_font_rel}.1
 }
 
 %global fontfamily9     Gootville Text
@@ -188,7 +188,7 @@ Release:        %{gootville_font_rel}
 %global fontdescription9 The Gootville Text font is designed to complement the Gootville font.
 %global fontpkgheader9  %{expand:
 Version:        %{gootville_text_font_ver}
-Release:        %{gootville_text_font_rel}
+Release:        %{gootville_text_font_rel}.1
 }
 
 Source0:        %{giturl}/archive/v%{musescore_ver}/MuseScore-%{musescore_ver}.tar.gz
@@ -234,6 +234,9 @@ Patch:          %{name}-styleddropdownnavigation.patch
 Patch:          %{name}-ffmpeg9.patch
 # Fix a CVE in the bundled fluidsynth
 Patch:          %{name}-CVE-2026-61714.patch
+# Fix build with Qt 6.12
+# https://github.com/musescore/muse_framework/pull/256
+Patch:          %{name}-fix-build-with-qt-6-12.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -251,6 +254,7 @@ BuildOption(conf): -DMUE_COMPILE_USE_SYSTEM_UTF8CPP:BOOL=ON
 BuildOption(conf): -DMUE_DOWNLOAD_SOUNDFONT:BOOL=OFF
 BuildOption(conf): -DMUSE_APP_BUILD_MODE:STRING=release
 BuildOption(conf): -DMUSE_COMPILE_USE_PCH:BOOL=OFF
+BuildOption(conf): -DMUSE_COMPILE_USE_UNITY:BOOL=OFF
 BuildOption(conf): -DMUSE_ENABLE_UNIT_TESTS:BOOL=OFF
 BuildOption(conf): -DMUSE_MODULE_AUDIO_PIPEWIRE:BOOL=ON
 BuildOption(conf): -DMUSE_MODULE_GLOBAL_LOGGER_DEBUGLEVEL:BOOL=OFF
@@ -400,7 +404,7 @@ Shared data for all MuseScore installations.
 %package        soundfont
 Summary:        Basic soundfont for MuseScore
 Version:        %{soundfont_ver}
-Release:        %{soundfont_rel}
+Release:        %{soundfont_rel}.1
 License:        MIT
 BuildArch:      noarch
 
@@ -751,6 +755,9 @@ EOF
 %fontfiles -z 9
 
 %changelog
+* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 4.7.5-4
+- Rebuild (qt6)
+
 * Sat Sep 19 2026 Jerry James <loganjerry@gmail.com> - 4.7.5-2
 - Bump release to stay ahead of F44
 
@@ -1333,4 +1340,3 @@ EOF
 
 * Sat Feb 21 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> 0.9.4-1
 - Initial Fedora build
-

@@ -21,7 +21,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.45%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
+Release:        0.46%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Qt5 for Windows - QtWebKit component
 
 License:        LGPL-2.1-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -57,6 +57,9 @@ Patch9:         qtwebkit-c++17.patch
 Patch10:        qtwebkit_cmakever.patch
 # Fix build against gcc15
 Patch11:        qtwebkit_gcc15.patch
+# Backport fix for CVE-2026-111497 (bundled brotli)
+# https://github.com/google/brotli/commit/b418fa81c48262a86a95332b0bc6d62c30aa78b6.patch
+Patch12:        CVE-2026-111497.patch
 
 BuildArch:      noarch
 
@@ -264,6 +267,9 @@ rmdir %{buildroot}%{mingw64_libdir}/qt5/bin/
 
 
 %changelog
+* Sun Oct 25 2026 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.46.alpha4
+- Backport fix for CVE-2026-111497
+
 * Wed Sep 16 2026 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.45.alpha4
 - Rebuild (mingw-libxml2)
 

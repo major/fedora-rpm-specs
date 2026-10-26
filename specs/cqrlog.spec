@@ -1,5 +1,5 @@
 Name:		cqrlog
-Version:	3.2.1
+Version:	3.3.0
 Release:	1%{?dist}
 Summary:	An amateur radio contact logging program
 
@@ -51,14 +51,8 @@ operation and maintenance.
 %prep
 %autosetup -p1
 
-chmod -x src/azidis3.pas
-chmod -x src/gline2.pas
-chmod -x src/odbec.pas
-chmod -x src/aziloc.pas
-chmod -x src/znacmech.pas
-chmod -x tools/cqrlog-apparmor-fix
-chmod -x voice_keyer/voice_keyer.sh
-
+# Remove unneeded execute permissions
+find . -type f -exec chmod 0644 {} +
 
 
 %build
@@ -103,6 +97,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Oct 25 2026 Steven A. Falco <stevenfalco@gmail.com> - 3.3.0-1
+- Update to 3.3.0
+
 * Tue Oct 06 2026 Steven A. Falco <stevenfalco@gmail.com> - 3.2.1-1
 - Update to 3.2.1
 

@@ -4,7 +4,7 @@
 
 Name:           eccodes
 Version:        2.50.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -442,6 +442,10 @@ export LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Sun Oct 25 2026 Jos de Kloe <josdekloe@gmail.com> - 2.50.0-2
+- Try to rebuild since the s390x does not reproduce when I build
+  on my local machine with mock --forcearch s390x
+
 * Thu Oct 15 2026 Jos de Kloe <josdekloe@gmail.com> - 2.50.0-1
 - Update to 2.50.0
 - Remove old grib_api obsoletes logic

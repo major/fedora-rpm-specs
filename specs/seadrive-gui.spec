@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:           seadrive-gui
-Version:        3.0.24
+Version:        3.0.27
 Release:        1%{?dist}
 Summary:        GUI part of Seafile Drive client
 
@@ -47,6 +47,8 @@ Requires:       hicolor-icon-theme
 # even if there's no direct dependency. New seadrive-daemon release
 # would be tagged if there are GUI changes relevant for Linux
 Requires:       seadrive-daemon = %{version}
+# SeaDrive calls fusermount to manage the mount point
+Requires:       fuse
 
 %description
 Seafile is a next-generation open source cloud storage system, with advanced
@@ -91,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seadrive.appda
 %{_metainfodir}/seadrive.appdata.xml
 
 %changelog
+* Sun Oct 25 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.27-1
+- Update to 3.0.27
+
 * Sun Aug 02 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 3.0.24-1
 - Update to 3.0.24
 

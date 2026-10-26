@@ -5,7 +5,7 @@
 Name:          mingw-%{pkgname}
 # NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
 Version:       4.7.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
 License:       CFITSIO
@@ -14,6 +14,8 @@ URL:           https://heasarc.gsfc.nasa.gov/fitsio/
 Source0:       https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/%{pkgname}-%{version}.tar.gz
 # Install headers to include/cfitsio
 Patch0:        cfitsio_cmake.patch
+# Backport fix for CVE-2026-115504
+Patch1:        https://github.com/HEASARC/cfitsio/commit/579792e0f85bff0c6733ad5ebdf54c3b5c188686.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -110,6 +112,9 @@ MinGW Windows CFITSIO library.
 %{mingw64_bindir}/speed.exe
 
 %changelog
+* Sun Oct 25 2026 Sandro Mani <manisandro@gmail.com> - 4.7.0-2
+- Backport fix for CVE-2026-115504
+
 * Sun Aug 16 2026 Sandro Mani <manisandro@gmail.com> - 4.7.0-1
 - Update to 4.7.0
 

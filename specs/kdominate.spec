@@ -1,4 +1,5 @@
 Name:       kdominate
+Epoch:      1
 Version:    26.08.2
 Release:    %autorelease
 Summary:    KDominate is a tactical game for one or two players

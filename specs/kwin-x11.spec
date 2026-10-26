@@ -17,6 +17,8 @@ Source0: https://download.kde.org/%{stable}/plasma/%{plasma_version}/%{name}-%{v
 Source1: https://download.kde.org/%{stable}/plasma/%{plasma_version}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
+Patch:   kwin-adapt-to-kglobalaccel-removal.patch
+Patch:   kwin-fix-lockscreen.patch
 
 ## proposed patches
 
@@ -177,7 +179,7 @@ developing applications that use %{name}.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build

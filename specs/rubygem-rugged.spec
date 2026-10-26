@@ -3,13 +3,18 @@
 Summary:       Rugged is a Ruby binding to the libgit2 library
 Name:          rubygem-%{gem_name}
 Version:       1.9.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 
 License:       MIT
 URL:           https://github.com/libgit2/rugged
 Source0:       https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/libgit2/rugged/pull/985
 Patch:         985.patch
+# Use TypedData API, needed for ruby4.1
+# https://github.com/libgit2/rugged/pull/998
+Patch:         %{name}-pr998-TypedData-api.patch
+# https://github.com/libgit2/rugged/pull/1003/
+Patch:         %{name}-pr1003-TypedData-api.patch
 
 Requires:      ruby(rubygems)
 Requires:      ruby
@@ -75,6 +80,9 @@ rm -rf %{buildroot}%{gem_instdir}/ext/
 %doc %{gem_docdir}
 
 %changelog
+* Sun Oct 25 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.9.0-8
+- Backport upstream patch to use TypedData API needed for ruby4.1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -16,6 +16,11 @@ Source0:        %forgesource
 Source1:        cutter-re.desktop
 Source2:        cutter-re.appdata.xml
 
+# https://github.com/rizinorg/cutter/pull/3670
+Patch0:         cutter-qt612-uic.patch
+# Fixed with help from LLMs
+Patch1:         cutter-fix-build-against-python-3.15.patch
+
 BuildRequires:  clang
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils

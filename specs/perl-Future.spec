@@ -1,5 +1,5 @@
 Name:           perl-Future
-Version:        0.53
+Version:        0.54
 Release:        1%{?dist}
 Summary:        Perl object system to represent an operation awaiting completion
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -63,6 +63,9 @@ flow of control, and data, through an asynchronous program.
 %{_mandir}/man3/Test::Future*
 
 %changelog
+* Sun Oct 25 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.54-1
+- Update to 0.54
+
 * Sun Oct 04 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.53-1
 - Update to 0.53
 

@@ -1,14 +1,15 @@
 Name:           qlog
-Version:        0.53.0
+Version:        0.54.0
 Release:        %autorelease
 Summary:        Qt Logging program for ham-radio operators
 
 # QLog is generally GPL 3+, with the following exceptions:
+# 3rdparty/vincentlaucsb/csv-parser/LICENSE (MIT)
+# 3rdparty/bertoldvdb/zonedetect/LICENSE (BSD 3 clause)
+# 3rdparty/bertoldvdb/zonedetect/database/timezone_DATA_LICENSE (ODbL)
 # core/csv.hpp (MIT)
 # core/zonedetect.c (BSD 3 clause)
 # core/zonedetect.h (BSD 3 clause)
-# devtools/timezones/builder/builder.cpp (BSD 3 clause)
-# devtools/timezones/timezone_DATA_LICENSE (ODbL)
 License:        GPL-3.0-or-later AND BSD-3-Clause AND MIT AND ODbL-1.0
 Url:            https://github.com/foldynl/QLog
 ExclusiveArch:  %{qt6_qtwebengine_arches}
@@ -56,7 +57,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %license LICENSE
 %license LICENSE.BSD-3-Clause
 %license LICENSE.MIT
-%license devtools/timezones/timezone_DATA_LICENSE
+%license 3rdparty/bertoldvdb/zonedetect/database/timezone_DATA_LICENSE
 %doc README.md Changelog
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop

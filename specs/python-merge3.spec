@@ -1,5 +1,5 @@
 Name:           python-merge3
-Version:        0.0.16
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Python implementation of 3-way merge
 
@@ -9,10 +9,6 @@ Source0:        %{url}/archive/v%{version}/merge3-%{version}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help text
 # and on README.rst.
 Source1:        merge3.1
-
-# tox: allow passing positional arguments through to unittest
-# https://github.com/breezy-team/merge3/pull/130
-Patch:          %{url}/pull/130.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --tox

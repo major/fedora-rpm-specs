@@ -1,13 +1,11 @@
 %global srcname   Stockfish
 
 # In src/evaluate.h,
-# #define EvalFileDefaultNameBig "nn-HASH.nnue"
-%global nnuehash1 c288c895ea92
-# #define EvalFileDefaultNameSmall "nn-HASH.nnue"
-%global nnuehash2 37f18f62d772
+# #define EvalFileDefaultName "nn-HASH.nnue"
+%global nnuehash1 1a298aa575a0
 
 Name:            stockfish
-Version:         18
+Version:         19
 Release:         %autorelease
 #Source0:        %%{url}/files/%%{name}-%%{version}-linux.zip
 Source0:         https://github.com/official-%{name}/%{srcname}/archive/sf_%{version}.zip
@@ -19,8 +17,7 @@ License:         GPL-3.0-or-later AND CC0-1.0
 URL:             http://%{name}chess.org
 
 # the NN files
-Source1:         https://tests.stockfishchess.org/api/nn/nn-%nnuehash1.nnue
-Source2:         https://tests.stockfishchess.org/api/nn/nn-%nnuehash2.nnue
+Source1:         https://tests.stockfishchess.org/api/nn/nn-%{nnuehash1}.nnue
 
 # steal some documentation from ubuntu
 Source10:        https://bazaar.launchpad.net/~ubuntu-branches/ubuntu/vivid/%{name}/vivid/download/head:/engineinterface.txt-20091204230329-yljoyxocuxhxg1ot-78/engine-interface.txt#/%{name}-interface.txt
@@ -46,8 +43,7 @@ information about how to use Stockfish with your GUI.
 
 %prep
 # verify the NNUE net checksums early to catch maintainer error
-test %nnuehash1 = "$(sha256sum %{SOURCE1} | cut -c1-12)"
-test %nnuehash2 = "$(sha256sum %{SOURCE2} | cut -c1-12)"
+test "%{nnuehash1}" = "$(sha256sum %{SOURCE1} | cut -c1-12)"
 
 #%%autosetup -n%%{name}-%%{version}-linux
 %autosetup -p1 -n%{srcname}-sf_%{version}
@@ -59,11 +55,10 @@ test %nnuehash2 = "$(sha256sum %{SOURCE2} | cut -c1-12)"
 sed -i '/#error/d' src/types.h
 
 # Verify the NNUE net checksums match the defaults defined in the sources
-grep -Fq '#define EvalFileDefaultNameBig "nn-%{nnuehash1}.nnue"' src/evaluate.h
-grep -Fq '#define EvalFileDefaultNameSmall "nn-%{nnuehash2}.nnue"' src/evaluate.h
+grep -Fq '#define EvalFileDefaultName "nn-%{nnuehash1}.nnue"' src/evaluate.h
 
 cp -t. -p %{SOURCE10} %{SOURCE11}
-cp -tsrc -p %{SOURCE1} %{SOURCE2}
+cp -tsrc -p %{SOURCE1}
 
 # W: wrong-file-end-of-line-encoding
 sed -i 's,\r$,,' %{name}-interface.txt

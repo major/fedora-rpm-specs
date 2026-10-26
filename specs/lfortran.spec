@@ -1,4 +1,4 @@
-Version:        0.67.0
+Version:        0.68.0
 Name:           lfortran
 Release:        1%{?dist}
 Summary:        A modern Fortran compiler
@@ -143,6 +143,7 @@ rmdir %{buildroot}/%{_prefix}/libasr
 %{_includedir}/lfortran/ISO_Fortran_binding.h
 %dir %{_includedir}/lfortran/impure
 %{_includedir}/lfortran/impure/lfortran_intrinsics.h
+%{_includedir}/lfortran/impure/lfortran_stdin.h
 %dir %{_datadir}/lfortran
 %{_datadir}/lfortran/*.py
 %{_libdir}/lfortran_*.mod
@@ -162,6 +163,10 @@ rmdir %{buildroot}/%{_prefix}/libasr
 %endif
 
 %changelog
+* Sun Oct 25 2026 Christoph Junghans <junghans@votca.org> - 0.68.0-1
+- Update to version 0.68.0
+- Resolves: rhbz#2560369
+
 * Wed Oct 07 2026 Christoph Junghans <junghans@votca.org> - 0.67.0-1
 - Update to version 0.67.0
 - Resolves: rhbz#2547287

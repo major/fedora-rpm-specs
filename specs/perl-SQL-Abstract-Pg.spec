@@ -1,6 +1,6 @@
 Name:           perl-SQL-Abstract-Pg
-Version:        1.0
-Release:        16%{?dist}
+Version:        1.01
+Release:        1%{?dist}
 Summary:        PostgreSQL features for SQL::Abstract
 License:        Artistic-2.0
 
@@ -51,6 +51,9 @@ by Mojo::Pg.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Oct 25 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.01-1
+- Update to 1.01
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

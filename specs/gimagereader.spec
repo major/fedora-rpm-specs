@@ -1,6 +1,6 @@
 Name:          gimagereader
-Version:       3.4.3
-Release:       5%{?dist}
+Version:       3.4.4
+Release:       1%{?dist}
 Summary:       A front-end to tesseract-ocr
 
 License:       GPL-3.0-or-later
@@ -20,15 +20,11 @@ BuildRequires: tesseract-devel
 BuildRequires: cairomm-devel
 BuildRequires: libappstream-glib
 BuildRequires: libjpeg-turbo-devel
-%if 0%{fedora} > 26
-BuildRequires: libxml++30-devel
-%else
-BuildRequires: libxml++-devel
-%endif
+BuildRequires: libxml++50-devel
 BuildRequires: libuuid-devel
 BuildRequires: libzip-devel
 BuildRequires: gtkmm30-devel
-BuildRequires: gtksourceviewmm3-devel
+BuildRequires: gtksourceview3-devel
 BuildRequires: gtkspellmm30-devel
 BuildRequires: json-glib-devel
 BuildRequires: poppler-glib-devel
@@ -145,6 +141,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-q
 %{_datadir}/applications/%{name}-qt6.desktop
 
 %changelog
+* Sun Oct 25 2026 Sandro Mani <manisandro@gmail.com> - 3.4.4-1
+- Update to 3.4.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

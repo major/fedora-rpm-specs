@@ -1,5 +1,5 @@
 Name:           libslirp
-Version:        4.9.5
+Version:        4.9.6
 Release:        1%{?dist}
 Summary:        A general purpose TCP-IP emulator
 
@@ -52,6 +52,12 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Oct 25 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.9.6-1
+- new version, rhbz#2560335
+- Fix buffer underflow in TFTP RRQ handling with an empty filename
+- Fix ICMP/ICMPv6 echo reply length desynchronization and protocol type mismatch
+- Fix several memory and socket descriptor leaks
+
 * Tue Sep 22 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.9.5-1
 - new version, rhbz#2524215
 - Fix CVE-2026-95508: heap buffer overflow in DHCPv6/TFTP response builders on small interface MTU

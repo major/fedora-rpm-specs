@@ -15,7 +15,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop unused, benchmark-only dev-dependency on criterion
 # * Update rstest to 0.13, rstest_reuse to 0.7
-# * Drop the clap and strum dev-dependencies and the exmaple that would require
+# * Drop the clap and strum dev-dependencies and the example that would require
 #   them in order to avoid depending on additional compat packages.
 Patch:          base64-fix-metadata.diff
 

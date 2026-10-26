@@ -1,6 +1,3 @@
-%global commit 4bcdc19ca9a2a5b9817e3e501d0018b58bf577d0
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           perl-File-Unpack2
 Version:        2.0
 Release:        %autorelease
@@ -14,11 +11,11 @@ Summary:        Strong archive file unpacker, based on mime-types
 # README: GPL-1.0-or-later OR Artistic-1.0-Perl
 # Unpack2.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 License:        (MIT OR GPL-1.0-or-later) AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
-# wget https://github.com/openSUSE/perl-File-Unpack2/archive/%%{commit}/%%{name}-%%{shortcommit}.tar.gz
-# tar axf %%{name}-%%{shortcommit}.tar.gz
-# rm -rf perl-File-Unpack2-%%{commit}/t
-# tar caf %%{name}-%%{shortcommit}-repackaged.tar.gz perl-File-Unpack2-%%{commit}
-Source:         %{name}-%{shortcommit}-repackaged.tar.gz
+# wget https://github.com/openSUSE/perl-File-Unpack2/archive/v%%{version}/%%{name}-%%{version}.tar.gz
+# tar axf %%{name}-%%{version}.tar.gz
+# rm -rf %%{name}-%%{version}/t
+# tar caf %%{name}-%%{version}-repackaged.tar.gz %%{name}-%%{version}
+Source:         %{name}-%{version}-repackaged.tar.gz
 URL:            https://github.com/openSUSE/perl-File-Unpack2
 
 BuildRequires:  perl-generators
@@ -134,7 +131,7 @@ License:        MIT OR GPL-1.0-or-later OR (GPL-1.0-or-later OR Artistic-1.0-Per
 ships with the File::Unpack perl module.
 
 %prep
-%autosetup -n %{name}-%{commit}
+%autosetup -n %{name}-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1

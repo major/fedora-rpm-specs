@@ -1,5 +1,5 @@
-%global commit 198c2725a841e93bd457663229f784eb63898669
-%global snapdate 20260704
+%global commit 05534507ab111756ebe896685117e79d808594a9
+%global snapdate 20261024
 
 Name:           lexertl14
 Summary:        The Modular Lexical Analyser Generator

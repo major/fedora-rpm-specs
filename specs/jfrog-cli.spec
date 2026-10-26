@@ -20,6 +20,8 @@ Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 # Fedora installations are updated by the package manager.
 Patch0:         0001-Disable-new-version-check-by-default.patch
+# https://github.com/golang/sys/commit/f5cb0306ac0e (fixes ppc64le crashes, x/sys v0.49.0)
+Patch1:         0002-x-sys-unix-set-R12-before-the-ppc64x-syscall-branch.patch
 
 BuildRequires:  go-vendor-tools
 
@@ -31,8 +33,9 @@ JFrog CLI is a client that provides a simple interface that automates access to
 the JFrog products.
 
 %prep
-%goprep -p1
+%goprep -A
 tar -xf %{S:1}
+%autopatch -p1
 
 # These tests require access to an Artifactory instance, which is identified by a serverDetails configuration:
 find . -path ./vendor -prune -o -name '*_test.go' -print |

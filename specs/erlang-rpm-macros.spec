@@ -1,11 +1,11 @@
 Name:		erlang-rpm-macros
-Version:	0.4.0
+Version:	0.4.1
 Release:	%autorelease
 Summary:	Macros for simplifying building of Erlang packages
 License:	MIT
 URL:		https://github.com/fedora-erlang/erlang-rpm-macros
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:		%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 # These BRs needed only for testing
 BuildRequires:	erlang-erts
@@ -45,6 +45,8 @@ When both packages are installed, the full version takes precedence.
 %install
 install -d %{buildroot}%{_rpmconfigdir}/fileattrs
 install -d %{buildroot}%{_rpmconfigdir}/macros.d
+install -p -m 0755 erlang-buildrequires.escript %{buildroot}%{_rpmconfigdir}/erlang-buildrequires
+install -p -m 0755 erlang-find-provides.py %{buildroot}%{_rpmconfigdir}/erlang-find-provides
 install -p -m 0755 erlang-find-requires.py %{buildroot}%{_rpmconfigdir}/erlang-find-requires
 install -p -m 0644 macros.aaa-erlang-srpm %{buildroot}%{_rpmmacrodir}/
 install -p -m 0644 macros.erlang %{buildroot}%{_rpmmacrodir}/
@@ -56,6 +58,8 @@ make check
 %files
 %license LICENSE
 %doc README.md
+%{_rpmconfigdir}/erlang-buildrequires
+%{_rpmconfigdir}/erlang-find-provides
 %{_rpmconfigdir}/erlang-find-requires
 %{_rpmconfigdir}/fileattrs/erlang.attr
 %{_rpmmacrodir}/macros.erlang

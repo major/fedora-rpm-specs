@@ -1,14 +1,14 @@
 %global realname cowboy
 
 Name:		erlang-%{realname}
-Version:	2.18.0
+Version:	2.20.0
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	Small, fast, modular HTTP server written in Erlang
 License:	ISC
 URL:		https://github.com/ninenines/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
+Source:		%{url}/archive/%{version}/%{realname}-%{version}.tar.gz
 BuildRequires:	erlang-cowlib
 BuildRequires:	erlang-ct_helper
 BuildRequires:	erlang-gun

@@ -140,7 +140,7 @@
 %bcond varlink 0
 %endif
 
-%global samba_version 4.25.0
+%global samba_version 4.25.1
 
 # The release field is extended:
 # <pkgrel>[.<extraver>][.<snapinfo>]%%{?dist}[.<minorbump>]
@@ -241,8 +241,6 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
-
-Patch0:         0001-buildtools-Restrict-dynamic_lookup-to-macOS.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}

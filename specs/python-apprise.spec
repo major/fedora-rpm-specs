@@ -43,6 +43,9 @@
 
 %global pypi_name apprise
 
+# Use up to 8 test workers; builders can lower this with _smp_ncpus_max
+%global pytest_workers %{lua: print(math.min(8, tonumber(rpm.expand("%{_smp_build_ncpus}")) or 1))}
+
 # Handle rpmlint false positives
 # - Prevent warnings:
 #    en_US ntfy -> notify
@@ -58,25 +61,30 @@
 Apprise is a Python package that simplifies access to many popular \
 notification services. It supports sending alerts to platforms such as: \
 \
-`46elks`, `800.com`, `AfricasTalking`, `Amazon Chime`, `Apprise API`, \
-`APRS`, \
-`AWS SES`, `AWS SNS`, `Bark`, `Blink(1)`, `BlueSky`, `Brevo`, \
-`Burst SMS`, `BulkSMS`, `BulkVS`, \
-`Chanify`, `Clickatell`, `ClickSend`, `DAPNET`, `DingTalk`, `Discord`, \
+`46elks`, `800.com`, `AfricasTalking`, `AMQP`, \
+`Apprise API`, `APRS`, \
+`AWS SES`, `AWS SNS`, `Bark`, `Better Stack`, `Blink(1)`, `BlueSky`, \
+`Brevo`, `Burst SMS`, `BulkSMS`, `BulkVS`, \
+`Chanify`, `Clickatell`, `ClickSend`, `DAPNET`, `Delta Chat`, \
+`DingTalk`, `Discord`, \
 `Dot. (Quote/0)`, `E-Mail`, `Emby`, `Evolution API`, `Exotel`, \
-`FCM`, `Feishu`, `Flock`, `Flowtriq`, `Fluxer`, `Free Mobile`, `Google Chat`, \
-`Gotify`, `GroupMe`, `Growl`, `Guilded`, `Home Assistant`, `httpSMS`, \
-`HumHub`, \
-`IFTTT`, `IRC`, `Jellyfin`, `Jira`, `Join`, `Kavenegar`, `KODI`, `Kook`, \
-`Kumulos`, `LaMetric`, `Lark`, `Line`, `MacOSX`, `Mailgun`, `MailerSend`, \
+`FCM`, `Feishu`, `Flock`, `Flowtriq`, `Fluxer`, `Free Mobile`, `GitHub`, \
+`GoAlert`, `Google Chat`, `Gorush`, `Gotify`, `GroupMe`, `Growl`, \
+`Guilded`, `Home Assistant`, `httpSMS`, \
+`HumHub`, `IFTTT`, `ilert`, `incident.io`, \
+`IRC`, `Jellyfin`, `Jira`, `Join`, `Kavenegar`, `KODI`, `Kook`, \
+`Kumulos`, `LaMetric`, `Lark`, `Lauther`, `LFG Alarm`, `Line`, \
+`MacOSX`, `Mailgun`, \
+`MailerSend`, \
 `Mastodon`, \
 `Mattermost`, `Matrix`, `MessageBird`, `Microsoft Windows`, \
-`Microsoft Teams`, `Misskey`, \
+`Microsoft Teams`, `Misskey`, `Mobile Message`, \
 `MQTT`, `MSG91`, `MyAndroid`, `Nexmo`, `Nextcloud`, \
-`NextcloudTalk`, `Notica`, `NotificationAPI`, `Notifiarr`, `Notifico`, \
+`NextcloudTalk`, `Notica`, `Notifiarr`, `Notifico`, \
 `Notifyre`, \
-`ntfy`, `Octopush`, `Office365`, `OneSignal`, `Opsgenie`, `PagerDuty`, \
-`PagerTree`, `ParsePlatform`, `Plivo`, `Prowl`, \
+`ntfy`, `Octopush`, `Office365`, `OneBot`, `OneSignal`, \
+`Opsgenie`, `PagerDuty`, \
+`PagerTree`, `ParsePlatform`, `Pinglet`, `Pingram`, `Plivo`, `Prowl`, \
 `Postmark`, `Pushalot`, `PushBullet`, \
 `Pushjet`, `PushMe`, `Pushover`, `Pushplus`, `PushSafer`, `PushWard`, \
 `Pushy`, `PushDeer`, \
@@ -84,18 +92,21 @@ notification services. It supports sending alerts to platforms such as: \
 `RSyslog`, `SendGrid`, \
 `SendPulse`, `ServerChan`, `SerwerSMS`, `Session Open Group Server`, \
 `Seven`, `SFR`, \
-`Signal`, `SIGNL4`, `SimplePush`, \
+`Signal`, `Signalgrid`, `SIGNL4`, `Simplepush`, \
 `Sinch`, `Slack`, `SMPP`, `SMSC`, `SMSEagle`, `SMS Manager`, `SMTP2Go`, \
-`SparkPost`, `Splunk`, `Spike`, `Spug Push`, `Stackfield`, `Super Toasty`, \
+`SparkPost`, `Splunk`, `Spike`, `Spug Push`, `Squadcast`, \
+`Stackfield`, `Super Toasty`, \
 `Streamlabs`, `Stride`, \
-`Synology Chat`, `Syslog`, `Techulus Push`, `Telegram`, `Threema Gateway`, \
-`Twilio`, `Twitter`, `Twist`, `Vapid`, `Viber`, `VictorOps`, `Voipms`, \
-`Vonage`, `WebPush`, `WeChat (WeCom)`, `WeCom Bot`, `WhatsApp`, \
-`Webex Teams`, `Workflows`, `WxPusher`, `XBMC`, `XMPP`, `Zoom`, and `Zulip`.}
+`Synology Chat`, `Syslog`, `Techulus Push`, `Telegram`, `Telnyx`, \
+`Threema Gateway`, `Trigv`, `Twilio`, `Twitter`, `Twist`, `Vapid`, \
+`Viber`, `VictorOps`, \
+`Voipms`, `Vonage`, `WebPush`, `WeChat (WeCom)`, `WeCom Bot`, `WhatsApp`, \
+`Webex Teams`, `Workflows`, `WPUSH`, `WxPusher`, `XBMC`, `XMPP`, `YouLMK`, \
+`Zalo`, `Zoho Cliq`, `Zoom`, and `Zulip`.}
 
 Name:           python-%{pypi_name}
-Version:        1.12.0
-Release:        2%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
 URL:            https://github.com/caronc/%{pypi_name}
@@ -135,6 +146,7 @@ BuildRequires: python3dist(setuptools) >= 69
 
 BuildRequires: python3dist(wheel)
 BuildRequires: python3dist(requests)
+BuildRequires: python3dist(urllib3)
 BuildRequires: python3dist(requests-oauthlib)
 BuildRequires: python3dist(click) >= 5.0
 BuildRequires: python3dist(markdown)
@@ -147,9 +159,11 @@ BuildRequires: python3dist(tox)
 %if %{with tests}
 BuildRequires: python3dist(pytest)
 BuildRequires: python3dist(pytest-mock)
+BuildRequires: python3dist(pytest-xdist)
 %endif
 
 Requires: python3dist(requests)
+Requires: python3dist(urllib3)
 Requires: python3dist(requests-oauthlib)
 Requires: python3dist(markdown)
 Requires: python3dist(cryptography)
@@ -157,6 +171,9 @@ Requires: python3dist(certifi)
 Requires: python3dist(pyyaml)
 
 Recommends: python3dist(hidapi)
+Recommends: python3dist(pika)
+Recommends: python3dist(python-qpid-proton)
+Recommends: python3dist(pynacl)
 Recommends: python3dist(paho-mqtt) >= 2.1.0
 Recommends: python3dist(slixmpp)
 
@@ -215,9 +232,9 @@ popd
 %check
 %if %{legacy_python_build}
 # backwards compatible
-LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{version} py.test-%{python3_version}
+LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{version} py.test-%{python3_version} -n %{pytest_workers}
 %else
-%pytest
+%pytest -n %{pytest_workers}
 %endif
 %endif
 
@@ -233,13 +250,51 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 # Handle egg-info vs. dist-info based on build backend
 %{python3_sitelib}/apprise-*.egg-info
 # Legacy: include all compiled locales that we produced under the package tree
+%lang(ar) %{python3_sitelib}/%{pypi_name}/i18n/ar/LC_MESSAGES/apprise.mo
+%lang(de) %{python3_sitelib}/%{pypi_name}/i18n/de/LC_MESSAGES/apprise.mo
 %lang(en) %{python3_sitelib}/%{pypi_name}/i18n/en/LC_MESSAGES/apprise.mo
+%lang(es) %{python3_sitelib}/%{pypi_name}/i18n/es/LC_MESSAGES/apprise.mo
+%lang(fr) %{python3_sitelib}/%{pypi_name}/i18n/fr/LC_MESSAGES/apprise.mo
+%lang(hi) %{python3_sitelib}/%{pypi_name}/i18n/hi/LC_MESSAGES/apprise.mo
+%lang(id) %{python3_sitelib}/%{pypi_name}/i18n/id/LC_MESSAGES/apprise.mo
+%lang(it) %{python3_sitelib}/%{pypi_name}/i18n/it/LC_MESSAGES/apprise.mo
+%lang(ja) %{python3_sitelib}/%{pypi_name}/i18n/ja/LC_MESSAGES/apprise.mo
+%lang(ko) %{python3_sitelib}/%{pypi_name}/i18n/ko/LC_MESSAGES/apprise.mo
+%lang(ms) %{python3_sitelib}/%{pypi_name}/i18n/ms/LC_MESSAGES/apprise.mo
+%lang(nl) %{python3_sitelib}/%{pypi_name}/i18n/nl/LC_MESSAGES/apprise.mo
+%lang(pl) %{python3_sitelib}/%{pypi_name}/i18n/pl/LC_MESSAGES/apprise.mo
+%lang(pt) %{python3_sitelib}/%{pypi_name}/i18n/pt/LC_MESSAGES/apprise.mo
+%lang(ru) %{python3_sitelib}/%{pypi_name}/i18n/ru/LC_MESSAGES/apprise.mo
+%lang(th) %{python3_sitelib}/%{pypi_name}/i18n/th/LC_MESSAGES/apprise.mo
+%lang(tl) %{python3_sitelib}/%{pypi_name}/i18n/tl/LC_MESSAGES/apprise.mo
+%lang(tr) %{python3_sitelib}/%{pypi_name}/i18n/tr/LC_MESSAGES/apprise.mo
+%lang(vi) %{python3_sitelib}/%{pypi_name}/i18n/vi/LC_MESSAGES/apprise.mo
+%lang(zh) %{python3_sitelib}/%{pypi_name}/i18n/zh/LC_MESSAGES/apprise.mo
 %else
 # Handle egg-info vs. dist-info based on build backend
 %{python3_sitelib}/apprise-*.dist-info/
 # Localised Files
 %exclude %{python3_sitelib}/%{pypi_name}/i18n/
+%lang(ar) %{python3_sitelib}/%{pypi_name}/i18n/ar/LC_MESSAGES/apprise.mo
+%lang(de) %{python3_sitelib}/%{pypi_name}/i18n/de/LC_MESSAGES/apprise.mo
 %lang(en) %{python3_sitelib}/%{pypi_name}/i18n/en/LC_MESSAGES/apprise.mo
+%lang(es) %{python3_sitelib}/%{pypi_name}/i18n/es/LC_MESSAGES/apprise.mo
+%lang(fr) %{python3_sitelib}/%{pypi_name}/i18n/fr/LC_MESSAGES/apprise.mo
+%lang(hi) %{python3_sitelib}/%{pypi_name}/i18n/hi/LC_MESSAGES/apprise.mo
+%lang(id) %{python3_sitelib}/%{pypi_name}/i18n/id/LC_MESSAGES/apprise.mo
+%lang(it) %{python3_sitelib}/%{pypi_name}/i18n/it/LC_MESSAGES/apprise.mo
+%lang(ja) %{python3_sitelib}/%{pypi_name}/i18n/ja/LC_MESSAGES/apprise.mo
+%lang(ko) %{python3_sitelib}/%{pypi_name}/i18n/ko/LC_MESSAGES/apprise.mo
+%lang(ms) %{python3_sitelib}/%{pypi_name}/i18n/ms/LC_MESSAGES/apprise.mo
+%lang(nl) %{python3_sitelib}/%{pypi_name}/i18n/nl/LC_MESSAGES/apprise.mo
+%lang(pl) %{python3_sitelib}/%{pypi_name}/i18n/pl/LC_MESSAGES/apprise.mo
+%lang(pt) %{python3_sitelib}/%{pypi_name}/i18n/pt/LC_MESSAGES/apprise.mo
+%lang(ru) %{python3_sitelib}/%{pypi_name}/i18n/ru/LC_MESSAGES/apprise.mo
+%lang(th) %{python3_sitelib}/%{pypi_name}/i18n/th/LC_MESSAGES/apprise.mo
+%lang(tl) %{python3_sitelib}/%{pypi_name}/i18n/tl/LC_MESSAGES/apprise.mo
+%lang(tr) %{python3_sitelib}/%{pypi_name}/i18n/tr/LC_MESSAGES/apprise.mo
+%lang(vi) %{python3_sitelib}/%{pypi_name}/i18n/vi/LC_MESSAGES/apprise.mo
+%lang(zh) %{python3_sitelib}/%{pypi_name}/i18n/zh/LC_MESSAGES/apprise.mo
 %endif
 
 %files -n %{pypi_name}
@@ -249,6 +304,21 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %{python3_sitelib}/%{pypi_name}/__pycache__/cli*.py?
 
 %changelog
+* Sat Oct 24 2026 Chris Caron <lead2gold@gmail.com> - 2.1.0-1
+- Updated to v2.1.0
+
+* Sat Oct  3 2026 Chris Caron <lead2gold@gmail.com> - 2.0.1-1
+- Updated to v2.0.1
+
+* Sat Sep 26 2026 Chris Caron <lead2gold@gmail.com> - 2.0.0-1
+- Updated to major release of v2.0.0
+
+* Sun Aug 30 2026 Chris Caron <lead2gold@gmail.com> - 1.13.1-1
+- Updated to v1.13.1
+
+* Thu Aug 20 2026 Chris Caron <lead2gold@gmail.com> - 1.13.0-1
+- Updated to v1.13.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

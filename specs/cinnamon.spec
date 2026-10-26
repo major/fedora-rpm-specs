@@ -27,9 +27,8 @@ Patch1:  default_panal_launcher.patch
 Patch2:  remove_crap_from_menu.patch
 Patch3:  set_menu_defaults.patch
 Patch4:  prefer-gcr-ssh-agent.patch
-Patch5:  %url/pull/13947.patch#/glycin_ratelimit.patch
-Patch6:  %url/pull/14062.patch#/add_pam_oo7.patch
-Patch7:  %url/pull/14066.patch#/add_oo7-portal.patch
+Patch5:  %url/pull/14062.patch#/add_pam_oo7.patch
+Patch6:  %url/pull/14066.patch#/add_oo7-portal.patch
 
 ExcludeArch:    %{ix86}
 

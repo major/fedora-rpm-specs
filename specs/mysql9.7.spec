@@ -2,7 +2,7 @@ ExcludeArch: %{ix86}
 
 # Name of the package without any prefixes
 %global majorname mysql
-%global package_version 9.7.2
+%global package_version 9.7.4
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 %global pkgnamepatch mysql
 
@@ -25,7 +25,7 @@ ExcludeArch: %{ix86}
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 9.7.2
+%global last_tested_version 9.7.4
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -143,6 +143,7 @@ Patch52:          %{pkgnamepatch}-rpath.patch
 Patch54:          %{pkgnamepatch}-gcc-15.patch
 Patch56:          %{pkgnamepatch}-flush-logrotate.patch
 Patch57:          %{pkgnamepatch}-fix-compilation-with-openssl4.patch
+Patch58:          %{pkgnamepatch}-rdtsc-riscv64.patch
 
 # Patches taken from boost 1.59
 Patch112:         boost-1.57.0-mpl-print.patch
@@ -896,6 +897,7 @@ popd
 %dir %{_libdir}/mysql/plugin
 %{_libdir}/mysql/plugin/adt_null.so
 %{_libdir}/mysql/plugin/auth_socket.so
+%{_libdir}/mysql/plugin/authentication_webauthn.so
 %{_libdir}/mysql/plugin/component_audit_api_message_emit.so
 %{_libdir}/mysql/plugin/component_classic_hashing.so
 %{_libdir}/mysql/plugin/component_connection_control.so
@@ -1116,6 +1118,12 @@ popd
 %endif
 
 %changelog
+* Sat Oct 24 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 9.7.4-2
+- Implement my_timer_cycles() on riscv64
+
+* Fri Oct 23 2026 Michal Schorm <mschorm@redhat.com> - 9.7.4-1
+- Rebase to 9.7.4
+
 * Fri Sep 25 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 9.7.2-2
 - Rebuilt for abseil-cpp 20260817.0
 

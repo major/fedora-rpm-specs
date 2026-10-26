@@ -5,14 +5,13 @@ ExcludeArch: %{ix86}
 # About:
 #   https://dev.mysql.com/doc/connectors/en/connector-odbc-installation-source-unix.html
 Name:           mysql-connector-odbc
-Version:        9.7.0
+Version:        26.10.0
 Release:        %autorelease
 Summary:        ODBC driver for MySQL
-# Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
-License:        LicenseRef-Callaway-GPLv2-with-exceptions
+License:        (GPL-2.0-only WITH Universal-FOSS-exception-1.0) AND Apache-2.0
 URL:            https://dev.mysql.com/downloads/connector/odbc/
 
-Source0:        https://cdn.mysql.com/Downloads/Connector-ODBC/9.7/%{name}-%{version}-src.tar.gz
+Source0:        https://cdn.mysql.com/Downloads/Connector-ODBC/26.10/%{name}-%{version}-src.tar.gz
 Source1:        10-mysql.ini
 Patch0:         myodbc-64bit.patch
 Patch3:         mysql-connector-odbc-rpath.patch
@@ -63,7 +62,7 @@ rm %{buildroot}%{_bindir}/myodbc-installer
 find %{buildroot}/usr/ -maxdepth 1 -type f -delete
 
 # Create a symlink for library to offer name that users are used to
-ln -sf libmyodbc9w.so %{buildroot}%{_libdir}/libmyodbc9.so
+ln -sf libmyodbc26w.so %{buildroot}%{_libdir}/libmyodbc26.so
 
 # ODBC driver plugins are placed in a dedicated subdirectory
 mkdir %{buildroot}%{_libdir}/odbc
@@ -81,9 +80,9 @@ install -m644 %{SOURCE1} %{buildroot}%{_prefix}/lib/odbc/odbcinst.d/
 %files
 %license LICENSE.txt
 %doc ChangeLog README.txt
-%{_libdir}/odbc/libmyodbc9.so
-%{_libdir}/odbc/libmyodbc9a.so
-%{_libdir}/odbc/libmyodbc9w.so
+%{_libdir}/odbc/libmyodbc26.so
+%{_libdir}/odbc/libmyodbc26a.so
+%{_libdir}/odbc/libmyodbc26w.so
 %dir %{_prefix}/lib/odbc
 %dir %{_prefix}/lib/odbc/odbcinst.d
 %{_prefix}/lib/odbc/odbcinst.d/10-mysql.ini
