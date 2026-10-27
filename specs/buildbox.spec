@@ -1,5 +1,5 @@
 Name:    buildbox
-Version: 1.4.28
+Version: 1.4.30
 Release: %autorelease
 Summary: Building blocks to execute actions conforming to the Remote Execution API
 

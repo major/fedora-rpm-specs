@@ -5,7 +5,7 @@ Summary: A text-based Web browser
 Name: lynx
 Version: 2.9.3
 #Release: %%{devrel}.1%%{?dist}
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-only
 
 Source0: https://invisible-island.net/archives/lynx/tarballs/lynx%{version}%{devrel}.tar.bz2
@@ -33,7 +33,7 @@ BuildRequires: bzip2-devel
 BuildRequires: dos2unix
 BuildRequires: gcc
 BuildRequires: gettext
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: libidn2-devel
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -54,7 +54,7 @@ advantage Lynx has over graphical browsers is speed; Lynx starts and
 exits quickly and swiftly displays web pages.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n lynx%{version}%{devrel}
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -144,6 +144,9 @@ EOF
 %config(noreplace,missingok) %{_sysconfdir}/lynx-site.cfg
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 2.9.3-5
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

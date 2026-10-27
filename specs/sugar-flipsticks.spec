@@ -1,6 +1,6 @@
 Name:           sugar-flipsticks
 Version:        14
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A keyframe animation activity for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -25,23 +25,26 @@ skills.
 %autosetup -n FlipSticks-%{version}
 
 %build
-python3 setup.py build
+bundlebuilder build
 
 %install
-python3 setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
 %py_byte_compile %{__python3} %{buildroot}/%{sugaractivitydir}/FlipSticks.activity/
 
 %find_lang org.worldwideworkshop.olpc.FlipSticks
-
 %files -f org.worldwideworkshop.olpc.FlipSticks.lang
+
 %license COPYING
 %doc AUTHORS NEWS TODO
 %{sugaractivitydir}/FlipSticks.activity/
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> 14-14
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

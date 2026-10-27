@@ -2,12 +2,12 @@
 
 # This macro can be slightly different than %%{version}.
 # For example, it should have a dash instead of tilde for release candidates.
-%global package_version 2.6.4
+%global package_version 2.6.5
 
 %global oldname vault
 
 Name: openbao
-Version: 2.6.4
+Version: 2.6.5
 Release: %autorelease
 Summary: A tool for securely accessing secrets
 # See LICENSE for primary license
@@ -135,7 +135,7 @@ Provides: bundled(golang(github.com/go-jose/go-jose/v3)) = v3.0.5
 Provides: bundled(golang(github.com/go-jose/go-jose/v4)) = v4.1.4
 Provides: bundled(golang(github.com/go-ldap/ldap/v3)) = v3.4.13
 Provides: bundled(golang(github.com/go-ldap/ldif)) = v0.0.0~20200320164324~fd88d9b715b3
-Provides: bundled(golang(github.com/go-logr/logr)) = v1.4.3
+Provides: bundled(golang(github.com/go-logr/logr)) = v1.4.4
 Provides: bundled(golang(github.com/go-logr/stdr)) = v1.2.2
 Provides: bundled(golang(github.com/go-ole/go-ole)) = v1.2.6
 Provides: bundled(golang(github.com/go-openapi/jsonpointer)) = v0.21.0
@@ -292,7 +292,6 @@ Provides: bundled(golang(github.com/petermattis/goid)) = v0.0.0~20250813065127~a
 Provides: bundled(golang(github.com/pires/go-proxyproto)) = v0.12.0
 Provides: bundled(golang(github.com/pkg/browser)) = v0.0.0~20240102092130~5ac0b6a4141c
 Provides: bundled(golang(github.com/pkg/errors)) = v0.9.1
-Provides: bundled(golang(github.com/pmezard/go-difflib)) = v1.0.1~0.20181226105442~5d4384ee4fb2
 Provides: bundled(golang(github.com/posener/complete)) = v1.2.3
 Provides: bundled(golang(github.com/power-devops/perfstat)) = v0.0.0~20240221224432~82ca36839d55
 Provides: bundled(golang(github.com/pquerna/otp)) = v1.5.0
@@ -314,8 +313,8 @@ Provides: bundled(golang(github.com/softlayer/softlayer-go)) = v0.0.0~2018080615
 Provides: bundled(golang(github.com/sony/gobreaker)) = v0.5.0
 Provides: bundled(golang(github.com/spf13/cast)) = v1.5.1
 Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.10
-Provides: bundled(golang(github.com/stretchr/objx)) = v0.5.2
-Provides: bundled(golang(github.com/stretchr/testify)) = v1.11.1
+Provides: bundled(golang(github.com/stretchr/objx)) = v0.5.3
+Provides: bundled(golang(github.com/stretchr/testify)) = v1.12.1
 Provides: bundled(golang(github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/common)) = v1.0.480
 Provides: bundled(golang(github.com/tencentcloud/tencentcloud-sdk-go/tencentcloud/cvm)) = v1.0.480
 Provides: bundled(golang(github.com/tilinna/clock)) = v1.0.2
@@ -336,26 +335,27 @@ Provides: bundled(golang(go.etcd.io/bbolt)) = v1.4.3
 Provides: bundled(golang(go.opentelemetry.io/auto/sdk)) = v1.2.1
 Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc)) = v0.67.0
 Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = v0.67.0
-Provides: bundled(golang(go.opentelemetry.io/otel)) = v1.44.0
-Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = v1.44.0
-Provides: bundled(golang(go.opentelemetry.io/otel/sdk)) = v1.44.0
-Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = v1.44.0
+Provides: bundled(golang(go.opentelemetry.io/otel)) = v1.47.0
+Provides: bundled(golang(go.opentelemetry.io/otel/log)) = v1.47.0
+Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = v1.47.0
+Provides: bundled(golang(go.opentelemetry.io/otel/sdk)) = v1.47.0
+Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = v1.47.0
 Provides: bundled(golang(go.uber.org/multierr)) = v1.11.0
 Provides: bundled(golang(go.uber.org/zap)) = v1.28.0
 Provides: bundled(golang(go.uber.org/zap/exp)) = v0.3.0
 Provides: bundled(golang(go.yaml.in/yaml/v2)) = v2.4.4
-Provides: bundled(golang(go.yaml.in/yaml/v3)) = v3.0.4
-Provides: bundled(golang(golang.org/x/crypto)) = v0.56.0
+Provides: bundled(golang(go.yaml.in/yaml/v3)) = v3.0.5
+Provides: bundled(golang(golang.org/x/crypto)) = v0.58.0
 Provides: bundled(golang(golang.org/x/exp)) = v0.0.0~20260112195511~716be5621a96
-Provides: bundled(golang(golang.org/x/mod)) = v0.38.0
-Provides: bundled(golang(golang.org/x/net)) = v0.58.0
+Provides: bundled(golang(golang.org/x/mod)) = v0.41.0
+Provides: bundled(golang(golang.org/x/net)) = v0.61.0
 Provides: bundled(golang(golang.org/x/oauth2)) = v0.36.0
-Provides: bundled(golang(golang.org/x/sync)) = v0.22.0
-Provides: bundled(golang(golang.org/x/sys)) = v0.47.0
-Provides: bundled(golang(golang.org/x/term)) = v0.45.0
-Provides: bundled(golang(golang.org/x/text)) = v0.41.0
+Provides: bundled(golang(golang.org/x/sync)) = v0.24.0
+Provides: bundled(golang(golang.org/x/sys)) = v0.49.0
+Provides: bundled(golang(golang.org/x/term)) = v0.47.0
+Provides: bundled(golang(golang.org/x/text)) = v0.43.0
 Provides: bundled(golang(golang.org/x/time)) = v0.15.0
-Provides: bundled(golang(golang.org/x/tools)) = v0.48.0
+Provides: bundled(golang(golang.org/x/tools)) = v0.51.0
 Provides: bundled(golang(google.golang.org/api)) = v0.283.0
 Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0~20260319201613~d00831a3d3e7
 Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = v0.0.0~20260526163538~3dc84a4a5aaa

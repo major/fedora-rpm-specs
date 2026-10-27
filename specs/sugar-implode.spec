@@ -2,7 +2,7 @@
 
 Name:           sugar-%{shortname}
 Version:        20
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Implode for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -35,10 +35,10 @@ sed -i 's/python/python3/' *.py
 sed -i '/^summary/d' activity/activity.info
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 #executables
 find  %{buildroot}%{sugaractivitydir}Implode.activity/*.py -type f | xargs chmod a+x
@@ -56,6 +56,9 @@ done
 %{sugaractivitydir}/Implode.activity/
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 20-17
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

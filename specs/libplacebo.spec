@@ -1,3 +1,5 @@
+%bcond_with unwind
+
 #global prerelease -rc1
 
 Name:           libplacebo
@@ -16,7 +18,9 @@ BuildRequires:  glad2
 BuildRequires:  lcms2-devel
 BuildRequires:  libdovi-devel
 BuildRequires:  libepoxy-devel
+%if %{with unwind}
 BuildRequires:  libunwind-devel
+%endif
 BuildRequires:  libshaderc-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-jinja2
@@ -58,7 +62,12 @@ developing applications that use %{name}.
 %build
 %meson \
  -Dd3d11=disabled \
- -Ddemos=False
+ -Ddemos=False \
+%if %{with unwind}
+ -Dunwind=enabled
+%else
+ -Dunwind=disabled
+%endif
 
 %meson_build
 

@@ -1,6 +1,6 @@
 Name:          sugar-stopwatch
 Version:       21
-Release:       16%{?dist}
+Release:       17%{?dist}
 Summary:       Simple stopwatch for Sugar
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
@@ -26,10 +26,10 @@ anyone can manipulate.
 sed -i 's/python/python3/' setup.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -44,6 +44,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 21-17
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 21-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

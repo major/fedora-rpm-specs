@@ -13,7 +13,7 @@
 
 Name:           chrony
 Version:        4.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -31,7 +31,7 @@ Source10:       https://gitlab.com/chrony/clknetsim/-/archive/%{clknetsim_ver}/c
 Patch1:         chrony-nm-dispatcher-dhcp.patch
 
 BuildRequires:  libcap-devel libedit-devel pps-tools-devel
-BuildRequires:  gcc gcc-c++ make bison systemd gnupg2
+BuildRequires:  gcc gcc-c++ openpgpverify make bison systemd
 %{?with_nettle:BuildRequires: nettle-devel}
 %{!?with_nettle:BuildRequires: gnutls-devel}
 %{?with_nts:BuildRequires: gnutls-devel gnutls-utils}
@@ -62,7 +62,7 @@ service to other computers in the network.
 %endif
 
 %prep
-%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%{openpgpverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %setup -q -n %{name}-%{version}%{?prerelease} -a 10
 %autopatch -p1
 
@@ -93,7 +93,7 @@ touch -r examples/chrony.conf.example2 chrony.conf
 
 # set selinux context in chronyd-restricted service
 sed -i '/^ExecStart/a SELinuxContext=system_u:system_r:chronyd_restricted_t:s0' \
-	examples/chronyd-restricted.service
+        examples/chronyd-restricted.service
 
 # regenerate the file from getdate.y
 rm -f getdate.c
@@ -213,6 +213,10 @@ fi
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Mon Oct 26 2026 Miroslav Lichvar <mlichvar@redhat.com> 4.9-3
+- switch to %%openpgpverify
+- fix mixed use of spaces and tabs in spec
+
 * Thu Aug 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.9-2
 - Use gnutls for crypto on RHEL
 

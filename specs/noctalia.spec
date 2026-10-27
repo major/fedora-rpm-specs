@@ -1,5 +1,5 @@
 Name:           noctalia
-Version:        5.3.0
+Version:        5.4.0
 Release:        %autorelease
 ExcludeArch:    %{ix86}
 Summary:        A sleek, customizable desktop shell crafted for Wayland
@@ -94,13 +94,16 @@ Requires:       sound-theme-freedesktop
 
 # Optional requirements for various functionality
 Recommends:     upower
+Recommends:     power-profiles-daemon
 Recommends:     ddcutil
 Recommends:     gnome-keyring
+# dlopen-ed in src/render/core/heif_library.cpp
+Recommends:     libheif.so.1()(%{__isa_bits}bit)
 
 # Upstream doesn't currently offer a mechanism for building against system
 # copies of these libraries.
 Provides:       bundled(fzy)
-Provides:       bundled(luau)
+Provides:       bundled(luau) = 0.742
 Provides:       bundled(material_color_utilities)
 Provides:       bundled(wuffs)
 
@@ -160,6 +163,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/dev.noctalia.Noctalia
 %license LICENSE*
 %{_bindir}/noctalia
 %{_datadir}/applications/dev.noctalia.Noctalia.desktop
+%{_datadir}/applications/dev.noctalia.Noctalia.Annotator.desktop
 %{_datadir}/icons/hicolor/scalable/apps/noctalia.svg
 %{_datadir}/noctalia
 %{bash_completions_dir}/noctalia

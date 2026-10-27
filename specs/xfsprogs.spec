@@ -1,7 +1,7 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
 Version:	7.2.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
@@ -14,7 +14,8 @@ BuildRequires:	g++
 BuildRequires:	libtool, gettext, libattr-devel, libuuid-devel
 BuildRequires:	libedit-devel, libblkid-devel >= 2.17-0.1.git5e51568
 Buildrequires:	libicu-devel >= 4.6, systemd
-BuildRequires:	gnupg2, xz, inih-devel, userspace-rcu-devel
+BuildRequires:	xz, inih-devel, userspace-rcu-devel
+BuildRequires:	openpgpverify
 Provides:	xfs-cmds
 Obsoletes:	xfs-cmds <= %{version}
 Provides:	xfsprogs-qa-devel
@@ -77,7 +78,7 @@ Extra utilities for XFS filesystems, such as xfs_protofile, that may require
 Python.
 
 %prep
-xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
+xzcat '%{SOURCE0}' | %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup -p1
 
 # Inject libicuuc to fix link error:
@@ -161,6 +162,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Thu Oct 22 2026 Jakub Jelen <jjelen@redhat.com> - 7.2.1-3
+- Verify upstream source signatures with openpgpverify
+
 * Wed Oct 21 2026 Pavel Reichl <preichl@redhat.com> - 7.2.1-2
 - Fix FTBFS on i686
 - Related: rhbz#2555429

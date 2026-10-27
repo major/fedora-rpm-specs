@@ -78,7 +78,7 @@ BuildRequires:  binutils-devel
 BuildRequires:  bzip2
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 BuildRequires:  make
 BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(readline)
@@ -116,7 +116,7 @@ Emacs mode for interacting with GCL
 
 
 %prep
-%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+%{openpgpverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup -p1
 
 

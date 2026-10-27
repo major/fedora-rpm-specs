@@ -1,7 +1,7 @@
 Summary: Rotates, compresses, removes and mails system log files
 Name: logrotate
 Version: 3.22.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/logrotate/logrotate
 Source0: https://github.com/logrotate/logrotate/releases/download/%{version}/logrotate-%{version}.tar.xz
@@ -17,7 +17,7 @@ BuildRequires: acl
 BuildRequires: automake
 BuildRequires: gcc
 BuildRequires: git
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: libacl-devel
 BuildRequires: libselinux-devel
 BuildRequires: make
@@ -38,7 +38,7 @@ Install the logrotate package if you need a utility to deal with the
 log files on your system.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -S git
 
 cat >> .gitignore << EOF
@@ -115,6 +115,9 @@ fi
 %config(noreplace) %{_sysconfdir}/rwtab.d/logrotate
 
 %changelog
+* Fri Oct 09 2026 Jakub Jelen <jjelen@redhat.com> - 3.22.0-7
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

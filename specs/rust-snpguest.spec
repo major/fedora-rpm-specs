@@ -4,23 +4,19 @@
 %global crate snpguest
 
 Name:           rust-snpguest
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        AMD SEV-SNP guest utility tool
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/snpguest
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Drop vendored feature from openssl dependency
-# * Unpin sev, reqwest, x509-parser, and asn1-rs deps. from exact versions
-# * Allow x509-parser 0.18 and asn1-rs 0.7
-# * Drop unused nix dependency: https://github.com/virtee/snpguest/pull/140
-Patch:          snpguest-fix-metadata.diff
 
 # SEV is an AMD x86_64 CPU feature so doesn't make sense to
 # try to build on other arches
 ExclusiveArch:  x86_64
+
+Patch1:         deps-change.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -169,6 +169,10 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/90-af
 %endif
 
 %changelog
+* Mon Oct 26 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 5.11.0-2
+- Rebuilt with `rustls-webpki` 0.103.16 for RUSTSEC-2026-0382. This provides
+  added protection against trusting the eMudhra intermediate CA certificates.
+
 * Tue Sep 22 2026 Packit <hello@packit.dev> - 5.11.0-1
 - New upstream release
 

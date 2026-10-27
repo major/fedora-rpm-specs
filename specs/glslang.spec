@@ -1,7 +1,7 @@
-%global sdkver 1.4.357.0
+%global sdkver 1.4.363.0
 
 Name:           glslang
-Version:        16.4.0
+Version:        16.6.0
 Release:        %autorelease
 Summary:        OpenGL and OpenGL ES shader front end and validator
 

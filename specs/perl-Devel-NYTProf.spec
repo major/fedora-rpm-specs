@@ -1,6 +1,6 @@
 Name:           perl-Devel-NYTProf
-Version:        6.15
-Release:        3%{?dist}
+Version:        6.16
+Release:        1%{?dist}
 Summary:        Powerful feature-rich perl source code profiler
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-NYTProf
@@ -54,8 +54,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 # Optional tests only
 BuildRequires:  perl(Sub::Name) >= 0.11
-BuildRequires:  perl(Test::Pod) >= 1.00
-BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 # Unneded Requires:       perl(Apache)
 # Optional features
 Suggests:       perl(Browser::Open)
@@ -144,6 +142,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 26 2026 Jitka Plesnikova <jplesnik@redhat.com> - 6.16-1
+- 6.16 bump (rhbz#2553927)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 6.15-3
 - Perl 5.44 rebuild
 

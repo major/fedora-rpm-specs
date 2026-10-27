@@ -15,7 +15,7 @@ observable collections and LINQ-style query operators in Python.
 
 
 Name:           python-%{pkgname}
-Version:        6.0.0
+Version:        6.1.0
 Release:        %autorelease
 Summary:        Reactive Extensions (Rx) for Python
 License:        MIT
@@ -34,6 +34,8 @@ BuildRequires:  python3-coverage
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
+BuildRequires:  python3-pip
+BuildRequires:  python3-hatchling
 
 # The python-reactivex package was introduced by mistake; it duplicates this
 # package and was therefore retired for F44. Provide a clean upgrade path,

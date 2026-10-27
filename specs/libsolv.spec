@@ -28,8 +28,8 @@
 %define __cmake_switch(b:) %[%{expand:%%{?with_%{-b*}}} ? "ON" : "OFF"]
 
 Name:           lib%{libname}
-Version:        0.7.40
-Release:        2%{?dist}
+Version:        0.7.41
+Release:        1%{?dist}
 Summary:        Package dependency solver
 
 # LICENSE.BSD:      BSD-3-Clause text
@@ -63,12 +63,6 @@ Patch:          0002-Add-INSTALLER-to-Python-metadata.patch
 # Fix a buffer overflow when decompressing solv pages (CVE-2026-48864),
 # rejected by upstream, <https://github.com/openSUSE/libsolv/pull/622>.
 Patch:          0003-Fix-a-buffer-overflow-when-decompressing-solv-pages.patch
-# Compute hashes with OpenSSL, in upstream after 0.7.40,
-# <https://github.com/openSUSE/libsolv/pull/627>.
-Patch:          0004-Add-support-for-computing-hashes-using-OpenSSL-3.1.0.patch
-# Use TAG_SHA256HEADER if no TAG_SHA1HEADER, merged upstream,
-# <https://github.com/openSUSE/libsolv/pull/636>.
-Patch:          0005-repo_rpmdb.c-Use-TAG_SHA256HEADER-if-no-TAG_SHA1HEAD.patch
 
 BuildRequires:  cmake >= 3.5
 BuildRequires:  gcc-c++
@@ -320,6 +314,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %endif
 
 %changelog
+* Mon Oct 26 2026 Petr Pisar <ppisar@redhat.com> - 0.7.41-1
+- 0.7.41 bump
+
 * Mon Oct 12 2026 Evan Goode <egoode@redhat.com> - 0.7.40-2
 - Patch: Use TAG_SHA256HEADER if no TAG_SHA1HEADER
 

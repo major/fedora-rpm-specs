@@ -1,6 +1,6 @@
 Name:           jackson-bom
-Version:        2.21.5
-Release:        2%{?dist}
+Version:        2.21.8
+Release:        1%{?dist}
 Summary:        Bill of materials POM for Jackson projects
 License:        Apache-2.0
 
@@ -48,6 +48,9 @@ A "bill of materials" POM for Jackson dependencies.
 %license LICENSE
 
 %changelog
+* Mon Oct 26 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21.8-1
+- Rebase to 2.21.8
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -13,7 +13,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.15
+%global general_version %{pybasever}.16
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -73,7 +73,6 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 %global pip_version 25.0.1
 %global setuptools_version 79.0.1
-%global wheel_version 0.40.0
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
@@ -117,11 +116,6 @@ Provides: bundled(python3dist(typeguard)) = 4.3
 Provides: bundled(python3dist(typing-extensions)) = 4.12.2
 Provides: bundled(python3dist(wheel)) = 0.45.1
 Provides: bundled(python3dist(zipp)) = 3.19.2
-}
-# wheel
-#  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt)
-%global wheel_bundled_provides %{expand:
-Provides: bundled(python3dist(packaging)) = 23
 }
 
 # Expensive optimizations (mainly, profile-guided optimizations)
@@ -251,7 +245,6 @@ BuildRequires: git-core
 BuildRequires: glibc-all-langpacks
 BuildRequires: glibc-devel
 BuildRequires: gmp-devel
-BuildRequires: gnupg2
 BuildRequires: libappstream-glib
 %if %{undefined rhel}
 BuildRequires: libb2-devel
@@ -266,7 +259,7 @@ BuildRequires: libX11-devel
 BuildRequires: make
 BuildRequires: mpdecimal-devel
 BuildRequires: ncurses-devel
-
+BuildRequires: openpgpverify
 BuildRequires: pkgconfig
 BuildRequires: python-rpm-macros
 BuildRequires: readline-devel
@@ -307,8 +300,7 @@ BuildRequires: /usr/sbin/ifconfig
 # the first compatible version of pip is 23.1.2.
 BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 %if %{with tests}
-BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel
-BuildRequires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-setuptools-wheel < 71)
+BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 71
 %endif
 %endif
 
@@ -382,10 +374,6 @@ Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-g
 #
 # gh-127906: Add missing sys import to test_cppext
 Patch460: 00460-gh-132415-update-vendored-setuptools-in-lib-test-wheeldata.patch
-
-# 00461 # f7bc103c7bcc6e48789b225e06daf835793e1086
-# Downstream only: Install wheel in test venvs when setuptools < 71
-Patch461: 00461-downstream-only-install-wheel-in-test-venvs-when-setuptools-71.patch
 
 # 00462 # 5324dc5f57e0068f7e4f7b2f20006e88ff5f4e47
 # Fix PySSL_SetError handling SSL_ERROR_SYSCALL
@@ -695,14 +683,11 @@ Requires: %{pkgname} = %{version}-%{release}
 Requires: %{pkgname}-libs%{?_isa} = %{version}-%{release}
 
 %if %{with rpmwheels}
-Requires: %{python_wheel_pkg_prefix}-setuptools-wheel
-Requires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-setuptools-wheel < 71)
+Requires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 71
 %else
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
-Provides: bundled(python3dist(wheel)) = %{wheel_version}
-%wheel_bundled_provides
-# License manually combined from Python + setuptools + wheel
+# License manually combined from Python + setuptools
 License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
 
@@ -755,7 +740,7 @@ The debug runtime additionally supports debug builds of C-API extensions
 # ======================================================
 
 %prep
-%gpgverify -k2 -s1 -d0
+%openpgpverify -k2 -s1 -d0
 %autosetup -S git_am -n Python-%{upstream_version}
 
 # Verify the second level of bundled provides is up to date
@@ -763,15 +748,15 @@ The debug runtime additionally supports debug builds of C-API extensions
 # setuptools.whl does not contain the vendored.txt files
 if [ -f %{_rpmconfigdir}/pythonbundles.py ]; then
   %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt) --compare-with '%pip_bundled_provides'
-  %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt) --compare-with '%wheel_bundled_provides'
   %{_rpmconfigdir}/pythonbundles.py <(unzip -l Lib/test/wheeldata/setuptools-*.whl | grep -E '_vendor/.+dist-info/RECORD' | sed -E 's@^.*/([^-]+)-([^-]+)\.dist-info/.*$@\1==\2@') --compare-with '%setuptools_bundled_provides'
 fi
 
 %if %{with rpmwheels}
 rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
 rm Lib/test/wheeldata/setuptools-%{setuptools_version}-py3-none-any.whl
-rm Lib/test/wheeldata/wheel-%{wheel_version}-py3-none-any.whl
 %endif
+# We remove wheel.whl unconditionally, goes together with patch 460
+rm Lib/test/wheeldata/wheel-*-py3-none-any.whl
 
 # Remove all exe files to ensure we are not shipping prebuilt binaries
 # note that those are only used to create Microsoft Windows installers
@@ -1758,6 +1743,14 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Oct 26 2026 Karolina Surma <ksurma@redhat.com> - 3.12.16-1
+- Update to Python 3.12.16
+- CVE 2026-114583: tar filter allows writing outside destination via empty-named symlink
+- CVE 2026-115557: Distrust compromised intermediate certificates in ssl module
+
+* Thu Oct 15 2026 Miro Hrončok <miro@hroncok.cz> - 3.12.15-2
+- No longer support RPM wheels with setuptools.whl < 71, drop requirement on wheel.whl
+
 * Thu Oct 01 2026 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.15-1
 - Update to 3.12.15
 - Security fix for CVE-2026-15310

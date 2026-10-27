@@ -5,7 +5,7 @@
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
 
-%global	baserelease		1
+%global	baserelease		2
 
 %global	gem_name		mechanize
 
@@ -23,7 +23,9 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem
 # https://github.com/sparklemotion/mechanize/issues/282
 Patch0:	rubygem-mechanize-2.8.0-disable-ntlm-http.patch
 Patch1:	rubygem-mechanize-2.6.0-disable-ntlm-http-test.patch
-
+# https://github.com/sparklemotion/mechanize/pull/677
+# handle net-http-0.10.0 change
+Patch2:	rubygem-mechanize-pr677-support-net_http_0_10.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	ruby-devel
@@ -81,6 +83,7 @@ find . -name \*.rb -print0 | xargs --null chmod 0644
 # Patches
 %patch -P0 -p1 -b .ntlm
 %patch -P1 -p1 -b .ntlmtest
+%patch -P2 -p1 -b .net_http
 
 sed -i -e '\@ntlm-http@d' %{gem_name}-%{version}.gemspec
 # Kill also this for now
@@ -157,11 +160,14 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Mon Oct 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.1-2
+- Backport upstream patch to net-http 0.10 in ruby4.1
+
 * Sun Aug 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.1-1
 - 2.14.1
-- Fixes GHSA-2mwr-xjcg-37j7
-- Fixes GHSA-5jgv-wc2m-xv99
-- Fixes GHSA-c6rp-p8xm-4q9f
+- Fixes GHSA-2mwr-xjcg-37j7 (CVE-2026-107715)
+- Fixes GHSA-5jgv-wc2m-xv99 (CVE-2026-107714)
+- Fixes GHSA-c6rp-p8xm-4q9f (CVE-2026-107399)
 
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild

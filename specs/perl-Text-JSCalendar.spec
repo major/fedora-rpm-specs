@@ -1,5 +1,5 @@
 Name:           perl-Text-JSCalendar
-Version:        0.07
+Version:        0.08
 Release:        1%{?dist}
 Summary:        Convert between iCalendar and JSCalendar
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 26 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.08-1
+- 0.08 bump
+
 * Sat Oct 17 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.07-1
 - 0.07 bump
 

@@ -4,7 +4,7 @@
 %global crate snphost
 
 Name:           rust-snphost
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Administrative utility for AMD SEV-SNP
 

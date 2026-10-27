@@ -1,6 +1,6 @@
 Name:           sugar-xoirc
 Version:        14
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        IRC client for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -26,11 +26,11 @@ on the internet, and chat with them.
 sed -i 's/python/python3/' *.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -42,6 +42,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/IRC.activity/
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 14-15
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 14-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

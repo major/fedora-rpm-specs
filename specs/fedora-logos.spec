@@ -1,9 +1,9 @@
 Name:		fedora-logos
 Summary:	Fedora-related icons and pictures
-Version:	42.0.1
-Release:	6%{?dist}
+Version:	46.0.0
+Release:	1%{?dist}
 URL:		https://pagure.io/fedora-logos
-Source0:	https://pagure.io/fedora-logos/archive/%{version}/fedora-logos-%{version}.tar.gz
+Source0:	https://forge.fedoraproject.org/design/packages/releases/download/46.0.0/fedora-logos-%{version}.tar.gz
 License:	LicenseRef-Fedora-Logos
 Provides:	redhat-logos = %{version}-%{release}
 Provides:	gnome-logos = %{version}-%{release}
@@ -245,6 +245,8 @@ install -p -m 644 anaconda/sidebar-logo_classic.png %{buildroot}%{_datadir}/anac
 install -p -m 644 anaconda/sidebar-bg.png %{buildroot}%{_datadir}/anaconda/pixmaps/
 install -p -m 644 anaconda/topbar-bg.png %{buildroot}%{_datadir}/anaconda/pixmaps/
 install -p -m 644 anaconda/fedora.css %{buildroot}%{_datadir}/anaconda/pixmaps/
+install -p -m 644 anaconda/fedora-webui.css %{buildroot}%{_datadir}/anaconda/pixmaps/
+ln -sTfr %{buildroot}%{_datadir}/pixmaps/system-logo-white.png %{buildroot}%{_datadir}/anaconda/pixmaps/webui-header-logo.png
 
 # Variant Anaconda art
 pushd anaconda
@@ -424,6 +426,10 @@ hardlink -vv %{buildroot}/usr
 %{_datadir}/icewm/themes/clearlooks-2px/taskbar/*_classic*
 
 %changelog
+* Tue Oct 13 2026 Katerina Koukiou <kkoukiou@redhat.com> - 46.0.0-1
+- Update to 46.0.0
+- Add Anaconda WebUI branding CSS (fedora-webui.css)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 42.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

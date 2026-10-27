@@ -24,6 +24,11 @@ Source:         %forgesource
 # packages. It is a real dependency for msal_extensions/libsecret.py.
 Patch:          0001-Downstream-only-restore-hard-dependency-on-pygobject.patch
 
+# https://github.com/AzureAD/microsoft-authentication-extensions-for-python/pull/154
+#
+# Bumps the portalocker dependency to accept 4.0+.
+Patch:          154.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

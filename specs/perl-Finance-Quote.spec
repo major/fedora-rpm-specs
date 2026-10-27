@@ -1,7 +1,7 @@
 %bcond author_tests 0
 
 Name:           perl-Finance-Quote
-%global cpan_version 1.71
+%global cpan_version 1.72
 # RPM version needs 4 digits after the decimal to preserve upgrade path
 Version:        %(LANG=C printf "%.4f" %(echo %{cpan_version} | tr -d _))
 Release:        1%{?dist}
@@ -146,6 +146,7 @@ make test
 %{_mandir}/man3/Finance::Quote::IndiaMutual.3*
 %{_mandir}/man3/Finance::Quote::MarketWatch.3*
 %{_mandir}/man3/Finance::Quote::MorningstarJP.3*
+%{_mandir}/man3/Finance::Quote::NPSNAV.3*
 %{_mandir}/man3/Finance::Quote::NSEIndia.3*
 %{_mandir}/man3/Finance::Quote::NZX.3*
 %{_mandir}/man3/Finance::Quote::OnVista.3*
@@ -168,6 +169,23 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Mon Oct 26 2026 Paul Howarth <paul@city-fan.org> - 1.7200-1
+- Update to 1.72
+  - Tradegate.pm, Union.pm, XETRA.pm: Added "germany" method to methodinfo hash
+  - Sinvestor.pm: Added "germany" method to methodinfo hash
+  - OnVista.pm: Added "germany" method to methodinfo hash
+  - Comdirect.pm: Added "germany" method, modified parsing for ISIN and WKN
+    values
+  - Finanzpartner.pm: Added "germany" method to methodinfo hash
+  - Deka.pm: Added user-agent to request, added "germany" method to methodinfo
+    hash
+  - Consorsbank.pm: Added "germany" label, fixed name for
+    "Amundi CAC 40 Daily (-2x) Inv ETF Acc" in t/consorsbank.t
+  - TreasuryDirect.pm: Every CUSIP returned "Parse error"; note that bid and
+    ask were inverted and have been swapped, and that price now has six decimal
+    places rather than two
+  - Added NPSNAV.pm for India's National Pension Scheme (NPS) funds
+
 * Mon Aug 31 2026 Paul Howarth <paul@city-fan.org> - 1.7100-1
 - Update to 1.71
   - NZX.pm: Fixed JSON mapping (GH#586)

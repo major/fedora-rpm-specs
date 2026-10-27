@@ -1618,6 +1618,15 @@ cd llvm/utils/lit
 %endif
 %endif
 
+%ifarch riscv64
+%if 0%{?rhel} >= 11
+%global cfg_file_content %{cfg_file_content} -march=rva23u64
+%else
+# Fedora, RHEL 10
+%global cfg_file_content %{cfg_file_content} -march=rv64gc
+%endif
+%endif
+
 %ifarch s390x
 %if 0%{?rhel} >= 11 || 0%{?fedora} >= 45
 %global cfg_file_content %{cfg_file_content} -march=z15 -mtune=z17

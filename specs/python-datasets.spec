@@ -81,6 +81,8 @@ sed -i "s/\"fsspec\[http\].*\",/\"fsspec\[http\]\",/" setup.py
 # TODO: report this issue upstream
 sed -i "1d" src/datasets/commands/datasets_cli.py
 sed -i "1d" src/datasets/utils/_filelock.py
+# Relax huggingface-hub version https://github.com/huggingface/datasets/pull/8678#issue-5568253164
+sed -i 's/huggingface-hub>=0.25.0,<2.0/huggingface-hub>=0.25.0,<3.0/' setup.py
 # Remove modules that use unpackaged dependencies
 # This file relies on pyspark (Apache Spark has been orphaned for years)
 rm src/datasets/io/spark.py

@@ -86,7 +86,9 @@ rm bindings/python/Cargo.lock
 # dependency.
 tomcli set bindings/python/Cargo.toml del dependencies.tokenizers.path
 tomcli set bindings/python/Cargo.toml str dependencies.tokenizers.version '=%{version}'
-
+# The huggingface_hub dep is only used for download, that hasn't changed in v2
+# https://github.com/huggingface/tokenizers/pull/2486#pullrequestreview-5444270138
+sed -i 's/"huggingface_hub>=0.16.4,<2.0"/"huggingface_hub>=0.16.4"/' pyproject.toml
 
 %generate_buildrequires
 # Get the cargo buildrequires first, so that maturin will succeed

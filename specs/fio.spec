@@ -1,6 +1,6 @@
 Name:		fio
 Version:	3.43
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Multithreaded IO generation tool
 
 License:	GPL-2.0-only
@@ -36,7 +36,7 @@ Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/F7D35
 %bcond_with cuda
 
 BuildRequires:	gcc
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 BuildRequires:	libaio-devel
 BuildRequires:	zlib-devel
 BuildRequires:	python3-devel
@@ -205,7 +205,7 @@ RDMA engine for %{name}.
 
 %prep
 %autosetup -p1
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn \
  tools/fio_jsonplus_clat2csv \
@@ -289,6 +289,9 @@ make install prefix=%{_prefix} mandir=%{_mandir} libdir=%{_libdir}/fio DESTDIR=$
 %endif
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 3.43-2
+- Verify upstream source signatures with openpgpverify
+
 * Wed Sep 23 2026 Pavel Reichl <preichl@redhat.com> - 3.43-1
 - Update to upstream v3.43
 - Related: rhbz#2539425

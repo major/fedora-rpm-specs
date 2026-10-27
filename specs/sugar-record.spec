@@ -1,6 +1,6 @@
 Name:           sugar-record
 Version:        201
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Recording tool for Sugar
 
 License:        MIT
@@ -33,10 +33,10 @@ a hallmark of the Record activity
 sed -i 's/python/python3/' setup.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -50,6 +50,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/Record.activity/
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 201-15
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 201-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

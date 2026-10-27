@@ -1,7 +1,7 @@
-%global tag     1.4.2-55-g4c062729d
+%global tag     1.4.3-5-g7e2131d44
 
 Name:           clementine
-Version:        1.4.2
+Version:        1.4.3
 Release:        %autorelease
 Summary:        A music player and library organizer
 

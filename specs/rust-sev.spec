@@ -8,22 +8,15 @@
 %global supported_arches x86_64
 
 Name:           rust-sev
-Version:        7.1.0
+Version:        8.0.0
 Release:        %autorelease
 Summary:        Library for AMD SEV
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/sev
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Relax bitfield and dirs dependencies to what's packaged in Fedora
-# * Drop the vendored feature from the openssl dependency
-# * Add missing serde_bytes optional dependency used under the serde feature
-#   (merged upstream: https://github.com/virtee/sev/pull/341; drop when upgrading
-#   past the release that includes this fix)
-Patch:          sev-fix-metadata.diff
-# Fix missing trailing semicolon for bitfield 0.15 compatibility
-Patch:          0002-Fix-missing-trailing-semicolon-for-bitfield-0.15.patch
+
+Patch1:         deps.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

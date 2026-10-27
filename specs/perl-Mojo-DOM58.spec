@@ -1,17 +1,17 @@
 %bcond_without perl_Mojo_DOM58_enables_role
 
 Name:           perl-Mojo-DOM58
-Version:        3.002
-Release:        4%{?dist}
+Version:        3.003
+Release:        1%{?dist}
 Summary:        Minimalistic HTML/XML DOM parser with CSS selectors
-# CONTRIBUTING.md:      CC0
-# lib/Mojo/DOM58.pm:    Artistic 2.0
+# CONTRIBUTING.md:      CC0-1.0
+# lib/Mojo/DOM58.pm:    Artistic-2.0
 License:        Artistic-2.0 AND CC0-1.0
 URL:            https://metacpan.org/release/Mojo-DOM58
 Source0:        https://cpan.metacpan.org/authors/id/D/DB/DBOOK/Mojo-DOM58-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  make
 BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8.1
@@ -105,6 +105,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 26 2026 Petr Pisar <ppisar@redhat.com> - 3.003-1
+- 3.003 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.002-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

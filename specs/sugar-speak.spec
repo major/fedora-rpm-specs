@@ -1,6 +1,6 @@
 Name:           sugar-speak
 Version:        59
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Speak for Sugar
 
 # Automatically converted from old format: GPLv2+ and GPLv3+ - review is highly recommended.
@@ -32,10 +32,10 @@ just have fun making a funny face for your XO.
 sed -i 's/python/python3/' bot/*.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}%{_prefix}
+bundlebuilder install --prefix=%{buildroot}%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 find  %{buildroot}%{sugaractivitydir}Speak.activity/activity.py  -type f -name \* -exec chmod 644 {} \;
 
@@ -50,6 +50,9 @@ find  %{buildroot}%{sugaractivitydir}Speak.activity/activity.py  -type f -name \
 %{sugaractivitydir}/Speak.activity/
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 59-14
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 59-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

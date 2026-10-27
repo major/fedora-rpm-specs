@@ -11,6 +11,10 @@ Summary:        Highly-optimized, pure-python HTTP server
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/cherrypy/cheroot
 Source0:        %{pypi_source}
+
+# https://github.com/cherrypy/cheroot/issues/645
+Patch0:         0001-accept-either-ssl-error-string-in-tests.patch
+
 BuildArch:      noarch
 
 %description
@@ -65,7 +69,7 @@ Documentation for cheroot
 %endif
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 # Remove pytest processes directive
 sed -i 's/ --numprocesses=auto//' pytest.ini
@@ -112,11 +116,7 @@ rm -rf html/.{doctrees,buildinfo}
 rm -rf %{buildroot}%{python3_sitelib}/docs/
 
 %check
-# test_https_over_http_error expects an OpenSSL >=3.1 error string ('record
-# layer failure'), but Python's ssl module reports the mnemonic 'wrong version
-# number' instead. Upstream: https://github.com/cherrypy/cheroot/issues/645
-LANG=C.utf-8 %{__python3} -m pytest --ignore=build -W ignore::DeprecationWarning -p no:unraisableexception \
-    --deselect cheroot/test/test_ssl.py::test_https_over_http_error
+LANG=C.utf-8 %{__python3} -m pytest --ignore=build -W ignore::DeprecationWarning -p no:unraisableexception
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.md

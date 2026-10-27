@@ -6,12 +6,16 @@
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.2.21
+Version: 3.6.2.22
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
 Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
 Patch0: ags-use-system-libraries.patch
 Patch1: ags-build-tests-with-cxx17.patch
+# backport patch for CVE-2026-95512 to bundled freetype
+Patch2: ags-freetype-CVE-2026-95512.patch
+# fix compilation error from https://github.com/adventuregamestudio/ags/commit/713b8bb673fdf4383d0b7fa4f15e021df8e0affb
+Patch3: ags-format-error.patch
 # Most code is under Artistic-2.0, except:
 # Common/libsrc/aastr-0.1.1: LicenseRef-Fedora-UltraPermissive
 # Common/libsrc/alfont-2.0.9: FTL
@@ -79,6 +83,8 @@ This package contains the AGS engine game development tools.
 %setup -q
 %patch 0 -p1 -b .orig
 %patch 1 -p1 -b .cxx17
+%patch 2 -p1 -b .CVE-2026-95512
+%patch 3 -p1 -b .cc_error
 # delete unused bundled stuff
 pushd Common/libinclude
 rm -r ogg
@@ -147,6 +153,11 @@ mv Changes.txt.utf-8 Changes.txt
 %{_bindir}/trac
 
 %changelog
+* Mon Oct 26 2026 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.22-1
+- update to 3.6.2.22 (resolves rhbz#2558938)
+- backport patch for CVE-2026-95512 to bundled freetype (resolves rhbz#2544963)
+- backport upstream formatting error fix
+
 * Sun Aug 02 2026 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.21-1
 - update to 3.6.2.20 (resolves rhbz#2510056)
 

@@ -2,7 +2,7 @@
 
 Summary: Library for reading RAW files obtained from digital photo cameras
 Name: LibRaw
-Version: 0.22.2
+Version: 0.22.3
 Release: 1%{?dist}
 License: BSD-3-Clause and (CDDL-1.0 or LGPL-2.1-only)
 URL: https://www.libraw.org
@@ -106,6 +106,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Mon Oct 26 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.22.3-1
+- 0.22.3
+
 * Thu Jul 16 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.22.2-1
 - 0.22.2
 

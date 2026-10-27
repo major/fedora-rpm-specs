@@ -1,6 +1,6 @@
 Name:           libsidplayfp
-Version:        3.1.1
-Release:        2%{?dist}
+Version:        3.1.2
+Release:        1%{?dist}
 Summary:        SID chip music module playing library
 # Zlib (src/utils/MD5/), GPL-2.0-only (src/builders/exsid-builder/) and GPL-2.0-or-later (the rest)
 License:        GPL-2.0-or-later AND GPL-2.0-only AND Zlib
@@ -75,6 +75,10 @@ autoreconf -ivf
 
 
 %changelog
+* Mon Oct 26 2026 Karel Volný <kvolny@redhat.com> - 3.1.2-1
+- Update to 3.1.2 (rhbz#2560385)
+- Fixes CVE-2026-111148 - possible OOB read (rhbz#2554229)
+
 * Thu Sep 24 2026 Karel Volný <kvolny@redhat.com> - 3.1.1-2
 - Require libresidfp
 - spec cleanup, add %%check

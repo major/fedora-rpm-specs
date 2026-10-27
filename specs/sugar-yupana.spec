@@ -1,6 +1,6 @@
 Name:		sugar-yupana
 Version:	19
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Counting and calculating device used by the Incan
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -20,10 +20,10 @@ Counting and calculating device used by the Incan
 sed -i 's/python/python3/g' setup.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 %find_lang org.sugarlabs.YupanaActivity
@@ -36,6 +36,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Tue Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 19-10
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

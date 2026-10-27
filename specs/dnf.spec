@@ -51,7 +51,7 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.24.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
@@ -63,7 +63,7 @@ Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
 BuildArch:      noarch
 BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gettext
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 # Documentation
 BuildRequires:  systemd
 %if 0%{?fedora} > 40 || 0%{?rhel} > 10
@@ -185,7 +185,7 @@ Additional dependencies needed to perform transactions on booted bootc (bootable
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -413,6 +413,9 @@ fi
 # bootc subpackage does not include any files
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 4.24.0-6
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.24.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

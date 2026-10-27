@@ -1,13 +1,11 @@
 Name:          sugar-memorize
-Version:       58
-Release:       14%{?dist}
+Version:       59
+Release:       1%{?dist}
 Summary:       Memorize for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://wiki.sugarlabs.org/go/Activities/Memorize
 Source0:       https://download.sugarlabs.org/sources/honey/Memorize/Memorize-%{version}.tar.bz2
-# Upstream has applied this.
-Patch0:        Fix-use-of-getchildren-with-Element-object.patch 
 BuildArch:     noarch
 
 BuildRequires: python3-devel
@@ -30,11 +28,11 @@ as well.
 sed -i 's/python/python3/' setup.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -51,6 +49,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 59-1
+- v59
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 58-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

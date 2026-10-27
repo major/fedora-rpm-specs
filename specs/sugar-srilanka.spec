@@ -1,6 +1,6 @@
 Name:		sugar-srilanka
 Version:	4
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Game about the geography of Sri Lanka
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -23,10 +23,10 @@ Game about the geography of Sri Lanka.
 sed -i 's/python/python3/g' *.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -39,6 +39,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/IknowSriLanka.activity/
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 4-15
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

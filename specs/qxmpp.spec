@@ -1,10 +1,10 @@
-%global sover 8
+%global sover 11
 
 %bcond_without check
 %bcond_with all_tests
 
 Name:           qxmpp
-Version:        1.14.7
+Version:        1.17.0
 Release:        %autorelease
 Summary:        Cross-platform C++ XMPP client and server library
 
@@ -14,15 +14,17 @@ Summary:        Cross-platform C++ XMPP client and server library
 License:        LGPL-2.1-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 URL:            https://invent.kde.org/libraries/qxmpp
 Source0:        %{url}/-/archive/v%{version}/qxmpp-v%{version}.tar.gz
-# Generate docbook documentation instead of html
-# https://invent.kde.org/libraries/qxmpp/-/merge_requests/743
-Patch0:         docbook.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  doxygen
+BuildRequires:  extra-cmake-modules
 # optional for QXmpp OMEMO module
+BuildRequires:  pkgconfig(openssl)
 BuildRequires:  libomemo-c-devel
 BuildRequires:  protobuf-c-devel
 
@@ -49,6 +51,8 @@ BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  qca-qt6-devel
 # calls
 BuildRequires:  pkgconfig(gstreamer-1.0)
+# docs
+BuildRequires:  qt6-doctools
 
 %description    qt6
 %{_description}
@@ -75,22 +79,26 @@ This package contains documentation for %{name}.
 OPTIONS=(
     -GNinja \
     -DBUILD_TESTS=ON \
-    -DBUILD_DOCUMENTATION=OFF \
-    -DBUILD_DOCBOOK_DOCUMENTATION=ON \
+    -DBUILD_DOCUMENTATION=ON \
     -DBUILD_OMEMO=ON \
     -DWITH_GSTREAMER=ON \
 )
 
 %global _vpath_builddir %{_target_platform}-qt6
+export KDE_DOCS="/usr/share/doc/qt6/kde-qdoc-common"
 %cmake \
     ${OPTIONS[@]} \
     -DQT_VERSION_MAJOR=6 \
 %cmake_build
+%cmake_build --target generate_docs
 
 %install
 
 %global _vpath_builddir %{_target_platform}-qt6
 %cmake_install
+mkdir -p %{buildroot}%{_qt6_docdir}
+cp -r %{_vpath_builddir}/doc/qdoc/qxmpp/ %{buildroot}%{_qt6_docdir}/
+rm -fr %{buildroot}%{_pkgdocdir}/qxmpp/
 
 %if %{with check}
 %check
@@ -98,17 +106,8 @@ OPTIONS=(
 %if %{with all_tests}
 %ctest
 %else
-SKIP_TESTS='tst_qxmppcallmanager'
-SKIP_TESTS+='|tst_qxmppdiscoverymanager'
-SKIP_TESTS+='|tst_qxmppiceconnection'
-SKIP_TESTS+='|tst_qxmpppubsubmanager'
-SKIP_TESTS+='|tst_qxmpprostermanager'
-SKIP_TESTS+='|tst_qxmppuserlocationmanager'
-SKIP_TESTS+='|tst_qxmppusertunemanager'
-SKIP_TESTS+='|tst_qxmppfileencryption'
-SKIP_TESTS+='|tst_qxmpptransfermanager'
-SKIP_TESTS+='|tst_qxmpphttpuploadmanager'
-SKIP_TESTS+='|tst_qxmppjinglemessageinitiationmanager'
+SKIP_TESTS='tst_FileSharing'
+SKIP_TESTS+='|tst_IceConnection'
 %ctest -E "$SKIP_TESTS"
 %endif
 
@@ -134,8 +133,8 @@ SKIP_TESTS+='|tst_qxmppjinglemessageinitiationmanager'
 %{_libdir}/pkgconfig/QXmppQt6.pc
 
 %files doc
-%dir  %{_datadir}/help/en
-%lang(en) %{_datadir}/help/en/qxmpp
+%dir %{_qt6_docdir}
+%{_qt6_docdir}/%{name}
 
 %changelog
 %autochangelog

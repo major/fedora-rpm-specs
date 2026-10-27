@@ -1,11 +1,11 @@
 Summary:       Counting pipe
 Name:          cpipe
-Version:       3.0.1
-Release:       38%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
+Version:       3.0.2
+Release:       1%{?dist}
 License:       GPL-2.0-or-later
-URL:           http://developer.berlios.de/projects/cpipe
-Source0:       http://download.berlios.de/cpipe/cpipe-%{version}.tar.gz
+URL:           https://sourceforge.net/projects/cpipe.berlios/
+Source0:       https://sourceforge.net/projects/cpipe.berlios/files/cpipe-%{version}.tar.gz
+Patch:         cpipe-3.0.2-format.patch
 BuildRequires: gcc
 BuildRequires: make
 %description
@@ -15,26 +15,35 @@ buffer. Statistics of average throughput and the total amount of bytes
 copied are printed to the standard error output.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
-# Use included filess
+# Use included files
 touch cmdline.c cmdline.h cpipe.1
-make %{?_smp_mflags} CFLAGS='%{optflags}'
+make %{?_smp_mflags} CFLAGS='%{optflags}' LDFLAGS='%{build_ldflags}'
 
 %install
-make install \
+%make_install \
     BINDIR=%{buildroot}%{_bindir} \
     MANDIR=%{buildroot}%{_mandir}/man1
 chmod 0644 %{buildroot}%{_mandir}/man1/cpipe*
+
+%check
+cat COPYING-2.0 | ./cpipe -vt > /dev/null
 
 %files
 %license COPYING-2.0
 %doc CHANGES README
 %{_bindir}/cpipe
-%{_mandir}/man1/cpipe*
+%{_mandir}/man1/cpipe.1*
 
 %changelog
+* Mon Oct 26 2026 Terje Røsten <terjeros@gmail.com> - 3.0.2-1
+- 3.0.2
+- New upstream location
+- Fix build options
+- Add a simple test
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

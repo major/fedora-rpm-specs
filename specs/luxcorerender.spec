@@ -1,6 +1,7 @@
-%bcond_without opencl
+%bcond opencl 1
 
-%global blend_version 2.11.0
+%global blend_version 2.11.1
+%global blender_min_version 4.5.0
 # Use the manifest ID as the directory name in the system extension repository.
 %global blendluxcore_dir %{blender_extensions}/blendluxcore
 
@@ -15,13 +16,22 @@ Source0:        https://github.com/LuxCoreRender/LuxCore/archive/wheels-v%{versi
 # BlendLuxCore has an independent release cadence.
 Source1:        https://github.com/LuxCoreRender/BlendLuxCore/archive/v%{blend_version}/BlendLuxCore-%{blend_version}.tar.gz
 Source3:        org.%{name}.blendluxcore.metainfo.xml
+Source4:        luxcoreconsole.1
+
+Patch0:         luxcore-system-dependencies.patch
+Patch1:         luxcore-robin-map.patch
+Patch2:         luxcore-system-build.patch
+Patch3:         luxcore-python-install.patch
+Patch4:         blendluxcore-system-python.patch
+# Replace obsolete postal addresses with the GNU license URL; preserve terms.
+Patch5:         blendluxcore-license-url.patch
 
 ExclusiveArch:  x86_64
 
 BuildRequires:  cmake >= 3.29
 BuildRequires:  gcc-c++
 BuildRequires:  appstream
-BuildRequires:  blender
+BuildRequires:  blender >= %{blender_min_version}
 BuildRequires:  blender-rpm-macros
 BuildRequires:  bison
 BuildRequires:  flex
@@ -80,14 +90,14 @@ Provides:       %{name}-core = %{version}-%{release}
 
 %description
 LuxCoreRender implements state-of-the-art light transport algorithms for
-photorealistic rendering. Features hybrid CPU/GPU acceleration,
-spectral rendering, and advanced material modeling.
+photorealistic rendering, with CPU rendering, optional OpenCL GPU
+acceleration, and advanced material modeling.
 
 %package -n blender-%{name}
-Summary:        Blender 4.2+ integration extension
+Summary:        Blender integration for LuxCoreRender
 License:        GPL-3.0-or-later
 BuildArch:      noarch
-Requires:       blender >= 4.2
+Requires:       blender >= %{blender_min_version}
 Requires:       %{name} = %{version}-%{release}
 Obsoletes:      %{name}-blender < %{blend_version}
 Provides:       %{name}-blender = %{blend_version}-%{release}
@@ -97,15 +107,16 @@ Blender extension for exporting scenes and materials to LuxCore Renderer.
 Supports Cycles material conversion and interactive rendering.
 
 The extension is installed in Blender's system extension repository and is
-available to all users. Enable BlendLuxCore in Blender's Add-ons preferences.
+available to all users. Enable BlendLuxCore in the Blender preferences.
 It uses the system-provided LuxCore Python bindings.
 
+# libluxcore.so.2 is a downstream SONAME: audit ABI compatibility on upgrades.
 %package devel
 Summary:        Development headers and libraries
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-Header files and build configuration for developing LuxCore-based applications.
+Header files and libraries for developing LuxCore-based applications.
 
 %prep
 # Require the corrected blender-rpm-macros path; older macros use addons_core.
@@ -114,11 +125,6 @@ if [ "%{blender_extensions}" != "%{blender_datadir}/extensions/system" ]; then
     exit 1
 fi
 %autosetup -p1 -a1 -n LuxCore-wheels-v%{version}
-
-# Fedora provides the Python bindings as part of the main package.  Do not let
-# the Blender extension download and install a second copy from PyPI at runtime.
-sed -i 's/luxloader\.ensure_pyluxcore()/# Use the system-provided Python bindings./' \
-    BlendLuxCore-%{blend_version}/__init__.py
 
 # Match the Python distribution metadata to Fedora's CMake installation.
 # CUDA is disabled and the wheel-only Python tools are not installed here.
@@ -147,135 +153,11 @@ project.pop("gui-scripts", None)
 path.write_text(tomli_w.dumps(data))
 PYTHON
 
-# Fix detection for Blosc2 and OIDN (upstream naming mismatches)
-sed -i 's/c-blosc/Blosc2/g' CMakeLists.txt
-sed -i 's/oidn/OpenImageDenoise/g' CMakeLists.txt
-sed -i 's/find_package(robin_hood REQUIRED)/find_package(tsl-robin-map REQUIRED)/' \
-    CMakeLists.txt
-sed -i 's/find_package(Boost REQUIRED)/find_package(Boost REQUIRED COMPONENTS iostreams serialization)/' \
-    CMakeLists.txt
-
-# Map Fedora's system-library targets to the Conan-style names used upstream.
-sed -i '/find_package(embree REQUIRED)/c\
-find_path(EMBREE_INCLUDE_DIR embree4/rtcore.h REQUIRED)\
-find_library(EMBREE_LIBRARY NAMES embree4 REQUIRED)\
-add_library(embree::embree SHARED IMPORTED)\
-set_target_properties(embree::embree PROPERTIES IMPORTED_LOCATION "${EMBREE_LIBRARY}" INTERFACE_INCLUDE_DIRECTORIES "${EMBREE_INCLUDE_DIR}")' \
-    CMakeLists.txt
-sed -i '/find_package(tsl-robin-map REQUIRED)/a\
-add_library(onetbb::onetbb INTERFACE IMPORTED)\
-set_target_properties(onetbb::onetbb PROPERTIES INTERFACE_LINK_LIBRARIES "TBB::tbb;TBB::tbbmalloc")\
-add_library(robin_hood::robin_hood INTERFACE IMPORTED)\
-set_target_properties(robin_hood::robin_hood PROPERTIES INTERFACE_LINK_LIBRARIES tsl::robin_map)\
-add_library(openexr::openexr INTERFACE IMPORTED)\
-set_target_properties(openexr::openexr PROPERTIES INTERFACE_LINK_LIBRARIES OpenEXR::OpenEXR)\
-add_library(opensubdiv::opensubdiv INTERFACE IMPORTED)\
-set_target_properties(opensubdiv::opensubdiv PROPERTIES INTERFACE_LINK_LIBRARIES OpenSubdiv::osdCPU)\
-add_library(openimageio::openimageio INTERFACE IMPORTED)\
-set_target_properties(openimageio::openimageio PROPERTIES INTERFACE_LINK_LIBRARIES "OpenImageIO::OpenImageIO;OpenImageIO::OpenImageIO_Util")\
-find_path(OIDN_INCLUDE_DIR OpenImageDenoise/oidn.hpp REQUIRED)\
-find_library(OIDN_LIBRARY NAMES OpenImageDenoise REQUIRED)\
-add_library(oidn::oidn SHARED IMPORTED)\
-set_target_properties(oidn::oidn PROPERTIES IMPORTED_LOCATION "${OIDN_LIBRARY}" INTERFACE_INCLUDE_DIRECTORIES "${OIDN_INCLUDE_DIR}")\
-find_path(OPENJPH_INCLUDE_DIR openjph/ojph_codestream.h REQUIRED)\
-find_library(OPENJPH_LIBRARY NAMES openjph REQUIRED)\
-add_library(openjph::openjph SHARED IMPORTED)\
-set_target_properties(openjph::openjph PROPERTIES IMPORTED_LOCATION "${OPENJPH_LIBRARY}" INTERFACE_INCLUDE_DIRECTORIES "${OPENJPH_INCLUDE_DIR}")' \
-    CMakeLists.txt
-
-# Upstream's Conan target hides compiled Boost dependencies behind an
-# interface-only compatibility target.  Link Fedora's imported Iostreams and
-# Serialization targets directly so they survive static-library composition.
-find . -name CMakeLists.txt -exec \
-    sed -i 's/boost::boost/Boost::iostreams Boost::serialization/g' {} +
-
-# luxcore_static uses the scalable allocator, but its private link dependencies
-# do not propagate to the console executable.  Keep tbbmalloc after the static
-# archive on the final link line so Fedora's --as-needed does not discard it.
-sed -i 's/Boost::serialization)/Boost::serialization TBB::tbbmalloc)/' \
-    samples/luxcoreconsole/CMakeLists.txt
-
-# Adapt the robin_hood-specific API to Fedora's tsl-robin-map implementation.
-sed -i \
-    -e 's|<robin_hood.h>|<tsl/robin_map.h>|' \
-    -e 's/robin_hood::unordered_flat_map/tsl::robin_map/g' \
-    include/slg/lights/lightsourcedefs.h
-sed -i \
-    -e 's/robin_hood::unordered_flat_map/tsl::robin_map/g' \
-    -e 's/e->second/e.value()/g' \
-    src/slg/lights/lightsourcedefs.cpp
-sed -i \
-    -e '/#include <cstdlib>/i#include <functional>' \
-    -e 's/robin_hood::hash_bytes(prefix.data(), sizeof(char) \* prefix.size())/std::hash<std::string>{}(prefix)/' \
-    src/slg/scene/scene.cpp
-
-# Fedora's OIDN uses the standard oidn namespace.  The lux::oidn namespace is
-# specific to upstream's private OIDN build configured with OIDN_API_NAMESPACE.
-sed -i 's/lux::oidn::/oidn::/g' \
-    src/slg/film/imagepipeline/plugins/intel_oidn.cpp
-
-# fmt 12 removed basic_memory_buffer::c_str(); convert the formatted buffer to
-# a string before passing it to LuxCore's C-style logging callback.
-sed -i 's/formatted\.c_str()/fmt::to_string(formatted).c_str()/' \
-    include/luxcore/luxcoresink.h
-
-# fmt 12 no longer formats arbitrary enums implicitly.
-sed -i 's/API_RETURN("{}", type);/API_RETURN("{}", static_cast<int>(type));/' \
-    src/luxcore/luxcoreimpl.cpp
-
-# Fedora's OpenVDB package does not consistently export a discoverable CMake
-# target across releases.  Define the target from the system headers/library.
-sed -i '/find_package(OpenVDB REQUIRED)/c\
-find_path(OPENVDB_INCLUDE_DIR openvdb/openvdb.h REQUIRED)\
-find_library(OPENVDB_LIBRARY NAMES openvdb REQUIRED)\
-add_library(OpenVDB::openvdb SHARED IMPORTED)\
-set_target_properties(OpenVDB::openvdb PROPERTIES IMPORTED_LOCATION "${OPENVDB_LIBRARY}" INTERFACE_INCLUDE_DIRECTORIES "${OPENVDB_INCLUDE_DIR}")' \
-    CMakeLists.txt
-
-# CUDA/OptiX and the standalone ImGui frontend are disabled.  Avoid probing
-# their unavailable SDKs and omit the frontend target.
-sed -i \
-    -e '/find_package(nvrtc REQUIRED)/d' \
-    -e '/find_package(imgui)/d' \
-    -e '/find_package(glfw3)/d' \
-    -e '/find_package(imguifiledialog)/d' \
-    -e '/add_subdirectory(samples\/luxcoreui)/d' \
-    CMakeLists.txt
-
-# With system OIDN and CUDA disabled, these upstream bundle paths are empty.
-# Guard their install rules so CMake is not passed an empty PROGRAMS argument.
-sed -i \
-    -e '179s/^if(LINUX)$/if(LINUX AND LUX_OIDN_DEVICE_CPU)/' \
-    -e '217s/^if(LINUX)$/if(LINUX AND LUX_NVRTC)/' \
-    src/luxcore/CMakeLists.txt
-sed -i '107s/^if(LINUX)$/if(LINUX AND LUX_OIDN_DEVICE_CPU)/' \
-    src/pyluxcore/CMakeLists.txt
-sed -i '117s/^endif(LINUX)$/endif()/' src/pyluxcore/CMakeLists.txt
-
-# Never copy system runtime dependencies into the package buildroot.  Fedora's
-# dependency generator records the required shared libraries from their owning
-# packages; bundling CMake's resolved dependency set would duplicate them.
-sed -i \
-    '/^[[:space:]]*RUNTIME_DEPENDENCIES$/,/^[[:space:]]*DIRECTORIES .*CONAN_RUNTIME_LIB_DIRS/d' \
-    src/luxcore/CMakeLists.txt
-sed -i '/^install(RUNTIME_DEPENDENCY_SET LUXCONSOLE_DEPS$/,/^)/d' \
-    samples/luxcoreconsole/CMakeLists.txt
-sed -i '/^[[:space:]]*RUNTIME_DEPENDENCY_SET LUXCONSOLE_DEPS$/d' \
-    samples/luxcoreconsole/CMakeLists.txt
-
-# Give the public library a proper ABI-versioned SONAME.
-sed -i '/set_target_properties(luxcore PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)/a\
-set_target_properties(luxcore PROPERTIES VERSION %{version} SOVERSION 2)' \
-    src/luxcore/CMakeLists.txt
-
-# Install the Python extension in Fedora's architecture-specific site directory.
-sed -i 's|DESTINATION pyluxcore|DESTINATION %{python3_sitearch}|' \
-    src/pyluxcore/CMakeLists.txt
-
 %build
 # Build the main LuxCore library
 %cmake \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
+    -DPYTHON_SITEARCH=%{python3_sitearch} \
     -DLUXCORE_VERSION=%{version} \
     -DLUXCOREDEPS_VERSION=2.2.3 \
     %{opencl_flags} \
@@ -323,9 +205,19 @@ install -Dpm 0644 %{__cmake_builddir}/generated/include/luxrays/cfg.h \
 install -d %{buildroot}%{blendluxcore_dir}
 %{python3} -m zipfile -e BlendLuxCore-%{blend_version}/BlendLuxCore.zip \
     %{buildroot}%{blendluxcore_dir}
+# Developer helpers are not runtime tools. Documentation and license copies
+# are installed separately by the doc and license directives below.
+rm -rf %{buildroot}%{blendluxcore_dir}/debug-helpers
+rm -f %{buildroot}%{blendluxcore_dir}/wf-debug.sh \
+    %{buildroot}%{blendluxcore_dir}/AUTHORS.txt \
+    %{buildroot}%{blendluxcore_dir}/readme.md \
+    %{buildroot}%{blendluxcore_dir}/LICENSE
+
 # The repository is managed by RPM and remains read-only for ordinary users.
 find %{buildroot}%{blendluxcore_dir} -type d -exec chmod 0755 {} +
 find %{buildroot}%{blendluxcore_dir} -type f -exec chmod 0644 {} +
+
+install -Dpm 0644 %{SOURCE4} %{buildroot}%{_mandir}/man1/luxcoreconsole.1
 
 # Install the AppStream metadata
 install -Dpm 644 %{SOURCE3} %{buildroot}%{_metainfodir}/org.%{name}.blendluxcore.metainfo.xml
@@ -355,6 +247,22 @@ print("PyLuxCore:", pyluxcore.__file__)
 print("PyLuxCore distribution version:", dist.version)
 PYTHON
 
+# Exercise the bindings in Blender's embedded Python as well as system Python.
+cat > blender-pyluxcore-smoke.py <<'PYTHON'
+from pathlib import Path
+import sys
+from importlib.metadata import version
+sitearch = Path("%{buildroot}%{python3_sitearch}").resolve()
+sys.path.insert(0, str(sitearch))
+import pyluxcore
+assert Path(pyluxcore.__file__).resolve().parent == sitearch
+assert version("pyluxcore") == "%{version}"
+print("Blender staged PyLuxCore import: OK")
+PYTHON
+LD_LIBRARY_PATH=%{buildroot}%{_libdir}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH} \
+%{_bindir}/blender --background --factory-startup --python-exit-code 1 \
+    --python blender-pyluxcore-smoke.py
+
 # Check the installed extension layout and manifest, not just the build ZIP.
 %{python3} - <<'PYTHON'
 from pathlib import Path
@@ -365,18 +273,20 @@ manifest = tomllib.loads((extension_dir / "blender_manifest.toml").read_text())
 assert manifest["id"] == extension_dir.name == "blendluxcore"
 assert manifest["version"] == "%{blend_version}"
 assert manifest["type"] == "add-on"
+assert manifest["blender_version_min"] == "%{blender_min_version}"
 assert not manifest.get("wheels")
 assert (extension_dir / "__init__.py").is_file()
 assert "luxloader.ensure_pyluxcore()" not in (extension_dir / "__init__.py").read_text()
 PYTHON
 %{_bindir}/blender --command extension validate %{buildroot}%{blendluxcore_dir}
 
-appstreamcli validate --no-net %{buildroot}%{_metainfodir}/*.xml
+appstreamcli validate --no-net %{buildroot}%{_metainfodir}/org.%{name}.blendluxcore.metainfo.xml
 
 %files
 %license COPYING.txt
 %doc README.md AUTHORS.txt
 %{_bindir}/luxcore*
+%{_mandir}/man1/luxcoreconsole.1*
 %{_libdir}/liblux*.so.*
 %{python3_sitearch}/pyluxcore*.so
 %{python3_sitearch}/pyluxcore-%{version}.dist-info/
@@ -384,7 +294,7 @@ appstreamcli validate --no-net %{buildroot}%{_metainfodir}/*.xml
 %files -n blender-%{name}
 %license BlendLuxCore-%{blend_version}/LICENSE
 %doc BlendLuxCore-%{blend_version}/{AUTHORS.txt,readme.md}
-%{_metainfodir}/org.%{name}.*.xml
+%{_metainfodir}/org.%{name}.blendluxcore.metainfo.xml
 %{blendluxcore_dir}/
 
 %files devel

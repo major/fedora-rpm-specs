@@ -1,7 +1,7 @@
 Summary: Utilities for performing block layer IO tracing in the Linux kernel
 Name: blktrace
 Version: 1.3.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: GPL-2.0-or-later
 Source0: http://brick.kernel.dk/snaps/blktrace-%{version}.tar.bz2
 Source1: https://brick.kernel.dk/snaps/blktrace-%{version}.tar.bz2.asc
@@ -13,7 +13,7 @@ BuildRequires: python3-devel
 BuildRequires: gcc, libaio-devel
 
 BuildRequires: make
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 %description
 blktrace is a block layer IO tracing mechanism which provides detailed
@@ -26,7 +26,7 @@ information about IO patterns.
 
 %prep
 %autosetup -p1
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn \
  btt/bno_plot.py \
@@ -84,6 +84,9 @@ information about IO patterns.
 %{_mandir}/man1/iowatcher.*
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 1.3.0-18
+- Verify upstream source signatures with openpgpverify
+
 * Thu Aug 13 2026 Pavel Reichl <preichl@redhat.com> - 1.3.0-17
 - Move librsvg2-tools from blktrace Requires to iowatcher subpackage (rhbz#2406001)
 - Remove unnecessary BuildRequires on librsvg2-devel (rhbz#2406001)

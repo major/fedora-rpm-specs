@@ -9,7 +9,7 @@ checkout" (e.g, created by running setup.py develop).}
 
 Name:           python-%{pypi_name}
 Summary:        Query metadata from sdists / bdists / installed packages
-Version:        1.13
+Version:        1.13.3
 Release:        %autorelease
 License:        MIT
 
@@ -67,18 +67,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %check
 %pyproject_check_import
-
-# These all appear to be due to metadata version discrepancies from PyPI, the
-# same root cause as “test_installed_ctor_w_dist_info fails against wheel built
-# with flit > 3.10.0,” https://bugs.launchpad.net/pkginfo/+bug/2090840, and
-# “Different core metadata version in recent setuptools,”
-# https://bugs.launchpad.net/pkginfo/+bug/2103804.
-k="${k-}${k+ and }not test_installed_ctor_w_package"
-k="${k-}${k+ and }not test_installed_ctor_w_name"
-k="${k-}${k+ and }not test_get_metadata_w_module"
-k="${k-}${k+ and }not test_get_metadata_w_package_name"
-
-%pytest -k "${k-}"
+%pytest
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

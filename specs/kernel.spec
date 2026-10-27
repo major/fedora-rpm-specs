@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc0.261023g734bef548a96.6
+%define pkgrelease 0.rc0.261026g6b4b543fa187.8
 %define kversion 7
-%define tarfile_release 7.3-7363-g734bef548a96
+%define tarfile_release 7.3-16411-g6b4b543fa187
 # This is needed to do merge window version magic
 %define patchlevel 4
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.261023g734bef548a96.6%{?buildid}%{?dist}
+%define specrelease 0.rc0.261026g6b4b543fa187.8%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -4835,9 +4835,19 @@ fi\
 #
 #
 %changelog
-* Fri Oct 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.734bef548a96.6]
+* Mon Oct 26 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.4.0-0.rc0.261026g6b4b543fa187.8]
+- Add initial config for DEBUG_INFO_BTF_INLINE (Justin M. Forbes)
+
+* Mon Oct 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.6b4b543fa187.8]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Mon Oct 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.6b4b543fa187.7]
+- Fix up mismatches for merge window configs (Justin M. Forbes)
+- Linux v7.4.0-0.rc0.6b4b543fa187
+
+* Sun Oct 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.5b0764a53235.6]
+- Linux v7.4.0-0.rc0.5b0764a53235
 
 * Fri Oct 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.734bef548a96.5]
 - Linux v7.4.0-0.rc0.734bef548a96

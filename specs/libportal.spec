@@ -1,8 +1,8 @@
 %bcond qt5 %[%{undefined rhel} || 0%{?rhel} < 10]
 
 Name:           libportal
-Version:        0.10.0
-Release:        3%{?dist}
+Version:        0.11.0
+Release:        %autorelease
 Summary:        Flatpak portal library
 # doc/urlmap.js is LGPL-2.1-or-later
 # everything else is LGPL-3.0-only
@@ -217,125 +217,4 @@ This package provides development documentations for libportal.
 %{_datadir}/doc/libportal-1
 
 %changelog
-* Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 0.10.0-3
-- Rebuild (qt6)
-
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jun 19 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.10.0-1
-- Update to 0.10.0
-
-* Thu May 14 2026 Jan Grulich <jgrulich@redhat.com> - 0.9.1-6
-- Rebuild (qt6)
-
-* Thu Apr 16 2026 Jan Grulich <jgrulich@redhat.com> - 0.9.1-5
-- Rebuild (qt6)
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 0.9.1-3
-- Rebuild (qt6)
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sat Apr 5 2025 Tomi Lähteenmäki <lihis@lihis.net> - 0.9.1-1
-- Update to 0.9.1 (fedora#2345185)
-
-* Tue Mar 25 2025 Jan Grulich <jgrulich@redhat.com> - 0.9.0-4
-- Rebuild (qt6)
-
-* Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sun Dec 22 2024 David King <amigadave@amigadave.com> - 0.9.0-1
-- Update to 0.9.0 (#2333636)
-
-* Mon Oct 14 2024 Jan Grulich <jgrulich@redhat.com> - 0.8.1-2
-- Rebuild (qt6)
-
-* Sun Sep 29 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.8.1-1
-- Update to 0.8.1
-
-* Tue Sep 03 2024 Neal Gompa <ngompa@fedoraproject.org> - 0.8.0-1
-- Update to 0.8.0
-- Add Qt6 bindings
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Sep 21 2023 Kalev Lember <klember@redhat.com> - 0.7.1-1
-- Update to 0.7.1
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 22 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.6-7
-- Disable qt5 in RHEL 10 builds
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jan 18 2023 Bastien Nocera <bnocera@redhat.com> - 0.6-5
-- Backport post-0.6 bug fixes
-
-* Thu Dec 15 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.6-4
-- Ensure correct fonts are installed for HTML docs
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 09 2022 Bastien Nocera <bnocera@redhat.com> - 0.6-2
-+ libportal-0.6-2
-- Disable Qt tests, see https://github.com/flatpak/libportal/issues/86
-
-* Thu Jun 09 2022 Bastien Nocera <bnocera@redhat.com> - 0.6-1
-+ libportal-0.6-1
-- Update to 0.6
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jan 07 2022 David King <amigadave@amigadave.com> - 0.5-1
-- Update to 0.5
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Apr 06 2021 David King <amigadave@amigadave.com> - 0.4-1
-- Update to 0.4
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Jan 13 2020 Bastien Nocera <bnocera@redhat.com> - 0.3-3
-+ libportal-0.3-3
-- Add forgotten dist tag to Release (#1790258)
-
-* Mon Jan 06 2020 Bastien Nocera <bnocera@redhat.com> - 0.3-2
-+ libportal-0.3-2
-- Add COPYING file to package
-
-* Mon Jan 06 2020 Bastien Nocera <bnocera@redhat.com> - 0.3-1
-+ libportal-0.3-1
-- Update to 0.3
-
-* Wed Dec 11 2019 Bastien Nocera <bnocera@redhat.com> - 0.1-0.1.20191211git7355b1e
-+ libportal-0.1-0.20191211git7355b1e
+%autochangelog

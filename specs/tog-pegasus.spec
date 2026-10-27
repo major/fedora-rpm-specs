@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -464,7 +464,6 @@ rm $RPM_BUILD_ROOT/usr/share/Pegasus/test/testtracer4.trace.0
 %defattr(0755, root, pegasus, 0755)
 %{_libdir}/*.so*
 %{_libdir}/Pegasus
-%exclude /usr/lib/debug
 %exclude /usr/lib/systemd
 %exclude %{_tmpfilesdir}
 
@@ -579,6 +578,10 @@ fi
 
 
 %changelog
+* Mon Oct 26 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.4-3
+- Don't ship debug files in tog-pegasus-libs
+  Resolves: #2537159
+
 * Fri Jul 31 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.4-2
 - Fix buffer overflows in sample CMPI providers (CWE-120)
 

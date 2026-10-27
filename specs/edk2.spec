@@ -144,6 +144,7 @@ Patch0015: 0015-Revert-OvmfPkg-X86QemuLoadImageLib-flip-default-for-.patch
 Patch0016: 0016-OvmfPkg-PlatformDxe-proper-addr-masking.patch
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
 %endif
+Patch0017: 0017-NetworkPkg-UefiPxeBcDxe-Fix-ICMP-buffer-overflow-in-.patch
 
 
 # needed by %prep

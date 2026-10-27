@@ -3,8 +3,8 @@
 %global debug_package %{nil}
 
 Name:          sugar-pippy
-Version:       75
-Release:       17%{?dist}
+Version:       76
+Release:       1%{?dist}
 Summary:       Pippy for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
@@ -44,11 +44,11 @@ for Files in pippy_app.py ; do
 done
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 
 %install
-python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %find_lang org.laptop.Pippy
 
@@ -62,6 +62,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 76-1
+- Release 76
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 75-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

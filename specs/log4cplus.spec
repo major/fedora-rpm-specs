@@ -25,7 +25,7 @@ Summary: Development files for log4cplus C++ logging framework
 Requires: %{name} = %{version}-%{release}
 BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 %description devel
 This package contains headers and libraries needed to develop applications
@@ -41,7 +41,7 @@ using log4cplus logging framework.
 
 %prep
 %if 0%{?fedora}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %setup -q %{?prever:-n %{name}-%{version}-%{prever}}
 

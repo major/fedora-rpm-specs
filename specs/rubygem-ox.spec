@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.14.17
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Fast XML parser and object serializer
 
 License:        MIT
@@ -11,6 +11,12 @@ Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/ohler55/ox && cd ox
 # git archive -v -o rubygem-ox-2.14.17-repo.tgz v2.14.17 test/ examples/
 Source1:        %{name}-%{version}-repo.tgz
+# https://github.com/ohler55/ox/pull/359
+# Use TypedData, needed for ruby4.1
+Patch0:         ox-pr359-TypedData.patch
+# https://github.com/ohler55/ox/pull/429
+# Use rb_range_values to dump range for ruby4.1
+Patch1:         ox-pr429-dump-range-ruby41.patch
 
 BuildRequires:  gcc
 BuildRequires:  rubygems-devel
@@ -41,6 +47,8 @@ Documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version} -a1
+%patch -P0 -p1 -b .typeddata
+%patch -P1 -p1 -b .range_ruby41
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
@@ -95,6 +103,10 @@ popd
 
 
 %changelog
+* Mon Oct 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.17-11
+- Backport upstream patch to use TypedData API for ruby4.1
+- Backport upstream patch to support to dump Range for ruby4.1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.17-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    sugar-write
 Version: 101
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Word processor for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -29,11 +29,11 @@ The Write activity provides a word processor for the Sugar interface.
 sed -i 's/python/python3/' *.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{sugaractivitydir}
-python3 ./setup.py install --prefix=$RPM_BUILD_ROOT/%{_prefix}
+bundlebuilder install --prefix=$RPM_BUILD_ROOT/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -48,6 +48,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 101-18
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 101-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

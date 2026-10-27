@@ -68,6 +68,11 @@ Patch21:        D261512.1755672843.diff
 # GC patch - https://gitea.wildfiregames.com/0ad/0ad/issues/8757
 Patch22:        FixExtraGCTracing.diff
 
+# Fix target detection with latest rust
+# https://phabricator.services.mozilla.com/D311145
+# https://phabricator.services.mozilla.com/D330023
+Patch23:        rust-configure.patch
+
 BuildRequires:  cargo
 %if "%{toolchain}" == "clang"
 BuildRequires:  clang

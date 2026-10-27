@@ -1,6 +1,6 @@
 Name:           sugar-view-slides
 Version:        15
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Image series viewer for Sugar
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -36,10 +36,10 @@ controller to move from page to page.
 sed -i 's/python/python3/' *.py
 
 %build
-python3 setup.py build
+bundlebuilder build
 
 %install
-python3 setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -53,6 +53,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 15-13
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 15-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -211,7 +211,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        3.2%{?rc_version:.%rc_version}%{?dist}
+Release:        4%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -235,13 +235,7 @@ Source2:        gpgkey-B40A78FBA576C4A3FC7D7BBC359FAF777296F653.asc
 %endif
 
 Patch0:         freeipa-version-upgrade-fedora-only.patch
-Patch1:         freeipa-pr-8557.patch
-Patch2:         freeipa-pr-8558.patch
-Patch3:         freeipa-CVE-2026-14612.patch
-Patch4:         freeipa-ipa-join-increase-argv-array-suze-for-ipa-getkeytab.patch
-Patch5:         freeipa-ipa-kdb-fix-NULL-pointer-dereference-when-freeing-cr.patch
-Patch6:         freeipa-increase-the-AJP-proxy-buffer-size-to-handle-large-c.patch
-Patch7:         freeipa-force-rewrite-of-ipa-pki-proxy.conf-on-upgrade.patch
+Patch1:         freeipa-4.13.4-updates.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1979,6 +1973,10 @@ fi
 %endif
 
 %changelog
+* Mon Oct 26 2026 David Hanina <dhanina@redhat.com> - 4.13.4-4
+- Rebuild against Samba 4.25.1
+- Consolidate post-4.13.4 patches from ipa-4-13 branch upstream
+
 * Tue Oct 06 2026 David Hanina <dhanina@redhat.com> - 4.13.4-3.2
 - Resolves: rhbz#2546573
 

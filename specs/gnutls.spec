@@ -93,7 +93,7 @@ BuildRequires: tpm2-tss-devel >= 3.0.3
 BuildRequires: libidn2-devel
 BuildRequires: libunistring-devel
 BuildRequires: net-tools, softhsm, gcc, gcc-c++
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: git-core
 %if %{with crypto_auditing}
 BuildRequires: systemtap-sdt-devel
@@ -156,7 +156,7 @@ Provides:	bundled(nettle) = 4.0
 Source200:	nettle-4.0.tar.gz
 # Taken from the main nettle package
 Source201:	nettle-4.0.tar.gz.sig
-Source202:	nettle-release-keyring.gpg
+Source202:	nettle-release-keyring-2026.gpg
 Source203:	nettle-4.0-zeroize-stack.patch
 Source204:	nettle-4.0-hobble-to-configure.patch
 %endif
@@ -287,7 +287,7 @@ for MinGW.
 %endif
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup -p1 -S git
 
@@ -302,7 +302,7 @@ popd
 %endif
 
 %if %{with bundled_nettle}
-%{gpgverify} --keyring='%{SOURCE202}' --signature='%{SOURCE201}' --data='%{SOURCE200}'
+%{openpgpverify} --keyring='%{SOURCE202}' --signature='%{SOURCE201}' --data='%{SOURCE200}'
 
 mkdir -p bundled_nettle
 pushd bundled_nettle

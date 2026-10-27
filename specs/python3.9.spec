@@ -26,7 +26,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 13%{?dist}
+Release: 15%{?dist}
 # Python is Python-2.0.1
 # pip is MIT and bundles:
 #   CacheControl: Apache-2.0
@@ -577,12 +577,27 @@ Patch482: 00482-cve-2026-6100.patch
 # (cherry-picked from commit acfe02f3b05436658d92add6b168538b30f357f0)
 Patch489: 00489-openssl-3.5.7.patch
 
+# 00490 # 4d6b26beb70a9404047984320a87560e9b188ab2
+# gh-153030: Fix quadratic complexity in incremental parsing in HTMLParser (GH-153031)
+#
+# When an unterminated construct (e.g. a tag or comment) spanned many
+# feed() calls, rescanning the growing buffer and concatenating new data
+# onto it were both quadratic.  New data is now accumulated in a list and
+# only joined and parsed once enough has piled up.
+Patch490: 00490-cve-2026-15308.patch
+
 # 00491 # ac14737379922303720216b61803474c84f291ef
 # gh-149776: Skip UDP Lite tests if it's not supported
 #
 # Fix test_socket on Linux kernel 7.1 and newer: skip UDP Lite tests if
 # it's not supported.
 Patch491: 00491-gh-149776-skip-udp-lite-tests-if-it-s-not-supported.patch
+
+# 00492 # edbba0d88308d6364f7cd438100d6b76b7f8d922
+# gh-151558: Fix symlink escape via `tarfile` hardlink-extraction fallback
+#
+# Security fix for CVE-2026-11940
+Patch492: 00492-cve-2026-11940.patch
 
 # (New patches go here ^^^)
 #
@@ -2071,6 +2086,13 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Sep 23 2026 Miro Hrončok <mhroncok@redhat.com> - 3.9.25-15
+- Security fix for CVE-2026-11940
+
+* Wed Sep 23 2026 Lukáš Zachar <lzachar@redhat.com> - 3.9.25-14
+- Security fix for CVE-2026-15308
+Resolves: rhbz#2498693
+
 * Thu Jul 30 2026 Miro Hrončok <mhroncok@redhat.com> - 3.9.25-13
  - Skip UDP Lite tests if it's not supported
  - Fixes FTBFS on Linux kernel 7.1 and newer

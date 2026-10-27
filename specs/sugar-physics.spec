@@ -1,6 +1,6 @@
 Name:           sugar-physics
-Version:        35
-Release:        17%{?dist}
+Version:        36
+Release:        1%{?dist}
 Summary:        A physical world simulator and playground for Sugar
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -27,10 +27,10 @@ sed -i 's/python/python3/' setup.py
 sed -i 's/python/python3/' physics.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
-python3 ./setup.py install --prefix=$RPM_BUILD_ROOT/%{_prefix}
+bundlebuilder install --prefix=$RPM_BUILD_ROOT/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # set appropriate permissions
@@ -48,6 +48,9 @@ chmod a-x $RPM_BUILD_ROOT%{sugaractivitydir}Physics.activity/activity/{activity.
 %{sugaractivitydir}/Physics.activity/
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 36-1
+- Release 36
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 35-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

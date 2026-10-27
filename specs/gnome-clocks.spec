@@ -12,6 +12,9 @@ Summary:        Clock application designed for GNOME 3
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Clocks
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+# avoid vorbis-tools dependency
+# https://github.com/fedora-eln/eln/issues/433
+Patch0:         0001-build-Use-GStreamer-to-convert-FLAC-to-Vorbis.patch
 
 %gnome_check_version
 
@@ -31,7 +34,10 @@ BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(gweather4)
 BuildRequires:  pkgconfig(libgeoclue-2.0) >= %{geoclue2_version}
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
-BuildRequires:  vorbis-tools
+# audioconvert, oggmux, vorbisenc
+BuildRequires:  gstreamer1-plugins-base
+# flacdec, flacparse
+BuildRequires:  gstreamer1-plugins-good
 
 Requires:       geoclue2-libs%{?_isa} >= %{geoclue2_version}
 Requires:       gtk4%{?_isa} >= %{gtk4_version}

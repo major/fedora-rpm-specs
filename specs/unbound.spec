@@ -42,7 +42,7 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.26.1
+Version: 1.26.2
 Release: %autorelease %{?extra_version:-e %{extra_version}}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
@@ -102,7 +102,7 @@ BuildRequires: dns-root-data >= 2026260100
 BuildRequires: gzip
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 %endif
 %if 0%{with_python2}
 BuildRequires: python2-devel swig
@@ -232,7 +232,7 @@ in initramfs.
 
 %prep
 %if 0%{?fedora} || 0%{?rhel} >= 9
-%{gpgverify} --keyring='%{SOURCE19}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE19}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %global pkgname %{name}-%{version}%{?extra_version}
 

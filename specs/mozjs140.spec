@@ -57,6 +57,11 @@ Patch16:        D261512.1755672843.diff
 # TODO: Check with mozilla for cause of these fails and re-enable spidermonkey compile time checks if needed
 Patch20:        spidermonkey_checks_disable.patch
 
+# Fix target detection with latest rust
+# https://phabricator.services.mozilla.com/D311145
+# https://phabricator.services.mozilla.com/D330023
+Patch21:        rust-configure.patch
+
 BuildRequires:  cargo
 %if "%{toolchain}" == "clang"
 BuildRequires:  clang

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.15.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Ruby implementation of the BSON specification
 License: Apache-2.0
 # Keep the URL, while different URL is used in the upstream gemspec file.
@@ -14,6 +14,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/mongodb/bson-ruby/blob/e560ee5c65f9f82d8f3430b5a72d8c9a3f1e0fdb/lib/bson/decimal128.rb#L16
 # https://github.com/mongodb/bson-ruby/pull/340
 Patch0:  bson-pr340-testsuite-explicit-require.patch
+# https://github.com/mongodb/bson-ruby/pull/373
+# TypeError message changed in ruby4.1
+Patch1:  bson-pr373-ruby41-TypeError-msg-change.patch
 Requires: rubygem(bigdecimal)
 # https://github.com/mongodb/bson-ruby/blob/e560ee5c65f9f82d8f3430b5a72d8c9a3f1e0fdb/lib/bson/ext_json.rb#L18
 Requires: rubygem(json)
@@ -50,6 +53,7 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -93,6 +97,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Mon Oct 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.15.0-16
+- Backport upstream fix for supporting TypeError message change in ruby41
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

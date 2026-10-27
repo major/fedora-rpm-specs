@@ -1,6 +1,6 @@
 Name:           jackson-core
-Version:        2.21.5
-Release:        2%{?dist}
+Version:        2.21.8
+Release:        1%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
 
@@ -57,6 +57,11 @@ sed -i 's/\r//' LICENSE jackson-core-NOTICE
 %license LICENSE jackson-core-NOTICE
 
 %changelog
+* Mon Oct 26 2026  Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21.8-1
+- Rebase to 2.21.8
+- Fix CVE-2026-89407: Denial of Service via regular expression backtracking (rhbz#2542920)
+- Fix CVE-2026-89425: Denial of Service via unbounded StringBuilder growth during malformed token processing (rhbz#2539286)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

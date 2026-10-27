@@ -54,6 +54,11 @@ test "%{nnuehash1}" = "$(sha256sum %{SOURCE1} | cut -c1-12)"
 # This is currently only required for EPEL8 build to pass.
 sed -i '/#error/d' src/types.h
 
+%if %{defined el8}
+# RHEL-8's GCC is too old to support -fconstexpr-ops-limit
+sed -i 's/-fconstexpr-ops-limit=[0-9][0-9]*//g' src/Makefile
+%endif
+
 # Verify the NNUE net checksums match the defaults defined in the sources
 grep -Fq '#define EvalFileDefaultName "nn-%{nnuehash1}.nnue"' src/evaluate.h
 
@@ -160,10 +165,12 @@ sed -r -i 's/-O3//' src/Makefile
 %endif
 %endif
 
-%make_build -C src profile-build ARCH=%sfarch \
-    EXTRACXXFLAGS="%{build_cxxflags}" \
-    EXTRALDFLAGS="%{build_ldflags}"
+%if %{defined el8}
+# RHEL-8's GCC requires libstdc++fs to be linked for std::filesystem usage
+export LDFLAGS="$LDFLAGS -lstdc++fs"
+%endif
 
+%make_build -C src profile-build ARCH=%sfarch
 
 %install
 mkdir -p %{buildroot}%{_bindir}

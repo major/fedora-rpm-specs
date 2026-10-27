@@ -1,5 +1,5 @@
 Name:           perl-App-cpm
-Version:        1.1.5
+Version:        1.1.6
 %global cpan_version v%{version}
 Release:        1%{?dist}
 Summary:        Fast CPAN module installer
@@ -164,6 +164,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 26 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.6-1
+- 1.1.6 bump (rhbz#2559050)
+
 * Mon Aug 17 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.5-1
 - 1.1.5 bump (rhbz#2517238)
 

@@ -48,6 +48,12 @@ Patch:          0004-drop-yet-unused-Python-bindings-from-cargo-workspace.patch
 # workaround for RHBZ#2549530 (gnome-abrt / libreport cannot store credentials)
 Patch:          https://github.com/linux-credentials/oo7/commit/5283f65.patch
 
+# Stop checking secret length
+# fixes https://bugzilla.redhat.com/show_bug.cgi?id=2560362
+# Minimal version of
+# https://github.com/linux-credentials/oo7/pull/580
+Patch:          0001-Drop-password-too-short-check-minimal-version.patch
+
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  systemd-rpm-macros
 

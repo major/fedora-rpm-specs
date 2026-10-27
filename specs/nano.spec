@@ -8,7 +8,7 @@
 Summary:         A small text editor
 Name:            nano
 Version:         9.3
-Release:         1%{?dist}
+Release:         2%{?dist}
 License:         GPL-3.0-or-later
 URL:             https://www.nano-editor.org
 
@@ -30,7 +30,7 @@ BuildRequires:   file-devel
 BuildRequires:   gettext-devel
 BuildRequires:   gcc
 BuildRequires:   git-core
-BuildRequires:   gnupg2
+BuildRequires:   openpgpverify
 BuildRequires:   make
 BuildRequires:   ncurses-devel
 BuildRequires:   sed
@@ -65,7 +65,7 @@ who don't have nano as a default editor during upgrade.
 %endif
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -S git_am
 
 %build
@@ -131,6 +131,9 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 
 
 %changelog
+* Fri Oct 23 2026 Jakub Jelen <jjelen@redhat.com> - 9.3-2
+- Verify upstream source signatures with openpgpverify
+
 * Thu Oct 22 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.3-1
 - rebase to the latest upstream release (rhbz#2558494)
 

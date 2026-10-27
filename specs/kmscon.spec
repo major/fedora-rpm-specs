@@ -1,5 +1,5 @@
 Name:           kmscon
-Version:        10.0.4
+Version:        10.1.0
 Release:        %autorelease
 Summary:        Linux KMS/DRM based virtual Console Emulator
 # MIT for the source code, and OFL-1.1 for the unifont font.
@@ -17,7 +17,7 @@ BuildRequires:  xsltproc
 BuildRequires:  xz
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(egl)
-BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:  pkgconfig(fontconfig) >= 2.16.0
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glesv2)
@@ -30,19 +30,6 @@ BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(xkbcommon) >= 0.5.0
 BuildRequires:  pkgconfig(zlib)
 Recommends:     (kmscon-freetype if freetype)
-
-# Upstream patch to prevent running kmscon.service when VTs are enabled
-Patch1: systemd-prevent-kmscon.service-to-run-if-dev-tty0-is.patch
-# Upstream patch, prevent crash on kernel 7.3+
-Patch2: drm_shared-Fix-crash-if-a-plane-has-no-properties.patch
-
-# Upstream patch, filter out non monospace fonts in freetype
-Patch10: freetype-filter-out-non-monospace-fonts-completely.patch
-# Upstream patch, fix a memory leak when using fallback font with freetype
-Patch11: freetype-Fix-memory-leak-when-loading-fallback-font.patch
-
-# Upstream patch, start the login command even if no displays are available
-Patch12: terminal-don-t-wait-for-display-before-opening-the-p.patch
 
 %description
 Kmscon is a simple terminal emulator based on linux kernel mode setting (KMS).

@@ -1,7 +1,7 @@
 Summary:	Backup and restore utilities for the XFS filesystem
 Name:		xfsdump
 Version:	3.3.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-2.0-or-later
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/%{name}/%{name}-%{version}.tar.xz
 Source1:	http://kernel.org/pub/linux/utils/fs/xfs/%{name}/%{name}-%{version}.tar.sign
@@ -10,7 +10,8 @@ BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	libtool, gettext, gawk
 BuildRequires:	xfsprogs-devel, libuuid-devel, libattr-devel ncurses-devel
-BuildRequires:	gnupg2, xz
+BuildRequires:	xz
+BuildRequires:	openpgpverify
 Requires:	xfsprogs >= 2.6.30, attr >= 2.0.0
 
 %description
@@ -31,7 +32,7 @@ be layered on top of the full backup.  Single files and directory
 subtrees may be restored from full or partial backups.
 
 %prep
-xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
+xzcat '%{SOURCE0}' | %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %setup -q
 
 %build
@@ -63,6 +64,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_sharedstatedir}/xfsdump/inventory
 %{_sharedstatedir}/xfsdump/inventory
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 3.3.0-3
+- Verify upstream source signatures with openpgpverify
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
@@ -68,8 +68,8 @@ Source2:        rpm-software-management.gpg
 BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  gnupg2
 BuildRequires:  libsolv-devel >= %{libsolv_version}
+BuildRequires:  openpgpverify
 BuildRequires:  pkgconfig(librepo) >= %{librepo_version}
 BuildRequires:  pkgconfig(check)
 %if %{with valgrind}
@@ -193,7 +193,7 @@ Python 3 bindings for the hawkey library.
 %endif
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 %if %{with python2}
 mkdir build-py2
@@ -316,6 +316,9 @@ popd
 %endif
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 0.76.0-2
+- Verify upstream source signatures with openpgpverify
+
 * Fri Sep 18 2026 Ales Matej <amatej@redhat.com> - 0.76.0-1
 - Update to 0.76.0
 

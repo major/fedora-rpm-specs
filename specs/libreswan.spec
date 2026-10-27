@@ -50,7 +50,7 @@ BuildRequires: bison
 BuildRequires: curl-devel
 BuildRequires: flex
 BuildRequires: gcc
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: hostname
 BuildRequires: ldns-devel
 BuildRequires: libcap-ng-devel
@@ -128,7 +128,7 @@ This package contains the minimal set of daemons and userland tools
 for setting up Libreswan.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n libreswan-%{version}%{?prever}
 # enable crypto-policies support
 sed -i "s:#[ ]*include \(.*\)\(/crypto-policies/back-ends/libreswan.config\)$:include \1\2:" configs/ipsec.conf.in

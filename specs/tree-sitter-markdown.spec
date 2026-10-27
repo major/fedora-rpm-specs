@@ -1,14 +1,11 @@
 Name:           tree-sitter-markdown
-Version:        0.5.3
+Version:        0.5.4
 Release:        %{autorelease}
 License:        MIT
 URL:            https://github.com/tree-sitter-grammars/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildSystem:    tree_sitter
 BuildRequires:  tree-sitter-srpm-macros >= 0.4.3
-
-Patch:          %{url}/pull/246.patch#/0001-Remove-junk-Requires-TS_REQUIRES-in-tree-sitter-mark.patch
-Patch:          %{url}/pull/249.patch#/001-fix-python-setup.patch
 
 %{tree_sitter -l Markdown -P}
 

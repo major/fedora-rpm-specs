@@ -9,7 +9,7 @@
 %define _legacy_common_support 1
 
 Name:           tcpreplay
-Version:        4.6.1
+Version:        4.6.2
 Release:        1%{?dist}
 Summary:        Replay captured network traffic
 
@@ -85,6 +85,9 @@ export LDFLAGS="%{?__global_ldflags} -pthread"
 %{_libdir}/libtcpreplay.a
 
 %changelog
+* Mon Oct 26 2026 Bojan Smojver, Rexursive <bojan@rexursive.com> - 4.6.2-1
+- Update to 4.6.2
+
 * Sat Aug 15 2026 Bojan Smojver <bojan@rexursive.com> - 4.6.1-1
 - Update to 4.6.1
 

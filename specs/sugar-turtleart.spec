@@ -1,6 +1,6 @@
 Name:    sugar-turtleart
 Version: 220
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Turtle Art activity for sugar
 License: MIT
 URL:     http://sugarlabs.org/go/Activities/Turtle_Art
@@ -30,11 +30,11 @@ sed -i 's#env python#env python3#' TurtleArt/*py
 sed -i 's#env python#env python3#' turtleblocks
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
 mkdir -p %{buildroot}%{sugaractivitydir}
-python3 ./setup.py install --prefix=%{buildroot}%{_prefix}
+bundlebuilder install --prefix=%{buildroot}%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -50,6 +50,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 220-16
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 220-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

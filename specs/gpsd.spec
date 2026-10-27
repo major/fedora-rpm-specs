@@ -15,7 +15,7 @@ Name:           gpsd-epel
 Name:           gpsd
 %endif
 Version:        3.27.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -36,6 +36,8 @@ Source11:       gpsd.sysconfig
 Patch1:         gpsd-apistatus.patch
 # Fix command injection in gpsprof
 Patch2:         gpsd-cve-2026-58459.patch
+# Fix another command injection in gpsprof
+Patch3:         gpsd-cve-2026-60122.patch
 
 BuildRequires:  gcc
 BuildRequires:  dbus-devel
@@ -385,6 +387,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %endif
 
 %changelog
+* Mon Oct 26 2026 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.27.5-8
+- fix another command injection in gpsprof (CVE-2026-60122)
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1:3.27.5-7
 - Rebuilt for Python 3.15.0b4 ABI change
 

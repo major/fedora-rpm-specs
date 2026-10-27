@@ -30,7 +30,7 @@ BuildOption(build): -p 0install-solver
 BuildOption(install): 0install-solver
 BuildOption(check): -p 0install-solver
 
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-dune >= 2.5
 BuildRequires:  ocaml-ounit2-devel
@@ -68,7 +68,7 @@ The %{name}-solver-devel package contains libraries and signature files for
 developing applications that use %{name}-solver.
 
 %prep
-%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+%{openpgpverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup
 
 %files -n ocaml-0install-solver -f .ofiles

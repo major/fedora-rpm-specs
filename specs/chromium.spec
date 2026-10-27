@@ -64,7 +64,7 @@
 %global system_esbuild 1
 %global esbuild_version 0.28.2
 %if 0%{?rhel}
-%global system_esbuild 0
+%global system_esbuild 1
 %endif
 
 # set nodejs_version
@@ -925,7 +925,6 @@ BuildRequires: simdutf-devel
 # esbuild is needed
 %if %{system_esbuild}
 BuildRequires: golang-github-evanw-esbuild
-BuildRequires: nodejs-esbuild
 %endif
 
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
@@ -1312,7 +1311,6 @@ mkdir -p third_party/node/linux/node-linux-x64/bin
 mkdir -p third_party/devtools-frontend/src/third_party/esbuild
 %if %{system_esbuild}
 ln -s $(which esbuild) third_party/devtools-frontend/src/third_party/esbuild/esbuild
-cp -a /usr/lib/node_modules/*esbuild* third_party/devtools-frontend/src/node_modules/ 
 %else
 %ifarch x86_64
 tar xf %{SOURCE15} -C third_party/devtools-frontend/src/third_party/

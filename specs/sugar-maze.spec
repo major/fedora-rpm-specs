@@ -1,6 +1,6 @@
 Name:      sugar-maze
 Version:   32
-Release:   7%{?dist}
+Release:   8%{?dist}
 Summary:   Maze game for Sugar
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:   GPL-3.0-or-later
@@ -24,10 +24,10 @@ laptop and lots more can play when shared over the network.
 rm -rf olpcgames
 
 %build
-python3 setup.py build
+bundlebuilder build
 
 %install
-python3 setup.py install --prefix=%{buildroot}/%{_prefix}
+bundlebuilder install --prefix=%{buildroot}/%{_prefix}
 find  %{buildroot}%{sugaractivitydir}Maze.activity/activity.py  -type f -name \* -exec chmod 644 {} \;
 mv player.py %{buildroot}%{sugaractivitydir}/Maze.activity/player.py
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
@@ -42,6 +42,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/Maze.activity/
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 32-8
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 32-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

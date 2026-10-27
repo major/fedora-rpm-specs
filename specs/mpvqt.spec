@@ -1,5 +1,5 @@
 Name:           mpvqt
-Version:        1.1.1
+Version:        1.2.1
 Release:        %autorelease
 Summary:        QML wrapper for libmpv
 License:        LGPL-2.1-only OR LGPL-3.0-only
@@ -46,7 +46,8 @@ Development headers and link library for building packages which use %{name}.
 %{_includedir}/MpvQt/
 %{_libdir}/libMpvQt.so
 %{_libdir}/cmake/MpvQt/
-
+%{_libdir}/libMpvQt.so.4
+%{_libdir}/qt6/metatypes/qt6mpvqt_metatypes.json
 
 %changelog
 %autochangelog

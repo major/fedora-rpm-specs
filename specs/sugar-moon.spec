@@ -1,5 +1,5 @@
 Version:   19
-Release:   21%{?dist}
+Release:   22%{?dist}
 Name:      sugar-moon
 Summary:   Moon phases activity for sugar
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -22,11 +22,11 @@ Moon is a simple Lunar phase activity for Sugar.
 sed -i 's/env python/env python3/' setup.py
 
 %build
-python3 ./setup.py build
+bundlebuilder build
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{sugaractivitydir}
-python3 ./setup.py install --prefix=$RPM_BUILD_ROOT/%{_prefix}
+bundlebuilder install --prefix=$RPM_BUILD_ROOT/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
@@ -40,6 +40,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 %{sugaractivitydir}/Moon.activity/
 
 %changelog
+* Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 19-22
+- Replace setup.py with bundlebuilder
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

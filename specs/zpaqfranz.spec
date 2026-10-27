@@ -20,8 +20,8 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        65.13
-Release:        2%{?dist}
+Version:        65.14
+Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
 # man/LICENSE:  Unlicense text
@@ -211,6 +211,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Mon Oct 26 2026 Petr Pisar <ppisar@redhat.com> - 1:65.14-1
+- 65.14 bump
+
 * Wed Oct 21 2026 Petr Pisar <ppisar@redhat.com> - 1:65.13-2
 - Correct idempotency check at build time
 

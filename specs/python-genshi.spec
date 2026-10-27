@@ -1,14 +1,12 @@
 Name:           python-genshi
-Version:        0.7.11
-Release:        5%{?dist}
+Version:        0.7.12
+Release:        1%{?dist}
 Summary:        Toolkit for stream-based generation of output for the web
 
 License:        BSD-3-Clause
 URL:            https://genshi.edgewall.org/
 
 Source0:        %{pypi_source genshi}
-# https://github.com/edgewall/genshi/pull/93
-Patch:          python-genshi-python315.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -68,6 +66,9 @@ sed -i -e '/_speedups.c/d' %{pyproject_files}
 
 
 %changelog
+* Mon Oct 26 2026 Felix Schwarz <fschwarz@fedoraproject.org> - 0.7.12-1
+- update to 0.7.12
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.7.11-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

@@ -2,11 +2,11 @@
 
 Summary:   Firmware update EFI binaries
 Name:      fwupd-efi
-Version:   1.8
+Version:   1.9
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd-efi
-Source0:   https://github.com/fwupd/%{name}/archive/refs/tags/%{version}.tar.gz
+Source0:   https://github.com/fwupd/%{name}/archive/refs/tags/%{name}-%{version}.tar.xz
 
 # these are the only architectures supporting UEFI UpdateCapsule
 ExclusiveArch: x86_64 aarch64
@@ -27,12 +27,17 @@ the EFI binary that is used for updating using UpdateCapsule.
 %build
 
 %meson \
-    -Dgenpeimg=disabled \
     -Defi_sbat_distro_id="fedora" \
     -Defi_sbat_distro_summary="The Fedora Project" \
     -Defi_sbat_distro_pkgname="%{name}" \
     -Defi_sbat_distro_version="%{version}-%{release}" \
-    -Defi_sbat_distro_url="https://src.fedoraproject.org/rpms/%{name}"
+    -Defi_sbat_distro_url="https://src.fedoraproject.org/rpms/%{name}" \
+    -Dpkgnote="{\"type\":\"rpm\", \
+                \"name\":\"%{name}\", \
+                \"version\":\"%{version}-%{release}\", \
+                \"architecture\":\"%{_arch}\", \
+                \"osCpe\":\"cpe:/o:fwupd:fwupd-efi\"}" \
+    -Dgenpeimg=disabled
 
 %meson_build
 

@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.7.5
+%global musescore_ver             4.7.6
 %global musescore_maj             %{gsub %musescore_ver ^(%d*%.%d*)%..*$ %1}
 %global giturl                    https://github.com/musescore/MuseScore
 
@@ -11,29 +11,29 @@
 # - Reset to 1 if the version changed
 # - Increase by 1 otherwise
 %global mscore_font_ver           2.003
-%global mscore_font_rel           46%{?dist}
+%global mscore_font_rel           47%{?dist}
 %global mscoretext_font_ver       1.0
-%global mscoretext_font_rel       46%{?dist}
+%global mscoretext_font_rel       47%{?dist}
 %global musescoreicon_font_ver    1.0
-%global musescoreicon_font_rel    46%{?dist}
+%global musescoreicon_font_rel    47%{?dist}
 %global mscorebc_font_ver         1.0
-%global mscorebc_font_rel         46%{?dist}
+%global mscorebc_font_rel         47%{?dist}
 %global mscoretabulature_font_ver 001.000
-%global mscoretabulature_font_rel 46%{?dist}
+%global mscoretabulature_font_rel 47%{?dist}
 %global musejazz_font_ver         1.0
-%global musejazz_font_rel         46%{?dist}
+%global musejazz_font_rel         47%{?dist}
 %global gootville_font_ver        1.3
-%global gootville_font_rel        46%{?dist}
+%global gootville_font_rel        47%{?dist}
 %global gootville_text_font_ver   1.2
-%global gootville_text_font_rel   46%{?dist}
+%global gootville_text_font_rel   47%{?dist}
 %global soundfont_ver             0.2.0
-%global soundfont_rel             46%{?dist}
+%global soundfont_rel             47%{?dist}
 
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
 # IMPORTANT: Change all the release numbers above, too!
-Release:        4%{?dist}
+Release:        1%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -92,7 +92,7 @@ Emmentaler font created for Lilypond, but has been modified for MuseScore.}
 %global fontpkgheader1  %{expand:
 Epoch:          1
 Version:        %{mscore_font_ver}
-Release:        %{mscore_font_rel}.1
+Release:        %{mscore_font_rel}
 }
 
 %global fontfamily2     MScoreText
@@ -103,7 +103,7 @@ Release:        %{mscore_font_rel}.1
 %global fontdescription2 This package contains the base MuseScore text font.
 %global fontpkgheader2  %{expand:
 Version:        %{mscoretext_font_ver}
-Release:        %{mscoretext_font_rel}.1
+Release:        %{mscoretext_font_rel}
 }
 
 %global fontfamily3     MusescoreIcon
@@ -114,7 +114,7 @@ Release:        %{mscoretext_font_rel}.1
 %global fontdescription3 This package contains a set of MuseScore icons.
 %global fontpkgheader3  %{expand:
 Version:        %{musescoreicon_font_ver}
-Release:        %{musescoreicon_font_rel}.1
+Release:        %{musescoreicon_font_rel}
 }
 
 %global fontfamily4     MScoreBC
@@ -126,7 +126,7 @@ Release:        %{musescoreicon_font_rel}.1
 matching glyphs in the main MuseScore font.}
 %global fontpkgheader4  %{expand:
 Version:        %{mscorebc_font_ver}
-Release:        %{mscorebc_font_rel}.1
+Release:        %{mscorebc_font_rel}
 }
 
 %global fontfamily5     MScoreTabulature
@@ -137,7 +137,7 @@ Release:        %{mscorebc_font_rel}.1
 %global fontdescription5 This package contains a MuseScore font with Renaissance-style tabulatures.
 %global fontpkgheader5  %{expand:
 Version:        %{mscoretabulature_font_ver}
-Release:        %{mscoretabulature_font_rel}.1
+Release:        %{mscoretabulature_font_rel}
 }
 
 %global fontfamily6     MuseJazz
@@ -150,7 +150,7 @@ Release:        %{mscoretabulature_font_rel}.1
 names, etc.}
 %global fontpkgheader6  %{expand:
 Version:        %{musejazz_font_ver}
-Release:        %{musejazz_font_rel}.1
+Release:        %{musejazz_font_rel}
 }
 
 %global fontfamily7     MuseJazz Text
@@ -162,7 +162,7 @@ Release:        %{musejazz_font_rel}.1
 %global fontdescription7 The MuseJazz Text font is designed to complement the MuseJazz font.
 %global fontpkgheader7  %{expand:
 Version:        %{musejazz_font_ver}
-Release:        %{musejazz_font_rel}.1
+Release:        %{musejazz_font_rel}
 }
 
 %global fontfamily8     Gootville
@@ -176,7 +176,7 @@ Lilypond.  The two fonts have common graphic aspects, but the registration,
 glyph order, and other aspects of Gootville have been modified for MuseScore.}
 %global fontpkgheader8  %{expand:
 Version:        %{gootville_font_ver}
-Release:        %{gootville_font_rel}.1
+Release:        %{gootville_font_rel}
 }
 
 %global fontfamily9     Gootville Text
@@ -188,7 +188,7 @@ Release:        %{gootville_font_rel}.1
 %global fontdescription9 The Gootville Text font is designed to complement the Gootville font.
 %global fontpkgheader9  %{expand:
 Version:        %{gootville_text_font_ver}
-Release:        %{gootville_text_font_rel}.1
+Release:        %{gootville_text_font_rel}
 }
 
 Source0:        %{giturl}/archive/v%{musescore_ver}/MuseScore-%{musescore_ver}.tar.gz
@@ -404,7 +404,7 @@ Shared data for all MuseScore installations.
 %package        soundfont
 Summary:        Basic soundfont for MuseScore
 Version:        %{soundfont_ver}
-Release:        %{soundfont_rel}.1
+Release:        %{soundfont_rel}
 License:        MIT
 BuildArch:      noarch
 
@@ -470,6 +470,9 @@ PREFIX=%{_prefix} %cmake_build --target manpages
 export PREFIX=%{_prefix}
 
 %install -a
+# Upstream's symlink attempt fails
+ln -s mscore %{buildroot}%{_bindir}/musescore
+
 # Delete files that we don't want to install
 rm -rf %{buildroot}%{_includedir} %{buildroot}%{_libdir}
 
@@ -544,6 +547,7 @@ EOF
 %doc README.md
 %license LICENSE.txt COPYING.LESSER.rtf2html COPYING.wallpapers
 %{_bindir}/mscore
+%{_bindir}/musescore
 %{_mandir}/man1/mscore.1*
 %{_mandir}/man1/musescore.1*
 %{_datadir}/icons/hicolor/16x16/apps/mscore.png
@@ -755,6 +759,10 @@ EOF
 %fontfiles -z 9
 
 %changelog
+* Mon Oct 26 2026 Jerry James <loganjerry@gmail.com> - 4.7.6-1
+- Version 4.7.6
+- Fix broken release numbers
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 4.7.5-4
 - Rebuild (qt6)
 

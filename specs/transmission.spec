@@ -1,6 +1,6 @@
 Name:           transmission
-Version:        4.1.3
-Release:        2%{?dist}
+Version:        4.1.4
+Release:        1%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -9,13 +9,8 @@ URL:            http://www.transmissionbt.com
 Source0:        https://github.com/transmission/transmission/releases/download/%{version}/transmission-%{version}.tar.xz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1221292
 Source1:        https://raw.githubusercontent.com/gnome-design-team/gnome-icons/master/apps-symbolic/Adwaita/scalable/apps/transmission-symbolic.svg
-# Fix the DBus name to match the app name for flatpak builds
-# https://github.com/transmission/transmission/pull/847
-Patch0:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
 # Proposed upstream: https://github.com/transmission/transmission/issues/7567
 Patch1:         0002-Make-compatible-with-CMake-4.0.patch
-Patch2:         7669.patch
-#Patch3:         144871ed5ec62d9b45f28774923ac83532eb1a2d.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -117,7 +112,7 @@ EOF
 CXXFLAGS="%{optflags} -fPIC"
 CFLAGS="%{optflags} -fPIC"
 
-%cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_CLI=ON -DENABLE_QT=ON -DUSE_QT_VERSION=6 -DENABLE_GTK=ON -DUSE_GTK_VERSION=4 %{?flatpak:-DWITH_SYSTEMD=OFF}
+%cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_CLI=ON -DENABLE_QT=ON -DUSE_QT_VERSION=6 -DENABLE_GTK=ON -DUSE_GTK_VERSION=4 %{?flatpak:-DWITH_SYSTEMD=OFF} -DRUN_CLANG_TIDY=OFF
 %cmake_build
 
 # Re-enable if DhtTest.usesBootstrapFile passes
@@ -194,6 +189,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Fri Oct 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.1.4-1
+- 4.1.4
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

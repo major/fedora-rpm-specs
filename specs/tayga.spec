@@ -2,8 +2,7 @@
 
 # Upstream moved to github
 %global forgeurl https://github.com/apalrd/tayga
-%global	date 20260212
-%global commit 7f00122b75d808f696df0efe481a8c8919ba9bd7
+%global commit 0.9.6
 %forgemeta
 
 # tayga no longer builds cleanly on 32bit
@@ -11,13 +10,22 @@ ExcludeArch: %{ix86}
 
 Name:		tayga
 Version:	0.9.6
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Simple, no-fuss NAT64
 
 License:	GPL-2.0-or-later
 URL:		%{forgeurl}
 Source0:	%{forgesource}
 source1:	tayga.tmpfilesd.conf
+
+# Documentation fixes from upstream
+Patch1:		tayga-0.9.6_ee5f898e.patch
+# Basic interface configuration via Netlink, upstream issue #163
+Patch2:		tayga-0.9.6_38095ea4.patch
+# Transport Layer Checksum, upstream issue #164
+Patch3:		tayga-0.9.6_d0bb1a4a.patch
+# Big-Endian Checksum Calculation, upstream issue #166
+Patch4:		tayga-0.9.6_14830b60.patch
 
 Requires:	iproute
 
@@ -35,14 +43,17 @@ dedicated NAT64 hardware would be overkill.
 
 
 %prep
-echo Building %{forgesource} > /dev/null
+echo Building %{forgesource}
 %forgesetup
 sed -i '
 	s,setcap,#setcap,;
 	s,\$(sysconfdir)/systemd/system,%{_unitdir},g;
 	s,daemon-reload,--version,;
 ' Makefile
-
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
 
 %build
 %make_build CFLAGS="%{optflags}"
@@ -88,6 +99,12 @@ install -p -D -m 0644 scripts/tayga@.service %{buildroot}/%{_unitdir}/%{name}.se
 
 
 %changelog
+* Mon Oct 26 2026 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.9.6-3
+- Added upstream fix for documentation
+- Added upstream fix for Basic interface configuration via Netlink
+- Added upstream fix for Transport layer checksum calculation changes
+- Added upstream fix for s390x (big-endian) checksum calculation
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
