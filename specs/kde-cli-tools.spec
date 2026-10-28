@@ -1,6 +1,6 @@
 Name:    kde-cli-tools
-Version: 6.8.1
-Release: 2%{?dist}
+Version: 6.8.2
+Release: 1%{?dist}
 
 Summary: Tools based on KDE Frameworks 5 to better interact with the system
 
@@ -110,6 +110,9 @@ ln -s %{_kf6_libexecdir}/kdesu %{buildroot}%{_bindir}/kdesu
 
 
 %changelog
+* Tue Oct 27 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.2-1
+- 6.8.2
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
 - Rebuild (qt6)
 

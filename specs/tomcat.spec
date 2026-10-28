@@ -1,7 +1,7 @@
 %global jspspec 3.1
 %global major_version 10
 %global minor_version 1
-%global micro_version 60
+%global micro_version 61
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 6.0
 %global elspec 5.0
@@ -63,7 +63,7 @@ BuildArch:     noarch
 # See: https://docs.fedoraproject.org/en-US/packaging-guidelines/Java/#_architecture_support
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: ant-openjdk25
 BuildRequires: ecj
 BuildRequires: findutils
@@ -85,13 +85,17 @@ Suggests: %{name}-webapps = %{epoch}:%{version}-%{release}
 Suggests: %{name}-user-instance = %{epoch}:%{version}-%{release}
 
 %description
-Apache Tomcat is an open-source implementation of the Java Servlet, JavaServer Pages (JSP), and WebSocket technologies.
-It provides a pure Java HTTP web server environment for running Java applications.
-This package includes only the startup scripts for managing a system-wide Tomcat daemon.
+Apache Tomcat is an open-source implementation of the Java Servlet,
+JavaServer Pages (JSP), and WebSocket technologies.
+It provides a pure Java HTTP web server environment for running Java
+applications.
+This package includes only the startup scripts for managing a system-wide
+Tomcat daemon.
 It does not include documentation or web applications.
     * To install the default web applications, use the tomcat-webapps package.
-    * To access online documentation, install tomcat-docs-webapps package.
-    * To create user instances without running Tomcat as a system service, use tomcat-user-instance package instead.
+    * To access online documentation, install tomcat-docs-webapp package.
+    * To create user instances without running Tomcat as a system service, use
+      tomcat-user-instance package instead.
 
 %package user-instance
 Summary: Apache Tomcat - Tools for creating user-managed instances
@@ -102,10 +106,12 @@ Suggests: %{name}-docs-webapp = %{epoch}:%{version}-%{release}
 Suggests: %{name}-webapps = %{epoch}:%{version}-%{release}
 
 %description user-instance
-This package provides the tools necessary to create user-managed Tomcat instances,
-allowing users to run Tomcat independently of the system-wide service.
-A user instance includes its own configuration, libraries, and web applications,
-which can be started and stopped using scripts inside the instance directory.
+This package provides the tools necessary to create user-managed Tomcat
+instances, allowing users to run Tomcat independently of the system-wide
+service.
+A user instance includes its own configuration, libraries, and web
+applications, which can be started and stopped using scripts inside the
+instance directory.
 
 %package common
 Summary: Apache Tomcat - Common files for Tomcat packages
@@ -113,9 +119,11 @@ Requires: (java-25-headless or java-25)
 Requires: %{name}-lib = %{epoch}:%{version}-%{release}
 
 %description common
-This package contains common files required by both tomcat and tomcat-user-instance packages, including essential Tomcat
-scripts and libraries. Installing this package alone does not provide a functional Tomcat installation,
-but is required as a dependency for other Tomcat-related packages.
+This package contains common files required by both tomcat and
+tomcat-user-instance packages, including essential Tomcat scripts and
+libraries. Installing this package alone does not provide a functional Tomcat
+installation, but is required as a dependency for other Tomcat-related
+packages.
 
 %package lib
 Summary: Apache Tomcat - Core libraries for embedding Tomcat
@@ -126,34 +134,40 @@ Requires: ecj >= 4.20
 Recommends: tomcat-jakartaee-migration
 
 %description lib
-This package contains the core libraries of Apache Tomcat, which allow other Java applications to embed Tomcat
-as a lightweight servlet container. It is primarily intended for use by developers and applications that need Tomcat
-as an embedded runtime.
+This package contains the core libraries of Apache Tomcat, which allow other
+Java applications to embed Tomcat as a lightweight servlet container. It is
+primarily intended for use by developers and applications that need Tomcat as
+an embedded runtime.
 
 %package admin-webapps
 Summary: Apache Tomcat - Administrative web applications
 Requires: %{name} = %{epoch}:%{version}-%{release}
 
 %description admin-webapps
-This package provides the Tomcat Web Application Manager and Virtual Host Manager, which allow administrators to deploy,
-manage, and configure web applications through a web interface.
-These tools simplify application lifecycle management without requiring direct filesystem access.
+This package provides the Tomcat Web Application Manager and Virtual Host
+Manager, which allow administrators to deploy, manage, and configure web
+applications through a web interface.
+These tools simplify application lifecycle management without requiring direct
+filesystem access.
 
 %package docs-webapp
 Summary: Apache Tomcat - Online documentation web application
 Requires: %{name} = %{epoch}:%{version}-%{release}
 
 %description docs-webapp
-This package provides the Tomcat documentation web application, accessible via the Tomcat server.
-It includes API references, configuration guidelines, and development documentation.
+This package provides the Tomcat documentation web application, accessible via
+the Tomcat server.
+It includes API references, configuration guidelines, and development
+documentation.
 
 %package webapps
 Summary: Apache Tomcat - Default ROOT web application
 Requires: %{name} = %{epoch}:%{version}-%{release}
 
 %description webapps
-This package includes the default ROOT web applications bundled with Apache Tomcat,
-which serves as the default homepage when accessing Tomcat in a browser.
+This package includes the default ROOT web applications bundled with Apache
+Tomcat, which serves as the default homepage when accessing Tomcat in a
+browser.
 
 %package jsp-%{jspspec}-api
 Summary: Apache Tomcat JavaServer Pages v%{jspspec} API Implementation Classes
@@ -186,7 +200,7 @@ Provides:  %{name}-el-3.0-api = %{?epoch:%{epoch}:}%{version}-%{release}
 Apache Tomcat EL API Implementation Classes.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %setup -q -n %{packdname}
 # remove pre-built binaries and windows files

@@ -45,7 +45,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.9
+%global general_version %{pybasever}.10
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -559,7 +559,7 @@ Summary:        Python runtime libraries
 # Combined manually from https://docs.python.org/3.14/license.html
 # Hash of Doc/license.rst which is compared in %%prep, generated with:
 # $ sha256sum Doc/license.rst | cut -f1 -d" "
-%global license_file_hash cd6f471c0bfdb099efefc25ddff9b3df8bf62e10428987f1f05e6f2f9e35d563
+%global license_file_hash 8a7329b25131f64b2bea284155f0824876b1af9f4a2f970e6335751d97dfa6dd
 # Licenses of incorporated software:
 # Mersenne Twister in _random C extension contains code under BSD-3-Clause
 # socket.getaddrinfo() and socket.getnameinfo() are BSD-3-Clause
@@ -1990,6 +1990,11 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon Oct 26 2026 Karolina Surma <ksurma@redhat.com> - 3.14.10-1
+- Update to Python 3.14.10
+- CVE-2026-114583: tar filter allows writing outside destination via empty-named symlink
+- CVE-2026-115557: Distrust compromised intermediate certificates in ssl module
+
 * Thu Oct 22 2026 Karolina Surma <ksurma@redhat.com> - 3.14.9-1
 - Update to Python 3.14.9
 

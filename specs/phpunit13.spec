@@ -28,7 +28,7 @@
 %global ver_minor    4
 
 Name:           %{pk_project}%{ver_major}
-Version:        13.4.3
+Version:        13.4.5
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -57,7 +57,7 @@ BuildRequires:  (php-composer(sebastian/diff) >= 9.0.1                with php-c
 BuildRequires:  (php-composer(sebastian/environment) >= 9.3.3         with php-composer(sebastian/environment) < 10)
 BuildRequires:  (php-composer(sebastian/exporter) >= 8.2.1            with php-composer(sebastian/exporter) < 9)
 BuildRequires:  (php-composer(sebastian/file-filter) >= 1.0           with php-composer(sebastian/file-filter) < 2)
-BuildRequires:  (php-composer(sebastian/git-state) >= 1.0.0           with php-composer(sebastian/git-state) < 2)
+BuildRequires:  (php-composer(sebastian/git-state) >= 1.1             with php-composer(sebastian/git-state) < 2)
 BuildRequires:  (php-composer(sebastian/global-state) >= 9.0.1        with php-composer(sebastian/global-state) < 10)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 8.1.0   with php-composer(sebastian/object-enumerator) < 9)
 BuildRequires:  (php-composer(sebastian/recursion-context) >= 8.0.1   with php-composer(sebastian/recursion-context) < 9)
@@ -95,7 +95,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/environment": "^9.3.3",
 #        "sebastian/exporter": "^8.2.1",
 #        "sebastian/file-filter": "^1.0",
-#        "sebastian/git-state": "^1.0",
+#        "sebastian/git-state": "^1.1",
 #        "sebastian/global-state": "^9.0.1",
 #        "sebastian/object-enumerator": "^8.1.0",
 #        "sebastian/recursion-context": "^8.0.1",
@@ -123,7 +123,7 @@ Requires:       (php-composer(sebastian/diff) >= 9.0.1                with php-c
 Requires:       (php-composer(sebastian/environment) >= 9.3.3         with php-composer(sebastian/environment) < 10)
 Requires:       (php-composer(sebastian/exporter) >= 8.2.1            with php-composer(sebastian/exporter) < 9)
 Requires:       (php-composer(sebastian/file-filter) >= 1.0           with php-composer(sebastian/file-filter) < 2)
-Requires:       (php-composer(sebastian/git-state) >= 1.0.0           with php-composer(sebastian/git-state) < 2)
+Requires:       (php-composer(sebastian/git-state) >= 1.1             with php-composer(sebastian/git-state) < 2)
 Requires:       (php-composer(sebastian/global-state) >= 9.0.1        with php-composer(sebastian/global-state) < 10)
 Requires:       (php-composer(sebastian/object-enumerator) >= 8.1.0   with php-composer(sebastian/object-enumerator) < 9)
 Requires:       (php-composer(sebastian/recursion-context) >= 8.0.1   with php-composer(sebastian/recursion-context) < 9)
@@ -292,6 +292,10 @@ exit $ret
 
 
 %changelog
+* Tue Oct 27 2026 Remi Collet <remi@remirepo.net> - 13.4.5-1
+- update to 13.4.5
+- raise dependency on sebastian/git-state 1.1
+
 * Fri Oct 16 2026 Remi Collet <remi@remirepo.net> - 13.4.3-1
 - update to 13.4.3
 

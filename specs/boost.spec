@@ -52,7 +52,7 @@ Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
 Version: 1.90.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: BSL-1.0 AND MIT AND Python-2.0.1
 
 # Replace each . with _ in %%{version}
@@ -1367,6 +1367,9 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.90.0-15
+- Rebuild for mpich-5.0.2
+
 * Fri Sep 11 2026 Sun Haiyong <sunhaiyong@zdbr.net> - 1.90.0-14
 - Enabled context for loongarch64.
 

@@ -1,6 +1,6 @@
 Name:           gthumb
 Epoch:          1
-Version:        4.0~rc
+Version:        4.0
 Release:        %autorelease
 Summary:        Image viewer, editor, organizer
 

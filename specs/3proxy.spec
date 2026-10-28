@@ -1,5 +1,5 @@
 Name:             3proxy
-Version:          1.0.1
+Version:          1.0.2
 Release:          %autorelease
 
 Summary:          Tiny but very powerful proxy
@@ -22,10 +22,6 @@ BuildRequires:    systemd-rpm-macros
 Patch0:           3proxy-1.0.0-config-path.patch
 # Adapt manpages to reflect renamed proxy binary
 Patch1:           3proxy-1.0.0-manpage.patch
-# Fix CVE-2026-109438 (rhbz#2553107, rhbz#2553106)
-# Backported from upstream:
-# https://github.com/3proxy/3proxy/commit/206c923d6cd433bd2e7196375442650c328b8bfa
-Patch2:           CVE-2026-109438.patch
 
 %description
 %{name} -- light proxy server.
@@ -86,7 +82,6 @@ done
 echo ".so 3proxy_crypt.8" > %{buildroot}%{_mandir}/man8/mycrypt.8
 
 %check
-# Upstream does not provide an automated test suite.
 # Smoke test the built binaries.
 %{buildroot}%{_bindir}/mycrypt test password
 

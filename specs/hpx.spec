@@ -1,6 +1,6 @@
 Name:           hpx
 Version:        1.11.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.stellar-group.org/
@@ -281,6 +281,9 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.11.0-6
+- Rebuilt for mpich-5.0.2
+
 * Fri Aug 21 2026 Christoph Junghans <junghans@votca.org> - 1.11.0-5
 - Fix build with asio-1.38.1
 - Fixes: rhbz#2504129

@@ -1,6 +1,6 @@
 Name:             ddccontrol
 URL:              https://github.com/ddccontrol/ddccontrol
-Version:          3.4.0
+Version:          3.4.1
 Release:          1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -41,8 +41,6 @@ Source0:          https://github.com/ddccontrol/%{name}/archive/%{version}/%{nam
 #Source0:          %%{url}/releases/download/%%{version}/%%{name}-%%{version}.tar.gz
 # no monitors on s390(x)
 ExcludeArch:      s390 s390x
-# https://github.com/ddccontrol/ddccontrol/issues/344
-Patch:            ddccontrol-3.4.0-relax-deps.patch
 
 %description
 DDCcontrol is a program to control monitor parameters, like brightness and
@@ -176,6 +174,10 @@ install -p -m 0755 target/release/ddccontrol-dbgen %{buildroot}%{_bindir}/ddccon
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Oct 27 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.4.1-1
+- New version
+  Resolves: rhbz#2561499
+
 * Mon Oct 05 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 3.4.0-1
 - New version
   Resolves: rhbz#2542543

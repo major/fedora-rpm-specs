@@ -1,6 +1,9 @@
+%global somajor 12
+%global mpi_abi_somajor 1
+
 Summary:        A high-performance implementation of MPI
 Name:           mpich
-Version:        4.2.2
+Version:        5.0.2
 Release:        %autorelease
 License:        mpich2
 URL:            https://www.mpich.org/
@@ -9,20 +12,10 @@ Source0:        https://www.mpich.org/static/downloads/%{version}/%{name}-%{vers
 Source1:        mpich.macros
 Source3:        mpich.pth.py3
 
-Patch:          0001-pkgconf-remove-optimization-and-link-flags-from-pkgc.patch
-Patch:          0002-pkgconf-also-drop-rpath-flags-from-pkgconf-file.patch
-Patch:          0003-Drop-build-flags-e.g.-specs.-and-lto-from-mpi-wrappe.patch
-Patch:          0004-Make-mpich.module-useful.patch
-# TODO: submit ^ upstream
-
-Patch:          mpich-configure-max_align_t.patch
-Patch:          mpich-aclocal_cc-implicit-int.patch
-Patch:          mpich-json-configure-__thread.patch
+Patch:          0001-pkgconf-drop-linker-flags.patch
+Patch:          0002-Make-mpich.module-useful.patch
 
 BuildRequires:  make
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  libtool
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
@@ -54,8 +47,6 @@ BuildRequires:  valgrind-devel
 BuildRequires:  python3-devel
 BuildRequires:  rpm-mpi-hooks
 Provides:       mpi
-Provides:       mpich2 = %{version}
-Obsoletes:      mpich2 < 3.0
 Requires:       environment(modules)
 
 # Make sure this package is rebuilt with correct Python version when updating
@@ -87,8 +78,6 @@ mpich-autoload package.
 %package autoload
 Summary:        Load mpich automatically into profile
 Requires:       mpich = %{version}-%{release}
-Provides:       mpich2-autoload = 3.0.1
-Obsoletes:      mpich2-autoload < 3.0
 
 %description autoload
 This package contains profile files that make mpich automatically loaded.
@@ -101,8 +90,6 @@ Requires:       pkgconfig
 Requires:       gcc-gfortran
 Requires:       rpm-mpi-hooks
 Requires:       redhat-rpm-config
-Provides:       mpich2-devel = 3.0.1
-Obsoletes:      mpich2-devel < 3.0
 
 %description devel
 Contains development headers and libraries for mpich
@@ -110,9 +97,7 @@ Contains development headers and libraries for mpich
 %package doc
 Summary:        Documentations and examples for mpich
 BuildArch:      noarch
-Requires:       %{name}-devel = %{version}-%{release}
-Provides:       mpich2-doc = 3.0.1
-Obsoletes:      mpich2-doc < 3.0
+Requires:       %{name} = %{version}-%{release}
 
 %description doc
 Contains documentations, examples and man-pages for mpich
@@ -128,18 +113,15 @@ mpich support for Python 3.
 %prep
 %autosetup -p1
 
-%build
-./autogen.sh
-
+%conf
 CONFIGURE_OPTS=(
         --with-custom-version-string=%{version}-%{release}
-        --enable-sharedlibs=gcc
+        --enable-mpi-abi
         --enable-shared
         --enable-static=no
-        --enable-lib-depend
-        --disable-rpath
         --disable-silent-rules
         --disable-dependency-tracking
+        --with-wrapper-dl-type=none
         --with-gnu-ld
         --with-pm=hydra:gforker
         --includedir=%{_includedir}/%{name}-%{_arch}
@@ -172,6 +154,7 @@ sed -r -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 #Try and work around 'unused-direct-shlib-dependency' rpmlint warnning
 sed -i -e 's| -shared | -Wl,--as-needed\0|g' libtool
 
+%build
 %make_build VERBOSE=1
 
 %install
@@ -234,14 +217,18 @@ make check VERBOSE=1 \
 
 %files
 %license COPYRIGHT
-%doc CHANGES README README.envvar RELEASE_NOTES
+%config(noreplace) %{_sysconfdir}/mpixxx_opts.conf
+%doc CHANGES README README.envvar
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/lib
 %dir %{_libdir}/%{name}/bin
 %dir %{_libdir}/%{name}/lib/cmake
 %dir %{_libdir}/%{name}/include
 %dir %{_fmoddir}/mpich
-%{_libdir}/%{name}/lib/*.so.*
+%{_libdir}/%{name}/lib/libmpi.so.%{somajor}{,.*}
+%{_libdir}/%{name}/lib/libmpicxx.so.%{somajor}{,.*}
+%{_libdir}/%{name}/lib/libmpifort.so.%{somajor}{,.*}
+%{_libdir}/%{name}/lib/libmpi_abi.so.%{mpi_abi_somajor}{,.*}
 %{_libdir}/%{name}/bin/hydra*
 %{_libdir}/%{name}/bin/mpichversion
 %{_libdir}/%{name}/bin/mpiexec*
@@ -258,10 +245,21 @@ make check VERBOSE=1 \
 %{_includedir}/%{name}-%{_arch}/
 %{_libdir}/%{name}/lib/pkgconfig/
 %{_libdir}/%{name}/lib/cmake/
-%{_libdir}/%{name}/lib/*.so
+%{_libdir}/%{name}/lib/libmpi.so
+%{_libdir}/%{name}/lib/libmpicxx.so
+%{_libdir}/%{name}/lib/libmpifort.so
+%{_libdir}/%{name}/lib/libmpi_abi.so
+%{_libdir}/%{name}/lib/libmpich.so
+%{_libdir}/%{name}/lib/libmpichcxx.so
+%{_libdir}/%{name}/lib/libmpichf90.so
+%{_libdir}/%{name}/lib/libfmpich.so
+%{_libdir}/%{name}/lib/libmpl.so
+%{_libdir}/%{name}/lib/libopa.so
 %{_libdir}/%{name}/bin/mpicc
+%{_libdir}/%{name}/bin/mpicc_abi
 %{_libdir}/%{name}/bin/mpic++
 %{_libdir}/%{name}/bin/mpicxx
+%{_libdir}/%{name}/bin/mpicxx_abi
 %{_libdir}/%{name}/bin/mpif77
 %{_libdir}/%{name}/bin/mpif90
 %{_libdir}/%{name}/bin/mpifort
@@ -271,7 +269,7 @@ make check VERBOSE=1 \
 
 %files doc
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/doc/
+%doc %{_datadir}/%{name}/doc/
 
 %files -n python3-mpich
 %dir %{python3_sitearch}/%{name}

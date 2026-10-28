@@ -32,7 +32,10 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: git
 # Generate the .hmac checksum unless --without fips is used
-%bcond_without fips
+# In RHEL, gmp and nettle are bundled in gnutls to avoid the issues with
+# FIPS modules spanning multiple packages.  Other uses of standalone gmp
+# are not cryptographic, so no checksum is necessary.
+%bcond fips %{undefined rhel}
 %if %{with fips}
 BuildRequires: fipscheck
 %endif

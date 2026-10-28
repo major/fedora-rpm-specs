@@ -1,7 +1,7 @@
 Name:           perl-Error
 Epoch:          1
-Version:        0.17030
-Release:        4%{?dist}
+Version:        0.17031
+Release:        1%{?dist}
 Summary:        Error/exception handling in an OO-ish way
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND X11
 URL:            https://metacpan.org/release/Error
@@ -9,11 +9,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/Error/Error-%{versio
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
@@ -47,12 +46,11 @@ can simply be recorded.
 %setup -q -n Error-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -69,6 +67,12 @@ make test
 %{_mandir}/man3/Error::Simple.3*
 
 %changelog
+* Tue Oct 27 2026 Paul Howarth <paul@city-fan.org> - 1:0.17031-1
+- Update to 0.17031 (rhbz#2561999)
+  - t/08warndie.t: Update to handle blead's updated line number tracking
+    (https://github.com/shlomif/perl-error.pm/pull/6)
+- Use %%{make_build} and %%{make_install}
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.17030-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

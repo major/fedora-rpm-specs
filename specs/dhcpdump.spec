@@ -1,6 +1,6 @@
 Name:           dhcpdump
 Version:        2.00
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parse DHCP packets
 
 License:        BSD-2-Clause
@@ -11,7 +11,7 @@ Source2:        https://raw.githubusercontent.com/bbonev/%{name}/v%{version}/deb
 
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 BuildRequires:  perl-podlators
 BuildRequires:  pkgconfig(libpcap)
@@ -25,7 +25,7 @@ Version 2.00 introduces a TUI to see packets grouped by session.
 %global _hardened_build 1
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 
@@ -43,6 +43,9 @@ install -D -p -m 644 -t %{buildroot}%{_mandir}/man8/ %{name}.8
 
 
 %changelog
+* Thu Oct 22 2026 Jakub Jelen <jjelen@redhat.com> - 2.00-2
+- Verify upstream source signatures with openpgpverify
+
 * Sat Aug 2 2026 Boian Bonev <bbonev@ipacct.com> - 2.00-1
 - New upstream release 2.00
 

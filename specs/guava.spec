@@ -15,6 +15,7 @@ Source0:        https://github.com/google/guava/archive/v%{version}/guava-%{vers
 
 Patch:          0001-Remove-NullMarked-filtering-and-annotation-collectio.patch
 Patch:          0002-Fix-invalid-Maven-attribute-values-in-compilerArgs.patch
+Patch:          guava-33.5.0-CVE-2026-102554.patch
 
 BuildRequires:  jurand
 %if %{with bootstrap}

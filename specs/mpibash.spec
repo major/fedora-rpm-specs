@@ -1,6 +1,6 @@
 Name:           mpibash
 Version:        1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Parallel scripting right from the Bourne-Again Shell
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -115,6 +115,9 @@ sed -i '1s@/usr/bin/env mpibash@%{_libdir}/mpich/bin/mpibash_mpich@' %{buildroot
 %{_libdir}/mpich/lib/share/%{name}/examples
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.5-4
+- Rebuilt for mpich-5.0.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

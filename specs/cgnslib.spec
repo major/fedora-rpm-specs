@@ -11,7 +11,7 @@
 
 Name:           cgnslib
 Version:        4.5.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -407,6 +407,9 @@ ctest || :
 
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.5.2-3
+- Rebuilt for mpich-5.0.2
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -17,14 +17,6 @@ BuildRequires:  lz4-devel
 BuildRequires:  python3-devel
 BuildRequires:  gcc
 
-# For tests
-BuildRequires:  python3-psutil
-%if %{with docs}
-# For docs
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx-bootstrap-theme
-%endif
-
 
 %description
 Python bindings for the lz4 compression library.
@@ -47,7 +39,7 @@ sed -i -e 's/--cov=lz4\/block --cov=lz4\/frame//' tox.ini
 rm lz4libs/lz4*.[ch]
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -x tests%{?with_docs:,docs}
 
 %build
 %pyproject_wheel
@@ -71,7 +63,8 @@ mv docs/_build/html ./html
 
 
 %check
-%tox
+# tests/stream is for lz4/stream which is not built by default
+%pytest tests/block tests/frame
 
 
 %files -n python3-lz4 -f %{pyproject_files}

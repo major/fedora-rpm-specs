@@ -1,7 +1,7 @@
 Summary: Pattern matching utilities
 Name: grep
 Version: 3.12
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND GFDL-1.3-no-invariants-or-later
 URL: https://www.gnu.org/software/grep/
 
@@ -31,7 +31,7 @@ BuildRequires: gettext-devel
 Buildrequires: glibc-all-langpacks
 BuildRequires: perl(FileHandle)
 BuildRequires: make
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 # https://fedorahosted.org/fpc/ticket/174
 Provides: bundled(gnulib)
 # for backward compatibility (rhbz#1540485)
@@ -47,7 +47,7 @@ prints the matching lines. GNU's grep utilities include grep, egrep and fgrep.
 GNU grep is needed by many scripts, so it shall be installed on every system.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -89,6 +89,9 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 3.12-5
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

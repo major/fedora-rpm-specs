@@ -5,7 +5,7 @@
 %global crate zbus_names
 
 Name:           rust-zbus_names
-Version:        4.3.4
+Version:        4.3.5
 Release:        %autorelease
 Summary:        Collection of D-Bus bus names types
 
@@ -19,7 +19,7 @@ Patch:          zbus_names-fix-metadata.diff
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A collection of D-Bus bus names types.}
+A collection of D-Bus bus names types (deprecated: merged into zbus).}
 
 %description %{_description}
 

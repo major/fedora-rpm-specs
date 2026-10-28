@@ -13,6 +13,16 @@ URL:            https://github.com/stratis-storage/stratisd
 Source0:        %{url}/archive/stratisd-v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/stratisd-v%{version}/%{name}-%{version}-vendor.tar.gz
 
+# https://github.com/stratis-storage/stratisd/pull/4110
+# https://bugzilla.redhat.com/show_bug.cgi?id=2552449
+# Wait indefinitely for encryption passphrase on boot
+Patch:          0001-Add-infinite-timeout-to-systemd-ask-password.patch
+# https://github.com/stratis-storage/stratisd/pull/4113
+# https://bugzilla.redhat.com/show_bug.cgi?id=2543511
+# Wait for all pool devices before attempting decryption
+Patch:          0002-Add-stratis-min-pool-all-devices-present-command.patch
+Patch:          0003-Wait-for-all-pool-devices-in-dracut-and-systemd-setu.patch
+
 
 %if 0%{?rhel}
 ExcludeArch:    i686
@@ -80,7 +90,7 @@ Requires:     stratisd
 %{summary}.
 
 %prep
-%autosetup -n stratisd-stratisd-v%{version} %{?rhel:-a1}
+%autosetup -p1 -n stratisd-stratisd-v%{version} %{?rhel:-a1}
 
 %if 0%{?rhel}
 %cargo_prep -v vendor

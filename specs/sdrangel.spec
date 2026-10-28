@@ -1,6 +1,6 @@
 Name:		sdrangel
-Version:	7.27.2
-Release:	5%{?dist}
+Version:	8.0.0
+Release:	1%{?dist}
 Summary:	Software defined radio (SDR) and signal analyzer frontend to various hardware
 License:	GPL-3.0-or-later
 URL:		https://github.com/f4exb/sdrangel
@@ -102,6 +102,9 @@ appstream-util validate-relax \
 %license LICENSE
 %doc CHANGELOG Readme.md
 %{_bindir}/sdrangel
+%{_bindir}/sdrangel-%{version}-linux.mcpb
+%{_bindir}/sdrangel-mcp-bridge
+%{_bindir}/tools.json
 %{_bindir}/sdrangelbench
 %{_bindir}/sdrangelsrv
 %{_libdir}/sdrangel
@@ -110,6 +113,10 @@ appstream-util validate-relax \
 %{_metainfodir}/org.sdrangel.SDRangel.metainfo.xml
 
 %changelog
+* Tue Oct 27 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 8.0.0-1
+- New version
+  Resolves: rhbz#2560339
+
 * Thu Oct 15 2026 Richard Shaw <hobbes1069@gmail.com> - 7.27.2-5
 - Rebuild for SoapySDR.
 

@@ -1,6 +1,6 @@
 Name:           espresso
 Version:        5.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -180,6 +180,9 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.0.1-6
+- Rebuilt for mpich-5.0.2
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 5.0.1-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

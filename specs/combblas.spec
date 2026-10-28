@@ -25,7 +25,7 @@
 
 Name:          combblas
 Version:       2.0.0
-Release:       17%{?dist}
+Release:       18%{?dist}
 Summary:       The Combinatorial BLAS Library
 
 # Main license for CombBLAS is BSD-3-Clause-LBNL
@@ -255,6 +255,9 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %endif
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.0-18
+- Rebuild for mpich-5.0.2
+
 * Tue Oct 20 2026 Cristian Le <git@lecris.dev> - 2.0.0-17
 - Use CMake native logic to strip rpath
 

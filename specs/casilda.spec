@@ -1,5 +1,5 @@
 Name:           casilda
-Version:        1.0.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Wayland compositor for GTK4
 
@@ -12,14 +12,13 @@ Source:         %{url}/-/archive/%{version}/casilda-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  meson
     
-BuildRequires:  pkgconfig(epoxy)
+BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4)
+BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(pixman-1)
-BuildRequires:  pkgconfig(wayland-protocols)
-BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(wayland-server)
-BuildRequires:  pkgconfig(wlroots-0.18)
+BuildRequires:  pkgconfig(wlroots-0.20)
 BuildRequires:  pkgconfig(x11-xcb)
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xkbcommon-x11)

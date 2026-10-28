@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           bcvk
-Version:        0.21.0
+Version:        0.22.0
 Release:        1%{?dist}
 Summary:        Bootable container VM toolkit
 
@@ -19,10 +19,8 @@ Requires: podman
 Requires: qemu-img
 Requires: qemu-kvm
 Requires: virtiofsd
-# Extraction and initramfs tools are needed for some ephemeral boot images.
-Recommends: binutils
+# Initramfs tools are needed for some ephemeral boot images.
 Recommends: kernel-tools
-Recommends: android-tools
 # libvirt-client is optional but recommended for 'bcvk libvirt' commands
 Recommends: libvirt-client
 

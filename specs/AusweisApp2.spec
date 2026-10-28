@@ -65,12 +65,12 @@ BuildRequires:    cmake
 BuildRequires:    crypto-policies
 BuildRequires:    desktop-file-utils
 BuildRequires:    gcc-c++
-BuildRequires:    gnupg2
 BuildRequires:    libappstream-glib
 BuildRequires:    libudev-devel
 BuildRequires:    libxkbcommon-devel
 BuildRequires:    llhttp-devel
 BuildRequires:    ninja-build
+BuildRequires:    openpgpverify
 BuildRequires:    openssl-devel
 BuildRequires:    pcsc-lite-devel
 BuildRequires:    python3-devel
@@ -165,7 +165,7 @@ This package contains the user and API documentation for %{name}.
 
 %prep
 # Verify tarball integrity.
-%{gpgverify}                \
+%{openpgpverify}            \
   --keyring='%{SOURCE2}'    \
   --signature='%{SOURCE1}'  \
   --data='%{SOURCE0}'

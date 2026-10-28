@@ -42,7 +42,7 @@ ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
 
 Name:			elk
 Version:		11.0.2
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		An all-electron full-potential linearised augmented-plane wave code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -310,6 +310,9 @@ mv tests.orig tests
 
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 11.0.2-2
+- Rebuilt for mpich-5.0.2
+
 * Sat Jul 18 2026 Marcin Dulak <marcindulak@fedoraproject.org> - 11.0.2-1
 - New upstream release
 

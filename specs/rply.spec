@@ -3,11 +3,10 @@ Version:	1.1.4
 Release:	%autorelease
 Summary:	A library to read and write PLY files
 License:	MIT
-URL:		https://www.tecgraf.puc-rio.br/~diego/professional/rply/
-Source0:	https://www.tecgraf.puc-rio.br/~diego/professional/rply/%{name}-%{version}.tar.gz
+URL:		https://w3.impa.br/~diego/software/rply/
+Source0:	%{url}/%{name}-%{version}.tar.gz
 Source1:	rply_CMakeLists.txt
-Source2:	RPLYConfig.cmake.in
-Source3:	rply_cmake_export_cmakelists.txt
+Patch:		11.patch
 BuildRequires:  cmake >= 2.6.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -39,15 +38,7 @@ Rply Library Header Files and Link Libraries
 # Add CMakeLists.txt file
 cp %{SOURCE1} CMakeLists.txt
 
-# Add CMake detection modules
-mkdir -p CMake/export
-mkdir -p CMake/Modules
-cp %{SOURCE2} CMake/Modules/
-cp %{SOURCE3} CMake/export/CMakeLists.txt
-
 %build
-# TODO: Please submit an issue to upstream (rhbz#2381410)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_BUILD_TYPE:STRING="Release" \
        -DCMAKE_VERBOSE_MAKEFILE=ON
 
@@ -57,8 +48,6 @@ iconv -f iso8859-1 -t utf-8 LICENSE > LICENSE.conv && mv -f LICENSE.conv LICENSE
 
 %install
 %cmake_install
-
-rm $RPM_BUILD_ROOT%{_datadir}/%{name}/rplyConfig.cmake
 
 %files
 %license LICENSE
@@ -71,7 +60,6 @@ rm $RPM_BUILD_ROOT%{_datadir}/%{name}/rplyConfig.cmake
 %dir %{_includedir}/%{name}/
 %{_includedir}/%{name}/*
 %{_libdir}/*.so
-%dir %{_datadir}/%{name}/
 
 %changelog
 %autochangelog

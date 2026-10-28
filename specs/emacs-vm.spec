@@ -27,8 +27,6 @@ License: GPL-1.0-or-later AND GPL-2.0-or-later
 URL: %forgeurl
 Source0: %forgesource
 Source1: emacs-vm.metainfo.xml
-# https://bugs.launchpad.net/vm/+bug/1225162/comments/6
-Patch: marker-pointer.patch
 
 Requires: emacs(bin) >= %{_emacs_version}
 BuildArch: noarch

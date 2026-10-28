@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kscreen
 Epoch:   1
-Version: 6.8.1
-Release: 2%{?dist}
+Version: 6.8.2
+Release: 1%{?dist}
 Summary: KDE Display Management software
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -84,6 +84,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_userunitdir}/plasma-kscreen-osd.service
 
 %changelog
+* Tue Oct 27 2026 Steve Cossette <steve@ninjasinpajamas.com> - 1:6.8.2-1
+- 6.8.2
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 1:6.8.1-2
 - Rebuild (qt6)
 

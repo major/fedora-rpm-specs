@@ -4,7 +4,7 @@
 %global crate av-scenechange
 
 Name:           rust-av-scenechange
-Version:        0.24.1
+Version:        0.25.0
 Release:        %autorelease
 Summary:        Estimates frames in a video where a scenecut would be ideal
 
@@ -278,7 +278,8 @@ help2man --no-info --version-string='%{version}' --output=av-scenechange.1 \
 
 %install
 %cargo_install
-install -t %{buildroot}%{_mandir}/man1 -D -p -m 0644 av-scenechange.1
+install -D --preserve-timestamps --mode=0644 \
+    --target=%{buildroot}%{_mandir}/man1 av-scenechange.1
 
 %if %{with check}
 %check

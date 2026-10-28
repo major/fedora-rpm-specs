@@ -36,7 +36,7 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
-* Tue Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 19-10
+* Tue Oct 27 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 19-10
 - Replace setup.py with bundlebuilder
 
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 19-9

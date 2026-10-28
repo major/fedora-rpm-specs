@@ -322,9 +322,7 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %files test
 %{pkg_prefix}/bin/rccl-UnitTests*
 %{pkg_prefix}/bin/rccl/*.cmake
-%if %{with preview}
 %{pkg_prefix}/bin/librccl-test*.so
-%endif
 %endif
 
 %changelog

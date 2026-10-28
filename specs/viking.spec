@@ -2,7 +2,7 @@ Name:           viking
 
 %global forgeurl https://github.com/viking-gps/viking
 %global version0 1.11
-%global commit 2a2420963e4b913d0b37dcf8801dc3695ca72a6c
+%global commit ed92088990ec1345d74d565baa3716cc47baaa67
 %forgemeta
 Version:        %forgeversion
 Release:        %autorelease
@@ -30,7 +30,7 @@ BuildRequires:  gnome-doc-utils
 BuildRequires:  libexif-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  file-devel
-BuildRequires:  libgexiv2_0.14-devel
+BuildRequires:  libgexiv2-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  docbook-utils
 BuildRequires:  docbook-style-xsl

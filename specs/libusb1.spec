@@ -13,7 +13,7 @@ BuildRequires:  systemd-devel doxygen libtool
 BuildRequires:  umockdev-devel
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 # libusbx was removed in F34
 Provides:       libusbx = %{version}-%{release}
 Obsoletes:      libusbx < %{version}-%{release}
@@ -89,7 +89,7 @@ MinGW Windows %{name} library.
 %endif
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n libusb-%{version}
 
 %build

@@ -1,6 +1,6 @@
 Name:           jackson-databind
-Version:        2.21.5
-Release:        2%{?dist}
+Version:        2.21.8
+Release:        1%{?dist}
 Summary:        General data-binding package for Jackson (2.x)
 License:        Apache-2.0 and LGPL-2.0-or-later
 
@@ -73,6 +73,13 @@ rm src/test/java/com/fasterxml/jackson/databind/introspect/NoClassDefFoundWorkar
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jul 14 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21.8-1
+- Rebase to version 2.21.8
+- Fix CVE-2026-68497: CPU Denial of Service via unbounded numeric parsing (rhbz#2533058)
+- Fix CVE-2026-83557: Path traversal via incomplete type validation (rhbz#2530869)
+- Fix CVE-2026-19032: Uncontrolled URI scheme resolution in Path deserialization (rhbz#2527984)
+- Fix CVE-2026-91777: Denial of Service via quadratic forward-reference completion (rhbz#2553614)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

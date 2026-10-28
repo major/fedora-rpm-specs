@@ -1,7 +1,7 @@
 %global pkg async
 
 Name:           emacs-%{pkg}
-Version:        1.9.9
+Version:        2.0
 Release:        %autorelease
 Summary:        Asynchronous processing in Emacs
 License:        GPL-3.0-or-later

@@ -45,7 +45,7 @@ Patch0: 0001-tools-Use-Python3-for-GetAllMatchRules.patch
 BuildRequires: gcc
 BuildRequires: meson
 BuildRequires: audit-libs-devel >= 0.9
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: libX11-devel
 BuildRequires: libcap-ng-devel
 BuildRequires: pkgconfig(expat)
@@ -165,7 +165,7 @@ in this separate package so server systems need not install X.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 

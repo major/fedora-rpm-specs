@@ -6,7 +6,7 @@
 %global crate zvariant_derive
 
 Name:           rust-zvariant_derive
-Version:        5.15.0
+Version:        5.15.1
 Release:        %autorelease
 Summary:        D-Bus & GVariant encoding & decoding
 
@@ -17,7 +17,7 @@ Source:         %{crates_source}
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-D-Bus & GVariant encoding & decoding.}
+D-Bus & GVariant encoding & decoding (deprecated: merged into zbus).}
 
 %description %{_description}
 

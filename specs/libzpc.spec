@@ -13,7 +13,9 @@ BuildRequires:	gcc
 BuildRequires:	g++
 BuildRequires:	make
 BuildRequires:	clang-tools-extra
+%if %{defined fedora}
 BuildRequires:	pandoc
+%endif
 BuildRequires:	json-c-devel
 BuildRequires:	openssl-devel
 BuildRequires:	p11-kit-devel
@@ -37,7 +39,7 @@ later), interfacing to the protected key feature of z/Architecture.
 
 %package	pkcs11
 Summary:	PKCS#11 module for %{name}
-Requires:	%{name}-provider
+Requires:	%{name}-provider = %{version}-%{release}
 
 %description	pkcs11
 The %{name}-pkcs11 package contains a PKCS#11 module for using protected key
@@ -47,6 +49,9 @@ origins.
 
 %package	tools
 Summary:	Key management tool for %{name} keys
+# set upgrade path for old packages
+Obsoletes:	%{name} < 2.1.0
+Obsoletes:	%{name}-devel < 2.0.0
 
 %description	tools
 The %{name}-tools package contains a key management tool for key origins.
@@ -67,9 +72,9 @@ persistent protected key origins, from which protected keys can be (re-)derived.
 %cmake_install
 %ifarch s390x
 install -m644 %_vpath_builddir/hbkzpcprovider.conf \
-        -D -t $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/openssl.d/
+	-D -t %{buildroot}%{_sysconfdir}/pki/tls/openssl.d/
 install -m644 %{SOURCE1} \
-        -D -t $RPM_BUILD_ROOT/%{_sysconfdir}/zpcpkcs11/
+	-D -t %{buildroot}%{_sysconfdir}/zpcpkcs11/
 %endif
 
 %check
@@ -91,6 +96,7 @@ install -m644 %{SOURCE1} \
 %{p11modulesdir}/zpcpkcs11.so
 %{_mandir}/man5/zpcpkcs11.conf.5*
 %{_mandir}/man7/zpcpkcs11.7*
+%dir %{_sysconfdir}/zpcpkcs11
 %config(noreplace) %{_sysconfdir}/zpcpkcs11/zpcpkcs11.conf
 %endif
 

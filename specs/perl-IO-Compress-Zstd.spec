@@ -1,5 +1,5 @@
 Name:           perl-IO-Compress-Zstd
-Version:        2.224
+Version:        2.225
 Release:        1%{?dist}
 Summary:        Write zstd files/buffers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -72,6 +72,9 @@ make test COMPRESS_ZLIB_RUN_ALL=1
 
 
 %changelog
+* Tue Oct 27 2026 Xavier Bachelot <xavier@bachelot.org> 2.225-1
+- Update to 2.225 (RHBZ#2548706)
+
 * Thu Sep 10 2026 Xavier Bachelot <xavier@bachelot.org> 2.224-1
 - Update to 2.224 (RHBZ#2525656)
 

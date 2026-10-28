@@ -135,6 +135,7 @@ Microsoft Azure CLI SDK testing tools
 
 # Non-Azure dependencies that need tweaks
 %pyproject_patch_dependency paramiko:set_upper:6.0
+%pyproject_patch_dependency portalocker:set_upper:5.0
 %pyproject_patch_dependency pyjwt:set_upper:3.0
 
 # Remove upper version boundaries on anything that isn't azure-related.

@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 
 Name:			gpaw
 Version:		26.7.0
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -307,6 +307,9 @@ PYTHONPATH=$(echo $(pwd)/build$MPI_SUFFIX/lib.*) PATH=$RPM_BUILD_ROOT/$MPI_BIN:$
 
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 26.7.0-4
+- Rebuilt for mpich-5.0.2
+
 * Thu Aug 06 2026 Marcin Dulak <marcindulak@fedoraproject.org> - 26.7.0-3
 - Use pyproject_install to create bin scripts
 

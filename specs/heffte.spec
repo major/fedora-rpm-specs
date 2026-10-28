@@ -1,7 +1,7 @@
 Name:           heffte
 Version:        2.4.1
 %global         sover 2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Highly Efficient FFT for Exascale
 
 License:        BSD-3-Clause
@@ -210,6 +210,9 @@ done
 %{_datadir}/%{name}/docs
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.1-12
+- Rebuilt for mpich-5.0.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

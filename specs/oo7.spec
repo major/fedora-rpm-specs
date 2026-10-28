@@ -1,5 +1,8 @@
+%global commit e91b98a7235a4971c6cbb7f0533034afc8a8f618
+%global shortcommit %{sub %{commit} 1 7}
+
 Name:           oo7
-Version:        0.7.0~beta
+Version:        0.7.0~beta^1.%{shortcommit}
 Release:        %autorelease
 Summary:        Secret Service provider
 
@@ -28,7 +31,7 @@ License:        %{shrink:
 %global tag %{gsub %{version} ~ .}
 
 URL:            https://github.com/linux-credentials/oo7
-Source:         %{url}/archive/%{tag}/oo7-%{tag}.tar.gz
+Source:         %{url}/archive/%{commit}/oo7-%{shortcommit}.tar.gz
 
 # fix invalid manifest at cli/Cargo.toml:
 # features cannot depend on features of dev-only dependencies
@@ -43,16 +46,6 @@ Patch:          0003-meson-pass-through-rpm-profile-to-cargo-build.patch
 # drop yet unused Python bindings from cargo workspace:
 # this avoids pulling in unused dependencies
 Patch:          0004-drop-yet-unused-Python-bindings-from-cargo-workspace.patch
-
-# backport from upstream: client: Stop validation content-type
-# workaround for RHBZ#2549530 (gnome-abrt / libreport cannot store credentials)
-Patch:          https://github.com/linux-credentials/oo7/commit/5283f65.patch
-
-# Stop checking secret length
-# fixes https://bugzilla.redhat.com/show_bug.cgi?id=2560362
-# Minimal version of
-# https://github.com/linux-credentials/oo7/pull/580
-Patch:          0001-Drop-password-too-short-check-minimal-version.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  systemd-rpm-macros

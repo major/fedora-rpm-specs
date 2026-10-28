@@ -29,7 +29,6 @@ BuildRequires: intel-gmmlib-devel
 BuildRequires: libva-devel
 BuildRequires: libdrm-devel
 BuildRequires: intel-igc-devel
-BuildRequires: intel-opencl-clang
 BuildRequires: ninja-build
 BuildRequires: libnl3-devel
 BuildRequires: ocl-icd-devel
@@ -39,6 +38,7 @@ BuildRequires: spirv-tools-devel
 #Need libudev headers
 BuildRequires: systemd-devel
 %if 0%{?use_system_headers}
+BuildRequires: intel-opencl-clang
 BuildRequires: opencl-headers
 BuildRequires: libglvnd-devel
 BuildRequires: spirv-headers-devel
@@ -115,7 +115,7 @@ Devel files for developing against intel-level-zero
 %prep
 %autosetup -p1 -n compute-runtime-%{version}
 
-%if 0%{?fedora} >= 46
+%if 0%{?fedora} >= 46 || 0%{?rhel} >= 11
 # Temporary workaround for level-zero-devel, version got bumped too quick
 sed -i 's/ze_pfnCommandList/mcl_ze_pfnCommandList/g' \
 level_zero/include/level_zero/driver_experimental/mcl_ext/ze_mutable_command_list_exp.h

@@ -38,7 +38,6 @@ Patch:          %{name}-disable-tests.patch
 BuildRequires:  diffutils
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
-BuildRequires:  gpgverify
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.11.0
 BuildRequires:  ocaml-base64-devel >= 3.1.0
@@ -61,6 +60,7 @@ BuildRequires:  ocaml-swhid-core-devel >= 0.1
 BuildRequires:  ocaml-uutf-devel >= 1.0.3
 BuildRequires:  ocaml-tar-devel >= 3.5.0
 BuildRequires:  ocaml-z3-devel >= 4.8.4
+BuildRequires:  openpgpverify
 BuildRequires:  openssl
 
 # Testing dependencies
@@ -107,7 +107,7 @@ Standalone script for working with opam .install files, see the opam package
 for more information.
 
 %prep
-%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+%{openpgpverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup -n %{name}-full-%{version} -p1
 sed -e 's,%%SOURCE3%%,%{SOURCE3},' \
     -e 's,%%SOURCE4%%,%{SOURCE4},' \

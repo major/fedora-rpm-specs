@@ -1,6 +1,6 @@
 Name:    kwin
-Version: 6.8.1
-Release: 3%{?dist}
+Version: 6.8.2
+Release: 1%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -229,7 +229,6 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 %files
 %{_bindir}/kwin
 %{_bindir}/kwin_wayland_wrapper
-%{_sysconfdir}/xdg/kwinrulesrc
 %caps(cap_sys_nice=ep) %{_kf6_bindir}/kwin_wayland
 %{_userunitdir}/plasma-kwin_wayland.service
 %dir %{_sysconfdir}/xdg/Xwayland-session.d
@@ -280,6 +279,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Tue Oct 27 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.2-1
+- 6.8.2
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.8.1-3
 - Rebuild (qt6)
 

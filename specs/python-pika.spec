@@ -6,7 +6,7 @@ tries to stay fairly independent of the underlying network support \
 library.
 
 Name:           python-%{srcname}
-Version:        1.4.1
+Version:        1.4.4
 Release:        %autorelease
 Summary:        AMQP 0-9-1 client library for Python
 

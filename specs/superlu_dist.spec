@@ -65,7 +65,7 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 9.2.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Epoch:   1
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
 License: BSD-3-Clause
@@ -527,6 +527,9 @@ popd
 
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:9.2.1-8
+- Rebuilt for mpich-5.0.2
+
 * Tue Oct 20 2026 Cristian Le <fedora@lecris.me> - 1:9.2.1-7
 - Better handle rpaths in CMake
 - Account for the LD_LIBRARY_PATH in the mpi module

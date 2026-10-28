@@ -1,17 +1,12 @@
 Name:           python-pytest-env
-Version:        1.8.1
+Version:        1.8.3
 Release:        %autorelease
-Summary:        Pytest plugin that allows you to add environment variables
+Summary:        Set environment variables for pytest sessions
 
 # SPDX
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-env
 Source:         %{url}/archive/%{version}/pytest-env-%{version}.tar.gz
-
-# Propagate limited useful env. vars. in `test_native_env_files_override_ini`
-# https://github.com/pytest-dev/pytest-env/pull/275
-# Backported to 1.8.1.
-Patch:          test-environment.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license pytest_env
@@ -57,6 +52,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %files -n python3-pytest-env -f %{pyproject_files}
+%doc CHANGELOG.md
 %doc README.md
 
 

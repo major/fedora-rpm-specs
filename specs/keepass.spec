@@ -20,12 +20,12 @@ Patch1:         keepass-fix-XSL-search-path.patch
 ExclusiveArch:  %{mono_arches}
 ExcludeArch:    armv7hl
 BuildRequires:  desktop-file-utils
-BuildRequires:  gnupg2
 BuildRequires:  libappstream-glib
 BuildRequires:  libgdiplus-devel
 BuildRequires:  mono-devel
 BuildRequires:  mono-winforms
 BuildRequires:  mono-web
+BuildRequires:  openpgpverify
 BuildRequires:  xorg-x11-server-Xvfb
 Requires:       xdotool xsel hicolor-icon-theme
 Requires:       mono-winforms
@@ -48,7 +48,7 @@ to unlock the whole database.
 
 
 %prep
-%{gpgverify}                \
+%{openpgpverify}            \
   --keyring='%{SOURCE2}'    \
   --signature='%{SOURCE1}'  \
   --data='%{SOURCE0}'

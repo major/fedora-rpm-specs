@@ -23,8 +23,8 @@
 %global use_inotify 0
 %endif
 
-%global use_dnf (0%{?fedora} || (0%{?rhel}))
-%global create_libdnf_rpm (0%{?fedora} || 0%{?rhel} > 8)
+%global use_dnf ((0%{?fedora} && 0%{?fedora} < 46) || (0%{?rhel} && 0%{?rhel} < 11))
+%global create_libdnf_rpm ((0%{?fedora} && 0%{?fedora} < 46) || (0%{?rhel} > 8 && 0%{?rhel} < 11))
 
 %global python_sitearch %python3_sitearch
 %global python_sitelib %python3_sitelib
@@ -96,7 +96,7 @@
 
 Name: subscription-manager
 Version: 1.30.14
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -739,6 +739,9 @@ rm -f /var/lib/rhsm/cache/rhsm_icon.json
 rm -f /var/lib/rhsm/cache/content_access_mode.json
 
 %changelog
+* Tue Oct 13 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.30.14-6
+- Disable dnf-4 plugins on RHEL 11
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.30.14-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

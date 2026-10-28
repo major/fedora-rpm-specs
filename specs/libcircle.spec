@@ -1,6 +1,6 @@
 Name:    libcircle
 Version: 0.3
-Release: 22%{?dist}
+Release: 23%{?dist}
 
 Source: https://github.com/hpc/libcircle/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 URL: http://hpc.github.io/libcircle/
@@ -138,6 +138,9 @@ make -C mpich check || { cat mpich/tests/test-suite.log && exit 1; }
 %{_docdir}/%{name}
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.3-23
+- Rebuilt for mpich-5.0.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

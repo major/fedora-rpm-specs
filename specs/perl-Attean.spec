@@ -2,15 +2,15 @@
 %bcond_without perl_Attean_enables_optional_test
 
 Name:           perl-Attean
-Version:        0.039
-Release:        2%{?dist}
+Version:        0.040
+Release:        1%{?dist}
 Summary:        Semantic web framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Attean
 Source0:        https://cpan.metacpan.org/authors/id/G/GW/GWILLIAMS/Attean-%{version}.tar.gz
 # Do not use /usr/bin/env in shebangs,
 # <https://github.com/kasei/attean/pull/117>, refused by the upstream
-Patch0:         Attean-0.017-Canonize-shebangs.patch
+Patch0:         Attean-0.040-Canonize-shebangs.patch
 # Disable changelog generator and other not helpful dependencies
 Patch1:         Attean-0.037-Disable-unwanted-build-time-dependecies.patch
 BuildArch:      noarch
@@ -47,7 +47,7 @@ BuildRequires:  perl(HTTP::Negotiate)
 BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(I18N::LangTags)
-BuildRequires:  perl(IRI) >= 0.005
+BuildRequires:  perl(IRI) >= 0.015
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(List::Util) >= 1.56
 BuildRequires:  perl(LWP::UserAgent)
@@ -109,7 +109,7 @@ BuildRequires:  perl(Test::TypeTiny)
 BuildRequires:  perl(RDF::Trine)
 %endif
 Requires:       perl(Exporter::Tiny) >= 1
-Requires:       perl(IRI) >= 0.005
+Requires:       perl(IRI) >= 0.015
 Requires:       perl(List::Util) >= 1.56
 Requires:       perl(Math::Cartesian::Product) >= 1.008
 Requires:       perl(Moo) >= 2.000002
@@ -211,6 +211,7 @@ make test
 %{_bindir}/attean_query
 %{perl_vendorlib}/Attean*
 %{perl_vendorlib}/Types
+%{_mandir}/man1/attean_query.*
 %{_mandir}/man3/Attean*
 %{_mandir}/man3/Types::*
 
@@ -221,6 +222,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 27 2026 Petr Pisar <ppisar@redhat.com> - 0.040-1
+- 0.040 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.039-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:           plasmatube
 Version:        26.08.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 Summary:        YouTube video player based on QtMultimedia and youtube-dl
 Url:            https://apps.kde.org/plasmatube/
@@ -80,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.kde.%{nam
 %{_kf6_datadir}/qlogging-categories6/plasmatube.categories
 
 %changelog
+* Tue Oct 27 2026 Steve Cossette <steve@ninjasinpajamas.com> - 26.08.2-3
+- Bump for mpvqt
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
 - Rebuild (qt6)
 

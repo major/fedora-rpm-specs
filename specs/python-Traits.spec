@@ -7,7 +7,7 @@
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        7.2.0
+Version:        7.3.0
 Release:        %autorelease
 Summary:        Explicitly typed attributes for Python
 # Images have different licenses. For image license breakdown check

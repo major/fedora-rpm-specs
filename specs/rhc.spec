@@ -7,8 +7,12 @@
 %global with_rhcd_compat 1
 %endif
 
+%global selinuxtype targeted
+%global selinux_modulename rhc
+%global selinux_policy_version 42.1.8
+
 %global goipath         github.com/redhatinsights/rhc
-Version:                0.3.12
+Version:                0.3.14
 
 %gometa
 
@@ -25,6 +29,7 @@ Source2:        go-vendor-tools.toml
 %endif
 
 BuildRequires:  systemd-rpm-macros
+BuildRequires:  selinux-policy-devel
 
 %if 0%{?with_rhcd_compat}
 # semanage is called in %post/%postun to manage the rhcd_t SELinux type.
@@ -50,10 +55,29 @@ Requires: yggdrasil >= 0.4
 Requires: insights-client
 Requires: yggdrasil-worker-package-manager
 %endif
+# Pull rhc-selinux when the targeted SELinux policy is installed.
+Requires: ((%{name}-selinux >= %{version}-%{release}) if selinux-policy-%{selinuxtype})
 
 %description
 Client tool to register Fedora, CentOS Stream or Red Hat Enterprise Linux
 to Red Hat Subscription Management and Red Hat Lightspeed.
+
+%package selinux
+Summary:        SELinux policy for rhc-collector
+License:        Apache-2.0
+BuildArch:      noarch
+Requires:           selinux-policy >= %{selinux_policy_version}
+Requires:           selinux-policy-%{selinuxtype} >= %{selinux_policy_version}
+Requires(post):     selinux-policy-base >= %{selinux_policy_version}
+Requires(post):     libselinux-utils
+Requires(post):     policycoreutils
+Requires(post):     selinux-policy-%{selinuxtype}
+Requires(postun):   libselinux-utils
+Requires(postun):   policycoreutils
+
+%description selinux
+SELinux policy module for rhc-collector domains. Loaded by the package
+scriptlets; does not require the host to be registered.
 
 %prep
 # Unpack Source0 and set up the Go build directory. Since -k is not passed in,
@@ -62,7 +86,7 @@ to Red Hat Subscription Management and Red Hat Lightspeed.
 # Unpack Source1 into the build tree, providing the vendor/ directory.
 %setup -q -T -D -a1 -n %{name}-%{version}
 # Apply patches, if present.
-%autopatch -p1
+#autopatch -p1
 
 %generate_buildrequires
 %if 0%{?fedora}
@@ -79,6 +103,10 @@ export GO_LDFLAGS="-X github.com/redhatinsights/rhc/pkg/version.Version=%{versio
 
 # Generate man page
 %{gobuilddir}/bin/rhc --generate-man-page > rhc.1
+
+# SELinux policy module for the rhc-selinux subpackage (in-tree selinux/).
+make -C selinux -f %{_datadir}/selinux/devel/Makefile %{selinux_modulename}.pp
+bzip2 -9 selinux/%{selinux_modulename}.pp
 
 %install
 %if 0%{?fedora}
@@ -114,6 +142,7 @@ install -m 0755 -vd %{buildroot}%{_prefix}/lib/systemd/system-preset/
 install -m 0644 -vp data/systemd/presets/50-rhc.preset %{buildroot}%{_prefix}/lib/systemd/system-preset/
 # Configuration
 install -m 0755 -vd                     %{buildroot}%{_sysconfdir}/%{name}/
+install -m 0640 -vp data/config/rhc.conf %{buildroot}%{_sysconfdir}/%{name}/rhc.conf
 # Minimal collector
 install -m 0755 -vp _build/bin/com.redhat.minimal %{buildroot}%{_libexecdir}/%{name}/collectors/com.redhat.minimal
 install -m 0644 -vp data/collectors/com.redhat.minimal.toml %{buildroot}%{_prefix}/lib/%{name}/collectors/
@@ -128,6 +157,10 @@ install -m 0755 -vd %{buildroot}%{_unitdir}/yggdrasil.service.d/
 install -m 0644 -vp data/systemd/rhcd.conf %{buildroot}%{_unitdir}/yggdrasil.service.d/
 %endif
 
+# SELinux policy module and exported interfaces
+install -D -p -m 0644 selinux/%{selinux_modulename}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{selinux_modulename}.pp.bz2
+install -D -p -m 0644 selinux/%{selinux_modulename}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{selinux_modulename}.if
+
 %check
 %if 0%{?fedora}
 # Only go-vendor-tools are capable of validating the generated license string matches rpm's License field.
@@ -138,6 +171,11 @@ install -m 0644 -vp data/systemd/rhcd.conf %{buildroot}%{_unitdir}/yggdrasil.ser
 # Trigger unit tests, unless explicitly disabled.
 %gocheck
 %endif
+
+%clean
+# Remove the module cache so rpmbuild can remove the build tree.
+GOMODCACHE="%{gobuilddir}/pkg/mod" go clean -modcache
+rm -rf %{buildroot}
 
 %if 0%{?with_rhcd_compat}
 %pre
@@ -161,8 +199,20 @@ fi
 %if 0%{?with_rhcd_compat}
 # rhcd_t is the SELinux type used by the old rhcd daemon. Add it to the
 # permissive list so existing policies do not block yggdrasil on upgrade.
-if [ -d /var/lib/selinux/targeted ]; then
-	/usr/sbin/semanage permissive --add rhcd_t || true
+# Honor store-root from semanage.conf: image-mode (bootc) uses /etc/selinux
+# because /var/lib/selinux is absent at build time (RHEL-259013). Skip when
+# no store exists so container installs stay silent (RHEL-138412).
+store_root=/var/lib/selinux
+if [ -f /etc/selinux/semanage.conf ]; then
+	configured=$(sed -n 's/^[[:space:]]*store-root[[:space:]]*=[[:space:]]*\([^[:space:]#]*\).*/\1/p' /etc/selinux/semanage.conf | tail -1)
+	[ -n "$configured" ] && store_root=$configured
+fi
+if [ -d "$store_root/targeted/active" ]; then
+	if [ -d /run/systemd/system ]; then
+		/usr/sbin/semanage permissive --add rhcd_t || true
+	else
+		/usr/sbin/semanage permissive --noreload --add rhcd_t || true
+	fi
 fi
 
 # Complete the config migration started in %pre: transform the backed-up
@@ -187,11 +237,33 @@ fi
 %if 0%{?with_rhcd_compat}
 # Remove rhcd_t from the SELinux permissive list on full package removal.
 if [ $1 -eq 0 ]; then
-	if [ -d /var/lib/selinux/targeted ]; then
-		/usr/sbin/semanage permissive --delete rhcd_t || true
+	store_root=/var/lib/selinux
+	if [ -f /etc/selinux/semanage.conf ]; then
+		configured=$(sed -n 's/^[[:space:]]*store-root[[:space:]]*=[[:space:]]*\([^[:space:]#]*\).*/\1/p' /etc/selinux/semanage.conf | tail -1)
+		[ -n "$configured" ] && store_root=$configured
+	fi
+	if [ -d "$store_root/targeted/active" ]; then
+		if [ -d /run/systemd/system ]; then
+			/usr/sbin/semanage permissive --delete rhcd_t || true
+		else
+			/usr/sbin/semanage permissive --noreload --delete rhcd_t || true
+		fi
 	fi
 fi
 %endif
+
+%pre selinux
+%selinux_relabel_pre -s %{selinuxtype}
+
+%post selinux
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{selinux_modulename}.pp.bz2
+%selinux_relabel_post -s %{selinuxtype}
+
+%postun selinux
+if [ $1 -eq 0 ]; then
+	%selinux_modules_uninstall -s %{selinuxtype} %{selinux_modulename}
+	%selinux_relabel_post -s %{selinuxtype}
+fi
 
 %if 0%{?fedora}
 # With go-vendor-tools, we also get a list of dependency licenses.
@@ -216,7 +288,8 @@ fi
 %{_unitdir}/rhc-collector-com.redhat.minimal.*
 %{_prefix}/lib/systemd/system-preset/50-rhc.preset
 # Configuration
-%{_sysconfdir}/%{name}/
+%attr(0755,root,root) %dir %{_sysconfdir}/%{name}/
+%config(noreplace) %attr(0640,root,root) %{_sysconfdir}/%{name}/rhc.conf
 # Collector directories
 %dir %{_prefix}/lib/%{name}/collectors/
 %dir %{_libexecdir}/%{name}/collectors/
@@ -229,7 +302,6 @@ fi
 %config(noreplace) %{_sysconfdir}/logrotate.d/rhc
 # Runtime directories
 %ghost %attr(0755,root,root) %dir /run/%{name}
-%ghost %attr(0700,root,root) %dir %{_localstatedir}/tmp/%{name}
 # Systemd-tmpfiles configuration file
 %{_tmpfilesdir}/rhc.conf
 
@@ -237,6 +309,11 @@ fi
 # Yggdrasil rhcd compatibility drop-in
 %{_unitdir}/yggdrasil.service.d/rhcd.conf
 %endif
+
+%files selinux
+%{_datadir}/selinux/packages/%{selinuxtype}/%{selinux_modulename}.pp.*
+%{_datadir}/selinux/devel/include/distributed/%{selinux_modulename}.if
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{selinux_modulename}
 
 %changelog
 %autochangelog

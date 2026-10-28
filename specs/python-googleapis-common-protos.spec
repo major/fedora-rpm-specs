@@ -3,30 +3,28 @@
 # When bootstrapping, we do not include the “grpc” extra in the BR’s. That adds
 # a BR on python3dist(grpcio), but this package is required by
 # python3dist(grpcio-status), which creates a circular dependency with grpc.
-%bcond_with bootstrap
+# Flip this back to with when grpc >= 1.59 is built
+%bcond_without bootstrap
 
 Name:           python-googleapis-common-protos
-Version:        1.63.0
+Version:        1.75.5
 Release:        %autorelease
 Summary:        Common protobufs used in Google APIs
 
 License:        Apache-2.0
-URL:            https://github.com/googleapis/python-api-common-protos
-Source:         %{url}/archive/v%{version}/python-api-common-protos-%{version}.tar.gz
-
-# fix: increase upper limit for protobuf 5.X versions
-# https://github.com/googleapis/python-api-common-protos/pull/212
-Patch:          %{url}/pull/212.patch
-
+URL:            https://github.com/googleapis/google-cloud-python
+Source:         %{pypi_source googleapis-common-protos}
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
-# grpc does not work with new protobuf and uses protobuf3
-# we have to use python3-protobuf3 otherwise this happens
-# https://bugzilla.redhat.com/show_bug.cgi?id=2530520
-BuildRequires:  python3-protobuf3
 
-%if %{with tests}
+BuildSystem:    pyproject
+BuildOption(install):  -l google
+%if %{without bootstrap}
+BuildOption(generate_buildrequires): -x grpc
+%endif
+
+
+%if 0%{with tests}
 BuildRequires:  python3dist(pytest)
 %endif
 
@@ -42,37 +40,25 @@ Summary:        %{summary}
 %description -n python3-googleapis-common-protos %{common_description}
 
 
+%if %{without bootstrap}
 %pyproject_extras_subpkg -n python3-googleapis-common-protos grpc
-
-
-%prep
-%autosetup -n python-api-common-protos-%{version} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires %{?!with_bootstrap:-x grpc}
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l google
-
+%endif
 
 %check
+%if %{with bootstrap}
+%pyproject_check_import -e "google.longrunning.operations_grpc*" -e "google.longrunning.operations_pb2_grpc"
+%else
+%pyproject_check_import
+%endif
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
 # Thanks to churchyard for the fix.
 PYTHONUSERBASE=%{buildroot}%{_prefix} \
-    %pytest tests/unit
+    %pytest tests/unit %{?with_bootstrap:--ignore=tests/unit/test_operations.py}
 %endif
 
 
 %files -n python3-googleapis-common-protos -f %{pyproject_files}
-%doc CHANGELOG.md
 %doc README.rst
 
 

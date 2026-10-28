@@ -1,12 +1,15 @@
 Name:       libloc
-Version:    0.9.19
-Release:    5%{?dist}
+Version:    0.9.20
+Release:    1%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # bash-completion/location: LGPL-2.1-or-later
 # COPYING:                  LGPL-2.1 text
 # data/database.db:         CC-BY-SA-4.0
+# examples/c/lookup.c:      LGPL-2.1-or-later
 # man/libloc.txt:           LGPL-2.1-or-later
-# po/de.po:                 "same as libloc"
+# po/de.po:                 "same license as the libloc package"
+# po/lo.po:                 "same license as the PACKAGE package"
+# po/ka.po:                 "same license as the libloc package"
 # src/address.c:            LGPL-2.1-or-later
 # src/as.c:                 LGPL-2.1-or-later
 # src/as-list.c:            LGPL-2.1-or-later
@@ -69,31 +72,47 @@ Summary:    Library to determine a location of an IP address in the Internet
 # m4/attributes.m4:         GPL-2.0-or-later WITH Autoconf-exception-macro
 # m4/ax_prog_lua_modules.m4:    FSFAP
 # src/perl/Makefile.PL:     "lgpl" (probably a mistake)
-# src/test-address.c:       GPL-2.0-or-later
-# src/test-as.c:            GPL-2.0-or-later
-# src/test-country.c:       GPL-2.0-or-later
-# src/test-database.c:      GPL-2.0-or-later
-# src/test-libloc.c:        GPL-2.0-or-later
-# src/test-network.c:       GPL-2.0-or-later
-# src/test-network-list.c:  GPL-2.0-or-later
-# src/test-signature.c:     GPL-2.0-or-later
-# src/test-stringpool.c:    GPL-2.0-or-later
+# tests/libloc/address.c:       GPL-2.0-or-later
+# tests/libloc/as.c:            GPL-2.0-or-later
+# tests/libloc/as-list.c:       LGPL-2.1-or-later
+# tests/libloc/country.c:       GPL-2.0-or-later
+# tests/libloc/country-list.c:  LGPL-2.1-or-later
+# tests/libloc/database.c:      GPL-2.0-or-later
+# tests/libloc/enumerator.c:    LGPL-2.1-or-later
+# tests/libloc/main.c:          GPL-2.0-or-later
+# tests/libloc/network.c:       GPL-2.0-or-later
+# tests/libloc/network-list.c:  GPL-2.0-or-later
+# tests/libloc/reload.c:        LGPL-2.1-or-later
+# tests/libloc/signature.c:     GPL-2.0-or-later
+# tests/libloc/stringpool.c:    GPL-2.0-or-later
+# tests/libloc/threads.c:       LGPL-2.1-or-later
 # tests/lua/main.lua.in:            LGPL-2.1-or-later
+# tests/python/as.py:               LGPL-2.1-or-later
 # tests/python/country.py:          LGPL-2.1-or-later
+# tests/python/network.py:          LGPL-2.1-or-later
 # tests/python/networks-dedup.py:   LGPL-2.1-or-later
 # tests/python/test-database.py:    LGPL-2.1-or-later
+# tests/python/test-downloader.py:  LGPL-2.1-or-later
 # tests/python/test-export.py:      LGPL-2.1-or-later
+# tests/python/test-gil.py:         LGPL-2.1-or-later
 ## Unbundled, then used only at build-time, not in any binary package
 # m4/ax_prog_perl_modules.m4:   FSFAP
 # m4/ld-version-script.m4:  FSFULLR
 ## Not used and not in any binary package
+# contrib/rpm/build.sh:     LGPL-2.1-or-later
 # debian/copyright:         LGPL-2.1-or-later
 # src/cron/location-update.in:  LGPL-2.1-or-later
+# tests/fuzz/address.c:     LGPL-2.1-or-later
+# tests/fuzz/database.c:    LGPL-2.1-or-later
+# tests/fuzz/fuzz.h:        LGPL-2.1-or-later
 # tools/copy.py:                    LGPL-2.1-or-later
 License:    LGPL-2.1-or-later
 SourceLicense:  LGPL-2.1-or-later AND CC-BY-SA-4.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-macro AND FSFAP AND FSFULLR
-URL:        https://location.ipfire.org/
+URL:        https://www.ipfire.org/location/
 Source0:    https://source.ipfire.org/releases/%{name}/%{name}-%{version}.tar.gz
+# Stop installing a cron job, proposed upstream,
+# <https://bugzilla.ipfire.org/show_bug.cgi?id=14728>
+Patch0:     libloc-0.9.20-configure-Add-without-cron-to-disable-installing-the.patch
 BuildRequires:  asciidoc
 BuildRequires:  autoconf >= 2.60
 # autoconf-archive for unbundled m4/ax_prog_perl_modules.m4
@@ -143,6 +162,8 @@ BuildRequires:  perl(XSLoader)
 # lua executable is used by m4/ax_prog_lua_modules.m4, but pointless because
 # LuaUnit <https://github.com/bluebird75/luaunit> is not yet packaged.
 BuildRequires:  perl(Test::More)
+# python3-pytest for unittest
+BuildRequires:  python3-pytest
 
 %description
 This is a lightweight library which can be used to query the IPFire Location
@@ -218,9 +239,13 @@ autoreconf -fi -I%{_datadir}/gettext/m4 -I%{_datadir}/gnulib/m4
 %global default_database_file %{_sharedstatedir}/location/database.db
 %{configure} \
     --disable-analyzer \
+    --disable-asan \
     --enable-bash-completion \
+    --disable-coverage \
+    --without-cron \
     --with-database-path=%{default_database_file} \
     --enable-debug \
+    --disable-fuzzing \
     --enable-largefile \
     --enable-ld-version-script \
     --enable-lua \
@@ -231,7 +256,8 @@ autoreconf -fi -I%{_datadir}/gettext/m4 -I%{_datadir}/gnulib/m4
     --disable-silent-rules \
     --disable-static \
     --with-systemd \
-    --with-systemdsystemunitdir=%{_unitdir}
+    --with-systemdsystemunitdir=%{_unitdir} \
+    --disable-ubsan
 %{make_build}
 
 %install
@@ -261,7 +287,7 @@ chmod 0644 %{buildroot}/%{python3_sitelib}/%{name}-%{version}.dist-info/METADATA
 %find_lang %{name}
 
 %check
-unset LOC_LOG
+unset LOC_LOG TEST_DATA_DIR
 make check %{?_smp_mflags} || (cat ./test-suite.log; exit 1)
 
 %post tools
@@ -280,6 +306,7 @@ make check %{?_smp_mflags} || (cat ./test-suite.log; exit 1)
 %{_libdir}/libloc.so.1.*
 
 %files devel
+%doc examples/c/*.c
 %{_includedir}/libloc
 %{_libdir}/libloc.so
 %{_libdir}/pkgconfig
@@ -288,6 +315,7 @@ make check %{?_smp_mflags} || (cat ./test-suite.log; exit 1)
 
 %files -n lua-%{name}
 %{lua_libdir}/location.so
+%{_mandir}/man3/lua-location.3*
 
 %files -n perl-%{name}
 %{perl_vendorarch}/auto/Location
@@ -299,6 +327,7 @@ make check %{?_smp_mflags} || (cat ./test-suite.log; exit 1)
 %{python3_sitelib}/location
 %{python3_sitelib}/%{name}-%{version}.dist-info
 %{python3_sitearch}/_location.so
+%{_mandir}/man3/python-location.3*
 # The default path is compiled into _location.so Python module. Not into
 # C libloc.so. Thus the database belongs here, to Python package.
 %dir %{_sharedstatedir}/location
@@ -309,12 +338,16 @@ make check %{?_smp_mflags} || (cat ./test-suite.log; exit 1)
 %files tools
 %{_bindir}/location*
 %{_mandir}/man1/location.1*
+%{_mandir}/man1/location-importer.1*
 %{_unitdir}/location-update.*
 
 %files tools-bash-completion
 %{_datadir}/bash-completion/completions/location
 
 %changelog
+* Tue Oct 27 2026 Petr Pisar <ppisar@redhat.com> - 0.9.20-1
+- 0.9.20 bump
+
 * Tue Aug 04 2026 Python Maint <python-maint@redhat.com> - 0.9.19-5
 - Rebuilt for Python 3.15
 

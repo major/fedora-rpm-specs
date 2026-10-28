@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-systemmonitor
-Version: 6.8.1
-Release: 2%{?dist}
+Version: 6.8.2
+Release: 1%{?dist}
 Summary: An application for monitoring system resources
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -82,6 +82,9 @@ resources.
 %{_kf6_datadir}/config.kcfg/systemmonitor.kcfg
 
 %changelog
+* Tue Oct 27 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.2-1
+- 6.8.2
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.8.1-2
 - Rebuild (qt6)
 

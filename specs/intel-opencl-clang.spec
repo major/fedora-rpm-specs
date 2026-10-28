@@ -4,7 +4,7 @@
 %global llvm_ver 22
 
 # f44 ships LLVM 22 as the main package; f45+ provide llvm22 compat
-%if 0%{?fedora} >= 45
+%if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
 %global llvm_compat %{llvm_ver}
 %global llvm_bindir %{_libdir}/llvm%{llvm_ver}/bin
 %global llvm_cmake  %{_libdir}/llvm%{llvm_ver}/%{_lib}/cmake

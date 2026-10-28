@@ -17,14 +17,14 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 2
+%global baserelease 1
 %global mod_procfs_version 0.3
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
-Version:		1.3.9d
+Version:		1.3.9e
 Release:		%{?prever:0.}%{baserelease}%{?prever:.%{prever}}%{?dist}
 License:		GPL-2.0-or-later
 URL:			http://www.proftpd.org/
@@ -45,7 +45,6 @@ Source12:		http://github.com/Castaglia/proftpd-mod_procfs/archive/v%{mod_procfs_
 Patch1:			proftpd-1.3.8-shellbang.patch
 Patch2:			mod_proxy-certificate.patch
 Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
-Patch6:			https://github.com/proftpd/proftpd/commit/ca9a7469.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -229,10 +228,6 @@ mv contrib/README contrib/README.contrib
 
 # If we're running the full test suite, include the mod_vroot test
 %patch -P 3 -p1 -b .test_vroot
-
-# Fix regression in mod_sql's SQLNamedQuery (upstream bug 4515)
-# https://github.com/proftpd/proftpd/issues/2293
-%patch -P 6 -p1
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -473,6 +468,28 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Tue Oct 27 2026 Paul Howarth <paul@city-fan.org> - 1.3.9e-1
+- Update to 1.3.9e
+  - Insufficient validation of FTP RANG, REST parameters could lead to use of
+    negative file offsets (GH#2286)
+  - Regression with custom user/group info SQLNamedQuery in 1.3.9d (GH#2293)
+  - Unauthenticated SNMP UDP packets kill SNMP agent due to underflow
+    computation (GH#2301)
+  - Stale password-less authentication flag in mod_auth could allow wrong
+    passwords to authenticate (GH#2319)
+  - Stack overflow possible via long PASS text in mod_radius module (GH#2330)
+  - Error out if configured for SSL/TLS Redis usage, but hiredis library lacks
+    SSL/TLS support (GH#2344)
+  - Support using Huffman encoding only for SSH channel compression (GH#2366)
+  - FTP TLSv1.3 uploads may fail with ECONNRESET if client does not provide
+    session ticket for data transfer (GH#2367)
+  - Selection of median delay value leads to out-of-bounds read on first login
+    (GH#2380)
+  - mod_radius does not verify that UDP packets are received from the same
+    address to which UDP packets are sent (GH#2384)
+  - mod_ban SysV shared memory segment default permissions allow for local
+    unprivileged user read/write access (GH#2388)
+
 * Mon Aug 24 2026 Paul Howarth <paul@city-fan.org> - 1.3.9d-2
 - Fix regression in mod_sql's SQLNamedQuery (upstream bug 4515, GH#2293)
 

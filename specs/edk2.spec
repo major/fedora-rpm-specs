@@ -145,6 +145,13 @@ Patch0016: 0016-OvmfPkg-PlatformDxe-proper-addr-masking.patch
 %if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
 %endif
 Patch0017: 0017-NetworkPkg-UefiPxeBcDxe-Fix-ICMP-buffer-overflow-in-.patch
+Patch0018: 0018-pqc-CryptoPkg-OpensslLib-enable-CMS-API.patch
+Patch0019: 0019-pqc-CryptoPkg-OpensslLib-update-generated-files.patch
+Patch0020: 0020-pqc-CryptoPkg-OpensslLib-add-ml-dsa-to-uefi-provider.patch
+Patch0021: 0021-pqc-doug-CryptoPkg-OpensslLib-switch-Pkcs7Verify-to-.patch
+Patch0022: 0022-pqc-doug-CryptoPkg-OpensslLib-switch-AuthenticodeVer.patch
+Patch0023: 0023-pqc-SecurityPkg-AuthVariableLib-factor-out-certifica.patch
+Patch0024: 0024-pqc-SecurityPkg-AuthVariableLib-accept-ml-dsa-certif.patch
 
 
 # needed by %prep

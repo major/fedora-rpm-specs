@@ -1,5 +1,5 @@
 Name:       ibus-table
-Version:    1.18.0
+Version:    1.18.1
 Release:    %autorelease
 Summary:    The Table engine for IBus platform
 License:    LGPL-2.1-or-later
@@ -23,6 +23,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-gobject
 BuildRequires:  python3-gobject-base
+BuildRequires:  gobject-introspection
 BuildRequires:  dbus-x11
 BuildRequires:  ibus-table-chinese-wubi-jidian
 BuildRequires:  ibus-table-chinese-cangjie

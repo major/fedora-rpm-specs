@@ -6,7 +6,7 @@
 
 Name: filezilla
 Version: 3.71.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: FTP, FTPS and SFTP client
 License: GPL-2.0-or-later
 URL: https://filezilla-project.org/
@@ -148,6 +148,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Tue Oct 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.71.1-2
+- libfilezilla rebuild
+
 * Tue Sep 22 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.71.1-1
 - 3.71.1
 

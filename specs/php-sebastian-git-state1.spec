@@ -22,8 +22,8 @@
 %global ns_project   GitState
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.0.0
-Release:        2%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Describing the state of a Git checkout, version %{major}
 
 License:        BSD-3-Clause
@@ -40,8 +40,8 @@ BuildRequires:  php-posix
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.0"
-BuildRequires:  phpunit13
+#        "phpunit/phpunit": "^13.4.3"
+BuildRequires:  phpunit13  >= 13.4.3
 %endif
 
 # from composer.json, "require": {
@@ -90,7 +90,8 @@ ret=0
 for cmd in php php84 php85; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
-     %{_bindir}/phpunit13 || ret=1
+     %{_bindir}/phpunit13 \
+       --do-not-warn-when-php-is-not-configured-for-development || ret=1
   fi
 done
 exit $ret
@@ -106,6 +107,9 @@ exit $ret
 
 
 %changelog
+* Tue Oct 27 2026 Remi Collet <remi@remirepo.net> - 1.1.0-1
+- update to 1.1.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

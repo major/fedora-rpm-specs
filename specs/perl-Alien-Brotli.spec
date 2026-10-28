@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 Name:           perl-Alien-Brotli
-Version:        0.2.2
-Release:        16%{?dist}
+Version:        0.2.3
+Release:        1%{?dist}
 Summary:        Find and install the Brotli compressor
 License:        MIT
 URL:            http://metacpan.org/dist/Alien-Brotli
@@ -29,7 +29,7 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Env::ShellWords) >= 0.01
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.52
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 7.22
 BuildRequires:  perl(namespace::autoclean)
 BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Sort::Versions)
@@ -37,9 +37,12 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(version) >= 0.77
 BuildRequires:  perl(warnings)
 # Tests
+# IO::Handle isn't used in the tests
+# IPC::Open3 isn't used in the tests
+# Module::Metadata isn't used in the tests
 BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Test::Alien)
-BuildRequires:  perl(Test::Alien::Diag)
+BuildRequires:  perl(Test::Alien::Diag) => 2.68
 BuildRequires:  perl(Test::More) >= 0.88
 # Runtime
 Requires:       perl(constant)
@@ -55,11 +58,15 @@ other distributions, and provides a way to find the executable.
 Summary:        Tests for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl(Test::Alien::Diag) => 2.68
 Requires:       perl(Test::Harness)
 
 %description tests
 Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
+
+# Remove underspecified dependencies.
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Test::Alien::Diag\\)$
 
 %prep
 %autosetup -p1 -n Alien-Brotli-v%{version}
@@ -86,8 +93,6 @@ rm -f %{buildroot}%{perl_vendorarch}/auto/share/dist/Alien-Brotli/_alien/alienfi
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
-rm %{buildroot}%{_libexecdir}/%{name}/t/release*
-rm %{buildroot}%{_libexecdir}/%{name}/t/author*
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
@@ -110,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 26 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.2.3-1
+- 0.2.3 bump
+
 * Sun Oct 25 2026 Parag Nemade <panemade AT redhat DOT com> - 0.2.2-16
 - Rebuilt to match f45 update n-v-r
 

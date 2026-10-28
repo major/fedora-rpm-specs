@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.217
+%global device_mapper_version 1.02.218
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -49,12 +49,11 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.43
+Version: 2.03.44
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://sourceware.org/lvm2
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
-Patch1: 0001-pvscan-preserve-preferred-device-name-when-importing.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -67,6 +66,7 @@ BuildRequires: xfsprogs-devel
 BuildRequires: ncurses-devel
 BuildRequires: libedit-devel
 BuildRequires: libaio-devel
+BuildRequires: liburing-devel
 BuildRequires: libnvme-devel
 %if %{enable_lockd_dlm}
 BuildRequires: dlm-devel >= %{dlm_version}

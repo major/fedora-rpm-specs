@@ -196,7 +196,7 @@ fi
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	21.1.2
+Version:	21.2.0
 Release:	1%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
@@ -3213,6 +3213,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Oct 27 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.2.0-1
+- ceph-21.2.0 GA
+
 * Mon Oct 12 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.1.2-1
 - ceph-21.1.2, build with libarrow-26.0.0 (f46-build-side-154926)
 

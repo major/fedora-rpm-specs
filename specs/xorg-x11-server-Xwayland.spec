@@ -9,7 +9,7 @@
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
 Version:   26.0.99.903
-Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -17,6 +17,9 @@ Source0:   https://gitlab.freedesktop.org/xorg/%{pkgname}/-/archive/%{commit}/%{
 %else
 Source0:   https://www.x.org/pub/individual/xserver/%{pkgname}-%{version}.tar.xz
 %endif
+
+Patch:     0001-Xi-avoid-memory-leak-when-hitting-bounds-check-for-b.patch
+Patch:     0002-Xi-fix-event_id-time-delta-in-generated-barrier-even.patch
 
 License:   MIT
 
@@ -133,6 +136,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/pkgconfig/xwayland.pc
 
 %changelog
+* Tue Oct 27 2026 Olivier Fourdan <ofourdan@redhat.com> - 26.0.99.903-2
+- Backport a couple of fixups from upstream
+
 * Wed Oct 07 2026 Olivier Fourdan <ofourdan@redhat.com> - 26.0.99.903-1
 - Update to xwayland 26.0.99.903 (xwayland 26.1 rc3)
 - CVE fix for: CVE-2026-88812, CVE-2026-93515, CVE-2026-93516

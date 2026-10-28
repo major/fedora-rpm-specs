@@ -1,36 +1,30 @@
 %global srcname jose
 
 Name:      erlang-%{srcname}
-Version:   1.11.12
+Version:   1.11.13
 Release:   %autorelease
 BuildArch: noarch
 License:   MIT
 Summary:   JSON Object Signing and Encryption (JOSE) for Erlang and Elixir
 URL:       https://github.com/potatosalad/%{name}
 VCS:       git:%{url}.git
-Source0: %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-BuildRequires: erlang-base64url
+Source:	   %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Patch:     erlang-jose-0001-Don-t-compare-zlib-output-byte-by-byte-in-rfc7520_5_.patch
+BuildRequires: erlang-jiffy
+BuildRequires: erlang-jsx
 BuildRequires: erlang-proper
 BuildRequires: erlang-rebar3
-BuildRequires: erlang-triq
-Recommends: erlang-jiffy
-Recommends: erlang-jsx
+BuildSystem: rebar3
+BuildOption(check): -e
 
 %description
 %{summary}.
 
-%prep
-%autosetup -p1 -n %{name}-%{version}
-
-%build
-%{erlang3_compile}
-
-%install
-%{erlang3_install}
-
-%check
-# FIXME Not enough dependencies
-#%%{erlang3_test}
+%prep -a
+# Downloads its test vectors from the network
+rm test/cavp_SUITE.erl
+# A helper of cavp_SUITE which jose_SUITE uses too
+mv test/cavp_SUITE_data/hex.erl test/
 
 %files
 %license LICENSE.md

@@ -45,7 +45,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.17
+%global general_version %{pybasever}.18
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -1815,6 +1815,12 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon Oct 26 2026 Miro Hrončok <miro@hroncok.cz> - 3.13.18-1
+- Update to Python 3.13.18
+- CVE 2026-114583: tar filter allows writing outside destination via empty-named symlink
+- CVE 2026-115557: Distrust compromised intermediate certificates in ssl module
+- CVE-2026-12345: Race condition in tempfile.TemporaryDirectory cleanup allows deleting files outside the temporary directory
+
 * Thu Oct 22 2026 Miro Hrončok <miro@hroncok.cz> - 3.13.17-1
 - Update to Python 3.13.17
 - No significant changes for Fedora or EPEL

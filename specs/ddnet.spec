@@ -2,7 +2,7 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        20.2
+Version:        20.2.1
 Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
@@ -189,6 +189,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Oct 27 2026 Packit <hello@packit.dev> - 20.2.1-1
+- Update to version 20.2.1
+- Resolves: rhbz#2561532
+
 * Mon Oct 26 2026 Packit <hello@packit.dev> - 20.2-1
 - Update to version 20.2
 - Resolves: rhbz#2560901

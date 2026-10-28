@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	0.1.32
-Release:	11%{?dist}
+Release:	12%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:	Apache-2.0
 Summary:	TKRZW Python bindings
@@ -84,6 +84,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Tue Oct 27 2026 TI_Eugene <ti.eugene@gmail.com> - 0.1.32-12
+- Rebuild for tkrzw-1.0.34
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.1.32-11
 - Rebuilt for Python 3.15.0b4 ABI change
 

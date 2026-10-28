@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           assertj-core
-Version:        3.26.3
+Version:        3.27.7
 Release:        %autorelease
 Summary:        Library of assertions similar to fest-assert
 License:        Apache-2.0
@@ -38,11 +38,12 @@ A rich and intuitive set of strongly-typed assertions to use for unit testing
 %pom_remove_plugin -r :bnd-maven-plugin
 %pom_remove_plugin -r :bnd-resolver-maven-plugin
 %pom_remove_plugin -r :bnd-testing-maven-plugin
-%pom_remove_plugin -r :nexus-staging-maven-plugin
+%pom_remove_plugin -r :central-publishing-maven-plugin
 %pom_remove_plugin -r :license-maven-plugin
 %pom_remove_plugin -r :flatten-maven-plugin
 %pom_remove_dep -r :mockito-bom
 %pom_remove_dep -r :junit-bom
+%pom_remove_dep -r :spring-boot-dependencies
 
 %pom_disable_module assertj-core-kotlin assertj-tests/assertj-integration-tests
 %pom_disable_module assertj-core-groovy assertj-tests/assertj-integration-tests

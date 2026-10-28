@@ -7,7 +7,7 @@
 %bcond_without prebuilt_doc
 
 Name:      scons
-Version:   4.11.0
+Version:   4.11.1
 Release:   %autorelease
 Summary:   An Open Source software construction tool
 # SCons/Tool/docbook/docbook-xsl-1.76.1/ are licensed under DocBook-Stylesheet

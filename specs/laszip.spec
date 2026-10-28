@@ -1,9 +1,16 @@
+%global commit a446a0c01362ed1c642928cff30416217f0468c3
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           laszip
 Version:        3.5.0
-Release:        4%{?dist}
+Release:        6.gita446a0c%{?dist}
 Summary:        Quickly turns bulky LAS files into compact LAZ files
 License:        Apache-2.0
+%if 0%{?commit:1}
+Source0:        https://github.com/LASzip/LASzip/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+%else
 Source0:        https://github.com/LASzip/LASzip/archive/%{version}/%{name}-%{version}.tar.gz
+%endif
 URL:            http://www.laszip.org/
 
 # Restore old API for libLAS
@@ -27,7 +34,11 @@ Development headers and libraries for laszip
 
 
 %prep
+%if 0%{?commit:1}
+%autosetup -p1 -n LASzip-%{commit}
+%else
 %autosetup -p1 -n LASzip-%{version}
+%endif
 
 
 %build
@@ -55,6 +66,9 @@ cp -a src/{mydefs.hpp,lasmessage.hpp} %{buildroot}%{_includedir}/laszip/
 
 
 %changelog
+* Tue Oct 27 2026 Sandro Mani <manisandro@gmail.com> - 3.5.0-6.gita446a0c
+- Update to git a446a0c, fixes CVE-2026-110603
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

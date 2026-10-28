@@ -40,14 +40,13 @@ Development headers and link library for building packages which use %{name}.
 %files
 %license LICENSES/LGPL* LICENSES/LicenseRef-KDE*
 %doc README.md
-%{_libdir}/libMpvQt.so.{2,%{version}}
+%{_libdir}/libMpvQt.so.{4,%{version}}
+%{_libdir}/qt6/metatypes/qt6mpvqt_metatypes.json
 
 %files devel
 %{_includedir}/MpvQt/
 %{_libdir}/libMpvQt.so
 %{_libdir}/cmake/MpvQt/
-%{_libdir}/libMpvQt.so.4
-%{_libdir}/qt6/metatypes/qt6mpvqt_metatypes.json
 
 %changelog
 %autochangelog

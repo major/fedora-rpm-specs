@@ -1,8 +1,8 @@
 %bcond_with     jp_minimal
 
 Name:           jackson-modules-base
-Version:        2.21.5
-Release:        2%{?dist}
+Version:        2.21.8
+Release:        1%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
@@ -117,6 +117,9 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Tue Oct 27 2026 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.21.8-1
+- Rebase to 2.21.8
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -25,7 +25,7 @@ Version:        20260704
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPL-2.0-only
 Url:            https://www.lammps.org/
@@ -378,6 +378,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 20260704-5
+- Rebuilt for mpich-5.0.2
+
 * Sat Jul 25 2026 Richard Berger <richard.berger@outlook.com> - 20260704-1
 - Version bump to 20260704
 - Bump Kokkos requirement to 5.1

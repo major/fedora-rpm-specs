@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.13.5
+Version:        0.13.6
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -160,6 +160,10 @@ Patch:          0003-Downstream-Avoid-embed-manifest-dependency-in-uv-cra.patch
 # Add license texts for new contents of test/ecosystem/ from PR#20068
 # https://github.com/astral-sh/uv/pull/20174
 Patch:          %{url}/pull/20174.patch
+
+# Update Rust crate tikv-jemallocator to 0.7.0
+# https://github.com/astral-sh/uv/pull/19735
+Patch:          %{url}/pull/19735.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license uv
@@ -543,16 +547,6 @@ tomcli set Cargo.toml append workspace.dependencies.rustls.features ring
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
-
-# tikv-jemallocator
-#   wanted: 0.6.0
-#   currently packaged: 0.7.0
-#   https://github.com/astral-sh/uv/pull/19735
-# We use sed instead of tomcli because the target.cfg(…) expression is a
-# *mess*, and we don’t want to have to write it out here.
-sed --regexp-extended --in-place \
-    's/^(tikv-jemallocator\b.*version = ")0\.6\.0"/\1>=0.6.0, <0.8.0"/' \
-    crates/uv-performance-memory-allocator/Cargo.toml
 
 # blake2
 #   wanted: 0.11.0-rc.6

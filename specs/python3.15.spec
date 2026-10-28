@@ -46,7 +46,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.1
+%global general_version %{pybasever}.2
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -553,7 +553,7 @@ Summary:        Python runtime libraries
 # Combined manually from https://docs.python.org/3.15/license.html
 # Hash of Doc/license.rst which is compared in %%prep, generated with:
 # $ sha256sum Doc/license.rst | cut -f1 -d" "
-%global license_file_hash 456f5eb35022a9eb7bb15986cacaf70a4d5bf1537d0d917d6d18381e76aff163
+%global license_file_hash 0d4c04850f7320219853c3c9d20cf9d2c6916524030e147f220f2b96b5ae8aeb
 # Licenses of incorporated software:
 # Mersenne Twister in _random C extension contains code under BSD-3-Clause
 # socket.getaddrinfo() and socket.getnameinfo() are BSD-3-Clause

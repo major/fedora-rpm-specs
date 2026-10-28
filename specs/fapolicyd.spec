@@ -1,10 +1,16 @@
+%if 0%{?fedora} || 0%{?rhel} > 10
+%bcond_without rpm_plugin
+%else
+%bcond_with rpm_plugin
+%endif
+
 %global selinuxtype targeted
 %global moduletype distributed
-%define semodule_version 1.2
+%define semodule_version 1.3
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 2.0.1
+Version: 2.0.2
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
@@ -41,11 +47,22 @@ BuildRequires: gnupg
 BuildRequires: uthash-devel
 %endif
 
-Requires: rpm-plugin-fapolicyd
+%if %{with rpm_plugin}
+BuildRequires: pkgconfig(rpm)
+%endif
+
 Recommends: %{name}-selinux
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
+Requires(posttrans): systemd
+%if %{with rpm_plugin}
+Provides: rpm-plugin-fapolicyd = %{version}-%{release}
+# Current RPM-owned plugin package EVRs are below the next RPM major.
+Obsoletes: rpm-plugin-fapolicyd < 7
+%else
+Requires: rpm-plugin-fapolicyd
+%endif
 
 %description
 Fapolicyd (File Access Policy Daemon) implements application whitelisting
@@ -79,22 +96,7 @@ The %{name}-selinux package contains selinux policy for the %{name} daemon.
 %setup -q -D -T -b 20
 %endif
 
-# generate rules for python
-sed -i "s|%python2_path%|`readlink -f %{__python2}`|g" rules.d/*.rules
-sed -i "s|%python3_path%|`readlink -f %{__python3}`|g" rules.d/*.rules
-
-# Detect run time linker directly from bash
-interpret=`readelf -e /usr/bin/bash \
-    | grep Requesting \
-    | sed 's/.$//' \
-    | rev | cut -d" " -f1 \
-    | rev`
-
-sed -i "s|%ld_so_path%|`realpath $interpret`|g" rules.d/*.rules
-
 %build
-cp INSTALL INSTALL.tmp
-
 # necessary for updating CFLAGS below
 %set_build_flags
 
@@ -103,10 +105,15 @@ export CFLAGS="$CFLAGS -I%{_builddir}/uthash-2.3.0/include"
 %endif
 
 ./autogen.sh
-%configure \
-    --with-audit \
-    --with-rpm \
-    --disable-shared
+configure_flags="--with-perf-test --with-audit --with-rpm --disable-shared"
+
+%if %{with rpm_plugin}
+configure_flags="$configure_flags --with-rpm-plugin"
+%else
+configure_flags="$configure_flags --without-rpm-plugin"
+%endif
+
+%configure $configure_flags
 
 %make_build
 
@@ -124,8 +131,6 @@ make check VERBOSE=yes
 
 %install
 %make_install
-install -p -m 644 -D init/%{name}-tmpfiles.conf %{buildroot}/%{_tmpfilesdir}/%{name}.conf
-install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
 mkdir -p %{buildroot}/%{_localstatedir}/lib/%{name}
 mkdir -p %{buildroot}/run/%{name}
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}/trust.d
@@ -173,6 +178,20 @@ fi
 %postun
 %systemd_postun_with_restart %{name}.service
 
+%posttrans
+%if %{with rpm_plugin}
+# The old package's postun may have queued a restart before its loaded RPM
+# plugin reaches tsm_post. Keep the old daemon alive for that one transaction.
+if [ -p %{_rundir}/%{name}/%{name}.fifo ] && \
+   [ ! -p %{_rundir}/%{name}/%{name}-update.fifo ]; then
+  systemctl set-property %{name}.service Markers=-needs-restart || :
+  touch %{_rundir}/%{name}/restart-required
+  chown root:%{name} %{_rundir}/%{name}/restart-required
+  chmod 0640 %{_rundir}/%{name}/restart-required
+  echo "fapolicyd is using its legacy RPM plugin endpoint; restart the service or reboot to complete the plugin migration" >&2
+fi
+%endif
+
 %files
 %doc README.md
 %{!?_licensedir:%global license %%doc}
@@ -185,9 +204,9 @@ fi
 %attr(750,root,%{name}) %dir %{_sysconfdir}/%{name}
 %attr(750,root,%{name}) %dir %{_sysconfdir}/%{name}/trust.d
 %attr(750,root,%{name}) %dir %{_sysconfdir}/%{name}/rules.d
-%attr(644,root,root) %{_sysconfdir}/bash_completion.d/*
-%ghost %{_sysconfdir}/%{name}/rules.d/*
-%ghost %{_sysconfdir}/%{name}/%{name}.rules
+%attr(644,root,%{name}) %{_sysconfdir}/bash_completion.d/fapolicyd.bash_completion
+%ghost %verify(not md5 size mtime) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/rules.d/*
+%ghost %verify(not md5 size mtime) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/%{name}.rules
 %config(noreplace) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/%{name}.conf
 %config(noreplace) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/%{name}-filter.conf
 %config(noreplace) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/%{name}.trust
@@ -197,18 +216,33 @@ fi
 %attr(644,root,root) %{_sysusersdir}/%{name}.conf
 %attr(755,root,root) %{_sbindir}/%{name}
 %attr(755,root,root) %{_sbindir}/%{name}-cli
-%attr(755,root,root) %{_sbindir}/fagenrules
+%attr(755,root,root) %{_sbindir}/%{name}-perf-test
 %attr(755,root,root) %{_libexecdir}/%{name}-rpm-loader
-%attr(644,root,root) %{_mandir}/man8/*
+%attr(755,root,root) %{_sbindir}/fagenrules
+%attr(644,root,root) %{_mandir}/man8/fagenrules.8*
+%attr(644,root,root) %{_mandir}/man8/fapolicyd.8*
+%attr(644,root,root) %{_mandir}/man8/fapolicyd-cli.8*
+%attr(644,root,root) %{_mandir}/man8/fapolicyd-perf-test.8*
 %attr(644,root,root) %{_mandir}/man5/*
 %ghost %attr(440,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/log/%{name}-access.log
 %attr(770,root,%{name}) %dir %{_localstatedir}/lib/%{name}
-%ghost %attr(770,root,%{name}) %dir %{_rundir}/%{name}
-%ghost %attr(660,root,%{name}) %{_rundir}/%{name}/%{name}.fifo
-%ghost %attr(600,root,root) %verify(not md5 size mtime) %{_rundir}/%{name}/%{name}.pid
-%ghost %attr(640,%{name},%{name}) %verify(not md5 size mtime) %{_rundir}/%{name}/%{name}.state
+%attr(770,root,%{name}) %dir /run/%{name}
+%ghost %attr(600,root,root) %verify(not md5 size mtime) /run/%{name}/%{name}.pid
+%ghost %attr(660,root,%{name}) /run/%{name}/%{name}.fifo
+%ghost %attr(660,root,%{name}) /run/%{name}/%{name}-update.fifo
+%ghost %attr(640,root,%{name}) /run/%{name}/restart-required
+%ghost %attr(640,%{name},%{name}) %verify(not md5 size mtime) /run/%{name}/%{name}.state
+%ghost %attr(640,%{name},%{name}) %verify(not md5 size mtime) /run/%{name}/%{name}.metrics
+%ghost %attr(640,%{name},%{name}) %verify(not md5 size mtime) /run/%{name}/%{name}.timing
 %ghost %attr(660,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/lib/%{name}/data.mdb
 %ghost %attr(660,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/lib/%{name}/lock.mdb
+
+%if %{with rpm_plugin}
+%doc src/plugin/rpm-plugin-migration.md
+%{_libdir}/rpm-plugins/fapolicyd_rpm.so
+%{_rpmconfigdir}/macros.d/macros.transaction_fapolicyd_rpm
+%{_mandir}/man8/fapolicyd-rpm-plugin.8*
+%endif
 
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
@@ -229,6 +263,10 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Fri Oct 16 2026 Petr Lautrbach <lautrbach@redhat.com> - 2.0.2-1
+- fapolicyd-2.0.2
+  https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v2.0.2
+
 * Wed Aug 19 2026 Petr Lautrbach <lautrbach@redhat.com> - 2.0.1-1
 - fapolicyd-2.0.1
   https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v2.0.1

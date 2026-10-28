@@ -1,5 +1,5 @@
 Name:		tucnak
-Version:	4.74
+Version:	4.75
 Release:	1%{?dist}
 Summary:	HF/VHF contest logging program
 License:	GPL-2.0-only
@@ -28,7 +28,7 @@ Obsoletes:	tucnak2 < 2.31-21
 # This is to rename soundwrapper from the generic name to the
 # tucnak-soundwrapper, it can avoid name conflicts with other
 # soundwrappers possibly shipped by other packages in the future.
-Patch0:		tucnak-4.18-soundwrapper.patch
+Patch0:		tucnak-4.75-soundwrapper.patch
 
 %description
 Tucnak is HF/VHF/UHF/SHF log for hamradio contests. It supports multi
@@ -67,7 +67,7 @@ appstream-util validate-relax \
   --nonet %{buildroot}%{_metainfodir}/cz.nagano.Tucnak.metainfo.xml
 
 # rename soundwrapper to tucnak-soundwrapper
-mv %{buildroot}%{_bindir}/soundwrapper %{buildroot}%{_bindir}/tucnak-soundwrapper 
+mv %{buildroot}%{_bindir}/soundwrapper %{buildroot}%{_bindir}/tucnak-soundwrapper
 
 # drop docs installed to wrong place
 rm -f %{buildroot}%{_datadir}/tucnak/doc/*
@@ -91,6 +91,10 @@ rmdir %{buildroot}%{_prefix}/lib/tucnak
 %{_datadir}/%{name}
 
 %changelog
+* Tue Oct 27 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.75-1
+- New version
+  Resolves: rhbz#2560299
+
 * Mon Oct 05 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.74-1
 - New version
   Resolves: rhbz#2535564

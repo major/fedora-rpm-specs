@@ -1,6 +1,6 @@
 Name:           tokodon 
 Version:        26.08.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Automatically converted from old format: GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2 - review is highly recommended.
 License:        GPL-3.0-only AND CC0-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+ AND GPL-3.0-or-later AND GPL-2.0-only
 # For a breakdown of the licensing, see PACKAGE-LICENSING
@@ -101,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/dbus-1/services/org.kde.tokodon.service
 
 %changelog
+* Tue Oct 27 2026 Steve Cossette <steve@ninjasinpajamas.com> - 26.08.2-3
+- Bump for mpvqt
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
 - Rebuild (qt6)
 

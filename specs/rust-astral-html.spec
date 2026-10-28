@@ -5,13 +5,16 @@
 %global crate astral-html
 
 Name:           rust-astral-html
-Version:        0.0.3
+Version:        0.0.4
 Release:        %autorelease
 Summary:        High-performance HTML parser designed for document traversal
 
 License:        (MIT OR Apache-2.0) AND BSD-3-Clause
 URL:            https://crates.io/crates/astral-html
-Source:         %{crates_source}
+Source:         %{crate}-%{version}-clean.crate
+# * script to create tarball with only permissible content:
+# * run "rust2rpm" and then "./get_source" for new versions
+Source10:       get_source
 # * https://github.com/astral-sh/astral-html/commit/1134050ad2cb9dee61861d28786cc36bf4f9ea73
 #   > Correct WHATWG license metadata and package notice (#93)
 #   >
@@ -19,7 +22,7 @@ Source:         %{crates_source}
 #   > data in the crate license expression and distribute the notice with the
 #   > repository and crate. The generator reads the packaged notice to
 #   > preserve the existing source header.
-Source10:       https://github.com/astral-sh/astral-html/raw/1134050ad2cb9dee61861d28786cc36bf4f9ea73/LICENSE-BSD
+Source11:       https://github.com/astral-sh/astral-html/raw/1134050ad2cb9dee61861d28786cc36bf4f9ea73/LICENSE-BSD
 # Manually created patch for downstream crate metadata changes
 # * https://github.com/astral-sh/astral-html/commit/1134050ad2cb9dee61861d28786cc36bf4f9ea73
 #   > Correct WHATWG license metadata and package notice (#93)
@@ -28,6 +31,9 @@ Source10:       https://github.com/astral-sh/astral-html/raw/1134050ad2cb9dee618
 #   > data in the crate license expression and distribute the notice with the
 #   > repository and crate. The generator reads the packaged notice to
 #   > preserve the existing source header.
+# * Omit unused, benchmark-only dev-dependency on codspeed-criterion-compat
+# * Drop tests that compare against an exact pinned version of html5gum, and
+#   drop the html5gum dev-dependency.
 Patch:          astral-html-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -69,7 +75,15 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp --preserve '%{SOURCE10}' .
+if [ -e tests/fixtures/parse5 ]
+then
+   cat 1>&2 <<'EOF'
+Problematic test fixtures are still present; make sure we are using the “clean”
+crate source!
+EOF
+  exit 1
+fi
+cp --preserve '%{SOURCE11}' .
 %cargo_prep
 
 %generate_buildrequires

@@ -6,6 +6,8 @@ Summary:        Sofia SIP User-Agent library
 License:        LGPL-2.1-or-later
 URL:            http://sofia-sip.sourceforge.net/
 Source0:        https://github.com/freeswitch/%{name}/archive/refs/tags/v%{version}.tar.gz
+# https://github.com/freeswitch/sofia-sip/pull/347
+Patch0:         347.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++

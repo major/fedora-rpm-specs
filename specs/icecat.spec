@@ -3,7 +3,7 @@
 %global release_build 1
 
 # Set new source-code build version for Fedora and, not necessarily, for upstream too
-%global redhat_ver rh2
+%global redhat_ver rh1
 
 ExcludeArch: %{ix86} %{arm}
 
@@ -113,7 +113,7 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   5
-Version: 153.5.0
+Version: 153.6.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
@@ -159,6 +159,7 @@ Patch226: rhbz-1354671.patch
 
 # Build patches
 Patch229: mozilla-2034301.patch
+Patch230: mozilla-2085342-Hash-the-little-endian-ICU-data-in-icu_d.patch
 
 # Fix crash on ppc64le (mozilla#1512162)
 Patch423: mozilla-1512162.patch
@@ -345,6 +346,10 @@ tar -xf %{SOURCE5}
 %endif
 
 %patch -P 229 -p 1 -b .incom-pointer
+
+%ifarch s390x
+%patch -P 230 -p 1 -b .2085342
+%endif
 
 %ifarch %{power64}
 %patch -P 423 -p 1 -b .1512162

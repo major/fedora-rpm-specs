@@ -1,7 +1,7 @@
 %global npm_name markdownlint-cli2
 
 Name:     markdownlint-cli2
-Version:  0.23.3
+Version:  0.24.0
 Release:  %autorelease
 Summary:  A command-line tool for linting Markdown/CommonMark files
 

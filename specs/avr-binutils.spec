@@ -1,8 +1,8 @@
 %define target avr
 
 Name:           %{target}-binutils
-Version:        2.45
-Release:        8%{?dist}
+Version:        2.47
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Cross Compiling GNU binutils targeted at %{target}
 License:        GPL-2.0-or-later
@@ -12,12 +12,6 @@ Source1:        README.fedora
 #add widespread options to avr-size: --format=avr -mcu=XX
 Patch1: http://distribute.atmel.no/tools/opensource/avr-gcc/binutils-2.20.1/30-binutils-2.20.1-avr-size.patch
 Patch2: avr-binutils-config.patch
-# from upstream, for == 2.45, rhbz#2400335
-Patch3:         binutils-2.45-cve-2025-11081.patch
-# from upstream, for == 2.45, rhbz#2400340
-Patch4:         binutils-2.45-cve-2025-11082.patch
-# from upstream, for == 2.45, rhbz#2400336
-Patch5:         binutils-2.45-cve-2025-11083.patch
 Patch6:         avr-binutils-2.45-CVE-2026-19582.patch
 
 BuildRequires:  gawk texinfo gcc
@@ -38,9 +32,6 @@ native %{_arch} platform.
 pushd binutils-%{version}
 %patch -P1 -p2 -b .avr-size
 %patch -P2 -p1 -b .config
-%patch -P 3 -p1 -b .cve-2025-11081
-%patch -P 4 -p1 -b .cve-2025-11082
-%patch -P 5 -p1 -b .cve-2025-11083
 %patch -P 6 -p1 -b .2.45-CVE-2026-19582
 
 # We call configure directly rather than via macros, thus if
@@ -95,6 +86,9 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Tue Oct 27 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.47-1
+- updated to 2.47
+
 * Mon Oct 05 2026 Michal Hlavinka <mhlavink@redhat.com> - 1:2.45-8
 - fix CVE-2026-19582: a potential buffer overflow in rsrc_resource_name (rhbz#2519351)
 

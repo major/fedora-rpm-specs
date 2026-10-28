@@ -1,5 +1,5 @@
 Name:           python-discovery
-Version:        1.6.4
+Version:        1.6.6
 Release:        %autorelease
 Summary:        Python interpreter discovery
 

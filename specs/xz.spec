@@ -5,7 +5,7 @@ Summary:	LZMA compression utilities
 Name:		xz
 Epoch:		1
 Version:	5.8.4
-Release:	1%{?dist}
+Release:	3%{?dist}
 
 # liblzma - 0BSD
 # xz{,dec}, lzma{dec,info} - 0BSD
@@ -34,7 +34,7 @@ Requires:	grep >= 2.20-5
 
 BuildRequires:	make
 BuildRequires:	gcc
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 BuildRequires:	perl-interpreter
 BuildRequires:	autoconf automake libtool gettext-devel
 
@@ -91,7 +91,7 @@ commands that deal with the older LZMA format.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 autoreconf -fi
 
@@ -184,6 +184,12 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Tue Oct 27 2026 Jakub Jelen <jjelen@redhat.com> - 1:5.8.4-3
+- Verify upstream source signatures with openpgpverify
+
+* Tue Oct 27 2026 Richard W.M. Jones <rjones@redhat.com> - 1:5.8.4-2
+- Update Lasse's public key from the website
+
 * Thu Sep 10 2026 Richard W.M. Jones <rjones@redhat.com> - 1:5.8.4-1
 - Update to 5.8.4 (RHBZ#2531115)
 

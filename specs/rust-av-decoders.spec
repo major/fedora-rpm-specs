@@ -5,7 +5,7 @@
 %global crate av-decoders
 
 Name:           rust-av-decoders
-Version:        0.11.1
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Decoders for use in the rust-av ecosystem
 

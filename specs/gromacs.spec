@@ -31,7 +31,7 @@ ExcludeArch:    i686 armv7hl s390x
 
 Name:		gromacs
 Version:	2026.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	LGPL-2.1-or-later
@@ -377,6 +377,9 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2026.4-2
+- Rebuilt for mpich-5.0.2
+
 * Sat Oct 03 2026 Christoph Junghans <junghans@votca.org> - 2026.4-1
 - Update to 2026.4
 - Fixes: rhbz#2545292
