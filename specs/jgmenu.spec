@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/jgmenu/jgmenu
-Version:	4.6.0
+Version:	4.7.0
 %forgemeta
 
 Name:		jgmenu
@@ -8,6 +8,7 @@ Summary:	Simple X11 application menu
 License:	GPL-2.0-or-later
 URL:		%{forgeurl}
 Source:		%{forgesource}
+Patch:		%{name}-%{version}.patch
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc
@@ -17,21 +18,13 @@ BuildRequires:	pkgconfig(librsvg-2.0) >= 2.46
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(pango)
 BuildRequires:	pkgconfig(xrandr)
+# https://github.com/jgmenu/jgmenu/issues/276
 Requires:	hicolor-icon-theme
 
 %description
 A simple, independent and contemporary-looking X11 menu, designed for scripting,
 ricing and tweaking. Useful for tint2, polymenu, cairo-dock, plank, unity,
 openbox, i3, dwm and other light environments.
-
-
-%package	lx
-Summary:	LXDE %{name} plugin
-BuildRequires:	pkgconfig(libmenu-cache)
-Requires:	%{name}%{?_isa} = %{version}-%{release}
-
-%description	lx
-LXDE plugin for %{name} package.
 
 
 %package	pmenu
@@ -52,26 +45,38 @@ Requires:	%{name} = %{version}-%{release}
 GTKtheme plugin for %{name} package.
 
 
+%if 0%{?fedora}
+%package	lx
+Summary:	LXDE %{name} plugin
+# menu-cache-devel
+BuildRequires:	pkgconfig(libmenu-cache)
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+
+%description	lx
+LXDE plugin for %{name} package.
+
+
 %package	xfce4
 Summary:	Xfce4 %{name} plugin
-%if 0%{?fedora} > 33
 BuildRequires:	pkgconfig(libxfce4panel-2.0)
-%else
-BuildRequires:	pkgconfig(libxfce4panel-1.0)
-%endif
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description	xfce4
 Xfce4 plugin for %{name} package.
+%endif
 
 
 %prep
-%forgeautosetup
+%forgeautosetup -p1
 
 
 %build
-# default: --with-lx --with-pmenu --with-gtktheme --with-xfce4-panel-applet
+%if 0%{?fedora}
+# default: --with-pmenu --with-gtktheme --with-lx --with-xfce4-panel-applet
 %{configure} -a
+%else
+%{configure} --with-pmenu --with-gtktheme
+%endif
 %{make_build}
 
 
@@ -106,10 +111,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man?/%{name}*.*
 %exclude %{_mandir}/man1/%{name}-{lx,pmenu}.1.*
 
-%files	lx
-%{_libexecdir}/%{name}/%{name}-lx
-%{_mandir}/man1/%{name}-lx.1.*
-
 %files	pmenu
 %{_libexecdir}/%{name}/%{name}-pmenu.py
 %{_mandir}/man1/%{name}-pmenu.1.*
@@ -117,9 +118,15 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %files	gtktheme
 %{_libexecdir}/%{name}/%{name}-gtktheme.py
 
+%if 0%{?fedora}
+%files	lx
+%{_libexecdir}/%{name}/%{name}-lx
+%{_mandir}/man1/%{name}-lx.1.*
+
 %files	xfce4
 %{_libdir}/xfce4/panel/plugins/lib%{name}.so
 %{_datadir}/xfce4/panel/plugins/%{name}-applet.desktop
+%endif
 
 
 %changelog

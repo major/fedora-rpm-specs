@@ -3,7 +3,7 @@
 Name:    kf6-%{framework}
 Summary: A Tier 3 KDE Frameworks 6 module that provides indexing and search functionality
 Version: 6.31.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND bzip2-1.0.6
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -14,8 +14,11 @@ Source1: https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{f
 # Upstream Patches
 # Service: Do not start too early
 # https://invent.kde.org/frameworks/baloo/-/commit/096b0d3f7166ed2bde0266cfad9f04ca50903090
-
 Patch1:   096b0d3f7166ed2bde0266cfad9f04ca50903090.patch
+# Plus...
+# service: make sure to order After plasma-workspace.target
+# https://invent.kde.org/frameworks/baloo/-/merge_requests/334
+Patch2:   334.patch
 
 ## upstreamable patches
 # http://bugzilla.redhat.com/1235026
@@ -155,6 +158,9 @@ cat baloo_file6.lang baloo_file_extractor6.lang \
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Wed Oct 28 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.31.0-3
+- service: make sure to order After plasma-workspace.target
+
 * Tue Oct 20 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.31.0-2
 - FIX: Service: do not start too early
 

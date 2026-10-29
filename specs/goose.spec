@@ -30,18 +30,17 @@
 # Must match the --features argument in generate-vendor-tarball.sh so the vendor
 # tarball contains exactly the crates needed to build this feature set.
 %global downstream_features native-tls,otel,telemetry,system-keyring,disable-update
-%global ring_ver 0.17.14
-%global zstd_sys_ver 2.0.16+zstd.1.5.7
-%global zstd_safe_ver 7.2.4
-%global zstd_ver 0.13.3
 
-# Shared cargo flags for '%%cargo_build'/'%%cargo_test' (see %%build/%%check),
-# kept in one place so both call sites can't drift out of sync.
+# Holds the default/shared flags used across different cargo commands.
 #
 # -n -f "%%{downstream_features}": explicitly disable upstream defaults
 # (includes rustls-tls, aws-providers, tui, code-mode, and other features
 # incompatible with Fedora packaging guidelines) and activate only the
 # features needed for downstream packaging.
+%global default_cargo_flags -n -f "%{downstream_features}"
+
+# Shared cargo flags for '%%cargo_build'/'%%cargo_test' (see %%build/%%check),
+# kept in one place so both call sites can't drift out of sync.
 #
 # -- --package goose-cli: scopes the build/test to the goose-cli package and
 # its dependency tree only. With resolver = "2", building the whole
@@ -63,14 +62,13 @@
 # check and attempts the build anyway; it only works if the code doesn't
 # actually rely on a post-1.92 compiler feature. EXPERIMENTAL — drop this
 # flag if a real build shows the older rustc genuinely can't compile it.
-%global goose_cargo_flags -n -f "%{downstream_features}" -- --package goose-cli --ignore-rust-version
+%global goose_cargo_flags %{default_cargo_flags} -- --package goose-cli --ignore-rust-version
 
 Name:           goose
 Version:        1.45.0
 Release:        %autorelease
 Summary:        Extensible AI agent client
 URL:            https://github.com/aaif-goose/goose
-
 
 Source:         %{url}/releases/download/v%{version}/%{name}-source-v%{version}.tar.gz
 # To create the vendor tarball, use the generate-vendor-tarball.sh script:
@@ -117,6 +115,10 @@ Patch20:         0020-Fix-sql-statement-from-session-manager.patch
 # the snapshot test so it passes without that feature. That's better than
 # skipping the test entirely.
 Patch21:         0021-Update-snapshot-test-without-codemode-instructions.patch
+# Downstream-only: adds --dangerous-include-history flag to `goose term init`,
+# making shell history recording opt-in. Based on upstream PR #13051 but carried
+# downstream until it lands in a release.
+Patch22:         0022-Add-dangerous-include-history.patch
 
 ## Downstream only patches (100-799)
 #
@@ -132,6 +134,16 @@ Patch0100:      0100-Downstream-only-never-use-pre-generated-object-files.patch
 # Enable the `pkg-config` feature in zstd-sys and zstd-safe so they link
 # against the system libzstd-devel instead of compiling from bundled sources.
 Patch0101:      0101-Downstream-only-enable-zstd-sys-pkg-config.patch
+# Replace the hardcoded cipher list in the vendored openssl crate's
+# SslConnector::builder() with PROFILE=SYSTEM so that outbound TLS connections
+# respect the system crypto policy on Fedora/RHEL.  Without this, rpmlint
+# reports crypto-policy-non-compliance-openssl on the goose binary.
+# The equivalent change is applied upstream in the Fedora rust-openssl package:
+#   https://src.fedoraproject.org/rpms/rust-openssl/blob/rawhide/f/0001-set-PROFILE-SYSTEM-as-default-cipher-list.patch
+# The Fedora system openssl library intercepts the exact string PROFILE=SYSTEM
+# in SSL_CTX_set_cipher_list and redirects it to the system policy file:
+#   https://src.fedoraproject.org/rpms/openssl/blob/rawhide/f/0005-RH-Add-support-for-PROFILE-SYSTEM-system-default-cip.patch
+Patch0102:      0102-Downstream-only-use-system-crypto-policy-in-openssl.patch
 
 ## RHEL only patches (800-899)
 # Patches in the 800-899 range are applied only to RHEL.
@@ -171,9 +183,6 @@ Conflicts: golang-github-pressly-goose
 # CDLA-Permissive-2.0:
 #   - introduced by the opentelemetry-semantic-conventions crate
 #
-# MPL-2.0+:
-#   - introduced by the option-ext crate.
-
 # licensecheck will report that set of 6 licenses for the source archive.
 #
 # A couple of files present under `crates/goose-mcp` and `crates/goose-cli`
@@ -189,7 +198,6 @@ Conflicts: golang-github-pressly-goose
 # Rust crates compiled into the executable contribute additional license terms.
 # To obtain the following list of licenses, build the package and note the
 # output of %%{cargo_license_summary}.
-
 #
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-3.0
@@ -200,7 +208,6 @@ Conflicts: golang-github-pressly-goose
 # Apache-2.0 OR BSL-1.0 OR MIT
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
-# Apache-2.0 OR MIT OR Zlib
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause
 # BSD-2-Clause OR Apache-2.0 OR MIT
@@ -219,12 +226,12 @@ Conflicts: golang-github-pressly-goose
 # MIT
 # MIT AND BSD-3-Clause
 # MIT OR Apache-2.0
+# MIT OR Apache-2.0 OR BSD-1-Clause
 # MIT OR Apache-2.0 OR LGPL-2.1-or-later
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MIT-0
 # MPL-2.0
-# MPL-2.0+
 # Unicode-3.0
 # Unlicense OR MIT
 # Unlicense OR MIT OR Apache-2.0 OR CC0-1.0
@@ -237,6 +244,7 @@ License:        %{shrink:
                 AND (Apache-2.0 AND ISC)
                 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR CC0-1.0)
                 AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT)
+                AND (Apache-2.0 OR BSD-1-Clause OR MIT)
                 AND (Apache-2.0 OR BSD-2-Clause OR MIT)
                 AND (Apache-2.0 OR BSD-3-Clause)
                 AND (Apache-2.0 OR BSL-1.0)
@@ -261,14 +269,21 @@ License:        %{shrink:
                 AND (MIT OR Unlicense)
                 AND MIT-0
                 AND MPL-2.0
-                AND MPL-2.0+
                 AND Unicode-3.0
                 AND Zlib
                 AND bzip2-1.0.6
                 }
 # LICENSE.dependencies contains a full license breakdown
 
+# On RHEL, use rust-toolset (ships rustc + cargo natively) to avoid the custom
+# rebuilds of cargo-rpm-macros, cargo2rpm, llhttp, and libgit2 that the version
+# required on Fedora would otherwise pull in. On Fedora the full Rust packaging
+# stack is available, so cargo-rpm-macros >= 25 is used directly.
+%if 0%{?rhel}
+BuildRequires:  rust-toolset
+%else
 BuildRequires:  cargo-rpm-macros >= 25
+%endif
 
 # Required by crate libdbus-sys (vendored)
 BuildRequires:  dbus-devel
@@ -285,6 +300,11 @@ BuildRequires:  /usr/bin/perl
 BuildRequires:  libzstd-devel
 # Required in %%prep to zero out .cargo-checksum.json files dict after patching
 BuildRequires:  jq
+# fdupes is used to deduplicate debug source files but is not available in base
+# RHEL repositories (only in EPEL), so it is restricted to Fedora builds only
+%if ! 0%{?rhel}
+BuildRequires:  fdupes
+%endif
 
 # Sublime Text 3 language definitions for syntax highlighting
 # from: https://github.com/sublimehq/Packages/tree/fa6b862
@@ -449,14 +469,15 @@ faster and focus on innovation.}
 # patch .cargo-checksum.json reliably because its content varies depending on
 # which cargo-vendor-filterer version/fork generated the vendor tarball.
 # Zero out the files dict here so Cargo skips per-file verification entirely.
-jq -c '.files = {}' vendor/ring-%{ring_ver}/.cargo-checksum.json > vendor/ring-%{ring_ver}/.cargo-checksum.json.tmp \
-    && mv vendor/ring-%{ring_ver}/.cargo-checksum.json.tmp vendor/ring-%{ring_ver}/.cargo-checksum.json
-jq -c '.files = {}' vendor/zstd-sys-%{zstd_sys_ver}/.cargo-checksum.json > vendor/zstd-sys-%{zstd_sys_ver}/.cargo-checksum.json.tmp \
-    && mv vendor/zstd-sys-%{zstd_sys_ver}/.cargo-checksum.json.tmp vendor/zstd-sys-%{zstd_sys_ver}/.cargo-checksum.json
-jq -c '.files = {}' vendor/zstd-safe-%{zstd_safe_ver}/.cargo-checksum.json > vendor/zstd-safe-%{zstd_safe_ver}/.cargo-checksum.json.tmp \
-    && mv vendor/zstd-safe-%{zstd_safe_ver}/.cargo-checksum.json.tmp vendor/zstd-safe-%{zstd_safe_ver}/.cargo-checksum.json
-jq -c '.files = {}' vendor/zstd-%{zstd_ver}/.cargo-checksum.json > vendor/zstd-%{zstd_ver}/.cargo-checksum.json.tmp \
-    && mv vendor/zstd-%{zstd_ver}/.cargo-checksum.json.tmp vendor/zstd-%{zstd_ver}/.cargo-checksum.json
+for crate in ring zstd-sys zstd-safe zstd openssl; do
+    checksum_file="$(find vendor -maxdepth 2 -path "vendor/${crate}-[0-9]*" -type f -name .cargo-checksum.json 2> /dev/null | tail -n 1)"
+    if [ -z "$checksum_file" ]; then
+        echo "Expected at least one checksum file for ${crate}."
+        exit 1
+    fi
+    jq -c '.files = {}' "$checksum_file" > "${checksum_file}.tmp" \
+        && mv "${checksum_file}.tmp" "$checksum_file"
+done
 
 %if 0%{?rhel}
 %autopatch -p1 -m 800 -M 899
@@ -519,8 +540,9 @@ export CARGO_MANIFEST_DIR="target/rpm"
 target/rpm/generate_manpages
 
 %cargo_vendor_manifest
-%{cargo_license_summary}
-%{cargo_license} > LICENSE.dependencies
+
+%{cargo_license_summary %{default_cargo_flags}}
+%{cargo_license %{default_cargo_flags}} > LICENSE.dependencies
 
 %install
 install -Dpm 0755 target/rpm/goose -t %{buildroot}%{_bindir}
@@ -528,6 +550,12 @@ install -Dpm 0755 target/rpm/goose -t %{buildroot}%{_bindir}
 # Install man pages
 install -d %{buildroot}%{_mandir}/man1
 install -pm 0644 target/man/*.1 -t %{buildroot}%{_mandir}/man1
+
+# fdupes is used to deduplicate debug source files but is not available in base
+# RHEL repositories (only in EPEL), so it is restricted to Fedora builds only
+%if ! 0%{?rhel}
+%fdupes %{buildroot}%{_prefix}/src/debug
+%endif
 
 %if %{with check}
 %check

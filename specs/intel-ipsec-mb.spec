@@ -1,19 +1,20 @@
 # Versions numbers
-%global major 2
+%global major 3
 %global minor 0
-%global patch 2
+%global patch 1
 
 %global desc %{expand: \
-Intel Multi-Buffer Crypto for IPsec Library is highly-optimized software
-implementations of the core cryptographic processing for IPsec, which provides
-industry-leading performance on a range of Intel Processors.}
+Intel Multi-Buffer Crypto for IPsec Library provides highly optimized
+implementations of core cryptographic and post-quantum cryptography (PQC)
+algorithms for IPsec, TLS, Wireless (RAN), and Cable,
+delivering industry-leading performance on Intel processors.}
 
 Name:               intel-ipsec-mb
-Version:            2.0.2
-Release:            2%{?dist}
+Version:            3.0.1
+Release:            1%{?dist}
 Summary:            IPsec cryptography library optimized for Intel Architecture
 
-License:            BSD-3-Clause
+License:            BSD-3-Clause AND Apache-2.0
 URL:                https://github.com/intel/intel-ipsec-mb
 Source0:            %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -23,6 +24,7 @@ BuildRequires:      cmake
 BuildRequires:      gcc
 BuildRequires:      gcc-c++
 BuildRequires:      nasm >= 2.14
+BuildRequires:      perl
 
 %description
 %{desc}
@@ -37,7 +39,6 @@ Development files.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
-sed -i 's|man/man7|share/man/man7|g' lib/cmake/unix.cmake
 
 %build
 %cmake
@@ -52,8 +53,8 @@ sed -i 's|man/man7|share/man/man7|g' lib/cmake/unix.cmake
 %ldconfig_scriptlets
 
 %files
-%license LICENSE
-%doc README.md ReleaseNotes.txt
+%license LICENSE LICENSE.OpenSSL
+%doc README.md ReleaseNotes.md
 %{_libdir}/libIPSec_MB.so.%{major}
 %{_libdir}/libIPSec_MB.so.%{major}.%{minor}.%{patch}
 %{_mandir}/man7/libipsec-mb.*
@@ -64,6 +65,9 @@ sed -i 's|man/man7|share/man/man7|g' lib/cmake/unix.cmake
 %{_mandir}/man7/libipsec-mb-dev.*
 
 %changelog
+* Wed Oct 28 2026 Marcel Cornu <marcel.d.cornu@intel.com> - 3.0.1-1
+- Update to 3.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -588,9 +588,7 @@ the Portable, Extensible Toolkit for Scientific Computation.
 rm -rf %{name}-%{version}/src/binding/petsc4py/src/*.egg-info
 
 %if 0%{?fedora}
-for i in `find . -name 'setup.py' -o -name 'configure' -o -name '*.py'`; do
-%py3_shebang_fix $i
-done
+%py3_shebang_fix $(find . -name 'setup.py' -o -name 'configure' -o -name '*.py')
 %endif
 
 # Avoid AssertionError with Python-3.15*
@@ -599,6 +597,8 @@ done
 sed -i '/self.assertEqual(getrefcount(context), 3)/d' %{name}-%{version}/src/binding/petsc4py/test/test_mat_py.py
 %endif
 %endif
+
+sed -r -i 's|if (self.DIM == 2 and PETSc.COMM_WORLD.getSize.. > 6):|if (\1) or (os.uname().machine in ["ppc64le", "aarch64"]):|' %{name}-%{version}/src/binding/petsc4py/test/test_dmplex.py
 
 pushd %{name}-%{version}
 %patch -P 7 -p1 -b .backup

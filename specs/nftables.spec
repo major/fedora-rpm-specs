@@ -1,6 +1,6 @@
 Name:           nftables
 Version:        1.1.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilities
@@ -38,7 +38,7 @@ BuildRequires: python3-devel
 BuildRequires: readline-devel
 BuildRequires: libedit-devel
 BuildRequires: python3-setuptools
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 # XXX: Drop this dependency in F45 or so
 Requires:	%{name}-services = %{epoch}:%{version}-%{release}
@@ -77,7 +77,7 @@ Manage an nftables-based firewall defined by ruleset snippets in /etc/nftables
 and /etc/sysconfig/nftables.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -151,6 +151,9 @@ fi
 %{_unitdir}/nftables.service
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 1:1.1.6-5
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           screenfetch
-Version:        3.9.1
-Release:        16%{?dist}
+Version:        3.9.9
+Release:        1%{?dist}
 Summary:        A "Bash Screenshot Information Tool"
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -9,8 +9,14 @@ URL:            https://github.com/KittyKatt/screenFetch
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
-Recommends:     scrot
+
+Requires:       bc
 Requires:       pciutils
+
+Recommends:     curl
+Recommends:     scrot
+Recommends:     xdpyinfo
+Recommends:     xprop
 
 %description
 This handy Bash script can be used to generate one of
@@ -41,6 +47,9 @@ install -m 644 -p -D screenfetch.1 %{buildroot}%{_mandir}/man1/screenfetch.1
 %{_mandir}/man1/screenfetch.1*
 
 %changelog
+* Sat Aug 29 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.9.9-1
+- Update to v3.9.9 (rhbz#2330132)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

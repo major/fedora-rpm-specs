@@ -7,7 +7,7 @@
 %bcond toml 0
 
 Name:           python-configargparse
-Version:        1.8.0
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Replacement for argparse that allows options to be set via config files
 
@@ -18,7 +18,10 @@ Source:         %{url}/archive/v%{version}/ConfigArgParse-%{version}.tar.gz
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license configargparse
-BuildOption(generate_buildrequires): --extras %{?with_toml:toml,}yaml
+%if %{with toml}
+BuildOption(generate_buildrequires): --extras toml
+%endif
+BuildOption(generate_buildrequires): --extras yaml
 
 BuildArch:      noarch
 
@@ -48,7 +51,10 @@ Summary:        %{summary}
 %description -n python3-configargparse %{common_description}
 
 
-%pyproject_extras_subpkg --name python3-configargparse %{?with_toml:toml} yaml
+%if %{with toml}
+%pyproject_extras_subpkg --name python3-configargparse toml
+%endif
+%pyproject_extras_subpkg --name python3-configargparse yaml
 
 
 %generate_buildrequires -p

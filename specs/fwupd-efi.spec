@@ -8,6 +8,8 @@ License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd-efi
 Source0:   https://github.com/fwupd/%{name}/archive/refs/tags/%{name}-%{version}.tar.xz
 
+Patch0:    0001-Add-efi_sbat_distro_generation-to-set-the-distro-SBA.patch
+
 # these are the only architectures supporting UEFI UpdateCapsule
 ExclusiveArch: x86_64 aarch64
 
@@ -32,11 +34,7 @@ the EFI binary that is used for updating using UpdateCapsule.
     -Defi_sbat_distro_pkgname="%{name}" \
     -Defi_sbat_distro_version="%{version}-%{release}" \
     -Defi_sbat_distro_url="https://src.fedoraproject.org/rpms/%{name}" \
-    -Dpkgnote="{\"type\":\"rpm\", \
-                \"name\":\"%{name}\", \
-                \"version\":\"%{version}-%{release}\", \
-                \"architecture\":\"%{_arch}\", \
-                \"osCpe\":\"cpe:/o:fwupd:fwupd-efi\"}" \
+    -Dpkgnote="{\"type\":\"rpm\", \"name\":\"%{name}\", \"version\":\"%{version}-%{release}\", \"architecture\":\"%{_arch}\", \"osCpe\":\"cpe:/o:fwupd:fwupd-efi\"}" \
     -Dgenpeimg=disabled
 
 %meson_build

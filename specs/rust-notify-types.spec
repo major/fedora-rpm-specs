@@ -5,7 +5,7 @@
 %global crate notify-types
 
 Name:           rust-notify-types
-Version:        2.1.0
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Types used by the notify crate
 
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/notify-types
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * omit web-time feature, not needed in non-WASM environments
+# * allow rstest 0.26/0.27 for now: RHBZ#2529211
 Patch:          notify-types-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

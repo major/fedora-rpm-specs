@@ -17,7 +17,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 1
+%global baserelease 2
 %global mod_procfs_version 0.3
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
@@ -45,6 +45,7 @@ Source12:		http://github.com/Castaglia/proftpd-mod_procfs/archive/v%{mod_procfs_
 Patch1:			proftpd-1.3.8-shellbang.patch
 Patch2:			mod_proxy-certificate.patch
 Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
+Patch6:			https://github.com/proftpd/proftpd/commit/933abc9a.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -228,6 +229,11 @@ mv contrib/README contrib/README.contrib
 
 # If we're running the full test suite, include the mod_vroot test
 %patch -P 3 -p1 -b .test_vroot
+
+# Fix regression in the handling of private keys formatted using the OpenSSH-specific
+# private key format, and which are not passphrase-protected
+# https://github.com/proftpd/proftpd/issues/2411
+%patch -P6 -p1 -b .gh2411
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -468,6 +474,11 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Wed Oct 28 2026 Paul Howarth <paul@city-fan.org> - 1.3.9e-2
+- Fix regression in the handling of private keys formatted using the
+  OpenSSH-specific private key format, and which are not passphrase-protected
+  (GH#2411)
+
 * Tue Oct 27 2026 Paul Howarth <paul@city-fan.org> - 1.3.9e-1
 - Update to 1.3.9e
   - Insufficient validation of FTP RANG, REST parameters could lead to use of

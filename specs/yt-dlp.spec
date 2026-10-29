@@ -7,7 +7,9 @@
 %bcond tests 1
 # Whether yt-dlp-ejs support is available.
 # We cannot build yt-dlp-ejs for Fedora 43 because the packaged esbuild version is too old.
-%bcond ejs %[ 0%{?fedora} >= 44 ]
+%dnl %bcond ejs %[ 0%{?fedora} >= 44 ]
+# Disable entirely for now. The ejs package in Fedora is currently broken.
+%bcond ejs 0
 
 # Remove -s from shebang so users can install extra deps or plugins using pip.
 %undefine _py3_shebang_s

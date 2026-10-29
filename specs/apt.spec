@@ -13,7 +13,7 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        3.3.4
+Version:        3.3.5
 Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
@@ -329,6 +329,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Wed Oct 28 2026 Terje Røsten <terjeros@gmail.com> - 3.3.5-1
+- 3.3.5
+
 * Tue Oct 20 2026 Terje Røsten <terjeros@gmail.com> - 3.3.4-1
 - 3.3.4
 

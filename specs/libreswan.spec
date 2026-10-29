@@ -44,6 +44,8 @@ Source3: https://download.libreswan.org/cavs/ikev1_dsa.fax.bz2
 Source4: https://download.libreswan.org/cavs/ikev1_psk.fax.bz2
 Source5: https://download.libreswan.org/cavs/ikev2.fax.bz2
 %endif
+# https://github.com/libreswan/libreswan/commit/1437a2158a96a91bc606578e504ae20fa3757485
+Patch1: libreswan-5.4.1-ipsec_import.patch
 
 BuildRequires: audit-libs-devel
 BuildRequires: bison
@@ -136,6 +138,7 @@ sed -i "s:#[ ]*include \(.*\)\(/crypto-policies/back-ends/libreswan.config\)$:in
 # throws error on s390x
 sed -i "s/SUBDIRS += hunkcheck/#SUBDIRS += hunkcheck/" testing/programs/Makefile
 %endif
+%autopatch -p1
 
 %build
 %make_build \

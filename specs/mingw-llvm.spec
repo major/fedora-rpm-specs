@@ -20,7 +20,7 @@
 %global libver 23
 
 Name:          mingw-%{pkgname}
-Version:       23.1.3
+Version:       23.1.4
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
 # i686: ld: out of memory allocating 1174616688 bytes after a total of 1517842432 bytes
@@ -270,6 +270,9 @@ popd
 
 
 %changelog
+* Wed Oct 28 2026 Sandro Mani <manisandro@gmail.com> - 23.1.4-1
+- Update to 23.1.4
+
 * Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 23.1.3-1
 - Update to 23.1.3
 

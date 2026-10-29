@@ -1,6 +1,6 @@
 Name:           perl-Mojo-Pg
-Version:        5.0
-Release:        2%{?dist}
+Version:        5.01
+Release:        1%{?dist}
 Summary:        Mojolicious ♥ PostgreSQL
 License:        Artistic-2.0
 
@@ -33,7 +33,7 @@ BuildRequires:  perl(Mojo::SQL) >= 0.01
 BuildRequires:  perl(Mojo::URL)
 BuildRequires:  perl(Mojo::Util)
 BuildRequires:  perl(SQL::Abstract)
-BuildRequires:  perl(SQL::Abstract::Pg) >= 1.0
+BuildRequires:  perl(SQL::Abstract::Pg) >= 1.01
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(constant)
 # Tests
@@ -75,6 +75,9 @@ publish/subscribe pattern.
 %{_mandir}/man3/Mojo*
 
 %changelog
+* Wed Oct 28 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 5.01-1
+- Update to 5.01
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

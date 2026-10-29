@@ -1,7 +1,7 @@
 %bcond doc 1
 
 Name:           python-mistune
-Version:        3.2.1
+Version:        3.3.4
 Release:        %autorelease
 Summary:        Markdown parser for Python
 
@@ -63,6 +63,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %files -n python3-mistune -f %{pyproject_files}
 %doc README.rst
+%{_bindir}/mistune
 
 %if %{with doc}
 %files doc

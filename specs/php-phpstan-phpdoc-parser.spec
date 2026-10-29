@@ -17,7 +17,7 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        2.3.6
+Version:        2.3.11
 Release:        1%{?dist}
 Summary:        PHPDoc parser with support for nullable, intersection and generic types
 
@@ -125,6 +125,12 @@ exit $ret
 
 
 %changelog
+* Wed Oct 28 2026 Remi Collet <remi@remirepo.net> - 2.3.11-1
+- update to 2.3.11
+
+* Wed Oct 28 2026 Remi Collet <remi@remirepo.net> - 2.3.9-1
+- update to 2.3.9
+
 * Thu Oct  1 2026 Remi Collet <remi@remirepo.net> - 2.3.6-1
 - update to 2.3.6
 

@@ -24,26 +24,23 @@
 Name:           php-pecl-%{pecl_name}
 Summary:        Lockless user data cache
 License:        PHP-3.01
-Version:        2.4.2
+Version:        3.0.1
 Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
-
-ExcludeArch:    %{ix86}
+# Broken on big endian
+# https://github.com/laruence/yac/issues/134
+ExcludeArch:    %{ix86} s390x
 
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  php-devel
-BuildRequires:  php-pecl-msgpack-devel
-BuildRequires:  php-pecl-igbinary-devel
 BuildRequires:  lz4-devel
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
-Requires:       php-igbinary%{?_isa}
-Requires:       php-msgpack%{?_isa}
 
 # Package have be renamed
 Obsoletes:      php-%{pecl_name}                 < %{version}
@@ -89,11 +86,9 @@ extension = %{pecl_name}.so
 
 ;yac.enable = 1
 ;yac.enable_cli = 0
-;yac.debug = 0
 ;yac.keys_memory_size = 8M
 ;yac.values_memory_size = 64M
 ;yac.compress_threshold = 4K
-;yac.serializer = php
 EOF
 
 
@@ -121,9 +116,6 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 %check
 OPTS="-n"
-[ -f %{php_extdir}/igbinary.so ] && OPTS="$OPTS -d extension=igbinary.so"
-[ -f %{php_extdir}/msgpack.so  ] && OPTS="$OPTS -d extension=msgpack.so"
-
 : Minimal load test for the extension
 %{__php} $OPTS  \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
@@ -148,6 +140,13 @@ TEST_PHP_ARGS="$OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Oct 28 2026 Remi Collet <remi@remirepo.net> - 3.0.1-1
+- update to 3.0.1
+- drop support for alternative serializer
+- drop big endian support
+- open https://github.com/laruence/yac/issues/134
+  Test suite failure on s390x (big endian)
+
 * Thu Sep 10 2026 Remi Collet <remi@remirepo.net> - 2.4.2-1
 - update to 2.4.2
 

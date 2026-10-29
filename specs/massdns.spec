@@ -1,16 +1,18 @@
 Name:           massdns
-Version:        0.3
-Release:        16%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        High-performance DNS stub resolver for bulk lookups and reconnaissance
-
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
-License:        GPL-3.0-or-later
+License:        GPL-3.0-only
 URL:            https://github.com/blechschmidt/massdns
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
- 
+Patch0:         0000-makefile.patch
+
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  ldns-devel
+
+# src/random.h requires uint128 support
+ExcludeArch: %{ix86}
 
 %description
 MassDNS is a simple high-performance DNS stub resolver targetting those who
@@ -19,20 +21,26 @@ even billions. Without special configuration, MassDNS is capable of resolving
 over 350,000 names per second using publicly available resolvers.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
-%make_build CFLAGS="%{optflags}"
+%make_build
 
 %install
-%make_install PREFIX=%{buildroot}/usr/
+%make_install PREFIX=%{_prefix}
 
 %files
 %doc README.md
 %license LICENSE
 %{_bindir}/%{name}
+%{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Aug 27 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1.0-1
+- Update to v1.1.0
+- Fix License tag (GPL-3.0-or-later -> GPL-3.0-only)
+- Disable i686 builds
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

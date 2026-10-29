@@ -5,8 +5,8 @@ interfaces.
 %global sum Tools for using a Web Server Gateway Interface stack
 
 Name:           python-paste
-Version:        3.10.1
-Release:        17%{?dist}
+Version:        3.11.0
+Release:        1%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -82,10 +82,9 @@ rm -f %{buildroot}%{python3_sitelib}/Paste-%{version}-py%{python3_version}-nspkg
 %check
 # exclude broken modules from import tests
 %pyproject_check_import -e 'paste.debug.*' -e paste.flup_session -e paste.transaction -e paste.util.scgiserver
-export PYTHONPATH=$(pwd)
 # We don't have access to the wider internet in the buildsystem
 # Also disable urlparser and cgiapp tests, which fails with new setuptools
-py.test -k \
+%pytest -k \
   "not test_paste_website and not test_proxy_to_website and not test_modified and not urlparser and not cgiapp"
 
 
@@ -93,6 +92,9 @@ py.test -k \
 %doc docs/*
 
 %changelog
+* Wed Oct 28 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.11.0-1
+- Update to upstream.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

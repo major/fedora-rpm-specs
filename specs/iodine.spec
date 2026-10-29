@@ -1,11 +1,11 @@
 Name:		iodine
-Version:	0.8.0
-Release:	10%{?dist}
+Version:	0.9.0
+Release:	1%{?dist}
 Summary:	Solution to tunnel IPv4 data through a DNS server
 Summary(ru):	Решение для туннелирования IPv4 трафика через DNS сервер
 License:	ISC
 URL:		http://code.kryo.se/iodine/
-Source0:	https://github.com/yarrick/%{name}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
+Source0:	https://github.com/yarrick/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # Initscripts and separate configs made by Nikolay Ulyanitsky
 Source1:	%{name}-client.conf
 Source2:	%{name}-server.conf
@@ -16,20 +16,17 @@ Source6:	%{name}.logrotate.server
 Source7:	%{name}-client.service
 Source8:	%{name}-server.service
 
-# Split man pages into client and server:
-Patch1:		iodine-0.8.0-split-man.patch
+# patches automatically applied by autosetup:
+#Patch1:		iodine-0.9.0-example.patch
 
-# Install to bin rather than sbin:
-# (see https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin)
-Patch2:		iodine-0.8.0-bin-path.patch
-
-BuildRequires:	make
+BuildRequires:	meson
 BuildRequires:	gcc
 BuildRequires:	zlib-devel
 BuildRequires:	systemd
 
-Requires:	%{name}-client
-Requires:	%{name}-server
+Requires:	%{name}-client = %{version}-%{release}
+Requires:	%{name}-server = %{version}-%{release}
+
 
 %description
 iodine lets you tunnel IPv4 data through a DNS server. This can be usable in
@@ -91,11 +88,11 @@ This is the server part of iodine.
 %autosetup -p1 -n %{name}-%{version}%{?prerel}
 
 %build
-# Fails to build without -c gcc flag (comes from upstream Makefile).
-make %{?_smp_mflags} prefix=%{_prefix} CFLAGS="-c %{optflags} -DLINUX -D_GNU_SOURCE"
+%meson
+%meson_build
 
 %install
-make install prefix=%{buildroot}%{_prefix}
+%meson_install
 
 install -Dp -m 0644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/sysconfig/%{name}-client
 install -Dp -m 0644 %{SOURCE2} %{buildroot}/%{_sysconfdir}/sysconfig/%{name}-server
@@ -105,6 +102,9 @@ install -Dp -m 0644 %{SOURCE6} %{buildroot}/%{_sysconfdir}/logrotate.d/%{name}-s
 
 install -Dp -m 0644 %{SOURCE7} %{buildroot}/%{_unitdir}/%{name}-client.service
 install -Dp -m 0644 %{SOURCE8} %{buildroot}/%{_unitdir}/%{name}-server.service
+
+%check
+%meson_test
 
 %post client
 %systemd_post %{name}-client.service
@@ -142,6 +142,10 @@ install -Dp -m 0644 %{SOURCE8} %{buildroot}/%{_unitdir}/%{name}-server.service
 %{_unitdir}/%{name}-server.service
 
 %changelog
+* Wed Oct 28 2026 Gabriel L. Somlo <gsomlo@gmail.com> - 0.9.0-1
+- update to 0.9.0
+- use meson build (following upstream switch)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

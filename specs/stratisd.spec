@@ -22,6 +22,11 @@ Patch:          0001-Add-infinite-timeout-to-systemd-ask-password.patch
 # Wait for all pool devices before attempting decryption
 Patch:          0002-Add-stratis-min-pool-all-devices-present-command.patch
 Patch:          0003-Wait-for-all-pool-devices-in-dracut-and-systemd-setu.patch
+# https://github.com/stratis-storage/stratisd/pull/4109
+# https://github.com/fedora-eln/eln/issues/650
+# Fix FTBFS on RHEL11/ppc64le
+Patch:          0004-Allow-dead-code-in-systemd-bindings-file.patch
+Patch:          0004-Start-udev-monitor-before-engine-device-enumeration.patch
 
 
 %if 0%{?rhel}

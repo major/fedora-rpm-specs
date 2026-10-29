@@ -151,7 +151,7 @@ Patch300: php-7.4.0-datetests.patch
 
 ExcludeArch:   %{ix86}
 
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: bzip2-devel
 BuildRequires: pkgconfig(libcurl)  >= 7.29.0
 BuildRequires: httpd-devel >= 2.0.46-1
@@ -845,7 +845,7 @@ in pure PHP.
 
 
 %prep
-%{?gpgverify:%{gpgverify} --keyring='%{SOURCE20}' --signature='%{SOURCE21}' --data='%{SOURCE0}'}
+%{?openpgpverify:%{openpgpverify} --keyring='%{SOURCE20}' --signature='%{SOURCE21}' --data='%{SOURCE0}'}
 
 %setup -q -n php-%{upver}%{?rcver}
 

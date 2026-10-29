@@ -1,6 +1,6 @@
 Name:           sugar-physics
 Version:        36
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A physical world simulator and playground for Sugar
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -23,7 +23,6 @@ friction, and inertia.
 %prep
 %autosetup -p1 -n Physics-%{version}
 
-sed -i 's/python/python3/' setup.py
 sed -i 's/python/python3/' physics.py
 
 %build
@@ -48,6 +47,9 @@ chmod a-x $RPM_BUILD_ROOT%{sugaractivitydir}Physics.activity/activity/{activity.
 %{sugaractivitydir}/Physics.activity/
 
 %changelog
+* Wed Oct 28 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 36-2
+- Remove sed substitution
+
 * Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 36-1
 - Release 36
 

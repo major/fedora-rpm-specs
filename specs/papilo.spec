@@ -34,12 +34,15 @@ Patch:          %{name}-shared.patch
 # Avoid out-of-bounds vector access
 # https://github.com/scipopt/papilo/pull/48
 Patch:          %{name}-vector-bounds.patch
+# Link with the roundingsat library instead of trying to build it from source
+Patch:          %{name}-roundingsat.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 BuildSystem:    cmake
 BuildOption(conf): -DQUADMATH:BOOL=%{quadmath}
 %if %{without bootstrap}
+BuildOption(conf): -DROUNDINGSAT_DIR:PATH=%{_includedir}/roundingsat
 BuildOption(conf): -DSCIP:BOOL=ON
 BuildOption(conf): -DSOPLEX:BOOL=ON
 %endif
@@ -62,6 +65,7 @@ BuildRequires:  pkgconfig(gmp)
 # Solver support
 BuildRequires:  cmake(scip)
 BuildRequires:  cmake(soplex)
+BuildRequires:  roundingsat-devel
 %endif
 
 Requires:       libpapilo%{?_isa} = %{version}-%{release}

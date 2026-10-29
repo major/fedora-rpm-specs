@@ -241,7 +241,7 @@ end}
   local channel = rpm.expand("%{bootstrap_channel}")
   local target_arch = rpm.expand("%{_target_cpu}")
   for i, arch in ipairs(bootstrap_arches) do
-    i = 1000 + i * 6
+    local i = 1000 + i * 6
     local suffix = channel.."-"..rust_triple(arch)
     print(string.format("Source%d: %s/cargo-%s.tar.xz\n", i, base, suffix))
     print(string.format("Source%d: %s/cargo-%s.tar.xz.asc\n", i+1, base, suffix))
@@ -973,7 +973,7 @@ mkdir -p "%{profraw}"
 env LLVM_PROFILE_FILE="%{profraw}/default_%%m_%%p.profraw" \
   LD_LIBRARY_PATH=$PWD/build/host/stage2/lib \
   RUSTC=$PWD/build/host/stage2/bin/rustc \
-  cargo build --manifest-path=src/tools/cargo/Cargo.toml
+  %{local_rust_root}/bin/cargo build --manifest-path=src/tools/cargo/Cargo.toml
 # Finalize the profile data and clean up the raw files
 llvm-profdata merge -o "%{profdata}" "%{profraw}"
 rm -r "%{profraw}" build/%{rust_triple}/stage2*/
@@ -996,7 +996,7 @@ done
 %{cargo_tree_manifest -n rustc -- -p rustc-main -p rustdoc}
 %{cargo_tree_manifest -n cargo -m src/tools/cargo}
 %{cargo_tree_manifest -n clippy -m src/tools/clippy}
-%{cargo_tree_manifest -n rust-analyzer -m src/tools/rust-analyzer}
+%{cargo_tree_manifest -n rust-analyzer -m src/tools/rust-analyzer -- -p rust-analyzer -p proc-macro-srv-cli}
 %{cargo_tree_manifest -n rustfmt -m src/tools/rustfmt}
 
 %{cargo_tree_manifest -n std -m library -f backtrace}

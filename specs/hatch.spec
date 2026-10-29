@@ -4,7 +4,7 @@
 #global snapdate YYYYMMDD
 
 Name:           hatch
-Version:        1.18.1%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
+Version:        1.18.2%{?commit:^%{snapdate}.%{sub %{commit} 1 7}}
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -145,6 +145,17 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{scmversion}'
 tomcli get hatch.toml -F newline-list envs.hatch-test.extra-dependencies |
   tee _envs.hatch-test.extra-dependencies.txt
 
+%if %{defined fc44}
+# Upstream raised the virtualenv requirement from >=20.13.1 to >=21 in
+# https://github.com/pypa/hatch/commit/49aa8528750a7dc3c854a7d2ef501188d25b70c1
+# at the same time they switched to python-discovery. This makes sense in
+# principle, because this is the version in which discovery was split out from
+# virtualenv, but it turns out that we can still provide python-discovery on
+# F44 with virtualenv 20.35.4, and there are good reasons (particuarly, updated
+# managed Python interpreters) to backport a current hatch release to F44.
+%pyproject_patch_dependency virtualenv:set_lower:20.13.1
+%endif
+
 
 %if %{defined commit}
 %build -p
@@ -188,7 +199,7 @@ install -D --preserve-timestamps --mode=0644 \
 # These tests are actually for hatchling, and may fail due to small differences
 # between the state of hatchling in the hatch release tag and in the latest
 # actual hatchling release.
-ignore="${ignore-} --ignore=tests/backend/"
+x="${x-} --ignore=tests/backend/"
 
 # FAILED tests/cli/test/test_test.py::TestCustomScripts::test_single -
 #   AssertionError: assert [call('test hatch-test.py3.12', shell=True)] ==
@@ -196,7 +207,7 @@ ignore="${ignore-} --ignore=tests/backend/"
 # This appears to be due to an expectation that the tests are run via “hatch
 # test” on one of Hatch’s “standard” Python interpreters, rather than on the
 # system Python.
-k="${k-}${k+ and }not (TestCustomScripts and test_single)"
+x="${x-} --deselect=tests/cli/test/test_test.py::TestCustomScripts::test_single"
 
 # https://github.com/pypa/hatch/issues/1670
 # hatch.errors.PythonDistributionResolutionError: Could not find a default
@@ -209,17 +220,17 @@ missing_dists='3.7 3.8 pypy2.7 pypy3.9 pypy3.10 pypy3.11'
 # For aarch64, missing_dists='3.7', and for x86_64, missing_dists=''.
 for param in ${missing_dists}
 do
-  k="${k-}${k+ and }not test_custom_source[${param}]"
+  x="${x-} --deselect=tests/python/test_core.py::test_custom_source[${param}]"
   # Requires network (but does fail when it is enabled)
-  k="${k-}${k+ and }not test_installation[${param}]"
+  x="${x-} --deselect=tests/python/test_core.py::test_installation[${param}]"
 done
 # Also, for ppc64le and s390x:
-k="${k-}${k+ and }not (TestDistributionPaths and test_pypy_custom)"
-k="${k-}${k+ and }not (TestDistributionVersions and test_pypy_custom)"
+x="${x-} --deselect=tests/python/test_resolve.py::TestDistributionPaths::test_pypy_custom"
+x="${x-} --deselect=tests/python/test_resolve.py::TestDistributionVersions::test_pypy_custom"
 
 # Trivial whitespace differences in TOML
-k="${k-}${k+ and }not test_project_location_basic_set_first_project"
-k="${k-}${k+ and }not test_project_location_complex_set_first_project"
+x="${x-} --deselect=tests/cli/config/test_set.py::test_project_location_basic_set_first_project"
+x="${x-} --deselect=tests/cli/config/test_set.py::test_project_location_complex_set_first_project"
 
 # This is already gated by pytest.mark.requires_internet, so it won’t be
 # attempted while offline, but skipping it explicitly preserves our ability to
@@ -228,14 +239,33 @@ k="${k-}${k+ and }not test_project_location_complex_set_first_project"
 # When there is no pre-compiled wheel for pydantic-core, this would try to
 # compile it, which needs at least a C compiler installed. (Rust/cargo would be
 # downloaded magically via rustup.)
-k="${k-}${k+ and }not (TestWorkspaceConfiguration and test_workspace_multi_service_application)"
+#k="${k-}${k+ and }not (TestWorkspaceConfiguration and test_workspace_multi_service_application)"
 
+# This only runs when network access is enabled. It then fails because the
+# downloaded Python 3.7 interpreter requires libcrypt.so.1, from
+# libxcrypt-compat (“Compatibility library providing legacy API functions”). We
+# prefer to skip the test rather than adding a BuildRequires on
+# libxcrypt-compat.
+x="${x-} --deselect=tests/cli/python/test_install.py::test_installation"
+
+%if %{defined fc45} || %{defined fc44}
 # When using flit-core, project metadata lacks "'import-names': [ 'foo' ]"
 # from PEP 794 / Core Metadata 2.5 until python-flit-core is updated to 4.x.
-k="${k-}${k+ and }not (TestPrepareMetadata and test_editable[flit-core])"
-k="${k-}${k+ and }not (TestPrepareMetadata and test_wheel[flit-core])"
+x="${x-} --deselect=tests/project/test_frontend.py::TestPrepareMetadata::test_editable[flit-core]"
+x="${x-} --deselect=tests/project/test_frontend.py::TestPrepareMetadata::test_wheel[flit-core]"
+%endif
 
-%pytest -k "${k-}" ${ignore-} --verbosity=2
+%if %{defined fc44}
+# Minor tabular-format output differences
+x="${x-} --deselect=tests/cli/env/test_show.py::test_context_formatting"
+x="${x-} --deselect=tests/env/plugin/test_interface.py::TestDependencies::test_context_formatting"
+x="${x-} --deselect=tests/env/plugin/test_interface.py::TestDependencies::test_project_dependencies_context_formatting"
+# Differences in whether and how the license text has been line-wrapped. These
+# tests require network access.
+x="${x-} --deselect=tests/cli/new/test_new.py::test_default_no_license_cache"
+%endif
+
+%pytest ${x-} --verbosity=2
 %endif
 
 

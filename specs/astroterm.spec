@@ -1,11 +1,11 @@
 Name:           astroterm
-Version:        1.0.6
-Release:        5%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        A planetarium for your terminal
 
 License:        MIT
 URL:            https://github.com/da-luce/astroterm
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        http://tdc-www.harvard.edu/catalogs/ybsc5.gz
 
 BuildRequires:  gcc
@@ -47,6 +47,9 @@ gunzip -dc %{SOURCE1} > data/ybsc5
 
 
 %changelog
+* Tue Sep 01 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.0-2
+- Update to v1.2.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -22,7 +22,7 @@ Version:                2.28.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -406,6 +406,10 @@ make install-butane-cross BIN_PATH=bin DESTDIR=%{buildroot}
 %endif
 
 %changelog
+* Wed Oct 28 2026 Steven Presti <spresti@redhat.com> - 2.28.0-2
+- Rebuild against patched Go toolchain for CVE-2026-111943
+  (crypto/x509: reject chains using compromised eMudhra intermediate CA keys)
+
 * Mon Oct 12 2026 Steven Presti <spresti@redhat.com> - 2.28.0-1
 - New upstream release
 - Drop patches merged upstream

@@ -100,7 +100,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -586,6 +586,7 @@ cp %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
          -DWITH_MECAB=system \
          -DWITH_FIDO=%{?with_fido:system}%{!?with_fido:none} \
          -DWITH_AUTHENTICATION_FIDO=%{?with_fido:ON}%{!?with_fido:OFF} \
+         -DWITH_AUTHENTICATION_WEBAUTHN=%{?with_fido:ON}%{!?with_fido:OFF} \
          -DWITH_AUTHENTICATION_KERBEROS=%{?with_kerberos:ON}%{!?with_kerberos:OFF} \
          -DWITH_AUTHENTICATION_LDAP=%{?with_ldap:ON}%{!?with_ldap:OFF} \
          -DWITH_BOOST=boost \
@@ -897,7 +898,7 @@ popd
 %dir %{_libdir}/mysql/plugin
 %{_libdir}/mysql/plugin/adt_null.so
 %{_libdir}/mysql/plugin/auth_socket.so
-%{_libdir}/mysql/plugin/authentication_webauthn.so
+%{?with_fido:%{_libdir}/mysql/plugin/authentication_webauthn.so}
 %{_libdir}/mysql/plugin/component_audit_api_message_emit.so
 %{_libdir}/mysql/plugin/component_classic_hashing.so
 %{_libdir}/mysql/plugin/component_connection_control.so
@@ -1118,6 +1119,9 @@ popd
 %endif
 
 %changelog
+* Wed Oct 28 2026 Michal Schorm <mschorm@redhat.com> - 9.7.4-3
+- Fix server-side WebAuthn build with fido=0
+
 * Sat Oct 24 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 9.7.4-2
 - Implement my_timer_cycles() on riscv64
 

@@ -282,7 +282,7 @@
 %endif
 
 Name:	chromium
-Version: 156.0.8078.47
+Version: 156.0.8078.73
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -319,6 +319,9 @@ Patch24: glibc-2.42-baud-rate-fix.patch
 
 # fix FTBFS with old pipewire on fedora < 44 and epel
 Patch25: chromium-153-ftbfs-pipewire-api.patch
+
+# Disable Eula popup
+Patch26: chromium-disable-eula-popup.patch
 
 # disable enterprise_companion_integration_tests due to Unresolved dependencies
 Patch31: chromium-145-disable-enterprise_companion_integration_tests.patch
@@ -1121,6 +1124,7 @@ Qt6 UI for chromium.
 %patch -P24 -p1 -b .glibc-2.42-baud-rate-fix
 %endif
 %patch -P25 -p1 -b .ftbfs-pipewire-api
+%patch -P26 -p1 -b .disable-eula-popup
 %patch -P31 -p1 -b .disable-enterprise_companion_integration_tests
 
 %if ! %{bundlebrotli}
@@ -1987,6 +1991,61 @@ fi
 %endif
 
 %changelog
+* Wed Oct 28 2026 Than Ngo <than@redhat.com> - 156.0.8078.73-1
+- Update to 156.0.8078.73, include 52 security fixes
+  * CVE-2026-118304: Improper input validation in SVG
+  * CVE-2026-118305: Memory corruption in Turbolev
+  * CVE-2026-118306: Memory corruption in FileSystem
+  * CVE-2026-118307: Use after free in Paint
+  * CVE-2026-118308: Use after free in SVG
+  * CVE-2026-118309: Improper input validation in UI
+  * CVE-2026-118310: Improper input validation in Views
+  * CVE-2026-118311: Memory corruption in Media
+  * CVE-2026-118312: Memory corruption in Paint
+  * CVE-2026-118313: Use after free in Video
+  * CVE-2026-118314: Improper input validation in UI
+  * CVE-2026-118315: Improper input validation in SVG
+  * CVE-2026-118316: Improper input validation in V8
+  * CVE-2026-118317: Memory corruption in HTML
+  * CVE-2026-118318: Improper access control in V8
+  * CVE-2026-118319: Memory corruption in Skia
+  * CVE-2026-118320: Memory corruption in V8
+  * CVE-2026-118321: Improper input validation in Core
+  * CVE-2026-118322: Memory corruption in ANGLE
+  * CVE-2026-118327: Memory corruption in Media
+  * CVE-2026-118328: Improper input validation in WebRTC
+  * CVE-2026-118329: Improper input validation in ANGLE
+  * CVE-2026-118330: Use after free in Browser
+  * CVE-2026-118331: Improper input validation in FileAPI
+  * CVE-2026-118332: Improper input validation in Compositing
+  * CVE-2026-118333: Missing authorization in Video
+  * CVE-2026-118334: Use after free in ImageCapture
+  * CVE-2026-118335: Improper input validation in Metrics
+  * CVE-2026-118336: Improper input validation in Headless
+  * CVE-2026-118337: Improper access control in Forms
+  * CVE-2026-118338: Use after free in Animation
+  * CVE-2026-118339: Use after free in Animation
+  * CVE-2026-118340: Memory corruption in Skia
+  * CVE-2026-118341: Use after free in Modularization
+  * CVE-2026-118342: Out of bounds write in Editing
+  * CVE-2026-118343: Improper input validation in ReadingList
+  * CVE-2026-118344: Use after free in Layout
+  * CVE-2026-118345: Use after free in PDFium
+  * CVE-2026-118346: Use after free in Compositing
+  * CVE-2026-118347: Use after free in FileSystem
+  * CVE-2026-118348: Improper input validation in Skia
+  * CVE-2026-118349: Memory corruption in Payments
+  * CVE-2026-118350: Use after free in Turbolev
+  * CVE-2026-118351: Memory corruption in Skia
+  * CVE-2026-118352: Memory corruption in Cache
+  * CVE-2026-118353: Use after free in Paint
+  * CVE-2026-118354: Improper input validation in Skia
+  * CVE-2026-118355: Improper input validation in Command
+  * CVE-2026-118356: Use after free in WTF
+  * CVE-2026-118357: Use after free in FileSystem
+  * CVE-2026-118358: Memory corruption in WebAudio
+  * CVE-2026-118359: Memory corruption in V8
+
 * Wed Oct 21 2026 Than Ngo <than@redhat.com> - 156.0.8078.47-1
 - Update to 156.0.8078.47, include 353 security fixes
   * CVE-2026-112992: Memory corruption in Canvas

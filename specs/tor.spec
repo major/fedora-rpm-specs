@@ -13,7 +13,7 @@
 %endif
 
 Name:       tor
-Version:    0.4.9.14
+Version:    0.4.9.15
 Release:    1%{?dist}
 License:    BSD-3-Clause
 Summary:    Anonymizing overlay network for TCP
@@ -168,6 +168,9 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_sysusersdir}/tor.conf
 
 %changelog
+* Thu Oct 29 2026 Marcel Härry <mh+fedora@scrit.ch> - 0.4.9.15-1
+- Update to latest upstream release https://forum.torproject.org/t/security-release-0-4-9-15/22332 bz#2562928
+
 * Thu Oct 08 2026 Marcel Härry <mh+fedora@scrit.ch> - 0.4.9.14-1
 - Update to latest upstream release bz#2529909
 

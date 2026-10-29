@@ -16,7 +16,7 @@
 
 Name:		kmod
 Version:	34.2
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Linux kernel module management utilities
 
 # https://docs.fedoraproject.org/en-US/legal/license-field/#_no_effective_license_analysis
@@ -98,6 +98,12 @@ Provides:       /usr/sbin/insmod
 Provides:       /usr/sbin/rmmod
 Provides:       /usr/sbin/lsmod
 Provides:       /usr/sbin/depmod
+%endif
+
+%if %{with weak_modules}
+Requires: %{_bindir}/zcat
+Requires: %{_bindir}/xzcat
+Requires: %{_bindir}/zstdcat
 %endif
 
 %description
@@ -199,6 +205,13 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Wed Aug 12 2026 Eric Chanudet <echanude@redhat.com> 34.2-7
+- spec: add weak-modules Requires for compression
+- weak-modules: updates/ directory for out-of-tree modules
+- weak-modules: handle zstd compressed modules
+- weak-modules: handle zstd compressed symvers
+- weak-modules: amend validate_weak_links variable name
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 34.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

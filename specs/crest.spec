@@ -9,8 +9,8 @@
 %endif
 
 Name:           crest
-Version:        2.12
-Release:        13%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        Conformer-Rotamer Ensemble Sampling Tool: a driver for the xtb program
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -19,12 +19,27 @@ Source0:        https://github.com/crest-lab/crest/archive/v%{version}/crest-%{v
 
 # Do not use "true" as a function name
 Patch0:         https://github.com/crest-lab/crest/pull/397.patch
+# Upstream forces a fully static executable, which does not work on Fedora
+Patch1:         crest-3.0.2-no-static.patch
+# gfnff_dump_sasa is not guarded by WITH_GFNFF, so it does not compile when the
+# GFN-FF subproject is disabled
+Patch2:         crest-3.0.2-no-subprojects.patch
+# Upstream disabled the man page build, but the sources are still shipped
+Patch3:         crest-3.0.2-manpage.patch
+# The unit tests are only wired up in the CMake build; add the missing meson
+# recipe, and fix the format statements in the "feature not compiled" stubs
+Patch4:         crest-3.0.2-enable-tests.patch
+# Don't use hostname
+Patch5:         crest-3.0.2-no-git.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-gfortran
 BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  %{blaslib}-devel
+BuildRequires:  toml-f-devel
+# For the unit tests
+BuildRequires:  test-drive-devel
 # To generate man pages
 BuildRequires:  rubygem-asciidoctor
 
@@ -58,11 +73,15 @@ The main publication for the CREST program can be found at
 Phys. Chem. Chem. Phys., 2020, 22, 7169-7192.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .notrue
+%autosetup -p1
 
 %build
-%meson -Dla_backend=custom -Dcustom_libraries=%{blaslib}%{blasvar}
+# tblite, gfn0, gfnff and lwoniom are not packaged in Fedora, and upstream only
+# ships them as git submodules, so the corresponding features are turned off.
+# toml-f is taken from the system.
+%meson -Dla_backend=custom -Dcustom_libraries=%{blaslib}%{blasvar} \
+    -DWITH_TBLITE=false -DWITH_GFN0=false -DWITH_GFNFF=false \
+    -DWITH_LWONIOM=false -DWITH_TOMLF=true
 %meson_build
 
 %install
@@ -78,6 +97,9 @@ Phys. Chem. Chem. Phys., 2020, 22, 7169-7192.
 %{_mandir}/man1/crest.1.*
 
 %changelog
+* Wed Oct 28 2026 Susi Lehtola <jussilehtola@fedoraproject.org> - 3.0.2-1
+- Update to 3.0.2.
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

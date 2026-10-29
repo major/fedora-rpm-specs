@@ -1,6 +1,6 @@
 Name:          sugar-memorize
 Version:       59
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Memorize for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
@@ -25,8 +25,6 @@ as well.
 %prep
 %autosetup -n Memorize-%{version}
 
-sed -i 's/python/python3/' setup.py
-
 %build
 bundlebuilder build
 
@@ -49,6 +47,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Wed Oct 28 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 59-2
+- Remove sed substitution
+
 * Mon Oct 26 2026 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 59-1
 - v59
 

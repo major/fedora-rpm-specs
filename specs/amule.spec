@@ -1,13 +1,19 @@
 %global forgeurl    https://github.com/amule-org/amule
-%global commit      909d304d993ee07df6c6f6acf501a6d791d53666
+%global commit      0db738ed62ae660de2970db494976ca592bd878b
 
 Name:           amule
-Version:        3.1.0
+Version:        3.2.0
 Summary:        File sharing client compatible with eDonkey
 License:        GPL-2.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2
-Release:        %autorelease
 
+%if 0%{?buildtag:1}
 %forgemeta
+%global build_id %(echo '%{buildtag}' | sed 's/^\\.copr//')
+Release:        %autorelease -s %{build_id}
+%else
+Release:        %autorelease
+%forgemeta
+%endif
 
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -130,6 +136,7 @@ appstream-util validate-relax --nonet \
 %license %{_datadir}/amule/amuleapi-static/js/vendor/htm.LICENSE
 %license %{_datadir}/amule/amuleapi-static/js/vendor/preact.LICENSE
 %{_datadir}/amule/amuleapi-static/js/views
+%{_datadir}/icons/hicolor/scalable/apps/org.amule.aMule-tray-*.svg
 
 %{_mandir}/man1/alcc.1.*
 %{_mandir}/man1/amulecmd.1.*

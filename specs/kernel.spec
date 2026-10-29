@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc0.261026g6b4b543fa187.8
+%define pkgrelease 0.rc0.261028g65ba8f34ec88.10
 %define kversion 7
-%define tarfile_release 7.3-16411-g6b4b543fa187
+%define tarfile_release 7.3-17318-g65ba8f34ec88
 # This is needed to do merge window version magic
 %define patchlevel 4
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.261026g6b4b543fa187.8%{?buildid}%{?dist}
+%define specrelease 0.rc0.261028g65ba8f34ec88.10%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -4263,6 +4263,39 @@ fi\
 %{nil}
 
 #
+# This macro defines a %%verifyscript for a kernel package.
+#	%%kernel_variant_verify [-v <subpackage>]
+# kernel-install copies the packaged image out of /lib/modules, so the copy
+# is not owned by the package and rpm -V does not check it. Depending on the
+# kernel-install layout the copy is at:
+#   /boot/vmlinuz-<version>              (grub plugin, layout other than uki)
+#   <boot-root>/<entry-token>/<version>/linux   (BLS Type 1 layout)
+# A UKI layout builds a new image instead of copying, so there is nothing
+# to compare.
+#
+%define kernel_variant_verify(v:) \
+%{expand:%%verifyscript %{?-v:%{-v*}-}core}\
+_kver=%{KVERREL}%{?-v:+%{-v*}}\
+_mod_img=/lib/modules/$_kver/vmlinuz\
+_copy=/%{image_install_path}/vmlinuz-$_kver\
+if [ -x /bin/kernel-install ]; then\
+    _inspect=$(/bin/kernel-install inspect "$_kver" "$_mod_img" 2>/dev/null)\
+    _layout=$(echo "$_inspect" | grep -o 'KERNEL_INSTALL_LAYOUT=.*' | cut -d= -f2-)\
+    _boot_root=$(echo "$_inspect" | grep -o 'KERNEL_INSTALL_BOOT_ROOT=.*' | cut -d= -f2-)\
+    _token=$(echo "$_inspect" | grep -o 'KERNEL_INSTALL_ENTRY_TOKEN=.*' | cut -d= -f2-)\
+    if [ "$_layout" = bls ] && [ -n "$_boot_root" ] && [ -n "$_token" ]; then\
+        _copy="$_boot_root/$_token/$_kver/linux"\
+    fi\
+fi\
+if [ "$_layout" != uki ] && [ -f "$_mod_img" ] && [ -f "$_copy" ] &&\
+    [ "$(sha512sum $_mod_img | cut -d' ' -f1)" != "$(sha512sum $_copy | cut -d' ' -f1)" ]; then\
+    echo "$_copy does not match $_mod_img" >&2\
+    exit 1\
+fi\
+exit 0\
+%{nil}
+
+#
 # This macro defines a %%post script for a kernel package and its devel package.
 #	%%kernel_variant_post [-v <subpackage>] [-r <replace>]
 # More text can follow to go at the end of this variant's %%post.
@@ -4288,6 +4321,7 @@ fi\
 %{expand:%%kernel_modules_partner_post %{?-v*}}\
 %endif\
 %{expand:%%kernel_variant_posttrans %{?-v*:-v %{-v*}}}\
+%{expand:%%kernel_variant_verify %{?-v*:-v %{-v*}}}\
 %{expand:%%post %{?-v*:%{-v*}-}core}\
 %{-r:\
 if [ `uname -i` == "x86_64" -o `uname -i` == "i386" ] &&\
@@ -4835,12 +4869,24 @@ fi\
 #
 #
 %changelog
-* Mon Oct 26 2026 Justin M. Forbes <jforbes@fedoraproject.org> [7.4.0-0.rc0.261026g6b4b543fa187.8]
-- Add initial config for DEBUG_INFO_BTF_INLINE (Justin M. Forbes)
-
-* Mon Oct 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.6b4b543fa187.8]
+* Wed Oct 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.65ba8f34ec88.10]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Wed Oct 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.65ba8f34ec88.9]
+- redhat/configs: enable CONFIG_CPU_IDLE and the TEO governor on s390x (Jan Polensky)
+- Revert "redhat: ark-merge-driver: initial commit" (Scott Weaver)
+- Revert "redhat: prepare-commit-msg: initial commit" (Scott Weaver)
+- Revert "redhat: ark-linux-next.sh: initial commit" (Scott Weaver)
+- Revert "ark-linux-next: check for git hooks directory" (Scott Weaver)
+- Revert "merge-linux-next: use gitlab remote" (Scott Weaver)
+- redhat/kernel.spec: verify installed kernel image matches boot copy (Charles Haithcock)
+- Linux v7.4.0-0.rc0.65ba8f34ec88
+
+* Tue Oct 27 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.d135ab453a74.8]
+- rh_messages.h: remove linux/version.h (Scott Weaver)
+- Add initial config for DEBUG_INFO_BTF_INLINE (Justin M. Forbes)
+- Linux v7.4.0-0.rc0.d135ab453a74
 
 * Mon Oct 26 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.6b4b543fa187.7]
 - Fix up mismatches for merge window configs (Justin M. Forbes)

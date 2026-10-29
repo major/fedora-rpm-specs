@@ -20,6 +20,13 @@ URL:               https://github.com/uxlfoundation/oneDNN
 Source0:        %{url}/archive/v%{version}/onednn-%{version}.tar.gz
 Source1:        onednn-test.in
 
+# Workaround for an AltiVec bool clash from the bundled OpenCL headers that
+# breaks the examples build on ppc64le. Drop once OpenCL-Headers#321 lands and
+# third_party/opencl is updated.
+# https://github.com/uxlfoundation/oneDNN/issues/6312
+# https://github.com/KhronosGroup/OpenCL-Headers/issues/320
+Patch0:         0001-examples-work-around-AltiVec-bool-clash-from-OpenCL-.patch
+
 # This package only work in 64bit arches for now
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x
 
@@ -95,6 +102,14 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 googletest-based unit tests for oneDNN. useful for validating oneDNN
 functionality on target hardware.
 
+%package        examples
+Summary:        Example programs for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    examples
+Compiled example programs demonstrating oneDNN usage, along with their source
+code. Useful for learning how to use oneDNN primitives and the Graph API.
+
 
 %prep
 %autosetup -p1 -n oneDNN-%{version}
@@ -108,7 +123,7 @@ export LDFLAGS="$LDFLAGS -L%{omp_libdir}"
 %endif
 %cmake \
   -DDNNL_ARCH_OPT_FLAGS="" \
-  -DDNNL_BUILD_EXAMPLES=OFF \
+  -DDNNL_BUILD_EXAMPLES=ON \
   -DDNNL_BUILD_TESTS=ON \
 %ifarch x86_64
   -DCMAKE_C_COMPILER=%{_bindir}/dpclang \
@@ -164,6 +179,20 @@ sed -e 's|@LIBEXECDIR@|%{_libexecdir}|g' \
     %{SOURCE1} > %{buildroot}%{_bindir}/onednn-test
 chmod 0755 %{buildroot}%{_bindir}/onednn-test
 
+# install examples
+install -d %{buildroot}%{_libexecdir}/onednn/examples
+find %{_vpath_builddir}/examples -maxdepth 1 -type f -executable \
+    -exec install -pm0755 {} %{buildroot}%{_libexecdir}/onednn/examples/ \;
+find %{buildroot}%{_libexecdir}/onednn/examples -type f -executable \
+    -exec chrpath -d {} \; 2>/dev/null || true
+
+# install example sources for reference
+install -d %{buildroot}%{_datadir}/onednn/examples
+find examples -type f \( -name '*.cpp' -o -name '*.c' -o -name '*.h' -o -name '*.hpp' \) | while read -r f; do
+    install -d "%{buildroot}%{_datadir}/onednn/$(dirname "$f")"
+    install -pm0644 "$f" "%{buildroot}%{_datadir}/onednn/$f"
+done
+
 
 # Some ocl/gpu tests will fails if lacking an appropriate implementation
 %check
@@ -201,6 +230,11 @@ chmod 0755 %{buildroot}%{_bindir}/onednn-test
 %files tests
 %{_bindir}/onednn-test
 %{_libexecdir}/onednn/gtests/
+
+
+%files examples
+%{_libexecdir}/onednn/examples/
+%{_datadir}/onednn/examples/
 
 
 %changelog

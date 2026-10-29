@@ -1,7 +1,7 @@
 # Pull from GitHub, since it has fixes not released on PyPI and contains
 # the LICENSE file as well as an additional doc.
 %global forgeurl https://github.com/JuanPotato/Legofy
-%global commit 0cadceb9f412636c11eb62370682a43ae329e4cb
+%global commit 6913585ac793d4b896f434d7d57d169c65fa8a1a
 
 Name:           legofy
 Version:        1.0.0

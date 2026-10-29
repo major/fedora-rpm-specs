@@ -82,6 +82,10 @@ sed -i -e 's@-fvisibility=hidden@-fvisibility=default@' CMakeLists.txt
 sed -i -e 's@dist/bin/Release/@dist/bin/RelWithDebInfo/@g' scripts/bitcodes/precompile_bitcode.py
 sed -i -e 's@dist/bin/Release/@dist/bin/RelWithDebInfo/@g' scripts/bitcodes/compile.py
 
+# need to find clang++
+sed -i -e "s@clangpath = hipSdkPathFromArgument@clangpath = '/usr/lib64/rocm/llvm'@" scripts/bitcodes/precompile_bitcode.py
+# grep clang scripts/bitcodes/precompile_bitcode.py
+
 %build
 
 %cmake -G Ninja $src \

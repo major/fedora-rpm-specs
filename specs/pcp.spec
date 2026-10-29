@@ -1,6 +1,6 @@
 Name:    pcp
-Version: 7.2.1
-Release: 1%{?dist}
+Version: 7.2.2
+Release: 3%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -9,6 +9,9 @@ Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.tar.g
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
 %endif
+
+Patch1: pcp-libbpf.patch
+Patch2: pcp-bpftool.patch
 
 # The additional linker flags break out-of-tree PMDAs.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -285,6 +288,13 @@ BuildRequires: qt6-qtsvg-devel
 BuildRequires: qt5-qtbase-devel
 BuildRequires: qt5-qtsvg-devel
 %endif
+%endif
+
+%if 0%{?rhel} > 0 && 0%{?rhel} < 8
+# sqlite-devel is too old on CentOS 7, handled by configure-driven
+# conditional build
+%else
+BuildRequires: sqlite-devel >= 3.9.0
 %endif
 
 # Utilities used indirectly e.g. by scripts we install
@@ -3549,7 +3559,16 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
-* Mon Aug 17 2026 Lauren Chilton <lchilton@redhat.com> - 7.2.1-1
+* Wed Oct 28 2026 William Cohen <wcohen@redhat.com> - 7.2.2-3
+- Backport libbpf and bpftool patches to allow building with linux 7.3 on aarch64
+
+* Mon Oct 19 2026 Lauren Chilton <lchilton@redhat.com> - 7.2.2-2
+- Include sqlite-devel package
+
+* Wed Oct 07 2026 Lauren Chilton <lchilton@redhat.com> - 7.2.2-1
+- Latest upstream release
+
+* Tue Aug 18 2026 Lauren Chilton <lchilton@redhat.com> - 7.2.1-1
 - Latest upstream release
 
 * Mon Aug 10 2026 Jan Kurik <jkurik@redhat.com> - 7.2.0-2

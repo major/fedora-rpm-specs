@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.8.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Simple callback-based HTTP request/response parser
 License:	MIT
 URL:		https://github.com/tmm1/http_parser.rb
@@ -10,6 +10,9 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/tmm1/http_parser.rb/pull/86
 # Support ruby3_5 Ractor change
 Patch0:	http_parser.rb-pr86-ruby35-Ractor-change.patch
+# https://github.com/tmm1/http_parser.rb/pull/87
+# Use TypedData API, needed for ruby4.1
+Patch1:	http_parser.rb-pr87-TypedData.patch
 BuildRequires:  gcc
 BuildRequires:	rubygems-devel
 BuildRequires:	ruby-devel
@@ -82,6 +85,9 @@ popd
 %{gem_instdir}/tasks
 
 %changelog
+* Wed Oct 28 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.0-13
+- Backport upstream patch to use TypedData API needed for ruby4.1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

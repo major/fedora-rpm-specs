@@ -11,9 +11,9 @@
 
 %if %{defined fedora}
 %define build_with_btrfs 1
-%if 0%{?fedora} >= 43
-%define sequoia 1
 %endif
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 10
+%define sequoia 1
 %endif
 
 %if %{defined rhel}

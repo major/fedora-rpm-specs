@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.13
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: %{url}/files/%{name}-%{version}.tar.xz
 source1: %{url}/files/%{name}-%{version}.tar.xz.sig
 Source2: coreteam-gpg-key-0xD70D1A666ACF2B21.txt
@@ -49,7 +49,7 @@ BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: libtool
 BuildRequires: make
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 %description
 The iptables utility controls the network packet filtering code in the
@@ -177,7 +177,7 @@ Conflicts: arptables-legacy < 0.0.5-16
 nftables compatibility for iptables, arptables and ebtables.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -470,6 +470,9 @@ fi
 
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 1.8.13-4
+- Verify upstream source signatures with openpgpverify
+
 * Wed Sep 02 2026 Phil Sutter <psutter@redhat.com> - 1.8.13-3
 - Fix for missing /var/lock/subsys directory in init scripts
 

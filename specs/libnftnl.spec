@@ -1,6 +1,6 @@
 Name:           libnftnl
 Version:        1.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for low-level interaction with nftables Netlink's API over libmnl
 
 License:        GPL-2.0-or-later
@@ -12,7 +12,7 @@ Source2:        coreteam-gpg-key-0xD70D1A666ACF2B21.txt
 BuildRequires:  libmnl-devel
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 
 %description
 A library for low-level interaction with nftables Netlink's API over libmnl.
@@ -26,7 +26,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -50,6 +50,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/libnftnl
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 1.3.2-2
+- Verify upstream source signatures with openpgpverify
+
 * Wed Sep 02 2026 Phil Sutter <psutter@redhat.com> - 1.3.2-1
 - new version
 

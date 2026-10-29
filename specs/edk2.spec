@@ -152,6 +152,7 @@ Patch0021: 0021-pqc-doug-CryptoPkg-OpensslLib-switch-Pkcs7Verify-to-.patch
 Patch0022: 0022-pqc-doug-CryptoPkg-OpensslLib-switch-AuthenticodeVer.patch
 Patch0023: 0023-pqc-SecurityPkg-AuthVariableLib-factor-out-certifica.patch
 Patch0024: 0024-pqc-SecurityPkg-AuthVariableLib-accept-ml-dsa-certif.patch
+Patch0025: 0025-OvmfPkg-QemuKernelLoaderFsDxe-do-not-error-out-on-Ge.patch
 
 
 # needed by %prep

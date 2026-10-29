@@ -9,8 +9,6 @@
 
 %bcond_without       tests
 
-%global gh_commit    fb113cafb08cd6c70f8134db586bde166a7abae0
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zumba
 %global gh_project   json-serializer
 %global ns_vendor    Zumba
@@ -18,13 +16,13 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        3.2.4
-Release:        2%{?dist}
+Version:        3.2.5
+Release:        1%{?dist}
 Summary:        Serialize PHP variables
 
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        %{name}-%{version}-%{?gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 BuildArch:      noarch
@@ -71,7 +69,7 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
@@ -96,7 +94,7 @@ EOF
 
 ret=0
 # ignore tests relying on SuperClosure (deprecated and removed from repo)
-for cmdarg in "php %{phpunit}" php82 php83 php84 php85; do
+for cmdarg in "php %{phpunit}" php82 php83 php84 php85 php86; do
    if which $cmdarg; then
       set $cmdarg
       $1 ${2:-%{_bindir}/phpunit11} \
@@ -120,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Tue Oct 27 2026 Remi Collet <remi@remirepo.net> - 3.2.5-1
+- update to 3.2.5
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

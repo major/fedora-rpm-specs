@@ -70,7 +70,7 @@
 
 Name:		erlang
 Version:	27.3.4.19
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -214,9 +214,8 @@ Requires: %{name}-compiler%{?_isa} = %{version}-%{release}
 Requires: %{name}-crypto%{?_isa} = %{version}-%{release}
 Requires: %{name}-debugger%{?_isa} = %{version}-%{release}
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
-Requires: %{name}-inets%{?_isa} = %{version}-%{release}
+Requires: %{name}-ftp%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
-Requires: %{name}-observer%{?_isa} = %{version}-%{release}
 Requires: %{name}-runtime_tools%{?_isa} = %{version}-%{release}
 Requires: %{name}-sasl%{?_isa} = %{version}-%{release}
 Requires: %{name}-snmp%{?_isa} = %{version}-%{release}
@@ -257,7 +256,6 @@ Cryptographical support.
 %if %{__with_wxwidgets}
 %package debugger
 Summary: A debugger for debugging and testing of Erlang programs
-Requires: %{name}-compiler%{?_isa} = %{version}-%{release}
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
@@ -275,7 +273,6 @@ Requires: %{name}-erts%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 Requires: %{name}-syntax_tools%{?_isa} = %{version}-%{release}
-Requires: %{name}-wx%{?_isa} = %{version}-%{release}
 Requires: graphviz
 Obsoletes: erlang-typer
 
@@ -308,7 +305,6 @@ Documentation for Erlang.
 %package edoc
 Summary: A utility used to generate documentation out of tags in source files
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
-Requires: %{name}-inets%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 Requires: %{name}-syntax_tools%{?_isa} = %{version}-%{release}
@@ -416,6 +412,8 @@ Examples for some Erlang modules.
 Summary: FTP client
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
+Requires: %{name}-runtime_tools%{?_isa} = %{version}-%{release}
+Requires: %{name}-ssl%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 
 %description ftp
@@ -434,6 +432,7 @@ Summary: A set of services such as a Web server and a HTTP client etc
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-mnesia%{?_isa} = %{version}-%{release}
+Requires: %{name}-public_key%{?_isa} = %{version}-%{release}
 Requires: %{name}-runtime_tools%{?_isa} = %{version}-%{release}
 Requires: %{name}-ssl%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
@@ -456,6 +455,7 @@ Low level interface to Java.
 
 %package kernel
 Summary: Main erlang library
+Requires: %{name}-crypto%{?_isa} = %{version}-%{release}
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 
@@ -493,7 +493,6 @@ A heavy duty real-time distributed database.
 Summary: A set of tools for tracing and investigation of distributed systems
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
 Requires: %{name}-et%{?_isa} = %{version}-%{release}
-Requires: %{name}-inets%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-runtime_tools%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
@@ -518,9 +517,7 @@ Connectivity).
 Summary: A monitor which allows inspection of the underlying operating system
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
-Requires: %{name}-mnesia%{?_isa} = %{version}-%{release}
 Requires: %{name}-sasl%{?_isa} = %{version}-%{release}
-Requires: %{name}-snmp%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 
 %description os_mon
@@ -605,6 +602,7 @@ Requires: %{name}-crypto%{?_isa} = %{version}-%{release}
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-public_key%{?_isa} = %{version}-%{release}
+Requires: %{name}-runtime_tools%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 
 %description ssh
@@ -617,6 +615,7 @@ Requires: %{name}-erts%{?_isa} = %{version}-%{release}
 Requires: %{name}-inets%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-public_key%{?_isa} = %{version}-%{release}
+Requires: %{name}-runtime_tools%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
 
 %description ssl
@@ -660,7 +659,6 @@ BuildRequires: emacs-el
 %endif # __with_emacs
 Requires: %{name}-compiler%{?_isa} = %{version}-%{release}
 Requires: %{name}-erts%{?_isa} = %{version}-%{release}
-Requires: %{name}-inets%{?_isa} = %{version}-%{release}
 Requires: %{name}-kernel%{?_isa} = %{version}-%{release}
 Requires: %{name}-runtime_tools%{?_isa} = %{version}-%{release}
 Requires: %{name}-stdlib%{?_isa} = %{version}-%{release}
@@ -1937,6 +1935,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+Thu Oct 29 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.19-2
+- Deps
+
 * Fri Oct 16 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.19-1
 - Ver. 27.3.4.19
 

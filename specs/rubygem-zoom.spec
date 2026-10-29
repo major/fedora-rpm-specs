@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.5.0
-Release:	39%{?dist}
+Release:	40%{?dist}
 Summary:	Ruby binding to ZOOM
 
 # README.md
@@ -10,6 +10,8 @@ Summary:	Ruby binding to ZOOM
 License:	LGPL-2.1-only
 URL:		https://github.com/bricestacey/ruby-zoom
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Use TypedData API, needed for ruby4.1
+Patch0:	zoom-0.5.0-TypedData.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygem(rake)
@@ -47,6 +49,7 @@ This package contains documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 mv ../%{gem_name}-%{version}.gemspec .
 
 %{_fixperms} .
@@ -108,6 +111,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Wed Oct 28 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.0-40
+- Use TypedData API needed for ruby4.1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

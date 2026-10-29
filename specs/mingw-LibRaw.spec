@@ -3,8 +3,8 @@
 %global pkgname LibRaw
 
 Name:          mingw-%{pkgname}
-Version:       0.22.2
-Release:       2%{?dist}
+Version:       0.22.3
+Release:       1%{?dist}
 Summary:       Library for reading RAW files obtained from digital photo cameras
 
 # LibRaw base package is dual licensed (actually triple licensed LGPLv2+, CDDL, LibRaw Software License)
@@ -146,6 +146,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Wed Oct 28 2026 Sandro Mani <manisandro@gmail.com> - 0.22.3-1
+- Update to 0.22.3
+
 * Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 0.22.2-2
 - Backport fix for CVE-2026-88387
 

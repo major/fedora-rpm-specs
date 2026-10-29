@@ -87,6 +87,10 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
+# CMake: add missing ordering information to fix a potential race condition that
+#   can lead to build failures due to unresolvable #include's  
+Patch:          0001-cmake-resolve-race-condition-between-source-generati.patch
+
 # https://bugs.webkit.org/show_bug.cgi?id=312677
 Patch:          skia-s390x.patch
 

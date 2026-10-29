@@ -4,7 +4,7 @@
 %bcond tests 0
 
 Name:           python-%{pypi_name}
-Version:        0.2.1
+Version:        0.3.0
 Release:        %{autorelease}
 Summary:        Iconify for Python - universal icon framework
 

@@ -6,9 +6,9 @@
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-live
-Version:        3.5.7
+Version:        3.5.8
 # Release:        0.1.%%{gitdate}git%%{shortcommit0}%%{?dist}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An interactive web interface with HTML5 live stream support for VDR
 
 # The entire source code is GPL-2.0-or-later except live/js/mootools/ which is LicenseRef-Callaway-MIT
@@ -16,11 +16,10 @@ License:        GPL-2.0-or-later AND LicenseRef-Callaway-MIT
 URL:            https://codeberg.org/MarkusE/vdr-plugin-live
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}.conf
-Patch0:         vdr-live-c++20.diff
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
-BuildRequires:  gettext
+BuildRequires:  gettext-devel
 BuildRequires:  vdr-devel >= %{vdr_version}
 BuildRequires:  tntnet-devel
 BuildRequires:  cxxtools-devel
@@ -82,6 +81,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/live/
 
 %changelog
+* Wed Oct 28 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.8-1
+- Update to 3.5.8-1
+
 * Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 3.5.7-2
 - Rebuilt for new VDR 2.8.3 API version 14
 

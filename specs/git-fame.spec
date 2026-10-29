@@ -1,53 +1,63 @@
 Name:           git-fame
-Version:        2.0.1
-Release:        16%{?dist}
+Version:        4.2.1
+Release:        1%{?dist}
 Summary:        Pretty-print git repository collaborators sorted by contributions
 
 License:        MPL-2.0
 URL:            https://pypi.python.org/pypi/git-fame
+
+%global pypi_name git_fame
 Source0:        %{pypi_source}
 
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
-BuildRequires:  python3-pip
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-wheel
 Requires:       git-core
-Requires:       python%{python3_version}dist(argopt) >= 0.3.5
-# Only for beautifulness
-Recommends:     python%{python3_version}dist(tqdm)
-Recommends:     python%{python3_version}dist(tabulate)
 
 %description
 Pretty-print git repository collaborators sorted by contributions.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{pypi_name}-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
-mkdir -p %{buildroot}%{_libexecdir}/git-core
-ln -s %{_bindir}/%{name} %{buildroot}%{_libexecdir}/git-core/%{name}
-install -Dpm0644 -t %{buildroot}%{_mandir}/man1 gitfame/git-fame.1
+%pyproject_install
+%pyproject_save_files gitfame
+
+install -m 755 -d %{buildroot}%{_libexecdir}/git-core
+ln -sr %{buildroot}%{_bindir}/%{name} %{buildroot}%{_libexecdir}/git-core/%{name}
+
+install -m 755 -d %{buildroot}%{bash_completions_dir}
+PYTHONPATH="%{buildroot}%{python3_sitelib}" \
+	%{buildroot}%{_bindir}/%{name} --print-completion bash \
+	> %{buildroot}%{bash_completions_dir}/%{name}
+
 
 %check
 # Tests depend on real git repo
 
-%files
+
+%files -f %{pyproject_files}
 %license LICENCE
 %doc README.rst
 %{_bindir}/%{name}
+%{bash_completions_dir}/%{name}
 %{_libexecdir}/git-core/%{name}
-%{_mandir}/man1/%{name}.1*
-%{python3_sitelib}/git_fame-*.egg-info/
-%{python3_sitelib}/gitfame/
+
 
 %changelog
+* Wed Sep 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.2.1-1
+- Update to v4.2.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
