@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.31.1
+Version:    2.31.3
 Release:    %autorelease
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -46,7 +46,7 @@ Requires: unicode-ucd
 BuildRequires:  ibus-devel
 BuildRequires:  gcc
 %if 0%{?fedora} >= 24 || 0%{?rhel} > 7
-BuildRequires:  python3-devel >= 3.6.0
+BuildRequires:  python3-devel >= 3.9.0
 BuildRequires:  python3-pyxdg
 %else
 BuildRequires:  python34-devel

@@ -15,7 +15,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.26.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Library for stubbing HTTP requests in Ruby
 License: MIT
 URL: https://github.com/bblimke/webmock
@@ -88,6 +88,8 @@ ln -s %{builddir}/minitest minitest
 ln -s %{builddir}/spec spec
 ln -s %{builddir}/test test
 
+export RUBYLIB=$(pwd)/lib
+
 ruby -e 'Dir.glob "./minitest/**/*.rb", &method(:require)'
 ruby -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
 
@@ -146,6 +148,9 @@ done
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Oct 29 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.26.1-3
+- Explicitly set RUBYLIB for testsuite
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.26.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

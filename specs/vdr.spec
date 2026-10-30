@@ -1,20 +1,20 @@
-%global varbase   %{_var}/lib/vdr
+%global varbase   %{_sharedstatedir}/vdr
 %global videodir  %{varbase}/video
 %global vardir    %{varbase}/data
 %global plugindir %{_libdir}/vdr
 %global configdir %{_sysconfdir}/vdr
-%global cachedir  %{_var}/cache/vdr
-%global rundir    /run/vdr
+%global cachedir  %{_localstatedir}/cache/vdr
+%global rundir    %{_rundir}/vdr
 %global vdr_user  vdr
 %global vdr_group video
 
-%bcond_without    docs
+%bcond docs 1
 
 %global __provides_exclude_from ^%{plugindir}/.*\\.so.*$
 
 Name:           vdr
-Version:        2.8.3
-Release:        1%{?dist}
+Version:        2.8.4
+Release:        2%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPL-2.0-or-later
@@ -42,46 +42,45 @@ Source12:       %{name}-shutdown.sh
 Source13:       %{name}-moveto.sh
 Source14:       %{name}-check-setup.sh
 Source15:       %{name}-set-wakeup.sh
+Source16:       %{name}-recording-hook.sh
 
 # Fedora/FHS integration: export datadir/rundir/vardir/user/group from vdr.pc
 Patch0:         %{name}-fedora.patch
 # MainMenuHooks, reduced to the only hook any shipped plugin implements
 # (epgsearch's "Replace original schedule")
 Patch1:         %{name}-mainmenuhooks.patch
-# Sent upstream: replace the FSF's former postal address in COPYING with the
-# license URLs; rpmlint rejects the old address
-Patch2:         %{name}-fsf-address.patch
-# Sent upstream: thread-safe inet_pton()/inet_ntop() instead of inet_ntoa() & Co.
-Patch3:         %{name}-posix-inet-functions.patch
 
-# For upstream, Patch1NN is %%{name}-NN-*.patch, in dependency order:
-# data races found with ThreadSanitizer (01-12)
-Patch101:       %{name}-01-thread-atomics.patch
-Patch102:       %{name}-02-device-track-atomics.patch
-Patch103:       %{name}-03-device-player-atomics.patch
-Patch104:       %{name}-04-receiver-atomics.patch
-Patch105:       %{name}-05-transfer-atomics.patch
-Patch106:       %{name}-06-dvbplayer-atomics.patch
-Patch107:       %{name}-07-dvbtuner-atomics.patch
-Patch108:       %{name}-08-dvbtuner-channel-lock.patch
-Patch109:       %{name}-09-sections-sdt-atomics.patch
-Patch110:       %{name}-10-svdrp-ready-atomic.patch
-Patch111:       %{name}-11-dvbsubtitle-atomics.patch
-Patch112:       %{name}-12-device-camslot-atomic.patch
-# lock order inversions and object lifetime (13-17)
-Patch113:       %{name}-13-camslot-assign-lock-scope.patch
-Patch114:       %{name}-14-device-pid-notify-lock-scope.patch
-Patch115:       %{name}-15-control-mutex-null.patch
-Patch116:       %{name}-16-osd-deregister-before-delete.patch
-Patch117:       %{name}-17-skins-locked-track-copy.patch
-# live data reached the receivers in 100 ms steps, slowing down channel switches
-Patch118:       %{name}-18-tsbuffer-get-timeout.patch
-# the end of a replay: a pause in the tail, B-frame tails cut by the STC check,
-# recordings that are still being written, and DrainDevice() in PLUGINS.html
-Patch119:       %{name}-19-dvbplayer-pause-stuckateof.patch
-Patch120:       %{name}-20-dvbplayer-last-frame.patch
-Patch121:       %{name}-21-dvbplayer-growing-recording.patch
-Patch122:       %{name}-22-plugins-html-draindevice.patch
+# For upstream, Patch1NN is %%{name}-NN-*.patch, by priority in four groups.
+# Lifetime: the first key after a replay started without one ended the EPG
+# scan by switching channels, which deleted the control the main loop had
+# already fetched for that key; an OSD deleted in another thread got
+# SetActive() calls while being destroyed, player/receiver/CAM slot pointers
+# turned NULL between check and use, destructors ran before a thread's last
+# writes were visible, a recorder thread that saw no independent frame after
+# Stop() never ended and got pthread_cancel()ed inside cCondWait::Wait()
+Patch101:       %{name}-01-eitscan-activity-before-control.patch
+Patch102:       %{name}-02-osd-delete-before-destructor.patch
+Patch103:       %{name}-03-pointer-snapshots.patch
+Patch104:       %{name}-04-thread-atomics.patch
+Patch105:       %{name}-05-recorder-stop-timeout.patch
+# Lost updates and torn reads: timer flags changed without the timers
+# lock, track descriptions read while another thread rewrote them
+Patch106:       %{name}-06-timer-flags-atomic.patch
+Patch107:       %{name}-07-track-description-copy.patch
+# State read without a lock, by subsystem (ThreadSanitizer findings)
+Patch108:       %{name}-08-dvbplayer-atomics.patch
+Patch109:       %{name}-09-dvbdevice-atomics.patch
+Patch110:       %{name}-10-device-state-atomics.patch
+Patch111:       %{name}-11-receiver-pids-atomic.patch
+Patch112:       %{name}-12-section-filter-atomics.patch
+Patch113:       %{name}-13-shared-flags-atomic.patch
+# Globals switched for a local purpose: the CI TPDU dump switch per TPDU in
+# the CI adapter thread, Setup.ShowChannelNamesWithSource around a rename
+Patch114:       %{name}-14-ci-dump-thread-local.patch
+Patch115:       %{name}-15-channels-obsolete-name.patch
+# Found with ThreadSanitizer and the dvd plugin: the track menus counted the
+# tracks without the lock a player announces them under
+Patch116:       %{name}-16-numtracks-lock.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -104,7 +103,6 @@ BuildRequires:  graphviz
 Requires:       sudo
 Requires:       util-linux
 Requires:       vdrsymbol-fonts
-%{?systemd_requires}
 Provides:       vdr(abi)%{?_isa} = %{apiver}
 
 %description
@@ -168,8 +166,8 @@ done
 
 %build
 cat << EOF > Make.config
-CC           = %{__cc}
-CXX          = %{__cxx}
+CC           = %{build_cc}
+CXX          = %{build_cxx}
 
 CFLAGS       = \$(shell pkg-config vdr --variable=cflags)
 CXXFLAGS     = \$(shell pkg-config vdr --variable=cxxflags)
@@ -204,14 +202,13 @@ CFLAGS += -I$PWD/include
 CXXFLAGS += -I$PWD/include
 EOF
 
-cflags="%{build_cflags} -fPIC"
 
 make vdr.pc BINDIR=%{_bindir} MANDIR=%{_mandir} CONFDIR=%{configdir} \
     VIDEODIR=%{videodir} CACHEDIR=%{cachedir} RESDIR=%{_datadir}/vdr \
     LIBDIR=%{plugindir} LOCDIR=%{_datadir}/locale RUNDIR=%{rundir} \
     VARDIR=%{vardir} VDR_USER=%{vdr_user} VDR_GROUP=%{vdr_group} \
-    LDFLAGS="%{build_ldflags}" CFLAGS="$cflags" \
-    CXXFLAGS="$cflags -Werror=overloaded-virtual -Wno-parentheses"
+    LDFLAGS="%{build_ldflags}" CFLAGS="%{build_cflags} -fPIC" \
+    CXXFLAGS="%{build_cxxflags} -fPIC -Werror=overloaded-virtual -Wno-parentheses"
 
 PKG_CONFIG_PATH="$PWD:$PKG_CONFIG_PATH" \
 %make_build vdr include-dir i18n
@@ -240,6 +237,7 @@ install -dm 755 %{buildroot}%{vardir}
 install -dm 755 %{buildroot}%{configdir}/themes
 install -dm 755 %{buildroot}%{_datadir}/vdr/{logos,plugins}
 install -dm 755 %{buildroot}%{plugindir}/bin
+install -dm 755 %{buildroot}%{configdir}/{recording,shutdown}-hooks.d
 
 touch %{buildroot}%{configdir}/themes/{classic,sttng}-default.theme
 touch %{buildroot}%{videodir}/.update
@@ -247,7 +245,7 @@ touch %{buildroot}%{cachedir}/epg.data
 
 install -pm 755 %{SOURCE10} %{buildroot}%{_bindir}/runvdr
 sed -i \
-    -e 's|/usr/sbin/|%{_bindir}/|'                     \
+    -e 's|/usr/bin/vdr\b|%{_bindir}/vdr|'              \
     -e 's|/etc/sysconfig/|%{_sysconfdir}/sysconfig/|g' \
     -e 's|/usr/lib/vdr\b|%{plugindir}|'                \
     -e 's|VDR_PLUGIN_VERSION|%{apiver}|'               \
@@ -260,28 +258,31 @@ sed -i \
 
 install -pm 755 %{SOURCE12} %{buildroot}%{plugindir}/bin/%{name}-shutdown.sh
 sed -i \
-    -e 's|/etc/sysconfig/|%{_sysconfdir}/sysconfig/|' \
-    -e 's|/var/run/vdr/|%{rundir}/|'                  \
-    -e 's|/usr/lib/vdr/|%{plugindir}/|'               \
+    -e 's|/etc/sysconfig/|%{_sysconfdir}/sysconfig/|g' \
+    -e 's|/etc/vdr/|%{configdir}/|g'                   \
+    -e 's|/run/vdr/|%{rundir}/|g'                      \
+    -e 's|/usr/lib/vdr/|%{plugindir}/|g'               \
     %{buildroot}%{plugindir}/bin/%{name}-shutdown.sh
 
-install -pm 755 %{SOURCE13} %{buildroot}%{plugindir}/bin/%{name}-moveto.sh
+install -pm 755 %{SOURCE16} %{buildroot}%{plugindir}/bin/%{name}-recording-hook.sh
 sed -i \
-    -e 's|/var/lib/vdr/video|%{videodir}|' \
-    -e 's|/etc/vdr/|%{configdir}/|'        \
-    %{buildroot}%{plugindir}/bin/%{name}-moveto.sh
+    -e 's|/etc/vdr/|%{configdir}/|g' \
+    %{buildroot}%{plugindir}/bin/%{name}-recording-hook.sh
+
+install -pm 755 %{SOURCE13} %{buildroot}%{plugindir}/bin/%{name}-moveto.sh
 
 install -pm 755 %{SOURCE14} %{buildroot}%{plugindir}/bin/%{name}-check-setup
 sed -i \
-    -e 's|/etc/vdr/|%{configdir}/|' \
+    -e 's|/etc/vdr/|%{configdir}/|g' \
     -e 's|VDR_USER|%{vdr_user}|'    \
     -e 's|VDR_GROUP|%{vdr_group}|'  \
     %{buildroot}%{plugindir}/bin/%{name}-check-setup
 
 install -pm 755 %{SOURCE15} %{buildroot}%{plugindir}/bin/%{name}-set-wakeup
 sed -i \
-    -e 's|/usr/sbin/|%{_bindir}/|'   \
-    -e 's|/var/run/vdr/|%{rundir}/|' \
+    -e 's|/etc/sysconfig/|%{_sysconfdir}/sysconfig/|g' \
+    -e 's|/etc/vdr/|%{configdir}/|g'                   \
+    -e 's|/run/vdr/|%{rundir}/|g'                      \
     %{buildroot}%{plugindir}/bin/%{name}-set-wakeup
 
 install -Dpm 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
@@ -332,13 +333,19 @@ test "$(pkg-config vdr --variable=user)" = "%{vdr_user}"
 test "$(pkg-config vdr --variable=vardir)" = "%{vardir}"
 # The MainMenuHooks patch must have taken effect
 grep -q 'MainMenuHooksPatch-v1.0::osSchedule' vdr
-# The FSF address patch must have taken effect (rpmlint rejects the old address)
-! grep -qr 'Franklin' COPYING PLUGINS/src/skincurses/COPYING
+# rpmlint rejects the FSF's former postal address
+if grep -qr 'Franklin' COPYING PLUGINS/src/skincurses/COPYING ; then exit 1 ; fi
 # vdr resolves VDRPluginCreator after dlopen; a plugin without that export
 # is broken even if it links cleanly
 nm -D --defined-only %{buildroot}%{plugindir}/libvdr-skincurses.so.%{apiver} | grep -q ' VDRPluginCreator$'
 # The sudoers drop-in must parse
 visudo -cf %{buildroot}%{_sysconfdir}/sudoers.d/vdr
+# The scripts must parse, with every build-time placeholder replaced
+scripts="%{buildroot}%{_bindir}/runvdr %{buildroot}%{_bindir}/vdr-config $(ls -d %{buildroot}%{plugindir}/bin/*)"
+for f in $scripts ; do
+    $(sed -ne '1s/^#!//p' $f) -n $f
+done
+if grep -n 'VDR_USER\|VDR_GROUP\|VDR_PLUGIN_VERSION\|/var/run/' $scripts ; then exit 1 ; fi
 
 
 %post
@@ -371,6 +378,7 @@ visudo -cf %{buildroot}%{_sysconfdir}/sudoers.d/vdr
 %dir %{plugindir}/bin/
 %{plugindir}/bin/%{name}-check-setup
 %{plugindir}/bin/%{name}-moveto.sh
+%{plugindir}/bin/%{name}-recording-hook.sh
 %{plugindir}/bin/%{name}-set-wakeup
 %{plugindir}/bin/%{name}-shutdown.sh
 %{_datadir}/vdr/
@@ -385,6 +393,8 @@ visudo -cf %{buildroot}%{_sysconfdir}/sudoers.d/vdr
 %ghost %attr(-,%{vdr_user},%{vdr_group}) %{cachedir}/epg.data
 %dir %attr(-,%{vdr_user},root) %{configdir}/
 %dir %attr(-,%{vdr_user},root) %{configdir}/plugins/
+%dir %{configdir}/recording-hooks.d/
+%dir %{configdir}/shutdown-hooks.d/
 %dir %attr(-,%{vdr_user},root) %{vardir}/
 %dir %attr(-,%{vdr_user},root) %{configdir}/themes/
 %dir %attr(-,%{vdr_user},root) %{cachedir}/
@@ -416,6 +426,117 @@ visudo -cf %{buildroot}%{_sysconfdir}/sudoers.d/vdr
 
 
 %changelog
+* Thu Oct 29 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.4-2
+- Add 16-numtracks-lock (for upstream), found with ThreadSanitizer and the
+  dvd plugin: count the available tracks under mutexCurrentAudioTrack,
+  under which a player announces them
+
+* Wed Oct 28 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.4-1
+- Update to 2.8.4 (API version 14)
+- Drop the patches merged into 2.8.4: fsf-address, posix-inet-functions,
+  08, 14, 15, 18-23, 30, 33, 35, 37-44 and 47; 24, 28, 29 and 31 went in as
+  header-free variants (static mutex/pointer/vector in the .c file)
+- Drop 13-camslot-assign-lock-scope: cCamSlot::Process() calls Assign()
+  under the slot mutex when the module is removed, so the new assignMutex
+  inverted the lock order against Assign() itself
+- Rework the rest for upstream as 01-15, by priority in four groups:
+  lifetime (01-05): new 01, 16 -> 02 (only the subtitle converter and the
+  SPU decoder, which delete their OSDs outside the main thread, use the new
+  cOsd::Delete(); ~cOsd() activates Osds[0] only if the active OSD was
+  deleted, so the skins stay as they are), 03+12+the device part of
+  04 -> 03, 01 -> 04, new 05; lost updates and torn reads (06-07):
+  36 -> 06 without the header change, 17+45 -> 07; state read without a
+  lock, by subsystem (08-13): 06 -> 08, 07+32 -> 09,
+  02+26+cTransferControl::receiverDevice -> 10, the PID part of 04 -> 11,
+  09+34 -> 12, 10+11+25+27 -> 13; globals switched for a local purpose
+  (14-15);
+  cTransfer::activated is under the transfer mutex in 2.8.4 now
+- New 01: after the EPG scan had taken the primary device, the first key
+  after a replay started without a key press (SVDRP PLAY, a plugin's SVDRP
+  command, the live plugin) switched back to the live channel, which
+  deleted the control, and then passed the key to it (SIGSEGV); the switch
+  now happens before the control is fetched
+- From the TSan runs of 2.8.4: 04 also re-reads 'active' in
+  cThread::Active() when pthread_kill() finds the thread gone; new 05:
+  the recorder thread gives the stream two seconds for the independent
+  frame it wants to end on and then ends by itself (without video, e.g.
+  when ChannelDataModified() restarts a recording with wrong PIDs, it
+  never ended and Cancel(3) killed it inside cCondWait::Wait() with the
+  mutex held); new 14: the CI TPDU dump switch is thread-local (Poll()
+  toggles it in the CI adapter thread while cCamSlot::Write() reads it
+  from an SVDRP CHAN); new 15: MarkObsoleteChannels() no longer switches
+  Setup.ShowChannelNamesWithSource off and on (cChannel::Name() reads it
+  in every thread)
+- Add vdr-recording-hook.sh, VDR's --record hook, enabled in the default
+  sysconfig: runs the drop-ins in /etc/vdr/recording-hooks.d for all ten
+  states of VDR 2.8 (before, started, after, editing, edited, deleted,
+  copying, copied, renamed, moved), each with a 10 second limit
+- vdr-shutdown.sh: use all five arguments for the log line, run the drop-ins
+  in /etc/vdr/shutdown-hooks.d first (a failing one cancels the shutdown
+  with an OSD message), SHUTDOWN_ACTION=poweroff|suspend|hibernate in
+  sysconfig instead of editing the script; sudoers allows suspend
+- vdr-set-wakeup: clear the RTC alarm when there is no timer, wake up
+  MinEventTimeout minutes after a forced stop during a recording (as VDR
+  itself does), keep the alarm at least two minutes in the future, leave it
+  alone when VDR cannot be asked
+- vdr-moveto.sh: move through VDR (SVDRP MOVR) instead of mv behind its
+  back, so VDR refuses recordings in use, copies across file systems and
+  runs the recording hook; FOLDER as VDR shows it ('/' or '~' between
+  levels), no sysconfig parsing for the video directory
+- runvdr: one pass with an associative array, same command line as before;
+  vdr-config: any vdr.pc variable (--cflags, --cxxflags, ...), --list,
+  several options per call; vdr-check-setup: point at w_scan2 and
+  dvbv5-scan instead of the retired dvb-apps
+- The hooks, vdr-set-wakeup and vdr-check-setup log to the journal when
+  run under systemd (a drop-in with StandardInput=tty, as for vaapivideo's
+  console, puts the unit's stdout on the VT), to the terminal by hand
+- Document the hooks in README.package, add a vdr-moveto.sh example to
+  reccmds.conf, %%check parses the installed scripts; its negated grep
+  checks could never fail under set -e, now explicit
+- Modernize the spec: %%bcond, %%{build_cc}/%%{build_cxx}, C++ flags from
+  %%{build_cxxflags}, %%{_sharedstatedir}/%%{_localstatedir}/%%{_rundir}
+  for the state, cache and runtime directories, no %%{?systemd_requires}
+  (the systemd scriptlets need no dependency on systemd)
+
+* Fri Oct 23 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.3-7
+- Drop 46: dvbapi 2.2.8 keeps its CAM slots until VDR has deleted the
+  devices, so VDR no longer has to wait for the device threads before the
+  plugins stop
+
+* Wed Oct 14 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.3-6
+- Add 47: the DVD subpicture decoder read its highlight flag before it was
+  ever set (UndefinedBehaviorSanitizer)
+
+* Wed Oct 14 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.3-5
+- Add 45: the audio and subtitle track menus read the track table without
+  the lock a player writes it under (ThreadSanitizer, DVD replay)
+- Add 46: stop the device threads before the plugins stop; a CAM slot's
+  receiver kept a device thread using the slot while dvbapi deleted it
+
+* Wed Oct 14 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.3-4
+- Add 43-44 for the DVD subpicture decoder: its destructor freed the
+  subpicture with delete instead of delete[] (AddressSanitizer), and a
+  command time that crossed the 32-bit PTS wrap ran at once or never
+
+* Sun Oct 11 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.3-3
+- Add 24-32 from a ThreadSanitizer run of vdr, vaapivideo, dvbapi,
+  skinflatplus and libdvbcsa on nuc and stone: the status monitor list is
+  walked without its mutex (skin display objects are cStatus monitors), index
+  file entries are read while CatchUp() reallocates them, SVDRP PLAY opened
+  the progress display on the SVDRP thread, cTransfer could still play a
+  packet while Detach() reset the parsers, the audio track mutex and the
+  player's thread lock could deadlock on a track selection during PMT
+  parsing, and plain flags were written by two threads (recordings
+  lastUpdate, volume/mute, recorder working, bonded receivers)
+- 02 also covers autoSelectPreferredSubtitleLanguage, 06 also the player's eof
+
+* Tue Oct 06 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.3-2
+- Split the StuckAtEof reset for every played frame out of
+  21-dvbplayer-growing-recording into 20-dvbplayer-stale-stuckateof: it fixes
+  stock 2.8.3 ending fast forward in short recordings early (vdr-portal
+  report), not only growing recordings; renumber 20-22 to 21-23. The built
+  code is unchanged apart from a comment
+
 * Sun Sep 27 2026 Dirk Nehring  <dnehring@gmx.net> - 2.8.3-1
 - Update to 2.8.3 (API version 14)
 - Drop the patches merged into 2.8.3: cache-threadid, hoist-receiver-lock,

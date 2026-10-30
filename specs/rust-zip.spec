@@ -35,6 +35,8 @@ Patch:          zip-fix-metadata-auto.diff
 #   https://github.com/zip-rs/zip2/pull/1060,
 #   https://github.com/zip-rs/zip2/pull/1096
 # * Allow typed-path 0.13: https://github.com/zip-rs/zip2/pull/1115
+# * Allow constant_time_eq 0.6:
+#   https://github.com/zip-rs/zip2/commit/4bf486b4cf0c2495ae2a02bda60108b2b289c4fc
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile

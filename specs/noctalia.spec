@@ -1,5 +1,5 @@
 Name:           noctalia
-Version:        5.4.0
+Version:        5.4.1
 Release:        %autorelease
 ExcludeArch:    %{ix86}
 Summary:        A sleek, customizable desktop shell crafted for Wayland
@@ -96,16 +96,31 @@ Requires:       sound-theme-freedesktop
 Recommends:     upower
 Recommends:     power-profiles-daemon
 Recommends:     ddcutil
-Recommends:     gnome-keyring
+Recommends:     (oo7-daemon or gnome-keyring or kf6-kwallet)
+Suggests:       oo7-daemon
 # dlopen-ed in src/render/core/heif_library.cpp
 Recommends:     libheif.so.1()(%{__isa_bits}bit)
 
-# Upstream doesn't currently offer a mechanism for building against system
-# copies of these libraries.
-Provides:       bundled(fzy)
+# Upstream has an all-or-nothing system_libraries meson option for using system
+# copies of wuffs, fzy, material-color-utilities, and luau.  However, due to
+# various issues they're not packaged separately yet, so we'll keep them
+# bundled for now.
+
+# Not buildable as a shared library
+# https://github.com/jhawthorn/fzy/issues/151
+Provides:       bundled(fzy) = 1.1
+
+# Not buildable as a shared library, no stable ABI
+# https://github.com/luau-lang/luau/issues/1100
 Provides:       bundled(luau) = 0.742
-Provides:       bundled(material_color_utilities)
-Provides:       bundled(wuffs)
+
+# No build system, no tags, and no external contributions accepted
+# https://github.com/material-foundation/material-color-utilities/issues/11
+Provides:       bundled(material-color-utilities) = 1a34bd2
+
+# Single file generated C code from a much larger project
+# https://github.com/google/wuffs/blob/main/release/c/wuffs-v0.4.c
+Provides:       bundled(wuffs) = 0.4.0.alpha.9
 
 
 %description

@@ -33,6 +33,9 @@ Source1:        https://github.com/latchset/kryoptic/releases/download/v%{versio
 Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
 
+# Allow constant_time_eq versions through 0.6.x
+# https://github.com/latchset/kryoptic/pull/548
+Patch:          %{url}/pull/548.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel

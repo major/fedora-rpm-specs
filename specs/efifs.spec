@@ -5,16 +5,16 @@
 %global efi_vendor %{name}
 
 # Git commit mentioned at https://github.com/pbatard/efifs
-%global grub2_version    2.14-0
-%global grub2_commit     d38d6a1a9b79427848976f53d474392cd29c2a71
+%global grub2_version    2.16-0
+%global grub2_commit     f10ad08fa2a02dce95774c1b5caee38254b30531
 
 # Preferrably the latest stable version shipped in Fedora
-%global edk2_stable_date 20260213
+%global edk2_stable_date 20260812
 %global edk2_stable_str  edk2-stable%(d=%{edk2_stable_date}; echo ${d:0:6})
 
 Summary:        Free software EFI/UEFI standalone file system drivers
 Name:           efifs
-Version:        1.12
+Version:        1.13
 Release:        1%{?dist}
 License:        GPL-3.0-or-later
 URL:            https://efi.akeo.ie/
@@ -27,8 +27,6 @@ Source1:        https://gitlab.freedesktop.org/gnu-grub/grub/-/archive/%{grub2_c
 Source2:        https://github.com/tianocore/edk2/archive/%{edk2_stable_str}.tar.gz
 # Small helper script to enable EfiFs drivers using efibootmgr
 Source3:        efifs-enable.sh
-Patch0:         https://github.com/pbatard/EfiFs/pull/53.patch#/efifs-1.12-edk2-20260213.patch
-Patch1:         https://github.com/tianocore/edk2/pull/12199.patch#/edk2-20260213-parallel-make.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 %if 0%{?rhel} == 8
@@ -49,7 +47,7 @@ Provides:       bundled(edk2-tools) = %{edk2_stable_date}
 
 %description
 Free software EFI/UEFI standalone file system drivers, based on the GRUB
-2.0 read-only drivers: AFFS (Amiga Fast FileSystem), BFS (BeOS FileSystem),
+2.0 read-only drivers: AFS (AtheOS File System), BFS (BeOS FileSystem),
 btrfs, exFAT, ext2/ext3/ext4, EROFS, F2FS, HFS and HFS+ (Mac OS, including
 compression support), ISO9660, JFS (Journaled FileSystem), nilfs2, NTFS
 (including compression support), ReiserFS, SFS (Amiga Smart FileSystem),
@@ -61,8 +59,6 @@ mv -f EfiFs-%{version} %{name}-%{version}
 cp -p %{SOURCE3} .
 
 pushd %{name}-%{version}
-%patch -P0 -p1 -b .efifs-1.12-edk2-20260213
-
 # Extract GRUB2 into place (Git submodule)
 tar -xf %{SOURCE1} --strip-components=1 --directory grub
 
@@ -71,8 +67,6 @@ cd grub && patch -Np1 -i ../0001-GRUB-fixes.patch
 popd
 
 pushd edk2-%{edk2_stable_str}
-%patch -P1 -p1 -b .edk2-20260213-parallel-make
-
 # Do not build BrotliCompress (because it's unused)
 sed -e '/BrotliCompress/d' -i BaseTools/Source/C/GNUmakefile
 
@@ -104,11 +98,11 @@ sed -e 's/-mfloat-abi=soft/-mfloat-abi=hard/' -i Conf/tools_def.txt
 %endif
 
 ./EfiFsPkg/set_grub_cpu.sh %{efi_arch_upper}
-build -a %{efi_arch_upper} -b RELEASE -t GCC5 -p EfiFsPkg/EfiFsPkg.dsc
+build -a %{efi_arch_upper} -b RELEASE -t GCC -p EfiFsPkg/EfiFsPkg.dsc
 
 %install
 install -d -m 0700 $RPM_BUILD_ROOT%{efi_esp_dir}/
-install -p -m 0700 edk2-%{edk2_stable_str}/Build/EfiFs/RELEASE_GCC5/%{efi_arch_upper}/*.efi $RPM_BUILD_ROOT%{efi_esp_dir}/
+install -p -m 0700 edk2-%{edk2_stable_str}/Build/EfiFs/RELEASE_GCC/%{efi_arch_upper}/*.efi $RPM_BUILD_ROOT%{efi_esp_dir}/
 
 %files
 %license %{name}-%{version}/LICENSE %{name}-%{version}/grub/COPYING
@@ -116,6 +110,9 @@ install -p -m 0700 edk2-%{edk2_stable_str}/Build/EfiFs/RELEASE_GCC5/%{efi_arch_u
 %{efi_esp_dir}/
 
 %changelog
+* Fri Oct 30 2026 Robert Scheck <robert@fedoraproject.org> 1.13-1
+- Upgrade to 1.13 (#2548155)
+
 * Sun Jul 19 2026 Robert Scheck <robert@fedoraproject.org> 1.12-1
 - Upgrade to 1.12 (#2434006, #2452299)
 

@@ -3,7 +3,7 @@
 Summary:    RFC 1413-compliant identification server with NAT support
 Name:       oidentd
 Version:    3.1.0
-Release:    11%{?dist}
+Release:    12%{?dist}
 # COPYING:                  GPL-2.0 text
 # COPYING.DOC:              GFDL-1.3 text
 # doc/book/src/download.md:                                 GFDL-1.3-no-invariants-or-later
@@ -99,7 +99,7 @@ BuildRequires:  bison
 BuildRequires:  coreutils
 BuildRequires:  flex
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  libnetfilter_conntrack-devel
 BuildRequires:  make
 %if %{with oidentd_enables_asciidoctor}
@@ -125,7 +125,7 @@ TCP/IP connections.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 # Replace files whose code is excluded from compilation by a C preprocessor
 # macro but whose license would influence a license of the executable.
@@ -201,6 +201,9 @@ exit 0
 %{_sysusersdir}/oidentd.conf
 
 %changelog
+* Thu Oct 29 2026 Petr Pisar <ppisar@redhat.com> - 3.1.0-12
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

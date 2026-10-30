@@ -1,17 +1,18 @@
 %global tarname WWW-OrangeHRM-Client
 Name:           perl-%{tarname}
 Version:        0.12.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Client for OrangeHRM
 License:        GPL-1.0-or-later
 URL:            http://ppisar.fedorapeople.org/%{tarname}/
 Source0:        %{url}%{tarname}-v%{version}.tar.gz
-Source1:        %{url}%{tarname}-v%{version}.tar.gz.asc
+Source1:        %{url}%{tarname}-v%{version}.tar.gz.asc.2
 # Exported from owner's keyring
-Source2:        gpgkey-4B528393E6A3B0DFB2EF3A6412C9C5C767C6FAA2.gpg
+Source2:        keyring-1B1BC73B4796EE25B9CA42D20EEFCA8895F65.pgp
 BuildArch:      noarch
-BuildRequires:  gnupg2
+BuildRequires:  coreutils
 BuildRequires:  make
+BuildRequires:  openpgpverify
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
@@ -36,7 +37,7 @@ developed against Red Hat instance, so I cannot guarantee it works with
 other instances.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n %{tarname}-v%{version}
 
 %build
@@ -48,17 +49,23 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license COPYING
 %doc Changes
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_bindir}/orangehrm
+%dir %{perl_vendorlib}/WWW
+%dir %{perl_vendorlib}/WWW/OrangeHRM
+%{perl_vendorlib}/WWW/OrangeHRM/Client.pm
+%{_mandir}/man1/orangehrm.1*
+%{_mandir}/man3/WWW::OrangeHRM::Client.3pm*
 
 %changelog
+* Thu Oct 29 2026 Petr Pisar <ppisar@redhat.com> - 0.12.0-21
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

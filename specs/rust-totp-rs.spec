@@ -12,6 +12,9 @@ Summary:        Easy to use, RFC-compliant TOTP implementation
 License:        MIT
 URL:            https://crates.io/crates/totp-rs
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow constant_time_eq 0.6: https://github.com/constantoine/totp-rs/pull/92
+Patch:          totp-rs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

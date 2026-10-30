@@ -24,15 +24,13 @@
 Name:           php-pecl-%{pecl_name}
 Summary:        Lockless user data cache
 License:        PHP-3.01
-Version:        3.0.1
+Version:        3.0.2
 Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
-# Broken on big endian
-# https://github.com/laruence/yac/issues/134
-ExcludeArch:    %{ix86} s390x
+ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -140,6 +138,12 @@ TEST_PHP_ARGS="$OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Oct 29 2026 Remi Collet <remi@remirepo.net> - 3.0.2-1
+- update to 3.0.2
+
+* Thu Oct 29 2026 Remi Collet <remi@remirepo.net> - 3.0.1-2
+- fix big endian build using upstream patch
+
 * Wed Oct 28 2026 Remi Collet <remi@remirepo.net> - 3.0.1-1
 - update to 3.0.1
 - drop support for alternative serializer

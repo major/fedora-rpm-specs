@@ -12,7 +12,7 @@ Source2:    https://keys.openpgp.org/vks/v1/by-fingerprint/34FF9526CFEF0E97A340E
 # Swaybg was part of sway before sway 1.1
 Conflicts:  sway < 1.1
 
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  pkgconfig(cairo)
@@ -27,7 +27,7 @@ BuildRequires:  scdoc
 %{summary}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

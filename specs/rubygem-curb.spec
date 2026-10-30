@@ -15,6 +15,12 @@ Patch0: rubygem-curb-1.0.5-Use-TestServlet-url-instead-of-external-connectivity.
 # https://github.com/taf2/curb/issues/451
 # https://github.com/taf2/curb/pull/453
 Patch1: rubygem-curb-1.0.5-fix-callback-function-read_data_handler.patch
+# https://github.com/taf2/curb/pull/468
+# rb_iterate is removed in ruby4.1, use rb_block_call
+Patch2: rubygem-curb-pr468-deprecate-rb_iterate.patch
+# https://github.com/taf2/curb/commit/b8d8ea969e481d76cf991aacb6cc9fdd17a11ca3
+# Use TypedData API for ruby4.1
+Patch3: rubygem-curb-b8d8ea9-use-TypedData.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -44,6 +50,8 @@ Documentation for %{name}.
 
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec

@@ -2,7 +2,7 @@
 %bcond_with tests
 
 Name:           pytz
-Version:        2026.5
+Version:        2026.6
 Release:        1%{?dist}
 Summary:        World Timezone Definitions for Python
 
@@ -69,6 +69,9 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 %{python3_sitelib}/pytz-%{version}.dist-info
 
 %changelog
+* Thu Oct 29 2026 Gwyn Ciesla <gwync@protonmail.com> - 2026.6-1
+- 2026.6
+
 * Tue Oct 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 2026.5-1
 - 2026.5
 

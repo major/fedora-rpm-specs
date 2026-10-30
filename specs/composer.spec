@@ -11,11 +11,11 @@
 %global gh_tag           %{upstream_version}%{?upstream_prever:-%{upstream_prever}}
 %global gh_owner         composer
 %global gh_project       composer
-%global api_version      2.9.0
+%global api_version      2.11.0
 %global run_version      2.2.2
 
-%global upstream_version 2.10.3
-#global upstream_prever  RC2
+%global upstream_version 2.11.0
+#global upstream_prever  RC1
 
 %global _phpunit         %{_bindir}/phpunit9
 %global bashcompdir      %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
@@ -212,6 +212,9 @@ php -r '
 
 
 %changelog
+* Thu Oct 29 2026 Remi Collet <remi@remirepo.net> - 2.11.0-1
+- update to 2.11.0
+
 * Thu Aug 27 2026 Remi Collet <remi@remirepo.net> - 2.10.3-1
 - update to 2.10.3
 

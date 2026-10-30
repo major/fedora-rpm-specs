@@ -1,15 +1,9 @@
-%if 0%{?fedora} >= 42
-%global tclver 9.0
-%else
-%global tclver 8.6
-%endif
-
 %global githash 0
 %global shorthash %(c=%{githash}; echo ${c:0:10})
 
 Name:           hamlib
-Version:        4.6.5
-Release:        9%{?dist}
+Version:        4.7.2
+Release:        1%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
 License:        GPL-2.0-or-later and LGPL-2.0-or-later
@@ -201,7 +195,7 @@ make V=1 check
 %files devel
 %doc README.developer
 %{_libdir}/libhamlib.so
-%{_libdir}/tcl%{tclver}/Hamlib/hamlibtcl.so
+%{_libdir}/tcl/Hamlib/hamlibtcl.so
 %{_datadir}/aclocal/hamlib.m4
 %dir %{_includedir}/hamlib
 %{_includedir}/hamlib/ampclass.h
@@ -214,6 +208,10 @@ make V=1 check
 %{_includedir}/hamlib/rig_dll.h
 %{_includedir}/hamlib/rotator.h
 %{_includedir}/hamlib/rotlist.h
+%{_includedir}/hamlib/amp_state.h
+%{_includedir}/hamlib/port.h
+%{_includedir}/hamlib/rig_state.h
+%{_includedir}/hamlib/rot_state.h
 %{_libdir}/pkgconfig/hamlib.pc
 
 %files doc
@@ -241,11 +239,15 @@ make V=1 check
 %endif
 
 %files -n tcl-hamlib
-%{_libdir}/tcl%{tclver}/
-%exclude %{_libdir}/tcl%{tclver}/Hamlib/hamlibtcl.so
+%{_libdir}/tcl/
+%exclude %{_libdir}/tcl/Hamlib/hamlibtcl.so
 
 
 %changelog
+* Thu Oct 29 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.7.2-1
+- New version
+  Resolves: rhbz#2440127
+
 * Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 4.6.5-9
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

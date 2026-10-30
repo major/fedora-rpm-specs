@@ -1,11 +1,13 @@
 Name:           luksmeta
-Version:        10
+Version:        11
 Release:        %autorelease
 Summary:        Utility for storing small metadata in the LUKSv1 header
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
+
+Patch0000:      0001-Update-FSF-COPYING-license.patch
 
 BuildRequires:  gcc
 BuildRequires:  asciidoc

@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc0.261028g65ba8f34ec88.10
+%define pkgrelease 0.rc0.261029gc339f4010dea.11
 %define kversion 7
-%define tarfile_release 7.3-17318-g65ba8f34ec88
+%define tarfile_release 7.3-17997-gc339f4010dea
 # This is needed to do merge window version magic
 %define patchlevel 4
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.261028g65ba8f34ec88.10%{?buildid}%{?dist}
+%define specrelease 0.rc0.261029gc339f4010dea.11%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -4869,9 +4869,12 @@ fi\
 #
 #
 %changelog
-* Wed Oct 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.65ba8f34ec88.10]
+* Thu Oct 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.c339f4010dea.11]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Thu Oct 29 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.c339f4010dea.10]
+- Linux v7.4.0-0.rc0.c339f4010dea
 
 * Wed Oct 28 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc0.65ba8f34ec88.9]
 - redhat/configs: enable CONFIG_CPU_IDLE and the TEO governor on s390x (Jan Polensky)

@@ -1,7 +1,7 @@
 Summary: Localizations for Gnulib
 Name:    gnulib-l10n
 Version: 20241231
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPL-2.1-or-later
 
 Url:     https://www.gnu.org/software/gnulib
@@ -19,13 +19,13 @@ BuildRequires: gettext-devel
 BuildRequires: make
 
 # For gpg verification of source tarball
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 %description
 The localizations for the GNU portability library.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build
@@ -41,6 +41,9 @@ The localizations for the GNU portability library.
 %license COPYING
 
 %changelog
+* Fri Oct 09 2026 Jakub Jelen <jjelen@redhat.com> - 20241231-5
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20241231-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

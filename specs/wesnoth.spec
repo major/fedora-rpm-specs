@@ -1,6 +1,6 @@
 Name:           wesnoth
-Version:        1.19.24
-Release:        5%{?dist}
+Version:        1.19.29
+Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -12,10 +12,10 @@ Patch0:         scons-env.patch
 
 Requires:       wesnoth-data = %{version}
 BuildRequires:  gcc-c++
-BuildRequires:  SDL2_image-devel
-BuildRequires:  SDL2_mixer-devel
-BuildRequires:  SDL2_net-devel
-BuildRequires:  SDL2_ttf-devel
+BuildRequires:  SDL3_image-devel
+BuildRequires:  SDL3_sound-devel
+BuildRequires:  SDL3_ttf-devel
+BuildRequires:  SDL3_mixer-devel
 BuildRequires:  dbus-devel
 BuildRequires:  freetype-devel
 BuildRequires:  libpng-devel
@@ -190,6 +190,9 @@ install -m0644 -D wesnoth-server.sysusers.conf %{buildroot}%{_sysusersdir}/wesno
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Thu Oct 29 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.19.29-1
+- 1.19.29
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.19.24-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

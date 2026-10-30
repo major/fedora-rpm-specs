@@ -1946,7 +1946,7 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 %changelog
 * Fri Oct 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.9-41
 - Update to Ruby 4.0.9
-- Fixes the following bugs in Omigumo regexp compilation
+- Fixes the following bugs in Onigumo regexp compilation
 - Resolves: CVE-2026-93577
 - Resolves: CVE-2026-97229
 - Resolves: CVE-2026-110264

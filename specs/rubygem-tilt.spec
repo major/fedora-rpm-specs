@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Generic interface to multiple Ruby template engines
 License: MIT
 URL: https://github.com/jeremyevans/tilt
@@ -19,6 +19,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/jeremyevans/tilt.git && cd tilt
 # git archive -v -o tilt-2.2.0-test.tar.gz v2.2.0 test/
 Source2: %{gem_name}-%{version}-test.tar.gz
+# https://github.com/jeremyevans/tilt/commit/95afeb0633746455b10778967c9ea95c06daa506
+# Support rdoc 8 template
+Patch0: %{gem_name}-95afeb0-support-rdoc8-template.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -63,6 +66,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 2
+%patch -P0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -119,6 +123,9 @@ popd
 
 
 %changelog
+* Thu Oct 29 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.0-10
+- Backport upstream patch to support RDoc 8 template in ruby41
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

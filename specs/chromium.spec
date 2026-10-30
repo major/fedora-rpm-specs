@@ -928,6 +928,10 @@ BuildRequires: simdutf-devel
 # esbuild is needed
 %if %{system_esbuild}
 BuildRequires: golang-github-evanw-esbuild
+# Workaround, since the new esbuild is not yet included in f45
+%if 0%{?fedora}
+BuildRequires: nodejs-esbuild
+%endif
 %endif
 
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
@@ -1315,6 +1319,9 @@ mkdir -p third_party/node/linux/node-linux-x64/bin
 mkdir -p third_party/devtools-frontend/src/third_party/esbuild
 %if %{system_esbuild}
 ln -s $(which esbuild) third_party/devtools-frontend/src/third_party/esbuild/esbuild
+%if 0%{?fedora}
+cp -a /usr/lib/node_modules/*esbuild* third_party/devtools-frontend/src/node_modules/
+%endif
 %else
 %ifarch x86_64
 tar xf %{SOURCE15} -C third_party/devtools-frontend/src/third_party/

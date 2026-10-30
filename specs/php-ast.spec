@@ -20,13 +20,12 @@
 %global gh_vend     nikic
 %global gh_proj     php-ast
 %global forgeurl    https://github.com/%{gh_vend}/%{gh_proj}
-%global tag         v%{version}
 
 Summary:       Abstract Syntax Tree
 Name:          php-ast
 License:       BSD-3-Clause
-Version:       1.1.3
-Release:       5%{?dist}
+Version:       1.1.4
+Release:       1%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -38,11 +37,12 @@ BuildRequires: gcc
 BuildRequires: php-devel >= 7.2
 BuildRequires: php-tokenizer
 
-# PECL/PIE
+# PECL
 Provides:      php-pecl-%{pecl_name}            = %{version}-%{release}
 Provides:      php-pecl-%{pecl_name}%{?_isa}    = %{version}-%{release}
 Provides:      php-pecl(%{pecl_name})           = %{version}
 Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
+# PIE
 Provides:      php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:      php-%{pie_vend}-%{pie_proj}      = %{version}
 
@@ -90,11 +90,6 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 : Install the configuration file
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
-: Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
-
 
 %check
 : Minimal load test for the extension
@@ -119,6 +114,9 @@ TEST_PHP_ARGS="-n -d extension=tokenizer.so -d extension=%{buildroot}%{php_extdi
 
 
 %changelog
+* Thu Oct 29 2026 Remi Collet <remi@remirepo.net> - 1.1.4-1
+- update to 1.1.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

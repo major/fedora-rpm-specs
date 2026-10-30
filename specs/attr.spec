@@ -1,7 +1,7 @@
 Summary: Utilities for managing filesystem extended attributes
 Name: attr
 Version: 2.6.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://download.savannah.nongnu.org/releases/attr/attr-%{version}.tar.xz
 Source1: https://download.savannah.nongnu.org/releases/attr/attr-%{version}.tar.xz.sig
 # Retreived from https://savannah.nongnu.org/people/viewgpg.php?user_id=15000
@@ -20,7 +20,7 @@ URL: https://savannah.nongnu.org/projects/attr
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: make
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 Requires: libattr%{?_isa} = %{version}-%{release}
 
 # needed for %%check
@@ -68,7 +68,7 @@ which make use of extended attributes.  If you install libattr-devel,
 you'll also want to install attr.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 # FIXME: root tests are not ready for SELinux
@@ -121,6 +121,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %config(noreplace) %{_sysconfdir}/xattr.conf
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 2.6.0-3
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

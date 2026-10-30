@@ -21,6 +21,8 @@ Source:         %{crates_source}
 # * bump zstd dependency from 0.11 to 0.13
 # * drop unused, benchmark-only bencher dev-dependency
 # * Update constant_time_eq from 0.3 to 0.4. Downstream-only for MSRV reasons.
+#   Further, allow constant_time_eq 0.6:
+#   https://github.com/zip-rs/zip2/commit/4bf486b4cf0c2495ae2a02bda60108b2b289c4fc
 Patch:          zip-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

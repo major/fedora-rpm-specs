@@ -1,5 +1,5 @@
 Name:		voms-api-java
-Version:	3.4.0
+Version:	3.4.1
 Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
@@ -87,6 +87,9 @@ popd
 %license LICENSE
 
 %changelog
+* Thu Oct 29 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.4.1-1
+- Update to version 3.4.1
+
 * Fri Oct 09 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.4.0-1
 - Update to version 3.4.0
 

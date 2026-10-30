@@ -4,7 +4,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.34.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Selenium is a browser automation tool for automated testing of webapps and more
 License: Apache-2.0
 URL: https://selenium.dev
@@ -21,6 +21,9 @@ Patch0: rubygem-selenium-webdriver-4.34.0-Use-Rack-Files-for-Rack-3-compatibilit
 # Enable compatibility with rubyzip v3.
 # https://github.com/SeleniumHQ/selenium/pull/16108/commits/b91463c4eb2059da2cbdced3e65f1a7aa2708829
 Patch1: rubygem-selenium-webdriver-4.35.0-rb-Allow-to-use-rubyzip-v3.patch
+# Testsuite: emulate Pixel 10 instead of the delisted Nexus 5
+# https://github.com/SeleniumHQ/selenium/commit/c42910d08f7942801ad57849dc506a444da997b3
+Patch2: rubygem-selenium-webdriver-rb-c42910d-testsuite-emulate-pixel10.patch
 
 # There is no other driver in Fedora, therefore suggest what we have. This also
 # reflescts the `selenium-manager` stub above.
@@ -73,6 +76,7 @@ Documentation for %{name}.
 (
 cd %{builddir}
 %patch 0 -p1
+%patch 2 -p1
 )
 
 %patch 1 -p2
@@ -166,6 +170,9 @@ HEADLESS=true SE_CHROMEDRIVER=chromedriver rspec spec/integration
 %{gem_instdir}/selenium-webdriver.gemspec
 
 %changelog
+* Fri Oct 30 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.34.0-5
+- Testsuite: apply upstream change to use Pixel 10 emulation
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.34.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

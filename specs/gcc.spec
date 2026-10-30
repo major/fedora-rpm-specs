@@ -1,10 +1,10 @@
-%global DATE 20260819
-%global gitrev 95ef1679dd68f27b3d056a497318089d85aa0d55
+%global DATE 20261029
+%global gitrev 9854b2abd1c53ec5909a0c6fc2a89d27110865e9
 %global gcc_version 16.2.1
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 2
+%global gcc_release 3
 %global nvptx_tools_gitrev 212da2e781ed0f9423824e85eb04819958513f7a
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -201,7 +201,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}%{?dist}.1
+Release: %{gcc_release}%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -1716,7 +1716,11 @@ CONFIGURE_OPTS_NATIVE="\
 	--with-arch=mips64r2 --with-abi=64 \
 %endif
 %ifarch riscv64
+%if 0%{?rhel} >= 11
+	--with-arch=rva23u64 --with-abi=lp64d --with-multilib-list=lp64d \
+%else
 	--with-arch=rv64gc --with-abi=lp64d --with-multilib-list=lp64d \
+%endif
 %endif
 %ifnarch sparc sparcv9 ppc
 	--build=%{gcc_target_platform} \
@@ -5173,11 +5177,70 @@ end
 %endif
 
 %changelog
-* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 16.2.1-2.1
-- Rebuilt for libxml-2.5.4
+* Thu Oct 29 2026 Jakub Jelinek <jakub@redhat.com> 16.2.1-3
+- update from releases/gcc-16 branch
+  - PRs ada/114065, ada/120106, ada/125984, ada/126125, ada/126448,
+	ada/126907, ada/126928, ada/127026, ada/127756, ada/127759,
+	ada/127880, ada/127974, ada/127994, ada/128044, c/127383, c++/122774,
+	c++/123495, c++/124811, c++/124888, c++/124983, c++/125536,
+	c++/125642, c++/126335, c++/126472, c++/126546, c++/126654,
+	c++/126680, c++/126794, c++/126860, c++/126922, c++/127046,
+	c++/127109, c++/127207, c++/127232, c++/127276, c++/127493,
+	c++/127643, c++/127672, c++/127707, c++/127749, c++/127766,
+	debug/125421, fortran/88632, fortran/98573, fortran/104630,
+	fortran/105594, fortran/110421, fortran/125324, fortran/127128,
+	fortran/127187, fortran/127683, fortran/127845, fortran/127846,
+	fortran/127881, fortran/128067, fortran/128124, ipa/126153,
+	ipa/127023, ipa/127917, libstdc++/114400, libstdc++/115955,
+	libstdc++/118665, libstdc++/122981, libstdc++/123409,
+	libstdc++/123510, libstdc++/124121, libstdc++/124370,
+	libstdc++/125785, libstdc++/126364, libstdc++/126731,
+	libstdc++/126786, libstdc++/126800, libstdc++/126949,
+	libstdc++/127006, libstdc++/127219, libstdc++/127220,
+	libstdc++/127325, libstdc++/127430, libstdc++/127476,
+	libstdc++/127656, libstdc++/127666, libstdc++/127675,
+	libstdc++/127757, middle-end/126939, middle-end/127098,
+	middle-end/127256, middle-end/127336, middle-end/127378,
+	middle-end/127474, middle-end/127492, middle-end/127517,
+	middle-end/127785, middle-end/127848, other/116547,
+	preprocessor/121508, preprocessor/123339, rtl-optimization/125683,
+	rtl-optimization/126426, rtl-optimization/127367,
+	rtl-optimization/127852, target/99293, target/107549, target/117487,
+	target/120528, target/120681, target/122535, target/124629,
+	target/125060, target/126096, target/126196, target/126463,
+	target/126513, target/126629, target/126787, target/126873,
+	target/126932, target/127004, target/127024, target/127153,
+	target/127188, target/127306, target/127318, target/127352,
+	target/127393, target/127459, target/127461, target/127482,
+	target/127498, target/127500, target/127553, target/127650,
+	target/127692, target/127843, target/127851, target/127897,
+	target/128015, target/128105, testsuite/126082, testsuite/127945,
+	tree-optimization/126153, tree-optimization/126462,
+	tree-optimization/126563, tree-optimization/126650,
+	tree-optimization/126658, tree-optimization/126760,
+	tree-optimization/126925, tree-optimization/126926,
+	tree-optimization/127000, tree-optimization/127049,
+	tree-optimization/127100, tree-optimization/127105,
+	tree-optimization/127130, tree-optimization/127149,
+	tree-optimization/127262, tree-optimization/127357,
+	tree-optimization/127377, tree-optimization/127382,
+	tree-optimization/127390, tree-optimization/127391,
+	tree-optimization/127405, tree-optimization/127407,
+	tree-optimization/127521, tree-optimization/127571,
+	tree-optimization/127579, tree-optimization/127588,
+	tree-optimization/127600, tree-optimization/127601,
+	tree-optimization/127687, tree-optimization/127762,
+	tree-optimization/127764, tree-optimization/127784,
+	tree-optimization/127814, tree-optimization/127853,
+	tree-optimization/127858, tree-optimization/127904,
+	tree-optimization/127905, tree-optimization/127916,
+	tree-optimization/127965, tree-optimization/128003
+
+* Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+- rebuilt for libxml-2.5.4
 
 * Tue Aug 25 2026 Sun Haiyong <sunhaiyong@zdbr.net>
-- fix a typo.
+- fix a typo
 
 * Fri Aug 21 2026 Jakub Jelinek <jakub@redhat.com>
 - add cross compiler support for Fedora arches, for the time being

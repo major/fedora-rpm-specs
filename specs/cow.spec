@@ -1,5 +1,5 @@
 Name:           cow
-Version:        0.3
+Version:        0.4
 Release:        1%{?dist}
 Summary:        Compositor on Wayland - A stacking window manager
 
@@ -10,6 +10,7 @@ Source0:        %{url}/archive/%{version_no_tilde}.tar.gz#/%{name}-%{version_no_
 BuildRequires: bison
 BuildRequires: flex
 BuildRequires: gcc
+BuildRequires: lowdown
 BuildRequires: pkgconfig(libbsd)
 BuildRequires: pkgconfig(libevent)
 BuildRequires: pkgconfig(xkbcommon)
@@ -48,10 +49,12 @@ export CFLAGS="%{build_cflags} -Wno-error=format-security"
 
 %files
 %{_bindir}/cow
-%{_bindir}/cow-start
+%{_bindir}/cow-applications
+%{_bindir}/cow-appmenu
 %{_bindir}/cowbar
 %{_bindir}/cowdiag
 %{_bindir}/cowpager
+%{_bindir}/cow-terminal
 %{_bindir}/cowclock
 %{_bindir}/moocow
 %{_bindir}/cowident
@@ -62,21 +65,28 @@ export CFLAGS="%{build_cflags} -Wno-error=format-security"
 %config(noreplace) %{_sysconfdir}/cow/cow.conf
 %config(noreplace) %{_sysconfdir}/cow/cowbar.conf
 %config(noreplace) %{_sysconfdir}/cow/cowclock.conf
-%{_datadir}/wayland-sessions/cow.desktop
 %{_datadir}/cow/icons/default.png
-%{_mandir}/man1/cow.1*
-%{_mandir}/man1/cowbar.1*
-%{_mandir}/man1/cowdiag.1.*
-%{_mandir}/man1/cowident.1*
-%{_mandir}/man1/cowpager.1*
-%{_mandir}/man1/cowclock.1*
-%{_mandir}/man1/moocow.1*
-%{_mandir}/man1/cowrearrange.1*
-%{_mandir}/man1/cowbuttons.1*
-%{_mandir}/man1/cowiconman.1*
-%{_mandir}/man1/cow-module-cmd.1.*
+%{_datadir}/cow/applications.menu
+%{_datadir}/cow/cow-defaults.conf
+%{_datadir}/cow/starter-panel.conf
+%{_datadir}/wayland-sessions/cow.desktop
+%{_mandir}/man1/cow-appmenu.1.gz
+%{_mandir}/man1/cow-module-cmd.1.gz
+%{_mandir}/man1/cow.1.gz
+%{_mandir}/man1/cowbar.1.gz
+%{_mandir}/man1/cowbuttons.1.gz
+%{_mandir}/man1/cowclock.1.gz
+%{_mandir}/man1/cowdiag.1.gz
+%{_mandir}/man1/cowiconman.1.gz
+%{_mandir}/man1/cowident.1.gz
+%{_mandir}/man1/cowpager.1.gz
+%{_mandir}/man1/cowrearrange.1.gz
+%{_mandir}/man1/moocow.1.gz
 
 %changelog
+* Thu Oct 29 2026 Martin Cermak <mcermak@redhat.com> - 0.4-1
+- Release: 0.4
+
 * Mon Sep 07 2026 Martin Cermak <mcermak@redhat.com> - 0.3-1
 - Release: 0.3
 

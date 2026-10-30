@@ -1,5 +1,5 @@
 Name:           python-blurb
-Version:        2.1.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Command-line tool to manage CPython Misc/NEWS.d entries
 

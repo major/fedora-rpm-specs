@@ -33,6 +33,7 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  gnupg2
 BuildRequires:  /usr/bin/xsltproc
+BuildRequires:  openpgpverify
 
 %if %{with mingw}
 BuildRequires:  ninja-build
@@ -137,7 +138,7 @@ way that they're discoverable.  This library is cross-compiled for MinGW.
 
 
 %prep
-gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup -p1
 

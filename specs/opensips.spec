@@ -1,10 +1,10 @@
-%global git_commit ff6840d52b862a960c5b5740ac2646cbda0799db
+%global git_commit ca1549c1350a455aa73a420fbecaba53d7d451dd
 
 %global EXCLUDE_MODULES cachedb_cassandra cachedb_dynamodb %{!?_with_oracle:db_oracle} event_sqs example launch_darkly opentelemetry osp rtp.io sngtc tls_wolfssl
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  4.0.2
+Version:  4.0.3
 Release:  %autorelease
 License:  GPL-2.0-or-later
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz

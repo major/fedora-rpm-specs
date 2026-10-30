@@ -54,6 +54,9 @@ Source3:        https://github.com/openssl/openssl/releases/download/openssl-%{o
 Source4:        fips-hmacify.sh
 
 Patch105:       0001-Remove-bundled-rusqlite-from-fips-feature.patch
+# Allow constant_time_eq versions through 0.6.x
+# https://github.com/latchset/kryoptic/pull/548
+Patch106:       %{url}/pull/548.patch
 Patch200:       openssl-%{osslver}-kryoptic.patch
 
 BuildRequires:  cargo-rpm-macros >= 26

@@ -1,8 +1,8 @@
 Summary: %{nice_name} is a powerful open-source tool that parses and evaluates algebraic and mathematical expressions
 %global nice_name ParserNG
 Name: parserng
-Version: 0.1.9
-Release: 13%{?dist}
+Version: 3.0.9.1
+Release: 1%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 URL: https://github.com/gbenroscience/ParserNG
@@ -11,7 +11,7 @@ URL: https://github.com/gbenroscience/ParserNG
 # so this is f619fad1fefa21116bab4a0abba2dd0ebe719e45
 # which set pom to 0.1.9 and moved it to maven repos
 # git clone https://github.com/gbenroscience/ParserNG &&  cd ParserNG  && git checkout f619fad1fefa21116bab4a0abba2dd0ebe719e45 && tar -cJf parserng-0.1.9.tar.xz *
-Source0: %{name}-%{version}.tar.xz
+Source0: v%{version}.tar.gz
 Source1: parserng
 Patch1: jdk21rounding.patch
 
@@ -48,72 +48,79 @@ This package contains the API documentation for %{name}.
 
 %prep
 %setup -c %{name}-%{version}
-%patch -P1 -p1
+%patch -P1 -p0
+
+# remove all tests deps
 for x in `find | grep pom.xml` ; do
-    sed "s;<maven.compiler.source>.*7.*;<maven.compiler.source>8</maven.compiler.source>;g" -i $x;
-    sed "s;<maven.compiler.target>.*7.*;<maven.compiler.target>8</maven.compiler.target>;g" -i $x;
+  if dirname $x | grep "/parser-ng$" ; then
+    echo "will try the tests here"
+  else
+    pushd `dirname $x`
+      %pom_remove_dep :junit-jupiter-api  || echo "not all are everywhere"
+      %pom_remove_dep :junit-jupiter-engine || echo "not all are everywhere"
+      %pom_remove_dep :junit-jupiter-params || echo "not all are everywhere"
+      %pom_remove_dep :jmh-core || echo "not all are everywhere"
+      %pom_remove_dep :jmh-generator-annprocess || echo "not all are everywhere"
+      %pom_remove_dep :janino || echo "not all are everywhere"
+    popd
+  fi
 done
 
+
+pushd ParserNG-3.0.9.1
+  %pom_remove_plugin :central-publishing-maven-plugin
+  %pom_remove_plugin :maven-source-plugin
+  %pom_remove_plugin :maven-gpg-plugin
+  %pom_remove_plugin :maven-javadoc-plugin
+  pushd parser-ng
+    %pom_remove_plugin :maven-jar-plugin
+  popd
+  for x in parser-ng-parquet parser-ng-simd parser-ng-gpu-simd parser-ng-bench parser-ng-arrow; do
+    pushd $x
+      %pom_remove_plugin :maven-shade-plugin
+    popd 
+  done
+  for x in parser-ng-sql parser-ng-arrow ; do
+    pushd $x
+      #os-maven-plugin
+      %pom_xpath_remove  "pom:project/pom:build/pom:extensions"
+    popd 
+  done
+  for x in parser-ng-simd parser-ng-gpu-simd; do
+    pushd $x
+      #jmh "for tests"
+      %pom_xpath_remove  "pom:project/pom:build/pom:plugins/pom:plugin/pom:configuration/pom:annotationProcessorPaths"
+    popd 
+  done
+  #no apache java-arrow in fedora
+  %pom_disable_module parser-ng-arrow
+  %pom_disable_module parser-ng-parquet
+  %pom_disable_module parser-ng-sql
+  %pom_disable_module parser-ng-bench
+popd
+
+
 %build
-%pom_remove_plugin :maven-jar-plugin
-%pom_remove_plugin :maven-source-plugin
-%pom_remove_plugin :maven-gpg-plugin
-%pom_remove_plugin :maven-javadoc-plugin
-%mvn_build
+cd ParserNG-%{version}
+# run at least main tests and docs
+pushd parser-ng
+  xmvn --batch-mode --offline test
+popd
+# tests requires jmh:(
+%mvn_build -f -j
+
 
 %install
+cd ParserNG-%{version}
 %mvn_install
 install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
 install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/
 chmod 755 $RPM_BUILD_ROOT%{_bindir}/%{name}
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/
 
-%files -f .mfiles
-%license LICENSE
+%files -f ParserNG-%{version}/.mfiles
+%license ParserNG-%{version}/LICENSE
 %{_bindir}/%{name}
 
-%files javadoc -f .mfiles-javadoc
-%license LICENSE
-
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.1.9-11
-- Rebuilt for java-25-openjdk as preffered jdk
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.1.9-8
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 0.1.9-6
-- Rebuilt for java-21-openjdk as system jdk
-- fixed source/target
-- added patch to cover slightly different rounding on jdk21
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Dec 02 2022 Jiri Vanek <jvanek@redhat.com> - 0.1.8-1
-- bumped sources to upstream rc candidate
-
+%autochangelog

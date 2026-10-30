@@ -1,7 +1,7 @@
 %global         altname         Aegisub
 
 Name:           aegisub
-Version:        3.5.0
+Version:        3.5.1
 Release:        %autorelease
 Summary:        Tool for creating and modifying subtitles
 License:        BSD-3-Clause AND ISC AND MIT

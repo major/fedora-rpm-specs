@@ -1,7 +1,10 @@
+# Perform optional tests
+%bcond_without perl_Test2_Plugin_UUID_enables_optional_tests
+
 Name:           perl-Test2-Plugin-UUID
-%global cpan_version 0.002010
-Version:        0.2.10
-Release:        4%{?dist}
+%global cpan_version 0.002011
+Version:        0.2.11
+Release:        1%{?dist}
 Summary:        Use real UUIDs in Test2
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Plugin-UUID
@@ -30,6 +33,12 @@ BuildRequires:  perl(Test2::Require::RealFork)
 BuildRequires:  perl(Test2::Tools::Basic)
 BuildRequires:  perl(Test2::Util::Table) >= 0.000162
 BuildRequires:  perl(Test2::V0) >= 0.000162
+%if %{with perl_Test2_Plugin_UUID_enables_optional_tests}
+# Optional tests:
+%if 0%{?fedora} >= 45
+BuildRequires:  perl(Atomic::Pipe) >= 0.022
+%endif
+%endif
 Requires:       perl(Test2::API) >= 1.302165
 Requires:       perl(Test2::Hub)
 # Prefer UUID over Data::UUID::MT, UUID::Tiny, and Data::UUID to prevent
@@ -51,6 +60,11 @@ more useful.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
+%if %{with perl_Test2_Plugin_UUID_enables_optional_tests}
+%if 0%{?fedora} >= 45
+Requires:       perl(Atomic::Pipe) >= 0.022
+%endif
+%endif
 Requires:       perl(Test2::API) >= 1.302165
 Requires:       perl(Test2::Require::Module) >= 0.000162
 Requires:       perl(Test2::Util::Table) >= 0.000162
@@ -105,6 +119,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 29 2026 Petr Pisar <ppisar@redhat.com> - 0.2.11-1
+- 0.002011 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

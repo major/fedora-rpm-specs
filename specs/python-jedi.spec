@@ -1,6 +1,6 @@
 %global common_description %{expand:
 Jedi is a static analysis tool for Python that can be used in IDEs/editors. Its
-historic focus is autocompletion, but does static analysis for now as well.
+historic focus is auto-completion, but does static analysis for now as well.
 Jedi is fast and is very well tested. It understands Python on a deeper level
 than all other static analysis frameworks for Python.}
 
@@ -16,7 +16,7 @@ than all other static analysis frameworks for Python.}
 %global typeshed_commit     4bb9d8351d0795fbc7dee3da069013a48641689d
 
 Name:           python-jedi
-Version:        0.20.0
+Version:        0.20.1
 Release:        %autorelease
 Summary:        An auto completion tool for Python that can be used for text editors
 

@@ -1,6 +1,6 @@
 Name:           perl-Mail-AuthenticationResults
-Version:        2.20260216
-Release:        2%{?dist}
+Version:        2.20261029
+Release:        1%{?dist}
 Summary:        Object Oriented Authentication-Results Headers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-AuthenticationResults/
@@ -53,6 +53,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 
 %changelog
+* Thu Oct 29 2026 Xavier Bachelot <xavier@bachelot.org> 2.20261029-2
+- Update to 2.20261029 (RHBZ#2563264)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.20260216-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

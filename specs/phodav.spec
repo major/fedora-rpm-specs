@@ -1,24 +1,23 @@
 Name:           phodav
-Version:        3.0
+Version:        3.2
 Release:        %autorelease
 Summary:        A WebDAV server using libsoup3
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/phodav
 
 Source0:        http://download.gnome.org/sources/%{name}/%{version}/%{name}-%{version}.tar.xz
 
-BuildRequires:  gtk-doc
+BuildRequires:  gi-docgen
+BuildRequires:  gobject-introspection-devel
 BuildRequires:  gettext-devel
 BuildRequires:  meson
 BuildRequires:  git-core
 BuildRequires:  gcc
+BuildRequires:  scdoc
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-units
 BuildRequires:  libsoup3-devel
 BuildRequires:  avahi-gobject-devel
-BuildRequires:  asciidoc
-BuildRequires:  xmlto
 BuildRequires:  libxml2-devel
 
 %description
@@ -68,7 +67,7 @@ the Spice virtio channel.
 
 
 %build
-%meson -Dsystemdsystemunitdir=%{_unitdir} -Dudevrulesdir=%{_udevrulesdir} || cat %_vpath_builddir/meson-logs/meson-log.txt
+%meson -Dsystemdsystemunitdir=%{_unitdir} -Dsysusersdir=%{_sysusersdir} -Dudevrulesdir=%{_udevrulesdir} -Dlitmus=disabled || cat %_vpath_builddir/meson-logs/meson-log.txt
 
 %meson_build
 
@@ -91,13 +90,15 @@ the Spice virtio channel.
 %files -n libphodav -f phodav-3.0.lang
 %license COPYING
 %{_libdir}/libphodav-3.0.so.0*
+%{_libdir}/girepository-1.0/Phodav-3.0.typelib
 
 %files -n libphodav-devel
 %dir %{_includedir}/libphodav-3.0/
 %{_includedir}/libphodav-3.0/*
 %{_libdir}/libphodav-3.0.so
 %{_libdir}/pkgconfig/libphodav-3.0.pc
-%{_datadir}/gtk-doc/html/phodav-3.0/*
+%{_datadir}/gir-1.0/Phodav-3.0.gir
+%{_datadir}/doc/phodav-3.0/
 
 %files -n chezdav
 %{_bindir}/chezdav
@@ -106,6 +107,7 @@ the Spice virtio channel.
 %files -n spice-webdavd
 %license COPYING
 %{_sbindir}/spice-webdavd
+%{_sysusersdir}/spice-webdavd.conf
 %{_udevrulesdir}/70-spice-webdavd.rules
 %{_unitdir}/spice-webdavd.service
 

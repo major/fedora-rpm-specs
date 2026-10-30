@@ -18,7 +18,7 @@ Source:         %{crates_source}
 # * Add missing license SPDX metadata, fixed upstream in 0.5.0 with additional
 #   terms proposed in “Include all licenses in SPDX expression  and LICENSE
 #   file,” https://github.com/microsoft/regorus/pull/540.
-# * Update constant_time_eq from 0.3.0 to 0.4.2. Downstream-only because the
+# * Update constant_time_eq from 0.3.0 to 0.6.1. Downstream-only because the
 #   dependency is removed upstream in version 0.5.0.
 Patch:          regorus-fix-metadata.diff
 # * Add license text for `Apache-2.0` and the `BSD-3-Clause` license from Go’s

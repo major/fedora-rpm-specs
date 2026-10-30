@@ -1,7 +1,7 @@
-%global cpan_version 0.019
+%global cpan_version 0.023
 Name:           perl-IO-Compress-Brotli
 Version:        %{cpan_version}000
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        Perl bindings for Brotli compression
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress-Brotli/
@@ -59,6 +59,12 @@ for F in `find brotli -type f | grep -v testdata`; do
     perl -i -ne 'print $_ unless m{^\Q'"$F"'\E}' MANIFEST
 done
 
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
+
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
@@ -93,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Oct 27 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.023000-1
+- 0.023 bump
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.019000-7
 - Perl 5.44 rebuild
 

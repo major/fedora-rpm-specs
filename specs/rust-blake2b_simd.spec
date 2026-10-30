@@ -14,6 +14,10 @@ URL:            https://crates.io/crates/blake2b_simd
 Source:         %{crates_source}
 # * add missing license text: https://github.com/oconnor663/blake2_simd/pull/31
 Source2:        https://github.com/oconnor663/blake2_simd/raw/refs/tags/1.0.3/LICENSE
+# Manually created patch for downstream crate metadata changes
+# * Allow constant_time_eq 0.6:
+#   https://github.com/oconnor663/blake2_simd/pull/35
+Patch:          blake2b_simd-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

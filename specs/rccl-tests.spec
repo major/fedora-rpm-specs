@@ -21,12 +21,16 @@
 #
 
 %global upstreamname rccl-tests
-%global commit0 a52452e891d5dc07c83cf4edaea01ae4ab684b3a
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20260116
 
-%global rocm_release 7.2
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 10.1
+%else
+%global rocm_release 10.1
+%endif
+
 %global rocm_patch 0
+%global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with compat
@@ -57,11 +61,14 @@
 %global _gpu_list gfx1100
 
 Name:           rccl-tests%{pkg_suffix}
-Version:        git%{date0}.%{shortcommit0}
-Release:        4%{?dist}
+Version:        %{rocm_version}
+%if %{with preview}
+Release:        0%{?dist}
+%else
+Release:        1%{?dist}
+%endif
 Summary:        RCCL tests
 
-Url:            https://github.com/ROCm/rccl-tests
 License:        BSD-3-Clause AND MIT
 # The main license.txt is BSD-3-Clause
 # rccl-tests is derrived from nccl-tests
@@ -82,12 +89,14 @@ License:        BSD-3-Clause AND MIT
 # * See LICENSE.txt for license information
 # ************************************************************************/
 
-Source0:        %{url}/archive/%{commit0}/rccl-tests-%{shortcommit0}.tar.gz
+URL:            https://github.com/ROCm/rocm-systems
+Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
 BuildRequires:  hipify%{pkg_suffix}
 BuildRequires:  gcc-c++
+BuildRequires:  gtest-devel
 BuildRequires:  rccl%{pkg_suffix}-devel
 BuildRequires:  rocm-cmake%{pkg_suffix}
 BuildRequires:  rocm-comgr%{pkg_suffix}-devel
@@ -104,12 +113,14 @@ These tests check both the performance and the correctness of RCCL
 operations. They can be compiled against RCCL.
 
 %prep
-%setup -q -n rccl-tests-%{commit0}
+%autosetup -p3 -n %{upstreamname}
 
 %build
 %cmake \
     -DGPU_TARGETS=%{gpu_list} \
+    -DCMAKE_C_COMPILER=%rocmllvm_bindir/amdclang \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/amdclang++ \
+    -DCMAKE_HIP_COMPILER=%rocmllvm_bindir/amdclang++ \
     -DCMAKE_INSTALL_LIBDIR=%{pkg_libdir} \
     -DCMAKE_INSTALL_PREFIX=%{pkg_prefix} \
     -DEXPLICIT_ROCM_VERSION=%{rocm_version}
@@ -131,6 +142,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl-tests/LICENSE.txt
 %{pkg_prefix}/bin/*_perf
 
 %changelog
+* Thu Oct 29 2026 Tom Rix <Tom.Rix@amd.com> - 10.1-1
+- Update to 10.1
+
 * Tue Oct 13 2026 Tom Rix <Tom.Rix@amd.com> - git20260116.a52452e-4
 - Rebuild for 10.1
 

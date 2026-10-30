@@ -5,7 +5,7 @@
 %global crate constant_time_eq
 
 Name:           rust-constant_time_eq
-Version:        0.4.2
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Compares two equal-sized byte strings in constant time
 

@@ -21,11 +21,11 @@
 
 %global major_version 4
 %global minor_version 6
-%global patch_version 1
+%global patch_version 2
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -134,31 +134,31 @@ Provides:       R(ABI) = %{bootstrap_abi}
 }
 %add_submodule  base %{version}
 %add_submodule  boot 1.3-32
-%add_submodule  class 7.3-23
-%add_submodule  cluster 2.1.8.2
+%add_submodule  class 7.3-24
+%add_submodule  cluster 2.1.8.3
 %add_submodule  codetools 0.2-20
 %add_submodule  compiler %{version}
 %add_submodule  datasets %{version}
-%add_submodule  foreign 0.8-91
+%add_submodule  foreign 0.8-92
 %add_submodule  graphics %{version}
 %add_submodule  grDevices %{version}
 %add_submodule  grid %{version}
-%add_submodule  KernSmooth 2.23-26
-%add_submodule  lattice 0.22-9
-%add_submodule  MASS 7.3-65
-%add_submodule  Matrix 1.7-5
+%add_submodule  KernSmooth 2.23-27
+%add_submodule  lattice 0.23-1
+%add_submodule  MASS 7.3-66
+%add_submodule  Matrix 1.7-6
 Obsoletes:      R-Matrix < 0.999375-7
 %add_submodule  methods %{version}
 %add_submodule  mgcv 1.9-4
-%add_submodule  nlme 3.1-169
-%add_submodule  nnet 7.3-20
+%add_submodule  nlme 3.1-171
+%add_submodule  nnet 7.3-21
 %add_submodule  parallel %{version}
 %add_submodule  rpart 4.1.27
-%add_submodule  spatial 7.3-18
+%add_submodule  spatial 7.3-19
 %add_submodule  splines %{version}
 %add_submodule  stats %{version}
 %add_submodule  stats4 %{version}
-%add_submodule  survival 3.8-6
+%add_submodule  survival 3.8-12
 %add_submodule  tcltk %{version}
 %add_submodule  tools %{version}
 %add_submodule  translations %{version}
@@ -212,7 +212,7 @@ Recommends:     tex(inconsolata.sty)
 Recommends:     qpdf
 %endif
 
-Provides:       R-Matrix-devel = 1.7.5
+Provides:       R-Matrix-devel = 1.7.6
 Obsoletes:      R-Matrix-devel < 0.999375-7
 
 %ifarch %{java_arches}
@@ -817,6 +817,7 @@ TZ="Europe/Paris" make check
 %dir %{_libdir}/R/library/spatial/
 %{_libdir}/R/library/spatial/CITATION
 %{_libdir}/R/library/spatial/DESCRIPTION
+%{_libdir}/R/library/spatial/data/
 %{_libdir}/R/library/spatial/help/
 %doc %{_libdir}/R/library/spatial/html/
 %{_libdir}/R/library/spatial/INDEX
@@ -962,6 +963,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Thu Oct 29 2026 Iñaki Úcar <iucar@fedoraproject.org> - 4.6.2-1
+- Update to 4.6.2
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

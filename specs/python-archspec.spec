@@ -1,7 +1,7 @@
 %global srcname archspec
 
 Name:           python-%{srcname}
-Version:        0.2.5
+Version:        0.2.7
 Release:        %autorelease
 Summary:        A library to query system architecture
 

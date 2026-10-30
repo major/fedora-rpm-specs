@@ -9,7 +9,7 @@
 
 Name:           libisds
 Version:        0.11.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Library for accessing the Czech Data Boxes
 # COPYING:      LGPL-3.0 text
 # README:       LGPL-3.0-or-later
@@ -72,8 +72,12 @@ Patch2:         libisds-0.11.2-client-sendxmldoc-Fix-a-use-after-free-on-two-pla
 Patch3:         libisds-0.11.2-Fix-building-with-libxml2-2.12.0.patch
 # Fix reporting an amount of transferred data, in upstream after 0.11.0
 Patch4:         libisds-0.11.2-Fix-using-CURLOPT_XFERINFOFUNCTION-curl-option.patch
-# Fix building with curl-8.14.0
+# Fix building with curl-8.14.0, in upstream after 0.11.2
 Patch5:         libisds-0.11.2-Fix-passing-integers-to-curl_easy_setopt.patch
+# Fix building with libxml2-2.14.0, in upstream after 0.11.2
+Patch6:         libisds-0.11.2-Do-not-use-interface-deprecated-in-libxml2-2.14.0.patch
+# Fix building with expat-2.9.0, in upstream after 0.11.2
+Patch7:         libisds-0.11.2-Do-not-use-interface-deprecated-in-expat-2.9.0.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
@@ -157,7 +161,7 @@ autoreconf -fi
     --without-libcurl \
 %endif
     --enable-curlreauthorizationbug
-%{make_build} CFLAGS="$CFLAGS -Wdeprecated-declarations"
+%{make_build}
 
 %check
 make check %{?_smp_mflags}
@@ -184,6 +188,9 @@ rm -rf client/.deps client/Makefile{,.in}
 %doc client
 
 %changelog
+* Tue Oct 27 2026 Petr Pisar <ppisar@redhat.com> - 0.11.2-19
+- Adapt to libxml2-2.14.0 and expat-2.9.0
+
 * Fri Oct 23 2026 Petr Pisar <ppisar@redhat.com> - 0.11.2-18
 - Verify upstream signature with openpgpverify
 

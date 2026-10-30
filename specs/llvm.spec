@@ -300,6 +300,13 @@ end
 %bcond_without multilib
 %endif
 
+# openpgpverify is not available on RHEL <= 10
+%if 0%{?rhel} && 0%{?rhel} <= 10
+%global use_openpgpverify 0
+%else
+%global use_openpgpverify 1
+%endif
+
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
@@ -715,8 +722,12 @@ BuildRequires:	python%{python3_pkgversion}-setuptools
 BuildRequires:	python%{python3_pkgversion}-rpm-macros
 %endif
 
-# For gpg source verification
+# For source verification
+%if %{use_openpgpverify}
+BuildRequires:	openpgpverify
+%else
 BuildRequires:	gnupg2
+%endif
 
 BuildRequires:	swig
 BuildRequires:	libxml2-devel
@@ -1438,15 +1449,27 @@ Mesa OpenCL support with RustiCL.
 %prep
 %if %{without snapshot_build}
 # llvm
+%if %{use_openpgpverify}
+%{openpgpverify} --keyring='%{SOURCE6}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%else
 %{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 
 %if %{build_docs} == 0
+%if %{use_openpgpverify}
+%{openpgpverify} --keyring='%{SOURCE6}' --signature='%{SOURCE43}' --data='%{SOURCE42}'
+%else
 %{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE43}' --data='%{SOURCE42}'
+%endif
 %endif
 %endif
 
 %if %{with bundle_compat_lib}
+%if %{use_openpgpverify}
+%{openpgpverify} --keyring='%{SOURCE6}' --signature='%{SOURCE3001}' --data='%{SOURCE3000}'
+%else
 %{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE3001}' --data='%{SOURCE3000}'
+%endif
 %setup -T -q -b 3000 -n llvm-project-%{compat_ver}.src
 
 # Apply all patches with number < 500 (unconditionally)

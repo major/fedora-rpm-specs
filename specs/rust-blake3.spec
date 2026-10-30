@@ -15,6 +15,7 @@ URL:            https://crates.io/crates/blake3
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove CC0-1.0 from license metadata (not acceptable for code in Fedora)
+# * allow constant_time_eq 0.6: https://github.com/BLAKE3-team/BLAKE3/pull/600
 Patch:          blake3-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

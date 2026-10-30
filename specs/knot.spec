@@ -15,7 +15,7 @@
 Summary:	High-performance authoritative DNS server
 Name:		knot
 Version:	3.6.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
@@ -26,7 +26,7 @@ Source1:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz.asc
 # Export with --armor using command from https://fedoraproject.org/wiki/PackagingDrafts:GPGSignatures
 # Don't forget to update %%prep section when adding/removing keys
 Source100:	gpgkey-742FA4E95829B6C5EAC6B85710BB7AF6FEBBD6AB.gpg.asc
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 %endif
 
 # Required dependencies
@@ -197,11 +197,7 @@ On-line version is available on https://www.knot-dns.cz/documentation/
 
 %prep
 %if 0%{?GPG_CHECK}
-export GNUPGHOME=./gpg-keyring
-[ -d ${GNUPGHOME} ] && rm -r ${GNUPGHOME}
-mkdir --mode=700 ${GNUPGHOME}
-gpg2 --import %{SOURCE100}
-gpg2 --verify %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyring='%{SOURCE100}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -p1
 
@@ -431,6 +427,9 @@ V=1 make check
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Mon Oct 26 2026 Jakub Jelen <jjelen@redhat.com> - 3.6.2-2
+- Verify upstream source signatures with openpgpverify
+
 * Wed Oct 21 2026 Jan Včelák <jvcelak@fedoraproject.org> - 3.6.2-1
 - update to 3.6.2 (security fixes)
 

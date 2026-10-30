@@ -1,12 +1,12 @@
 Name: debugedit
-Version: 5.3
-Release: 3%{?dist}
+Version: 5.4
+Release: 1%{?dist}
 Summary: Tools and scripts for creating debuginfo and source file distributions, collect build-ids and rewrite source paths in DWARF data for debugging, tracing and profiling.
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/debugedit/
 Source0: https://sourceware.org/pub/debugedit/%{version}/%{name}-%{version}.tar.xz
 Source1: https://sourceware.org/pub/debugedit/%{version}/%{name}-%{version}.tar.xz.sig
-Source2: gpgkey-CBA20376A15C6FFC11CD.gpg
+Source2: gpgkey-28FF4B30A88D5523A7E2CBA20376A15C6FFC11CD.gpg.asc
 
 BuildRequires: make gcc gcc-c++
 BuildRequires: pkgconfig(libelf)
@@ -50,8 +50,6 @@ Requires: grep
 
 %global _hardened_build 1
 
-Patch1: debugedit-5.3-elflint-test.patch
-
 %description
 The debugedit project provides programs and scripts for creating
 debuginfo and source file distributions, collect build-ids and rewrite
@@ -94,6 +92,11 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Thu Oct 29 2026 Mark Wielaard <mjw@fedoraproject.org> - 5.4-1
+- New upstream 5.4 release
+- Remove debugedit-5.3-elflint-test.patch
+- Add new release gpg key
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

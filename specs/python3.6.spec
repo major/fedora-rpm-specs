@@ -272,7 +272,6 @@ BuildRequires: git-core
 BuildRequires: glibc-all-langpacks
 BuildRequires: glibc-devel
 BuildRequires: gmp-devel
-BuildRequires: gnupg2
 BuildRequires: libappstream-glib
 BuildRequires: libffi-devel
 BuildRequires: libnsl2-devel
@@ -282,7 +281,7 @@ BuildRequires: libxcrypt-devel
 BuildRequires: libX11-devel
 BuildRequires: make
 BuildRequires: ncurses-devel
-
+BuildRequires: openpgpverify
 BuildRequires: pkgconfig
 BuildRequires: readline-devel
 BuildRequires: redhat-rpm-config >= 127
@@ -1299,7 +1298,7 @@ or older Fedora releases.
 # ======================================================
 
 %prep
-%gpgverify -k2 -s1 -d0
+%openpgpverify -k2 -s1 -d0
 %autosetup -S git_am -N -n Python-%{upstream_version}
 
 # Apply initial patches manually

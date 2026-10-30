@@ -14,14 +14,15 @@
 
 Name:           apt
 Version:        3.3.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
 URL:            https://tracker.debian.org/pkg/apt
 Source0:        https://salsa.debian.org/apt-team/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
-Patch1:         apt_include_cstdint.patch
-Patch2:         apt-2.9.27-cstdint.patch
+Patch:          apt_include_cstdint.patch
+Patch:          apt-2.9.27-cstdint.patch
+Patch:          apt-3.3.5-cmake3.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -329,6 +330,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Thu Oct 29 2026 Terje Røsten <terjeros@gmail.com> - 3.3.5-2
+- Revert to cmake 3
+
 * Wed Oct 28 2026 Terje Røsten <terjeros@gmail.com> - 3.3.5-1
 - 3.3.5
 

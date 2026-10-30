@@ -1,12 +1,12 @@
 Summary: Access control list utilities
 Name: acl
 Version: 2.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 BuildRequires: gawk
 BuildRequires: gcc
 BuildRequires: gettext
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: libattr-devel
 BuildRequires: make
 BuildRequires: perl(FileHandle)
@@ -47,7 +47,7 @@ programs which make use of the access control list programming interface
 defined in POSIX 1003.1e draft standard 17.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -124,6 +124,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %{_libdir}/libacl.so.*
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 2.4.0-3
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
