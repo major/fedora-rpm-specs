@@ -93,6 +93,7 @@ library.
 
 %package desktop
 Summary:    Peer to Peer Cryptographic Currency
+Requires:   %{name}-utils = %{version}-%{release}
 Provides:   bundled(leveldb)
 Provides:   bundled(libmultiprocess)
 Provides:   bundled(secp256k1)
@@ -127,12 +128,15 @@ with no central authority: managing transactions and issuing money are carried
 out collectively by the network.
 
 This package provides bitcoin-cli, a utility to communicate with and
-control a Bitcoin server via its RPC protocol, and bitcoin-tx, a utility
-to create custom Bitcoin transactions.
+control a Bitcoin server via its RPC protocol, bitcoin-tx, a utility
+to create custom Bitcoin transactions, bitcoin-wallet, an offline wallet tool,
+and bitcoin, a wrapper to run all of them and the node or graphical client
+through a single command (e.g. "bitcoin rpc", "bitcoin node").
 
 %package server
 Summary:    Peer-to-peer digital currency
-Requires:   (%{name}-selinux >= 0.1 if selinux-policy)
+Requires:   (%{name}-selinux >= 0.3 if selinux-policy)
+Requires:   %{name}-utils = %{version}-%{release}
 Provides:   bundled(leveldb)
 Provides:   bundled(libmultiprocess)
 Provides:   bundled(secp256k1)
@@ -147,6 +151,20 @@ Some third party wallet software will want this package to provide the actual
 
 If you use the graphical %{name} client then you almost certainly do not
 need this package.
+
+%package tests
+Summary:    Peer-to-peer digital currency testing and debugging tools
+Requires:   %{name}-utils = %{version}-%{release}
+
+%description tests
+Bitcoin is an experimental new digital currency that enables instant payments to
+anyone, anywhere in the world. Bitcoin uses peer-to-peer technology to operate
+with no central authority: managing transactions and issuing money are carried
+out collectively by the network.
+
+This package provides the unit test suites, the benchmark tool and the bitcoin
+kernel chainstate utility, available through the "bitcoin test", "bitcoin
+test-gui", "bitcoin bench" and "bitcoin chainstate" commands.
 
 %prep
 %autosetup -p1 -n %{project_name}-%{version}
@@ -167,6 +185,7 @@ sed -i -e '/cluster_linearize_tests.cpp/d' src/test/CMakeLists.txt
 
 # Bitcoin kernel library used only as part of the testing for now:
 %cmake \
+    -DBUILD_BENCH=ON \
     -DBUILD_CLI=ON \
     -DBUILD_DAEMON=ON \
     -DBUILD_GUI=ON \
@@ -224,9 +243,6 @@ mkdir -p %{buildroot}%{_localstatedir}/log/%{project_name}/
 # AppStream metadata
 install -p -m 644 -D %{SOURCE18} %{buildroot}%{_metainfodir}/%{project_name}-qt.metainfo.xml
 
-# Remove test files so that they aren't shipped. Tests have already been run.
-rm -f %{buildroot}%{_bindir}/test_*
-
 install -m0644 -D %{SOURCE11} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %check
@@ -247,13 +263,6 @@ test/functional/test_runner.py --tmpdirprefix `pwd` --extended
 %systemd_postun_with_restart %{project_name}.service
 
 %files
-%{_bindir}/%{project_name}
-%{_libexecdir}/bitcoin-chainstate
-%{_libexecdir}/bitcoin-gui
-%{_libexecdir}/bitcoin-node
-%{_libexecdir}/test_bitcoin
-%{_libexecdir}/test_bitcoin-qt
-%{_mandir}/man1/bitcoin.1*
 
 %files -n libbitcoinkernel
 %{_libdir}/lib%{project_name}kernel.so.%(echo %{version} | cut -d. -f 1)
@@ -267,6 +276,7 @@ test/functional/test_runner.py --tmpdirprefix `pwd` --extended
 %{_datadir}/applications/%{project_name}-qt.desktop
 %{_datadir}/kde4/services/%{project_name}-qt.protocol
 %{_datadir}/icons/hicolor/*/apps/%{project_name}.png
+%{_libexecdir}/%{project_name}-gui
 %{_mandir}/man1/%{project_name}-qt.1*
 %{_metainfodir}/%{project_name}-qt.metainfo.xml
 
@@ -282,14 +292,23 @@ test/functional/test_runner.py --tmpdirprefix `pwd` --extended
 %license COPYING
 %doc %{project_name}.conf.example README.utils.redhat SECURITY.md
 %doc doc/README.md
+%{_bindir}/%{project_name}
 %{_bindir}/%{project_name}-cli
 %{_bindir}/%{project_name}-tx
 %{_bindir}/%{project_name}-wallet
 %{_compldir}/%{project_name}-cli
 %{_compldir}/%{project_name}-tx
+%{_mandir}/man1/%{project_name}.1*
 %{_mandir}/man1/%{project_name}-cli.1*
 %{_mandir}/man1/%{project_name}-tx.1*
 %{_mandir}/man1/%{project_name}-wallet.1*
+
+%files tests
+%license COPYING
+%{_libexecdir}/bench_%{project_name}
+%{_libexecdir}/%{project_name}-chainstate
+%{_libexecdir}/test_%{project_name}
+%{_libexecdir}/test_%{project_name}-qt
 
 %files server
 %license COPYING
@@ -305,6 +324,7 @@ test/functional/test_runner.py --tmpdirprefix `pwd` --extended
 %{_compldir}/%{project_name}d
 %{_mandir}/man1/%{project_name}d.1*
 %{_bindir}/%{project_name}d
+%{_libexecdir}/%{project_name}-node
 %{_tmpfilesdir}/%{project_name}.conf
 %{_unitdir}/%{project_name}.service
 %{_userunitdir}/%{project_name}.service

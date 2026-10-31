@@ -3,7 +3,7 @@
 
 # https://github.com/bazelbuild/bazelisk
 %global goipath         github.com/bazelbuild/bazelisk
-Version:                1.29.0
+Version:                1.30.0
 
 %gometa -L -f
 

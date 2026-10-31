@@ -282,7 +282,7 @@
 %endif
 
 Name:	chromium
-Version: 156.0.8078.73
+Version: 156.0.8078.79
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -1998,6 +1998,30 @@ fi
 %endif
 
 %changelog
+* Fri Oct 30 2026 Than Ngo <than@redhat.com> - 156.0.8078.79-1
+- Update to 156.0.8078.73, include 21 security fixes
+  * CVE-2026-119260: Use after free in Frames
+  * CVE-2026-119261: Improper input validation in Skia
+  * CVE-2026-119262: Improper input validation in V8
+  * CVE-2026-119263: Memory corruption in GarbageCollection
+  * CVE-2026-119264: Memory corruption in Dawn
+  * CVE-2026-119265: Memory corruption in Quota
+  * CVE-2026-119266: Use after free in Quota
+  * CVE-2026-119267: Memory corruption in DOM
+  * CVE-2026-119268: Integer overflow in Editing
+  * CVE-2026-119269: Use after free in Blink
+  * CVE-2026-119270: Improper input validation in CacheStorage
+  * CVE-2026-119271: Use after free in Skia
+  * CVE-2026-119272: Out of bounds read in FileSystem
+  * CVE-2026-76024: Memory corruption in MediaStream
+  * CVE-2026-76025: Use after free in FileSystem
+  * CVE-2026-76026: Memory corruption in Autofill
+  * CVE-2026-76027: Memory corruption in CacheStorage
+  * CVE-2026-76028: Use after free in FileSystem
+  * CVE-2026-76029: Memory corruption in Network
+  * CVE-2026-76030: Memory corruption in FileSystem
+  * CVE-2026-76031: Use after free in Input
+
 * Wed Oct 28 2026 Than Ngo <than@redhat.com> - 156.0.8078.73-1
 - Update to 156.0.8078.73, include 52 security fixes
   * CVE-2026-118304: Improper input validation in SVG

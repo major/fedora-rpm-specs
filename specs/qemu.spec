@@ -391,7 +391,7 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 11.1.2
+Version: 11.1.3
 
 # Set for release candidate builds
 #global rcver rc3
@@ -1576,6 +1576,12 @@ mkdir -p %{static_builddir}
 
 
 %build
+# Linux supports CLI upto 128kb, but meson stops using
+# inline ARGV at 16kb, hiding useful info from the logs.
+# Tell it to use inline ARGV more, leaving 4kb slack
+# in case of inaccurate length calculations in meson
+export MESON_RSP_THRESHOLD=126976
+
 %define disable_everything         \\\
   --audio-drv-list=                \\\
   --disable-af-xdp                 \\\

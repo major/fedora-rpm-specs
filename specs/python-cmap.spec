@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/pyapp-kit/cmap
 
 Name:           python-%{pypi_name}
-Version:        0.7.2
+Version:        0.8.0
 Release:        %{autorelease}
 Summary:        Scientific colormaps for python, without dependencies
 %forgemeta

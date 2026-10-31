@@ -25,6 +25,9 @@ BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  python3dist(build)
 BuildRequires:  python3dist(setuptools)
+%if 0%{?rhel} && 0%{?rhel} == 10
+BuildRequires:  python3-wheel
+%endif
 
 %description
 %{summary}.

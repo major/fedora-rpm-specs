@@ -100,7 +100,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        9.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -121,6 +121,12 @@ Patch2:         ffmpeg-allow-fdk-aac-free.patch
 Patch3:         ffmpeg-allow-decklink.patch
 # VapourSynth R79 renamed libvapoursynth-script to libvsscript
 Patch4:         ffmpeg-vapoursynth-lib-rename.patch
+# fix backward seeking in H.264
+# https://bugzilla.redhat.com/show_bug.cgi?id=2547586
+Patch5:         https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/883e8a6336b2651f7be79a6a9aa5f3cc22937948.patch#/ffmpeg-openh264-flush-callback.patch
+# fix H.264/HEVC streamcopy timestamps without native decoders
+# https://bugzilla.redhat.com/show_bug.cgi?id=2483137
+Patch6:         https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/24968.patch#/ffmpeg-fix-streamcopy-pts.patch
 
 # Add first_dts getter to libavformat for Chromium
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=2240127
@@ -976,6 +982,11 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Fri Oct 30 2026 Dominik Mierzejewski <dominik@greysector.net> - 9.0.2-3
+- enable free Vulkan encoders (patch by Stepan Fomin)
+- backport fix for backward seeking with openh264 (resolves rhbz#2547586)
+- fix H.264/HEVC streamcopy timestamps without native decoders (resolves rhbz#2483137)
+
 * Thu Oct 15 2026 Simone Caronni <negativo17@gmail.com> - 9.0.2-2
 - Rebuilt for updated dependencies.
 

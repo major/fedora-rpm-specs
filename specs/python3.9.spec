@@ -332,7 +332,6 @@ BuildRequires: git-core
 BuildRequires: glibc-all-langpacks
 BuildRequires: glibc-devel
 BuildRequires: gmp-devel
-BuildRequires: gnupg2
 BuildRequires: libappstream-glib
 BuildRequires: libffi-devel
 BuildRequires: libnsl2-devel
@@ -343,7 +342,7 @@ BuildRequires: libxcrypt-devel
 BuildRequires: libX11-devel
 BuildRequires: make
 BuildRequires: ncurses-devel
-
+BuildRequires: openpgpverify
 BuildRequires: pkgconfig
 BuildRequires: readline-devel
 BuildRequires: redhat-rpm-config >= 127
@@ -394,7 +393,10 @@ BuildRequires: python3-rpm-generators
 
 Source0: %{url}ftp/python/%{general_version}/Python-%{upstream_version}.tar.xz
 Source1: %{url}ftp/python/%{general_version}/Python-%{upstream_version}.tar.xz.asc
-Source2: %{url}static/files/pubkeys.txt
+# The release manager for Python 3.9 was pablogsal,
+# but Python 3.9.25 was signed by Łukasz Langa.
+# Upstream issue: https://github.com/python/cpython/issues/117053
+Source2: https://keybase.io/ambv/pgp_keys.asc
 
 # A simple script to check timestamps of bytecode files
 # Run in check section with Python that is currently being built
@@ -1006,7 +1008,7 @@ that support it, such as CentOS or RHEL or older Fedora releases.
 # ======================================================
 
 %prep
-%gpgverify -k2 -s1 -d0
+%openpgpverify -k2 -s1 -d0
 %autosetup -S git_am -N -n Python-%{upstream_version}
 
 # Verify the second level of bundled provides is up to date

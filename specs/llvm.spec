@@ -1751,6 +1751,13 @@ popd
 	%global cmake_common_args %{cmake_common_args} -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="%{optflags} -DNDEBUG"
 %endif
 
+%if %{maj_ver} >= 24
+# ClangIR got enabled by default in LLVM 24.
+# Building CIR means that parts of MLIR are installed. We cannot support this
+# in CentOS/RHEL. Disable it in all builds for now.
+%global cmake_common_args %{cmake_common_args} -DCLANG_ENABLE_CIR=OFF
+%endif
+
 %global cmake_config_args %{cmake_common_args}
 
 #region clang options

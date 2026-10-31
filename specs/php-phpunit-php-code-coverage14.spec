@@ -20,9 +20,10 @@
 %global ns_project   CodeCoverage
 %global php_home     %{_datadir}/php
 %global ver_major    14
+%global ver_minor    5
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.4.1
+Version:        14.5.0
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -50,10 +51,9 @@ BuildRequires:   php-nikic-php-parser5 >= 5.8.0-3
 BuildRequires:  (php-composer(phpunit/php-text-template)          >= 6.0.1  with php-composer(phpunit/php-text-template)          < 7)
 BuildRequires:  (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
 BuildRequires:  (php-composer(sebastian/environment)              >= 9.3.3  with php-composer(sebastian/environment)              < 10)
-BuildRequires:  (php-composer(sebastian/git-state)                >= 1.0    with php-composer(sebastian/git-state)                < 2)
+BuildRequires:  (php-composer(sebastian/git-state)                >= 1.1.0  with php-composer(sebastian/git-state)                < 2)
 BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 5.0.2  with php-composer(sebastian/lines-of-code)            < 6)
-BuildRequires:  (php-composer(sebastian/version)                  >= 7.0    with php-composer(sebastian/version)                  < 8)
-BuildRequires:  (php-composer(theseer/tokenizer)                  >= 2.0.1  with php-composer(theseer/tokenizer)                  < 3)
+BuildRequires:  (php-composer(sebastian/version)                  >= 7.0.1  with php-composer(sebastian/version)                  < 8)
 BuildRequires:  php-dom
 BuildRequires:  php-json
 BuildRequires:  php-libxml
@@ -61,8 +61,8 @@ BuildRequires:  php-mbstring
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^13.3.6"
-BuildRequires:  phpunit13 >=  13.3.6
+#        "phpunit/phpunit": "^13.4.5"
+BuildRequires:  phpunit13 >=  13.4.5
 BuildRequires:  php-xdebug
 %endif
 
@@ -76,10 +76,9 @@ BuildRequires:  php-xdebug
 #        "phpunit/php-text-template": "^6.0.1",
 #        "sebastian/complexity": "^6.0",
 #        "sebastian/environment": "^9.3.3",
-#        "sebastian/git-state": "^1.0",
+#        "sebastian/git-state": "^1.1.0",
 #        "sebastian/lines-of-code": "^5.0.2",
-#        "sebastian/version": "^7.0",
-#        "theseer/tokenizer": "^2.0.1"
+#        "sebastian/version": "^7.0.1",
 Requires:       php(language) >= 8.3
 Requires:       php-dom
 Requires:       php-libxml
@@ -89,10 +88,9 @@ Requires:       (php-composer(nikic/php-parser)                   >= 5.9.0  with
 Requires:       (php-composer(phpunit/php-text-template)          >= 6.0.1  with php-composer(phpunit/php-text-template)          < 7)
 Requires:       (php-composer(sebastian/complexity)               >= 6.0    with php-composer(sebastian/complexity)               < 7)
 Requires:       (php-composer(sebastian/environment)              >= 9.3.3  with php-composer(sebastian/environment)              < 10)
-Requires:       (php-composer(sebastian/git-state)                >= 1.0    with php-composer(sebastian/git-state)                < 2)
+Requires:       (php-composer(sebastian/git-state)                >= 1.1.0  with php-composer(sebastian/git-state)                < 2)
 Requires:       (php-composer(sebastian/lines-of-code)            >= 5.0.2  with php-composer(sebastian/lines-of-code)            < 6)
-Requires:       (php-composer(sebastian/version)                  >= 7.0    with php-composer(sebastian/version)                  < 8)
-Requires:       (php-composer(theseer/tokenizer)                  >= 2.0.1  with php-composer(theseer/tokenizer)                  < 3)
+Requires:       (php-composer(sebastian/version)                  >= 7.0.1  with php-composer(sebastian/version)                  < 8)
 # From composer.json, suggest
 #        "ext-pcov": "*",
 #        "ext-xdebug": "*"
@@ -141,7 +139,6 @@ cat << 'EOF' | tee -a src/autoload.php
     '%{php_home}/%{ns_vendor}/GitState1/autoload.php',
     '%{php_home}/%{ns_vendor}/LinesOfCode5/autoload.php',
     '%{php_home}/%{ns_vendor}/Version7/autoload.php',
-    '%{php_home}/TheSeer/Tokenizer2/autoload.php',
 ]);
 EOF
 
@@ -183,7 +180,7 @@ cp %{SOURCE2} tests/tests/Util/PhpParserVersionRPMTest.php
 
 # testCanBeCreatedFromDefaults rely on git layout
 
-for cmd in php php84 php85; do
+for cmd in php php84 php85 php86; do
   if which $cmd; then
     $cmd $EXT \
       -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php \
@@ -199,12 +196,18 @@ exit $ret
 %files
 %license LICENSE
 %doc README.md
-%doc ChangeLog-%{ver_major}.4.md
+%doc ChangeLog-%{ver_major}.%{ver_minor}.md
 %doc composer.json
 %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}
 
 
 %changelog
+* Fri Oct 30 2026 Remi Collet <remi@remirepo.net> - 14.5.0-1
+- update to 14.5.0
+- raise dependency on sebastian/git-state 1.1
+- raise dependency on sebastian/version 7.0.1
+- drop dependency on theseer/tokenizer
+
 * Sun Oct  4 2026 Remi Collet <remi@remirepo.net> - 14.4.1-1
 - update to 14.4.1
 - raise dependency on phpunit/php-text-template 6.0.1

@@ -1,16 +1,16 @@
 %global forgeurl https://github.com/linuxmint/nemo
-%global tagver   6.7.9
-%global tag      %{tagver}-unstable
+%global tag      %{version}
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        %{tagver}^unstable
+Version:        6.8.0
 Release:        %{autorelease}
 %{forgemeta}
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        nemo-fedora.gschema.override
+Patch0:         %{url}/commit/325e8df11e1f39683021c9052729ab9561619f90.patch
 
 ExcludeArch:   %{ix86}
 
@@ -32,6 +32,10 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gmodule-no-export-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(gstreamer-1.0)
+BuildRequires:  pkgconfig(gstreamer-app-1.0)
+BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
+BuildRequires:  pkgconfig(gstreamer-video-1.0)
 BuildRequires:  pkgconfig(gtk-layer-shell-0)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(cinnamon-desktop) >= 6.7.0

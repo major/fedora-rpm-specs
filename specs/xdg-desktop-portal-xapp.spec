@@ -1,9 +1,8 @@
 %global forgeurl https://github.com/linuxmint/xdg-desktop-portal-xapp
-%global tagver   1.1.5
-%global tag      %{tagver}-unstable
+%global tag      %{version}
 
 Name:           xdg-desktop-portal-xapp
-Version:        %{tagver}^unstable
+Version:        1.2.0
 Release:        %{autorelease}
 %{forgemeta}
 Summary:        Backend implementation for xdg-desktop-portal using Xapp

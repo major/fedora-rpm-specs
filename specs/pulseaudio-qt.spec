@@ -9,7 +9,6 @@ Source:  https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  kf5-rpm-macros
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  cmake(Qt6Gui)

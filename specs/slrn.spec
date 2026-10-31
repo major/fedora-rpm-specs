@@ -43,6 +43,9 @@ Patch2: slrn-0.9.9pre108-sendmail.patch
 Patch3: fix-FSF-address.patch
 Patch4: slrn-configure-c99.patch
 # Patch4: slrn-dont-limit-signatures.patch
+# For source signature verification with gpgv,
+# sequoia does not support version 3 signature packet
+BuildRequires: gnupg2
 BuildRequires: make
 BuildRequires: inews
 BuildRequires: openssl-devel, gcc
@@ -53,8 +56,6 @@ Requires:      slang-slsh
 %if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 Requires(pre): shadow-utils
 %endif
-# For source verification with gpgv
-BuildRequires:  gnupg2
 
 %description
 SLRN is a threaded Internet news reader. SLRN is highly customizable

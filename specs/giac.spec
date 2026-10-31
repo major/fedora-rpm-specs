@@ -13,11 +13,11 @@
 
 %global _lto_cflags %{nil}
 
-%global subversion .21
+%global subversion .1
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
-Version:       2.0.0%{subversion}
+Version:       2.1.0%{subversion}
 Release:       %autorelease
 # GPL-3.0-or-later: the project as a whole
 # GPL-3.0-only: src/TmpFGLM.*, src/TmpLESystemSolver.*

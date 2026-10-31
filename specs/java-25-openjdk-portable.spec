@@ -1,10 +1,10 @@
 # New Version-String scheme-style defines
 %global featurever 25
 %global interimver 0
-%global updatever 4
-%global patchver 1
-%global buildver 1
-%global portablerelease 1
+%global updatever 5
+%global patchver 0
+%global buildver 8
+%global portablerelease 3
 %global rpmrelease 0
 
 # Define IcedTea version used for SystemTap tapsets and desktop file
@@ -668,6 +668,9 @@ Source15: TestSecurityProperties.java
 # Ensure vendor settings are correct
 Source16: CheckVendor.java
 
+# Ensure cacerts has no compromised certificates
+Source17: CheckCerts.java
+
 # Ensure translations are available for new timezones
 Source18: TestTranslations.java
 
@@ -676,7 +679,6 @@ Source18: TestTranslations.java
 # RPM/distribution specific patches
 #
 ############################################
-
 # Crypto policy and FIPS support patches
 
 # Patch is generated from the fips-25u tree at https://github.com/rh-openjdk/jdk/tree/fips-25u
@@ -703,10 +705,9 @@ Patch1001: fips-%{featurever}u-%{fipsver}.patch
 #
 #############################################
 
-# JDK-8347901: C2 should remove unused leaf / pure runtime calls
-Patch2002: jdk8347901-c2_unused_leaf_removal.patch
-# JDK-83787313: C2: performance regression due to missing constant folding for Math.pow()
-Patch2003: jdk8378713-c2_missing_pow_constant_folding.patch
+# JDK-8395142: CA Enhancements
+Patch2001: 0001-8395142-CA-Enhancements.patch
+Patch2002: jdk8395690-CA-certificate-improvements.patch
 
 #############################################
 #
@@ -760,7 +761,8 @@ BuildRequires: graphviz
 BuildRequires: pandoc
 %endif
 # cacerts build requirement in portable mode
-BuildRequires: ca-certificates
+# versioned to make sure ca-certificates has compromised certificates removed
+BuildRequires: ca-certificates >= 2026.2.92_v9.0.319-2
 
 %if %{with_systemtap}
 BuildRequires: systemtap-sdt-devel
@@ -935,8 +937,8 @@ echo "System is RHEL=%{?rhel}%{!?rhel:0}, CentOS=%{?centos}%{!?centos:0}, EPEL=%
 echo "Portable suffix is %{?pkgos}%{!?pkgos:unset}"
 echo "Build JDK version is %{buildjdkver}, bootstrap JDK package is %{bootjdkpkg}"
 
-%if 0%{?_build_cpu:1}
-  echo "CPU: %{_target_cpu}, arch install directory: %{archinstall}, SystemTap install directory: %{_build_cpu}"
+%if 0%{?stapinstall:1}
+  echo "CPU: %{_target_cpu}, arch install directory: %{archinstall}, SystemTap install directory: %{stapinstall}"
 %else
   %{error:Unrecognised architecture %{_target_cpu}}
 %endif
@@ -985,9 +987,10 @@ sh %{SOURCE12} %{top_level_dir_name}
 pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 %patch -P1001 -p1
-# Add C2 patches
+# Add CA Enhancements patch
+%patch -P2001 -p1
+# Add CA certificate improvements
 %patch -P2002 -p1
-%patch -P2003 -p1
 popd # openjdk
 
 echo "Generating %{alt_java_name} man page"
@@ -1392,11 +1395,15 @@ function packagejdk() {
 
     # Release images have external debug symbols
     if [ "x$suffix" = "x" ] ; then
+        # jdk26 is putting debugsymbols out of main image, 
+        # we later reconstruct debuginfo subpakckages manually, so putting them back
+        cp -r symbols/* ${jdkname}/
         createtar ${debugarchive} $(find ${jdkname} -name \*.debuginfo)
         genchecksum ${debugarchive}
 
         mkdir ${docname}
         mv ${docdir} ${docname}
+        ls -l ${bundledir}
         mv ${bundledir}/${built_doc_archive} ${docname}
         createtar ${docarchive} ${docname}
         genchecksum ${docarchive}

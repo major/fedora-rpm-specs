@@ -34,6 +34,8 @@ Summary:        Windows Installer tools
 License:        LGPL-2.1-or-later AND GPL-2.0-or-later AND MS-RL
 URL:            http://ftp.gnome.org/pub/GNOME/sources/%{name}
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/%{version}/%{name}-%{version}%{?_version_suffix}.tar.xz
+# CI: fix build_stable on current rawhide
+Patch0:         https://gitlab.gnome.org/GNOME/msitools/-/merge_requests/87.patch
 
 Requires:       libgsf >= 1.14.24-2
 

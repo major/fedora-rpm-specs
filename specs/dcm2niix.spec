@@ -39,7 +39,7 @@
 %bcond jnifti 1
 
 Name:           dcm2niix
-Version:        1.0.20260724
+Version:        1.0.20261029
 Release:        %autorelease
 Summary:        DICOM to NIfTI converter
 
@@ -156,6 +156,9 @@ Provides:       bundled(niftilib) = 1.0.0
 # to devote considerable time to validation.”
 # “With regards to the cJSON you can always build with it off, at least until
 # this promising format gains traction.”
+#
+# Please consider updating the vendored cJSON library to 1.7.19
+# https://github.com/rordenlab/dcm2niix/issues/1058
 Provides:       bundled(cJSON) = 1.7.12
 %endif
 # console/base64.{h,cpp}

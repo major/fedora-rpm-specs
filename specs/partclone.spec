@@ -3,8 +3,8 @@
 
 Summary:        Utility to clone and restore a partition
 Name:           partclone
-Version:        0.3.50
-Release:        2%{?dist}
+Version:        0.3.52
+Release:        1%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
 # BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later: src/btrfs*
@@ -18,6 +18,7 @@ Release:        2%{?dist}
 License:        BSD-2-Clause AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-only AND LGPL-2.0-or-later AND LGPL-3.0-or-later
 URL:            https://partclone.org/
 Source0:        https://github.com/Thomas-Tsai/partclone/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         https://github.com/Thomas-Tsai/partclone/pull/322.patch#/partclone-0.3.52-pthread.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libuuid-devel
@@ -57,8 +58,8 @@ BuildRequires:  docbook-style-xsl
 Recommends:     bash-completion
 # Partclone depends on specific source files, either not exposed to -devel package or no -devel package exists
 # Version information origin: src/btrfs/libbtrfs/version.h
-Provides:       bundled(libbtrfs) = 6.16
-Provides:       bundled(libbtrfsutil) = 6.16
+Provides:       bundled(libbtrfs) = 6.17.1
+Provides:       bundled(libbtrfsutil) = 6.17.1
 # Version information origin: https://github.com/Thomas-Tsai/partclone/pull/290
 Provides:       bundled(xfsprogs-libs) = 6.13.0
 
@@ -69,7 +70,6 @@ libraries, e.g. e2fslibs is used to read and write the ext2 partition.
 
 %prep
 %autosetup -p1
-# https://github.com/Thomas-Tsai/partclone/issues/285
 autoreconf -i -f
 
 %build
@@ -133,6 +133,9 @@ make check || { cat tests/test-suite.log; exit 1; }
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Sat Oct 31 2026 Robert Scheck <robert@fedoraproject.org> 0.3.52-1
+- Upgrade to 0.3.52 (#2561536)
+
 * Fri Sep 25 2026 Tom Callaway <spot@fedoraproject.org> - 0.3.50-2
 - rebuild for new ntfs-3g (sover 91)
 

@@ -1,6 +1,6 @@
 Name:		iodine
 Version:	0.9.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Solution to tunnel IPv4 data through a DNS server
 Summary(ru):	Решение для туннелирования IPv4 трафика через DNS сервер
 License:	ISC
@@ -22,7 +22,7 @@ Source8:	%{name}-server.service
 BuildRequires:	meson
 BuildRequires:	gcc
 BuildRequires:	zlib-devel
-BuildRequires:	systemd
+BuildRequires:	systemd-devel
 
 Requires:	%{name}-client = %{version}-%{release}
 Requires:	%{name}-server = %{version}-%{release}
@@ -74,8 +74,6 @@ Requires(postun): systemd
 # is not valid. We can use %%post because this particular %%triggerun script
 # should fire just after this package is installed.
 Requires(post):	systemd-sysv
-# /sbin/ifconfig and /sbin/route (bz#922225)
-Requires:	net-tools
 Provides:	bundled(md5-deutsch)
 
 %description server
@@ -142,6 +140,9 @@ install -Dp -m 0644 %{SOURCE8} %{buildroot}/%{_unitdir}/%{name}-server.service
 %{_unitdir}/%{name}-server.service
 
 %changelog
+* Fri Oct 30 2026 Gabriel L. Somlo <gsomlo@gmail.com> - 0.9.0-2
+- spec file cleanup
+
 * Wed Oct 28 2026 Gabriel L. Somlo <gsomlo@gmail.com> - 0.9.0-1
 - update to 0.9.0
 - use meson build (following upstream switch)

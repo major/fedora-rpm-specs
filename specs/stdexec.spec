@@ -6,7 +6,7 @@
 %global debug_package %{nil}
 
 Name:           stdexec
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A reference implementation of C++26 std::execution
 # stdexec: Apache-2.0 WITH LLVM-exception AND MIT
 # rapids-cmake: Apache-2.0
@@ -17,7 +17,7 @@ Summary:        A reference implementation of C++26 std::execution
 License:        Apache-2.0 WITH LLVM-exception AND MIT
 SourceLicense:  Apache-2.0 WITH LLVM-exception AND MIT AND Apache-2.0 AND BSL-1.0 AND BSD-3-Clause
 %global         forgeurl0 https://github.com/NVIDIA/stdexec
-%global         commit0 34fa94719f97f49a553811423fa1200172f22a0e
+%global         commit0 52105a70fb9d8ff16f564c00b7df22ab8bfcfcf0
 %global         forgeurl1 https://github.com/rapidsai/rapids-cmake
 %global         version1 24.02.00
 %global         forgeurl2 https://github.com/cpm-cmake/CPM.cmake
@@ -29,7 +29,7 @@ SourceLicense:  Apache-2.0 WITH LLVM-exception AND MIT AND Apache-2.0 AND BSL-1.
 %global         forgeurl5 https://github.com/dvyukov/relacy
 %global         commit5 2c87447b56b90cbccb5129c93a4e82eda5e7868e
 %forgemeta -a
-Version:        0.11.0~git20261016.%{sub %{commit0} 1 8}
+Version:        0.11.0~git20261030.%{sub %{commit0} 1 8}
 URL:            %{forgeurl0}
 Source0:        %{forgesource0}
 Source1:        %{forgesource1}
@@ -42,9 +42,6 @@ Provides:       bundled(cpm-cmake) = %{version2}
 Provides:       bundled(Catch2) = %{version3}
 Provides:       bundled(icm) = %{version4}
 Provides:       bundled(relacy) = 0~git260906.%{sub %{commit5} 1 8}
-
-# merged upstream, exclude one failing test on ppcle64
-Patch0:         https://patch-diff.githubusercontent.com/raw/NVIDIA/stdexec/pull/2356.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 3.28
@@ -70,7 +67,6 @@ This package contains the development files of %{name}.
 
 %prep
 %setup -q %{forgesetupargs0} -b 1 -b 2 -b 3 -b 4 -b 5
-%patch -P0 -p1
 
 # in rapids_cpm_download(): CPM.cmake needs to be known as CPM_<Version>.cmake
 %__ln_s	%{_builddir}/%{topdir2}/cmake/CPM.cmake %{_builddir}/%{topdir2}/cmake/CPM_%{version2}.cmake
@@ -107,5 +103,8 @@ mv %{buildroot}/{%{_libdir},%{_datadir}}/cmake
 %{_datadir}/cmake/stdexec
 
 %changelog
+* Fri Oct 30 2026 Christoph Junghans <junghans@votca.org> - 0.11.0~git20261030.52105a70-1
+- Version bump to include upstream fixes
+
 * Thu Oct 29 2026 Christoph Junghans <junghans@votca.org> - 0.11.0~git20261016.34fa9471-4
 - Initial commit (bug #2558317)

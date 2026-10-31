@@ -34,8 +34,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.61.4
-Release:       2%{?dist}
+Version:       1.61.5
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -63,7 +63,7 @@ Source6:       yum.conf.in
 
 # Keyring used to verify tarball signature.
 %if 0%{verify_tarball_signature}
-Source7:       libguestfs.keyring
+Source7:       rich@annexia.org-pubkey.txt
 %endif
 
 # Maintainer script which helps with handling patches.
@@ -1031,6 +1031,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Fri Oct 30 2026 Richard W.M. Jones <rich@annexia.org> - 1:1.61.5-1
+- New upstream development version 1.61.5
+- New signing key using SHA256 hashes.
+
 * Sat Oct 03 2026 Jerry James <loganjerry@gmail.com> - 1:1.61.4-2
 - Bump and rebuild
 

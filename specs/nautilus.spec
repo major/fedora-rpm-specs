@@ -20,6 +20,8 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 # https://pagure.io/fedora-workstation/issue/442
 Patch:          default-terminal.patch
 
+Patch:          CVE-2026-111802.patch
+
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext

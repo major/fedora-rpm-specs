@@ -75,7 +75,7 @@ Requires:       font(liberationserif)
 Requires:       hicolor-icon-theme
 Recommends:     %{name}-MCAD = %{version}-%{release}
 
-%bcond_without 3mf
+%bcond 3mf      1
 %if %{with 3mf}
 BuildRequires:  lib3mf-devel
 %endif
@@ -208,6 +208,11 @@ done
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+%if %{with 3mf}
+ldd %{buildroot}%{_bindir}/%{name} | grep -q 'lib3mf\.so' || \
+  { echo "error: %{name} binary is not linked against lib3mf, but 3MF support was requested (%%bcond 3mf)" >&2; exit 1; }
+%endif
 
 # tests
 cd tests

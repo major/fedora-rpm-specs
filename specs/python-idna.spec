@@ -4,7 +4,7 @@
 %bcond hypothesis %{undefined rhel}
 
 Name:           python-%{srcname}
-Version:        3.19
+Version:        3.20
 Release:        %autorelease
 Summary:        Internationalized Domain Names in Applications (IDNA)
 

@@ -1,5 +1,5 @@
 Name:           libslirp
-Version:        4.9.6
+Version:        4.9.7
 Release:        1%{?dist}
 Summary:        A general purpose TCP-IP emulator
 
@@ -52,6 +52,15 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Oct 30 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.9.7-1
+- new version, rhbz#2563742
+- Fix memory leak on IPv6 ping
+- Fix out-of-bounds heap read and information disclosure in ICMP error forwarding
+- Fix queue pointer corruption and crash in if_output
+- Avoid adding ARP/NDP records for multicast and own addresses
+- Fix build with llvm
+- Fix endianness of addition in bootp
+
 * Sun Oct 25 2026 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.9.6-1
 - new version, rhbz#2560335
 - Fix buffer underflow in TFTP RRQ handling with an empty filename

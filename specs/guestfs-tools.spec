@@ -15,7 +15,7 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.57.4
+Version:       1.57.5
 Release:       1%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
@@ -35,7 +35,7 @@ Source1:       http://download.libguestfs.org/guestfs-tools/%{source_directory}/
 
 # Keyring used to verify tarball signature.
 %if 0%{verify_tarball_signature}
-Source2:       libguestfs.keyring
+Source2:       rich@annexia.org-pubkey.txt
 %endif
 
 # Basic build requirements.
@@ -388,6 +388,10 @@ end
 
 
 %changelog
+* Fri Oct 30 2026 Richard W.M. Jones <rich@annexia.org> - 1.57.5-1
+- New upstream development version 1.57.5
+- New signing key using SHA256 hashes.
+
 * Mon Oct 05 2026 Richard W.M. Jones <rjones@redhat.com> - 1.57.4-1
 - New upstream development version 1.57.4
 

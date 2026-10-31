@@ -1,5 +1,5 @@
 Name:           python-dtoc
-Version:        0.0.7
+Version:        0.1.0
 Release:        %autorelease
 Summary:        Devicetree-to-C generator
 
@@ -10,6 +10,7 @@ Source:         %{pypi_source dtoc}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-libfdt
+BuildRequires:  python3-u-boot-pylib
 BuildRequires:  sed
 
 %global _description %{expand:
@@ -23,17 +24,18 @@ modification of the devicetree files.}
 %package -n     python3-dtoc
 Summary:        %{summary}
 Requires:       python3-libfdt
+Requires:       python3-u-boot-pylib
 
 %description -n python3-dtoc %_description
 
 %prep
 %autosetup -p1 -n dtoc-%{version}
 
-# Fix dependency name
-sed -i 's:"pylibfdt", ::' pyproject.toml
+# Remove dependencies handled by BuildRequires/Requires
+sed -i -e '/"pylibfdt/d' -e '/"u-boot-pylib/d' pyproject.toml
 
 # Remove unnecessary shebangs
-sed -i src/dtoc/*.py \
+sed -i dtoc/*.py \
   -e "\|#!/usr/bin/env python3|d" \
   -e "\|#!/usr/bin/python|d"
 

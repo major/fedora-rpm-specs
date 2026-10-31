@@ -1,7 +1,7 @@
 %global _configure ../configure
 
 Name:		lis
-Version:	2.1.17
+Version:	2.1.20
 Release:	%autorelease
 Summary:	A library for solving linear equations and eigenvalue problems
 License:	BSD-3-Clause

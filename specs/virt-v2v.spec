@@ -44,7 +44,7 @@ ExclusiveArch: x86_64
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.13.8
+Version:       2.13.9
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -55,7 +55,7 @@ Source0:       http://download.libguestfs.org/virt-v2v/%{source_directory}/%{nam
 %if 0%{verify_tarball_signature}
 Source1:       http://download.libguestfs.org/virt-v2v/%{source_directory}/%{name}-%{version}.tar.gz.sig
 # Keyring used to verify tarball signature.
-Source2:       libguestfs.keyring
+Source2:       rich@annexia.org-pubkey.txt
 %endif
 
 # Maintainer script which helps with handling patches.
@@ -105,6 +105,7 @@ BuildRequires: %{_bindir}/nbdcopy
 BuildRequires: %{_bindir}/nbdinfo
 BuildRequires: nbdkit-server >= 1.46.1
 BuildRequires: nbdkit-file-plugin
+BuildRequires: nbdkit-nbd-plugin
 BuildRequires: nbdkit-null-plugin
 BuildRequires: nbdkit-cow-filter
 BuildRequires: mingw-srvany-redistributable >= 1.1-6
@@ -369,6 +370,11 @@ done
 
 
 %changelog
+* Fri Oct 30 2026 Richard W.M. Jones <rich@annexia.org> - 1:2.13.9-1
+- New upstream development version 2.13.9
+- New signing key using SHA256 hashes.
+- Add BR nbdkit-nbd-plugin, required for some tests to run.
+
 * Mon Oct 05 2026 Richard W.M. Jones <rjones@redhat.com> - 1:2.13.8-1
 - New upstream development version 2.13.8
 

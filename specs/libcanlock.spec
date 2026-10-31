@@ -1,5 +1,5 @@
 Name:           libcanlock
-Version:        3.3.3
+Version:        3.3.4
 Release:        %autorelease
 Summary:        Create and verify RFC 8315 Netnews Cancel-Locks
 # BSD licensed:

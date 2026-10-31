@@ -1,5 +1,5 @@
 Name:           python-discovery
-Version:        1.6.7
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Python interpreter discovery
 

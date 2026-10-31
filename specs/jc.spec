@@ -2,7 +2,7 @@ Name: jc
 Summary: Serialize the output of CLI tools and file-types to structured JSON
 License: MIT
 
-Version: 1.26.1
+Version: 1.26.2
 Release: 1%{?dist}
 
 URL: https://github.com/kellyjonbrazil/%{name}
@@ -52,6 +52,9 @@ install -m 644 -p man/jc.1 %{buildroot}%{_mandir}/man1/
 install -m 755 -d %{buildroot}%{bash_completions_dir}
 install -m 644 -p completions/jc_bash_completion.sh %{buildroot}%{bash_completions_dir}/%{name}
 
+install -m 755 -d %{buildroot}%{zsh_completions_dir}
+install -m 644 -p completions/jc_zsh_completion.sh %{buildroot}%{zsh_completions_dir}/%{name}
+
 
 %check
 TZ="America/Los_Angeles" ./runtests.sh
@@ -62,6 +65,7 @@ TZ="America/Los_Angeles" ./runtests.sh
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.*
 %{bash_completions_dir}
+%{zsh_completions_dir}
 
 
 %files -n python3-%{name} -f %{pyproject_files}
@@ -70,6 +74,10 @@ TZ="America/Los_Angeles" ./runtests.sh
 
 
 %changelog
+* Fri Oct 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.26.2-1
+- Update to v1.26.2
+- Include zsh completions file in the package
+
 * Sun Oct 18 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.26.1-1
 - Update to v1.26.1
 

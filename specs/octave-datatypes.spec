@@ -1,7 +1,7 @@
 %global octpkg datatypes
 
 Name:           octave-%{octpkg}
-Version:        1.3.3
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Extra data types for GNU Octave
 
@@ -58,6 +58,8 @@ export TZ=UTC
 %{octpkgdir}/patients.mat
 %{octpkgdir}/tests/
 %{octpkgdir}/tzdata/
+%{octpkgdir}/+datatypes/
+%{octpkgdir}/+tsdata/
 %doc %{octpkgdir}/doc-cache
 %doc %{octpkgdir}/doc/
 %dir %{octpkgdir}/packinfo

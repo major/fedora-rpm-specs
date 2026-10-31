@@ -1,6 +1,6 @@
 Name:           pam_mount
 Version:        2.20
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A PAM module that can mount volumes for a user session
 
 # The library and binaries are LGPLv2.1+ with these Exceptions:
@@ -15,12 +15,12 @@ Source2:        gpgkey-BCA0C5C309CAC569E74A921CF76EFE5D0C223A8F.asc
 # AM_PROG_LIBTOOL is obsolete
 Patch0:         pam_mount-2.16-LTINIT.patch
 
-# For source verification with gpgv
+# For source verification with %%openpgpverify
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  cryptsetup-devel
 BuildRequires:  gcc
-BuildRequires:  gpg
+BuildRequires:  openpgpverify
 BuildRequires:  libHX-devel >= 3.12.1
 BuildRequires:  libmount-devel >= 2.20
 BuildRequires:  libtool
@@ -68,8 +68,7 @@ potential threats.
 
 
 %prep
-rm -f %{SOURCE2}.gpg ; gpg --dearmor %{SOURCE2}
-xzcat %{SOURCE0} | gpgv --quiet --keyring %{SOURCE2}.gpg %{SOURCE1} -
+xzcat %{SOURCE0} | %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %setup -q
 %patch -P0 -p1 -b.LTINIT
 ./autogen.sh
@@ -150,6 +149,9 @@ and transparent use of the OS's crypto layer.
 
 
 %changelog
+* Mon Oct 26 2026 Jakub Jelen <jjelen@redhat.com> - 2.20-9
+- Verify upstream source signatures with openpgpverify
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.20-8
 - Rebuilt for libxml-2.5.4
 

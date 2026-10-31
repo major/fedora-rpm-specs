@@ -1,5 +1,5 @@
 Name:           quisk
-Version:        4.2.55
+Version:        4.2.56
 Release:        1%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
@@ -26,7 +26,6 @@ Requires:       hicolor-icon-theme
 Requires:       python3-wxpython4
 Requires:       wdsp
 Suggests:       codec2-devel
-Patch:          quisk-4.2.55-html-path-fix.patch
 
 %description
 QUISK is a Software Defined Radio (SDR) which can control various
@@ -92,6 +91,10 @@ install -Dpm 0644 %{SOURCE2} \
 
 
 %changelog
+* Fri Oct 30 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.56-1
+- New version
+  Resolves: rhbz#2563699
+
 * Tue Oct 13 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.55-1
 - New version
   Resolves: rhbz#2549848

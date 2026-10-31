@@ -1,7 +1,7 @@
 # Upstream has not yet tagged any releases, so build from git for now
-%global commit      30f2951d1e90e47afa821bdd1b12b82246656c42
+%global commit      99eec197a49b2bd9ad33c1f4c7afabe93caa6511
 %global shortcommit %{sub %{commit} 1 7}
-%global gitdate     20251029
+%global gitdate     20261024
 %global giturl      https://github.com/scipopt/vipr
 
 Name:           vipr

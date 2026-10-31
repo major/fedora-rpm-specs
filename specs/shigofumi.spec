@@ -1,6 +1,6 @@
 Name:           shigofumi
 Version:        0.9
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Command line client for accessing the Czech Data Boxes
 # COPYING:          GPL-3.0 text
 # README:           GPL-3.0-or-later
@@ -56,9 +56,9 @@ BuildRequires:  automake
 BuildRequires:  file-devel
 BuildRequires:  gettext-devel
 BuildRequires:  gcc
-BuildRequires:  gnupg2
 BuildRequires:  libxml2-devel
 BuildRequires:  make
+BuildRequires:  openpgpverify
 BuildRequires:  pkgconfig(libconfuse)
 BuildRequires:  pkgconfig(libisds) >= 0.10.7
 BuildRequires:  readline-devel
@@ -68,7 +68,7 @@ This is Shigofumi, an ISDS (Informační systém datových schránek / Data Box
 Information System) client.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 autoreconf -fi
 
@@ -98,6 +98,9 @@ export CFLAGS="$CFLAGS -Wno-error=deprecated-declarations"
 %{_mandir}/*/man5/shigofumirc.*
 
 %changelog
+* Fri Oct 30 2026 Petr Pisar <ppisar@redhat.com> - 0.9-18
+- Verify upstream signature with openpgpverify
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9-17
 - Rebuilt for libxml-2.5.4
 

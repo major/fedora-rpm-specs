@@ -2,7 +2,7 @@
 %global pnpm_major_version 12
 
 Name:           nodejs-%{pkgname}%{pnpm_major_version}
-Version:        12.4.2
+Version:        12.16.1
 Release:        %autorelease
 Summary:        Fast, disk space efficient package manager
 
@@ -10,7 +10,7 @@ License:        MIT
 URL:            https://pnpm.io
 # Pristine upstream monorepo source. NOT %%{pkgname}-%%{version} (the npm
 # tarball) -- see the block comment above for why.
-Source0:        https://github.com/pnpm/pnpm/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/pnpm/pnpm/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 # Rust dependency vendoring: pnpm-cli currently needs ~24 crates that are
 # either missing from Fedora or are too old (see the bundled(crate()) Provides
 # generated from cargo-vendor.txt below for the full, exact list) out of
@@ -21,6 +21,10 @@ Source0:        https://github.com/pnpm/pnpm/archive/refs/tags/v%{version}.tar.g
 #
 # Regenerate with: ./generate-vendor-tarball.sh {version}
 Source1:        pnpm-%{version}-vendor.tar.xz
+# pnpm-config depends on pnpr-registry (PolyForm Shield, non-free) only for
+# Python package pattern matching. Replace it with a small local equivalent.
+# generate-vendor-tarball.sh applies the same patch.
+Patch0:         pnpm-config-drop-pnpr-registry.patch
 
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros
@@ -95,11 +99,14 @@ Conflicts:      pnpm
 # server-side registry component, which is licensed under the (non-free)
 # PolyForm Shield 1.0.0 license. It is only ever a dev-dependency of the CLI
 # (used by its test suite), never a normal build dependency, so we delete it.
+# The one exception, pnpr-registry in pnpm-config, is patched out by Patch0.
 rm -rf pnpr pnpm/crates/napi
 sed -i '/^pnpr[-a-zA-Z]* = { path = "pnpr\//d; /^pnpm-napi = { path = "pnpm\/crates\/napi" }$/d' Cargo.toml
 sed -i 's/members = \["pnpm\/crates\/\*", "pnpm\/tasks\/\*", "pnpr\/crates\/\*"\]/members = ["pnpm\/crates\/*"]/' Cargo.toml
-sed -i '/^pnpr = { workspace = true }$/d' pnpm/crates/cli/Cargo.toml pnpm/crates/pnpr-client/Cargo.toml pnpm/crates/testing-utils/Cargo.toml
-sed -i '/^pnpr-fixtures = { workspace = true }$/d' pnpm/crates/testing-utils/Cargo.toml
+sed -i '/^pnpr\(-fixtures\)\? = { workspace = true }$/d' pnpm/crates/cli/Cargo.toml pnpm/crates/pnpr-client/Cargo.toml pnpm/crates/testing-utils/Cargo.toml
+# The libsql [patch.crates-io] entry only applies to pnpr's storage backend,
+# so nothing left in the workspace uses libsql and cargo rejects the patch.
+sed -i '/^libsql = { git = /d' Cargo.toml
 
 # Upstream's own [profile.release] sets `lto = "fat"`, which %%cargo_prep's
 # generated [profile.rpm] (inherits = "release") does not override. Combined
@@ -111,16 +118,26 @@ sed -i '/^lto = "fat"$/d' Cargo.toml
 
 %cargo_prep -v vendor
 
-# %%cargo_prep only redirects crates-io to the vendor directory; it doesn't
-# know about pnpm's one git dependency (a fork used for a Node.js-semver-
-# compatible parser), which `cargo vendor` also bundled under vendor/ but
-# needs its own source override to be picked up from there instead of git.
-cat >> .cargo/config.toml << 'EOF'
-[source."git+https://github.com/pnpm/node-semver-rs?rev=1ae976a0023b4dec80b1a5411ccee8343f91320e"]
-git = "https://github.com/pnpm/node-semver-rs"
-rev = "1ae976a0023b4dec80b1a5411ccee8343f91320e"
+# Upstream ships a patched `tar` crate in vendor/tar (see [patch.crates-io] in
+# Cargo.toml). Cargo's directory source treats every subdirectory of vendor/
+# as a vendored crate and insists on a checksum file for it.
+echo '{"files":{},"package":null}' > vendor/tar/.cargo-checksum.json
+
+# %%cargo_prep only redirects crates-io to the vendor directory. pnpm also
+# pins a few git dependencies (forks of libsql, node-semver-rs and dashmap),
+# which `cargo vendor` bundled under vendor/ too, but each needs its own
+# source override to be picked up from there instead of from git. The set and
+# the revisions change between releases, so derive them from Cargo.toml.
+grep -oE 'git = "[^"]+", rev = "[0-9a-f]+"' Cargo.toml | sort -u |
+while IFS='"' read -r _ url _ rev _; do
+cat >> .cargo/config.toml << EOF
+[source."git+${url}?rev=${rev}"]
+git = "${url}"
+rev = "${rev}"
 replace-with = "vendored-sources"
+
 EOF
+done
 
 
 %build

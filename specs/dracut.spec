@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 111
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -88,6 +88,9 @@ Patch21: 0021-fix-dracut-install-remove-FTS_NOSTAT-in-install_modu.patch
 # fix(drm): add leds-qcom-lpg to aarch64 specific modules needed by drm
 # Author: Hans de Goede <johannes.goede@oss.qualcomm.com>
 Patch22: 0022-fix-drm-add-leds-qcom-lpg-to-aarch64-specific-module.patch
+# fix(crypt): do not call return to exit a systemd generator
+# Author: Antonio Alvarez Feijoo <antonio.feijoo@suse.com>
+Patch23: 0023-fix-crypt-do-not-call-return-to-exit-a-systemd-gener.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -537,6 +540,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Wed Sep 30 2026 Angel Cervera Roldan <angelcerveraroldan@protonmail.com> - 111-5
+- fix(crypt): do not call return to exit a systemd generator
+
 * Wed Sep 09 2026 Pavel Valena <pvalena@redhat.com> - 111-4
 - build: add Requires: kbd for i18n
 

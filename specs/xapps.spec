@@ -1,9 +1,8 @@
 %global forgeurl https://github.com/linuxmint/xapp
-%global tagver   3.3.7
-%global tag      %{tagver}-unstable
+%global tag      %{version}
 
 Name:           xapps
-Version:        %{tagver}^unstable
+Version:        3.4.0
 Release:        %{autorelease}
 %{forgemeta}
 Summary:        Common files for XApp desktop apps

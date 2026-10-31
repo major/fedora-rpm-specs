@@ -974,6 +974,7 @@ popd
 
 %{_tmpfilesdir}/%{daemon_name}.conf
 %{_sysusersdir}/%{name}.conf
+%ghost %attr(0640,mysql,mysql) %{logfiledir}/mysql.log
 
 # Remember to also update the mysql.tmpfiles.d.in file when updating these permissions
 %attr(0755,mysql,mysql) %dir %{dbdatadir}

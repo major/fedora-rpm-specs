@@ -14,7 +14,7 @@
 %global api_version      2.11.0
 %global run_version      2.2.2
 
-%global upstream_version 2.11.0
+%global upstream_version 2.11.1
 #global upstream_prever  RC1
 
 %global _phpunit         %{_bindir}/phpunit9
@@ -212,6 +212,9 @@ php -r '
 
 
 %changelog
+* Fri Oct 30 2026 Remi Collet <remi@remirepo.net> - 2.11.1-1
+- update to 2.11.1
+
 * Thu Oct 29 2026 Remi Collet <remi@remirepo.net> - 2.11.0-1
 - update to 2.11.0
 

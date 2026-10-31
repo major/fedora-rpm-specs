@@ -30,7 +30,7 @@
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.21.2
+Version:        1.21.3
 Release:        1%{?dist}
 Summary:        Repodata downloading library
 
@@ -88,7 +88,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-gpg
 BuildRequires:  python3-pyxattr
 BuildRequires:  python3-requests
-BuildRequires:  python3-sphinx
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 # Obsoletes Fedora 27 package
 Obsoletes:      platform-python-%{name} < %{version}-%{release}
@@ -140,6 +139,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Thu Oct 29 2026 Packit <hello@packit.dev> - 1.21.3-1
+- Update to version 1.21.3
+
 * Fri Oct 02 2026 Packit <hello@packit.dev> - 1.21.2-1
 - Update to version 1.21.2
 

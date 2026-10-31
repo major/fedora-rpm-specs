@@ -1,5 +1,5 @@
 %bcond_without pgm
-%bcond_without unwind
+%bcond_with unwind
 
 Name:           zeromq
 Version:        4.3.5

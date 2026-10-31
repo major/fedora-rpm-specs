@@ -1,5 +1,5 @@
 Name:           pipx
-Version:        1.18.9
+Version:        1.18.10
 Release:        %autorelease
 Summary:        Install and run Python applications in isolated environments
 
@@ -36,13 +36,69 @@ applications.
 # In 1.17.11, dependencies were bumped to the latest versions in
 # https://github.com/pypa/pipx/pull/2063, but this was not due to any
 # particular requirements, so we should be able to safely loosen these as
-# needed.
-#
-# Allow older platformdirs for now; upstream wants 4.12.2
-# https://bugzilla.redhat.com/show_bug.cgi?id=2440135
+# needed. There is some risk of regressions if too many dependencies are
+# loosened too far, so (since we can’t run the tests here) we’ve attempted to
+# validate each of these by running the tests in a git checkout with
+# dependencies temporarily pinned to the older versions. It’s worth going to
+# some lengths to backport a current pipx to older releases since a huge number
+# of security flaws were patched in version 1.18.10,
+# https://github.com/pypa/pipx/security.
+
+# Very temporary, due to a long Final Freeze
+%if %{defined fc45}
+%pyproject_patch_dependency uv:set_lower:0.12.9
+%endif
+
+# Backport to releases with older platformdirs; upstream wants 4.12.2
+# We can remove F45 from this conditional after Final Freeze, since
+# platformdirs 4.13.5 is in updates-testing.
+%if %{defined fc45} || %{defined fc44}
 %pyproject_patch_dependency platformdirs:set_lower:4.9.1
-# Allow older filelock for now; upstream wants 4.0.9
+%endif
+%if %{defined fc43}
+%pyproject_patch_dependency platformdirs:set_lower:4.4
+%endif
+
+# Backport to releases with older packaging; upstream wants 26.3
+%if %{defined fc45}
+%pyproject_patch_dependency packaging:set_lower:26.2
+%endif
+# Downgrades to version 25 or below *do* lead to a few new failures in e.g.
+# test_parse_specifier_for_upgrade. It is not trivial to establish whether this
+# is a regression, in the sense that something worked with an old version of
+# pipx and an old version of packaging, but not with a new version of pipx and
+# the same version of packaging, or whether instead the new pipx has placed
+# new, additional expectations on packaging, and it’s just these that aren’t
+# satisfied. In the latter case, some things still don’t work that ought to,
+# but they didn’t work before, either – pipx just wasn’t testing for them.  In
+# any case, the failures seem to be in sufficiently specialized situations that
+# we hope any issues will be counterbalanced by the major fixes in current pipx
+# releases.
+%if %{defined fc44} || %{defined fc43}
+%pyproject_patch_dependency packaging:set_lower:25
+%endif
+
+# Backport to releases with older hatchling; upstream wants 1.32.4
+%if %{defined fc43} || %{defined fc44} || %{defined fc45}
+%pyproject_patch_dependency hatchling:set_lower:1.31
+%endif
+
+# Backport to releases with older argcomplete; upstream wants 3.7.2
+%if %{defined fc43} || %{defined fc44} || %{defined fc45}
+%pyproject_patch_dependency argcomplete:set_lower:3.6.3
+%endif
+
+# Backport to releases with older filelock; upstream wants 4.2
+#
+# It looks like the *test* test_run_skips_a_cache_entry_held_by_another_run
+# requires a cancel_check keyword added in 4.x, but the *library* doesn’t.
+%if %{defined fc43} || %{defined fc44}
+%pyproject_patch_dependency filelock:set_lower:3.15.4
+%else
+# In any case, even Rawhide currently has filelock 3.x:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2439356
 %pyproject_patch_dependency filelock:set_lower:3.20.3
+%endif
 
 
 %generate_buildrequires -p

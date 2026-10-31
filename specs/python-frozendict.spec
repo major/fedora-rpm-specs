@@ -2,7 +2,7 @@
 %global srcname frozendict
 
 Name:           python-%{srcname}
-Version:        2.4.6
+Version:        2.5.1
 Release:        %autorelease
 Summary:        An immutable dictionary
 

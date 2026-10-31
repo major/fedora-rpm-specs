@@ -1,5 +1,3 @@
-%global sum GNU Scientific Library Interface for python
-
 # Put all the documentation in one place
 %global _docdir_fmt %{name}
 
@@ -7,9 +5,9 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           pygsl
-Version:        2.6.6
+Version:        2.6.7
 Release:        %autorelease
-Summary:        %{sum}
+Summary:        GNU Scientific Library Interface for python
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/pygsl/pygsl
@@ -21,14 +19,10 @@ Patch:          %{name}-flexiblas.patch
 # Fix the multinomial rng test
 # See https://github.com/pygsl/pygsl/pull/58
 Patch:          %{name}-rng-test.patch
-# Fix warnings due to printf format mismatches
-Patch:          %{name}-format-mismatch.patch
 # Fix autodoc failure due to deleting a nonexistent variable
 Patch:          %{name}-del.patch
 # Fix autodoc errors on the API page
 Patch:          %{name}-api.patch
-# Fix some swig errors
-Patch:          %{url}/pull/105.patch
 
 # Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -50,7 +44,7 @@ BuildRequires:  %{py3_dist sphinx-rtd-theme}
 This project provides a python interface for the GNU scientific library (gsl).
 
 %package -n python3-pygsl
-Summary:       %{sum}
+Summary:       %{summary}
 # This can be removed when F44 reaches EOL
 Obsoletes:     pygsl < 2.4.0-2
 Provides:      pygsl = %{version}-%{release}
@@ -78,9 +72,6 @@ Reference manual for pygsl.
 
 %prep
 %autosetup -p1
-
-# Fix version number for the 2.6.6 release
-sed -i 's/2\.6\.6rc1/2.6.6/' pyproject.toml
 
 %conf
 fixtimestamp() {

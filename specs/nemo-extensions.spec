@@ -3,11 +3,10 @@
 %global cjs_version 140.0
 
 %global forgeurl https://github.com/linuxmint/nemo-extensions
-%global tagver   6.7.3
-%global tag      %{tagver}-unstable
+%global tag      %{version}
 
 Name:           nemo-extensions
-Version:        %{tagver}^unstable
+Version:        6.8.0
 Release:        %{autorelease}
 %{forgemeta}
 Summary:        Extensions for Nemo
@@ -268,7 +267,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %license nemo-audio-tab/COPYING.GPL3
 %{_datadir}/nemo-python/extensions/nemo-audio-tab.py
 %{_datadir}/nemo-audio-tab/
-%{python3_sitelib}/nemo_audio_tab-%{tagver}.dist-info/
+%{python3_sitelib}/nemo_audio_tab-%{version}.dist-info/
 
 
 %files -n nemo-pastebin
@@ -277,7 +276,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %license nemo-pastebin/COPYING
 %{_bindir}/nemo-pastebin-configurator
 %{_datadir}/nemo-python/extensions/nemo-pastebin.py
-%{python3_sitelib}/nemo_pastebin-%{tagver}.dist-info/
+%{python3_sitelib}/nemo_pastebin-%{version}.dist-info/
 %{_datadir}/glib-2.0/schemas/nemo-pastebin.gschema.xml
 %{_datadir}/nemo-pastebin/
 %{_datadir}/icons/hicolor/*/apps/nemo-pastebin.*
@@ -305,7 +304,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_datadir}/nemo-python/extensions/nemo_terminal.py
 %{_datadir}/nemo-terminal/
 %{_datadir}/glib-2.0/schemas/org.nemo.extensions.nemo-terminal.gschema.xml
-%{python3_sitelib}/nemo_terminal-%{tagver}.dist-info/
+%{python3_sitelib}/nemo_terminal-%{version}.dist-info/
 
 %files -n nemo-preview
 %doc nemo-preview/README
@@ -319,7 +318,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %files -n nemo-emblems
 %license nemo-emblems/COPYING.GPL3
 %{_datadir}/nemo-python/extensions/nemo-emblems.py
-%{python3_sitelib}/nemo_emblems-%{tagver}.dist-info/
+%{python3_sitelib}/nemo_emblems-%{version}.dist-info/
 
 %files -n nemo-image-converter
 %doc nemo-image-converter/README
@@ -331,7 +330,7 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_bindir}/nemo-compare-preferences
 %{_datadir}/nemo-python/extensions/nemo-compare.py
 %{_datadir}/nemo-compare/
-%{python3_sitelib}/nemo_compare-%{tagver}.dist-info/
+%{python3_sitelib}/nemo_compare-%{version}.dist-info/
 
 %files -n nemo-seahorse
 %doc nemo-seahorse/{AUTHORS,COPYING,README,NEWS,ChangeLog}

@@ -1,9 +1,9 @@
 # New Version-String scheme-style defines
 %global featurever 27
 %global interimver 0
-%global updatever 0
-%global patchver 0
-%global buildver        35
+%global updatever 1
+%global patchver 3
+%global buildver        1
 %global portablerelease 1
 %global rpmrelease 0
 
@@ -33,14 +33,14 @@
 # Release will be (where N is usually a number starting at 1):
 # - 0.N.ea<dist> for EA releases,
 # - N<dist> for GA releases
-%global is_ga           0
+%global is_ga           1
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""
 %global ea_designator_zip %{nil}
 %global extraver %{nil}
 %global eaprefix %{nil}
-%global doczipver  %{featurever}.%{interimver}.%{updatever}%{ea_designator_zip}
+%global doczipver  %{featurever}.%{interimver}.%{updatever}.0.%{patchver}+%{buildver}
 %else
 %global build_type EA
 %global ea_designator ea
@@ -484,7 +484,7 @@ exit 1
 # buildjdkver is usually same as featurever,
 # but at the time of bootstrap of the next jdk, it is featurever-1,
 # and this it is better to change it here, on single place
-%global buildjdkver 26
+%global buildjdkver 27
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
 # We need to explicitly exclude EPEL as it has the rhel macro defined.
 %if 0%{?rhel} && !0%{?epel}
@@ -672,6 +672,9 @@ Source15: TestSecurityProperties.java
 # Ensure vendor settings are correct
 Source16: CheckVendor.java
 
+# Ensure cacerts has no compromised certificates
+Source17: CheckCerts.java
+
 # Ensure translations are available for new timezones
 Source18: TestTranslations.java
 
@@ -680,7 +683,6 @@ Source18: TestTranslations.java
 # RPM/distribution specific patches
 #
 ############################################
-
 # Crypto policy and FIPS support patches
 
 # Patch is generated from the fips-25u tree at https://github.com/rh-openjdk/jdk/tree/fips-25u
@@ -706,6 +708,8 @@ Patch1001: fips-25u-%{fipsver}.patch
 # OpenJDK patches which missed last update
 #
 #############################################
+
+# Currently empty
 
 #############################################
 #
@@ -759,7 +763,8 @@ BuildRequires: graphviz
 BuildRequires: pandoc
 %endif
 # cacerts build requirement in portable mode
-BuildRequires: ca-certificates
+# versioned to make sure ca-certificates has compromised certificates removed
+BuildRequires: ca-certificates >= 2026.2.92_v9.0.319-2
 
 %if %{with_systemtap}
 BuildRequires: systemtap-sdt-devel
@@ -934,8 +939,8 @@ echo "System is RHEL=%{?rhel}%{!?rhel:0}, CentOS=%{?centos}%{!?centos:0}, EPEL=%
 echo "Portable suffix is %{?pkgos}%{!?pkgos:unset}"
 echo "Build JDK version is %{buildjdkver}, bootstrap JDK package is %{bootjdkpkg}"
 
-%if 0%{?_build_cpu:1}
-  echo "CPU: %{_target_cpu}, arch install directory: %{archinstall}, SystemTap install directory: %{_build_cpu}"
+%if 0%{?stapinstall:1}
+  echo "CPU: %{_target_cpu}, arch install directory: %{archinstall}, SystemTap install directory: %{stapinstall}"
 %else
   %{error:Unrecognised architecture %{_target_cpu}}
 %endif

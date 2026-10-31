@@ -15,7 +15,7 @@ ExcludeArch: %{ix86}
 %global with_mysqlxpb 1
 
 Name:           mysql-connector-python
-Version:        26.7.0
+Version:        26.10.0
 Release:        %autorelease
 Summary:        MySQL Connector for Python 3
 License:        GPL-2.0-only WITH Universal-FOSS-exception-1.0

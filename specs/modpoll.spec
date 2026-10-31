@@ -1,8 +1,8 @@
 %global with_tests 0
 
 Name:          modpoll
-Version:       1.6.0
-Release:       3%{?dist}
+Version:       1.6.1
+Release:       %autorelease
 Summary:       A command line tool for Modbus and MQTT
 License:       MIT
 URL:           https://github.com/gavinying/modpoll
@@ -45,20 +45,4 @@ A command line tool for Modbus and MQTT
 %{_bindir}/modpoll
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 1.6.0-2
-- Rebuilt for Python 3.15
-
-* Sun Dec 07 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.6.0-1
-- Update to 1.6.0
-
-* Mon Nov 03 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.5.1-1
-- Update to 1.5.1
-
-* Sun Nov 17 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1.4.0-1
-- Update to 1.4.0
-
-* Sun Nov 03 2024 Peter Robinson <pbrobinson@fedoraproject.org> - 1.3.3-1
-- Initial package
+%autochangelog

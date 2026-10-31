@@ -1,3 +1,6 @@
+%global forgeurl https://github.com/linuxmint/cjs
+%global tag      %{version}
+
 %global glib2_version 2.86.0
 %global gtk3_version 3.20
 %global mozjs140_version 140.6.0
@@ -5,13 +8,14 @@
 Name:          cjs
 # Epoch needed: version dropped from 1.34.0 to 1.9.1 during package revival
 Epoch:         1
-Version:       140.1
+Version:       140.2
 Release:       %autorelease
+%{forgemeta}
 Summary:       Javascript Bindings for Cinnamon
 
 License:       MIT AND BSD-3-Clause AND MPL-2.0 AND CC-BY-3.0 AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
-URL:           https://github.com/linuxmint/%{name}
-Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:           %{forgeurl}
+Source0:       %{forgesource}
 
 ExcludeArch:   %{ix86}
 
@@ -67,7 +71,7 @@ the functionality of the installed cjs package.
 
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 
 %check
 %{shrink:xwfb-run -c mutter -- %meson_test --timeout-multiplier=5}

@@ -1,12 +1,12 @@
 %global rdnn        dev.geopjr.Tuba
 
 Name:           tuba
-Version:        0.10.3
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Browse the Fediverse
 License:        GPL-3.0-only
 URL:            https://tuba.geopjr.dev/
-Source:         https://github.com/GeopJr/Tuba/archive/v%{version}/Tuba-%{version}.tar.gz
+Source:         https://codeberg.org/GeopJr/Tuba/archive/v%{version}.tar.gz#/Tuba-%{version}.tar.gz
 # Fedora packaging guidelines require validating AppData files with
 # appstream-util.  Upstream previously did this in their meson tests, but have
 # switched to using appstreamcli instead.  This would probably be fine, except
@@ -54,11 +54,12 @@ platforms like Mastodon, GoToSocial, Akkoma & more!
 
 
 %prep
-%autosetup -n Tuba-%{version} -p 1
+%autosetup -p 1 -n tuba
 
 
 %build
-# Build with the same options as the flatpak to ensure feature parity.
+# Build with the same options as the flatpak to ensure feature parity, except
+# unifiedpush which needs a dependency that isn't packaged in Fedora yet.
 # https://github.com/flathub/dev.geopjr.Tuba/blob/master/dev.geopjr.Tuba.yaml
 %meson \
     -Dclapper=enabled \

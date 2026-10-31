@@ -2,7 +2,7 @@
 %global modulename bitcoin
 
 Name:           bitcoin-core-selinux
-Version:        0.2
+Version:        0.4
 Release:        %autorelease
 Summary:        Bitcoin Core SELinux policy
 License:        GPL-3.0-only

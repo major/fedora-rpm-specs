@@ -6,7 +6,7 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.37
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 VCS: git:https://gitlab.com/setroubleshoot/setroubleshoot.git
@@ -23,6 +23,7 @@ Patch: 0005-Fix-port-handling.patch
 Patch: 0006-Require-root-to-delete-alerts-via-D-Bus.patch
 Patch: 0007-Protect-against-malicious-socket-blocking.patch
 Patch: 0008-Require-privileged-access-to-change-email-alert-reci.patch
+Patch: 0009-Use-default-module-store-path-when-searching-for-pac.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
@@ -201,6 +202,9 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Wed Oct 21 2026 Vit Mojzis <vmojzis@redhat.com> - 3.3.37-7
+- Use default module store path when searching for package of origin
+
 * Fri Aug 07 2026 Vit Mojzis <vmojzis@redhat.com> - 3.3.37-6
 - Require privileged access to change email alert recipients
 - Protect against malicious socket blocking

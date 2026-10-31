@@ -1,11 +1,11 @@
 %global dpcpp_major 7
-%global dpcpp_minor 1
-%global dpcpp_patch 1
-%global llvm_major 22
+%global dpcpp_minor 2
+%global dpcpp_patch 0
+%global llvm_major 23
 %global sycl_major 9
 %global llvm_version_suffix dpcpp%{dpcpp_major}
 #date of the v%%{version} tag commit
-%global sycl_compiler_version 20260915
+%global sycl_compiler_version 20261014
 
 # Private prefix: DPC++ ships its own clang/llvm that must not clash with the
 # system toolchain. The clang driver locates SYCL headers, device libraries
@@ -38,9 +38,9 @@
 #   vc-intrinsics    llvm/lib/SYCLLowerIR/CMakeLists.txt   (LLVMGenXIntrinsics_GIT_TAG)
 #   emhash           sycl/cmake/modules/FetchEmhash.cmake  (GIT_TAG)
 #   umf              unified-runtime/source/common/CMakeLists.txt (UMF_TAG)
-%global vc_intrinsics_commit 60cea7590bd022d95f5cf336ee765033bd114d69
+%global vc_intrinsics_commit 4fc83e12979096db72c129bd432238d5ca397e4d
 %global emhash_commit 5e131ba09a5290823fe71099d9c35eb5df5345b6
-%global umf_version 1.1.0
+%global umf_version 1.2.0
 
 Name:           intel-dpcpp
 Version:        %{dpcpp_major}.%{dpcpp_minor}.%{dpcpp_patch}
@@ -56,11 +56,11 @@ Source10:       https://github.com/intel/vc-intrinsics/archive/%{vc_intrinsics_c
 Source11:       https://github.com/ktprime/emhash/archive/%{emhash_commit}/emhash-%{emhash_commit}.tar.gz
 Source12:       https://github.com/oneapi-src/unified-memory-framework/archive/v%{umf_version}/unified-memory-framework-%{umf_version}.tar.gz
 
-Patch0:         compiler-rt-0001-guard-optional-linux-scc-h.patch
 Patch1:         sycl-0002-skip-usr-include-in-tests.patch
-Patch2:         ur-0006-dont-call-xptiFrameworkFinalize-during-shutdown.patch
-Patch3:         ur-0007-use-canonical-path-to-resolve-loader-lib-path.patch
 Patch4:         llvm-0001-version-symbols-of-shared-libs.patch
+Patch5:         sycl-0003-fix-ambiguous-ipc-put-calls-with-gcc-16.patch
+Patch6:         sycl-0004-unittests-sfinae-incomplete-not-error.patch
+Patch7:         sycl-0005-load-sycl-jit-from-libsycl-dir.patch
 
 ExclusiveArch:  x86_64 aarch64
 
@@ -306,7 +306,7 @@ rm -rf %{buildroot}%{dpcpp_libdir}/cmake \
        %{buildroot}%{dpcpp_libdir}/libear \
        %{buildroot}%{dpcpp_libdir}/libscanbuild \
        %{buildroot}%{dpcpp_libdir}/python3*
-rm -f  %{buildroot}%{dpcpp_bindir}/{amdgpu-arch,nvptx-arch,scan-build*,scan-view,analyze-build,intercept-build,c-index-test,git-clang-format,hmaptool,clang-format-diff.py,clang-tblgen,llvm-tblgen,llvm-c-test}
+rm -f  %{buildroot}%{dpcpp_bindir}/{amdgpu-arch,nvptx-arch,scan-build*,scan-view,analyze-build,intercept-build,c-index-test,git-clang-format,hmaptool,clang-format-diff.py,clang-tblgen,llvm-tblgen,llvm-c-test,llvm-ir2vec}
 
 # llvm-* tools run by the driver stay in the main package
 find %{buildroot}%{dpcpp_bindir} -name 'llvm-*' \
@@ -357,7 +357,7 @@ find %{__cmake_builddir}/tools/sycl/unittests -type f -name '*Tests*' -perm /111
     xargs -I{} ln -sf $PWD/%{__cmake_builddir}/lib/libur_adapter_mock.so.0 {}/libur_adapter_mock.so.0
 export LIT_FILTER_OUT='include_deps/sycl_(detail_core|khr_includes_(handler|kernel_bundle|queue|reduction|stream|usm))\.hpp\.cpp|tools/abi_check_positive\.cpp'
 %ifarch aarch64
-LIT_FILTER_OUT+='|esimd|invoke_simd|basic_tests/(interop-level-zero-2020|generic_type_traits|no_math_in_global_ns|builtins/builtin_unit_tests)\.cpp|gdb/printers\.cpp|BindlessImagesExtensionTests_Non_Preview_Tests'
+LIT_FILTER_OUT+='|esimd|invoke_simd|basic_tests/(interop-level-zero-2020|generic_type_traits|no_math_in_global_ns|builtins/builtin_unit_tests)\.cpp|gdb/printers\.cpp|BindlessImagesExtensionTests-(Non_)?Preview_Tests'
 %endif
 %cmake_build --target check-sycl
 %endif
@@ -421,16 +421,22 @@ LIT_FILTER_OUT+='|esimd|invoke_simd|basic_tests/(interop-level-zero-2020|generic
 %{_libdir}/libsycl.so.%{sycl_major}
 %{dpcpp_libdir}/libsycl.so.%{sycl_major}*
 %{dpcpp_libdir}/libsycl-preview.so.%{sycl_major}*
+%{dpcpp_libdir}/libsycl-jit.so
 %{dpcpp_libdir}/libsycl-jit.so.*
 %{dpcpp_libdir}/SYCLJITPassesPlugin.so
+%ifnarch aarch64
 %{dpcpp_libdir}/libur_adapter_*.so.*
+%endif
+%{dpcpp_libdir}/libur_sanitizer_layer.so.*
 
 %files devel
 %{_libdir}/libsycl.so
 %{dpcpp_libdir}/libsycl.so
 %{dpcpp_libdir}/libsycl-preview.so
-%{dpcpp_libdir}/libsycl-jit.so
+%ifnarch aarch64
 %{dpcpp_libdir}/libur_adapter_*.so
+%endif
+%{dpcpp_libdir}/libur_sanitizer_layer.so
 %{dpcpp_libdir}/libsycl-devicelib-host.a
 %{dpcpp_libdir}/dpcpp-%{dpcpp_major}/
 %{dpcpp_libdir}/pkgconfig/
@@ -442,7 +448,7 @@ LIT_FILTER_OUT+='|esimd|invoke_simd|basic_tests/(interop-level-zero-2020|generic
 %{dpcpp_includedir}/unified-runtime/
 
 %files llvm-tools -f llvm-tools.files
-%{dpcpp_bindir}/bugpoint
+%{dpcpp_bindir}/llubi
 %{dpcpp_bindir}/diagtool
 %{dpcpp_bindir}/dsymutil
 %{dpcpp_bindir}/llc

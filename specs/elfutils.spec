@@ -4,7 +4,7 @@
 
 Name: elfutils
 Version: 0.197
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -21,6 +21,14 @@ Summary: A collection of utilities and DSOs to handle ELF files and DWARF data
 %global enable_stackprof 1
 %else
 %global enable_stackprof 0
+%endif
+
+# Experimental thread safety for the elfutils libraries.  Enabled on
+# Fedora 46 and later (currently rawhide only).
+%if 0%{?fedora} >= 46
+%global enable_thread_safety 1
+%else
+%global enable_thread_safety 0
 %endif
 
 %global provide_yama_scope      0
@@ -100,6 +108,45 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
+
+# Thread safety fixes backported from upstream commits following 0.197
+# (elfutils-0.197..eef98f2a).
+# elf_rand.c: Add missing rwlock_unlock for early return
+Patch2: elfutils-0.197-thread-safety-01-elf_rand-unlock.patch
+# asm_align.c: Avoid EDEADLK in asm_align
+Patch3: elfutils-0.197-thread-safety-02-asm_align-edeadlk.patch
+# libasm: Add missing rwlock_unlock for early returns
+Patch4: elfutils-0.197-thread-safety-03-libasm-unlock.patch
+# readelf.c: Print to job output stream instead of stdout
+Patch5: elfutils-0.197-thread-safety-04-readelf-job-output.patch
+# lib/locks.h: Add atomic load/store macros
+Patch6: elfutils-0.197-thread-safety-05-locks-atomic-macros.patch
+# elf_getscn.c: Remove locking from hotpath
+Patch7: elfutils-0.197-thread-safety-06-elf_getscn-hotpath.patch
+# gelf_getshdr.c, elfNN_getshdr.c: Remove hotpath locks
+Patch8: elfutils-0.197-thread-safety-07-getshdr-hotpath.patch
+# elf32_offscn.c: Use atomic_load_acquire for Elf_ScnList fields
+Patch9: elfutils-0.197-thread-safety-08-offscn-atomic-load.patch
+# gelf_getsymshndx.c: Remove locking
+Patch10: elfutils-0.197-thread-safety-09-gelf_getsymshndx-locking.patch
+# dwarf_getmacros.c: Acquire macro_lock before macro_ops_tree find
+Patch11: elfutils-0.197-thread-safety-10-dwarf_getmacros-macro_lock.patch
+# elf32_getshdr.c: Avoid failed assert for archive member
+Patch12: elfutils-0.197-thread-safety-11-getshdr-archive-assert.patch
+# libdw/cfi.c: Prevent CIE init data race
+Patch13: elfutils-0.197-thread-safety-12-cfi-cie-init-race.patch
+# libdwfl: Serialize module lazy loading entry points
+Patch14: elfutils-0.197-thread-safety-13-dwfl-lazy-loading.patch
+# libdwfl: Serialize CFI cache initialization
+Patch15: elfutils-0.197-thread-safety-14-dwfl-cfi-cache.patch
+# libdwfl: Synchronize access to backend
+Patch16: elfutils-0.197-thread-safety-15-dwfl-backend.patch
+# libdwfl: Serialize aranges initialization
+Patch17: elfutils-0.197-thread-safety-16-dwfl-aranges.patch
+# dwarf_formref_die.c: Avoid TOCTOU race in dwarf_formref_die
+Patch18: elfutils-0.197-thread-safety-17-dwarf_formref_die-toctou.patch
+# lib/dynamicsizehash_concurrent.c: Implement lock-free lookups
+Patch19: elfutils-0.197-thread-safety-18-dynamicsizehash-lockfree-find.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -339,6 +386,9 @@ trap 'cat config.log' EXIT
 %else
 	--disable-stackprof \
 %endif
+%if %{enable_thread_safety}
+	--enable-thread-safety \
+%endif
 	--enable-debuginfod-ima-verification \
 	--enable-debuginfod-ima-cert-path=%{_sysconfdir}/keys/ima
 trap '' EXIT
@@ -532,6 +582,12 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Fri Oct 30 2026 Aaron Merey <amerey@redhat.com> - 0.197-2
+- Enable experimental thread safety (--enable-thread-safety) in the
+  elfutils libraries on Fedora rawhide (46+) only
+- Backport upstream thread safety fixes following 0.197 as
+  elfutils-0.197-thread-safety-*.patch
+
 * Tue Oct 20 2026 Aaron Merey <amerey@redhat.com> - 0.197-1
 - Upgrade to upstream elfutils 0.197
 - Include the upstream thread-safety documentation in elfutils

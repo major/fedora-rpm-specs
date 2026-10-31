@@ -10,7 +10,7 @@
 
 Summary:    X Keyboard Extension configuration data
 Name:       xkeyboard-config
-Version:    2.48
+Version:    2.49
 Release:    %autorelease
 License:    HPND AND HPND-sell-variant AND X11 AND X11-distribute-modifications-variant AND MIT AND MIT-open-group AND xkeyboard-config-Zinoviev
 URL:        http://www.freedesktop.org/wiki/Software/XKeyboardConfig
@@ -20,9 +20,7 @@ Source0:    %{name}-%{gitdate}.tar.bz2
 Source1:    make-git-snapshot.sh
 Source2:    commitid
 %else
-Source0:    https://xorg.freedesktop.org/archive/individual/data/%{name}/%{name}-%{version}.tar.xz
-Source1:    https://xorg.freedesktop.org/archive/individual/data/%{name}/%{name}-%{version}.tar.xz.sig
-Source3:    SergeyUdaltsov-C933A145.gpg
+Source0:    https://gitlab.freedesktop.org/%{name}/%{name}/-/archive/%{name}-%{version}/%{name}-%{name}-%{version}.tar.bz2
 %endif
 
 BuildArch:  noarch
@@ -55,10 +53,7 @@ Requires:   pkgconfig
 Development files for %{name}.
 
 %prep
-%if ! 0%{?gitdate}
-gpgv2 --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
-%endif
-%autosetup -S git
+%autosetup -S git -n %{name}-%{name}-%{version}
 
 %build
 %meson -Dcompat-rules=true -Dxorg-rules-symlinks=true

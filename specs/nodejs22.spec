@@ -3,7 +3,7 @@
 %{load:%{_sourcedir}/nodejs.srpm.macros}
 
 # === Versions of any software shipped in the main nodejs tarball
-%nodejs_define_version node 1:22.23.3-%{autorelease} -p
+%nodejs_define_version node 1:22.23.4-%{autorelease} -p
 
 # Special release for sub-packages with their own version string.
 # The complex release string ensures that the subpackage release is always increasing,
@@ -15,44 +15,44 @@
 # expect anything between the markers to be overwritten on any update.
 
 # BEGIN automatic-version-macros  # DO NOT REMOVE THIS LINE!
-# Version from node-v22.23.3/src/node_version.h
+# Version from node-v22.23.4/src/node_version.h
 %global node_soversion 127
 
-# Version from node-v22.23.3/deps/ada/ada.h
+# Version from node-v22.23.4/deps/ada/ada.h
 %nodejs_define_version ada 2.9.2
-# Version from node-v22.23.3/deps/brotli/c/common/version.h
+# Version from node-v22.23.4/deps/brotli/c/common/version.h
 %nodejs_define_version brotli 1.1.0
-# Version from node-v22.23.3/deps/cares/include/ares_version.h
-%nodejs_define_version c_ares 1.34.8
-# Version from node-v22.23.3/deps/histogram/include/hdr/hdr_histogram_version.h
+# Version from node-v22.23.4/deps/cares/include/ares_version.h
+%nodejs_define_version c_ares 1.34.9
+# Version from node-v22.23.4/deps/histogram/include/hdr/hdr_histogram_version.h
 %nodejs_define_version histogram 0.11.9
-# Version from node-v22.23.3/tools/icu/current_ver.dep
+# Version from node-v22.23.4/tools/icu/current_ver.dep
 %nodejs_define_version icu 78.3 -p
-# Version from node-v22.23.3/deps/uv/include/uv/version.h
+# Version from node-v22.23.4/deps/uv/include/uv/version.h
 %nodejs_define_version libuv 1.51.0
-# Version from node-v22.23.3/deps/llhttp/include/llhttp.h
+# Version from node-v22.23.4/deps/llhttp/include/llhttp.h
 %nodejs_define_version llhttp 9.4.3
-# Version from node-v22.23.3/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
+# Version from node-v22.23.4/deps/nghttp2/lib/includes/nghttp2/nghttp2ver.h
 %nodejs_define_version nghttp2 1.69.0
-# Version from node-v22.23.3/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
+# Version from node-v22.23.4/deps/ngtcp2/nghttp3/lib/includes/nghttp3/version.h
 %nodejs_define_version nghttp3 1.6.0
-# Version from node-v22.23.3/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
+# Version from node-v22.23.4/deps/ngtcp2/ngtcp2/lib/includes/ngtcp2/version.h
 %nodejs_define_version ngtcp2 1.11.0
-# Version from node-v22.23.3/deps/cjs-module-lexer/src/package.json
+# Version from node-v22.23.4/deps/cjs-module-lexer/src/package.json
 %nodejs_define_version nodejs-cjs-module-lexer 2.2.0
-# Version from node-v22.23.3/lib/punycode.js
+# Version from node-v22.23.4/lib/punycode.js
 %nodejs_define_version nodejs-punycode 2.1.0
-# Version from node-v22.23.3/deps/undici/src/package.json
-%nodejs_define_version nodejs-undici 6.28.1
-# Version from node-v22.23.3/deps/npm/package.json
+# Version from node-v22.23.4/deps/undici/src/package.json
+%nodejs_define_version nodejs-undici 6.29.1
+# Version from node-v22.23.4/deps/npm/package.json
 %nodejs_define_version npm 2:10.9.9-%{nodejs_subpackage_release}
-# Version from node-v22.23.3/deps/sqlite/sqlite3.h
-%nodejs_define_version sqlite 3.51.3
-# Version from node-v22.23.3/deps/uvwasi/include/uvwasi.h
+# Version from node-v22.23.4/deps/sqlite/sqlite3.h
+%nodejs_define_version sqlite 3.53.4
+# Version from node-v22.23.4/deps/uvwasi/include/uvwasi.h
 %nodejs_define_version uvwasi 0.0.23
-# Version from node-v22.23.3/deps/v8/include/v8-version.h
+# Version from node-v22.23.4/deps/v8/include/v8-version.h
 %nodejs_define_version v8 3:12.4.254.21-%{nodejs_subpackage_release} -p
-# Version from node-v22.23.3/deps/zlib/zlib.h
+# Version from node-v22.23.4/deps/zlib/zlib.h
 %nodejs_define_version zlib 1.3.1
 # END automatic-version-macros  # DO NOT REMOVE THIS LINE!
 
@@ -167,8 +167,11 @@ Source101:      nodejs.srpm.macros
 %patchlist
 0001-Remove-unused-OpenSSL-config.patch
 0001-fips-disable-options.patch
-0002-CVE-2026-42338-ip-address-security-fix.patch
-0001-Update-brace-expansion-to-version-2.1.6.patch
+0001-npm-update-ip-address-to-10.7.4.patch
+0001-npm-update-brace-expansion-to-2.1.7.patch
+0001-deps-update-brace-expansion-to-5.0.12.patch
+0001-npm-backport-pacote-fix-for-CVE-2026-9496.patch
+0001-fix-build-with-shared-brotli.patch
 
 %description
 Node.js is a platform built on Chrome's JavaScript runtime
