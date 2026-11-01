@@ -14,7 +14,7 @@ http://readthedocs.org/docs/cliff/en/latest/}
 %global common_desc_tests This package contains tests for the python cliff library.
 
 Name:             python-%{modname}
-Version:          4.16.0
+Version:          4.17.0
 Release:          %autorelease
 Summary:          Command Line Interface Formulation Framework
 

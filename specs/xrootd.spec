@@ -10,12 +10,12 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	6.2.0
-Release:	2%{?dist}
+Version:	6.2.1
+Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib AND Apache-2.0 AND MPL-2.0
-URL:		https://xrootd.web.cern.ch
-Source0:	%{url}/download/v%{version}/%{name}-%{version}.tar.gz
+URL:		https://xrootd.org
+Source0:	https://xrootd.web.cern.ch/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}-sysusers.conf
 
 #		Unbundle tinyxml library
@@ -24,14 +24,6 @@ Patch0:		0001-Unbundle-tinyxml.patch
 Patch1:		0001-Unbundle-gtest.patch
 #		Make documentation self-contained
 Patch2:		0001-Make-documentation-self-contained.patch
-#		https://github.com/xrootd/xrootd/pull/2969
-Patch3:		0001-Tests-Do-not-hardcode-the-name-of-the-build-director.patch
-#		https://github.com/xrootd/xrootd/pull/2970
-Patch4:		0001-Python-Fix-parsing-of-enum-arguments-in-python-bindi.patch
-Patch5:		0002-Python-Fix-parsing-of-timeout-arguments-in-python-bi.patch
-Patch6:		0003-Python-Fix-parsing-of-uint64_t-arguments-in-python-b.patch
-Patch7:		0004-Python-Fix-parsing-of-bool-argument-in-python-bindin.patch
-Patch8:		0005-Python-Update-converter-helper-functions.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -279,12 +271,6 @@ This package contains the API documentation of the xrootd libraries.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
-%patch -P3 -p1
-%patch -P4 -p1
-%patch -P5 -p1
-%patch -P6 -p1
-%patch -P7 -p1
-%patch -P8 -p1
 
 # Delete bundled dependencies
 rm src/XrdXml/tinyxml/tiny*
@@ -694,6 +680,10 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sat Oct 31 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.2.1-1
+- Update to version 6.2.1
+- Drop patches accepted upstream
+
 * Sun Oct 11 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:6.2.0-2
 - Some fixes for the python bindings
 

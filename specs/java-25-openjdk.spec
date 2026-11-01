@@ -1,10 +1,10 @@
 # New Version-String scheme-style defines
 %global featurever 25
 %global interimver 0
-%global updatever 4
-%global patchver 1
-%global buildver 1
-%global portablerelease 1
+%global updatever 5
+%global patchver 0
+%global buildver 8
+%global portablerelease 3
 %global rpmrelease 1
 
 # Define IcedTea version used for SystemTap tapsets and desktop file

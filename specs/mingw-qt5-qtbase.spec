@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-qtbase
 Version:        5.15.18
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -104,10 +104,21 @@ Patch19:        qtbase-5.15.8-fix-missing-qtsan-include.patch
 Patch20:        qtbase-fix-linking-against-static-harfbuzz.patch
 
 # Backport fix for CVE-2026-19248
+# https://github.com/qt/qtbase/commit/1303f05b33bb777626644729dd3b1330f60ecb7f
 Patch21:        CVE-2026-19248.patch
 
 # Backport fix for CVE-2026-11573
+# https://github.com/qt/qtbase/commit/948599e7b71f59fd9c9c0f7f3d1987ec93a23490
 Patch22:        CVE-2026-11573.patch
+
+# Backport fix for CVE-2026-107157
+# https://github.com/qt/qtbase/commit/64f07e1ee05f22447a6bd1d74ec3293419c93c5d
+Patch23:        CVE-2026-107157.patch
+
+# Backport fix for CVE-2026-101201
+# https://github.com/qt/qt5compat/commit/721ed576391211ca53ecdaaecf6dd41df7bc962e
+# https://github.com/qt/qt5compat/commit/c0a495894d83a3c48055bd1e544f93147fc6ade1
+Patch24:        CVE-2026-101201.patch
 
 
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
@@ -825,6 +836,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Sat Oct 31 2026 Sandro Mani <manisandro@gmail.com> - 5.15.18-5
+- Backport fix for CVE-2026-107157, CVE-2026-101201
+
 * Sun Oct 25 2026 Sandro Mani <manisandro@gmail.com> - 5.15.18-4
 - Backport fixes for CVE-2026-19248 and CVE-2026-11573
 

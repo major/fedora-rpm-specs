@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           ubridge
-Version:        1.3.1
+Version:        1.3.2
 Release:        1%{?dist}
 Summary:        Bridge for UDP tunnels, Ethernet, TAP and VMnet interfaces
 
@@ -52,6 +52,9 @@ install -p -m4755 %{name} %{buildroot}%{_bindir}
 
 
 %changelog
+* Sat Oct 31 2026 Alexey Kurov <nucleo@fedoraproject.org> - 1.3.2-1
+- Update to 1.3.2
+
 * Mon Oct 19 2026 Alexey Kurov <nucleo@fedoraproject.org> - 1.3.1-1
 - Update to 1.3.1
 

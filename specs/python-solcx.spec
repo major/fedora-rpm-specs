@@ -1,7 +1,7 @@
 %global pypi_name solcx
 
 Name:          python-%{pypi_name}
-Version:       2.0.5
+Version:       2.1.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Python wrapper and version management tool for the Solidity compiler

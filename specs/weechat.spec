@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/weechat/plugins/.*$
 
 Name:      weechat
-Version:   4.10.1
+Version:   4.10.2
 Release:   %autorelease
 Summary:   Portable, fast, light and extensible IRC client
 Group:     Applications/Communications
@@ -21,7 +21,6 @@ BuildRequires: enchant2-devel
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: glibc-langpack-en
-BuildRequires: gnupg2
 BuildRequires: gnutls-devel
 BuildRequires: guile30-devel
 BuildRequires: libcurl-devel
@@ -29,6 +28,7 @@ BuildRequires: libgcrypt-devel
 BuildRequires: libzstd-devel
 BuildRequires: lua-devel
 BuildRequires: ncurses-devel
+BuildRequires: openpgpverify
 BuildRequires: perl-devel
 BuildRequires: perl-ExtUtils-Embed
 %ifnarch %{ix86}
@@ -72,7 +72,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 This package provides the PHP plugin for weechat.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{name}-%{version}
 
 

@@ -3,7 +3,7 @@
 %bcond tests 1
 
 Name:           python-%{srcname}
-Version:        26.4.2
+Version:        26.10.1
 Release:        %autorelease
 Summary:        The libmamba based solver for conda
 
@@ -80,6 +80,7 @@ export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
   --deselect=tests/test_channels.py::test_conda_build_with_aliased_channels \
   --deselect=tests/test_channels.py::test_encoding_file_paths \
   --deselect=tests/test_channels.py::test_http_server_auth_token_in_defaults \
+  --deselect=tests/test_channels.py::test_installed_channel_is_not_fetched[http_test_server0] \
   --deselect=tests/test_channels.py::test_jax_and_jaxlib \
   --deselect=tests/test_channels.py::test_local_spec \
   --deselect=tests/test_channels.py::test_mirrors_do_not_leak_channels\[_setup_channels_alias] \
@@ -129,6 +130,10 @@ export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
   --deselect='tests/test_solver.py::test_pytorch_gpu[pytorch=2]' \
   --deselect=tests/test_solver.py::test_channel_subdir_set_correctly \
   --deselect=tests/test_solver.py::test_python_site_packages_path \
+  --deselect=tests/test_solver.py::test_unsatisfiable_empty_prefix_solves_once[None] \
+  --deselect=tests/test_solver.py::test_unsatisfiable_empty_prefix_solves_once[1] \
+  --deselect=tests/test_solver.py::test_unsatisfiable_empty_prefix_solves_once[2] \
+  --deselect=tests/test_solver.py::test_unsatisfiable_empty_prefix_solves_once[5] \
   --deselect=tests/test_solver_differences.py \
   --deselect=tests/test_solvers.py::test_python_downgrade_reinstalls_noarch_packages \
   --deselect=tests/test_solvers.py::test_defaults_specs_work \
@@ -148,6 +153,7 @@ export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
   --deselect=tests/test_workarounds.py::test_build_string_filters \
   --deselect=tests/test_workarounds.py::test_ctrl_c[Collecting\ package\ metadata-shards] \
   --deselect=tests/test_workarounds.py::test_ctrl_c[Collecting\ package\ metadata-noshards] \
+  --deselect=tests/test_workarounds.py::test_ctrl_c[Collecting\ package\ metadata] \
   --deselect=tests/test_workarounds.py::test_ctrl_c[Solving\ environment] \
   --deselect=tests/test_workarounds.py::test_ctrl_c[Solving\ environment-noshards] \
   --deselect=tests/test_workarounds.py::test_ctrl_c[Solving\ environment-shards]

@@ -6,7 +6,7 @@
 %bcond_without tests
 
 Name:           debhelper
-Version:        13.30
+Version:        14.5
 Release:        %autorelease
 Summary:        Helper programs for debian/rules
 License:        GPL-2.0-or-later
@@ -16,7 +16,7 @@ BuildArch:      noarch
 # dpkg-gencontrol: warning: unknown CC system type ppc64le-redhat-linux, falling back to default (native compilation)
 ExcludeArch:    ppc64le
 
-Source0:        http://ftp.debian.org/debian/pool/main/d/%{name}/%{name}_%{version}.tar.xz
+Source0:        https://deb.debian.org/debian/pool/main/d/%{name}/%{name}_%{version}.tar.xz
 Patch0:         no_layout_deb.patch
 
 BuildRequires:  gcc
@@ -74,10 +74,13 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IPC::Open2)
 BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::Harness)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Test::Pod)
+# Autoscripts templates are checked with shellcheck
+BuildRequires:  ShellCheck
 %endif
 
 Requires:       binutils
@@ -85,6 +88,8 @@ Requires:       dh-autoreconf >= 17
 Requires:       dpkg >= 1.18.0
 Requires:       dpkg-dev >= 1.18.2
 Requires:       dpkg-perl >= 1.17.14
+Requires:       dwz
+Requires:       file
 # PerlIO::gzip || gzip
 Requires:       gzip
 Requires:       perl(Carp)
@@ -95,6 +100,7 @@ Requires:       perl(Dpkg::Changelog::Parse)
 Requires:       perl(Dpkg::Deps)
 Requires:       perl(File::Copy)
 Requires:       perl(File::Path)
+Requires:       man-db
 Requires:       po-debconf
 
 Suggests:       dh-make
@@ -120,18 +126,19 @@ Most Debian packages use debhelper as part of their build process.
 # Use debhelper to install (man-pages of) debhelper...
 ./run dh_installman -P %{buildroot} --verbose -p debhelper
 
+%find_lang %{name} --with-man --all-name
+
 %if %{with tests}
 %check
-make test
+make test TEST_JOBS=%{_smp_build_ncpus}
 %endif
 
-%files
+%files -f %{name}.lang
 %doc examples/ doc/
 %{_mandir}/man1/*
 %{_mandir}/man7/*
-%{_mandir}/*/man1/*
-%{_mandir}/*/man7/*
-%{_bindir}/*
+%{_bindir}/dh
+%{_bindir}/dh_*
 %{_datadir}/%{name}
 %{perl_vendorlib}/*
 

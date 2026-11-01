@@ -8,14 +8,17 @@
 
 Name: keepalived
 Summary: High Availability monitor built upon LVS, VRRP and service pollers
-Version: 2.3.4
+Version: 2.4.3
 Release: %autorelease
 License: GPL-2.0-or-later
 URL: http://www.keepalived.org/
 
 Source0: http://www.keepalived.org/software/keepalived-%{version}.tar.gz
 Source1: keepalived.service
-#Patch0: keepalived-configure-c99.patch
+
+# Fix VMAC configuration on Linux 7.1 and later
+# https://github.com/acassen/keepalived/commit/cc38eea663f9411e3889a5aa0e615900fa9e43b8
+Patch0:  keepalived-NLA_F_NESTED.patch
 
 %{?systemd_requires}
 
@@ -71,7 +74,7 @@ touch aclocal.m4 Makefile.in lib/config.h.in configure
 %make_build STRIP=/bin/true
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 rm -rf %{buildroot}%{_initrddir}/
 rm -rf %{buildroot}%{_sysconfdir}/keepalived/samples/
 mv %{buildroot}%{_sysconfdir}/keepalived/keepalived.conf.sample \
@@ -89,10 +92,11 @@ mkdir -p %{buildroot}%{_libexecdir}/keepalived
 %systemd_postun_with_restart keepalived.service
 
 %files
-%attr(0755,root,root) %{_sbindir}/keepalived
-%config(noreplace) %attr(0644,root,root) %{_sysconfdir}/sysconfig/keepalived
-%config(noreplace) %attr(0644,root,root) %{_sysconfdir}/keepalived/keepalived.conf
-%doc AUTHOR ChangeLog CONTRIBUTORS COPYING README TODO
+%license COPYING
+%{_sbindir}/keepalived
+%config(noreplace) %{_sysconfdir}/sysconfig/keepalived
+%config(noreplace) %{_sysconfdir}/keepalived/keepalived.conf
+%doc AUTHOR ChangeLog CONTRIBUTORS README TODO
 %doc doc/keepalived.conf.SYNOPSIS doc/samples/keepalived.conf.*
 %dir %{_sysconfdir}/keepalived/
 %dir %{_libexecdir}/keepalived/

@@ -40,7 +40,7 @@
 Name:		root
 Version:	6.40.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	5%{?dist}
+Release:	7%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3545,6 +3545,12 @@ fi
 %endif
 
 %changelog
+* Sat Oct 31 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.04-7
+- Rebuild for pythia8 8.3.18 (again)
+
+* Fri Oct 30 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.04-6
+- Fix typo in fontconfig patch
+
 * Mon Oct 19 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.04-5
 - Rebuild for libarrow 26
 

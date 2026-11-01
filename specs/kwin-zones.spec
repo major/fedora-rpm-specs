@@ -1,6 +1,6 @@
 Name:          kwin-zones
 Version:       1.0.13
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Wayland ext-zones for KWin
 
 License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND MIT
@@ -26,6 +26,9 @@ BuildRequires: cmake(KWin)
 BuildRequires: pkgconfig(wayland-protocols)
 BuildRequires: pkgconfig(wayland-client)
 
+# kwin-zones must be used with the kwin version it was built against
+%{?_kwin:Requires: %{_kwin}%{?_isa} = %{_kwin_version}}
+
 %description
 %{summary}.
 
@@ -46,6 +49,9 @@ BuildRequires: pkgconfig(wayland-client)
 %{_kf6_qmldir}/org/kde/zones/
 
 %changelog
+* Sat Oct 31 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.0.13-3
+- Explicitly depend on the version of kwin it was built against
+
 * Sat Oct 24 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.13-2
 - Rebuild (qt6)
 

@@ -3,8 +3,8 @@
 %global __requires_exclude (%{_privatelibs})
 
 Name:             pgmodeler
-Version:          1.2.2
-Release:          4%{?dist}
+Version:          2.0.0
+Release:          1%{?dist}
 Summary:          PostgreSQL Database Modeler
 
 License:          GPL-3.0-only
@@ -14,21 +14,21 @@ Source0:          https://github.com/%{name}/%{name}/archive/v%{version}/%{name}
 Source1:          %{name}.desktop
 Source2:          pgmodeler-mime-dbm.xml
 
+# Don't override system default C/C++ compiler
+Patch0:           pgmodeler_compiler.patch
+
 Requires:         hicolor-icon-theme
 Requires:         shared-mime-info
 
+BuildRequires:    cmake
+BuildRequires:    cups-devel
 BuildRequires:    desktop-file-utils
-BuildRequires:    gettext
 BuildRequires:    libappstream-glib
 BuildRequires:    libpq-devel
-BuildRequires:    libXext-devel
 BuildRequires:    libxml2-devel
-BuildRequires:    make
 BuildRequires:    qt6-qtbase-devel
 BuildRequires:    qt6-qtsvg-devel
-# for convert 300x300 logo file to 256x256
-BuildRequires:    ImageMagick
-BuildRequires:    moreutils
+BuildRequires:    qt6-qttools-devel
 
 
 %description
@@ -45,31 +45,24 @@ by the user to SQL code and apply them onto database clusters (Version
 
 
 %build
-
-# @TODO Due to the bug (https://github.com/pgmodeler/pgmodeler/issues/559) CONFDIR, LANGDIR, SAMPLESDIR, SCHEMASDIR seems ignored?
-# SHAREDIR=%%{_sharedstatedir}/%%{name} \
-# CONFDIR=%%{_sysconfdir}/%%{name} \
-# LANGDIR=%%{_datadir}/locale \
-# SCHEMASDIR=%%{_sysconfdir}/%%{name} \
-%qmake_qt6 \
- PREFIX=%{_prefix} \
- BINDIR=%{_bindir} \
- PRIVATEBINDIR=%{_libexecdir} \
- PLUGINSDIR=%{_libdir}/%{name}/plugins \
- SHAREDIR=%{_datarootdir}/%{name} \
- DOCDIR=%{?_pkgdocdir}%{!?_pkgdocdir:%{_docdir}/%{name}-%{version}} \
- PRIVATELIBDIR=%{_libdir}/%{name} \
- %{name}.pro
-
-%make_build
+%cmake \
+    -DPGM_PREFIX=%{_prefix} \
+    -DPGM_PRIVATEBINDIR=%{_libexecdir} \
+    -DPGM_PRIVATELIBDIR=%{_libdir}/%{name}/ \
+    -DPGM_PLUGINSDIR=%{_libdir}/%{name}/plugins/ \
+    -DPGM_CONFDIR=%{_sysconfdir}/%{name} \
+    -DPGM_DOCDIR=%{_defaultdocdir}/%{name} \
+    -DPGM_LANGDIR=%{_datadir}/%{name}/lang \
+    -DPGM_SAMPLESDIR=%{_datadir}/%{name}/samples \
+    -DPGM_SCHEMASDIR=%{_datadir}/%{name}/schemas
+%cmake_build
 
 
 %install
-%make_install INSTALL_ROOT=%{buildroot}
+%cmake_install
 
 desktop-file-install --mode 644 --dir %{buildroot}%{_datadir}/applications/ %{SOURCE1}
 # icon, mime and menu-entry
-convert -resize 256x256 pgmodeler_logo.png - | sponge pgmodeler_logo.png
 install -p -dm 755 %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/ %{buildroot}%{_datadir}/mime/packages/
 install -p -m 644 assets/conf/%{name}_logo.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/
 install -p -m 644 %{SOURCE2} %{buildroot}%{_datadir}/mime/packages/%{name}.xml
@@ -78,9 +71,8 @@ mkdir -p %{buildroot}%{_libdir}/%{name}/plugins
 
 install -Dp -m 644 %{name}.appdata.xml %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
-
-# License installed separately
-rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
+# Installed via %%license
+rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
 
 
 %files
@@ -90,17 +82,19 @@ rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
 %{_bindir}/%{name}-cli
 %{_libexecdir}/%{name}-ch
 %{_libexecdir}/%{name}-se
-# %%{_libdir}/%%{name}/lib*.so are not devel files! All in subdirectory and needs to load plugins only
 %{_libdir}/%{name}
-%{_datarootdir}/%{name}
-%exclude %{_datarootdir}/%{name}/lang/*
+%{_sysconfdir}/%{name}
+%{_datadir}/%{name}
+%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/256x256/apps/pgmodeler_logo.png
 %{_datadir}/mime/packages/%{name}.xml
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/appdata/%{name}.appdata.xml
 
 
 %changelog
+* Fri Oct 30 2026 Sandro Mani <manisandro@gmail.com> - 2.0.0-1
+- Update to 2.0.0
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2.2-4
 - Rebuilt for libxml-2.5.4
 

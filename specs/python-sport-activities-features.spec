@@ -1,6 +1,7 @@
 %global pypi_name sport-activities-features
 %global forgeurl https://github.com/firefly-cpp/sport-activities-features
-Version:        0.5.4
+%global tag %{version}
+Version:        0.6.0
 %forgemeta
 %bcond tests 1
 
@@ -10,7 +11,6 @@ Summary:        A minimalistic toolbox for extracting features from sports activ
 License:        MIT
 URL:            %forgeurl
 Source:         %forgesource
-Patch:          numpy-2.0.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{qt6_qtwebengine_arches} noarch

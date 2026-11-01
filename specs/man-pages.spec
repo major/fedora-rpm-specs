@@ -1,6 +1,6 @@
 Summary: Linux kernel and C library user-space interface documentation
 Name: man-pages
-Version: 6.13
+Version: 6.20
 Release: %autorelease
 # List of all licenses - each with an example of a man-page that uses it
 # (complete list of all man-pages per license would be too long)
@@ -86,19 +86,18 @@ rm man3/crypt{,_r}.3
 # nothing to build
 
 %install
-make -R install prefix=/usr DESTDIR=$RPM_BUILD_ROOT
+make -R install-man prefix=/usr DESTDIR=$RPM_BUILD_ROOT
 
 # Per <https://bugzilla.redhat.com/show_bug.cgi?id=2404910>, man(7)
 # is provided by groff-base.
 rm %{buildroot}%{_mandir}/man7/man.7
 
-# Remove binaries we don't use and their man pages.
-rm %{buildroot}%{_bindir}/diffman-git
-rm %{buildroot}%{_bindir}/mansect
-rm %{buildroot}%{_bindir}/pdfman
-rm %{buildroot}%{_bindir}/sortman
-rm %{buildroot}%{_mandir}/man1/mansect.1
+# Remove man pages for project-internal utilities not shipped in the package.
 rm %{buildroot}%{_mandir}/man1/diffman-git.1
+rm %{buildroot}%{_mandir}/man1/grepc.1
+rm %{buildroot}%{_mandir}/man1/grepc_c.1
+rm %{buildroot}%{_mandir}/man1/mansect.1
+rm %{buildroot}%{_mandir}/man1/mansectf.1
 rm %{buildroot}%{_mandir}/man1/pdfman.1
 rm %{buildroot}%{_mandir}/man1/sortman.1
 

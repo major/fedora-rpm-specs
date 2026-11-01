@@ -14,7 +14,7 @@
 
 Name:           mpd
 Epoch:          1
-Version:        0.24.15
+Version:        0.24.18
 Release:        1%{?dist}
 Summary:        Music player daemon
 
@@ -230,6 +230,9 @@ rm %{buildroot}%{_docdir}/mpd/COPYING
 %ghost %{mpd_statefile}
 
 %changelog
+* Sat Oct 31 2026 Leigh Scott <leigh123linux@gmail.com> - 1:0.24.18-1
+- Update to 0.24.18
+
 * Mon Sep 21 2026 Leigh Scott <leigh123linux@gmail.com> - 1:0.24.15-1
 - Update to 0.24.15
 

@@ -1,7 +1,7 @@
 %global _configure ../configure
 
 Name:		lis
-Version:	2.1.20
+Version:	2.1.21
 Release:	%autorelease
 Summary:	A library for solving linear equations and eigenvalue problems
 License:	BSD-3-Clause
@@ -49,6 +49,10 @@ This package contains the developer documentation for lis.
 
 %prep
 %autosetup
+
+# Remove stale generated files shipped in the tarball (they contain x86-64
+# settings, e.g. HAVE_QUADMATH_H, which break the build on arm64/s390x)
+rm -f include/lis_config.h include/lisf.h
 
 %build
 export CFLAGS="${CFLAGS} -std=gnu17"

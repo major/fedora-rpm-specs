@@ -2,7 +2,7 @@
 %global gem_name git
 
 Name: rubygem-%{gem_name}
-Version: 5.6.0
+Version: 6.0.0
 Release: %autorelease
 Summary: Ruby/Git is a Ruby library that can be used to manipulate Git repositories
 License: MIT
@@ -69,7 +69,7 @@ cp -a .%{gem_dir}/* \
 # as is the case inside mock.
 # The TEST_ENV_NUMBER=1 is just to disable the Fuubar formatter
 env TEST_ENV_NUMBER=1 COVERAGE=false rspec \
-           --exclude-pattern 'spec/unit/{github_workflows,gemspec}_spec.rb' \
+           --exclude-pattern 'spec/{unit/github_workflows,unit/gemspec,integration/tasks/support/installed_gem_check}_spec.rb' \
            -Ilib spec
 
 

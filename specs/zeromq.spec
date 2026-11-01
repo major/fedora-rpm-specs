@@ -10,6 +10,9 @@ License:        MPL-2.0 AND BSD-3-Clause AND MIT
 URL:            https://zeromq.org
 Source0:        https://github.com/%{name}/libzmq/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:         zeromq-configure-c99.patch
+# Replace deprecated raw UDP IPv4 conversion functions.
+# https://github.com/zeromq/libzmq/pull/4948
+Patch2:         zeromq-numeric-ipv4.patch
 
 BuildRequires:  make
 BuildRequires:  autoconf

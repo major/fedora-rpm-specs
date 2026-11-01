@@ -23,7 +23,7 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.14.8
+Version:       3.14.10
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
@@ -66,7 +66,6 @@ Patch:         0024-ctypes-add-suppor-for-ctypes.pythonapi-under-MINGW.patch
 Patch:         0025-ctypes-find_library-c-should-return-None-with-ucrt.patch
 Patch:         0026-site-Customize-for-MINGW.patch
 Patch:         0027-site-Change-user-site-packages-path-to-include-the-e.patch
-Patch:         0028-python-config-output-Windows-paths-for-the-shell-var.patch
 Patch:         0029-python-config-use-the-Python-variant-of-python-confi.patch
 Patch:         0030-mingw-prefer-unix-sep-if-MSYSTEM-environment-variabl.patch
 Patch:         0031-build-Remove-MAXPATHLEN-default.patch
@@ -431,6 +430,9 @@ chmod +x %{buildroot}%{_prefix}/%{mingw64_target}/bin/python3
 
 
 %changelog
+* Sat Oct 31 2026 Sandro Mani <manisandro@gmail.com> - 3.14.10-1
+- Update to 3.14.10
+
 * Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 3.14.8-1
 - Update to 3.14.8
 

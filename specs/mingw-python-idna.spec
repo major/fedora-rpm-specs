@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
-Version:       3.19
-Release:       2%{?dist}
+Version:       3.20
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
@@ -69,6 +69,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Sat Oct 31 2026 Sandro Mani <manisandro@gmail.com> - 3.20-1
+- Update to 3.20
+
 * Wed Sep 23 2026 Sandro Mani <manisandro@gmail.com> - 3.19-2
 - Rebuild (mingw-python)
 

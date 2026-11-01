@@ -1,7 +1,7 @@
 %global pypi_name cmd2
 
 Name:             python-%{pypi_name}
-Version:          4.3.0
+Version:          4.3.1
 Release:          %{autorelease}
 Summary:          Extra features for standard library's cmd module
 
@@ -58,8 +58,6 @@ Requires:         /usr/bin/which
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
-# https://github.com/python-cmd2/cmd2/pull/1775
-rm docs/.DS_Store
 
 # Disable coverage checks
 sed -i '/"\-\-cov/d' pyproject.toml

@@ -1,9 +1,9 @@
 # New Version-String scheme-style defines
 %global featurever 27
 %global interimver 0
-%global updatever 0
-%global patchver 0
-%global buildver 35
+%global updatever 1
+%global patchver 3
+%global buildver 1
 %global portablerelease 1
 %global rpmrelease 0
 
@@ -34,7 +34,7 @@
 # Release will be (where N is usually a number starting at 1):
 # - 0.N.ea<dist> for EA releases,
 # - N<dist> for GA releases
-%global is_ga           0
+%global is_ga           1
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""

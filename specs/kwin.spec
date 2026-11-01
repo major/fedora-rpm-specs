@@ -1,6 +1,6 @@
 Name:    kwin
 Version: 6.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -10,6 +10,9 @@ URL:     https://invent.kde.org/plasma/kwin
 
 Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
+
+# macros
+Source10: macros.kwin.in
 
 ## upstream patches
 
@@ -225,6 +228,16 @@ mkdir -p %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d
 # temporary(?) hack to allow initial-setup to use /usr/bin/kwin too
 ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
+# rpm macros
+install -p -m644 -D %{SOURCE10} \
+  %{buildroot}%{_rpmmacrodir}/macros.kwin
+sed -i \
+  -e "s|@@NAME@@|%{name}|g" \
+  -e "s|@@EPOCH@@|%{?epoch}%{!?epoch:0}|g" \
+  -e "s|@@VERSION@@|%{version}|g" \
+  -e "s|@@EVR@@|%{?epoch:%{epoch:}}%{version}-%{release}|g" \
+  %{buildroot}%{_rpmmacrodir}/macros.kwin
+
 
 %files
 %{_bindir}/kwin
@@ -273,12 +286,16 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 %{_includedir}/kwin
 %{_libdir}/cmake/KWin
 %{_libdir}/libkwin.so
+%{_rpmmacrodir}/macros.kwin
 
 %files doc -f %{name}-doc.lang
 %license LICENSES/*.txt
 
 
 %changelog
+* Sat Oct 31 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.8.2-2
+- Add RPM macros for kwin versioning to devel package
+
 * Tue Oct 27 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.2-1
 - 6.8.2
 

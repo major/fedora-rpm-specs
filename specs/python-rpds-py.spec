@@ -2,7 +2,7 @@
 %global modname rpds_py
 
 Name:           python-rpds-py
-Version:        2026.6.3
+Version:        2026.9.1
 Release:        %autorelease
 Summary:        Python bindings to the Rust rpds crate
 # The package is MIT; statically-linked Rust dependencies are (from

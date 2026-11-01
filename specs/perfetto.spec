@@ -10,7 +10,7 @@ library for analyzing traces using SQL and a web-based UI to visualize and
 explore multi-GB traces.}
 
 Name:           perfetto
-Version:        57.2
+Version:        59.1
 Release:        %autorelease
 Summary:        System profiling, app tracing and trace analysis
 
@@ -24,18 +24,22 @@ Source3:        %{forgeurl}/releases/download/%{tag}/perfetto-cpp-sdk-src.zip#/%
 Source4:        perfetto-traced.service
 Source5:        perfetto-traced-probes.service
 
-# system re2
-Patch0:         perfetto-system-re2.patch
 # system gtest
 Patch1:         perfetto-system-gtest.patch
 # versioned SONAME; bump it when abi-compliance-checker reports a break.
 Patch2:         perfetto-versioned-soname.patch
+# order consumers of proto source_sets after the generated headers
+Patch3:         perfetto-proto-gen-header-deps.patch
+# traced_relay:lib exposes generated ipc headers; make those deps public
+Patch4:         perfetto-traced-relay-gen-deps.patch
 
 BuildRequires:  chrpath
+BuildRequires:  expat-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gmock-devel
 BuildRequires:  gn
 BuildRequires:  gtest-devel
+BuildRequires:  libzstd-devel
 BuildRequires:  ninja-build
 BuildRequires:  pandoc
 BuildRequires:  pkgconf-pkg-config
@@ -86,10 +90,13 @@ gn gen build --args="\
   skip_buildtools_check=true \
   enable_perfetto_integration_tests=false \
   perfetto_use_pkgconfig=true \
+  enable_perfetto_trace_processor_linenoise=false \
+  perfetto_use_system_expat=true \
   perfetto_use_system_gtest=true \
   perfetto_use_system_protobuf=true \
   perfetto_use_system_re2=true \
   perfetto_use_system_zlib=true \
+  perfetto_use_system_zstd=true \
   perfetto_enable_git_rev_version_header=false \
   perfetto_shared_lib_soname_suffix=\"%{soname_suffix}\" \
   extra_cflags=\"${CFLAGS}\" \

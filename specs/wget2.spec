@@ -8,7 +8,7 @@
 
 Name:           wget2
 Version:        2.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An advanced file and recursive website downloader
 
 # Documentation is GFDL
@@ -22,6 +22,10 @@ Source2:        tim.ruehsen-keyring.asc
 # Fix using absolute paths with -P option (rhbz#2558146)
 # Backport from upstream: https://github.com/rockdaboot/wget2/commit/acf7f4ecd35e9d353bfb5d3ad216dd5368f1b3d4
 Patch0:         0000-fix-absolute-paths-with-P-option.patch
+
+# Fix double-free causing a crash (only after failed requests)
+# Backport from upstream: https://gitlab.com/gnuwget/wget2/-/commit/8d7b977a7dff86e7056fc93b7c73d61779d28cdc
+Patch1:         0001-fix-double-free.patch
 
 # Buildsystem build requirements
 BuildRequires:  autoconf
@@ -183,6 +187,9 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 
 
 %changelog
+* Fri Oct 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.3.0-3
+- Backport a patch fixing program crash after failed request
+
 * Fri Oct 23 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.3.0-2
 - Backport fix for using -P with absolute paths (rhbz#2558146)
 

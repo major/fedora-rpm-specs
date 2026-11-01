@@ -1,7 +1,7 @@
 %global srcname ducc0
 
 Name:           python-%{srcname}
-Version:        0.41.0
+Version:        0.42.0
 Release:        %autorelease
 Summary:        Programming tools for numerical computation
 
@@ -52,7 +52,6 @@ rm -rf %{srcname}.egg-info
 export DUCC0_OPTIMIZATION="portable-debug"
 export DUCC0_CFLAGS="%{build_cxxflags}"
 export DUCC0_LFLAGS="%{build_ldflags}"
-export SKBUILD_CMAKE_VERBOSE=true
 export DUCC0_USE_NANOBIND=true
 %pyproject_wheel
 

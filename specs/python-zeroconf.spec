@@ -1,13 +1,13 @@
 %global pypi_name zeroconf
 
 Name:           python-%{pypi_name}
-Version:        0.151.1
+Version:        0.152.0
 Release:        %autorelease
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/jstasiak/python-zeroconf
-Source0:        %{url}/archive/%{version}/zeroconf-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -28,7 +28,7 @@ supporting Bonjour/Avahi.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 # Remove benchmarks
 rm -rf tests/benchmarks/
 sed -i '#_BENCHMARKS_DIR = "tests/benchmarks"#d' tests/conftest.py

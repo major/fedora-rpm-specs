@@ -2,7 +2,7 @@
 %bcond pathops 0
 
 Name:           python-ufo2ft
-Version:        3.9.1
+Version:        3.10.0
 Release:        %autorelease
 Summary:        A bridge from UFOs to FontTool objects
 
@@ -11,8 +11,6 @@ Summary:        A bridge from UFOs to FontTool objects
 License:        MIT AND Apache-2.0
 URL:            https://github.com/googlefonts/ufo2ft
 Source:         %{pypi_source ufo2ft}
-
-BuildRequires:  python3-devel
 
 BuildArch: noarch
 
@@ -52,10 +50,10 @@ sed -r -e 's/==[^;]+//' \
 
 %generate_buildrequires
 %{pyproject_buildrequires \
-    -x cffsubr \
-    -x compreffor \
-    %{?with_pathops:-x pathops} \
-    -x test \
+    --extras cffsubr \
+    --extras compreffor \
+    %{?with_pathops:--extras pathops} \
+    --extras test \
     requirements-unpinned.txt}
 
 
@@ -65,7 +63,7 @@ sed -r -e 's/==[^;]+//' \
 
 %install
 %pyproject_install
-%pyproject_save_files -l ufo2ft
+%pyproject_save_files --assert-license ufo2ft
 
 
 %check
@@ -75,9 +73,18 @@ k="${k-}${k+ and }not (IntegrationTest and test_removeOverlaps_CFF_pathops)"
 k="${k-}${k+ and }not (TTFPreProcessorTest and test_custom_filters_as_argument)"
 k="${k-}${k+ and }not (TTFInterpolatablePreProcessorTest and test_custom_filters_as_argument)"
 %endif
+
 # Test can fail when updates are not synchronized, but is not essential
 # https://github.com/googlefonts/ufo2ft/issues/877
-k="${k-}${k+ and }not (test_kern_zyyy_zinh)"
+k="${k-}${k+ and }not test_kern_zyyy_zinh"
+
+# Test regressions with fonttools 4.68:
+# “Cubic flags require the extended GLYF table”
+# https://github.com/googlefonts/ufo2ft/issues/1019
+k="${k-}${k+ and }not test_compileTTF_glyf1_not_allQuadratic[defcon]"
+k="${k-}${k+ and }not test_compileTTF_glyf1_not_allQuadratic[ufolib2]"
+k="${k-}${k+ and }not test_compileVariableTTF_glyf1_not_allQuadratic[defcon]"
+k="${k-}${k+ and }not test_compileVariableTTF_glyf1_not_allQuadratic[ufolib2]"
 
 %pytest -k "${k-}" tests -rs
 

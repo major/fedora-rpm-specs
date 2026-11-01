@@ -5,7 +5,7 @@
 %bcond_with extended_tests
 
 Name:       bitcoin-core
-Version:    31.1
+Version:    32.1
 Release:    %autorelease
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
@@ -180,9 +180,6 @@ grep -q $(sha256sum %{SOURCE0}) %{SOURCE2}
 cp -p %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} .
 
 %build
-# Segfaults on GCC 16.1 (fixed in 16.2): https://github.com/bitcoin/bitcoin/issues/35282
-sed -i -e '/cluster_linearize_tests.cpp/d' src/test/CMakeLists.txt
-
 # Bitcoin kernel library used only as part of the testing for now:
 %cmake \
     -DBUILD_BENCH=ON \

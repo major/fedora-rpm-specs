@@ -1,5 +1,5 @@
 Name:		spi-tools
-Version:	1.1.0
+Version:	1.1.1
 Release:	1%{?dist}
 Summary:	Simple command line tools to help using Linux spidev devices
 
@@ -42,6 +42,9 @@ autoreconf -fi
 
 
 %changelog
+* Sat Oct 31 2026 Federico Pellegrin <fede@evolware.org> - 1.1.1-1
+- Upgrade to 1.1.1
+
 * Sun Oct 04 2026 Federico Pellegrin <fede@evolware.org> - 1.1.0-1
 - Upgrade to 1.1.0
 

@@ -5,7 +5,7 @@
 %global crate freedesktop-desktop-entry
 
 Name:           rust-freedesktop-desktop-entry
-Version:        0.8.3
+Version:        0.8.4
 Release:        %autorelease
 Summary:        Freedesktop Desktop Entry Specification
 

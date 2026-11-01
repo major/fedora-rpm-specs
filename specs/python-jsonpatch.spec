@@ -1,18 +1,13 @@
 %global pypi_name jsonpatch
 
 Name:           python-%{pypi_name}
-Version:        1.33
+Version:        1.38
 Release:        %autorelease
 Summary:        Applying JSON Patches in Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/stefankoegl/python-json-patch
 Source0:        https://pypi.io/packages/source/j/jsonpatch/%{pypi_name}-%{version}.tar.gz
-# tarball from pypi does not include file tests.js required for a specific test.
-# upstream issue https://github.com/stefankoegl/python-json-patch/issues/82
-Patch0:         0001-Skip-unit-test-in-packaging.patch
-# Avoid usage of unittest.makeSuite, removed from Python 3.13
-Patch1:         https://github.com/stefankoegl/python-json-patch/pull/159.patch
 
 BuildArch:      noarch
 
@@ -44,7 +39,7 @@ Library to apply JSON Patches according to RFC 6902 - Python 3 build.
 %install
 %pyproject_install
 
-%pyproject_save_files jsonpatch
+%pyproject_save_files jsonpatch jsonpatch_cli
 
 # remove jsondiff binary conflicting with python-jsondiff
 # https://bugzilla.redhat.com/show_bug.cgi?id=2029805

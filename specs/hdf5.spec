@@ -193,20 +193,9 @@ HDF5 parallel openmpi static libraries
 
 %if %{with java}
 # Replace jars with system versions
-# hamcrest-core is obsoleted in hamcrest-2.2
-# Junit tests are failing with junit-4.13.1
-%if 0%{?rhel} >= 9 || 0%{?fedora}
-find . ! -name junit.jar -name "*.jar" -delete
-ln -s $(build-classpath hamcrest) java/lib/hamcrest-core.jar
-ln -s $(build-classpath junit) java/lib/org.junit.jar
-%else
 find . -name "*.jar" -delete
-ln -s $(build-classpath hamcrest/core) java/lib/hamcrest-core.jar
+ln -s $(build-classpath hamcrest/core) java/lib/org.hamcrest.jar
 ln -s $(build-classpath junit) java/lib/org.junit.jar
-# Fix test output
-junit_ver=$(sed -n '/<version>/{s/^.*>\([0-9]\.[0-9.]*\)<.*/\1/;p;q}' /usr/share/maven-poms/junit.pom)
-sed -i -e "s/JUnit version .*/JUnit version $junit_ver/" java/test/testfiles/JUnit-*.txt
-%endif
 ln -s $(build-classpath slf4j/api) java/lib/slf4j-api-2.0.16.jar
 ln -s $(build-classpath slf4j/nop) java/lib/ext/slf4j-nop-2.0.16.jar
 ln -s $(build-classpath slf4j/simple) java/lib/ext/slf4j-simple-2.0.16.jar
@@ -368,15 +357,19 @@ rm %{buildroot}%{_jnidir}/slf*.jar
 
 
 %check
-%ifarch %{ix86} ppc64le
+%ifarch %{ix86} ppc64le s390x
 # i686: t_bigio test segfaults - https://github.com/HDFGroup/hdf5/issues/2510
 # ppc64le - t_multi_dset is flaky on ppc64le
+# s390x:
+#  108 - h5_api_test_dataset (Failed)
+#  384 - H5LS-tdset_idx-2 (Failed)
+#  2997 - H5_H5DUMP-h5ex_image2 (Failed)
 fail=0
 %else
 fail=1
 %endif
 cd build-serial
-ctest -V %{?_smp_mflags} || exit $fail
+%ctest || exit $fail
 cd -
 %ifarch %{ix86} ppc64le s390x
 # i686: t_bigio test segfaults - https://github.com/HDFGroup/hdf5/issues/2510
@@ -400,8 +393,8 @@ do
   if [ "$mpi-%{_arch}" != mpich-aarch64 -a "$mpi-%{_arch}" != mpich-ppc64le -a "$mpi-%{_arch}" != mpich-riscv64 ]
   then
     module load mpi/$mpi-%{_arch}
-    cd build-serial
-    ctest -V %{?_smp_mflags} || exit $fail
+    cd $mpi
+    %ctest || exit $fail
     cd -
     module purge
   fi

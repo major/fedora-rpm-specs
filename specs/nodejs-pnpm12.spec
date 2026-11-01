@@ -2,7 +2,7 @@
 %global pnpm_major_version 12
 
 Name:           nodejs-%{pkgname}%{pnpm_major_version}
-Version:        12.16.1
+Version:        12.17.0
 Release:        %autorelease
 Summary:        Fast, disk space efficient package manager
 
@@ -25,6 +25,9 @@ Source1:        pnpm-%{version}-vendor.tar.xz
 # Python package pattern matching. Replace it with a small local equivalent.
 # generate-vendor-tarball.sh applies the same patch.
 Patch0:         pnpm-config-drop-pnpr-registry.patch
+# zip < 9.0.0 is affected by CVE-2026-115907 and CVE-2026-115908. Drop once
+# upstream depends on zip >= 9. generate-vendor-tarball.sh applies it too.
+Patch1:         pnpm-bump-zip-crate.patch
 
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros

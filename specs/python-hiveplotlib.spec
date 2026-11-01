@@ -6,7 +6,7 @@
 %global giturl  https://gitlab.com/hiveplotlib/hiveplotlib
 
 Name:           python-hiveplotlib
-Version:        0.28.0
+Version:        0.28.1
 Release:        %autorelease
 Summary:        Plotting package for generating & visualizing static Hive Plots
 

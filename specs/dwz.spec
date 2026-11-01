@@ -1,13 +1,16 @@
 Summary: DWARF optimization and duplicate removal tool
 Name: dwz
 Version: 0.17
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH GCC-exception-3.1) AND GPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND LGPL-2.0-or-later
 URL: https://sourceware.org/dwz/
-Source: https://sourceware.org/ftp/dwz/releases/%{name}-%{version}.tar.xz
+Source0: https://sourceware.org/ftp/dwz/releases/%{name}-%{version}.tar.xz
+Source1: https://sourceware.org/ftp/dwz/releases/%{name}-%{version}.tar.xz.asc
+Source2: gpgkey-28FF4B30A88D5523A7E2CBA20376A15C6FFC11CD.gpg.asc
 BuildRequires: gcc, gcc-c++, gdb, elfutils-libelf-devel, dejagnu
 # dwz builds with XXH_INLINE_ALL, so depend on (virtual) xxhash-static
 BuildRequires: make elfutils xxhash-devel xxhash-static
+BuildRequires: openpgpverify
 
 # Patches
 Patch1: 0001-dwz-cleanup-allocatable-section-after-non-allocatabl.patch
@@ -22,6 +25,7 @@ DW_TAG_partial_unit compilation units (CUs) for duplicated information
 and using DW_TAG_imported_unit to import it into each CU that needs it.
 
 %prep
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n dwz
 
 %build
@@ -33,7 +37,7 @@ rm -rf %{buildroot}
 %make_install prefix=%{_prefix} mandir=%{_mandir} bindir=%{_bindir}
 
 %check
-CFLAGS="" LDFLAGS="" srcdir=$(pwd) make check
+CFLAGS="" LDFLAGS="" srcdir=$(pwd) make check || (cat dwz.log; false)
 
 %files
 %license COPYING COPYING3 COPYING.RUNTIME
@@ -41,6 +45,9 @@ CFLAGS="" LDFLAGS="" srcdir=$(pwd) make check
 %{_mandir}/man1/dwz.1*
 
 %changelog
+* Sat Oct 31 2026 Mark Wielaard <mjw@fedoraproject.org> - 0.17-4
+- Use openpgpverify
+
 * Sun Jul 19 2026 Mark Wielaard <mjw@fedoraproject.org> - 0.17-3
 - Add 0001-dwz-cleanup-allocatable-section-after-non-allocatabl.patch
 

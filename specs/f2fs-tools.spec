@@ -1,16 +1,13 @@
 Name:		f2fs-tools
-Version:	1.16.0
-Release:	11%{?dist}
+Version:	1.17.0
+Release:	12%{?dist}
 Summary:	Tools for Flash-Friendly File System (F2FS)
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://sourceforge.net/projects/f2fs-tools/
 Source0:	http://git.kernel.org/cgit/linux/kernel/git/jaegeuk/f2fs-tools.git/snapshot/%{name}-%{version}.tar.gz
-# Patch  from https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/patch/?id=6617d15a660becc23825007ab3fc2d270b5b250f
-Patch0:		f2fs-tools-1.16.0-c23.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	uuid-devel
 BuildRequires:	libuuid-devel
 BuildRequires:	libtool
 BuildRequires:	libselinux-devel
@@ -48,8 +45,6 @@ that use %{name}
 
 %prep
 %setup -q
-%patch 0 -p1 -b .c23
-sed -i 's/AC_PROG_LIBTOOL/LT_INIT/' configure.ac
 
 
 %build
@@ -57,6 +52,9 @@ autoreconf --install
 %configure --disable-static
 %{make_build}
 
+
+%check
+# no upstream test suite (no 'make check' target)
 
 %install
 %{make_install}
@@ -79,6 +77,7 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_sbindir}/f2fs_io
 %{_sbindir}/f2fscrypt
 %{_sbindir}/f2fslabel
+%{_sbindir}/inject.f2fs
 
 %{_libdir}/*.so.*
 %{_mandir}/man8/*f2*.gz
@@ -88,6 +87,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/*.so
 
 %changelog
+* Sun Nov 01 2026 Filipe Rosset <rosset.filipe@gmail.com> - 1.17.0-12
+- Update to 1.17.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

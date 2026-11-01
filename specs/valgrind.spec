@@ -1,10 +1,8 @@
-%{?scl:%scl_package valgrind}
-
-Summary: Dynamic analysis tools to detect memory or thread bugs and profile
-Name: %{?scl_prefix}valgrind
+Name: valgrind
 Version: 3.28.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
+Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 
 # This ignores licenses that are only found in the test or perf sources
 # we only care about those license statements found in sources that end
@@ -15,53 +13,30 @@ Epoch: 1
 License: GPL-3.0-or-later AND bzip2-1.0.6 AND (GPL-3.0-or-later AND LGPL-2.0-or-later) AND (GPL-3.0-or-later AND ISC) AND (GPL-3.0-or-later AND Unlicense) AND (GPL-3.0-or-later AND Zlib) AND (GPL-3.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-3.0-or-later AND BSD-3-Clause) AND (GPL-3.0-or-later AND (MIT OR NCSA)) AND CMU-Mach AND (GPL-3.0-or-later AND X11 AND BSD-3-Clause) AND X11 AND (GPL-3.0-or-later AND LGPL-2.0-or-later) AND (GPL-2.0-or-later WITH Autoconf-exception-generic) AND (GPL-3.0-or-later WITH Autoconf-exception-generic-3.0) AND FSFULLR AND FSFAP AND FSFUL AND FSFULLRWD
 URL: https://www.valgrind.org/
 
-# Are we building for a Software Collection?
-%{?scl:%global is_scl 1}
-%{!?scl:%global is_scl 0}
-
-# We never want the openmpi subpackage when building a software collecton.
-# We always want it for fedora.
+# We always want openmpi for fedora.
 # We only want it for older rhel.
 # And on fedora > 39 i386 dropped openmpi.
-%if %{is_scl}
-  %global build_openmpi 0
-%else
-  %if 0%{?fedora}
-    %ifarch %{ix86}
-      %global build_openmpi (%{?fedora} < 40)
-    %else
-      %global build_openmpi 1
-    %endif
+%if 0%{?fedora}
+  %ifarch %{ix86}
+    %global build_openmpi (%{?fedora} < 40)
+  %else
+    %global build_openmpi 1
   %endif
-  %if 0%{?rhel}
-    %if 0%{?rhel} > 7
-      %global build_openmpi 0
-    %else
-      %global build_openmpi 1
-    %endif
+%endif
+%if 0%{?rhel}
+  %if 0%{?rhel} > 7
+    %global build_openmpi 0
+  %else
+    %global build_openmpi 1
   %endif
 %endif
 
 # We only want to build the valgrind-tools-devel package for Fedora proper
-# as convenience. But not for DTS or RHEL.
-%if %{is_scl}
+# as convenience. But not for RHEL.
+%if 0%{?rhel}
   %global build_tools_devel 0
 %else
-  %if 0%{?rhel}
-    %global build_tools_devel 0
-  %else
-    %global build_tools_devel 1
-  %endif
-%endif
-
-# Whether to run the full regtest or only a limited set
-# The full regtest includes gdb_server integration tests
-# and experimental tools.
-# Don't run them when creating scl, the gdb_server tests might hang.
-%if %{is_scl}
-  %global run_full_regtest 0
-%else
-  %global run_full_regtest 1
+  %global build_tools_devel 1
 %endif
 
 # Generating minisymtabs doesn't really work for the staticly linked
@@ -72,6 +47,8 @@ URL: https://www.valgrind.org/
 %undefine _include_minidebuginfo
 
 Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.tar.bz2
+Source1: https://sourceware.org/pub/valgrind/valgrind-%{version}.tar.bz2.asc
+Source2: gpgkey-28FF4B30A88D5523A7E2CBA20376A15C6FFC11CD.gpg.asc
 
 # Needs investigation and pushing upstream
 Patch1: valgrind-3.9.0-cachegrind-improvements.patch
@@ -85,6 +62,8 @@ Patch3: valgrind-3.26.0-some-stack-protector.patch
 # Add some -Wl,z,now.
 Patch4: valgrind-3.26.0-some-Wl-z-now.patch
 
+BuildRequires: openpgpverify
+
 BuildRequires: make
 BuildRequires: glibc-devel
 
@@ -92,9 +71,7 @@ BuildRequires: glibc-devel
 BuildRequires: openmpi-devel
 %endif
 
-%if %{run_full_regtest}
 BuildRequires: gdb
-%endif
 
 # gdbserver_tests/filter_make_empty uses ps in test
 BuildRequires: procps
@@ -124,15 +101,13 @@ Recommends: elfutils-debuginfod-client
 %endif
 
 # Optional subpackages
-Recommends: %{?scl_prefix}valgrind-docs = %{epoch}:%{version}-%{release}
-Recommends: %{?scl_prefix}valgrind-scripts = %{epoch}:%{version}-%{release}
-Recommends: %{?scl_prefix}valgrind-gdb = %{epoch}:%{version}-%{release}
+Recommends: valgrind-docs = %{epoch}:%{version}-%{release}
+Recommends: valgrind-scripts = %{epoch}:%{version}-%{release}
+Recommends: valgrind-gdb = %{epoch}:%{version}-%{release}
 
 # For running the testsuite.
 # Some of the python scripts require python 3.9+
 BuildRequires: python3-devel
-
-%{?scl:Requires:%scl_runtime}
 
 # We could use %%valgrind_arches as defined in redhat-rpm-config
 # But that is really for programs using valgrind, it defines the
@@ -200,7 +175,7 @@ License: bzip2-1.0.6
 # need valgrind itself unless you are testing your builds. This used
 # to be a Requires, so people might depend on the package pulling in
 # the core valgrind package, so make it at least a weak dependency.
-Recommends: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
+Recommends: valgrind = %{epoch}:%{version}-%{release}
 
 %description devel
 Header files and libraries for development of valgrind aware programs.
@@ -217,7 +192,7 @@ Summary: Scripts for post-processing valgrind tool output
 License: GPL-3.0-or-later AND (GPL-3.0-or-later OR MPL-2.0)
 # Most scripts can be used as is for post-processing a valgrind tool run.
 # But callgrind_control uses vgdb.
-Recommends: %{?scl_prefix}valgrind-gdb = %{epoch}:%{version}-%{release}
+Recommends: valgrind-gdb = %{epoch}:%{version}-%{release}
 
 %description scripts
 Perl and Python scripts for post-processing valgrind tool output.
@@ -225,7 +200,7 @@ Perl and Python scripts for post-processing valgrind tool output.
 %package gdb
 Summary: Tools for integrating valgrind and gdb
 License: GPL-3.0-or-later
-Requires: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
+Requires: valgrind = %{epoch}:%{version}-%{release}
 # vgdb can be used without gdb, just to control valgrind.
 # But normally you use it together with both valgrind and gdb.
 Recommends: gdb
@@ -236,7 +211,7 @@ Tools and support files for integrating valgrind and gdb.
 %if %{build_tools_devel}
 %package tools-devel
 Summary: Development files for building valgrind tools.
-Requires: %{?scl_prefix}valgrind-devel = %{epoch}:%{version}-%{release}
+Requires: valgrind-devel = %{epoch}:%{version}-%{release}
 Provides: %{name}-static = %{epoch}:%{version}-%{release}
 
 %description tools-devel
@@ -248,7 +223,7 @@ Header files and libraries for development of valgrind tools.
 Summary: OpenMPI support for valgrind
 # See above, Hybrid-BSD like.
 License: bzip2-1.0.6
-Requires: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
+Requires: valgrind = %{epoch}:%{version}-%{release}
 
 %description openmpi
 A wrapper library for debugging OpenMPI parallel programs with valgrind.
@@ -257,12 +232,8 @@ Valgrind User Manual for details.
 %endif
 
 %prep
-%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}
-
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
-%patch -P4 -p1
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -274,7 +245,7 @@ Valgrind User Manual for details.
 ./autogen.sh
 
 %if %{build_openmpi}
-%define mpiccpath %{!?scl:%{_libdir}}%{?scl:%{_root_libdir}}/openmpi/bin/mpicc
+%define mpiccpath %{_libdir}/openmpi/bin/mpicc
 %else
 # We explicitly don't want the libmpi wrapper. So make sure that configure
 # doesn't pick some random mpi compiler that happens to be installed.
@@ -378,13 +349,8 @@ chmod 644 $RPM_BUILD_ROOT%{_libexecdir}/valgrind/vgpreload*-%{valarch}-*so
 
 %check
 # Make sure some info about the system is in the build.log
-# Add || true because rpm on copr EPEL6 acts weirdly and we don't want
-# to break the build.
 uname -a
-rpm -q glibc gcc binutils || true
-%if %{run_full_regtest}
-rpm -q gdb || true
-%endif
+rpm -q glibc gcc binutils gdb
 
 LD_SHOW_AUXV=1 /bin/true
 cat /proc/cpuinfo
@@ -392,8 +358,6 @@ cat /proc/cpuinfo
 # Make sure a basic binary runs. There should be no errors.
 ./vg-in-place --error-exitcode=1 /bin/true --help
 
-# Build the test files with the software collection compiler if available.
-%{?scl:PATH=%{_bindir}${PATH:+:${PATH}}}
 # Make sure no extra CFLAGS, CXXFLAGS or LDFLAGS leak through,
 # the testsuite sets all flags necessary. See also configure above.
 %make_build CFLAGS="" CXXFLAGS="" LDFLAGS="" check
@@ -403,11 +367,7 @@ cat /proc/cpuinfo
 export PYTHONCOERCECLOCALE=0
 
 echo ===============TESTING===================
-%if %{run_full_regtest}
-  make regtest || :
-%else
-  make nonexp-regtest || :
-%endif
+make regtest || :
 
 # Make sure test failures show up in build.log
 # Gather up the diffs (at most the first 20 lines for each one)
@@ -503,6 +463,11 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Sat Oct 31 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.28.0-2
+- Use openpgpverify
+- Remove Software Collection (scl) support
+- Use autosetup
+
 * Fri Oct 23 2026 Mark Wielaard <mjw@fedoraproject.org> - 3.28.0-1
 - Valgrind 3.28.0 final
 

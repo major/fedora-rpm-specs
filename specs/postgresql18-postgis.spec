@@ -9,7 +9,7 @@
 %{!?postgresql_default:%global postgresql_default 1}
 %global        pgversion 18
 
-%global        majorversion 3.6
+%global        majorversion 3.7
 %global        soversion 3
 %global        prevmajorversion 2.5
 %global        prevversion %{prevmajorversion}.5
@@ -19,17 +19,14 @@
 %global        __provides_exclude_from %{_libdir}/pgsql
 
 Name:          postgresql%{pgversion}-postgis
-Version:       3.6.4
-Release:       5%{?dist}
+Version:       3.7.0
+Release:       1%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
 URL:           https://www.postgis.net
 Source0:       https://download.osgeo.org/postgis/source/postgis-%{version}.tar.gz
 Source2:       https://download.osgeo.org/postgis/docs/postgis-%{version}-en.pdf
-# Backport fix for CVE-2026-73515
-Patch1:        https://gitea.osgeo.org/postgis/postgis/commit/86bf6bf1965bc03b53a391da5a17f1ff134f1fd2.patch
-Patch2:        https://gitea.osgeo.org/postgis/postgis/commit/767fa40644253281f6d4e8b06811489b0a0f9b0d.patch
 
 %if %upgrade_prev
 Source3:       https://download.osgeo.org/postgis/source/postgis-%{prevversion}.tar.gz
@@ -61,6 +58,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: docbook-dtds
 BuildRequires: flex
 BuildRequires: gcc-c++
+BuildRequires: gmp-devel
 BuildRequires: gdal-devel >= 1.10.0
 BuildRequires: geos-devel >= 3.7.1
 BuildRequires: json-c-devel
@@ -210,8 +208,6 @@ The client package provides shp2pgsql, raster2pgsql and pgsql2shp for PostGIS.
 %else
 %setup -q -n postgis-%{version}
 %endif
-%patch -P 1 -p1
-%patch -P 2 -p1
 
 %if %upgrade
 (
@@ -239,12 +235,6 @@ cp -p %{SOURCE2} .
 	--with-gui
 %endif
 
-sed -i 's| -fstack-clash-protection | |' postgis/Makefile
-sed -i 's| -fstack-clash-protection | |' raster/rt_pg/Makefile
-sed -i 's| -fstack-clash-protection | |' topology/Makefile
-sed -i 's| -fstack-clash-protection | |' extensions/address_standardizer/Makefile
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_build
 
 %if %javabuild
@@ -276,10 +266,6 @@ cd postgis-%{version}
 	--includedir=%postgresql_upgrade_prefix/include \
 	--datadir=%postgresql_upgrade_prefix/share \
 	--mandir=%postgresql_upgrade_prefix/share/man
-sed -i 's| -fstack-clash-protection | |' postgis/Makefile
-sed -i 's| -fstack-clash-protection | |' raster/rt_pg/Makefile
-sed -i 's| -fstack-clash-protection | |' topology/Makefile
-sed -i 's| -fstack-clash-protection | |' extensions/address_standardizer/Makefile
 %make_build
 )
 
@@ -289,10 +275,6 @@ cd postgis-%{prevversion}
 
 # Build previous Postgis version against the current PostgreSQL version.  We need only the so names.
 %configure %configure_opts
-sed -i 's| -fstack-clash-protection | |' postgis/Makefile
-sed -i 's| -fstack-clash-protection | |' raster/rt_pg/Makefile
-sed -i 's| -fstack-clash-protection | |' topology/Makefile
-sed -i 's| -fstack-clash-protection | |' extensions/address_standardizer/Makefile
 %make_build
 mkdir ../compat-build
 for so in %so_files; do
@@ -308,10 +290,6 @@ done
 	--with-pgconfig=%postgresql_upgrade_prefix/bin/pg_config \
 	--libdir=%postgresql_upgrade_prefix/lib \
 	--includedir=%postgresql_upgrade_prefix/include
-sed -i 's| -fstack-clash-protection | |' postgis/Makefile
-sed -i 's| -fstack-clash-protection | |' raster/rt_pg/Makefile
-sed -i 's| -fstack-clash-protection | |' topology/Makefile
-sed -i 's| -fstack-clash-protection | |' extensions/address_standardizer/Makefile
 %make_build
 )
 %endif
@@ -394,12 +372,10 @@ fi
 
 %files -n %{pkgname}
 %license COPYING
-%doc CREDITS NEWS TODO README.postgis loader/README.* doc/postgis.xml doc/ZMSgeoms.txt
+%doc CREDITS NEWS README.postgis loader/README.* doc/postgis.xml doc/ZMSgeoms.txt
 
 %{_libdir}/pgsql/postgis-%{soversion}.so
 %{_datadir}/pgsql/contrib/postgis-%{majorversion}/*.sql
-%{_datadir}/pgsql/extension/address_standardizer*.sql
-%{_datadir}/pgsql/extension/address_standardizer*.control
 %{_datadir}/pgsql/extension/postgis-*.sql
 %{_datadir}/pgsql/extension/postgis_raster*.sql
 %if 0%{?fedora}
@@ -412,14 +388,11 @@ fi
 %{_datadir}/pgsql/extension/postgis_sfcgal.control
 %endif
 %{_datadir}/pgsql/extension/postgis_topology.control
-%{_datadir}/pgsql/extension/postgis_tiger_geocoder*.sql
-%{_datadir}/pgsql/extension/postgis_tiger_geocoder.control
 %{_datadir}/postgis/create_unpackaged.pl
 %{_datadir}/postgis/create_skip_signatures.pl
 %{_datadir}/postgis/create_spatial_ref_sys_config_dump.pl
 %{_datadir}/postgis/create_uninstall.pl
 %{_datadir}/postgis/repo_revision.pl
-%{_libdir}/pgsql/address_standardizer-%{soversion}.so
 %{_libdir}/pgsql/postgis_raster-%{soversion}.so
 %if 0%{?fedora}
 %{_libdir}/pgsql/postgis_sfcgal-%{soversion}.so
@@ -439,6 +412,7 @@ fi
 %{_mandir}/man1/pgtopo_import.1*
 %{_mandir}/man1/postgis.1*
 %{_mandir}/man1/postgis_restore.1*
+%{_mandir}/man1/raster2pgsql.1*
 %{_mandir}/man1/shp2pgsql.1*
 
 %if 0%{?fedora}
@@ -485,9 +459,8 @@ fi
 
 %if %utils
 %files -n %{pkgname}-utils
-%doc utils/README
+%doc utils/README.md
 %dir %{_datadir}/postgis/
-%doc %{_datadir}/doc/pgsql/extension/README.address_standardizer
 %{_datadir}/postgis/create_extension_unpackage.pl
 %{_datadir}/postgis/create_or_replace_to_create.pl
 %{_datadir}/postgis/create_upgrade.pl
@@ -509,6 +482,9 @@ fi
 
 
 %changelog
+* Sat Oct 31 2026 Sandro Mani <manisandro@gmail.com> - 3.7.0-1
+- Update to 3.7.0
+
 * Wed Sep 16 2026 Sandro Mani <manisandro@gmail.com> - 3.6.4-5
 - Backport fix for CVE-2026-73515
 

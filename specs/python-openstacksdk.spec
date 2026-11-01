@@ -9,7 +9,7 @@ clouds.}
 
 
 Name:           python-%{pypi_name}
-Version:        4.21.0
+Version:        4.22.0
 Release:        %autorelease
 Summary:        An SDK for building applications to work with OpenStack
 

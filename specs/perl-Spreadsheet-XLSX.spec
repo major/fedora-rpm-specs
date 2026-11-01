@@ -2,8 +2,8 @@
 
 Summary:        Perl extension for reading Microsoft Excel 2007 files
 Name:           perl-Spreadsheet-XLSX
-Version:        0.18
-Release:        6%{?dist}
+Version:        0.20
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/A/AS/ASB/%{pkgname}-%{version}.tar.gz
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Sun Nov 01 2026 Robert Scheck <robert@fedoraproject.org> 0.20-1
+- Upgrade to 0.20 (#2563725)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

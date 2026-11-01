@@ -5,7 +5,7 @@
 %global forgeurl https://github.com/libuvc/libuvc
 
 Name:           libuvc
-Version:        0.0.8
+Version:        0.0.9
 Release:        %autorelease
 Summary:        Cross-platform library for USB video devices
 

@@ -2,8 +2,10 @@
 # all packages requiring libXISF are now disabled on i686
 ExcludeArch:    %{ix86}
 
+%global sover 0.2.14
+
 Name:           libXISF
-Version:        0.2.13
+Version:        0.2.15
 Release:        %autorelease
 Summary:        Library to load and write XISF format
 License:        GPL-3.0-or-later
@@ -63,7 +65,7 @@ done
 %license LICENSE
 %doc README.md
 %{_libdir}/%{name}.so.0
-%{_libdir}/%{name}.so.%{version}
+%{_libdir}/%{name}.so.%{sover}
 
 
 %files devel

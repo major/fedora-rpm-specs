@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/spyder-ide/spyder
 %global tag v%{version}
-Version:        6.1.7
+Version:        6.1.8
 %forgemeta
 
 Name:           spyder

@@ -1,19 +1,19 @@
 Name:           hpx
-Version:        1.11.0
-Release:        6%{?dist}
+Version:        2.0.0~rc1
+%global         uversion 2.0.0-rc1
+Release:        1%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
-URL:            https://hpx.stellar-group.org/
-Source0:        https://github.com/STEllAR-GROUP/hpx/archive/v%{version}/%{name}-%{version}.tar.gz
-# from upstream https://github.com/STEllAR-GROUP/hpx/issues/6867#issuecomment-3829261348
-Patch0:         gcc-16.patch
-# from upstream https://github.com/TheHPXProject/hpx/issues/7428#issuecomment-5168078573
-Patch1:         https://patch-diff.githubusercontent.com/raw/TheHPXProject/hpx/pull/7463.diff
+URL:            https://hpx.dev/
+Source0:        https://github.com/TheHPXProject/hpx/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
+# https://github.com/TheHPXProject/hpx/pull/7648.diff, dropping all cmake mods
+Patch0:         my7648.diff
 
 BuildRequires:  gcc-c++ >= 4.9
 BuildRequires:  gperftools-devel
 BuildRequires:  boost-devel
 BuildRequires:  hwloc-devel
+BuildRequires:  stdexec-devel
 BuildRequires:  cmake
 BuildRequires:  fdupes
 BuildRequires:  git
@@ -121,7 +121,7 @@ Summary: HPX Open MPI examples
 Requires:       openmpi
 Requires:       hpx-openmpi = %{version}-%{release}
 BuildRequires:  openmpi-devel
-BuildRequires: make
+BuildRequires:  make
 
 %description openmpi-examples
 %{hpx_desc}.
@@ -144,74 +144,39 @@ Requires:   asio-devel
 This package contains development headers and libraries
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{uversion}
+# Fixed upstream
+sed -i 's/Werror/Wall/' ./cmake/HPX_AddConfigTest.cmake
 
 %build
-# This package uses -Wl,-wrap to wrap calls at link time.  This is incompatible
-# with LTO.
-# Disable LTO
-%define _lto_cflags %{nil}
-
 # use generic context for these archs
 %ifarch aarch64 
 %define cmake_opts -DHPX_WITH_GENERIC_CONTEXT_COROUTINES=ON
 %endif
 
-# ppc64 do not have enough memory
-%ifarch ppc64le aarch64 armv7hl
-%global _smp_mflags -j1
-%endif
-
-# use a different optimization level for arm dueo to memory limitations
-%ifarch armv7hl
-%define cmake_opts -DCMAKE_CXX_FLAGS="$RPM_OPT_FLAGS -O1" -DHPX_WITH_GENERIC_CONTEXT_COROUTINES=ON
-%endif
-
-# add lib atomic for s390x
-%ifarch s390x
-%define cmake_opts -DCMAKE_SHARED_LINKER_FLAGS="$RPM_OPT_FLAGS -latomic" -DCMAKE_EXE_LINKER_FLAGS="$RPM_OPT_FLAGS -latomic"
-%endif
-
 . /etc/profile.d/modules.sh
+%define _vpath_builddir %{_target_platform}-${mpi:-serial}
 for mpi in '' openmpi mpich ; do
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch}
-  mkdir -p ${mpi:-serial}
-  #pushd ${mpi:-serial}
-  %define _vpath_builddir %{_target_platform}-${mpi:-serial}
-  test -n "${mpi}" && export CC=mpicc && export CXX=mpicxx
-  %{cmake} ${mpi:+-DHPX_WITH_PARCELPORT_MPI=ON} %{?cmake_opts:%{cmake_opts}} -DHPX_WITH_BUILD_BINARY_PACKAGE=ON -DLIB_INSTALL_DIR=%_libdir/${mpi}/${mpi:+lib/} -DLIBDIR=%_libdir/${mpi}/${mpi:+lib/} -DCMAKE_INSTALL_LIBDIR=%_libdir/${mpi}/${mpi:+lib/}
-  #cd %{__cmake_builddir}
-  #%make_build
+  %{cmake} ${mpi:+-DHPX_WITH_PARCELPORT_MPI=ON} %{?cmake_opts:%{cmake_opts}} -DHPX_WITH_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_LIBDIR=${MPI_LIB:-%{_libdir}} -DCMAKE_INSTALL_BINDIR=${MPI_BIN:-%{_bindir}} -DCMAKE_INSTALL_INCLUDEDIR=${MPI_INCLUDE:-%{_includedir}} -DHPX_WITH_COMPILER_WARNINGS=OFF -DHPX_WITH_COMPILER_WARNINGS_AS_ERRORS=OFF -DHPX_WITH_FETCH_STDEXEC=OFF
   %cmake_build
-  #cd ..
-  test -n "${mpi}" && unset CC CXX
-  #popd
   test -n "${mpi}" && module unload mpi/${mpi}-%{_arch}
 done
 
 %install
-# do serial install last due to move of executables to _bindir
 . /etc/profile.d/modules.sh
-for mpi in openmpi mpich '' ; do
-  test -n "${mpi}" && module load mpi/${mpi}-%{_arch} && mkdir -p %{buildroot}/${MPI_BIN}
-  #pushd ${mpi:-serial}
-  #cd %{__cmake_builddir}
-  %define _vpath_builddir %{_target_platform}-${mpi:-serial}
+%define _vpath_builddir %{_target_platform}-${mpi:-serial}
+for mpi in '' openmpi mpich ; do
+  test -n "${mpi}" && module load mpi/${mpi}-%{_arch}
   %cmake_install
-  #%make_install
-  #cd ..
-  #sed -i '1s@env python@python3@' %{buildroot}/%{_bindir}/{hpx*.py,hpxcxx} 
-  #popd
-  pushd %{buildroot}/%{_bindir}
-  # rename executable with too generic names
+  pushd %{buildroot}/${MPI_BIN:-%{_bindir}}
+  # rename executable to hpx_*
   for exe in  *; do
     test -n '${exe##hpx*}' && mv "${exe}" "hpx_${exe}"
   done
   popd
-  test -n "${mpi}" && mv %{buildroot}/%{_bindir}/* %{buildroot}/${MPI_BIN}/            
   test -n "${mpi}" && module unload mpi/${mpi}-%{_arch}
 done
-
 
 rm %{buildroot}/%{_datadir}/%{name}/LICENSE_1_0.txt
 %fdupes %{buildroot}%{_prefix}
@@ -220,11 +185,9 @@ rm %{buildroot}/%{_datadir}/%{name}/LICENSE_1_0.txt
 . /etc/profile.d/modules.sh
 for mpi in '' openmpi mpich ; do
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch}
-  %ctest --tests-regex tests.examples %{?testargs}
+  %ctest --tests-regex tests.examples
   test -n "${mpi}" && module unload mpi/${mpi}-%{_arch}
 done
-
-%ldconfig_scriptlets
 
 %files
 %doc README.rst
@@ -235,7 +198,7 @@ done
 %files examples
 %doc README.rst
 %license LICENSE_1_0.txt
-%{_bindir}/*
+%{_bindir}/%{name}_*
 
 %files openmpi
 %doc README.rst
@@ -246,10 +209,10 @@ done
 %files openmpi-examples
 %doc README.rst
 %license LICENSE_1_0.txt
-%{_libdir}/openmpi*/bin/*
+%{_libdir}/openmpi*/bin/%{name}_*
 
 %files openmpi-devel
-%{_includedir}/%{name}
+%{_includedir}/openmpi*/%{name}
 %{_libdir}/openmpi*/lib/pkgconfig/*.pc
 %{_libdir}/openmpi*/lib/cmake/HPX
 %{_libdir}/openmpi*/lib/lib*.a
@@ -264,10 +227,10 @@ done
 %files mpich-examples
 %doc README.rst
 %license LICENSE_1_0.txt
-%{_libdir}/mpich*/bin/*
+%{_libdir}/mpich*/bin/%{name}_*
 
 %files mpich-devel
-%{_includedir}/%{name}
+%{_includedir}/mpich*/%{name}
 %{_libdir}/mpich*/lib/pkgconfig/*.pc
 %{_libdir}/mpich*/lib/cmake/HPX
 %{_libdir}/mpich*/lib/lib*.a
@@ -281,6 +244,10 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Fri Oct 30 2026 Christoph Junghans <junghans@votca.org> - 2.0.0~rc1-1
+- Version bump to v2.0.0_rc1
+- Fixes: rhbz#2542708
+
 * Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.11.0-6
 - Rebuilt for mpich-5.0.2
 

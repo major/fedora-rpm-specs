@@ -5,7 +5,7 @@
 %global crate fontdue
 
 Name:           rust-fontdue
-Version:        0.9.4
+Version:        0.9.5
 Release:        %autorelease
 Summary:        Simple no_std font parser and rasterizer
 

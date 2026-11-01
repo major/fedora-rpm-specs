@@ -39,12 +39,12 @@ BuildRequires:	(python3-setuptools if python3-devel >= 3.12)
 BuildRequires:	python3-devel
 # needed for tests
 BuildRequires:	glibc-langpack-en
-BuildRequires:	gnupg2
 BuildRequires:	gobject-introspection
 BuildRequires:	gstreamer1
 BuildRequires:	gstreamer1-plugins-good
 BuildRequires:	gtk3 >= 3.18
 BuildRequires:	libmodplug
+BuildRequires:	openpgpverify
 BuildRequires:	python3-feedparser
 BuildRequires:	python3-flaky
 BuildRequires:	python3-gobject >= 3.18
@@ -102,7 +102,7 @@ This package installs %{summary}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p 1
 
 install -pm 0644 %{S:3} .

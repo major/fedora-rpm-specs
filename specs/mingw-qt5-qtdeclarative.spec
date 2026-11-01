@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.15.18
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt5 for Windows - QtDeclarative component
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -65,6 +65,9 @@ Patch18: 0019-Revert-QQuickItem-Fix-effective-visibility-for-items.patch
 Patch19: 0020-QML-Fortify-qmlExecuteDeferred-some-more.patch
 Patch20: 0021-QtQml-Clean-up-QQmlData-ctor.patch
 Patch21: 0022-Avoid-undefined-behavior-in-the-JIT.patch
+# Backport fix for CVE-2025-12385
+# https://sources.debian.org/data/main/q/qtdeclarative-opensource-src/5.15.19%2Bdfsg-2/debian/patches/CVE-2025-12385.patch
+Patch22: CVE-2025-12385.patch
 
 ## upstreamable patches
 Patch100: qt5-qtdeclarative-gcc11.patch
@@ -782,6 +785,9 @@ rm -f %{buildroot}%{_prefix}/%{mingw64_target}/lib/pkgconfig/Qt5QmlDevTools.pc
 
 
 %changelog
+* Sat Oct 31 2026 Sandro Mani <manisandro@gmail.com> - 5.15.18-4
+- Backport fix for CVE-2025-12385
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

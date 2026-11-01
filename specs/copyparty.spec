@@ -22,7 +22,7 @@
 # [3]: https://docs.fedoraproject.org/en-US/packaging-guidelines/Web_Assets/#_css
 
 Name:           copyparty
-Version:        1.20.21
+Version:        1.20.26
 Release:        1%{?dist}
 Summary:        Portable file server with many supported protocols
 
@@ -45,6 +45,8 @@ Requires:       python3dist(dnslib)
 # Test requirements are generally the same as those needed
 # for runtime.
 BuildRequires:  python3dist(qrcodegen)
+BuildRequires:  python3dist(ifaddr)
+BuildRequires:  python3dist(dnslib)
 
 # On-the-fly certificate generation when available
 Recommends:     golang-github-cloudflare-cfssl
@@ -124,5 +126,8 @@ rm -rf copyparty/stolen/dnslib
 %{_bindir}/partyfuse
 
 %changelog
+* Sat Oct 31 2026 Simon de Vlieger <cmdr@supakeen.com> - 1.20.26-1
+- Update to 1.20.26
+
 * Fri Aug 28 2026 Simon de Vlieger <cmdr@supakeen.com> - 1.20.21-1
 - Initial build

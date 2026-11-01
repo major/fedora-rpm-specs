@@ -6,7 +6,7 @@
 
 Name:           scorep
 Version:        10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 # Various doc files are CC0-1.0
 License:        BSD-3-Clause AND CC0-1.0
@@ -32,7 +32,7 @@ BuildRequires:  clang-devel
 BuildRequires:  automake libtool
 BuildRequires:  libunwind-devel
 BuildRequires:  gotcha-devel%{?_isa} >= 1.0.5
-%if %useroc
+%if 0%{?useroc}
 BuildRequires:  roctracer-devel
 %endif
 BuildRequires:  libzstd-devel
@@ -384,6 +384,9 @@ make -C serial check V=1
 %endif
 
 %changelog
+* Wed Sep  2 2026 Dave Love <loveshack@fedoraproject.org> - 10.1-2
+- Fix useroc usage
+
 * Tue Aug 11 2026 Dave Love <loveshack@fedoraproject.org> - 10.1-1
 - Update to version 10.1 (resolves #2493585)
 
