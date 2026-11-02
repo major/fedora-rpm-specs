@@ -1,11 +1,10 @@
 Name:           perl-Test-Metrics-Any
-Version:        0.01
-Release:        20%{?dist}
+Version:        0.02
+Release:        1%{?dist}
 Summary:        Assert that code produces metrics via Metrics::Any
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Test-Metrics-Any/
+URL:            https://metacpan.org/dist/Test-Metrics-Any/
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Test-Metrics-Any-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -23,7 +22,7 @@ BuildRequires:  perl(warnings)
 # test requirements
 BuildRequires:  perl(Metrics::Any)
 BuildRequires:  perl(Test::Builder::Tester)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test2::V0)
 
 %{?perl_default_filter}
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Test::Metrics::Any::_predicate\\)$
@@ -53,6 +52,9 @@ test reports metrics via Metrics::Any.
 %{_mandir}/man3/Test*
 
 %changelog
+* Sun Nov 01 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.02-1
+- Update to 0.02
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

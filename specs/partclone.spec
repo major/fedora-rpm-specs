@@ -19,6 +19,7 @@ License:        BSD-2-Clause AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-o
 URL:            https://partclone.org/
 Source0:        https://github.com/Thomas-Tsai/partclone/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0:         https://github.com/Thomas-Tsai/partclone/pull/322.patch#/partclone-0.3.52-pthread.patch
+Patch1:         https://github.com/Thomas-Tsai/partclone/pull/323.patch#/partclone-0.3.52-s390x.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libuuid-devel

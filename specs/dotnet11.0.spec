@@ -1,3 +1,4 @@
+# Bootstrap exception: https://forge.fedoraproject.org/packaging/guidelines/issues/989
 %bcond_with bootstrap
 
 # LTO triggers a compilation error for a source level issue.  Given that LTO should not
@@ -174,7 +175,8 @@ BuildRequires:  ninja-build
 BuildRequires:  openssl-devel
 BuildRequires:  python3
 %if ! %{use_bundled_rapidjson}
-BuildRequires:  rapidjson-devel
+# header-only library must use -static, not -devel
+BuildRequires:  rapidjson-static
 %endif
 BuildRequires:  tar
 BuildRequires:  util-linux
@@ -509,7 +511,7 @@ These are not meant for general use.
 
 
 %prep
-%if ! %{defined opengpgverify}
+%if ! %{defined openpgpverify}
 %global openpgpverify %{gpgverify}
 %endif
 %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'

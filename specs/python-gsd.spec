@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/glotzerlab/gsd
-Version:        4.2.0
+Version:        5.0.1
 %forgemeta
 
 Name:           python-gsd
@@ -10,8 +10,10 @@ License:        BSD-2-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
-BuildRequires:  python3-devel
 BuildRequires:  gcc
+BuildRequires:  python3-devel
+BuildRequires:  %{py3_dist cython}
+BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist pytest}
 
 BuildSystem:    pyproject
@@ -34,18 +36,34 @@ Summary:        %{summary}
 
 %description -n python3-gsd %_description
 
+%prep
+%autosetup -p1 -n gsd-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files gsd
+# Remove development source files
+find %{buildroot}%{python3_sitearch}/gsd/ -name "*.c" -delete
+find %{buildroot}%{python3_sitearch}/gsd/ -name "*.h" -delete
+# Filter out these deleted files from pyproject_files
+sed -i -E '\#(gsd/fl\.c|gsd/gsd\.c|gsd/gsd\.h)$#d' %{pyproject_files}
+
 %check
-ln -s %{buildroot}%{python3_sitearch}/gsd/fl.abi3.so gsd/
+%pyproject_check_import
+
+# Remove local gsd directory to prevent pytest from importing the uncompiled local source files
+rm -rf gsd
 # reading little-endian files on big-endian is unsupported
 # https://github.com/glotzerlab/gsd/issues/12
-%pytest -v gsd \
-    --basetemp=$(mktemp -d -p %{_tmppath}) \
-%ifarch s390x
--k "not test_gsd_v1_read \
-and not test_gsd_v1_upgrade_read \
-and not test_gsd_v1_write \
-and not test_gsd_v1_upgrade_write"
-%endif
+%pytest -v --pyargs gsd \
+    --basetemp=$(mktemp -d -p /tmp) \
+    -k "not test_gsd_v1_read and not test_gsd_v1_upgrade_read and not test_gsd_v1_write and not test_gsd_v1_upgrade_write"
 
 %files -n python3-gsd -f %{pyproject_files}
 %{_bindir}/gsd

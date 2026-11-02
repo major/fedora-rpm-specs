@@ -2,7 +2,7 @@
 %bcond_without perl_Sereal_Decoder_enables_optional_test
 
 Name:           perl-Sereal-Decoder
-Version:        5.011
+Version:        6.003
 Release:        1%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
@@ -30,9 +30,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Devel::CheckLib) >= 1.16
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 7.0
-# File::Find not used
-# File::Path not used in inc/Sereal/BuildTools.pm
-# File::Spec not used in inc/Sereal/BuildTools.pm
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -40,28 +37,35 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(XSLoader)
 # Tests:
-# Benchmark not used
+BuildRequires:  perl(B)
+BuildRequires:  perl(B::Concise)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Devel::Peek)
 BuildRequires:  perl(Encode)
+BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(integer)
+BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(locale)
 BuildRequires:  perl(overload)
+BuildRequires:  perl(re)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Storable)
+BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::LongString)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(threads)
-# Time::HiRes not used
 BuildRequires:  perl(utf8)
 %if %{with perl_Sereal_Decoder_enables_optional_test}
 # Optional tests:
-BuildRequires:  perl(Hash::Util)
+BuildRequires:  perl(Compress::Zlib)
 BuildRequires:  perl(Test::MemoryGrowth)
 %if !%{defined perl_bootstrap}
 # Some tests require Sereal::Encoder 3.005003, but most of them do not require
@@ -111,13 +115,50 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%doc Changes
+%doc Changes SECURITY
 %{perl_vendorarch}/auto/Sereal/
 %{perl_vendorarch}/Sereal/
 %{_mandir}/man3/Sereal::Decoder.3*
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Sun Nov  1 2026 Paul Howarth <paul@city-fan.org> - 6.003-1
+- Update to 6.003 (rhbz#2564204)
+  - Fix bundled Snappy builds on Haiku, which has no byteswap.h
+  - Use portable od arguments in hobodecoder for BusyBox systems and report
+    signal termination correctly in checksum tests
+
+* Sat Oct 31 2026 Paul Howarth <paul@city-fan.org> - 6.002-1
+- Update to 6.002 (rhbz#2564204)
+  - Read protocol v6 VSTRING extension tags, NEG_VARINT, and keyed SipHash
+    checksums while retaining support for older packets
+  - Add checksum_key, checksum_key_v1/v2/v3, checksum_mode, and checksum_policy
+    options, shared and Decoder-specific defaults, prepare_checksum_key(),
+    get_sereal_checksum(), and validate_sereal_checksum()
+  - Restore regexp matching modifiers, including /n and /xx, and report the
+    required Perl version for unsupported modifiers
+  - Ship a SECURITY policy in release archives and improve the protocol
+    specification, build and mixed-version compatibility tests, and general
+    robustness
+  - Reported fixes: regexp modifiers
+    (https://github.com/Sereal/Sereal/issues/180 and
+    https://github.com/Sereal/Sereal/issues/262)
+  - Related work: specification (https://github.com/Sereal/Sereal/issues/218)
+    and packaged security policy (https://github.com/Sereal/Sereal/issues/305)
+  - Keep the Decoder alive when a callback clears its handle variable,
+    preventing use-after-free during decoding and clean-up
+  - Restore builds on older supported Perls without SSize_t_MAX
+  - Run output DESTROY callbacks before capturing the input buffer on
+    Perl 5.24, matching other supported Perls
+  - Avoid corrupting regexp buffers during read-only clean-up on Perl 5.14
+  - Inspect undef aliases without creating writable slots on older Perls
+  - Account for Perl 5.14/5.16's regexp-copy lifetime limitation in tests
+  - Fix huge-size test expectations for 32-bit Perls with 64-bit integers and
+    format allocation diagnostics with the correct argument types
+  - Skip only hobodecoder decompression checks when its optional Compress::Zlib
+    dependency is unavailable, and show child errors
+  - Report the actual missing dependency when skipping t/400_evil.t
+
 * Wed Oct 21 2026 Paul Howarth <paul@city-fan.org> - 5.011-1
 - Update to 5.011 (rhbz#2558321)
   - Robustness fixes

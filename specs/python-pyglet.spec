@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name: python-%{srcname}
-Version: 2.0.21
+Version: 2.1.19
 Release: %autorelease
 Summary: A cross-platform windowing and multimedia library for Python
 
@@ -131,7 +131,7 @@ PATH="%{buildroot}%{_bindir}:$PATH" \
 PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}}" \
 _PYTHONSITE="%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}" \
 PYTHONDONTWRITEBYTECODE=1 \
-xvfb-run -s "-screen 0 1024x768x24 -ac +extension GLX +render -noreset" %{__python3} -sP %{_rpmconfigdir}/redhat/import_all_modules.py -f "%{_pyproject_modules}" -e '*win32*' -e '*cocoa*' -e '*darwin*' -e '*quartz*' -e '*wgl*' -e '*directwrite*' -e '*agl*' -e '*gdiplus*' -e '*wic*' -e '*directsound*' -e '*xaudio2*' -e '*coreaudio*' -e '*ffmpeg*' -e '*pyogg*' -e '*wmf*' -e '*macos*'
+xvfb-run -s "-screen 0 1024x768x24 -ac +extension GLX +render -noreset" %{__python3} -sP %{_rpmconfigdir}/redhat/import_all_modules.py -f "%{_pyproject_modules}" -e '*win32*' -e '*cocoa*' -e '*darwin*' -e '*quartz*' -e '*wgl*' -e '*dwrite*' -e '*agl*' -e '*gdiplus*' -e '*wic*' -e '*wincodec*' -e '*bmp*' -e '*directsound*' -e '*xaudio2*' -e '*coreaudio*' -e '*ffmpeg*' -e '*pyogg*' -e '*wmf*' -e '*macos*'
 
 # Skip flaky tests
 export CI=on

@@ -1,10 +1,10 @@
 %define lang pt_PT
-%define langrelease 0
+%define langrelease 1-0
 Summary: European Portuguese dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
-Version: 20070510
-Release: 34%{?dist}
+Version: 20190329
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell6-%{lang}-%{version}-%{langrelease}.tar.bz2
@@ -40,10 +40,13 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 %files
-%doc COPYING Copyright
+%doc Copyright
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Sun Nov 01 2026 Michal Schorm <mschorm@redhat.com> - 50:20190329-1
+- Rebase to version 2019-03-29
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 50:20070510-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

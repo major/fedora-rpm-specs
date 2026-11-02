@@ -1,6 +1,6 @@
 Name: merkuro
 Version: 26.08.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
 License: GPL-3.0-or-later
@@ -66,7 +66,13 @@ BuildRequires:  cmake(KPim6AkonadiSearch)
 BuildRequires:	desktop-file-utils
 BuildRequires:	libappstream-glib
 
+# QML module dependencies
+Requires:       qt6qml(org.kde.kirigamiaddons.components)
+Requires:       qt6qml(org.kde.ksvg)
+Requires:       qt6qml(org.kde.prison)
+Requires:       qt6qml(Qt5Compat.GraphicalEffects)
 
+Recommends:     (%{name}-plasma-applet%{?_isa} = %{version}-%{release} if plasma-workspace)
 
 # kalendar has been renamed to merkuro
 Obsoletes:	kalendar < 23.08
@@ -84,6 +90,15 @@ calendars, contacts, and tasks simple. Merkuro handles local and \
 remote accounts of your choice, keeping changes synchronised across \
 your Plasma desktop or phone.
 
+
+%package plasma-applet
+Summary:        Contacts plasma applet
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+# QML module dependencies
+Requires:       qt6qml(org.kde.plasma.plasmoid)
+
+%description plasma-applet
+%{summary}
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -112,7 +127,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_bindir}/merkuro-contact
 %{_kf6_bindir}/merkuro-mail
 %{_kf6_qmldir}/org/kde/merkuro/*
-%{_kf6_qtplugindir}/plasma/applets/org.kde.merkuro.contact.applet.so
 %{_kf6_datadir}/applications/org.kde.merkuro.calendar.desktop
 %{_kf6_datadir}/applications/org.kde.merkuro.contact.desktop
 %{_kf6_datadir}/applications/org.kde.merkuro.mail.desktop
@@ -133,7 +147,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_datadir}/knotifications6/merkuro.mail.notifyrc
 %{_kf6_metainfodir}/org.kde.merkuro.metainfo.xml
 
+%files plasma-applet
+%{_kf6_qtplugindir}/plasma/applets/org.kde.merkuro.contact.applet.so
+
 %changelog
+* Fri Oct 30 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.08.2-3
+- Separate plasma applet subpackage
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
 - Rebuild (qt6)
 

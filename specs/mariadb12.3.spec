@@ -543,6 +543,13 @@ Recommends:       %{pkgname}-backup%{?_isa} = %{sameevr}
 
 %{?with_bundled_fmt:Provides: bundled(fmt) = %{fmt_bundled_version}}
 
+# Bundled third-party libraries compiled into the server binary
+Provides:         bundled(xxhash) = 0.8.3
+%{?with_galera:Provides: bundled(wsrep-lib) = 1.0.0}
+%{?with_galera:Provides: bundled(wsrep-API) = 26}
+%{?with_mroonga:Provides: bundled(groonga) = 7.0.7}
+%{?with_mroonga:Provides: bundled(groonga-normalizer-mysql) = 1.1.1}
+
 Suggests:         mytop
 Suggests:         logrotate
 
@@ -609,6 +616,8 @@ Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 
 # As per https://jira.mariadb.org/browse/MDEV-21450
 BuildRequires:    libxml2-devel
+# Original zlib/contrib minizip (not minizip-ng)
+Provides:         bundled(minizip)
 
 %virtual_conflicts_and_provides_arched connect-engine
 
@@ -626,6 +635,7 @@ or products (such as Excel), or data retrieved from the environment
 Summary:          Mariabackup tool for physical online backups
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 BuildRequires:    libarchive-devel
+Provides:         bundled(quicklz) = 1.5.0
 
 %virtual_conflicts_and_provides_arched backup
 
@@ -640,16 +650,11 @@ For InnoDB, "hot online" backups are possible.
 %package          -n %{pkgname}-rocksdb-engine
 Summary:          RocksDB storage engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
-# The version of rocksdb provided is not specified because the mariadb
-# upstream provides it as a submodule, which is linked in their github
-# https://github.com/MariaDB/server/ inside storage/rocksdb
-# the commits linked here don't match the releases made by the rocksdb
-# upstream: https://github.com/facebook/rocksdb/
-# therefore the release specified here would be rough at best.
-# A rough release can also be found inside the source tarball
-# inside the storage/rocksdb/rocksdb/include/rocksdb/version.h file
-# but it does not match the real release every time
+# RocksDB version from storage/rocksdb/rocksdb/include/rocksdb/version.h
+# (approximate — MariaDB's submodule doesn't match upstream release tags exactly)
 Provides:         bundled(rocksdb)
+# RocksDB embeds xxhash with ROCKSDB_ namespace prefix — cannot use system lib
+Provides:         bundled(xxhash) = 0.8.1
 Conflicts:        rocksdb-tools
 
 %virtual_conflicts_and_provides_arched rocksdb-engine
@@ -734,6 +739,7 @@ Summary:          S3 storage engine for MariaDB
 Requires:         %{pkgname}-server%{?_isa} = %{sameevr}
 
 BuildRequires:    curl-devel
+Provides:         bundled(libmarias3) = 3.2.0
 
 %virtual_conflicts_and_provides_arched s3-engine
 
@@ -806,6 +812,10 @@ mariadb-connector-c package.
 Summary:          MariaDB as an embeddable library
 Requires:         %{pkgname}-common = %{sameevr}
 Requires:         %{pkgname}-errmsg = %{sameevr}
+# Same server core code linked into libmariadbd.so
+Provides:         bundled(xxhash) = 0.8.3
+%{?with_galera:Provides: bundled(wsrep-lib) = 1.0.0}
+%{?with_galera:Provides: bundled(wsrep-API) = 26}
 
 %virtual_conflicts_and_provides_arched embedded
 

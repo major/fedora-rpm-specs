@@ -1,17 +1,17 @@
-%bcond_without lto
 %bcond_without openssl
-
-%if %{with lto}
-%global optflags        %{optflags} -flto
-%global build_ldflags   %{build_ldflags} -flto
-%endif
+%bcond_without zlib
 
 Name:           goaccess
-Version:        1.11
+Version:        1.12
 Release:        %autorelease
 Summary:        Real-time web log analyzer and interactive viewer
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+# Main code and khash.h are MIT
+# src/tpl.{c,h} is BSD-1-Clause
+# src/pdjson.{c,h} and src/bin2c.c are LicenseRef-Fedora-Public-Domain
+# resources/js/hogan.min.js is ASL 2.0 (Apache-2.0)
+# resources/js/d3.v7.min.js and resources/js/topojson.v3.min.js are ISC
+# resources/css/bootstrap.min.css is MIT
+License:        MIT AND BSD-1-Clause AND Apache-2.0 AND ISC AND LicenseRef-Fedora-Public-Domain
 URL:            https://goaccess.io/
 Source0:        https://tar.goaccess.io/%{name}-%{version}.tar.gz
 BuildRequires:  autoconf
@@ -22,6 +22,9 @@ BuildRequires:  ncurses-devel
 BuildRequires:  gettext-devel
 %if %{with openssl}
 BuildRequires:  openssl-devel
+%endif
+%if %{with zlib}
+BuildRequires:  zlib-ng-compat-devel
 %endif
 BuildRequires:  make
 
@@ -78,12 +81,16 @@ autoreconf -fiv
     --enable-geoip=mmdb \
     --enable-utf8 \
     --with-getline \
-    %{?with_openssl: --with-openssl}
+    %{?with_openssl:--with-openssl} \
+    %{?with_zlib:--with-zlib}
 %make_build
 
 %install
 %make_install
 %find_lang %{name}
+
+%check
+%{buildroot}%{_bindir}/%{name} --version
 
 %files -f %{name}.lang
 %license COPYING

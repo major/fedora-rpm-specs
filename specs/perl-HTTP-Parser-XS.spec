@@ -1,13 +1,12 @@
 Name:           perl-HTTP-Parser-XS
 Summary:        A fast, primitive HTTP request parser
-Version:        0.17
-Release:        39%{?dist}
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
+Version:        0.18
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAZUHO/HTTP-Parser-XS-%{version}.tar.gz 
-URL:            https://metacpan.org/release/HTTP-Parser-XS
+URL:            https://metacpan.org/dist/HTTP-Parser-XS
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl(inc::Module::Install)
@@ -56,6 +55,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Nov 01 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.18-1
+- Update to 0.18
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.17-39
 - Perl 5.44 rebuild
 

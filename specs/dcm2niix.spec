@@ -89,6 +89,34 @@ URL:            https://www.nitrc.org/plugins/mwiki/index.php/dcm2nii:MainPage
 %global forgeurl https://github.com/rordenlab/dcm2niix
 Source:         %{forgeurl}/archive/v%{version}/dcm2niix-%{version}.tar.gz
 
+# Together, the following two patches address:
+# Please consider updating the vendored cJSON library to 1.7.19
+# https://github.com/rordenlab/dcm2niix/issues/1058
+#
+# From that issue,
+#
+#   Thanks, the latest commit updates cJSON to 1.7.19 (retaining our local
+#   sprintf→snprintf patch). dcm2niix was not exposed: it only builds and
+#   prints JSON and never parses JSON with cJSON, so the parser and cJSON_Utils
+#   CVEs are unreachable. Still, the update should spare packagers from
+#   triaging future CVE reports against the bundled copy.
+#
+# Update vendored cJSON 1.7.12 -> 1.7.19 (#1058)
+#
+# Keeps local snprintf patch. JSON/JNIfTI/MRS output differs only in
+# last-digit float formatting (relative compare_double, upstream fix).
+#
+# https://github.com/rordenlab/dcm2niix/commit/0ef930011067c6238a5e41ace46a6d023b8fd6c3
+Patch:          %{forgeurl}/commit/0ef930011067c6238a5e41ace46a6d023b8fd6c3.patch
+# JNIfTI writer fails closed; cJSON audit follow-ups (#1058)
+#
+# nii_savejnii frees root/compressed on error paths, checks write/close
+# and removes partial output. Drop stale cJSON 'return void' comment;
+# document cJSON bump procedure and -m y Study Time jitter.
+#
+# https://github.com/rordenlab/dcm2niix/commit/e08127d03af9c3590d42c3defc2250ba9b1046e7
+Patch:          %{forgeurl}/commit/e08127d03af9c3590d42c3defc2250ba9b1046e7.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -157,9 +185,11 @@ Provides:       bundled(niftilib) = 1.0.0
 # “With regards to the cJSON you can always build with it off, at least until
 # this promising format gains traction.”
 #
-# Please consider updating the vendored cJSON library to 1.7.19
-# https://github.com/rordenlab/dcm2niix/issues/1058
-Provides:       bundled(cJSON) = 1.7.12
+# Note also that there is a local sprintf→snprintf patch, and that (per
+# https://github.com/rordenlab/dcm2niix/issues/1058#issuecomment-6546536100)
+# dcm2niix only builds and prints JSON and never parses JSON with cJSON. This
+# limits the classes of cJSON bugs to which dcm2niix could be exposed.
+Provides:       bundled(cJSON) = 1.7.19
 %endif
 # console/base64.{h,cpp}
 #

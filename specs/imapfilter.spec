@@ -1,5 +1,5 @@
 Name:           imapfilter
-Version:        2.8.5
+Version:        2.8.6
 Release:        %autorelease
 Summary:        A flexible client side mail filtering utility for IMAP servers
 
@@ -12,8 +12,6 @@ URL:            %forgeurl
 Source:         %forgesource
 # Fix paths for MANDIR, SSLCAFILE and keep existing CFLAGS
 Patch0:         imapfilter-makefile-fix.patch
-# Fix build with OpenSSL4+ (opaque ASN1_INTEGER structures)
-Patch1:         imapfilter-openssl4.patch
 
 BuildRequires:  gcc, make
 BuildRequires:  openssl-devel

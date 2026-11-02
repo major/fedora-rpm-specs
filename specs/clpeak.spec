@@ -1,5 +1,5 @@
 Name:       clpeak
-Version:    3.0.3
+Version:    3.0.4
 Release:    %autorelease
 Summary:    Measure the peak achievable performance of GPU compute devices
 License:    Apache-2.0

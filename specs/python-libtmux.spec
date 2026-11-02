@@ -5,7 +5,7 @@
 %global tmux_minver 1.8
 
 Name:           python-%{srcname}
-Version:        0.61.0
+Version:        0.62.0
 Release:        %autorelease
 Summary:        Scripting library for tmux
 

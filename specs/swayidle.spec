@@ -1,19 +1,19 @@
 Name: swayidle
-Version: 1.9.0
-Release: 3%{?dist}
+Version: 1.9.1
+Release: 1%{?dist}
 Summary: An idle daemon for wayland compositors
 
 # Automatically converted from old format: MIT and LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-MIT AND LicenseRef-Callaway-LGPLv2+
 URL: https://github.com/swaywm/swayidle
-Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
-Source1: %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.sig
+Source0: %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source1: %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
 # 0FDE7BE0E88F5E48: emersion <contact@emersion.fr>
 Source2: https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 
 BuildRequires: meson >= 0.59.0
 BuildRequires: gcc
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: pkgconfig(wayland-protocols) >= 1.40
 BuildRequires: pkgconfig(wayland-client)
 BuildRequires: pkgconfig(wayland-server)
@@ -24,7 +24,7 @@ BuildRequires: scdoc
 swayidle is an idle management daemon for Wayland compositors.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -53,6 +53,11 @@ swayidle is an idle management daemon for Wayland compositors.
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Sun Nov 01 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.9.1-1
+- Update to 1.9.1 (#2413074)
+- Update upstream signing key
+- Verify source signatures with openpgpverify
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

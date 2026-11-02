@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 Name:    plasma-nm
 Summary: Plasma for managing network connections
 Version: 6.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{name}
@@ -87,24 +87,15 @@ Obsoletes:      kde-plasma-networkmanagement-libs < 1:0.9.1.0
 Obsoletes:      kde-plasma-nm < 5.0.0-1
 %if ! %{with vpnc}
 # vpnc is no longer maintained upstream
-Obsoletes:      plasma-nm-vpnc < 6.7.91-2
+Obsoletes:      plasma-nm-vpnc < %{version}-%{release}
 %endif
 %if ! %{with fortissl}
 # fortissl is no longer maintained upstream
-Obsoletes:      plasma-nm-fortisslvpn < 6.7.91-2
+Obsoletes:      plasma-nm-fortisslvpn < %{version}-%{release}
 %endif
 
 
 Provides:       kde-plasma-nm = %{version}-%{release}
-
-%if ! %{with vpnc}
-# vpnc is no longer maintained upstream
-Obsoletes:      plasma-nm-vpnc < 6.7.5-2
-%endif
-%if ! %{with fortissl}
-# fortissl is no longer maintained upstream
-Obsoletes:      plasma-nm-fortisslvpn < 6.7.5-2
-%endif
 
 %description
 Plasma applet and editor for managing your network connections in KDE 4 using
@@ -356,6 +347,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_openco
 %endif
 
 %changelog
+* Mon Nov 02 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.8.2-2
+- Fix obsoletes of vpnc/fortisslvpn plugins
+
 * Tue Oct 27 2026 Steve Cossette <steve@ninjasinpajamas.com> - 6.8.2-1
 - 6.8.2
 

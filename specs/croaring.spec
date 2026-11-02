@@ -1,15 +1,19 @@
 %global forgeurl https://github.com/RoaringBitmap/CRoaring
-Version:        4.3.0
+Version:        4.3.12
 %forgemeta
 
 %global sover 18
 
 Name:           croaring
 Release:        %autorelease
-Summary:        Roaring bitmaps in C (and C++), with SIMD (AVX2, AVX-512 and NEON) optimizations
+Summary:        Roaring bitmaps in C (and C++), with SIMD optimizations
 License:        Apache-2.0 OR MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+# “fixing issue 793” (fixes compatibility with CMake 4.0)
+# https://github.com/RoaringBitmap/CRoaring/commit/2157a666099f77e7d5431f519862e951f50ec931
+# https://github.com/RoaringBitmap/CRoaring/issues/793
+Patch:          %{forgeurl}/commit/2157a666099f77e7d5431f519862e951f50ec931.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -31,7 +35,7 @@ The %{name}-devel package contains development files for %{name}.
 %build
 %cmake \
     -DROARING_USE_CPM=OFF \
-    -DROARING_LIB_VERSION=%{version} \
+    -DROARING_LIB_VERSION=%{version}
 %cmake_build
 
 %install

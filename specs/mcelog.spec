@@ -1,6 +1,6 @@
 Summary:	Tool to translate x86-64 CPU Machine Check Exception data
 Name:		mcelog
-Version:	212
+Version:	213
 Release:	1%{?dist}
 Epoch:		3
 License:	GPL-2.0-only
@@ -63,6 +63,9 @@ install -p -m644 mcelog*.5 $RPM_BUILD_ROOT/%{_mandir}/man5/
 %{_mandir}/*/*
 
 %changelog
+* Sun Nov 01 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3:213-1
+- Update to v213
+
 * Tue Oct 06 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3:212-1
 - Update to v212
 

@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    akonadi-calendar
 Version: 26.08.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -77,6 +77,15 @@ BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
+%package -n     python3-%{name}
+Summary:        Python bindings for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       python3-pyside6%{?_isa}
+Requires:       python3-kf6-kcalendarcore%{?_isa}
+Requires:       python3-akonadi-server%{?_isa}
+%description -n python3-%{name}
+PySide bindings for the Akonadi Calendar libraries.
+
 %prep
 %autosetup -n %{name}-%{version} -p1
 
@@ -107,8 +116,6 @@ find ./po -type f -name libakonadi-calendar5-serializer.po -execdir mv {} libako
 %{_kf6_qtplugindir}/kf6/org.kde.kcalendarcore.calendars/libakonadicalendarplugin.so
 %{_kf6_sysconfdir}/xdg/autostart/org.kde.kalendarac.desktop
 %{_kf6_libdir}/libKPim6AkonadiCalendarCore.so.*
-%{python3_sitearch}/AkonadiCalendar.cpython-*-linux-gnu.so
-%{_kf6_datadir}/PySide6/typesystems/typesystem_akonadi_calendar.xml
 
 %files devel
 %{_includedir}/KPim6/AkonadiCalendar/Akonadi/
@@ -123,11 +130,17 @@ find ./po -type f -name libakonadi-calendar5-serializer.po -execdir mv {} libako
 %{_kf6_libdir}/libKPim6AkonadiCalendarCore.so
 %{_kf6_libdir}/libKPim6AkonadiCalendar.so
 %{_includedir}/PySide6/AkonadiCalendar/akonadicalendar_python.h
+%{_kf6_datadir}/PySide6/typesystems/typesystem_akonadi_calendar.xml
 
 %files doc
 
+%files -n python3-%{name}
+%{python3_sitearch}/AkonadiCalendar.cpython-*-linux-gnu.so
 
 %changelog
+* Thu Oct 29 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.08.2-3
+- Split out PySide bindings into separate subpackage
+
 * Sat Oct 24 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
 - Rebuild (qt6)
 

@@ -1,11 +1,11 @@
 %define lang da
-%define langrelease 1
-%define aspellversion 5
+%define langrelease 11-0
+%define aspellversion 6
 Summary: Danish dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
-Version: 1.4.42
-Release: 39%{?dist}
+Version: 1.6.36
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell%{aspellversion}-%{lang}-%{version}-%{langrelease}.tar.bz2
@@ -39,10 +39,13 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT 
 
 %files
-%doc COPYING Copyright
+%doc Copyright
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Sun Nov 01 2026 Michal Schorm <mschorm@redhat.com> - 50:1.6.36-1
+- Rebase to 1.6.36
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 50:1.4.42-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

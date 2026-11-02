@@ -1,5 +1,5 @@
 Name:           xdg-desktop-portal-wlr
-Version:        0.8.4
+Version:        0.8.5
 Release:        1%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
@@ -13,7 +13,7 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        wlroots-portals.conf
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  meson
 BuildRequires:  systemd-rpm-macros
 
@@ -48,7 +48,7 @@ remote-desktop xdg-desktop-portal interfaces for wlroots based compositors.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 
@@ -83,6 +83,12 @@ install -D -pv -m644 %{SOURCE3} \
 
 
 %changelog
+* Sun Nov 01 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.8.5-1
+- Update to 0.8.5 (#2563703)
+
+* Thu Oct 22 2026 Jakub Jelen <jjelen@redhat.com> - 0.8.4-2
+- Verify upstream source signatures with openpgpverify
+
 * Sun Aug 02 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.8.4-1
 - Update to 0.8.4 (#2490450)
 

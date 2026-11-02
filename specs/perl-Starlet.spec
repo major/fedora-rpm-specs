@@ -1,6 +1,6 @@
 Name:           perl-Starlet
-Version:        0.32
-Release:        2%{?dist}
+Version:        0.33
+Release:        1%{?dist}
 Summary:        Simple, high-performance PSGI/Plack HTTP server
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Starlet
@@ -88,6 +88,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_mandir}/man3/Starlet*
 
 %changelog
+* Sun Nov 01 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.33-1
+- Update to 0.33 (multiple security fixes)
+
 * Mon Jul 06 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.32-2
 - Recreated for Fedora
 

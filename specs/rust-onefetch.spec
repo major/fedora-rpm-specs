@@ -7,7 +7,7 @@
 %global crate onefetch
 
 Name:           rust-onefetch
-Version:        3.1.0
+Version:        3.2.0
 Release:        %autorelease
 Summary:        Command-line Git information tool
 
@@ -18,7 +18,7 @@ Source:         %{crates_source}
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
-# * Use older gix 0.85 (upstream wants 0.89):
+# * Use older gix 0.85 (upstream wants 0.90):
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2506441. We must carry a
 #   downstream patch reverting the source-code change from
 #   https://github.com/o2sh/onefetch/commit/f43b0cb3ad4076974e942b54751ee462ce2a6ca5;
@@ -30,8 +30,12 @@ Patch:          onefetch-fix-metadata-auto.diff
 #   but the maintainer of the gix stack in Fedora does not intend to do so,
 #   reasonably citing upstream discouragement in
 #   https://github.com/Byron/gitoxide/discussions/900.
-# * Allow older rstest 0.26 for now,
+# * Allow older rstest 0.26 for now (upstream wants 0.28):
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2529211
+# * Allow older rustix 1.1.5 for now (upstream wants 1.1.6). This was a routine
+#   version bump via renovate, https://github.com/o2sh/onefetch/pull/1910, not
+#   something that appears to have been required for a specific reason. See
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2561506.
 Patch:          onefetch-fix-metadata.diff
 # * Revert the source-code change for gix 0.86+
 # * This allows us to temporarily keep using gix 0.85.
@@ -40,6 +44,11 @@ Patch10:        0001-Revert-chore-deps-Update-Rust-crate-gix-to-0.86.0-18.patch
 # * Previously, path::from_bstr and Repository::is_shallow were infallible.
 # * We revert the changes to keep using older gix for now
 Patch11:        0002-Patch-for-functions-that-were-infallible-before-gix-.patch
+
+# Dropped i686 for Fedora 46 and later. Building on 32-bit without reducing the
+# debuginfo level results in memory exhaustion, plus:
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  help2man

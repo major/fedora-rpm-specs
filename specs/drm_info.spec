@@ -12,7 +12,7 @@ Source1:        %{url}/-/releases/v%{version}/downloads/%{name}-%{version}.tar.g
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  meson >= 0.56.0
 BuildRequires:  pkgconfig(json-c)
 BuildRequires:  pkgconfig(libdisplay-info)
@@ -26,7 +26,7 @@ BuildRequires:  python3-devel
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 

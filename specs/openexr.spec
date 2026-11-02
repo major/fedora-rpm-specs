@@ -3,7 +3,7 @@
 
 Name:           openexr
 Version:        3.4.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD-3-Clause WITH AdditionRef-OpenEXR-Additional-IP-Rights-Grant OR Apache-2.0
@@ -17,7 +17,11 @@ BuildRequires:  boost-devel
 BuildRequires:  imath-devel
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  zlib-devel
+%if 0%{?fedora}
 BuildRequires:  libdeflate-devel
+%else
+Provides:       bundled(libdeflate) = 1.25
+%endif
 
 Obsoletes:      OpenEXR < 2.5.3
 Provides:       OpenEXR = %{version}-%{release}
@@ -156,6 +160,9 @@ EXCLUDE_REGEX='Iex'
 
 
 %changelog
+* Fri Oct 30 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.4.13-3
+- Build with bundled libdeflate on RHEL
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

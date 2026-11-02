@@ -1,7 +1,7 @@
 # -*-Mode: rpm-spec -*-
 
 Name:     neatvnc
-Version:  1.0.3
+Version:  1.0.4
 Release:  1%{?dist}
 Summary:  Liberally licensed VNC server library
 # main source is ISC
@@ -67,6 +67,9 @@ This package contains header files for %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Nov 01 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.4-1
+- Update to v1.0.4 (rhbz#2564559)
+
 * Tue Oct 13 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.3-1
 - Update to v1.0.3
 

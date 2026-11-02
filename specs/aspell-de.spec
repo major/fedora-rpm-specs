@@ -1,11 +1,11 @@
 %define lang de
-%define langrelease 1
+%define langrelease 7-0
 %define aspellversion 6
 Summary: German dictionaries for Aspell
 Name: aspell-%{lang}
 Epoch: 50
-Version: 20030222
-Release: 40%{?dist}
+Version: 20161207
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: http://aspell.net/
 Source: ftp://ftp.gnu.org/gnu/aspell/dict/%{lang}/aspell%{aspellversion}-%{lang}-%{version}-%{langrelease}.tar.bz2
@@ -39,12 +39,15 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 %files
-%doc COPYING
+%doc Copyright
 %defattr(-,root,root,-)
 
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Sun Nov 01 2026 Michal Schorm <mschorm@redhat.com> - 50:20161207-1
+- Rebase to version 2016-12-07
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 50:20030222-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

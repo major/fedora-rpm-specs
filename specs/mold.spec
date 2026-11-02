@@ -1,12 +1,12 @@
-%global use_gcc_toolset 0%{?el8}
-%global use_system_tbb  0%{?fedora} >= 40 || 0%{?rhel} >= 10
+%bcond check 1
 
-# 32-bit x86 is supported by RHEL < 10 and Fedora (the latter is implicitly
-# covered by the conditional expression)
-%global has_32bit_support 0%{?rhel} < 10
+# Prevent `gdb-add-index` from failing with `std::bad_alloc` on i386
+%ifarch %{ix86}
+%global rustflags_debuginfo 1
+%endif
 
 Name:           mold
-Version:        2.42.1
+Version:        3.0.0
 Release:        %autorelease
 Summary:        A Modern Linker
 
@@ -14,57 +14,51 @@ Summary:        A Modern Linker
 %global tag      v%{version}
 %forgemeta
 
-License:        MIT AND (Apache-2.0 OR MIT)
+SourceLicense:  MIT
+License:        %{shrink:
+    MIT AND
+    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception) AND
+    (Apache-2.0 OR MIT) AND
+    BSL-1.0 AND
+    (MIT OR Apache-2.0) AND
+    (MIT-0 OR Apache-2.0) AND
+    (Unlicense OR MIT) AND
+    Zlib
+}
+# `LICENSE.dependencies` contains a full license breakdown
 URL:            %{forgeurl}
-Source0:        %{forgesource}
+Source:         %{forgesource}
 
-# Allow building against the system-provided `xxhash.h`
-Patch0:         0001-Use-system-compatible-include-path-for-xxhash.h.patch
+# Upstream commit 4520bf5cbbcdfc64d8a1d71aae098cab58af5909
+Patch:          0001-Update-cpp_demangle-to-0.5.1.patch
+# Adjust crate dependencies: relax uuid version, use mimalloc from crates.io
+Patch:          0002-Adjust-dependencies-for-Fedora-Linux.patch
 
-BuildRequires:  blake3-devel
-BuildRequires:  cmake
-%if %{use_gcc_toolset}
-BuildRequires:  gcc-toolset-13
-%else
+BuildRequires:  cargo-rpm-macros
 BuildRequires:  gcc
-BuildRequires:  gcc-c++ >= 10
-%endif
-BuildRequires:  libzstd-devel
-BuildRequires:  mimalloc-devel >= 3
-BuildRequires:  xxhash-static
-BuildRequires:  zlib-devel
-
-%if %{use_system_tbb}
-BuildRequires:  tbb-devel >= 2021.9
-%else
-# API-incompatible with older tbb 2020.3 shipped by Fedora < 40:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2036372
-Provides:       bundled(tbb) = 2022.1
-# Required by bundled oneTBB
-BuildRequires:  hwloc-devel
-%endif
 
 # The following packages are only required for executing the tests
+%if %{with check}
 BuildRequires:  binutils-devel
 BuildRequires:  clang
 BuildRequires:  gdb
+BuildRequires:  gcc-c++
 BuildRequires:  glibc-static
-%if ! 0%{?el8}
 %ifarch x86_64
-%if %{has_32bit_support}
+%if 0%{?fedora}
 # Koji 64-bit buildroots do not contain packages from 32-bit builds, therefore
 # the 'glibc-devel.i686' variant is provided as 'glibc32'.
 BuildRequires: (glibc32 or glibc-devel(%__isa_name-32))
 %endif
 %endif
 BuildRequires:  libdwarf-tools
-%endif
 BuildRequires:  libstdc++-static
 BuildRequires:  llvm
 BuildRequires:  perl-interpreter
+%endif
 
-Requires(post): alternatives
-Requires(postun): alternatives
+Requires(post): %{_sbindir}/update-alternatives
+Requires(postun): %{_sbindir}/update-alternatives
 
 %description
 mold is a faster drop-in replacement for existing Unix linkers.
@@ -74,23 +68,33 @@ build time, especially in rapid debug-edit-rebuild cycles.
 
 %prep
 %forgeautosetup -p1
-rm -r third-party/{blake3,mimalloc,xxhash,zlib,zstd}
-%if %{use_system_tbb}
-rm -r third-party/tbb
-%endif
+%cargo_prep
+
+%generate_buildrequires
+%cargo_generate_buildrequires
 
 %build
-%if %{use_gcc_toolset}
-. /opt/rh/gcc-toolset-13/enable
-%endif
-%if %{use_system_tbb}
-%define tbb_flags -DMOLD_USE_SYSTEM_TBB=ON
-%endif
-%cmake -DMOLD_USE_SYSTEM_MIMALLOC=ON %{?tbb_flags}
-%cmake_build
+# Set `MOLD_LIBDIR` in the build, check and install steps so `mold-wrapper.so`
+# is installed to (and searched in) the correct directory. This can be dropped
+# when packaging the next release.
+MOLD_LIBDIR="%{_libdir}" %cargo_build
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
 
 %install
-%cmake_install
+DESTDIR="%{buildroot}" PREFIX="%{_prefix}" MOLD_LIBDIR="%{_libdir}" \
+  ./install-mold.sh
+# `LICENSE` is shipped via `%%license`
+rm -r "%{buildroot}%{_docdir}/mold"
+touch %{buildroot}%{_bindir}/ld
+
+%if %{with check}
+%check
+MOLD_LIBDIR="%{_libdir}" %cargo_test
+# Print skipped tests
+(cd target/rpm/mold-test/out/test/results &&
+  grep --files-with-matches --line-regexp skip */*.status) || :
+%endif
 
 %post
 if [ "$1" = 1 ]; then
@@ -102,19 +106,14 @@ if [ "$1" = 0 ]; then
   update-alternatives --remove ld %{_bindir}/ld.mold
 fi
 
-%check
-%if %{use_gcc_toolset}
-. /opt/rh/gcc-toolset-13/enable
-%endif
-%ctest
-
 %files
-%license %{_docdir}/mold/LICENSE
+%license LICENSE LICENSE.dependencies
+%doc README.md
 %ghost %{_bindir}/ld
 %{_bindir}/mold
 %{_bindir}/ld.mold
-%{_libdir}/mold/mold-wrapper.so
-%{_libexecdir}/mold/ld
+%{_libdir}/mold/
+%{_libexecdir}/mold/
 %{_mandir}/man1/ld.mold.1*
 %{_mandir}/man1/mold.1*
 

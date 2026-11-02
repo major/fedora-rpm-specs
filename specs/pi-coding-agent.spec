@@ -25,9 +25,12 @@ Source10:       license-checker.txt
 BuildArch:      noarch
 ExclusiveArch:  x86_64 aarch64
 
-Requires:       nodejs
 BuildRequires:  nodejs-devel
 BuildRequires:  fdupes
+
+Requires:       nodejs
+# To help pi with generating/checking shell scripts
+Requires:       ShellCheck
 
 %description
 Pi is a minimal terminal coding harness. Adapt pi to your workflows,

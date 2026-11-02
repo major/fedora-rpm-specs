@@ -5,7 +5,7 @@
 
 Name:           wlroots
 Version:        0.20.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A modular Wayland compositor library
 
 %global tag     %{gsub %{version} ~ -}
@@ -45,7 +45,7 @@ Patch:          Revert-layer-shell-error-on-0-dimension-without-anch.patch
 
 BuildRequires:  gcc
 BuildRequires:  glslang
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  meson >= 1.3
 
 BuildRequires:  (pkgconfig(libliftoff) >= %{liftoff_ver} with pkgconfig(libliftoff) < 0.6)
@@ -103,7 +103,7 @@ Development files for %{name}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -N -n %{name}-%{tag}
 # apply unconditional patches (0..99)
 %autopatch -p1 -M99
@@ -143,6 +143,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Fri Oct 23 2026 Jakub Jelen <jjelen@redhat.com> - 0.20.2-3
+- Verify upstream source signatures with openpgpverify
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

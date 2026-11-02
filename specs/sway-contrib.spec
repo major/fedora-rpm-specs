@@ -1,5 +1,5 @@
 Name:           sway-contrib
-Version:        1.11
+Version:        1.12
 Release:        %autorelease
 Summary:        Collection of user-contributed scripts for Sway
 
@@ -8,7 +8,6 @@ URL:            https://github.com/OctopusET/sway-contrib
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  scdoc
 
@@ -24,6 +23,7 @@ Requires:       grim
 Requires:       slurp
 Recommends:     /usr/bin/wl-copy
 Recommends:     /usr/bin/notify-send
+#Recommends:     wayfreeze
 
 %description -n grimpicker
 grimpicker is a color picker that uses slurp and grim.
@@ -36,6 +36,7 @@ Requires:       slurp
 Requires:       sway
 Requires:       /usr/bin/wl-copy
 Recommends:     /usr/bin/notify-send
+#Recommends:     wayfreeze
 
 %description -n grimshot
 Grimshot is an easy to use screenshot tool for sway. It relies on grim,
@@ -49,21 +50,25 @@ interface.
 
 
 %build
-%make_build -C grimpicker
-scdoc <grimshot/grimshot.1.scd >grimshot/grimshot.1
+for man in grimpicker/grimpicker.1 grimshot/grimshot.1; do
+    scdoc <"${man}.scd" >"${man}"
+done
 
 
 %install
 install -D -pv -t %{buildroot}%{_libexecdir}/%{name}  *.py
-# grimpicker
-%make_install -C grimpicker PREFIX=%{_prefix}
+# grimpicker, grimshot
+install -D -pv -m0755 -t %{buildroot}%{_bindir} \
+    grimpicker/grimpicker grimshot/grimshot
+install -D -pv -m0644 -t %{buildroot}%{_mandir}/man1 \
+    grimpicker/grimpicker.1 grimshot/grimshot.1
+# completions
+install -D -pv -m0644 grimpicker/completion.bash \
+    %{buildroot}%{bash_completions_dir}/grimpicker
+install -D -pv -m0644 grimpicker/completion.fish \
+    %{buildroot}%{fish_completions_dir}/grimpicker.fish
 install -D -pv -m0644 grimpicker/completion.zsh \
     %{buildroot}%{zsh_completions_dir}/_grimpicker
-# grimshot
-install -D -pv -m0644 grimshot/grimshot.1 \
-    -t %{buildroot}%{_mandir}/man1
-install -D -pv -m0755 grimshot/grimshot \
-    -t %{buildroot}%{_bindir}
 install -D -pv -m0644 grimshot/grimshot-completion.bash \
     %{buildroot}%{bash_completions_dir}/grimshot
 

@@ -119,10 +119,16 @@ on Java Native Interface (JNI) applications using ZBar.
 %patch 0 -p1
 
 %build
+%meson \
+  -Ddbusconfdir=%{_sysconfdir} \
+  -Dlibrary_type=shared \
+  -Dcodes=ean,databar,code128,code93,code39,codabar,i25,qrcode,sqcode,pdf417 \
+  -Dpython=python3 \
+  -Dstatic_qt=false \
 %if %{JAVA}
-%meson -Dlibrary_type=shared -Dcodes=ean,databar,code128,code93,code39,codabar,i25,qrcode,sqcode,pdf417 -Dpython=python3 -Dstatic_qt=false -Djava=enabled
+  -Djava=enabled
 %else
-%meson -Dlibrary_type=shared -Dcodes=ean,databar,code128,code93,code39,codabar,i25,qrcode,sqcode,pdf417 -Dpython=python3 -Dstatic_qt=false -Djava=disabled
+  -Djava=disabled
 %endif
 %meson_build
 

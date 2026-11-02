@@ -5,7 +5,7 @@
 Name:    akonadi-server
 Summary: PIM Storage Service
 Version: 26.08.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/pim/akonadi
@@ -129,6 +129,15 @@ BuildArch:      noarch
 %description    doc
 Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
+%package -n python3-%{name}
+Summary:        Akonadi Python bindings
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       python3-pyside6%{?_isa}
+Requires:       python3-kf6-kcoreaddons%{?_isa}
+%description -n python3-%{name}
+PySide bindings for the Akonadi libraries.
+
+
 %prep
 %autosetup -n akonadi-%{version} -p1
 
@@ -227,8 +236,6 @@ fi
 %{_kf6_qmldir}/org/kde/akonadi/
 %{_kf6_datadir}/applications/org.kde.akonadi.configdialog.desktop
 %{_userunitdir}/akonadi_control.service
-%{python3_sitearch}/AkonadiCore.cpython-*-linux-gnu.so
-%{_kf6_datadir}/PySide6/typesystems/typesystem_akonadi.xml
 %{_datadir}/applications/org.kde.akonadi.desktop
 
 %files devel
@@ -247,6 +254,7 @@ fi
 %{_kf6_datadir}/kdevappwizard/templates/akonadiresource.tar.bz2
 %{_kf6_datadir}/kdevappwizard/templates/akonadiserializer.tar.bz2
 %{_includedir}/PySide6/AkonadiCore/akonadicore_python.h
+%{_kf6_datadir}/PySide6/typesystems/typesystem_akonadi.xml
 
 %files doc
 
@@ -269,8 +277,14 @@ fi
 %config(noreplace) %{_sysconfdir}/xdg/akonadi/mysql-global.conf
 %config(noreplace) %{_sysconfdir}/xdg/akonadi/mysql-local.conf
 
+%files -n python3-%{name}
+%{python3_sitearch}/AkonadiCore.cpython-*-linux-gnu.so
+
 
 %changelog
+* Fri Oct 23 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.08.2-3
+- Split out PySide bindings into separate subpackage
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
 - Rebuild (qt6)
 

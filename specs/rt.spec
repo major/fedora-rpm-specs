@@ -47,7 +47,7 @@ Requires: mod_fcgid
 %{?!rt_upgrade_dir:%global rt_upgrade_dir %{_sysconfdir}/%{name}/upgrade}
 
 Name:		rt
-Version:	5.0.10
+Version:	5.0.11
 Release:	1%{?dist}
 Summary:	Request tracker
 
@@ -645,6 +645,9 @@ fi
 %endif
 
 %changelog
+* Sun Nov 01 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 5.0.11
+- Update to 5.0.11
+
 * Mon Jul 20 2026 Xavier Bachelot <xavier@bachelot.org> - 5.0.10-1
 - Update to 5.0.10
 

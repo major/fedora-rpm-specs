@@ -19,8 +19,8 @@
 
 Summary:        The SCSI target daemon and utility programs
 Name:           scsi-target-utils
-Version:        1.0.97
-Release:        7%{?dist}
+Version:        1.0.98
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://stgt.sourceforge.net/
@@ -140,6 +140,9 @@ pushd usr
 %endif
 
 %changelog
+* Sun Nov 01 2026 Terje Røsten <terjeros@gmail.com> - 1.0.98-1
+- 1.0.98
+
 * Tue Aug 18 2026 Terje Røsten <terjeros@gmail.com> - 1.0.97-7
 - Fix perm on service file (rhbz#2517733)
 

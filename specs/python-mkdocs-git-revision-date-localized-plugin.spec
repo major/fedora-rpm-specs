@@ -2,13 +2,13 @@
 %global forgeurl https://github.com/timvink/mkdocs-git-revision-date-localized-plugin
 
 Name:           python-mkdocs-git-revision-date-localized-plugin
-Version:        1.5.4
+Version:        1.6.2
 Release:        %autorelease
 Summary:        Mkdocs plugin to display the last git modification date
 
 License:        MIT
 URL:            https://timvink.github.io/mkdocs-git-revision-date-localized-plugin/
-Source:         %{pypi_source mkdocs_git_revision_date_localized_plugin}
+Source:         %{forgeurl}/archive/v%{version}/mkdocs-git-revision-date-localized-plugin-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -41,7 +41,7 @@ Obsoletes:      python3-mkdocs-git-revision-date-localized-plugin+base < 1.5.0
 %description -n python3-mkdocs-git-revision-date-localized-plugin %_description
 
 %prep
-%autosetup -p1 -n mkdocs_git_revision_date_localized_plugin-%{version}
+%autosetup -p1 -n mkdocs-git-revision-date-localized-plugin-%{version}
 %if 0%{?el10}
 sed -i 's:setuptools>=70.0:setuptools>=69.0:' pyproject.toml
 %endif
@@ -57,6 +57,9 @@ sed -i 's:setuptools>=70.0:setuptools>=69.0:' pyproject.toml
 %pyproject_save_files -l mkdocs_git_revision_date_localized_plugin
 
 %check
+# /etc/localtime is empty in the buildroot, breaking babel
+export TZ=UTC
+
 %if %{with tests}
 git config --global user.email mock-build@example.com
 git config --global user.name 'Mock build'

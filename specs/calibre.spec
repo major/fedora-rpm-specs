@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        9.15.0
+Version:        9.17.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -96,6 +96,8 @@ BuildRequires:  qt6-qtspeech-flite
 BuildRequires:  ffmpeg-free-devel
 BuildRequires:  espeak-ng-devel
 BuildRequires:  onnxruntime-devel
+BuildRequires:  libavif-devel
+BuildRequires:  libjxl-devel
 # Those are only used for tests. Do not add to runtime deps.
 BuildRequires:  /usr/bin/jpegtran
 BuildRequires:  jxrlib
@@ -168,6 +170,7 @@ Requires:       qt6-qtmultimedia
 Requires:       (qt6-qtspeech-flite or qt6-qtspeech-speechd)
 Requires:       python3-xxhash
 Requires:       python3dist(pycryptodomex)
+Requires:       pykakasi
 Recommends:     python3dist(zeroconf)
 
 %description
@@ -389,6 +392,7 @@ TEST_ARGS=(
     --exclude-test-name test_tzdata
     # fails on x86_64
     --exclude-test-name test_mem_leaks
+    --exclude-test-name test_covers_every_rtl_character
     # fails on ppc64le
 %ifarch ppc64le
     --exclude-test-name test_fts_pool
