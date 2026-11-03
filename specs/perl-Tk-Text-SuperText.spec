@@ -1,6 +1,6 @@
 Name:           perl-Tk-Text-SuperText
-Version:        0.12
-Release:        13%{?dist}
+Version:        0.13
+Release:        1%{?dist}
 Summary:        Improved text widget for perl/tk
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tk-Text-SuperText
@@ -11,6 +11,7 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  sed
 # Run-time
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -22,6 +23,7 @@ BuildRequires:  perl(Tk::Text)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests
+BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More)
 
 %description
@@ -31,6 +33,7 @@ Tk::Text widget.
 
 %prep
 %setup -q -n Tk-Text-SuperText-%{version}
+sed -i 's/\r$//' eg/test.pl
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -44,11 +47,14 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 make test
 
 %files
-%doc README eg
+%doc README.md eg
 %{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{_mandir}/man3/Tk::Text::SuperText.3*
 
 %changelog
+* Mon Nov 02 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.13-1
+- 0.13 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

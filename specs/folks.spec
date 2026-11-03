@@ -22,7 +22,7 @@ BuildRequires:  vala
 BuildRequires:  pkgconfig(dbus-glib-1)
 BuildRequires:  pkgconfig(gee-0.8) >= 0.8.4
 BuildRequires:  pkgconfig(gio-2.0)
-BuildRequires:  pkgconfig(libedataserver-1.2) >= 3.33.2
+BuildRequires:  pkgconfig(libedataserver-1.2) >= 3.62.1-2
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(telepathy-glib)
 

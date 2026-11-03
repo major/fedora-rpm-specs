@@ -1,6 +1,6 @@
 %global	gem_name	graphene1
 
-%global	gem_ver	4.3.9
+%global	gem_ver	4.4.0
 %global	gem_ver_escaped %(v=%{gem_ver}; echo ${v} | sed -e 's|\\.|\\\\.|g')
 
 Name:		rubygem-%{gem_name}
@@ -83,6 +83,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Mon Nov  2 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.4.0-1
+- 4.4.0
+
 * Sun Sep  6 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.9-1
 - 4.3.9
 

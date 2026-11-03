@@ -4,7 +4,7 @@
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Packaging_of_Additional_RPM_Macros
 %global macrosdir       %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-%global copr_common_version 1.8.1
+%global copr_common_version 1.9.1
 
 # Please bump the %%flavor_guard version every-time some incompatible change
 # happens (since the last release) in %%flavor_files set of files.  Those files
@@ -47,7 +47,7 @@
 }
 
 Name:       copr-frontend
-Version:    2.11
+Version:    2.12
 Release:    1%{?dist}
 Summary:    Frontend for Copr
 
@@ -377,6 +377,16 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
+* Mon Nov 02 2026 Jakub Kadlcik <frostyx@email.cz> 2.12-1
+- Fall back to UTC for invalid timezones
+- Support builds from DistGit repository forks
+- Allow forking into any project the user can administer
+- Add inbox notifications for chroots marked end of life
+- Sort project actions chronologically
+- Support Redis passwords
+- Handle unusable LDAP keytabs without an internal server error
+- Allow generating user API keys via copr-frontend
+
 * Wed Sep 30 2026 Pavel Raiskup <pavel@raiskup.cz> 2.11-1
 - new Actions tab in project detail
 - survive a LDAP outage for already known users

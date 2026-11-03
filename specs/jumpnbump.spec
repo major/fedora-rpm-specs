@@ -7,6 +7,8 @@ Summary:        Cute multiplayer platform game with bunnies
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/LibreGames/jumpnbump
 Source0:        https://gitlab.com/LibreGames/jumpnbump/-/archive/%{version}/%{name}-%{version}.tar.gz
+# Use pkgconfig to find all SDL2 libraries
+Patch0:         https://gitlab.com/LibreGames/jumpnbump/-/merge_requests/46.patch
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(bzip2)

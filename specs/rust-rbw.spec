@@ -32,6 +32,7 @@ Unofficial Bitwarden CLI.}
 Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
@@ -39,27 +40,27 @@ Summary:        %{summary}
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # ISC
-# ISC AND MIT AND OpenSSL
 # MIT
-# MIT AND (MIT OR Apache-2.0)
 # MIT AND BSD-3-Clause
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
+# Zlib
 License:        %{shrink:
                 MIT
-                AND (MIT OR Apache-2.0) AND Unicode-DFS-2016
                 AND Apache-2.0
+                AND BSD-3-Clause
+                AND ISC
+                AND MPL-2.0
+                AND Unicode-3.0
+                AND Unicode-DFS-2016
+                AND Zlib
+                AND (Apache-2.0 OR MIT)
                 AND (Apache-2.0 OR BSL-1.0)
                 AND (Apache-2.0 OR ISC OR MIT)
                 AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
                 AND (BSD-2-Clause OR Apache-2.0 OR MIT)
-                AND BSD-3-Clause
-                AND ISC AND OpenSSL
-                AND (MIT OR Apache-2.0 OR Zlib)
-                AND MPL-2.0
                 AND (Unlicense OR MIT)
 		}
 # LICENSE.dependencies contains a full license breakdown

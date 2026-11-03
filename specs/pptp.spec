@@ -1,6 +1,6 @@
 Name:		pptp
 Version:	1.10.0
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Point-to-Point Tunneling Protocol (PPTP) Client
 License:	gpl-2.0-or-later
 URL:		http://pptpclient.sourceforge.net/
@@ -62,6 +62,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_prefix}/lib/tmpfiles.d/pptp.conf
 %{_mandir}/man8/pptpsetup.8*
 
 %changelog
+* Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.10.0-27
+- Rebuilt for new ppp
+
 * Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.10.0-26
 - Rebuilt for new ppp
 

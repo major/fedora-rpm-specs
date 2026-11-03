@@ -1,10 +1,13 @@
+%global ver 5.00
+%global date 20261101
+
 Name:		tucnak
-Version:	4.75
+Version:	%{ver}~%{date}
 Release:	1%{?dist}
 Summary:	HF/VHF contest logging program
 License:	GPL-2.0-only
 URL:		http://tucnak.nagano.cz/
-Source0:	http://tucnak.nagano.cz/%{name}-%{version}.tar.gz
+Source0:	http://tucnak.nagano.cz/%{name}-%{ver}.tar.gz#/%{name}-%{version_no_tilde}.tar.gz
 Source1:	cz.nagano.Tucnak.metainfo.xml
 ExcludeArch:    i686
 BuildRequires:	gcc
@@ -36,7 +39,7 @@ bands, free input, networking, voice and CW keyer, WWL database and
 much more.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{ver}
 
 # fix encoding to UTF-8
 recode ISO-8859-2..UTF-8 AUTHORS ChangeLog
@@ -91,6 +94,10 @@ rmdir %{buildroot}%{_prefix}/lib/tucnak
 %{_datadir}/%{name}
 
 %changelog
+* Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 5.00~20261101-1
+- New version
+  Resolves: rhbz#2564615
+
 * Tue Oct 27 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.75-1
 - New version
   Resolves: rhbz#2560299

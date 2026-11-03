@@ -29,8 +29,38 @@ BuildRequires:  nodejs-devel
 BuildRequires:  fdupes
 
 Requires:       nodejs
-# To help pi with generating/checking shell scripts
+# Some common tools pi is expecting
+Requires:       binutils
+Requires:       ccache
+Requires:       clang
+Requires:       cmake
+Requires:       curl
+Requires:       git-core
+Requires:       jq
+Requires:       nodejs-npm
+Requires:       pnpm
+Requires:       ripgrep
+Requires:       rsync
+#
+# Linters
+# shell scripts
 Requires:       ShellCheck
+# python
+Requires:       black
+Requires:       python3-flake8
+Requires:       python3-pylint
+# docker
+Requires:       hadolint
+# rpm
+Requires:       rpmlint
+# xml
+Requires:       libxml2
+# text
+Requires:       R-hunspell
+Requires:       codespell
+Requires:       proselint
+# html
+Requires:       tidy
 
 %description
 Pi is a minimal terminal coding harness. Adapt pi to your workflows,
@@ -85,6 +115,8 @@ rm -rf node_modules_prod/@earendil-works/pi-tui/native
 rm -f node_modules_prod/@silvia-odwyer/photon-node/photon_rs_bg.wasm
 rm -f node_modules_prod/esbuild/bin/esbuild
 rm -f node_modules_prod/esbuild/lib/downloaded-@esbuild-linux-x64-esbuild
+# wayward *.so's
+find . -name '*.so' -print0 | xargs -0 rm -rf
 
 # make some scripts executable
 chmod a+x dist/bun/cli.d.ts

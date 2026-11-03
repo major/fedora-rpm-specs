@@ -1,9 +1,6 @@
-# Perform optional tests
-%bcond_without perl_Mail_DMARC_enables_optional_test
-
 Name:           perl-Mail-DMARC
-Version:        2.20260827
-Release:        2%{?dist}
+Version:        2.20261030
+Release:        1%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # share/public_suffix_list:     MPL-2.0
@@ -83,11 +80,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::File::ShareDir)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Output)
-%if %{with perl_Mail_DMARC_enables_optional_test}
-# Optional tests:
-BuildRequires:  perl(XML::SAX::ParserFactory)
-BuildRequires:  perl(XML::Validator::Schema)
-%endif
 Requires:       perl(DBD::SQLite) >= 1.31
 Requires:       perl(DBIx::Simple) >= 1.35
 Requires:       perl(Email::Sender::Simple) >= 2.000
@@ -135,10 +127,6 @@ Requires:       %{name}-Test = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       coreutils
 Requires:       perl-Test-Harness
 Requires:       perl(Email::Sender::Transport)
-%if %{with perl_Mail_DMARC_enables_optional_test}
-Requires:       perl(XML::SAX::ParserFactory)
-Requires:       perl(XML::Validator::Schema)
-%endif
 
 %description tests
 Tests from %{name}. Execute them
@@ -146,10 +134,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n Mail-DMARC-%{version}
-%if %{without perl_Mail_DMARC_enables_optional_test}
-rm t/17.Report.Aggregate.Schema.t
-perl -i -ne 'print $_ unless m{\Qt/17.Report.Aggregate.Schema.t\E}' MANIFEST
-%endif
 # Correct shebangs and help generators to recognize Perl scripts
 for F in bin/dmarc_sqlite_to_mysql.pl t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -216,6 +200,7 @@ make test
 %{perl_vendorlib}/auto/share/dist/Mail-DMARC/mail-dmarc.*
 %{perl_vendorlib}/auto/share/dist/Mail-DMARC/mail_dmarc_indexes.*
 %{perl_vendorlib}/auto/share/dist/Mail-DMARC/mail_dmarc_schema.*
+%{perl_vendorlib}/auto/share/dist/Mail-DMARC/mail_dmarc_rfc9990.*
 %{perl_vendorlib}/auto/share/dist/Mail-DMARC/public_suffix_list
 %{perl_vendorlib}/auto/share/dist/Mail-DMARC/rua-schema.xsd
 %{_mandir}/man1/dmarc_http_client.*
@@ -247,6 +232,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 02 2026 Petr Pisar <ppisar@redhat.com> - 2.20261030-1
+- 2.20261030 bump
+
 * Wed Oct 14 2026 Petr Pisar <ppisar@redhat.com> - 2.20260827-2
 - Remove unused build dependencies on Mail::DKIM modules
 

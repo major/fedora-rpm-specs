@@ -13,7 +13,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.23.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -75,7 +75,7 @@ BuildRequires: sed
 BuildRequires: zlib-devel
 
 # For gpg verification of source tarball
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 # needed for generation of shell completions
 BuildRequires: perl(Getopt::Long)
@@ -238,7 +238,7 @@ other hand, the package is smaller and requires fewer run-time dependencies to
 be installed.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{name}-%{version_no_tilde} -p1
 
 # test 303: raise timeout from 8s to 20s so it doesn't expire during TLS
@@ -464,6 +464,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Thu Oct 29 2026 Jakub Jelen <jjelen@redhat.com> - 8.23.0-2
+- Verify upstream source signatures with openpgpverify
+
 * Thu Oct 15 2026 Jan Macku <jamacku@redhat.com> - 8.23.0-1
 - new upstream release
 

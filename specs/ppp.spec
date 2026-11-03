@@ -1,24 +1,20 @@
 %global _hardened_build 1
 
-Name:    ppp
 # Please be careful when bumping the ppp version. Several packages
 # have version-tied dependencies on it, including NetworkManager-ppp
 # (from NetworkManager) and NetworkManager-pptp , which are core
 # packages. They may need code changes to build against new ppp
 # versions. Please only bump ppp on a side tag and ensure it also
 # contains rebuilds of at least those two packages before merging.
-# Several other less important packages are also tied to the ppp
-# version, as of 2023-04-19 the list is:
-# NetworkManager
-#   NetworkManager-fortisslvpn
-#   NetworkManager-l2tp
-#   NetworkManager-pptp
-# sstp-client
-#     NetworkManager-sstp
-# pptpd
+#
+# cd wvdial; fedpkg chain-build ppp : sstp-client : NetworkManager-l2tp NetworkManager-pptp NetworkManager-sstp : \
+#   NetworkManager : openfortivpn pptp pptpd rp-pppoe modem-manager-gui :
+#
 # These all need to be patched (if necessary) and rebuilt for new
 # versions of ppp.
-Version: 2.5.4
+
+Name:    ppp
+Version: 2.5.5
 Release: 1%{?dist}
 Summary: The Point-to-Point Protocol daemon
 License: bsd-3-clause AND zlib AND licenseref-fedora-public-domain AND bsd-attribution-hpnd-disclaimer AND bsd-4.3tahoe AND bsd-4-clause-uc AND apache-2.0 AND lgpl-2.0-or-later AND (gpl-2.0-or-later OR bsd-2-clause OR bsd-3-clause OR bsd-4-clause) AND gpl-2.0-or-later AND xlock AND gpl-1.0-or-later AND mackerras-3-clause-acknowledgment AND mackerras-3-clause AND hpnd-fenneberg-Livingston AND sun-ppp AND hpnd-inria-imag AND sun-ppp-2000
@@ -191,6 +187,10 @@ install -m0644 -D ppp.sysusers.conf %{buildroot}%{_sysusersdir}/ppp.conf
 %{_libdir}/pkgconfig/pppd.pc
 
 %changelog
+* Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.5.5-1
+- New version
+  Resolves: rhbz#2564408
+
 * Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.5.4-1
 - New version
   Resolves: rhbz#2533607

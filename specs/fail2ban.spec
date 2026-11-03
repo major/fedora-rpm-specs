@@ -4,6 +4,9 @@
 %bcond_without  shorewall
 %endif
 
+# The hostsdeny action needs tcp_wrappers
+%bcond_without  tcpwrappers
+
 # RHEL < 10 and Fedora < 40 use file context entries in /var/run
 %if %{defined rhel} && 0%{?rhel} < 10
 %define legacy_var_run 1
@@ -11,7 +14,7 @@
 
 Name: fail2ban
 Version: 1.1.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPL-2.0-or-later
@@ -140,7 +143,9 @@ installation and know what you are doing.
 %package all
 Summary: Install all Fail2Ban packages and dependencies
 Requires: %{name}-firewalld = %{version}-%{release}
+%if %{with tcpwrappers}
 Requires: %{name}-hostsdeny = %{version}-%{release}
+%endif
 Requires: %{name}-mail = %{version}-%{release}
 Requires: %{name}-sendmail = %{version}-%{release}
 Requires: %{name}-server = %{version}-%{release}
@@ -165,6 +170,7 @@ This package enables support for manipulating firewalld rules.  This is the
 default firewall service in Fedora.
 
 
+%if %{with tcpwrappers}
 %package hostsdeny
 Summary: Hostsdeny (tcp_wrappers) support for Fail2Ban
 Requires: %{name}-server = %{version}-%{release}
@@ -174,6 +180,7 @@ Requires: tcp_wrappers
 %description hostsdeny
 This package enables support for manipulating tcp_wrapper's /etc/hosts.deny
 files.
+%endif
 
 
 %package tests
@@ -400,8 +407,10 @@ fi
 %files firewalld
 %config(noreplace) %{_sysconfdir}/fail2ban/jail.d/00-firewalld.conf
 
+%if %{with tcpwrappers}
 %files hostsdeny
 %config(noreplace) %{_sysconfdir}/fail2ban/action.d/hostsdeny.conf
+%endif
 
 %files tests
 %{_bindir}/fail2ban-testcases
@@ -431,6 +440,9 @@ fi
 
 
 %changelog
+* Sun Nov 01 2026 Sai Harsha Suryadevara <ssuryad@amazon.com> - 1.1.0-20
+- Add a build conditional for the hostsdeny subpackage, default on, for builds without tcp_wrappers
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

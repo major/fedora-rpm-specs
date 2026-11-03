@@ -5,7 +5,7 @@
 %global crate globset
 
 Name:           rust-globset
-Version:        0.4.20
+Version:        0.4.21
 Release:        %autorelease
 Summary:        Cross platform single glob and glob set matching
 

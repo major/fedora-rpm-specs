@@ -1,5 +1,5 @@
 Name:		endless-sky
-Version:	0.11.3
+Version:	0.11.4
 Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
@@ -149,6 +149,9 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 
 
 %changelog
+* Mon Nov 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.11.4-1
+- 0.11.4
+
 * Sun Sep 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.11.3-1
 - 0.11.3
 

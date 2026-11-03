@@ -1,21 +1,20 @@
 %bcond mingw %[%{undefined rhel} && %{undefined flatpak}]
+%bcond aspell %[%{undefined rhel} && 0%{?fedora} < 46]
 
 Name:          enchant2
 Version:       2.8.21
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPL-2.0-or-later
 URL:           https://github.com/rrthomas/enchant
 Source0:       https://github.com/rrthomas/enchant/releases/download/v%{version}/enchant-%{version}.tar.gz
 
-%if !0%{?rhel}
 # Look for aspell using pkg-config, instead of AC_CHECK_LIB which adds -laspell
 # to the global LIBS and over-links libenchant (#1574893).  This patch
 # can't currently go upstream, because aspell.pc is a Fedora addition
 # that itself has not gone upstream.
 Patch:         0001-Use-pkg-config-to-configure-Aspell.patch
-%endif
 
 BuildRequires: automake autoconf libtool
 BuildRequires: gcc-c++
@@ -26,8 +25,10 @@ BuildRequires: hunspell-devel
 BuildRequires: libvoikko-devel
 BuildRequires: vala
 
-%if !0%{?rhel}
+%if %{with aspell}
 BuildRequires: aspell-devel
+%endif
+%if !0%{?rhel}
 BuildRequires: nuspell-devel
 %endif
 
@@ -59,7 +60,7 @@ Provides:      bundled(gnulib)
 A library that wraps other spell checking backends.
 
 
-%if !0%{?rhel}
+%if %{with aspell}
 %package aspell
 Summary:       Integration with aspell for libenchant
 Requires:      enchant2%{?_isa} = %{version}-%{release}
@@ -67,7 +68,9 @@ Supplements:   (enchant2 and aspell)
 
 %description aspell
 Libraries necessary to integrate applications using libenchant with aspell.
+%endif
 
+%if !0%{?rhel}
 %package nuspell
 Summary:       Integration with Nuspell for libenchant
 Requires:      enchant2%{?_isa} = %{version}-%{release}
@@ -130,8 +133,10 @@ mkdir build_native
 pushd build_native
 %define _configure ../configure
 %configure \
-%if !0%{?rhel}
+%if %{with aspell}
     --with-aspell \
+%endif
+%if !0%{?rhel}
     --with-nuspell \
 %endif
     --with-hunspell-dir=%{_datadir}/hunspell \
@@ -189,10 +194,12 @@ find %{buildroot} -name '*.la' -delete
 %{_mandir}/man5/enchant.5*
 %{_datadir}/enchant-2-2
 
-%if !0%{?rhel}
+%if %{with aspell}
 %files aspell
 %{_libdir}/enchant-2/enchant_aspell.so*
+%endif
 
+%if !0%{?rhel}
 %files nuspell
 %{_libdir}/enchant-2/enchant_nuspell.so*
 %endif
@@ -240,6 +247,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Mon Nov 02 2026 Sandro Mani <manisandro@gmail.com> - 2.8.21-2
+- Drop aspell on fedora>=46 (#2564627)
+
 * Tue Sep 15 2026 Sandro Mani <manisandro@gmail.com> - 2.8.21-1
 - Update to 2.8.21
 

@@ -1,7 +1,7 @@
 %global pypi_name jsonpatch
 
 Name:           python-%{pypi_name}
-Version:        1.38
+Version:        1.39
 Release:        %autorelease
 Summary:        Applying JSON Patches in Python
 
@@ -18,6 +18,8 @@ Library to apply JSON Patches according to RFC 6902 - Python 2 build.
 Summary:        Applying JSON Patches in Python 3
 
 BuildRequires:  python3-devel
+# For tests
+BuildRequires:  python3-simplejson
 
 
 %description -n python3-%{pypi_name}

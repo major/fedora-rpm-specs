@@ -6,7 +6,7 @@
 %global crate arc-swap
 
 Name:           rust-arc-swap
-Version:        1.9.2
+Version:        1.9.3
 Release:        %autorelease
 Summary:        Atomically swappable Arc
 
@@ -84,6 +84,18 @@ This package contains library source intended for building other packages which
 use the "internal-test-strategies" feature of the "%{crate}" crate.
 
 %files       -n %{name}+internal-test-strategies-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rwlock-strategy-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rwlock-strategy-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rwlock-strategy" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rwlock-strategy-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

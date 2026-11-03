@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/gorilla-co/odata-query
-Version:        0.10.0b1
+Version:        0.10.1
 %forgemeta
 
 Name:           python-odata-query

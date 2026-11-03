@@ -1,3 +1,7 @@
+# SDL is only needed to build tests/view_qrcode, a test viewer that is not installed.
+# Builds without SDL can use: rpmbuild --without sdl
+%bcond sdl 1
+
 # Recent so-version, so we do not bump accidentally.
 %global so_ver      4
 
@@ -12,7 +16,7 @@
 
 Name:           qrencode
 Version:        4.1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Generate QR 2D barcodes
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -27,7 +31,9 @@ BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  chrpath
 BuildRequires:  libpng-devel
+%if %{with sdl}
 BuildRequires:  SDL-devel
+%endif
 ## For ARM 64 support (RHBZ 926414)
 BuildRequires:  autoconf >= 2.69
 
@@ -121,6 +127,9 @@ popd
 
 
 %changelog
+* Thu Oct 29 2026 Sai Harsha Suryadevara <ssuryad@amazon.com> - 4.1.1-14
+- Add a build conditional for SDL, default on, so that builds without SDL can skip the tests/view_qrcode viewer
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate signal-hook
 
 Name:           rust-signal-hook
-Version:        0.4.5
+Version:        0.4.6
 Release:        %autorelease
 Summary:        Unix signal handling
 

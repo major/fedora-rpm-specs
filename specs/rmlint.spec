@@ -1,7 +1,7 @@
 %undefine _package_note_file
 
 Name:           rmlint
-Version:        2.10.3
+Version:        2.11.0
 Release:        %autorelease
 Summary:        Find space waste and other broken things on your filesystem
 
@@ -16,31 +16,42 @@ License:        GPL-3.0-only AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway
 URL:            https://rmlint.rtfd.org
 Source0:        https://github.com/sahib/rmlint/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         0001-Add-RPM_BUILD_ROOT-to-env.patch
+Patch1:         0001-unbundle-blake3.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  scons
 
+BuildRequires:  blake3-devel
 BuildRequires:  elfutils-libelf-devel
 BuildRequires:  glib2-devel
 BuildRequires:  json-glib-devel
 BuildRequires:  libblkid-devel
 BuildRequires:  sqlite-devel
 
+BuildRequires:  python3-build
 BuildRequires:  python3-devel
+BuildRequires:  python3-installer
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
+
+%global with_pytest 0
+%if 0%{?with_pytest}
+BuildRequires:  python3dist(blake3)
+BuildRequires:  python3dist(py-cpuinfo)
+BuildRequires:  python3dist(psutil)
+BuildRequires:  python3dist(pytest-xdist)
+BuildRequires:  python3dist(xattr)
+BuildRequires:  python3dist(xxhash)
+BuildRequires:  python3-pytest
+%endif
 
 Provides:       bundled(blake2)
 Provides:       bundled(sha3)
 Provides:       bundled(xxhash)
 Provides:       bundled(metrohash)
 Provides:       bundled(murmurhash3)
-
-# Split into two sub-packages since v2.10.3.
-# Can be removed in F44+.
-Obsoletes:      %{name} < 2.10.3
 
 %package gui
 Summary:        %{summary}
@@ -50,8 +61,7 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       hicolor-icon-theme
 Requires:       gtksourceview4
 
-# Can be removed in F44+.
-Obsoletes:      %{name} < 2.10.3
+%global shredder_rtld io.github.sahib.rmlint.Shredder
 
 %description gui
 rmlint-gui (a.k.a. Shredder) is a graphical user interface to rmlint.
@@ -63,10 +73,12 @@ and offers to remove them.
 rmlint finds space waste and other broken things and offers to remove it.
 It is an extremely fast tool to remove duplicates from your filesystem.
 
-%global rmlint_scons_flags --prefix="%{buildroot}%{_prefix}" --actual-prefix="%{_prefix}" --libdir="%{_lib}" --without-compile-glib-schemas DEBUG=1 SYMBOLS=1 VERBOSE=1
+%global rmlint_scons_flags --without-compile-glib-schemas DEBUG=0 SYMBOLS=1 VERBOSE=1 PREFIX=%{_prefix} LIBDIR=%{_lib} DESTDIR=%{buildroot}
 
 %prep
 %autosetup -p1
+rm -rf lib/checksums/blake3/
+
 for f in `find gui/shredder -name "*.py"`; do
     sed '1{\@^#!/usr/bin/env python@d}' $f > $f.new &&
     touch -r $f $f.new &&
@@ -80,8 +92,7 @@ desktop-file-edit \
 
 
 %build
-scons config %{?_smp_mflags} %{rmlint_scons_flags}
-scons
+scons --show-config %{?_smp_mflags} %{rmlint_scons_flags}
 
 
 %install
@@ -90,7 +101,10 @@ scons install %{rmlint_scons_flags}
 
 
 %check
-desktop-file-validate %{buildroot}/%{_datadir}/applications/shredder.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{shredder_rtld}.desktop
+%if 0%{?with_pytest}
+%pytest
+%endif
 
 
 %files -f %{name}.lang
@@ -101,11 +115,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/shredder.desktop
 
 %files gui
 %{_bindir}/shredder
-%{_datadir}/applications/shredder.desktop
-%{_datadir}/glib-2.0/schemas/org.gnome.Shredder.gschema.xml
+%{_datadir}/applications/%{shredder_rtld}.desktop
+%{_datadir}/glib-2.0/schemas/%{shredder_rtld}.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/shredder.svg
 %{python3_sitelib}/shredder/
-%{python3_sitelib}/shredder-%{version}-py*.egg-info
+%{python3_sitelib}/shredder-%{version}.dist-info/
 
 %changelog
 %autochangelog

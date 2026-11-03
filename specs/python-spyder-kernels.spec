@@ -1,7 +1,7 @@
 %global pypi_name spyder-kernels
 
 %global forgeurl https://github.com/spyder-ide/spyder-kernels
-Version:        3.1.6
+Version:        3.1.7
 %global tag     v%{version}
 %forgemeta
 

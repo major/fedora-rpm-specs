@@ -1,6 +1,6 @@
 Name:           fuse-sshfs
 Version:        3.7.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        FUSE-Filesystem to access remote filesystems via SSH
 License:        GPL-2.0-only
 URL:            https://github.com/libfuse/sshfs
@@ -27,7 +27,7 @@ Requires:       openssh-clients
 Recommends:     openssh-askpass
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  meson
 BuildRequires:  fuse3-devel >= 3.1.0
 BuildRequires:  glib2-devel >= 2.0
@@ -47,7 +47,7 @@ mounting the filesystem is as easy as logging into the server with ssh.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n sshfs-%{version}
 # fix tests
 sed -i "s/'fusermount'/'fusermount3'/g" test/util.py
@@ -78,6 +78,9 @@ cd %{_vpath_builddir}
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 3.7.6-3
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

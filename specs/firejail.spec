@@ -5,11 +5,11 @@
 Name: firejail
 Summary: Linux namespaces sandbox program
 
-%global ver_no 0.9.80
+%global ver_no 0.9.82
 #%%global ver_rc rc4
 
 Version: %{expand:%{ver_no}%{?ver_rc:~}%{?ver_rc}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 
 BuildRequires: coreutils
 BuildRequires: gcc
@@ -43,10 +43,10 @@ using Linux namespaces. It includes a sandbox profile for Mozilla Firefox.
 # For some features, if --enable-feature is requested, but the requirements
 # are not satisfied (e.g. missing library headers), configure will only print
 # a warning, instead of erroring out. Capture the output to a file...
-%configure --enable-selinux | tee fedconfig.txt
+%configure --enable-selinux --enable-x11-legacy | tee fedconfig.txt
 
 # ...and make sure that all the features we're interested in are enabled.
-for FEATURE in DBUSPROXY LANDLOCK SELINUX X11 ; do
+for FEATURE in DBUSPROXY LANDLOCK SELINUX X11_LEGACY ; do
 	grep -e "-DHAVE_${FEATURE}$" fedconfig.txt
 done
 
@@ -92,13 +92,15 @@ rm %{buildroot}%{_datadir}/gtksourceview-5/language-specs/firejail-profile.lang
 %{_docdir}/%{name}/profile.template
 %{_docdir}/%{name}/redirect_alias-profile.template
 %{_docdir}/%{name}/*syscalls.txt
-%{_mandir}/man5/%{name}-login.5*
 %{_mandir}/man5/%{name}-profile.5*
 %{_mandir}/man5/%{name}-users.5*
 %{_mandir}/man1/*
 %config(noreplace) %{_sysconfdir}/%{name}
 
 %changelog
+* Mon Nov 02 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.82-1
+- Update to v0.9.82
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

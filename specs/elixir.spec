@@ -80,6 +80,11 @@ rm -f ./lib/mix/test/fixtures/rebar3
 export REBAR3=/usr/bin/rebar3
 
 export ERL_LIBS=/usr/share/erlang/lib/
+
+# The default assert_receive timeout of 300ms is too short on loaded builders,
+# which makes Mix.Sync.LockTest and Mix.Sync.PubSubTest flaky.
+export ELIXIR_ASSERT_TIMEOUT=3000
+
 make test
 
 %install

@@ -4,7 +4,7 @@ Summary(de):   Grafische Oberfläche für ModemManager
 Summary(ru):   Графический интерфейс для демона ModemManager
 
 Version:       0.0.20
-Release:       20%{?dist}
+Release:       21%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:       GPL-3.0-only
 
@@ -243,6 +243,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.0.20-21
+- Rebuilt for new ppp
+
 * Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.0.20-20
 - Rebuilt for new ppp
 

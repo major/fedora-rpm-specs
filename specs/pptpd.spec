@@ -18,7 +18,7 @@
 Summary:	PoPToP Point to Point Tunneling Server
 Name:		pptpd
 Version:	1.5.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 BuildRequires:	make
@@ -141,6 +141,9 @@ fi
 %endif
 
 %changelog
+* Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.5.0-11
+- Rebuilt for new ppp
+
 * Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.5.0-10
 - Rebuilt for new ppp
 

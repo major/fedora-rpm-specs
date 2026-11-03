@@ -1,14 +1,13 @@
 %global srcname %(echo %{name} | sed 's/^python-//')
 
 Name:           python-xml2rfc
-Version:        3.9.1
-Release:        20%{?dist}
+Version:        3.35.0
+Release:        1%{?dist}
 Summary:        Convert IETF RFC-7749 XML into txt format
 
-# Automatically converted from old format: BSD with advertising - review is highly recommended.
-License:        LicenseRef-Callaway-BSD-with-advertising
-URL:            https://pypi.python.org/pypi/xml2rfc/
-Source0:        https://files.pythonhosted.org/packages/source/x/xml2rfc/xml2rfc-%{version}.tar.gz
+License:        BSD-3-Clause
+URL:            https://github.com/ietf-tools/xml2rfc
+Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -24,43 +23,47 @@ follow the DTD given in RFC-7749 (or successor). }
 %package -n python3-%{srcname}
 Summary: Convert IETF RFC-2629 XML into txt format
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  libxslt-devel
 BuildRequires:  libxml2-devel
-Requires: python3-google-i18n-address
-Requires: python3-appdirs
-Requires: python3-configargparse
-Requires: python3-pyflakes
-Requires: python3-html5lib
-Requires: python3-intervaltree
-Requires: python3-pycountry
-Requires: python3-jinja2
+# for %check
+BuildRequires:  python3-pytest
+BuildRequires:  python3-decorator
+BuildRequires:  python3-dict2xml
+BuildRequires:  python3-pyflakes
+BuildRequires:  python3-pypdf
+BuildRequires:  python3-weasyprint
 
 %description -n python3-%{srcname} %_description
 
 %prep
 %autosetup -n %{srcname}-%{version}
-# temp workaround, filed bug upstream: https://trac.ietf.org/trac/xml2rfc/ticket/661#ticket
-sed -i "s/jinja2>=2.11,<3.0/jinja2>=2.11/" requirements.txt
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
-%check
-# fails on AssertionError: 'Noto Sans Cherokee' not found
-#%{python3} setup.py test
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
-%files -n python3-%{srcname}
-%license PKG-INFO
-%doc changelog README
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-*.egg-info/
+%check
+%pyproject_check_import -e 'xml2rfc.uniscripts.update*'
+export PYTHONHASHSEED=0
+# PdfWriterTests download bibxml references from the network
+%pytest test.py --deselect test.py::PdfWriterTests
+
+%files -n python3-%{srcname} -f %{pyproject_files}
+%doc CHANGELOG.md README.md
 %{_bindir}/xml2rfc
 
 %changelog
+* Mon Nov 02 2026 Paul Wouters <paul.wouters@aiven.io> - 3.35.0-1
+- Update to 3.35.0
+- Convert to pyproject macros and generated BuildRequires
+- Convert license to SPDX (BSD-3-Clause)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

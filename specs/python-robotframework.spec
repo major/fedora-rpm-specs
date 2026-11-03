@@ -1,7 +1,7 @@
 %global srcname robotframework
 
 Name:           python-%{srcname}
-Version:        7.5
+Version:        7.5.1
 Release:        1%{?dist}
 Summary:        Generic automation framework for acceptance testing and RPA
 # Robot Framework is licensed as Apache-2.0
@@ -85,6 +85,9 @@ rm -rf utest/running/test_typeinfo.py utest/utils/test_normalizing.py utest/util
 
 
 %changelog
+* Mon Nov 02 2026 Federico Pellegrin <fede@evolware.org> - 7.5.1-1
+- Upgrade to 7.5.1 (rhbz#2548546 and rhbz#2548558)
+
 * Thu Oct 01 2026 Federico Pellegrin <fede@evolware.org> - 7.5-1
 - Upgrade to 7.5
 

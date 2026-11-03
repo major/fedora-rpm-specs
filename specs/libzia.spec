@@ -1,10 +1,13 @@
+%global ver 5.00
+%global date 20261101
+
 Name:		libzia
-Version:	4.75
+Version:	%{ver}~%{date}
 Release:	1%{?dist}
 Summary:	Platform abstraction layer for the tucnak package
 License:	GPL-2.0-only
 URL:		http://tucnak.nagano.cz/
-Source:		http://tucnak.nagano.cz/%{name}-%{version}.tar.gz
+Source:		http://tucnak.nagano.cz/%{name}-%{ver}.tar.gz#/%{name}-%{version_no_tilde}.tar.gz
 BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	automake
@@ -17,6 +20,7 @@ BuildRequires:	libftdi-devel
 BuildRequires:	binutils-devel
 BuildRequires:	gnutls-devel
 BuildRequires:	gtk3-devel
+BuildRequires:	SDL2_ttf-devel
 # Used for direct control of display power saving features (via exec)
 Requires:	xset
 # This is to fulfill Fedora requirement - it marks the interface with
@@ -40,7 +44,7 @@ Requires:	pkgconf-pkg-config
 Development files for libzia
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{ver}
 
 %build
 autoreconf -fi
@@ -62,7 +66,7 @@ rmdir %{buildroot}%{_datadir}/libzia/doc/ %{buildroot}%{_datadir}/libzia %{build
 %files
 %license COPYING
 %doc AUTHORS
-%{_libdir}/libzia-%{version}.so.0*
+%{_libdir}/libzia-%{ver}.so.0*
 
 %files devel
 %{_bindir}/zia-config
@@ -71,6 +75,10 @@ rmdir %{buildroot}%{_datadir}/libzia/doc/ %{buildroot}%{_datadir}/libzia %{build
 %{_libdir}/pkgconfig/libzia.pc
 
 %changelog
+* Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 5.00~20261101-1
+- New version
+  Related: rhbz#2564615
+
 * Tue Oct 27 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.75-1
 - New version
   Related: rhbz#2560299

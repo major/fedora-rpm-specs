@@ -125,10 +125,8 @@ BuildRequires:  pkgconfig(lmdb)
 %if %{with JEMALLOC}
 BuildRequires:  pkgconfig(jemalloc)
 %endif
-%if ! 0%{?rhel}
-BuildRequires:  gpgverify
-%endif
 BuildRequires:  pkgconfig(libuv)
+BuildRequires:  openpgpverify
 %if %{with OPENSSL_ENGINE}
 BuildRequires:  openssl-devel-engine
 %endif
@@ -304,7 +302,7 @@ in HTML and PDF format.
 %prep
 %if ! 0%{?rhel} || 0%{?rhel} > 10
 # RHEL does not (again?) support this verification
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE4}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
 %endif
 %autosetup -n %{upname}-%{version} -p1
 

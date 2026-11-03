@@ -5,7 +5,7 @@
 %global crate deranged
 
 Name:           rust-deranged
-Version:        0.5.8
+Version:        0.5.9
 Release:        %autorelease
 Summary:        Ranged integers
 

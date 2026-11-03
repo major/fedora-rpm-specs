@@ -1,20 +1,16 @@
 Summary: Utility to display new messages of a logfile since last run
 Name: fetchlog
-Version: 1.4
-Release: 32%{?dist}
+Version: 1.6
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: http://sourceforge.net/projects/fetchlog
-Source: http://dl.sf.net/sourceforge/fetchlog/fetchlog-%{version}.tar.gz
+Source: http://downloads.sourceforge.net/sourceforge/fetchlog/fetchlog-%{version}.tar.gz
 
 Buildrequires: gcc
 BuildRequires: make
 
-Patch0: fetchlog-build.patch
-Patch1: fetchlog-unusedvar.patch
-Patch2: fetchlog-1.4-write.patch
-Patch3: fetchlog-1.4-tests.patch
-Patch4: fetchlog-1.4-printf.patch
+Patch0: fetchlog-1.6-test-version.patch
 
 %description
 The fetchlog utility displays the last new messages of a logfile. It is
@@ -23,18 +19,12 @@ formatting. To show only the new messages appeared since the last call
 fetchlog uses a bookmark to remember which messages have been fetched.
 
 %prep
-%setup -q 
-%patch -P0
-%patch -P1 -p1
-%patch -P2 -p0
-%patch -P3 -p1
-%patch -P4 -p1
+%autosetup -p1
 
 %build
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf %{buildroot}
 install -d %{buildroot}/%{_bindir}
 install -d %{buildroot}/%{_mandir}/man1
 install -m755 %{name} %{buildroot}/%{_bindir}
@@ -50,6 +40,9 @@ make testall
 %{_mandir}/*/*
 
 %changelog
+* Mon Oct 26 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.6-1
+- Update to v1.6 (rhbz#2307554)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

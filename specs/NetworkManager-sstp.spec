@@ -26,7 +26,7 @@ Summary:   NetworkManager VPN plugin for SSTP
 Name:      NetworkManager-sstp
 Epoch:     1
 Version:   1.3.1
-Release:   17%{?snapshot}%{?dist}
+Release:   18%{?snapshot}%{?dist}
 License:   GPL-2.0-or-later
 URL:       https://gitlab.gnome.org/GNOME/network-manager-sstp
 
@@ -139,6 +139,9 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %endif
 
 %changelog
+* Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:1.3.1-18
+- Rebuilt for new ppp
+
 * Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:1.3.1-17
 - Rebuilt for new ppp
 

@@ -10,8 +10,8 @@
 %global _kf5_iconsdir %{_datadir}/icons
 
 Name:       smb4k
-Version:    4.0.6
-Release:    2%{?dist}
+Version:    4.0.7
+Release:    1%{?dist}
 Summary:    The SMB/CIFS Share Browser for KDE
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -125,6 +125,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf6_metainfodir}/*.appdata
 %{_kf6_qmldir}/org/kde/smb4k/
 
 %changelog
+* Mon Oct 12 2026 Packit <hello@packit.dev> - 4.0.7-1
+- Update to version 4.0.7
+- Resolves: rhbz#2549611
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

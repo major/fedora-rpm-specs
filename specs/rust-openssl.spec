@@ -5,7 +5,7 @@
 %global crate openssl
 
 Name:           rust-openssl
-Version:        0.10.81
+Version:        0.10.82
 Release:        %autorelease
 Summary:        OpenSSL bindings
 
@@ -20,9 +20,6 @@ Patch:          openssl-fix-metadata.diff
 # * set "PROFILE=SYSTEM" as default argument for SSL_CTX_set_cipher_list so
 #   applications that use the "default" context follow system crypto policy
 Patch2:         0001-set-PROFILE-SYSTEM-as-default-cipher-list.patch
-# * backport upstream fix for expired certs in test fixtures:
-#   https://github.com/rust-openssl/rust-openssl/commit/10bbf71
-Patch:          10bbf71.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

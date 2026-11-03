@@ -12,7 +12,7 @@
 
 Name:    bluez
 Version: 5.87%{?shortcommit:^%{gitdate}git%{shortcommit}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
@@ -102,6 +102,8 @@ use in Bluetooth applications.
 %package hid2hci
 Summary: Put HID proxying bluetooth HCI's into HCI mode
 Requires: bluez%{?_isa} = %{version}-%{release}
+# Order after udev when both are installed, without depending on it
+OrderWithRequires(post): systemd-udev
 
 %description hid2hci
 Most allinone PC's and bluetooth keyboard / mouse sets which include a
@@ -220,13 +222,20 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %systemd_postun_with_restart bluetooth.service
 
 %post hid2hci
-/sbin/udevadm trigger --subsystem-match=usb
+# udevadm is not installed in minimal roots (containers, mock)
+if command -v udevadm >/dev/null; then
+    # retrigger is best-effort, e.g. /sys may be read-only in containers
+    udevadm trigger --subsystem-match=usb || :
+fi
 
 %post mesh
-%systemd_user_post bluetooth-mesh.service
+%systemd_post bluetooth-mesh.service
 
 %preun mesh
-%systemd_user_preun bluetooth-mesh.service
+%systemd_preun bluetooth-mesh.service
+
+%postun mesh
+%systemd_postun_with_restart bluetooth-mesh.service
 
 %post obexd
 %systemd_user_post obex.service
@@ -343,6 +352,10 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Mon Nov 02 2026 Michel Lind <salimma@fedoraproject.org> - 5.87^20260918gitb5ed56d8c-4
+- hid2hci: don't fail %%post when udevadm is unavailable
+- mesh: use system unit scriptlets for bluetooth-mesh.service
+
 * Fri Sep 18 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 5.87^20260918gitb5ed56d8c-3
 - Update to the latest b5ed56d8c snapshot
 - Update the snapshot naming to current spec

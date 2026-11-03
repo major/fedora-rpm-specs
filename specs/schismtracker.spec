@@ -1,6 +1,6 @@
 Name:      schismtracker
-Version:   20260524
-Release:   4%{?dist}
+Version:   20261102
+Release:   1%{?dist}
 Summary:   Sound module composer/player
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:   GPL-2.0-only
@@ -9,7 +9,9 @@ Source0:   https://github.com/schismtracker/schismtracker/archive/%{version}.tar
 
 #Patch1:    https://github.com/schismtracker/schismtracker/commit/ee6798584b26856260bccca7b8f7730b221b1c0e.patch
 # taken from: https://raw.githubusercontent.com/chimera-linux/cports/refs/heads/master/main/schismtracker/patches/ppc64le-vec.patch
-Patch1:     ppc64le-vec.patch
+#Patch1:     ppc64le-vec.patch
+# fix Patch1
+Patch1:      ppc-minmax.patch
 
 Excludearch:   s390x
 Requires:      hicolor-icon-theme
@@ -72,6 +74,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/schism.desktop
 %{_datadir}/pixmaps/schism*.png
 
 %changelog
+* Mon Nov 02 2026 josef radinger <cheese@nosuchhost.net> - 20261102-1
+- bump version
+- fix date in changelog
+- modify patch1
+
 * Tue Aug 25 2026 josef radinger <cheese@nosuchhost.net> - 20260524-4
 - replace Patch1
   https://github.com/schismtracker/schismtracker/commit/ee6798584b26856260bccca7b8f7730b221b1c0e.patch
@@ -81,7 +88,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/schism.desktop
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260524-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
-* Fri June 12 2026 josef radinger <cheese@nosuchhost.net> - 20260524-2
+* Fri Jun 12 2026 josef radinger <cheese@nosuchhost.net> - 20260524-2
 - add Patch1 to fix compilation with ppc64le
   https://github.com/schismtracker/schismtracker/commit/ee6798584b26856260bccca7b8f7730b221b1c0e.patch
 - try to fix compile by disabling altivec on ppc64le

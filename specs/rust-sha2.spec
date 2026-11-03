@@ -5,7 +5,7 @@
 %global crate sha2
 
 Name:           rust-sha2
-Version:        0.11.0
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Pure Rust implementation of the SHA-2 hash function family
 

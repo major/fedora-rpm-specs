@@ -14,7 +14,7 @@ Requires: %1 \
 %{expand: %%global latest_requires_packages %1 %%{?latest_requires_packages}}
 
 Name:    copr-rpmbuild
-Version: 1.10
+Version: 1.11
 Summary: Run COPR build tasks
 Release: 1%{?dist}
 URL: https://github.com/fedora-copr/copr
@@ -125,7 +125,10 @@ Requires: fedora-review-plugin-java
 %endif
 # We need %%pypi_source defined, which is in 3-29+
 Requires: python-srpm-macros >= 3-29
+# rpkg (from rpkg-util) is not available in EPEL
+%if 0%{?fedora}
 Requires: rpkg
+%endif
 Requires: rsync
 Requires: tito
 # yum* to allow mock to build against el* chroots without bootstrap_container
@@ -140,11 +143,11 @@ Requires: yum-utils
 %if 0%{?fedora} >= 38
 %latest_requires dnf5
 %latest_requires dnf5-plugins
+%latest_requires python3-libdnf5
+%latest_requires libdnf5
 %endif
 
-%latest_requires python3-libdnf5
 %latest_requires dist-git-client
-%latest_requires libdnf5
 %latest_requires librepo
 %latest_requires libsolv
 %latest_requires mock
@@ -301,6 +304,12 @@ EOF
 
 
 %changelog
+* Mon Nov 02 2026 Jakub Kadlcik <frostyx@email.cz> 1.11-1
+- Support builds from DistGit repository forks
+- Retry source URL downloads when building SRPMs
+- Handle missing macro files without a traceback
+- Fix package installation dependencies
+
 * Tue Sep 22 2026 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 1.10-1
 - avoid ugly tracebacks on early failure in build_rpm()
 - uploadrpm: support multiple RPMs, optional srpm/logs

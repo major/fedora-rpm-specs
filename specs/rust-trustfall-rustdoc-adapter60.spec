@@ -8,7 +8,7 @@
 %global crate trustfall-rustdoc-adapter
 
 Name:           rust-trustfall-rustdoc-adapter60
-Version:        60.0.3
+Version:        60.0.4
 Release:        %autorelease
 Summary:        Trustfall query adapter for rustdoc JSON data
 
@@ -41,6 +41,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/scripts/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

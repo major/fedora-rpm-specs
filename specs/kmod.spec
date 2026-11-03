@@ -15,8 +15,8 @@
 %bcond_without zstd
 
 Name:		kmod
-Version:	34.2
-Release:	7%{?dist}
+Version:	34.3
+Release:	1%{?dist}
 Summary:	Linux kernel module management utilities
 
 # https://docs.fedoraproject.org/en-US/legal/license-field/#_no_effective_license_analysis
@@ -205,6 +205,10 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Mon Nov 02 2026 Josh Boyer <jwboyer@fedoraproject.org> - 34.3-1
+- New upstream v34.3
+- Resolves: rhbz#2564157
+
 * Wed Aug 12 2026 Eric Chanudet <echanude@redhat.com> 34.2-7
 - spec: add weak-modules Requires for compression
 - weak-modules: updates/ directory for out-of-tree modules

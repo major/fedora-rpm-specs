@@ -1,9 +1,9 @@
 # Enable optional dependencies
-%bcond_without perl_File_ShareDir_enables_optional_deps
+%bcond perl_File_ShareDir_enables_optional_deps %{undefined rhel}
 
 Name:           perl-File-ShareDir
 Version:        1.118
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Locate per-dist and per-module shared files
 # other files:              GPL+ or Artistic
 ## not in binary packages
@@ -85,6 +85,9 @@ make test AUTOMATED_TESTING=1
 %{_mandir}/man3/*
 
 %changelog
+* Fri Oct 09 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.118-17
+- Disable optional deps on RHEL
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.118-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -13,6 +13,10 @@
 %global system_build_flags 0
 
 %global numjobs %{_smp_build_ncpus}
+%ifarch x86_64
+# FTBFS workaround for OOM on x86_64
+%global numjobs 16
+%endif
 
 # official builds have less debugging and go faster... but we have to shut some things off.
 %global official_build 1
@@ -22,16 +26,6 @@
 %if 0%{?rhel}
 # no libcxx in el
 %global use_custom_libcxx 1
-%endif
-
-# enable|disble bootstrap
-%global bootstrap 0
-# workaround for old gn on el9 and el10.2, it causes build errors:
-#  unknown function filter_labels_include()
-# ERROR at //third_party/devtools-frontend/src/scripts/build/typescript/ts_library_split.gni:316:21: Assignment had no effect.
-#    public_inputs = filter_include(_all_sources, [ "*.ts" ])
-%if 0%{?rhel} == 9 || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 3)
-%global bootstrap 1
 %endif
 
 # Fancy build status, so we at least know, where we are..
@@ -71,9 +65,15 @@
 %global nodejs_version v22.22.0
 
 %global system_nodejs 1
-# RHEL 9 needs newer nodejs
+# epel 9 needs newer nodejs
 %if 0%{?rhel} == 9
 %global system_nodejs 0
+%endif
+
+%global system_gn 1
+# epel9 needs newer gn
+%if 0%{?rhel} == 9
+%global system_gn 0
 %endif
 
 # enable gtk4 for fedora and el>9
@@ -711,7 +711,7 @@ BuildRequires: minizip-compat-devel
 BuildRequires: nodejs, /usr/bin/node
 %endif
 
-%if ! %{bootstrap}
+%if %{system_gn}
 BuildRequires: gn
 %endif
 
@@ -728,7 +728,7 @@ BuildRequires:	pipewire-devel
 # for /usr/bin/appstream-util
 BuildRequires: libappstream-glib
 
-%if %{bootstrap}
+%if ! %{system_gn}
 # gn needs these
 BuildRequires: libstdc++-static
 %endif
@@ -928,10 +928,6 @@ BuildRequires: simdutf-devel
 # esbuild is needed
 %if %{system_esbuild}
 BuildRequires: golang-github-evanw-esbuild
-# Workaround, since the new esbuild is not yet included in f45
-%if 0%{?fedora}
-BuildRequires: nodejs-esbuild
-%endif
 %endif
 
 # There is a hardcoded check for nss 3.26 in the chromium code (crypto/nss_util.cc)
@@ -1309,19 +1305,16 @@ sed -i "s/Linux x86_64/Linux %{_arch}/" components/embedder_support/user_agent_u
 
 # Add correct path for nodejs binary
 mkdir -p third_party/node/linux/node-linux-x64/bin
-%if ! %{system_nodejs}
-  ln -s ../../../../../node-%{nodejs_version}/node third_party/node/linux/node-linux-x64/bin/node
-%else
+%if %{system_nodejs}
   ln -s $(which node) third_party/node/linux/node-linux-x64/bin/node
+%else
+  ln -s ../../../../../node-%{nodejs_version}/node third_party/node/linux/node-linux-x64/bin/node
 %endif
 
 # Add correct path for esbuild binary
 mkdir -p third_party/devtools-frontend/src/third_party/esbuild
 %if %{system_esbuild}
 ln -s $(which esbuild) third_party/devtools-frontend/src/third_party/esbuild/esbuild
-%if 0%{?fedora}
-cp -a /usr/lib/node_modules/*esbuild* third_party/devtools-frontend/src/node_modules/
-%endif
 %else
 %ifarch x86_64
 tar xf %{SOURCE15} -C third_party/devtools-frontend/src/third_party/
@@ -1340,10 +1333,10 @@ popd
 # Remove bundle gn and replace it with a system gn or bootstrap gn as it is x86_64 and causes
 # FTBFS on other arch like aarch64/ppc64le
 mkdir -p buildtools/linux64/
-%if %{bootstrap}
-ln -sf ../../%{chromebuilddir}/gn buildtools/linux64/gn 
-%else
+%if %{system_gn}
 ln -sf $(which gn) buildtools/linux64/gn
+%else
+ln -sf ../../%{chromebuilddir}/gn buildtools/linux64/gn 
 %endif
 
 # Remove bundle gperf and replace it with system gperf
@@ -1723,10 +1716,10 @@ if python3 -c 'import google ; print google.__path__' 2> /dev/null ; then \
     exit 1 ; \
 fi
 
-%if %{bootstrap}
-tools/gn/bootstrap/bootstrap.py --gn-gen-args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES"
-%else
+%if %{system_gn}
 mkdir -p %{chromebuilddir} && cp -a $(which gn) %{chromebuilddir}/
+%else
+tools/gn/bootstrap/bootstrap.py --gn-gen-args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES"
 %endif
 
 %{chromebuilddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES" %{chromebuilddir}
@@ -1999,7 +1992,7 @@ fi
 
 %changelog
 * Fri Oct 30 2026 Than Ngo <than@redhat.com> - 156.0.8078.79-1
-- Update to 156.0.8078.73, include 21 security fixes
+- Update to 156.0.8078.79, include 21 security fixes
   * CVE-2026-119260: Use after free in Frames
   * CVE-2026-119261: Improper input validation in Skia
   * CVE-2026-119262: Improper input validation in V8

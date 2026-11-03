@@ -1,5 +1,5 @@
 Name:           perl-IRI
-Version:        0.15
+Version:        0.16
 Release:        1%{?dist}
 Summary:        Internationalized Resource Identifiers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -19,6 +19,7 @@ BuildRequires:  perl(Module::Install::WriteAll)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
+BuildRequires:  perl(:VERSION) >= 5.10.1
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Moo)
 BuildRequires:  perl(MooX::HandlesVia)
@@ -26,7 +27,6 @@ BuildRequires:  perl(Scalar::Util)
 # Types::Standard version from Type::Tiny in META.yml
 BuildRequires:  perl(Types::Standard) >= 0.008
 # Test:
-BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Try::Tiny)
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 02 2026 Petr Pisar <ppisar@redhat.com> - 0.16-1
+- 0.16 bump
+
 * Thu Oct 15 2026 Petr Pisar <ppisar@redhat.com> - 0.15-1
 - 0.15 bump
 

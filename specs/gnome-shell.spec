@@ -4,7 +4,7 @@
 %global portal_helper 1
 %endif
 
-%define eds_version 3.45.1
+%define eds_version 3.62.1-2
 %define glib2_version 2.86.0
 %define gjs_version 1.87.1
 %define gtk4_version 4.0.0

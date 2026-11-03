@@ -1,6 +1,6 @@
 Name:    libcamera
-Version: 0.7.2
-Release: 5%{?dist}
+Version: 0.8.0
+Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -12,7 +12,6 @@ Source2: qcam.metainfo.xml
 Source3: 70-libcamera.rules
 
 Patch01: 0001-disable-rpi-pisp.patch
-Patch02: 0002-fix-ov01a10-flickering.patch
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -118,9 +117,7 @@ Python bindings for %{name}
 
 %build
 export CFLAGS="%{optflags} -Wno-deprecated-declarations"
-# Set also max-devirt-targets=1 to prevent compilation errors,
-# maybe due to https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120345.
-export CXXFLAGS="%{optflags} -Wno-deprecated-declarations --param=max-devirt-targets=1"
+export CXXFLAGS="%{optflags} -Wno-deprecated-declarations"
 
 # Build and include the virtual and vimc pipelines. This also builds tests but
 # those do not get included in any packages.
@@ -161,7 +158,7 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %files
 %license COPYING.rst LICENSES/LGPL-2.1-or-later.txt
 # We leave the version here explicitly to know when it bumps
-%{_libdir}/libcamera*.so.0.7
+%{_libdir}/libcamera*.so.0.8
 %{_libdir}/libcamera*.so.%{version}
 %{_udevrulesdir}/70-libcamera.rules
 
@@ -198,6 +195,11 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Mon Nov 02 2026 Milan Zamazal <mzamazal@redhat.com> - 0.8.0-1
+- Update to version 0.8.0
+- gcc bug workaround removed
+- Resolves: rhbz#2564518
+
 * Wed Oct 07 2026 Milan Zamazal <mzamazal@redhat.com> - 0.7.2-5
 - Fix IPA signing path (rhbz#2547048)
 

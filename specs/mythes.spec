@@ -1,9 +1,11 @@
 Name:      mythes
 Summary:   A thesaurus library
-Version:   1.2.5
-Release:   11%{?dist}
+Version:   1.2.6
+Release:   1%{?dist}
 Source:    https://github.com/hunspell/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 URL:       https://github.com/hunspell/mythes
+# upstream fix https://github.com/hunspell/mythes/commit/61597ef51bf9e82d0387a12d5a42ad77f2a572cd
+Patch0:    mythes-1.2.6-index-words-shorter-than-MAX_WD_LEN.patch
 License:   BSD-3-Clause-Modification AND MIT
 BuildRequires: make
 BuildRequires: hunspell-devel, gcc-c++
@@ -21,7 +23,7 @@ Summary: Files for developing with mythes
 Includes and definitions for developing with mythes
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --disable-rpath --disable-static
@@ -33,7 +35,6 @@ make check
 ./example morph.idx morph.dat morph.lst morph.aff morph.dic
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %make_install
 rm -f $RPM_BUILD_ROOT/%{_libdir}/*.a
 rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
@@ -54,6 +55,12 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_bindir}/th_gen_idx.pl
 
 %changelog
+* Mon Nov 02 2026 Parag Nemade <panemade AT redhat DOT com> - 1.2.6-2
+- Fix build failure in rawhide by using upstream patch
+
+* Mon Nov 02 2026 Parag Nemade <panemade AT redhat DOT com> - 1.2.6-1
+- New upstream release 1.2.6 (rhbz#2564591)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

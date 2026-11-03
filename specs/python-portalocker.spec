@@ -11,7 +11,7 @@
 
 %global         srcname     portalocker
 %global         forgeurl    https://github.com/WoLpH/portalocker
-Version:        3.2.0
+Version:        4.4.2
 %global         tag         v%{version}
 %forgemeta
 
@@ -26,12 +26,16 @@ Source:         %forgesource
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(uv-build)
 
 %if %{with tests}
+BuildRequires:  python3dist(fakeredis)
 BuildRequires:  python3dist(pygments)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-cov)
-BuildRequires:  python3dist(flaky)
+BuildRequires:  python3dist(pytest-timeout)
+BuildRequires:  python3dist(pytest-rerunfailures)
+BuildRequires:  python3dist(typing-extensions)
 %if 0%{?test_with_redis}
 BuildRequires:  python3dist(redis)
 %endif
@@ -54,8 +58,8 @@ Summary:        %{summary}
 # under 100 coverage, but they don't have anywhere near that coverage so turn
 # a lot of that nonsense off. Upstream CI seems to eternally fail so...
 sed -i 's/^plugins =.*coverage_conditional_plugin.*$/plugins = []/' pyproject.toml
-sed -i 's/^timeout =.*$//' pyproject.toml
-sed -i 's/^fail_under = 100$//' pyproject.toml
+sed -i '/--cov-fail-under=100/d' pyproject.toml
+sed -i '/fail_under = 100/d' pyproject.toml
 
 
 %generate_buildrequires
@@ -81,13 +85,12 @@ sed -i 's/^fail_under = 100$//' pyproject.toml
 %if %{with tests}
 # These two tests are failing and upstream CI has no recent successes.
 %pytest %{?test_with_redis:--ignore=portalocker_tests/test_redis.py} \
-  --deselect=portalocker_tests/test_multiprocess.py::test_shared_processes[True] \
-  --deselect=portalocker_tests/test_multiprocess.py::test_shared_processes[False]
+  --ignore=portalocker_tests/test_readme.py
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.md
 
 %changelog
 %autochangelog

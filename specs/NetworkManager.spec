@@ -6,7 +6,7 @@ Group:   System Environment/Base
 
 Epoch:   1
 Version: 1.58.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 ###############################################################################
 
@@ -1070,6 +1070,9 @@ fi
 
 
 %changelog
+* Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:1.58.1-5
+- Rebuilt for new ppp
+
 * Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1:1.58.1-4
 - Rebuilt for new ppp
 

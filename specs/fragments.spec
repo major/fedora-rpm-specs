@@ -5,7 +5,19 @@ Version:        3.0.1
 Release:        6%{?dist}
 Summary:        Easy to use BitTorrent client which follows the GNOME HIG
 
-License:        GPL-3.0-or-later
+# (Apache-2.0 OR MIT) AND BSD-3-Clause
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-3-Clause
+# BSD-3-Clause OR MIT OR Apache-2.0
+# GPL-3.0-or-later
+# MIT
+# MIT OR Apache-2.0
+# MIT OR Apache-2.0 OR Zlib
+# Unlicense OR MIT
+# Zlib OR Apache-2.0 OR MIT
+License:        (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception) AND BSD-3-Clause AND GPL-3.0-or-later AND MIT AND (Unlicense OR MIT) AND (Zlib OR Apache-2.0 OR MIT)
 URL:            https://gitlab.gnome.org/World/Fragments
 Source0:        %{url}/uploads/%{upload_hash}/fragments-%{version}.tar.xz
 
@@ -25,7 +37,8 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libcurl)
-BuildRequires:  pkgconfig(openssl)
+# old vendored openssl-sys
+BuildRequires:  pkgconfig(openssl) < 4
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  rust-packaging
@@ -40,11 +53,16 @@ includes well thought-out features.
 
 %prep
 %autosetup -p1
+%cargo_prep -v vendor
 
 
 %build
 %meson
 %meson_build
+
+%cargo_license_summary
+%{cargo_license} > LICENSE.dependencies
+%cargo_vendor_manifest
 
 
 %install
@@ -59,7 +77,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -f %{name}.lang
 %doc README.md
-%license COPYING.md
+%license COPYING.md cargo-vendor.txt LICENSE.dependencies
 %{_bindir}/fragments
 %{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/*.gschema.xml

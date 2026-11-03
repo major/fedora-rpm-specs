@@ -41,7 +41,7 @@
 
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
-Version: 1.35
+Version: 1.36
 Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://kronosnet.org
@@ -462,6 +462,11 @@ Requires: libknet1%{_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Mon Nov 02 2026 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.36-1
+- New upstream release
+- Fix copyright and licenses across the board
+- Minor build fixes
+
 * Mon Jul 20 2026 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.35-1
 - New upstream release
 - CVE-2026-15811 (LOW): encryption key exposure in memory after cryptographic configuration changes. Wipe cryptographic keys with explicit_bzero() before freeing to prevent exposure through memory disclosure vulnerabilities. (Resolves rhbz#2500850)

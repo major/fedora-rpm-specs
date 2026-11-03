@@ -17,6 +17,7 @@
 %define gnome_desktop_version 2.91.3
 %define intltool_version 0.35.5
 %define libgweather_version 3.91
+%define libical_version 4.0.7
 %define geocode_glib_version 3.26.3
 %define sqlite_version 3.7.17
 %define libsoup_version 3.1.1
@@ -122,6 +123,7 @@ BuildRequires: pkgconfig(libebook-1.2) >= %{eds_version}
 BuildRequires: pkgconfig(libecal-2.0) >= %{eds_version}
 BuildRequires: pkgconfig(libedataserver-1.2) >= %{eds_version}
 BuildRequires: pkgconfig(libedataserverui-1.2) >= %{eds_version}
+BuildRequires: pkgconfig(libical-glib) >= %{libical_version}
 BuildRequires: pkgconfig(libsoup-3.0) >= %{libsoup_version}
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(nspr)

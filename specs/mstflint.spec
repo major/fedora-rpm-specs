@@ -75,6 +75,10 @@ Requires:	python3
 # fix build with system libraries, https://github.com/Mellanox/mstflint/pull/1848
 0010-mlxconfig-don-t-include-sqlite3.h-via-hardcoded-ext_.patch
 0011-configure.ac-use-pkg-config-to-detect-libraries.patch
+# use the system CA trust store instead of a private stale bundle
+# https://github.com/Mellanox/mstflint/pull/2090
+0020-mlxfwupdate-use-the-system-trust-store-instead-of-a-.patch
+0021-mlxfwupdate-rename-_ceritifcate-to-_caBundlePath.patch
 
 %description
 This package contains firmware update tool, vpd dump and register dump tools
@@ -114,7 +118,6 @@ chmod +x %{buildroot}/%{_libdir}/mstflint/{python_tools,sdk}/*.so
 %files
 %doc README
 %_bindir/*
-%{_sysconfdir}/mstflint
 %{_libdir}/mstflint
 
 %{_datadir}/mstflint

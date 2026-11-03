@@ -1,8 +1,8 @@
 %bcond_without mingw
 
 Name:     inih
-Version:  62
-Release:  3%{?dist}
+Version:  63
+Release:  1%{?dist}
 Summary:  Simple INI file parser library
 
 License:  BSD-3-Clause
@@ -133,6 +133,9 @@ MinGW Windows %{name} library.
 
 
 %changelog
+* Mon Nov 02 2026 Sandro Mani <manisandro@gmail.com> - 63-1
+- Update to 63
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 62-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

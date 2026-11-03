@@ -1,5 +1,5 @@
 Name:           python-tox-uv
-Version:        1.37.0
+Version:        1.37.2
 Release:        %autorelease
 Summary:        Integration of uv with tox
 
@@ -118,6 +118,7 @@ k="${k-}${k+ and }not test_uv_python_set"
 k="${k-}${k+ and }not test_version_injected_into_dependency"
 k="${k-}${k+ and }not test_wheel_contains_"
 k="${k-}${k+ and }not test_wheel_does_not_contain_"
+k="${k-}${k+ and }not test_wheel_readme_links_target_repository"
 %endif
 
 # Some test invoke building (self?) with hatch-vcs

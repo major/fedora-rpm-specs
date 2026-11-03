@@ -1,7 +1,7 @@
 %global	gem_name	clutter
 
 Name:		rubygem-%{gem_name}
-Version:	4.3.9
+Version:	4.4.0
 Release:	1%{?dist}
 Summary:	Ruby binding of Clutter
 
@@ -51,7 +51,7 @@ Documentation for %{name}
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-sed -i -e 's|= 4\.3\.9|>= 4.3.9|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.4\.0|>= 4.4.0|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -149,6 +149,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Mon Nov  2 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.4.0-1
+- 4.4.0
+
 * Sun Sep  6 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.9-1
 - 4.3.9
 

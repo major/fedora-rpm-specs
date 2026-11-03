@@ -5,20 +5,20 @@
 %global cargo_install_lib 0
 
 %global crate clock-bound
-%global crate_version 3.0.0-beta.1
+%global crate_version 3.0.0-rc.0
 
 # compile and run tests only on supported architectures
 %global supported_arches x86_64 aarch64
 
 Name:           rust-clock-bound
-Version:        3.0.0~beta.1
+Version:        3.0.0~rc.0
 Release:        %autorelease
 Summary:        To provide error bounded timestamp intervals
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/clock-bound
 Source:         %{crates_source %{crate} %{crate_version}}
-Source:         clock-bound-3.0.0-beta.1-vendor.tar.xz
+Source:         clock-bound-3.0.0-rc.0-vendor.tar.xz
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  systemd-rpm-macros
@@ -57,48 +57,49 @@ ExclusiveArch: x86_64 aarch64
 %config(noreplace) %{_sysconfdir}/clockbound.toml
 %dir %{_localstatedir}/log/clockbound
 %config(noreplace) %{_sysconfdir}/logrotate.d/clockbound
+%{_prefix}/lib/systemd/ntp-units.d/40-clockbound.list
 
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1 -a1
 %cargo_prep -v vendor
-# Use upstream example config
-# Remove dummy example sources. Unnecessary in clockbound
-grep -q '^# Additional NTP sources' assets/example-config.toml \
- || { echo 'anchor missing in example-config.toml' >&2; exit 1; }
-sed -i '/^# Additional NTP sources/,$d' assets/example-config.toml
-
-# Simplify service file
-sed -i \
-  -e '/^# Enable the PHC if possible$/d' \
-  -e '\|^ExecStartPre=-/usr/sbin/configure_phc$|d' \
-  -e 's|^ExecStart=/usr/bin/clockbound$|ExecStart=/usr/bin/clockbound -c /etc/clockbound.toml|' \
-  -e '/^Restart=on-failure$/d' \
-  assets/clockbound.service
 
 %build
 %ifarch %{supported_arches}
-%cargo_build -f client,daemon
+%cargo_build -f daemon
 %endif
-%{cargo_license_summary -f client,daemon}
-%{cargo_license -f client,daemon} > LICENSE.dependencies
+%{cargo_license_summary -f daemon}
+%{cargo_license -f daemon} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 
 %install
-%cargo_install -f client,daemon
+%cargo_install -f daemon
 # install systemd service
 install -Dpm 0644 assets/clockbound.service -t %{buildroot}/%{_unitdir}/
 # install clockbound config to get logging by default
-install -Dpm 0644 assets/example-config.toml %{buildroot}/%{_sysconfdir}/clockbound.toml
+install -Dpm 0644 assets/example-config-logging-only.toml %{buildroot}/%{_sysconfdir}/clockbound.toml
 # install log directory
 mkdir -p %{buildroot}/%{_localstatedir}/log/clockbound
 # install logrotate config
 install -Dpm 0644 assets/clockbound.logrotate %{buildroot}/%{_sysconfdir}/logrotate.d/clockbound
+# install ntp-units.d
+mkdir -p %{buildroot}/%{_prefix}/lib/systemd/ntp-units.d
+# install clockbound.list file
+echo 'clockbound.service' > %{buildroot}/%{_prefix}/lib/systemd/ntp-units.d/40-clockbound.list
+
+%post
+%systemd_post clockbound.service
+
+%preun
+%systemd_preun clockbound.service
+
+%postun
+%systemd_postun_with_restart clockbound.service
 
 %if %{with check}
 %ifarch %{supported_arches}
 %check
 # * clock status has seen io failures
-%cargo_test -f client,daemon -- -- --skip set_clock_status_logs_only_on_transition
+%cargo_test -f daemon -- -- --skip set_clock_status_logs_only_on_transition
 %endif
 %endif
 

@@ -17,7 +17,7 @@ Patch0: dehydrated-improve-trap-handling.patch
 Patch1: dehydrated-hook.sh-defaults.patch
 
 BuildArch: noarch
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: systemd-rpm-macros
 %{?systemd_requires}
 Requires: coreutils
@@ -50,7 +50,7 @@ Current features:
 - Certificate revocation
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %patch -P0 -p1 -b .improve-trap-handling
 %patch -P1 -p1 -b .hook.sh-defaults

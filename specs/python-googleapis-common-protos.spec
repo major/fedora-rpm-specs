@@ -4,7 +4,7 @@
 # a BR on python3dist(grpcio), but this package is required by
 # python3dist(grpcio-status), which creates a circular dependency with grpc.
 # Flip this back to with when grpc >= 1.59 is built
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           python-googleapis-common-protos
 Version:        1.75.5

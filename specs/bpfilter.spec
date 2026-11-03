@@ -1,31 +1,26 @@
 Name:       bpfilter
-Version:    0.6.0
+# Placeholder: tools/rpm/mock-build and Packit set the version from the latest tag.
+Version:    0.8.0
 Release:    %autorelease
 Summary:    BPF-based packet filtering framework
 
 License:    GPL-2.0-only
 URL:        https://bpfilter.io
-Source:     https://github.com/facebook/bpfilter/archive/refs/tags/v%{version}.tar.gz#/bpfilter-%{version}.tar.gz
-# _will_return (which is a private function) now takes another argument
-Patch:      bpfilter-fix-for-cmocka2.diff
+Source:     https://github.com/meta/bpfilter/archive/refs/tags/v%{version}.tar.gz#/bpfilter-%{version}.tar.gz
 
 BuildRequires: bison
 BuildRequires: clang
 BuildRequires: cmake
 BuildRequires: flex
 BuildRequires: gcc
-BuildRequires: git-core
 BuildRequires: libbpf-devel
 BuildRequires: libcmocka-devel
-BuildRequires: libnl3-devel
-BuildRequires: systemd
-BuildRequires: systemd-rpm-macros
-BuildRequires: vim-common
+BuildRequires: /usr/bin/xxd
 
 # Only those two architectures are supported by bpfilter.
 ExclusiveArch: %{x86_64} %{arm64}
 
-%global soname_version %%(echo %%{version}} | cut -d. -f1)
+%global soname_version %%(echo %%{version} | cut -d. -f1)
 
 %global _description %{expand:
 BPF-based packet filtering framework to convert text-format filtering rules
@@ -47,31 +42,21 @@ developing applications that use %{name}.
 %autosetup -p1
 
 %build
-%cmake -DNO_DOCS=1 -DNO_BENCHMARKS=1 -DNO_CHECKS=1 -DDEFAULT_PROJECT_VERSION=%{version}
-%cmake_build -t bpfilter libbpfilter bfcli
+%cmake -DWITH_DOCS=OFF -DWITH_TESTS=OFF -DWITH_TESTS_UNIT=ON
+%cmake_build
 
 %check
-%cmake_build -t unit
+%ctest
 
 %install
 %cmake_install
 
-%post
-%systemd_post bpfilter.service
-
-%preun
-%systemd_preun bpfilter.service
-
-%postun
-%systemd_postun_with_restart bpfilter.service
 
 %files
 %license COPYING
 %{_sbindir}/bfcli
-%{_sbindir}/bpfilter
 %{_libdir}/libbpfilter.so.%{soname_version}
 %{_libdir}/libbpfilter.so.%{version}
-%{_unitdir}/bpfilter.service
 
 %files devel
 %{_includedir}/bpfilter/

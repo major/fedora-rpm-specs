@@ -12,7 +12,7 @@ BuildRequires: make gcc gcc-c++
 BuildRequires: pkgconfig(libelf)
 BuildRequires: pkgconfig(libdw)
 BuildRequires: help2man
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 # For configure checking -j support
 BuildRequires: dwz
@@ -60,7 +60,7 @@ binutils.  It depends on the elfutils libelf and libdw libraries to
 read and write ELF files, DWARF data and build-ids.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

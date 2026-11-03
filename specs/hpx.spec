@@ -1,11 +1,10 @@
 Name:           hpx
-Version:        2.0.0~rc1
-%global         uversion 2.0.0-rc1
+Version:        2.0.0
 Release:        1%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.dev/
-Source0:        https://github.com/TheHPXProject/hpx/archive/v%{uversion}/%{name}-%{uversion}.tar.gz
+Source0:        https://github.com/TheHPXProject/hpx/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/TheHPXProject/hpx/pull/7648.diff, dropping all cmake mods
 Patch0:         my7648.diff
 
@@ -144,9 +143,7 @@ Requires:   asio-devel
 This package contains development headers and libraries
 
 %prep
-%autosetup -p1 -n %{name}-%{uversion}
-# Fixed upstream
-sed -i 's/Werror/Wall/' ./cmake/HPX_AddConfigTest.cmake
+%autosetup -p1
 
 %build
 # use generic context for these archs
@@ -244,6 +241,10 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Mon Nov 02 2026 Christoph Junghans <junghans@votca.org> - 2.0.0-1
+- Version bump to v2.0.0
+- Fixes: rhbz#2542708
+
 * Fri Oct 30 2026 Christoph Junghans <junghans@votca.org> - 2.0.0~rc1-1
 - Version bump to v2.0.0_rc1
 - Fixes: rhbz#2542708

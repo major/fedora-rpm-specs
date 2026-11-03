@@ -1,6 +1,15 @@
 %global pkgconfdir %{_sysconfdir}/dpkg
 %global pkgdatadir %{_datadir}/dpkg
 
+# bash-completion < 2.18 ships its own completions for dpkg, dpkg-deb,
+# dpkg-query, dpkg-source and dselect. Starting with 2.18 (Fedora 45) they are
+# only used as a fallback when the dpkg ones are not installed.
+%if (0%{?fedora} && 0%{?fedora} < 45) || 0%{?rhel} == 10
+%bcond bash_completion 0
+%else
+%bcond bash_completion 1
+%endif
+
 Name:           dpkg
 Version:        1.23.11
 Release:        %autorelease
@@ -236,6 +245,11 @@ done
 
 rm %{buildroot}%{_libdir}/libdpkg.la
 
+%if %{without bash_completion}
+# Conflicts with the files provided by bash-completion
+rm %{buildroot}%{bash_completions_dir}/{dpkg,dpkg-deb,dpkg-query,dpkg-source,dselect}
+%endif
+
 %check
 make TEST_PARALLEL=%{_smp_build_ncpus} check
 
@@ -270,9 +284,11 @@ make TEST_PARALLEL=%{_smp_build_ncpus} check
 %dir %{_libexecdir}/dpkg
 %{_libexecdir}/dpkg/dpkg-db-backup
 %{_libexecdir}/dpkg/dpkg-db-keeper
+%if %{with bash_completion}
 %{bash_completions_dir}/dpkg
 %{bash_completions_dir}/dpkg-deb
 %{bash_completions_dir}/dpkg-query
+%endif
 %{bash_completions_dir}/start-stop-daemon
 %{_mandir}/man1/dpkg.1*
 %{_mandir}/man1/dpkg-deb.1*
@@ -322,7 +338,9 @@ make TEST_PARALLEL=%{_smp_build_ncpus} check
 %{_bindir}/dpkg-shlibdeps
 %{_bindir}/dpkg-source
 %{_bindir}/dpkg-vendor
+%if %{with bash_completion}
 %{bash_completions_dir}/dpkg-source
+%endif
 %{zsh_completions_dir}/_dpkg-parsechangelog
 %{_mandir}/man1/dpkg-architecture.1*
 %{_mandir}/man1/dpkg-buildapi.1*
@@ -382,7 +400,9 @@ make TEST_PARALLEL=%{_smp_build_ncpus} check
 %files -n dselect -f dselect.lang
 %config(noreplace) %{pkgconfdir}/dselect.cfg
 %{_bindir}/dselect
+%if %{with bash_completion}
 %{bash_completions_dir}/dselect
+%endif
 %{perl_vendorlib}/Dselect
 %{_libexecdir}/dpkg/methods
 %{_localstatedir}/lib/dpkg/methods

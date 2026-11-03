@@ -1,8 +1,11 @@
+# Since F46, aspell is no longer provided in fedora as it is dead upstream
+%bcond aspell %[0%{?fedora} && 0%{?fedora} < 46]
+
 %global		framework sonnet
 
 Name:		kf6-%{framework}
 Version:	6.31.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 solution for spell checking
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -25,7 +28,9 @@ BuildRequires:	qt6-qttools-devel
 BuildRequires:	zlib-devel
 BuildRequires:	cmake(Qt6Quick)
 BuildRequires:	pkgconfig(xkbcommon)
+%if %{with aspell}
 BuildRequires:	pkgconfig(aspell)
+%endif
 BuildRequires:	pkgconfig(hunspell)
 BuildRequires:	hspell-devel
 BuildRequires:	pkgconfig(libvoikko)
@@ -37,17 +42,21 @@ Recommends:	%{name}-hunspell
 %description
 KDE Frameworks 6 Tier 1 solution for spell checking.
 
-
+%if %{with aspell}
 %package	aspell
 Summary:	aspell plugin for %{name}
 Requires:	%{name} = %{version}-%{release}
 %description	aspell
 The %{name}-aspell package contains the aspell spellchecking
 plugin for %{name}.
+%endif
 
 %package	hunspell
 Summary:	hunspell plugin for %{name}
 Requires:	%{name} = %{version}-%{release}
+%if ! %{with aspell}
+Obsoletes: %{name}-aspell < %{version}-%{release}
+%endif
 %description	hunspell
 The %{name}-hunspell package contains the hunspell spellchecking
 plugin for %{name}.
@@ -112,9 +121,11 @@ Developer Documentation files for %{name} in HTML format
 %{_kf6_qmldir}/org/kde/sonnet/
 %{_kf6_libdir}/libKF6SonnetUi.so.*
 
+%if %{with aspell}
 %files aspell
 %dir %{_kf6_plugindir}/sonnet
 %{_kf6_plugindir}/sonnet/sonnet_aspell.so
+%endif
 
 %files hunspell
 %dir %{_kf6_plugindir}/sonnet
@@ -151,6 +162,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Mon Nov 02 2026 Steve Cossette <steve@ninjasinpajamas.ca> - 6.31.0-2
+- Removed aspell on F46+
+
 * Fri Oct 02 2026 Steve Cossette <farchord@gmail.com> - 6.31.0-1
 - 6.31.0
 

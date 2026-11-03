@@ -5,7 +5,7 @@
 %global crate agirru-crdt
 
 Name:           rust-agirru-crdt
-Version:        0.1.2
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Causal-tag CRDT primitives for agirru
 

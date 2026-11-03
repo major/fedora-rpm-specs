@@ -1,6 +1,6 @@
 Name:              dropbear
 Version:           2026.94
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           Lightweight SSH server and client
 License:           MIT
 URL:               https://matt.ucc.asn.au/dropbear/dropbear.html
@@ -11,7 +11,7 @@ Source4:           dropbear.service
 Source5:           dropbear-keygen.service
 BuildRequires:     gcc
 # for gpg verification
-BuildRequires:     gnupg2
+BuildRequires:     openpgpverify
 BuildRequires:     libtomcrypt-devel
 BuildRequires:     libtommath-devel
 BuildRequires:     libxcrypt-devel
@@ -27,7 +27,7 @@ Dropbear is a relatively small SSH server and client. It's particularly useful
 for "embedded"-type Linux (or other Unix) systems, such as wireless routers.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 %build
@@ -82,6 +82,9 @@ systemctl try-restart dropbear.service >/dev/null 2>&1 || :
 %{_mandir}/man8/*.8*
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 2026.94-2
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 23 2026 Federico Pellegrin <fede@evolware.org> - 2026.94-1
 - Update to 2026.94 (rhbz#2506522)
 

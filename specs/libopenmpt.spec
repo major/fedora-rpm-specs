@@ -1,6 +1,6 @@
 Name: libopenmpt
 Version: 0.8.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global tar_root %{name}-%{version}+release.autotools
 
@@ -30,7 +30,7 @@ BuildRequires: pulseaudio-libs-devel
 
 # Force recent mpg123-libs package for RHEL users with selective updates
 %if 0%{?rhel} && 0%{?rhel} < 11
-Requires: libmpg123{?_isa} >= 1.32.0
+Requires: libmpg123%{?_isa} >= 1.32.0
 %endif
 
 %description
@@ -98,6 +98,9 @@ chrpath --delete ${RPM_BUILD_ROOT}%{_bindir}/openmpt123
 
 
 %changelog
+* Mon Nov 02 2026 Robert Scheck <robert@fedoraproject.org> - 0.8.10-2
+- fix incorrect RPM %%{?_isa} macro usage for EPEL builds
+
 * Sun Nov 01 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 0.8.10-1
 - update to 0.8.10
 

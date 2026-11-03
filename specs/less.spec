@@ -1,7 +1,7 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 710
-Release: 1%{?dist}
+Release: 2%{?dist}
 # less dual license GPL-3.0-only OR BSD-2-Clause
 # lesspipe GPL-2.0-or-later
 License: (GPL-3.0-only OR BSD-2-Clause) AND GPL-2.0-or-later
@@ -17,6 +17,7 @@ Patch8: less-458-lessecho-usage.patch
 Patch9: less-458-less-filters-man.patch
 Patch11: less-458-old-bot-in-help.patch
 Patch13: less-436-help.patch
+Patch14: lesspipe-gpg-fix.patch
 URL: https://www.greenwoodsoftware.com/less/
 BuildRequires: ncurses-devel
 BuildRequires: autoconf automake libtool
@@ -63,6 +64,7 @@ mv lesspipe-%{lesspipe_version} lesspipe-src
 %patch -P 9 -p1 -b .less-filters-man
 %patch -P 11 -p1 -b .old-bot
 %patch -P 13 -p1 -b .help
+%patch -P 14 -p1 -b .gpg-fix
 
 # get consistent result localy and on builders
 sed -i -e 's|"#!/usr/bin/env $selected_shell"|"#!$shellcmd"|' -e '/ZSH_/d' lesspipe-src/configure
@@ -112,6 +114,9 @@ popd
 %{_bindir}/archive_color
 
 %changelog
+* Mon Nov 02 2026 Michal Hlavinka <mhlavink@redhat.com> - 710-2
+- fix parsing gpg files "GPG symmetrically encrypted data" (rhbz#2562986)
+
 * Wed Sep 23 2026 Michal Hlavinka <mhlavink@redhat.com> - 710-1
 - updated to 710 (#2536583)
 

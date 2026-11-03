@@ -8,7 +8,7 @@
 
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.3.9
+Version:	4.4.0
 Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -197,6 +197,7 @@ popd
 %{gem_instdir}/lib/glib2/deprecated.rb
 %{gem_instdir}/lib/glib2/interface-info.rb
 %{gem_instdir}/lib/glib2/regex.rb
+%{gem_instdir}/lib/glib2/registered-type-info.rb
 %{gem_instdir}/lib/glib2/repository.rb
 %{gem_instdir}/lib/glib2/time-zone.rb
 %{gem_instdir}/lib/glib2/type-info.rb
@@ -239,6 +240,9 @@ popd
 
 
 %changelog
+* Mon Nov  2 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.4.0-1
+- 4.4.0
+
 * Sun Sep  6 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.9-1
 - 4.3.9
 

@@ -1,6 +1,7 @@
 %undefine __cmake_in_source_build
 
 %global json_glib_version 1.0.4
+%global libical_version 4.0.7
 %global libmspack_version 0.4
 %global libsoup_version 3.1.1
 
@@ -35,7 +36,7 @@ BuildRequires: pkgconfig(libecal-2.0) >= %{eds_evo_version}
 BuildRequires: pkgconfig(libedata-book-1.2) >= %{eds_evo_version}
 BuildRequires: pkgconfig(libedata-cal-2.0) >= %{eds_evo_version}
 BuildRequires: pkgconfig(libemail-engine) >= %{eds_evo_version}
-BuildRequires: pkgconfig(libical)
+BuildRequires: pkgconfig(libical-glib) >= %{libical_version}
 BuildRequires: pkgconfig(libmspack) >= %{libmspack_version}
 BuildRequires: pkgconfig(libsoup-3.0) >= %{libsoup_version}
 

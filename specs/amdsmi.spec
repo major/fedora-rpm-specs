@@ -48,12 +48,6 @@
 %global pkg_suffix %{nil}
 %endif
 
-%if 0%{?suse_version}
-%global pkg_name %{NAME}-libs
-%else
-%global pkg_name %{NAME}
-%endif
-
 # Downloads its own googletest
 # Testing also depends on having AMD hardware cpu and/or gpu installed.
 # Not suitable for a general check
@@ -127,11 +121,7 @@ BuildRequires: python3-devel
 BuildRequires: rocm-filesystem%{pkg_suffix}
 
 %if %{with test}
-%if 0%{?suse_version}
-BuildRequires: gtest
-%else
 BuildRequires: gtest-devel
-%endif
 %endif
 
 %if %{without compat}
@@ -142,10 +132,6 @@ Requires:      python3dist(pyyaml)
 Requires:       rocm-filesystem%{pkg_suffix}
 %endif
 
-%if 0%{?suse_version}
-Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
-%endif
-
 # University of Illinois/NCSA Open Source License
 Provides: bundled(esmi_ib_library) = %{esmi_ver}
 
@@ -154,19 +140,9 @@ The AMD System Management Interface Library, or AMD SMI library, is a C
 library for Linux that provides a user space interface for applications
 to monitor and control AMD devices.
 
-%if 0%{?suse_version}
-%package -n %{pkg_name}
-Summary:        Runtime for %{name}
-
-%description -n %{pkg_name}
-%summary
-
-%ldconfig_scriptlets -n %{pkg_name}
-%endif
-
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -174,10 +150,7 @@ Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 %if %{with test}
 %package test
 Summary:        Tests for %{name}
-Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
-%if 0%{?suse_version}
-Requires:       libgoamdsmi_shim64-1%{?_isa} = %{version}-%{release}
-%endif
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libdrm-devel
 
 %description test
@@ -272,21 +245,6 @@ if [ -e %{buildroot}%{pkg_prefix}/share/tests ]; then
   mv %{buildroot}%{pkg_prefix}/share/tests %{buildroot}%{pkg_prefix}/share/amdsmi/
 fi
 
-%if 0%{?suse_version}
-%files
-%{pkg_prefix}/bin/amd-smi
-%{pkg_prefix}/libexec/amdsmi_cli
-%{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
-
-%files -n %{pkg_name}
-%doc README.md
-%license LICENSE
-%license esmi_ib_library_License.txt 
-%{pkg_prefix}/%{pkg_libdir}/lib%{pkg_library_name}.so.%{pkg_library_version}{,.*}
-%{pkg_prefix}/%{pkg_libdir}/libgoamdsmi_shim64.so.1{,.*}
-
-%else
-
 %files
 %doc README.md
 %license LICENSE
@@ -299,7 +257,6 @@ fi
 %{pkg_prefix}/lib/python%{python3_version}/site-packages/amdsmi
 %endif
 %{pkg_prefix}/%{pkg_libdir}/libamdsminic.so.*
-%endif
 
 %files devel
 %{pkg_prefix}/include/amd_smi/
@@ -324,160 +281,4 @@ fi
 %endif
 
 %changelog
-* Fri Oct 9 2026 Tom Rix <Tom.Rix@amd.com> 10.0.1-1
-- Update to 10.1
-
-* Sun Sep 20 2026 Tom Rix <Tom.Rix@amd.com> - 10.0.0-1
-- Update to 10.0
-
-* Mon Aug 31 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-2
-- testing does not work without static
-
-* Fri Aug 7 2026 Tom Rix <Tom.Rix@amd.com> - 7.14.0-1
-- Update to 7.14
-
-* Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 7.2.1-8
-- Rebuilt for Python 3.15.0b4 ABI change
-
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Thu Jul 09 2026 Pavel Simovec <psimovec@redhat.com> - 7.2.1-6
-- Fix license typo: NSCA -> NCSA
-
-* Wed Jun 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-5
-- Silence _pack_ warnings
-
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 7.2.1-4
-- Rebuilt for Python 3.15
-
-* Fri Apr 17 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-3
-- Generate suse package names
-
-* Tue Apr 14 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-2
-- Add --with static
-
-* Tue Mar 24 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.1-1
-- Update to 7.2.1
-
-* Sat Mar 21 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
-- Merge back amdsmi7.2
-
-* Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-4
-- No python for compat
-
-* Wed Mar 11 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-3
-- Add --with preview
-- Change URL to rocm-systems
-
-* Thu Feb 12 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-2
-- Update license
-
-* Mon Jan 26 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-1
-- Update to 7.2.0
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Tue Jan 6 2026 Tom Rix <Tom.Rix@amd.com> - 7.1.1-3
-- Fix Tumbleweed
-
-* Mon Dec 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-2
-- Add --with compat
-
-* Wed Nov 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.1-1
-- Update to 7.1.1
-
-* Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
-- Fix SUSE 15.6 build, remove unneeded include
-
-* Mon Nov 10 2025 Tim Flink <tflink@fedoraproject.org> - 7.1.0-2
-- update and re-enable gcc15 include patch for upstream 7.1.0 so test subpackage builds
-- removed extra dir in test subpackage
-
-* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
-- Update to 7.1.0
-
-* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
-- Update to 7.0.2
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.0.0-2
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Tue Sep 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
-- Update to 7.0.0
-
-* Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-6
-- Add Fedora copyright
-
-* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
-- Simplify file removal
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.4.2-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Aug 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
-- Build -test on SUSE
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
-- Update to 6.4.2
-
-* Wed Jun 18 2025 Tim Flink <tflink@fedoraproject.org> - 6.4.1-4
-- update so that test subpackage builds cleanly in mock and runs outside of build environment
-
-* Mon Jun 2 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-3
-- handle movement of copyright file on suse
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.4.1-2
-- Rebuilt for Python 3.14
-
-* Thu May 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.1-1
-- Update to 6.4.1
-
-* Wed Apr 16 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.0-1
-- Update to 6.4.0
-
-* Tue Mar 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-3
-- Adjust install of python for fedora
-
-* Thu Feb 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-2
-- Install amd_smi-config.cmake
-
-* Wed Feb 19 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.3-1
-- Update to 6.3.3
-
-* Wed Jan 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.2-1
-- Update to 6.3.2
-
-* Fri Jan 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-6
-- Cleanup for suse
-
-* Thu Jan 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-5
-- Improve empty return patch
-- Fix shebangs
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 8 2025 Tom Rix <Tom.Rix@amd.com> - 6.3.1-3
-- Include cstdint for gcc 15
-
-* Tue Dec 31 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-2
-- Require pyyaml
-
-* Sun Dec 22 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.1-1
-- Update to 6.3.1
-
-* Sat Dec 7 2024 Tom Rix <Tom.Rix@amd.com> - 6.3.0-1
-- Update to 6.3
-
-* Sun Nov 3 2024 Tom Rix <Tom.Rix@amd.com> - 6.2.1-1
-- Stub for tumbleweed
-
-
+%autochangelog

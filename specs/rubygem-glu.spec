@@ -4,7 +4,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	8.3.0
-Release:	38%{?dist}
+Release:	39%{?dist}
 
 Summary:	Glu bindings for the opengl gem
 # SPDX confirmed
@@ -12,6 +12,8 @@ License:	MIT
 URL:		https://github.com/larskanis/glu
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Patch1:		rubygem-glu-c99.patch
+# Use TypedData API, needed for ruby 4.1
+Patch2:		rubygem-glu-8.3.0-TypedData-API.patch
 
 BuildRequires:	gcc
 BuildRequires:	rubygems-devel 
@@ -105,6 +107,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Mon Nov 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-39
+- Use TypedData API, needed for ruby4.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

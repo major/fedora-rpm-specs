@@ -5,7 +5,7 @@
 %global crate agirru-engine
 
 Name:           rust-agirru-engine
-Version:        0.1.2
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Transport/Membership/Storage traits and the push-pull gossip engine for agirru
 

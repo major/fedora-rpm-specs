@@ -1,6 +1,6 @@
 Name:       qtox
-Version:    1.18.5
-Release:    3%{?dist}
+Version:    1.18.6
+Release:    1%{?dist}
 Summary:    Feature-rich Tox client
 
 # Main program: GPLv3+
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.github.qtox
 %{_datadir}/icons/hicolor/*/apps/qtox.*
 
 %changelog
+* Sun Nov 01 2026 Nikolay 168 <nick974@fedoraproject.org> - 1.18.6-1
+- Update qtoz to 1.18.6
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.18.5-3
 - Rebuilt for FFmpeg 9
 

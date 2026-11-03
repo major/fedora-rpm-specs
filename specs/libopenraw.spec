@@ -20,7 +20,11 @@ BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libxml-2.0) >= 2.5.0
 BuildRequires:  rust >= 1.70
-BuildRequires:  rust-packaging
+%if 0%{?rhel} && ! 0%{?epel}
+BuildRequires:  rust-toolset
+%else
+BuildRequires:  cargo-rpm-macros
+%endif
 
 %description
 libopenraw is an ongoing project to provide a free software
@@ -77,6 +81,7 @@ sed --in-place --expression 's! -shared ! -Wl,--as-needed\0!g' libtool
 pushd lib/mp4
 %cargo_license_summary
 %{cargo_license} > ../../LICENSE.dependencies
+%cargo_vendor_manifest
 popd
 
 %check
@@ -93,7 +98,7 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 
 %files
 # COPYING only covers a file in test/ which isn’t shipped
-%license COPYING.LESSER MPL-2.0 LICENSE.dependencies
+%license COPYING.LESSER MPL-2.0 LICENSE.dependencies lib/mp4/cargo-vendor.txt
 %doc AUTHORS NEWS README TODO
 %{_libdir}/%{name}.so.*
 

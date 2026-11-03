@@ -30,7 +30,7 @@
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.21.3
+Version:        1.22.0
 Release:        1%{?dist}
 Summary:        Repodata downloading library
 
@@ -139,6 +139,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Mon Nov 02 2026 Packit <hello@packit.dev> - 1.22.0-1
+- Update to version 1.22.0
+
 * Thu Oct 29 2026 Packit <hello@packit.dev> - 1.21.3-1
 - Update to version 1.21.3
 

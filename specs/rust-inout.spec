@@ -5,7 +5,7 @@
 %global crate inout
 
 Name:           rust-inout
-Version:        0.2.2
+Version:        0.2.5
 Release:        %autorelease
 Summary:        Custom reference types for in-place and buffer-to-buffer operations
 

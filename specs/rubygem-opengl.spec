@@ -14,7 +14,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	42%{?dist}
+Release:	43%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
 # SPDX confirmed
@@ -34,6 +34,8 @@ Patch0:	opengl-0.10.0-pointer-types.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2303995#c20
 # Mesa 24.2.2 swrast with dril does not expose accum buffers anymore
 Patch1:	0001-Remove-requirement-for-accum-buffers.patch
+# Use TypedData API, needed for ruby 4.1
+Patch2:	opengl-0.10.0-TypedData-API.patch
 
 # MRI (CRuby) only
 BuildRequires:	gcc
@@ -83,9 +85,8 @@ sed -i.minitest \
 	lib/opengl/test_case.rb
 
 %patch -P0 -p1 -b .types
-%if 0%{?fedora} >= 41
 %patch -P1 -p1 -b .accum
-%endif
+%patch -P2 -p1 -b .typeddata
 
 %build
 gem build %{gem_name}.gemspec
@@ -183,6 +184,9 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Mon Nov 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-43
+- Use TypedData API needed for ruby4.1
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -29,7 +29,7 @@
 %define goa_version 3.8
 %define libsecret_version 0.5
 %define libgweather_version 4.0
-%define libical_version 3.0.16
+%define libical_version 4.0.7
 %define libsoup_version 3.1.1
 %define nss_version 3.14
 %define sqlite_version 3.7.17

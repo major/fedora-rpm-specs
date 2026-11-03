@@ -5,7 +5,7 @@
 %global crate trustfall_core
 
 Name:           rust-trustfall_core
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Trustfall query engine, empowering you to query everything
 
@@ -19,25 +19,21 @@ Source:         %{crates_source}
 #   test data for many tests, including for anything that uses NumberAdapter,
 #   which uses a schema from the test data, even though we have omitted those
 #   tests that would use trustfall_filetests_macros.
-# * Fix missing license file in published crate: fixed upstream in
-#   https://github.com/obi1kenobi/trustfall/commit/a13173b41767ad874d487a7234059f121fe511af,
-#   but this crate hasn’t been released since then. We could include this file
-#   as a separate source, with URL
-#   https://github.com/obi1kenobi/trustfall/archive/%%{crate}-v%%{version}/LICENSE.txt,
-#   but as long as we already need the GitHub archive we may as well just
-#   extract it from there.
 Source10:       https://github.com/obi1kenobi/trustfall/archive/%{crate}-v%{version}/trustfall-%{crate}-v%{version}.tar.gz
 # Manually created patch for downstream crate metadata changes
-# * Update ron to 0.12: https://github.com/obi1kenobi/trustfall/pull/936
 # * Patch out trustfall_filetests_macros dev-dependency. We would be willing to
 #   package it in order to run more tests, but trustfall_filetests_macros forms
 #   paths relative to its own sources, which means it only works properly in the
 #   workspace.
+# * Allow older v1 of dev-dependency similar-asserts for now;
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2454122
+# * Allow older v1.0.152 of serde_json for now; see
+#   https://src.fedoraproject.org/rpms/rust-serde_json/pull-request/3.
 Patch:          trustfall_core-fix-metadata.diff
 # * Downstream-only: unconditionally skip compiling tests that would require the
 #   trustfall_filetests_macros crate, which does not work properly outside of
 #   the workspace.
-Patch10:        trustfall_core-0.8.1-no-trustfall_filetests_macros.patch
+Patch10:        trustfall_core-0.8.2-no-trustfall_filetests_macros.patch
 # * Downstream-only: adjust the path for the schema file for NumbersAdapter,
 #   used in many tests, to work outside the workspace.
 Patch11:        trustfall_core-0.8.1-numbers-schema-path.patch
@@ -77,9 +73,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Extract the missing license file from the GitHub archive.
-tar -xzvf '%{SOURCE10}' --strip-components=1 \
-    trustfall-%{crate}-v%{version}/LICENSE.txt
 %cargo_prep
 
 %generate_buildrequires

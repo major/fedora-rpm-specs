@@ -2,7 +2,7 @@
 %global copr_common_version 0.16.3.dev
 
 Name:       copr-keygen
-Version:    2.3
+Version:    2.4
 Release:    1%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
@@ -113,6 +113,8 @@ install -d %{buildroot}%{_sysconfdir}/cron.daily
 %{__install} -p -m 0755 run/gpg_copr.sh %{buildroot}/%{_bindir}/gpg_copr.sh
 %{__install} -p -m 0755 run/gpg-copr %{buildroot}/%{_bindir}/
 %{__install} -p -m 0755 run/gpg-copr-prolong %{buildroot}/%{_bindir}/
+%{__install} -p -m 0755 run/gen-clean-pubkey %{buildroot}/%{_bindir}/
+%{__install} -p -m 0755 run/share-gpg-key %{buildroot}/%{_bindir}/
 
 %{__install} -p -m 0755 run/application.py %{buildroot}%{_datadir}/copr-keygen/
 %{__install} -p -m 0644 configs/logrotate %{buildroot}%{_sysconfdir}/logrotate.d/copr-keygen
@@ -143,7 +145,7 @@ systemctl condrestart httpd &>/dev/null || :
 
 %files
 %license LICENSE
-%doc docs/INSTALL.rst docs/README.rst
+%doc docs/INSTALL.rst docs/README.rst docs/gen-clean-pubkey.rst docs/share-gpg-key.rst
 %doc configs/local_settings.py.example
 
 %{_datadir}/copr-keygen/*
@@ -152,6 +154,8 @@ systemctl condrestart httpd &>/dev/null || :
 %{_bindir}/gpg_copr.sh
 %{_bindir}/gpg-copr
 %{_bindir}/gpg-copr-prolong
+%{_bindir}/gen-clean-pubkey
+%{_bindir}/share-gpg-key
 
 %config %{_sysconfdir}/cron.daily/*
 %config %{_sysconfdir}/logrotate.d/copr-keygen
@@ -171,6 +175,9 @@ systemctl condrestart httpd &>/dev/null || :
 %endif
 
 %changelog
+* Mon Nov 02 2026 Jakub Kadlcik <frostyx@email.cz> 2.4-1
+- Add share-gpg-key and gen-clean-pubkey scripts
+
 * Wed Aug 12 2026 Jakub Kadlcik <frostyx@email.cz> 2.3-1
 - Fix container-based unit test workflow
 

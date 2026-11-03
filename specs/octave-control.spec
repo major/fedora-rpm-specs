@@ -1,7 +1,7 @@
 %global octpkg control
 
 Name:           octave-%{octpkg}
-Version:        4.2.3
+Version:        4.3.0
 Release:        1%{?dist}
 Summary:        Computer-Aided Control System Design (CACSD) Tools for Octave
 License:        GPL-3.0-or-later
@@ -50,17 +50,22 @@ done;
 %{octpkgdir}/packinfo
 %exclude %{octpkgdir}/packinfo/COPYING
 %license %{octpkgdir}/packinfo/COPYING
-%{octpkgdir}/@lti
-%{octpkgdir}/@ss
-%{octpkgdir}/@tf
-%{octpkgdir}/@tfpoly
-%{octpkgdir}/@frd
-%{octpkgdir}/@iddata
+%{octpkgdir}/@lti/
+%{octpkgdir}/@ss/
+%{octpkgdir}/@tf/
+%{octpkgdir}/@tfpoly/
+%{octpkgdir}/@frd/
+%{octpkgdir}/@iddata/
+%{octpkgdir}/@zpk/
 %doc %{octpkgdir}/doc
 %{_metainfodir}/io.github.gnu_octave.pkg-control.metainfo.xml
 
 
 %changelog
+* Mon Nov 02 2026 Orion Poplawski <orion@nwra.com> - 4.3.0-1
+- Update to version 4.3.0
+- Resolves: rhbz#2564582
+
 * Fri Jul 31 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 4.2.3-1
 - Update to 4.2.3 (#2509889)
 

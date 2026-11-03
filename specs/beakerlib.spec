@@ -1,7 +1,7 @@
 Name:       beakerlib
 Summary:    A shell-level integration testing library
-Version:    1.33.3
-Release:    2%{?dist}
+Version:    1.33.4
+Release:    1%{?dist}
 License:    GPL-2.0-only
 BuildArch:  noarch
 URL:        https://github.com/%{name}
@@ -9,14 +9,16 @@ Autoreq:    0
 Requires:   nfs-utils
 Requires:   /bin/bash
 Requires:   /bin/sh
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 8
+# rhel >= 9 and fedora
 Recommends: /usr/bin/python3
-%endif
-%if 0%{?rhel} > 7
+%else
+%if 0%{?rhel} == 8
 Recommends: /usr/libexec/platform-python
 %else
 # rhel <= 7
 Requires:   /usr/bin/python
+%endif
 %endif
 %if 0%{?rhel} >= 8 || 0%{?fedora}
 # rhel >= 8 and fedora
@@ -84,11 +86,11 @@ Patch3: python-platform.patch
 %patch -P 1 -p1
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 8
 # Patch2: python3.patch
 %patch -P 2 -p1
 %endif
-%if 0%{?rhel} > 7
+%if 0%{?rhel} == 8
 # Patch3: python-platform.patch
 %patch -P 3 -p1
 %endif
@@ -137,11 +139,13 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 %{_datadir}/vim/vimfiles/after/syntax/beakerlib.vim
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+* Mon Nov 02 2026 Dalibor Pospisil <dapospis@redhat.com> - 1.33.4
+- use corect python interpreter as a requirement and the shebang, by thrix
+- skip plugin sourcing when plugins dir is empty, by thrix
+- docs enhancement, by jan-onderka
 
 * Tue Apr 07 2026 Dalibor Pospisil <dapospis@redhat.com> - 1.33.3
-fix rlWaitForSocket for unix sockets, by mrc0mmand
+- fix rlWaitForSocket for unix sockets, by mrc0mmand
 
 * Thu Mar 05 2026 Cristian Le <fedora@lecris.me> - 1.33.2
 - Add dependency on six from beakerlib-journalling

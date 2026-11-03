@@ -4,7 +4,7 @@
 %global pgversion 16
 %global pgconfig %{_bindir}/pg_server_config
 Name:           postgresql%{pgversion}-%{sname}
-Version:        1.5.2
+Version:        1.5.3
 Release:        %autorelease
 Summary:        Framework for building and installing trusted language PostgreSQL extensions
 License:        Apache-2.0

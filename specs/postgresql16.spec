@@ -47,8 +47,8 @@
 
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
-Version: %{majorversion}.14
-Release: 5%{?dist}
+Version: %{majorversion}.15
+Release: 1%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -60,7 +60,7 @@ Url: http://www.postgresql.org/
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
 %global prevmajorversion 15
-%global prevversion %{prevmajorversion}.18
+%global prevversion %{prevmajorversion}.19
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
@@ -1349,6 +1349,10 @@ make -C postgresql-setup-%{setup_version} check
 %changelog
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 16.14-5
 - Rebuilt for libxml-2.5.4
+
+* Thu Aug 13 2026 Packit <hello@packit.dev> - 16.15-1
+- Update to version 16.15
+- Resolves: rhbz#2515356
 
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 16.14-4
 - Rebuilt for Python 3.15.0b4 ABI change and Perl 5.44

@@ -2,22 +2,16 @@
 
 Summary:	Reference implementation of the iCalendar data type and serialization format
 Name:		libical
-Version:	3.0.20
+Version:	4.0.7
 Release:	%{autorelease}
 License:	LGPL-2.1-only OR MPL-2.0
 URL:		https://libical.github.io/libical/
 Source:		https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# https://github.com/libical/libical/issues/1361
-Patch:          0001-CVE-2026-88383-bsearch-incompatible-callback-pointer.patch
-
-# https://github.com/libical/libical/pull/1455
-Patch:          0002-CVE-2026-111269-Out-of-bounds-read-in-value-decode.patch
-
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
-BuildRequires:	gtk-doc
+BuildRequires:	gi-docgen
 BuildRequires:	ninja-build
 BuildRequires:	pkgconfig
 BuildRequires:	pkgconfig(gobject-2.0)
@@ -73,12 +67,11 @@ Development files needed for building things which link against %{name}-glib.
 
 %build
 %{cmake} \
-  -DUSE_INTEROPERABLE_VTIMEZONES:BOOL=true \
-  -DICAL_ALLOW_EMPTY_PROPERTIES:BOOL=true \
-  -DGOBJECT_INTROSPECTION:BOOL=true \
-  -DICAL_GLIB:BOOL=true \
-  -DICAL_GLIB_VAPI:BOOL=true \
-  -DSHARED_ONLY:BOOL=true
+  -DLIBICAL_GOBJECT_INTROSPECTION:BOOL=true \
+  -DLIBICAL_GLIB:BOOL=true \
+  -DLIBICAL_GLIB_VAPI:BOOL=true \
+  -DLIBICAL_BUILD_TESTING:BOOL=true \
+  -DLIBICAL_JAVA_BINDINGS:BOOL=false
 
 # avoid parallel-builds, gir generatation fails on slower archs
 %cmake_build -j1
@@ -89,7 +82,6 @@ Development files needed for building things which link against %{name}-glib.
 # This is just a private build tool, not meant to be installed
 rm %{buildroot}/%{_libexecdir}/libical/ical-glib-src-generator
 rm %{buildroot}/%{_libdir}/cmake/LibIcal/IcalGlibSrcGenerator.cmake
-rm %{buildroot}/%{_libdir}/cmake/LibIcal/IcalGlibSrcGenerator-noconfig.cmake
 
 %check
 %ctest
@@ -97,48 +89,54 @@ rm %{buildroot}/%{_libdir}/cmake/LibIcal/IcalGlibSrcGenerator-noconfig.cmake
 %ldconfig_scriptlets
 
 %files
-%doc README.md ReleaseNotes.txt THANKS
-%license LICENSE
-%{_libdir}/libical.so.3
+%doc README.md CHANGELOG.md
+%license LICENSE.txt
+%{_libdir}/libical.so.4.0
 %{_libdir}/libical.so.%{version}
-%{_libdir}/libical_cxx.so.3
+%{_libdir}/libical_cxx.so.4.0
 %{_libdir}/libical_cxx.so.%{version}
-%{_libdir}/libicalss.so.3
+%{_libdir}/libicalss.so.4.0
 %{_libdir}/libicalss.so.%{version}
-%{_libdir}/libicalss_cxx.so.3
+%{_libdir}/libicalss_cxx.so.4.0
 %{_libdir}/libicalss_cxx.so.%{version}
-%{_libdir}/libicalvcal.so.3
+%{_libdir}/libicalvcal.so.4.0
 %{_libdir}/libicalvcal.so.%{version}
-%{_libdir}/girepository-1.0/ICal-3.0.typelib
+%{_libdir}/libicalvcard.so.4.0
+%{_libdir}/libicalvcard.so.%{version}
+%{_libdir}/girepository-1.0/ICal-4.0.typelib
 
 %files devel
-%doc doc/UsingLibical.md
+%doc docs/InternalLimits.md docs/KnownExceptions.md docs/MigrationGuide_to_4.md docs/rfcs.md docs/UsingLibical.md
 %{_libdir}/libical.so
 %{_libdir}/libical_cxx.so
 %{_libdir}/libicalss.so
 %{_libdir}/libicalss_cxx.so
 %{_libdir}/libicalvcal.so
+%{_libdir}/libicalvcard.so
 %{_libdir}/pkgconfig/libical.pc
+%{_libdir}/pkgconfig/libicalss.pc
+%{_libdir}/pkgconfig/libicalvcal.pc
+%{_libdir}/pkgconfig/libicalvcard.pc
 %{_libdir}/cmake/LibIcal/
 %{_includedir}/libical/
-%{_datadir}/gir-1.0/ICal-3.0.gir
+%{_datadir}/gir-1.0/ICal-4.0.gir
 
 %ldconfig_scriptlets glib
 
 %files glib
-%{_libdir}/libical-glib.so.3
+%{_libdir}/libical-glib.so.4.0
 %{_libdir}/libical-glib.so.%{version}
-%{_libdir}/girepository-1.0/ICalGLib-3.0.typelib
+%{_libdir}/girepository-1.0/ICalGLib-4.0.typelib
 
 %files glib-devel
 %{_libdir}/libical-glib.so
 %{_libdir}/pkgconfig/libical-glib.pc
 %{_includedir}/libical-glib/
-%{_datadir}/gir-1.0/ICalGLib-3.0.gir
+%{_datadir}/gir-1.0/ICalGLib-4.0.gir
 %{_datadir}/vala/vapi/libical-glib.vapi
 
 %files glib-doc
-%{_datadir}/gtk-doc/html/%{name}-glib
+%{_datadir}/doc/%{name}-glib
 
 %changelog
 %autochangelog

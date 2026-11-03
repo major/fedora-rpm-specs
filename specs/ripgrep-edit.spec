@@ -4,7 +4,7 @@
 %global cargo_install_lib 0
 
 Name:           ripgrep-edit
-Version:        0.3.17
+Version:        0.3.21
 Release:        %autorelease
 Summary:        Edit ripgrep search results across multiple files
 
@@ -18,10 +18,6 @@ License:        %{shrink:
 }
 URL:            https://gitlab.com/aarcange/ripgrep-edit
 Source:         https://gitlab.com/aarcange/ripgrep-edit/-/archive/%version/%name-%version.tar.gz
-
-# Update clap_mangen from 0.2 to 0.3; still allow 0.2
-# https://gitlab.com/aarcange/ripgrep-edit/-/merge_requests/2
-Patch:          https://gitlab.com/aarcange/ripgrep-edit/-/merge_requests/2.patch
 
 BuildRequires:  cargo-rpm-macros ripgrep
 Requires: ripgrep

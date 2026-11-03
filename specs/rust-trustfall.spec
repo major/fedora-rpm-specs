@@ -5,21 +5,18 @@
 %global crate trustfall
 
 Name:           rust-trustfall
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Trustfall query engine, empowering you to query everything
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/trustfall
 Source:         %{crates_source}
-# * Fix missing LICENSE file in published crate: fixed upstream in
-#   https://github.com/obi1kenobi/trustfall/commit/a13173b41767ad874d487a7234059f121fe511af,
-#   but this crate hasn’t been released since then.
-Source10:       https://github.com/obi1kenobi/trustfall/raw/refs/tags/%{crate}-v%{version}/LICENSE.txt
 # Manually created patch for downstream crate metadata changes
-# * Update ron to 0.12: https://github.com/obi1kenobi/trustfall/pull/936
 # * Omit feed-rs and hn_api dev-dependencies, and examples that would require
 #   them
+# * Allow older v1.0.152 of serde_json for now; see
+#   https://src.fedoraproject.org/rpms/rust-serde_json/pull-request/3.
 Patch:          trustfall-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -57,7 +54,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

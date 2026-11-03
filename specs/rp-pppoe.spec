@@ -1,6 +1,6 @@
 Name: rp-pppoe
 Version: 4.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: A PPP over Ethernet client (for xDSL support).
 License: GPL-2.0-or-later
 Url: https://dianne.skoll.ca/projects/rp-pppoe/
@@ -51,6 +51,9 @@ rm -rf %{buildroot}/etc/ppp/plugins
 %doc %{_docdir}/*
 
 %changelog
+* Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.0-11
+- Rebuilt for new ppp
+
 * Mon Oct 12 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.0-10
 - Rebuilt for new ppp
 

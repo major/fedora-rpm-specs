@@ -1,6 +1,6 @@
 Name:           perl-Clownfish-CFC
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compiler for Clownfish
 # other files:          Apache-2.0
 ## Unbundled
@@ -11,7 +11,7 @@ SourceLicense:  Apache-2.0 AND BSD-2-Clause and MIT
 URL:            https://metacpan.org/release/Clownfish-CFC
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARMAN/Clownfish-CFC-%{version}.tar.gz
 # Use system lemon, <https://issues.apache.org/jira/browse/CLOWNFISH-60>
-Patch0:         Clownfish-CFC-0.6.0-Use-system-lemon-if-possible.patch
+Patch0:         Clownfish-CFC-0.8.0-Use-system-lemon-if-possible.patch
 # Handle pkg-config output with multiple arguments, bug #1416443,
 # <https://issues.apache.org/jira/browse/CLOWNFISH-113>
 Patch1:         Clownfish-CFC-0.6.1-Segment-ExtUtils-PkgConfig-output-into-arguments.patch
@@ -155,6 +155,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 02 2026 Petr Pisar <ppisar@redhat.com> - 0.8.0-2
+- Adapt to lemon-3.54.1
+
 * Tue Sep 01 2026 Petr Pisar <ppisar@redhat.com> - 0.8.0-1
 - 0.8.0 bump
 
