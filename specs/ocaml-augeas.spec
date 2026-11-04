@@ -3,14 +3,14 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-augeas
 Version:        0.7
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        OCaml bindings for Augeas configuration API
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://people.redhat.com/~rjones/augeas/
 Source0:        https://download.libguestfs.org/ocaml-augeas/ocaml-augeas-%{version}.tar.gz
 Source1:        https://download.libguestfs.org/ocaml-augeas/ocaml-augeas-%{version}.tar.gz.sig
-Source2:        libguestfs.keyring
+Source2:        https://download.libguestfs.org/rich@annexia.org-pubkey.txt
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 3.09.0
@@ -18,7 +18,7 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-rpm-macros
 BuildRequires:  augeas-devel >= 0.1.0
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 
 
 %description
@@ -37,7 +37,7 @@ developing applications that use %{name}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 
@@ -85,6 +85,9 @@ ocamlfind install augeas META *.mli *.cma *.a augeas.cmi *.so
 
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 0.7-11
+- Verify upstream source signatures with openpgpverify
+
 * Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 0.7-10
 - Bump and rebuild
 

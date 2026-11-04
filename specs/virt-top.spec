@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           virt-top
 Version:        1.1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPL-2.0-or-later
 
@@ -22,7 +22,7 @@ Source2:        processcsv.py
 Source3:        processcsv.py.pod
 
 # Keyring used to verify tarball signature.
-Source4:        libguestfs.keyring
+Source4:        https://download.libguestfs.org/rich@annexia.org-pubkey.txt
 
 # Adds a link to processcsv to the man page.  This patch is only
 # included in RHEL builds.
@@ -46,7 +46,7 @@ BuildRequires:  libxml2-devel
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Pod::Perldoc)
 BuildRequires:  gawk
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 
 
 %description
@@ -59,7 +59,7 @@ different virtualization systems.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE4}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 %if 0%{?rhel} >= 6
@@ -117,6 +117,9 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 1.1.3-5
+- Verify upstream source signatures with openpgpverify
+
 * Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 1.1.3-4
 - OCaml 5.5.1 rebuild
 

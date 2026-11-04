@@ -20,7 +20,7 @@
 
 
 Name:           SDL3
-Version:        3.4.18
+Version:        3.4.20
 Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
@@ -37,6 +37,7 @@ Source10:       SDL3_revision.h
 
 # Patches proposed upstream
 
+BuildRequires:  openpgpverify
 BuildRequires:  git-core
 BuildRequires:  cmake
 BuildRequires:  make
@@ -143,7 +144,7 @@ Testing libraries for SDL3.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup -S git_am
 sed -e 's/\r//g' -i README.md WhatsNew.txt BUGS.txt LICENSE.txt CREDITS.md
@@ -213,6 +214,12 @@ install -p -m 644 %{SOURCE10} %{buildroot}%{_includedir}/SDL3/SDL_revision.h
 
 
 %changelog
+* Tue Nov 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.20-1
+- Update to v3.4.20
+
+* Mon Oct 26 2026 Jakub Jelen <jjelen@redhat.com> - 3.4.18-2
+- Verify upstream source signatures with openpgpverify
+
 * Sat Oct 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.18-1
 - Update to v3.4.18
 

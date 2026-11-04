@@ -32,7 +32,7 @@ BuildRequires:  dbus-daemon
 BuildRequires:  dbus-x11
 BuildRequires:  itstool
 BuildRequires:  pkgconfig(libebook-contacts-1.2)
-BuildRequires:  pkgconfig(libebook-1.2) >= 3.42.0
+BuildRequires:  pkgconfig(libebook-1.2) >= 3.62.1-2
 BuildRequires:  pkgconfig(libadwaita-1) >= 1.5
 BuildRequires:  pkgconfig(gtk4) >= 4.12
 BuildRequires:  pkgconfig(gio-2.0) >= 2.66

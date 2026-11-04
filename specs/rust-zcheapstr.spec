@@ -5,7 +5,7 @@
 %global crate zcheapstr
 
 Name:           rust-zcheapstr
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Immutable, cheaply cloneable string type
 
@@ -32,7 +32,9 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/AGENTS.md
 %doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/CLAUDE.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

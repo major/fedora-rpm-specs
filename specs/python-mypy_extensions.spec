@@ -1,8 +1,8 @@
 %global srcname mypy_extensions
 
 Name:           python-%{srcname}
-Version:        1.1.0
-Release:        8%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Extensions for mypy (separated out from mypy/extensions)
 
 License:        MIT
@@ -46,6 +46,9 @@ rm -vrf *.egg-info/
 %doc README.md
 
 %changelog
+* Tue Nov 03 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.2.0-1
+- 1.2.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

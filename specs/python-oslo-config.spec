@@ -3,7 +3,7 @@
 %bcond_with bootstrap
 
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 
 %global sname oslo.config
 %global pypi_name oslo-config
@@ -14,7 +14,7 @@
 
 Name:       python-oslo-config
 Epoch:      2
-Version:    10.7.0
+Version:    10.8.0
 Release:    %autorelease
 Summary:    OpenStack common configuration library
 
@@ -59,11 +59,11 @@ BuildRequires: git-core
 
 %if %{with doc}
 %package -n python-%{pypi_name}-doc
-Summary:    Documentation for OpenStack common configuration library
+Summary:    %{summary}
 
 
 %description -n python-%{pypi_name}-doc
-Documentation for the oslo-config library.
+Documentation for the openstack oslo-config library.
 %endif
 
 

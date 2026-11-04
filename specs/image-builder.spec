@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        87.0.0
+Version:        89.0.0
 
 %gometa
 
@@ -146,7 +146,7 @@ Provides: bundled(golang(github.com/oklog/ulid)) = 1.3.1
 Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.34.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.36.0
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/planetscale/vtprotobuf)) = 0393e58
@@ -272,6 +272,38 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Mon Nov 02 2026 Packit <hello@packit.dev> - 89.0.0-1
+Changes with 89.0.0
+----------------
+  - Add support for the native bootc composefs aboot support (#2797)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - New subcommand: image-builder prefetch [HMS-11467] (#2792)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - distro/rhel-8: make default OCI partitioning LVM-based (#2793)
+    - Author: Aditya Nair, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - distro/rhel9: Azure 9: add loglevel kernel option (HMS-11475) (#2795)
+    - Author: Anna Vítová, Reviewers: Brian C. Lane, Simon de Vlieger
+  - doc/bootc: fix URL to bootc-foundry (#2806)
+    - Author: Florian Schüller, Reviewers: Simon de Vlieger, swadeley
+  - doc: add guide for generating Fedora 45 LiveISO with bootc containers and Anaconda (#2717)
+    - Author: Fernando Fedora, Reviewers: Simon de Vlieger
+  - image-builder/bib_legacy: switch to embedded repositories (HMS-11482) (#2782)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - image-builder: hide the prefetch command (#2801)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - image-installer: propagate hostname to kickstart (HMS-11121) (#2804)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou
+  - imgtestlib: followup for adding disk images to bootc tests (#2772)
+    - Author: Anna Vítová, Reviewers: Achilleas Koutsou
+  - manifest-checksums: Add the bootc pxe-tar-xz image (#2800)
+    - Author: Brian C. Lane, Reviewers: Sanne Raymaekers
+  - osbuild-upload-gcp: print log output & support newer rhel versions (#2794)
+    - Author: Loris Fauster, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - sysext: additional repositories (#2790)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane
+
+— Somewhere on the Internet, 2026-11-02
+
 * Wed Oct 14 2026 Packit <hello@packit.dev> - 87.0.0-1
 Changes with 87.0.0
 ----------------

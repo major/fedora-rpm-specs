@@ -5,7 +5,7 @@
 %global crate ego-tree
 
 Name:           rust-ego-tree
-Version:        0.11.0
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Vec-backed ID-tree
 

@@ -4,7 +4,7 @@
 %global bootstrap 0
 
 Name:     erlang-%{realname}3
-Version:  3.27.0
+Version:  3.28.0
 Release:  %autorelease
 Summary:  Tool for working with Erlang projects
 License:  Apache-2.0 and MIT
@@ -17,32 +17,33 @@ Patch:    erlang-rebar3-0002-Unbundle-hex_core-ver.-0.7.1.patch
 Patch:    erlang-rebar3-0003-WIP-ignore-deps-on-demand.patch
 Patch:    erlang-rebar3-0004-WIP-prefer-locally-installed-plugins.patch
 Patch:    erlang-rebar3-0005-WIP-don-t-update-packages-if-IGNORE_MISSING_DEPS-is-.patch
-Patch:    erlang-rebar3-0006-Adjust-for-hex_code-ver.-0.15.patch
+BuildRequires:  erlang-asn1
+BuildRequires:  erlang-dialyzer
+BuildRequires:  erlang-edoc
+BuildRequires:  erlang-erl_interface
+BuildRequires:  erlang-erts
+BuildRequires:  erlang-parsetools
+BuildRequires:  erlang-providers
+BuildRequires:  erlang-public_key
+BuildRequires:  erlang-ssl
 %if 0%{?bootstrap}
 # noop
 %else
-BuildRequires:  erlang-rebar3
-%endif
-
-BuildArch: noarch
 BuildRequires:  erlang-bbmustache
 BuildRequires:  erlang-certifi
 BuildRequires:  erlang-cf
 BuildRequires:  erlang-cth_readable
-BuildRequires:  erlang-dialyzer
-BuildRequires:  erlang-edoc
-BuildRequires:  erlang-erl_interface
 BuildRequires:  erlang-erlware_commons
-BuildRequires:  erlang-erts
 BuildRequires:  erlang-eunit_formatters
 BuildRequires:  erlang-getopt
 BuildRequires:  erlang-hex_core
-BuildRequires:  erlang-parsetools
-BuildRequires:  erlang-providers
+BuildRequires:  erlang-rebar3
 BuildRequires:  erlang-relx
 BuildRequires:  erlang-rpm-macros
 BuildRequires:  erlang-ssl_verify_fun
+%endif
 BuildRequires:  perl-interpreter
+BuildArch: noarch
 
 # This one cannot be picked up automatically
 Requires:	erlang-cth_readable

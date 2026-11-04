@@ -1,22 +1,13 @@
-#global         server_tests   1
-
 %global         pypi_name mycli
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
-Version:        1.66.0
-Release:        4%{?dist}
+Version:        2.30.2
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://mycli.net
 Source0:        %{pypi_source}
-Patch:          0001-Revert-to-older-toml-format.patch
-Patch:          0002-Fix-tox-config-and-some-test-fixes.patch
-Patch:          0003-Disable-more-test-which-requires-db-server.patch
-Patch:          0004-Revert-to-sqlglot-5.1.3.patch
-Patch:          0005-Relax-various-reqs.patch
-Patch:          0006-Work-with-older-cli-helpers.patch
-Patch:          0007-Skip-test-failures-due-to-older-click.patch
-Patch:          0008-Adapt-test-suite-to-pygments-2.20.patch
+Patch:          mycli-2.29.4-no-version-dep.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -32,79 +23,45 @@ BuildRequires:  python3dist(configobj) >= 5.0.5
 BuildRequires:  python3dist(pycryptodomex)
 BuildRequires:  python3dist(pymysql) >= 0.9.2
 BuildRequires:  python3dist(pyperclip)
-BuildRequires:  python3dist(sshtunnel)
-# Test infra:
-%{?server_tests:BuildRequires:  mysql-server}
-Suggests:       python3-mycli+ssh
+BuildRequires:  sed
+Obsoletes:      python3-mycli+ssh < 1.67
 %py_provides    python3-%{pypi_name}
 
 %description
 Nice interactive shell for MySQL Database with auto-completion and
 syntax highlighting.
-
-
-%pyproject_extras_subpkg -n python3-%{pypi_name} ssh
-
 %pyproject_extras_subpkg -n python3-%{pypi_name} llm
 
 %prep
 %autosetup -p1
+sed -i -e 's/ ~=.*"/"/' pyproject.toml
 
 %build
 %pyproject_wheel
 
 %generate_buildrequires
-%pyproject_buildrequires -x ssh -x llm
+%pyproject_buildrequires -x llm
 
 %install
 %pyproject_install
 %pyproject_save_files %{pypi_name}
 
 %check
-
-db_env () {
-    export PYTEST_HOST=127.0.0.1
-    export PYTEST_USER=root
-    export PYTEST_PASSWORD=root
-    export PYTEST_PORT=3333
-    export DATADIR=$(mktemp -d /tmp/myclitest.XXXXXX)
-}
-
-db_setup () {
-    mysqld --no-defaults --datadir=$DATADIR --initialize-insecure
-    mysqld --no-defaults --datadir=$DATADIR --socket=$DATADIR/my.sock --port=$PYTEST_PORT -D
-    mysql -uroot --password='' --socket=$DATADIR/my.sock --port=$PYTEST_PORT -e 'CREATE DATABASE mycli_test_db;'
-    mysql -uroot --password='' --socket=$DATADIR/my.sock --port=$PYTEST_PORT -e 'CREATE DATABASE test;'
-    mysql -uroot --password='' --socket=$DATADIR/my.sock --port=$PYTEST_PORT -e "set password='"$PYTEST_PASSWORD"';"
-}
-db_teardown () {
-    mysql -uroot --password=$PYTEST_PASSWORD --socket=$DATADIR/my.sock --port=$PYTEST_PORT -e 'SHUTDOWN;'
-    count=0
-    while [ $count -lt 15 ] ; do
-	sleep 1
-	grep -q 'Shutdown complete' $DATADIR/*.err && break
-	((count+=1))
-    done
-    rm -rf $DATADIR/*
-    rm -r  $DATADIR
-}
-
-%if 0%{?server_tests}
-db_env
-db_setup
-echo :$PYTEST_USER:$PYTEST_PASSWORD:$PYTEST_PORT:
-mysql -uroot --password=$PYTEST_PASSWORD --socket=$DATADIR/my.sock --port=3333 -e 'SELECT version();'
-%endif
-
-%pytest --ignore=test/test_parseutils.py
-%{?server_tests:db_teardown}
+%pytest --ignore-glob='*polars*' --ignore-glob='*test_main_modes_repl*'
 
 %files -f %{pyproject_files}
 %license LICENSE.txt
-%doc mycli/AUTHORS README.md mycli/SPONSORS
+%doc AUTHORS.md changelog.md CONTRIBUTING.md README.md SPONSORS.md
 %{_bindir}/%{pypi_name}
+%exclude %{python3_sitelib}/mycli_test
 
 %changelog
+* Tue Nov 03 2026 Terje Røsten <terjeros@gmail.com> - 2.30.2-1
+- 2.30.2
+
+* Wed Oct 14 2026 Terje Røsten <terjeros@gmail.com> - 2.29.4-1
+- 2.29.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.66.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

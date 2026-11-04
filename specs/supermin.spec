@@ -38,7 +38,7 @@ ExcludeArch: %{ix86}
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.5
-Release:       12%{?dist}
+Release:       13%{?dist}
 License:       GPL-2.0-or-later
 
 ExclusiveArch: %{kernel_arches}
@@ -51,7 +51,7 @@ URL:           http://people.redhat.com/~rjones/supermin/
 Source0:       http://download.libguestfs.org/supermin/%{source_directory}/%{name}-%{version}.tar.gz
 Source1:       http://download.libguestfs.org/supermin/%{source_directory}/%{name}-%{version}.tar.gz.sig
 # Keyring used to verify tarball signature.
-Source2:       libguestfs.keyring
+Source2:       https://download.libguestfs.org/rich@annexia.org-pubkey.txt
 
 # Use stable owner, group and mtime in base.tar.gz
 # Upstream in > 5.3.5
@@ -81,7 +81,7 @@ BuildRequires: glibc-static
 %endif
 BuildRequires: ocaml, ocaml-findlib-devel
 %if 0%{verify_tarball_signature}
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 %endif
 
 # These are required only to run the tests.  We could patch out the
@@ -156,7 +156,7 @@ supermin appliances.
 
 %prep
 %if 0%{verify_tarball_signature}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %setup -q
 %autopatch -p1
@@ -211,6 +211,9 @@ make check || {
 
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 5.3.5-13
+- Verify upstream source signatures with openpgpverify
+
 * Tue Sep 15 2026 Richard W.M. Jones <rjones@redhat.com> - 5.3.5-12
 - OCaml 5.5.1 rebuild
 

@@ -1,6 +1,6 @@
 Name:           rpminspect-data-centos
 Version:        1.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          1
 Summary:        Build deviation compliance tool data files for CentOS
 Group:          Development/Tools
@@ -14,7 +14,7 @@ BuildArch:      noarch
 
 BuildRequires:  meson
 BuildRequires:  ninja-build
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 
 Requires:       rpminspect >= 1.11
 
@@ -37,7 +37,7 @@ and data files used by the inspections provided by librpminspect.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 
@@ -58,6 +58,9 @@ and data files used by the inspections provided by librpminspect.
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1:1.4-10
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

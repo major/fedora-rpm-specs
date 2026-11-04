@@ -5,6 +5,10 @@
 %ifarch %{ix86}
 %global rustflags_debuginfo 1
 %endif
+# workaround for ppc64 vectorization bug in LLVM 23 (RHBZ#2553620)
+%ifarch ppc64le
+%global build_rustflags %{build_rustflags} -Cno-vectorize-loops
+%endif
 
 %global crate sequoia-chameleon-gnupg
 

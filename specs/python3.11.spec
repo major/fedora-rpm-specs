@@ -89,6 +89,9 @@ License: Python-2.0.1
 # Main interpreter loop optimization
 %bcond_without computed_gotos
 
+# The nis module (NIS/YP client), needs libnsl2 and libtirpc
+%bcond_without nis
+
 # Support for the Valgrind debugger/profiler
 %ifarch %{valgrind_arches}
 %bcond_without valgrind
@@ -208,8 +211,10 @@ BuildRequires: libappstream-glib
 BuildRequires: libb2-devel
 %endif
 BuildRequires: libffi-devel
+%if %{with nis}
 BuildRequires: libnsl2-devel
 BuildRequires: libtirpc-devel
+%endif
 BuildRequires: libGL-devel
 BuildRequires: libuuid-devel
 BuildRequires: libxcrypt-devel
@@ -250,6 +255,7 @@ BuildRequires: /usr/sbin/ifconfig
 %if %{with rpmwheels}
 BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel
 BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel
+BuildRequires: ca-certificates
 %else
 # For %%python_wheel_inject_sbom
 BuildRequires: python-rpm-macros
@@ -285,6 +291,16 @@ Source10: idle3.desktop
 # AppData file for idle3
 Source11: idle3.appdata.xml
 
+# Patches for bundled wheels (declared as Sources, applied manually in %%prep):
+#
+# Use the system level root certificate instead of the one bundled in certifi
+# in the pip wheel bundled in ensurepip.
+# https://bugzilla.redhat.com/1655253
+# The same patch is a part of the RPM-packaged python-pip and python-certifi.
+Source41: pip-dummy-certifi.patch
+
+# Patches for Python
+#
 # (Patches taken from github.com/fedora-python/cpython)
 
 # 00001 # d06a8853cf4bae9e115f45e1d531d2dc152c5cc8
@@ -500,6 +516,7 @@ Requires: %{python_wheel_pkg_prefix}-pip-wheel
 %else
 Provides: bundled(python3dist(pip)) = %{pip_version}
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
+Requires: ca-certificates
 %endif
 
 %unversioned_obsoletes_of_python3_X_if_main libs
@@ -693,6 +710,16 @@ The debug runtime additionally supports debug builds of C-API extensions
 %prep
 %openpgpverify -k2 -s1 -d0
 %autosetup -S git_am -n Python-%{upstream_version}
+
+# Apply patches to pip
+# This is done unconditionally on rpmwheels
+# so that the applicability against the current pip version is always verified,
+# even though the resulting wheel only matters when rpmwheels are disabled.
+unzip -qq Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
+# -p2 to compensate src/ prefix
+patch -p2 < %{SOURCE41}
+zip -rq Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl pip pip-%{pip_version}.dist-info
+rm -rf pip/ pip-%{pip_version}.dist-info/
 
 %if %{with rpmwheels}
 rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
@@ -1333,7 +1360,9 @@ CheckPython optimized
 %{dynload_dir}/grp.%{SOABI_optimized}.so
 %{dynload_dir}/math.%{SOABI_optimized}.so
 %{dynload_dir}/mmap.%{SOABI_optimized}.so
+%if %{with nis}
 %{dynload_dir}/nis.%{SOABI_optimized}.so
+%endif
 %{dynload_dir}/ossaudiodev.%{SOABI_optimized}.so
 %{dynload_dir}/_posixshmem.%{SOABI_optimized}.so
 %{dynload_dir}/pyexpat.%{SOABI_optimized}.so
@@ -1627,7 +1656,9 @@ CheckPython optimized
 %{dynload_dir}/grp.%{SOABI_debug}.so
 %{dynload_dir}/math.%{SOABI_debug}.so
 %{dynload_dir}/mmap.%{SOABI_debug}.so
+%if %{with nis}
 %{dynload_dir}/nis.%{SOABI_debug}.so
+%endif
 %{dynload_dir}/ossaudiodev.%{SOABI_debug}.so
 %{dynload_dir}/_posixshmem.%{SOABI_debug}.so
 %{dynload_dir}/pyexpat.%{SOABI_debug}.so

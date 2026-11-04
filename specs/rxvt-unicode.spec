@@ -1,6 +1,6 @@
 Name:           rxvt-unicode
 Version:        9.31
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Unicode version of rxvt
 
 License:        GPL-3.0-or-later
@@ -29,7 +29,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gdk-pixbuf2-devel
 BuildRequires:  git
 BuildRequires:  glib2-devel
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  libptytty-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXext-devel
@@ -60,7 +60,7 @@ and output. It also supports mixing multiple fonts at the same time, including
 Xft fonts.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
+%{openpgpverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
 signify -V -p '%{SOURCE2}' -m '%{SOURCE0}'
 %autosetup -S git
 
@@ -185,6 +185,9 @@ popd
 %{_libdir}/urxvt
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 9.31-18
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 9.31-17
 - Perl 5.44 rebuild
 

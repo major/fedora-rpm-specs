@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	9
+%global	baserelease	10
 %dnl %global	alphatag		.rc9
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -422,6 +422,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Tue Nov 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-10
+- Rebuild for https://fedoraproject.org/wiki/Changes/Libical4
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.6.2-9
 - Rebuilt for libxml-2.5.4
 

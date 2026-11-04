@@ -9,7 +9,7 @@ Source0: https://www.ivarch.com/programs/sources/%{name}-%{version}.tar.gz
 Source1: https://www.ivarch.com/programs/sources/%{name}-%{version}.tar.gz.txt
 Source2: https://www.ivarch.com/personal/public-key.txt
 
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: gettext
@@ -24,7 +24,7 @@ will be until completion.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

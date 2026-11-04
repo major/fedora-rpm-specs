@@ -11,7 +11,7 @@ Source2:        https://downloads.puppetlabs.com/puppet-gpg-signing-key-20250406
 # Use /etc/puppet rather than /etc/puppetlabs/puppet
 Patch0:         fix-puppetlab-paths.patch
 BuildArch:      noarch
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  rubygem(rspec)
 BuildRequires:  rubygem(mocha)
 BuildRequires:  rubygem(json)
@@ -21,7 +21,7 @@ BuildRequires:  ruby-devel
 A simple hierarchical database supporting plugin data sources.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %patch -P0 -p1
 

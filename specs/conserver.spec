@@ -7,7 +7,7 @@
 
 Name:           conserver
 Version:        8.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Serial console server daemon/client
 
 License:        BSD-3-Clause AND Zlib
@@ -28,7 +28,7 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  freeipmi-devel
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  krb5-devel
 BuildRequires:  libxcrypt-devel
 BuildRequires:  make
@@ -53,7 +53,7 @@ Summary: Serial console client
 This is the client package needed to interact with a Conserver daemon.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 # disable stripping of binaries
@@ -115,6 +115,9 @@ install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/conserver.service
 %{_mandir}/man1/console.1*
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 8.3.0-4
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

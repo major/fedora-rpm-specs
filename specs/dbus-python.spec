@@ -1,7 +1,7 @@
 %define srcname dbus_python
 
 Name:    dbus-python
-Version: 1.5.0
+Version: 1.5.1
 Release: %autorelease
 Summary: D-Bus Python Bindings
 
@@ -13,7 +13,7 @@ Source1: http://dbus.freedesktop.org/releases/dbus-python/%{srcname}-%{version}.
 # gpg --export --export-options export-minimal > gpgkey-7A073AD1AE694FA25BFF62E5235C099D3EB33076.gpg
 Source2: gpgkey-7A073AD1AE694FA25BFF62E5235C099D3EB33076.gpg
 
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(glib-2.0)
 # for %%check
@@ -50,7 +50,7 @@ Headers and static libraries for hooking up custom mainloops to the dbus python
 bindings.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{srcname}-%{version}
 
 %build

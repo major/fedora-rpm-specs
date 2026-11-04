@@ -65,7 +65,7 @@ BuildRequires:  gettext
 BuildRequires:  git-core
 BuildRequires:  ncurses-devel
 BuildRequires:  pcre2-devel
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  python3-devel
 BuildRequires:  python3-pexpect
 BuildRequires:  procps-ng
@@ -96,7 +96,7 @@ nothing to learn or configure.
 
 %prep
 %if %{undefined gitnum}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -N %{?gitnum:-n fish-shell-%{githash}}
 

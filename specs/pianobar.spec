@@ -5,7 +5,7 @@ online radio Pandora.}
 
 Name:           pianobar
 Version:        2024.12.21
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Console-based client for Pandora
 
 License:        MIT
@@ -17,7 +17,7 @@ Source:         %{baseurl}/08D8092A.gpg
 
 BuildRequires:  coreutils
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 BuildRequires:  sed
 
@@ -65,7 +65,7 @@ This package contains shared libraries for %{name}.
 
 # Verify source tarball
 (cd "%{_sourcedir}" && sha256sum --check "%{SOURCE1}")
-%{gpgverify} --keyring="%{SOURCE3}" --signature="%{SOURCE2}" --data="%{SOURCE0}"
+%{openpgpverify} --keyring="%{SOURCE3}" --signature="%{SOURCE2}" --data="%{SOURCE0}"
 
 # Preserve timestamps on install
 sed -i 's/install /install -p /g' Makefile
@@ -96,6 +96,9 @@ rm %{buildroot}%{_libdir}/libpiano.a
 %{_libdir}/libpiano.so.0{,.*}
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 2024.12.21-7
+- Verify upstream source signatures with openpgpverify
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 2024.12.21-6
 - Rebuilt for FFmpeg 9
 

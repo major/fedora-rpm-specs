@@ -10,7 +10,7 @@
 
 Name:           qemu-sanity-check
 Version:        1.1.6
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Simple qemu and Linux kernel sanity checker
 License:        GPL-2.0-or-later
 
@@ -25,7 +25,7 @@ URL:            http://people.redhat.com/~rjones/qemu-sanity-check
 Source0:        http://people.redhat.com/~rjones/qemu-sanity-check/files/%{name}-%{version}.tar.gz
 Source1:        http://people.redhat.com/~rjones/qemu-sanity-check/files/%{name}-%{version}.tar.gz.sig
 # Keyring used to verify tarball signature.
-Source2:        libguestfs.keyring
+Source2:        https://download.libguestfs.org/rich@annexia.org-pubkey.txt
 
 # Patches (all upstream).
 Patch:          0001-tests-run-qemu-sanity-check-Add-v-flag-for-verbose-m.patch
@@ -44,7 +44,7 @@ Patch:          0013-src-Look-for-kernels-in-lib-modules-vmlinuz.patch
 Patch:          0014-Choose-cpu-max-by-default.patch
 
 # To verify the tarball signature.
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -129,7 +129,7 @@ as %{name} except that this package does not depend on qemu or kernel.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 autoreconf -fi
 
@@ -176,6 +176,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 1.1.6-23
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

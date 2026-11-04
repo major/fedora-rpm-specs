@@ -29,7 +29,7 @@ Patch1:		xerces-c_mingw.patch
 BuildRequires:	cmake
 BuildRequires:	dos2unix
 BuildRequires:	gcc-c++
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 BuildRequires:	make
 
 %if %{with mingw}
@@ -78,7 +78,7 @@ BuildArch:	noarch
 %{?mingw_debug_package}
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 # Copy samples before build to avoid including built binaries in -doc package
 mkdir -p _docs

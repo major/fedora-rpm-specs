@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
 Version:       1.57
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       DNS resolver modules for Perl
 License:       MIT
 URL:           https://www.net-dns.org
@@ -10,7 +10,7 @@ Source2:       https://keys.openpgp.org/pks/lookup?op=get&search=0x231018690C4D9
 
 BuildArch:     noarch
 
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: coreutils
 BuildRequires: findutils
 BuildRequires: make
@@ -115,7 +115,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %setup -q -n Net-DNS-%{version} 
 chmod -x demo/*
@@ -182,6 +182,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1.57-2
+- Verify upstream source signatures with openpgpverify
+
 * Wed Sep 02 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.57-1
 - 1.57 bump (rhbz#2526802)
 

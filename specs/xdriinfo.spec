@@ -13,7 +13,7 @@ Source2: https://gitlab.freedesktop.org/alanc.gpg
 Conflicts: glx-utils < 9.0.0-4
 
 BuildRequires: gcc
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: meson
 BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(glproto)
@@ -24,7 +24,7 @@ xdriinfo can be used to query configuration information of direct
 rendering drivers.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

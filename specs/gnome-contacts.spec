@@ -21,7 +21,7 @@ BuildRequires:  vala
 BuildRequires:  blueprint-compiler
 BuildRequires:  /usr/bin/appstreamcli
 BuildRequires:  /usr/bin/xsltproc
-BuildRequires:  pkgconfig(folks)
+BuildRequires:  pkgconfig(folks) >= 0.15.12-12
 BuildRequires:  pkgconfig(folks-eds)
 BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(goa-1.0)

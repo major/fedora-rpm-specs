@@ -5,7 +5,7 @@
 %global crate jiff-icu
 
 Name:           rust-jiff-icu
-Version:        0.2.2
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Conversion routines between Jiff and ICU4X
 

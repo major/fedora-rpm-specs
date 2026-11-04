@@ -14,7 +14,7 @@
 
 Name:           mod_perl
 Version:        2.0.13
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 # other files:                  ASL 2.0
 ## Not in binary packages
@@ -43,7 +43,7 @@ BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  gdbm-devel
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  httpd
 BuildRequires:  httpd-devel >= 2.4.0
 BuildRequires:  make
@@ -179,7 +179,7 @@ This mod_perl extension allows to reload Perl modules that changed on the disk.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p 1
 
 # Remove docs/os. It's only win32 info with non-ASL-2.0 license. Bug #1199044.
@@ -323,6 +323,9 @@ fi
 %endif
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 2.0.13-15
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.0.13-14
 - Perl 5.44 rebuild
 

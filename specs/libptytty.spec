@@ -1,6 +1,6 @@
 Name:    libptytty
 Version: 2.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: OS independent and secure pty/tty and utmp/wtmp/lastlog handling
 License: GPL-2.0-or-later
 URL:     http://software.schmorp.de/pkg/libptytty.html
@@ -19,7 +19,7 @@ Patch0: libptytty-cmake-c99.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-g++
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: git
 BuildRequires: ninja-build
 BuildRequires: signify
@@ -41,7 +41,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %desc
 
 %prep
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
+%{openpgpverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
 signify -V -p '%{SOURCE2}' -m '%{SOURCE0}'
 %autosetup -S git
 
@@ -66,6 +66,9 @@ signify -V -p '%{SOURCE2}' -m '%{SOURCE0}'
 %doc README
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 2.0-16
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

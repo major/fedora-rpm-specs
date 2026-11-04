@@ -10,7 +10,7 @@ Summary:       Convert a physical machine to run on KVM
 Name:          virt-p2v
 Epoch:         1
 Version:       1.42.4
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # virt-p2v works only on x86_64 at the moment.  It requires porting
@@ -27,7 +27,7 @@ Source1:       http://download.libguestfs.org/%{name}/%{name}-%{version}.tar.gz.
 
 # Keyring used to verify tarball signature.
 %if 0%{verify_tarball_signature}
-Source2:       libguestfs.keyring
+Source2:       https://download.libguestfs.org/rich@annexia.org-pubkey.txt
 %endif
 
 # Basic build requirements.
@@ -45,7 +45,7 @@ BuildRequires: gtk3-devel
 BuildRequires: dbus-devel
 BuildRequires: m4
 %if 0%{verify_tarball_signature}
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 %endif
 
 # Test suite requirements.
@@ -75,7 +75,7 @@ To convert virtual machines from other hypervisors, see virt-v2v.
 
 %prep
 %if 0%{verify_tarball_signature}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -p1
 
@@ -119,6 +119,9 @@ rm $RPM_BUILD_ROOT%{_mandir}/man1/p2v-release-notes.1*
 
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 1:1.42.4-6
+- Verify upstream source signatures with openpgpverify
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.42.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

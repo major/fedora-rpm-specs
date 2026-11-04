@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 21%{?dist}
+Release: 23%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -401,6 +401,14 @@ Patch20: binutils-gold-s390-configure.patch
 # Lifetime: Permanent.
 Patch21: binutils-ld-default-z-text.patch
 
+# %%ifarch x86_64 
+# Purpose:  The x86_64 architecture does not allow a shared library to access
+# static variables inside a static library.  This is a problem for the
+# libbfd.so library, since it is really a static library in disguise.
+# Lifetime: Permanent.
+Patch22: binutils-no-static-globals-in-libbfd.so.patch
+# %%endif
+
 #----------------------------------------------------------------------------
 
 # Purpose:  Remove the Build protected-func-2 without PIE linker tests
@@ -521,6 +529,9 @@ Provides: binutils-static = %{version}-%{release}
 %if %{with systemzlib}
 Requires: zlib-devel
 %endif
+%if %{with zstd}
+Requires: libzstd-devel
+%endif
 Requires: binutils = %{version}-%{release}
 # BZ 1215242: We need touch...
 Requires: coreutils
@@ -611,6 +622,10 @@ Requires: coreutils
 # zlib-devel provides libz.so
 Requires: zlib-devel
 %endif
+%if %{with zstd}
+# libzstd-devel provides libzstd.so
+Requires: libzstd-devel
+%endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 
 # We build host == target versions of the cross binutils as this simplifies
@@ -634,6 +649,9 @@ Requires: coreutils
 %if %{with systemzlib}
 Requires: zlib-devel
 %endif
+%if %{with zstd}
+Requires: libzstd-devel
+%endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 
 # We build host == target versions of the cross binutils as this simplifies
@@ -656,6 +674,9 @@ Obsoletes: binutils-s390x-linux-gnu < %{version}-%{release}
 Requires: coreutils
 %if %{with systemzlib}
 Requires: zlib-devel
+%endif
+%if %{with zstd}
+Requires: libzstd-devel
 %endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 
@@ -681,6 +702,9 @@ Requires: coreutils
 %if %{with systemzlib}
 Requires: zlib-devel
 %endif
+%if %{with zstd}
+Requires: libzstd-devel
+%endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 
 # We build host == target versions of the cross binutils as this simplifies
@@ -705,6 +729,9 @@ Obsoletes: binutils-x86_64-linux-gnu < %{version}-%{release}
 Requires: coreutils
 %if %{with systemzlib}
 Requires: zlib-devel
+%endif
+%if %{with zstd}
+Requires: libzstd-devel
 %endif
 BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 
@@ -1359,6 +1386,17 @@ install_binutils()
    on a multi-architecture system.  */
 $(gcc $CFLAGS $LDFLAGS -shared -x c /dev/null -o /dev/null -Wl,--verbose -v 2>&1 | sed -n -f "%{SOURCE1}")"
 
+%if %{with zstd}
+        tee $local_libdir/libbfd.so <<EOH
+/* GNU ld script */
+
+$OUTPUT_FORMAT
+
+/* The libz, libzstd & libsframe dependencies are unexpected by legacy build scripts.  */
+/* The libdl dependency is for plugin support.  (BZ 889134)  */
+INPUT ( %{_libdir}/libbfd.a %{_libdir}/libsframe.a -liberty -lz -lzstd -ldl )
+EOH
+%else
         tee $local_libdir/libbfd.so <<EOH
 /* GNU ld script */
 
@@ -1368,6 +1406,7 @@ $OUTPUT_FORMAT
 /* The libdl dependency is for plugin support.  (BZ 889134)  */
 INPUT ( %{_libdir}/libbfd.a %{_libdir}/libsframe.a -liberty -lz -ldl )
 EOH
+%endif
 
         tee $local_libdir/libopcodes.so <<EOH
 /* GNU ld script */
@@ -1802,6 +1841,12 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Nov 02 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-23
+- Use -lzstd in the libbfd.so script.  (#2493579)
+
+* Mon Nov 02 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-22
+- Remove global static variable from libbfd.so.  (#2564442)
+
 * Thu Oct 29 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-21
 - Rebase to commit 86187fd72fd
 

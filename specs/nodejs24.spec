@@ -169,6 +169,8 @@ Source101:      nodejs.srpm.macros
 0001-npm-update-brace-expansion-to-5.0.12.patch
 # CVE-2026-101911 - ip-address 10.5.0 -> 10.7.4 (npm bundled dep)
 0001-npm-update-ip-address-to-10.7.4.patch
+# undici CVE fixes for the copy bundled in npm
+0001-npm-update-undici-to-6.29.1.patch
 
 %description
 Node.js is a platform built on Chrome's JavaScript runtime

@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        113
+Version:        116
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -54,8 +54,77 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 %{_tmpfilesdir}/cockpit-image-builder.conf
 %ghost %attr(0700, root, root) %dir /var/cache/cockpit-image-builder
+%ghost %attr(0700, root, root) %dir /var/lib/cockpit-image-builder
 
 %changelog
+* Mon Nov 2 2026 Packit <hello@packit.dev> - 116-1
+Changes with 116
+----------------
+  - Add schema-based filesystem validation (HMS-11439) (#4926)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - Let duplicate-only inputs commit on blur (HMS-11485) (#4921)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - Remove image-builder-cli branch from github actions (#4943)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Revert ".github/workflows: support minor releases on branches" (#4951)
+    - Author: Sanne Raymaekers, Reviewers: Klara Simickova
+  - Revert change to .github/workflows/trigger-gitlab.yml (#4942)
+    - Author: Klara Simickova, Reviewers: Nobody
+  - Run basic test set on other branches (HMS-11517) (#4938)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Track pending validation across wizard navigation (HMS-11491) (#4925)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - Update Konflux references (#4922)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - Update build-tools digest to 1a7a216 (#4923)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - Update dependency node to v24.22.0 (#4924)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - Wizard/Packages: Clean up the PackageSearch component (HMS-11488) (#4941)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Wizard/Packages: Continue with packages cleanup (HMS-11488) (#4954)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Wizard/Packages: Make package_list non-optional (HMS-11488) (#4947)
+    - Author: Klara Simickova, Reviewers: Katarína Sieklová
+  - Wizard/Review: Fix trailing divider in the Advanced settings section (HMS-11327) (#4917)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - Wizard: remove banner announcing single-targeted BPs (#4958)
+    - Author: Katarína Sieklová, Reviewers: Klara Simickova
+  - build(deps): bump fast-uri from 3.1.8 to 3.1.9 (#4950)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps): bump follow-redirects from 1.16.0 to 1.16.1 (#4932)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps): bump sanitize-html from 2.17.7 to 2.18.1 (#4931)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps): bump the minor-and-patch group with 11 updates (#4955)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps): bump the minor-and-patch group with 16 updates (#4927)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps): bump undici (#4948)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps-dev): bump fast-uri from 3.1.8 to 3.1.9 in /api (#4949)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps-dev): bump launch-editor from 2.14.1 to 2.14.2 (#4933)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - build(deps-dev): bump vite from 8.1.5 to 8.3.4 (#4934)
+    - Author: dependabot, Reviewers: Klara Simickova
+  - chore(deps): update build-tools digest to ec3d869 (#4945)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - chore(deps): update dependency node to v24.22.1 (#4946)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - chore(deps): update konflux references (#4944)
+    - Author: red-hat-konflux, Reviewers: Klara Simickova
+  - cockpit/spec: bump release version to 116 (#4952)
+    - Author: Sanne Raymaekers, Reviewers: Klara Simickova
+  - src: General types cleanup (HMS-11499) (#4935)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - src: Replace interface with type (HMS-11490) (#4929)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - src: Review ts-ignore and ts-expect-errors comments and resolve them where possible (HMS-11493) (#4930)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2026-10-29
+
 * Mon Sep 21 2026 Packit <hello@packit.dev> - 113-1
 Changes with 113
 ----------------

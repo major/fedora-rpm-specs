@@ -6,7 +6,7 @@
 
 Name: libabigail
 Version: 3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache-2.0 WITH LLVM-exception
@@ -18,7 +18,10 @@ BuildRequires: libbpf-devel
 BuildRequires: binutils-devel
 BuildRequires: gcc-c++
 BuildRequires: libtool
-BuildRequires: elfutils-devel
+# Use elfutils-devel >= 0.197 because it does have thread-safety
+# enabled.
+BuildRequires: elfutils-devel >= 0.197
+BuildRequires: tbb-devel
 BuildRequires: libxml2-devel
 BuildRequires: xxhash-devel
 BuildRequires: xz-devel >= 5.2.0
@@ -93,6 +96,14 @@ Requires: python3-pyxdg
 Requires: python3-rpm
 #For x-rpm mimetype definition!
 Requires: mailcap
+
+#Patches
+
+Patch1: 0001-default-reporter-Fix-segfault-on-added-deleted-iface.patch
+Patch2: 0002-dwarf-reader-Canonicalize-void-type.patch
+Patch3: 0003-corpus-Record-pointer-to-member-sub-types-as-reachab.patch
+Patch4: 0004-dwarf-reader-Remove-unfortunate-debugging-artifact.patch
+Patch5: 0005-hash-dwarf-reader-reader-writer-Handle-decl-only-enu.patch
 
 %description fedora
 This package contains the fedabipkgdiff command line utility, which
@@ -170,6 +181,22 @@ time make %{?_smp_mflags} check-self-compare || (cat tests/test-suite.log && exi
 %endif
 
 %changelog
+* Mon Nov 2 2026 Dodji Seketeli <dodji@seketeli.org> - 3.0-2
+- Apply several fixes that are in Git, on top of Libabigail 3.0:
+  - https://sourceware.org/cgit/libabigail/commit/?id=e3dd2aeb4aa4744abcfb47e8c8d052b0413b5712
+    0001-default-reporter-Fix-segfault-on-added-deleted-iface.patch
+  - https://sourceware.org/cgit/libabigail/commit/?id=d5fcf4f0c4a05ad4893f6025fa6fceeb232d411c
+    0002-dwarf-reader-Canonicalize-void-type.patch
+    - https://sourceware.org/cgit/libabigail/commit/?id=f682125258c4a464330840c7687e94ada6a900a0
+    0003-corpus-Record-pointer-to-member-sub-types-as-reachab.patch
+  - https://sourceware.org/cgit/libabigail/commit/?id=cf48c7a3b419363dd6abf552286170b5aef99592
+    0004-dwarf-reader-Remove-unfortunate-debugging-artifact.patch
+  - https://sourceware.org/cgit/libabigail/commit/?id=62042970cb1943299216c4ad54b6253c9dd568a4
+    0005-hash-dwarf-reader-reader-writer-Handle-decl-only-enu.patch
+- Activate multithreading support
+   - Rebuild against elfutils-devel >= 0.197 to enable multithreading
+   - Add BuildRequires: tbb-devel to enable parallel sort
+
 * Wed Oct 7 2026 Dodji Seketeli <dodji@seketeli.org> - 3.0-1
 - Update to new upstream 3.0 tarball
 - Build with no full parallel processing because elfutils 0.196 was not built with --enable-thread-safety

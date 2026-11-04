@@ -2,10 +2,10 @@
 
 Name:           soxr
 Version:        0.1.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        The SoX Resampler library
 
-License:        LGPL-2.1-or-later
+License:        LGPL-2.1-or-later AND NCL
 URL:            https://sourceforge.net/p/soxr/wiki/Home/ 
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-Source.tar.xz
 
@@ -14,6 +14,11 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-Sour
 Patch0:         soxr-cmake.patch
 
 BuildRequires:  cmake gcc
+
+# Bundled pffft (Pretty Fast FFT) under the NCL Source Code License.
+# See src/pffft.c and https://bitbucket.org/jpommier/pffft/
+Provides:       bundled(pffft)
+
 
 %description
 The SoX Resampler library `libsoxr' performs one-dimensional sample-rate
@@ -61,13 +66,16 @@ rm -rf %{buildroot}%{_docdir}/*
 
 %files devel
 %doc examples
-%{_includedir}/*
+%{_includedir}/%{name}*.h
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/soxr-lsr.pc
 %{_libdir}/pkgconfig/soxr.pc
 
 
 %changelog
+* Tue Nov 03 2026 Richard Shaw <hobbes1069@gmail.com> - 0.1.3-23
+- Update spec to note bundled pffft and license update.
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

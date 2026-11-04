@@ -5,7 +5,7 @@
 %global crate pyo3-log
 
 Name:           rust-pyo3-log
-Version:        0.13.4
+Version:        0.13.5
 Release:        %autorelease
 Summary:        Logging bridge from pyo3 native extension to python
 

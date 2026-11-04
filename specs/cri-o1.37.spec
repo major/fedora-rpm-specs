@@ -8,10 +8,10 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.37
-%global crio_spec_ver   1.37.2
+%global crio_spec_ver   1.37.3
 # Uncomment if needed for commit based release
 # %%global crio_commit     
-%global crio_tag        v1.37.2
+%global crio_tag        v1.37.3
 %global golangver       1.26.5
 
 # Related: github.com/cri-o/cri-o/issues/3684
@@ -148,7 +148,6 @@ sed -i 's/\/local//' contrib/systemd/crio.service
       --cni-plugin-dir="%{_libexecdir}/cni" \
       --enable-metrics \
       --metrics-port="9537" \
-      --cni-plugin-dir="%{_libexecdir}/cni" \
       --pinns-path="%{_libexecdir}/crio/pinns" \
       config > crio.conf
 

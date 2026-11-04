@@ -24,7 +24,7 @@ BuildRequires:	yelp-tools
 ## use that package here instead of barcode-static.
 BuildRequires:	barcode-static
 %if ! 0%{?flatpak}
-BuildRequires:	pkgconfig(libebook-1.2) >= 3.45.1
+BuildRequires:	pkgconfig(libebook-1.2) >= 3.62.1-2
 %endif
 BuildRequires:	pkgconfig(glib-2.0) >= 2.42.0
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.14.0

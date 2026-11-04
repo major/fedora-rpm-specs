@@ -1,5 +1,5 @@
 Name:           python-ujson
-Version:        6.0.0
+Version:        6.1.0
 Release:        %autorelease
 Summary:        Ultra fast JSON encoder and decoder written in pure C
 
@@ -56,12 +56,6 @@ export UJSON_BUILD_DC_INCLUDES="$(
   pkg-config --variable=includedir double-conversion
 )/double-conversion"
 export UJSON_BUILD_DC_LIBS="$(pkg-config --libs double-conversion)"
-
-
-%install -a
-# For setuptools_scm 10+; see:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2453824
-rm --recursive --verbose --force '%{buildroot}%{python3_sitearch}/src'
 
 
 %check -a

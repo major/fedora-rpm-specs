@@ -7,12 +7,21 @@ Release:	%autorelease
 BuildArch:	noarch
 License:	Apache-2.0
 URL:		https://vyperlang.org
-Source0:	%{pypi_source %{name}}
+Source:		%{pypi_source %{name}}
 # Fedora-specific
 Patch:		vyper-0001-Use-Cryptodomex.patch
 # Reverts https://github.com/vyperlang/vyper/pull/3613
 Patch:		vyper-0002-Ease-version-requirements.patch
+# Fedora-specific
 Patch:		vyper-0003-Remove-unnecessary-shebang.patch
+# Fedora-specific
+Patch:		vyper-0004-Relax-lark-dependency.patch
+# Backported from upstream
+Patch:		vyper-0005-fix-codegen-widen-ternary-arms-to-the-result-type-la.patch
+# Backported from upstream
+Patch:		vyper-0006-fix-parser-fix-source-spans-for-form-feeds-and-non-a.patch
+# Backported from upstream
+Patch:		vyper-0007-fix-codegen-check-create_from_blueprint-code_offset-.patch
 BuildRequires:	git
 BuildRequires:	python3-cached_property
 BuildRequires:	python3-eth-abi

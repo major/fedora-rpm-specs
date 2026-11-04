@@ -28,7 +28,7 @@ Source4:         https://maximbaz.com/pgp_keys.asc
 
 
 BuildRequires:  jq
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  go-vendor-tools
 
 %description
@@ -55,7 +55,7 @@ Browserpass native component for the Chromium extension
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE0}'
 %goprep -p1
 tar -xf %{S:1}
 

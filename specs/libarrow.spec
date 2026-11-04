@@ -32,8 +32,8 @@
 %global parquet_test_data_commit 92d45b0752487a4b55fb7f1581c8126ee3e73b0d
 
 Name:		libarrow
-Version:	26.0.0
-Release:	2%{?dist}
+Version:	26.0.1
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -882,6 +882,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Tue Nov 3 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.1-1
+- Arrow 26.0.1 (f46-build-side-158624)
+
 * Mon Oct 12 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.0-1
 - Arrow 26.0.0 (f46-build-side-154926), unused BuildRequires
 

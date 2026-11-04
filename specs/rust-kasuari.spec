@@ -5,13 +5,16 @@
 %global crate kasuari
 
 Name:           rust-kasuari
-Version:        0.4.12
+Version:        0.4.13
 Release:        %autorelease
 Summary:        Rust layout solver for GUIs, based on the Cassowary algorithm
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/kasuari
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax rstest dev-dependency to allow both v0.26 and v0.27
+Patch:          kasuari-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

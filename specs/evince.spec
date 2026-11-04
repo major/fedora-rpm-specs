@@ -14,7 +14,7 @@
 %global poppler_version 22.05.0
 
 Name:           evince
-Version:        48.1
+Version:        48.4
 Release:        %autorelease
 Summary:        Document viewer
 
@@ -25,9 +25,6 @@ Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version
 %gnome_check_version
 
 Patch:          evince-46.3.1-kpathsea-header-files.patch
-
-# https://gitlab.gnome.org/GNOME/evince/-/merge_requests/789
-Patch:          CVE-2026-46529.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext-devel

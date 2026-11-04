@@ -25,7 +25,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: glib2-devel
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: gpgme-devel
 BuildRequires: gspell-devel
 BuildRequires: gstreamer1-devel
@@ -70,7 +70,7 @@ Development files for dino.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{name}-%{version}
 
 

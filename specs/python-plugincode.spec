@@ -6,8 +6,19 @@ Release:        %autorelease
 Summary:        Plugable functionality with plugins used by ScanCode toolkit
 
 License:        Apache-2.0
-URL:            https://github.com/nexB/plugincode
+URL:            https://github.com/aboutcode-org/plugincode
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+
+# Backport of https://github.com/aboutcode-org/plugincode/pull/15
+# https://github.com/aboutcode-org/scancode-toolkit/issues/5363
+# https://github.com/aboutcode-org/scancode-toolkit/issues/5367
+# https://github.com/aboutcode-org/plugincode/issues/14
+# NOTE(gotmax23): This is an AI-generated patch that replaces pluggy plugin loading
+# with standard importlib.metadata entrypoint loading.
+# It also creates no-op versions of pluggy's HookspecMarker and HookimplMarker decorators.
+# We should work with plugincode upstream and the other aboutcode-org/*
+# projects to adopt a better long-term solution.
+Patch:          0001-Load-ScanCode-plugins-directly-from-entry-points.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

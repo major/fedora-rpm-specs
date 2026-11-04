@@ -18,6 +18,13 @@ Source10:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{versi
 Source11:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{version}/LICENSE-MIT
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          archive-trait-fix-metadata-auto.diff
+# * Remove the deep extraction fixture from the bottom up:
+#   https://github.com/astral-sh/astral-codec/pull/283
+# * Cherry-picked on v0.0.15
+# * Fixes “Test extracts_through_deep_ambient_and_created_path in archive-trait
+#   reaches file descriptor limits”:
+#   https://github.com/astral-sh/astral-codec/issues/114
+Patch10:        0001-Remove-the-deep-extraction-fixture-from-the-bottom-u.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -69,9 +76,7 @@ cp --preserve '%{SOURCE10}' '%{SOURCE11}' .
 
 %if %{with check}
 %check
-# * Test extracts_through_deep_ambient_and_created_path in archive-trait reaches
-#   file descriptor limits: https://github.com/astral-sh/astral-codec/issues/114
-%cargo_test -- -- --exact --skip extracts_through_deep_ambient_and_created_path
+%cargo_test
 %endif
 
 %changelog

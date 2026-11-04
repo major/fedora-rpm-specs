@@ -239,6 +239,7 @@ Source50:         rh-skipped-tests-base.list
 Source51:         rh-skipped-tests-arm.list
 Source52:         rh-skipped-tests-s390.list
 Source53:         rh-skipped-tests-ppc.list
+Source54:         rh-skipped-tests-riscv.list
 # Red Hat OpenStack scripts:
 #   Clustercheck:
 #     Maintainer:
@@ -926,6 +927,10 @@ cat %{SOURCE52} | tee -a mysql-test/unstable-tests
 
 %ifarch ppc ppc64 ppc64p7 ppc64le
 cat %{SOURCE53} | tee -a mysql-test/unstable-tests
+%endif
+
+%ifarch riscv64
+cat %{SOURCE54} | tee -a mysql-test/unstable-tests
 %endif
 
 cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \

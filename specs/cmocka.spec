@@ -8,6 +8,12 @@ URL:            https://cmocka.org
 
 Source0:        https://cmocka.org/files/2.0/%{name}-%{version}.tar.xz
 Source1:        https://cmocka.org/files/2.0/%{name}-%{version}.tar.xz.asc
+# Upstream signing key from its website, completed from keyservers/WKD:
+#   curl -fsSL -o key.asc https://cryptomilk.org/0x8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D_asn_cryptomilk_org_gpgkey.asc
+#   sq --home=none network search --output - 8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D | sq keyring filter --experimental --cert 8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D --output update.pgp
+#   sq keyring merge key.asc update.pgp | sq packet dearmor --output cmocka.keyring.new
+#   mv cmocka.keyring.new cmocka.keyring
+#   rm -f key.asc update.pgp
 Source2:        cmocka.keyring
 Source4:        https://github.com/jothepro/doxygen-awesome-css/archive/refs/tags/v2.4.1/doxygen-awesome-css-2.4.1.tar.gz
 
@@ -15,7 +21,7 @@ BuildRequires:  gcc
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  glibc-devel
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 
 Obsoletes:      libcmocka-static < %{version}
 
@@ -100,7 +106,7 @@ This package provides the API documentation for the cmocka unit testing
 framework.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -a4 -p1
 
 %build

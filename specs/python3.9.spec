@@ -26,7 +26,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 15%{?dist}
+Release: 16%{?dist}
 # Python is Python-2.0.1
 # pip is MIT and bundles:
 #   CacheControl: Apache-2.0
@@ -375,6 +375,7 @@ BuildRequires: /usr/sbin/ifconfig
 %if %{with rpmwheels}
 BuildRequires: python-setuptools-wheel
 BuildRequires: python-pip-wheel
+BuildRequires: ca-certificates
 %else
 # For %%python_wheel_inject_sbom
 BuildRequires: python-rpm-macros
@@ -409,6 +410,16 @@ Source10: idle3.desktop
 # AppData file for idle3
 Source11: idle3.appdata.xml
 
+# Patches for bundled wheels (declared as Sources, applied manually in %%prep):
+#
+# Use the system level root certificate instead of the one bundled in certifi
+# in the pip wheel bundled in ensurepip.
+# https://bugzilla.redhat.com/1655253
+# The same patch is a part of the RPM-packaged python-pip and python-certifi.
+Source41: pip-dummy-certifi.patch
+
+# Patches for Python
+#
 # (Patches taken from github.com/fedora-python/cpython)
 
 # 00001 # d06a8853cf4bae9e115f45e1d531d2dc152c5cc8
@@ -758,6 +769,7 @@ Provides: bundled(python3dist(pip)) = %{pip_version}
 %pip_bundled_provides
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
+Requires: ca-certificates
 %endif
 
 # Provides for the bundled libmpdec
@@ -1024,12 +1036,25 @@ fi
 
 %if %{with rpmwheels}
 %autopatch 189
-rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
-rm Lib/ensurepip/_bundled/setuptools-%{setuptools_version}-py3-none-any.whl
 %endif
 
 # Apply the remaining patches
 %autopatch -m 190
+
+# Apply patches to pip
+# This is done unconditionally on rpmwheels
+# so that the applicability against the current pip version is always verified,
+# even though the resulting wheel only matters when rpmwheels are disabled.
+unzip -qq Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
+# -p2 to compensate src/ prefix
+patch -p2 < %{SOURCE41}
+zip -rq Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl pip pip-%{pip_version}.dist-info
+rm -rf pip/ pip-%{pip_version}.dist-info/
+
+%if %{with rpmwheels}
+rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
+rm Lib/ensurepip/_bundled/setuptools-%{setuptools_version}-py3-none-any.whl
+%endif
 
 # Remove all exe files to ensure we are not shipping prebuilt binaries
 # note that those are only used to create Microsoft Windows installers
@@ -2088,6 +2113,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Oct 30 2026 Miro Hrončok <miro@hroncok.cz> - 3.9.25-16
+- Ensure the bundled pip (used on Fedora 45+) uses system certificates
+
 * Wed Sep 23 2026 Miro Hrončok <mhroncok@redhat.com> - 3.9.25-15
 - Security fix for CVE-2026-11940
 

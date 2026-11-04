@@ -1,6 +1,6 @@
 Name:tpm2-openssl
 Version: 1.3.0
-Release: 3%{?candidate:.%{candidate}}%{?dist}
+Release: 4%{?candidate:.%{candidate}}%{?dist}
 Summary: Provider for integration of TPM 2.0 to OpenSSL 3.0
 
 License: BSD-3-Clause
@@ -14,7 +14,7 @@ Source3: run-with-simulator
 # https://github.com/tpm2-software/tpm2-openssl/commit/6dcc3b2
 Patch1: 0001-Fix-ASN1_OCTET_STRING-and-X509_NAME-for-OpenSSL-4.0.patch
 
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: pkg-config
@@ -37,7 +37,7 @@ Makes the TPM 2.0 accessible via the standard OpenSSL API and command line
 tools, adding TPM support to (almost) any OpenSSL 3.0-based application.
 
 %prep
-gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{name}-%{version}%{?candidate:-%{candidate}}
 
 %build
@@ -62,6 +62,9 @@ cp %{SOURCE3} %{_builddir}/%{name}-%{version}%{?candidate:-%{candidate}}/test/
 %{_libdir}/ossl-modules/tpm2.so
 
 %changelog
+* Mon Oct 26 2026 Jakub Jelen <jjelen@redhat.com> - 1.3.0-4
+- Verify upstream source signatures with openpgpverify
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

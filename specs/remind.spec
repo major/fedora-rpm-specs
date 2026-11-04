@@ -17,7 +17,7 @@ Source:         685A5A5E511D30E2.gpg
 Patch:          use-system-libjsonparser.diff
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 BuildRequires:  perl(Cairo)
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -84,7 +84,7 @@ License:        GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only
 Tools to convert the remind output to ps, pdf or html as well as example files.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{name}-%{version}
 # Disable packlist and perllocal update
 sed -i 's|\$(PERL) Makefile.PL|\$(PERL) Makefile.PL NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"|g' rem2pdf/Makefile.top.in

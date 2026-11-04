@@ -31,7 +31,7 @@ BuildRequires:	libstemmer-devel
 BuildRequires:	pkgconfig(appstream-glib) >= 0.7.10
 BuildRequires:	pkgconfig(cairo)
 BuildRequires:	pkgconfig(enchant-2) >= 2.1
-BuildRequires:	pkgconfig(folks) >= 0.11
+BuildRequires:	pkgconfig(folks) >= 0.15.12-12
 BuildRequires:	pkgconfig(gck-1)
 BuildRequires:	pkgconfig(gcr-3) >= 3.10.1
 BuildRequires:	pkgconfig(gdk-3.0) >= 3.24.24

@@ -3,7 +3,7 @@
 
 Summary: Intel MPI benchmarks
 Name:    intel-mpi-benchmarks
-Version: 2021.8
+Version: 2021.12
 Release: %autorelease
 License: BSD-3-Clause
 URL:     https://software.intel.com/en-us/articles/intel-mpi-benchmarks
@@ -60,7 +60,7 @@ This package was built against the MPICH implementation of MPI.
 %endif
 
 %patchlist
-0001-fix-compiler-warnings-for-gcc.patch
+# removed 0001 since it's included in the main source package
 0002-remove-Werror-flag.patch
 0003-do-not-override-optimization-flags.patch
 
@@ -127,6 +127,22 @@ do_install
 %files mpich
 %{_libdir}/mpich/bin/IMB-{MPI1,EXT,IO,NBC,RMA,MT,P2P}
 %endif
+
+%check
+# Smoke test with short messages <=16 bytes and only 10 iterations
+# Test Open MPI flavor
+%{_openmpi_load}
+export OMPI_ALLOW_RUN_AS_ROOT=1 OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+mpirun --oversubscribe -n 2 \
+  --mca btl self,vader,tcp \
+  %{buildroot}%{_libdir}/openmpi/bin/IMB-MPI1 PingPong -msglog 0:4 -iter 10
+%{_openmpi_unload}
+
+# Test MPICH flavor
+%{_mpich_load}
+mpirun -n 2 \
+  %{buildroot}%{_libdir}/mpich/bin/IMB-MPI1 PingPong -msglog 0:4 -iter 10
+%{_mpich_unload}
 
 %changelog
 %autochangelog

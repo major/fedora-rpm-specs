@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.49.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -70,7 +70,7 @@ Source0:        http://libguestfs.org/download/nbdkit/%{source_directory}/%{name
 %if 0%{verify_tarball_signature}
 Source1:        http://libguestfs.org/download/nbdkit/%{source_directory}/%{name}-%{version}.tar.gz.sig
 # Keyring used to verify tarball signature.
-Source2:        libguestfs.keyring
+Source2:        https://download.libguestfs.org/rich@annexia.org-pubkey.txt
 %endif
 
 # Maintainer script which helps with handling patches.
@@ -152,7 +152,7 @@ BuildRequires:  pkgconfig(tcl)
 BuildRequires:  pkgconfig(lua)
 %endif
 %if 0%{verify_tarball_signature}
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 %endif
 
 # Only for running the test suite:
@@ -824,7 +824,7 @@ development kit for 64 bit versions of Windows.
 
 %prep
 %if 0%{verify_tarball_signature}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -p1 -S git
 autoreconf -i
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 1.49.4-2
+- Verify upstream source signatures with openpgpverify
+
 * Sat Oct 17 2026 Richard W.M. Jones <rjones@redhat.com> - 1.49.4-1
 - New upstream development version 1.49.4
 

@@ -5,7 +5,7 @@
 %global upstream_url https://github.com/cryptopp-modern/cryptopp-modern
 
 Name:           cryptopp
-Version:        2026.10.0
+Version:        2026.11.0
 Release:        %autorelease
 Summary:        C++ class library of cryptographic schemes
 License:        BSL-1.0
@@ -25,7 +25,7 @@ BuildRequires:  doxygen
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  ninja-build
 
 Obsoletes:  %{name}-progs < 8.8.0-3
@@ -69,7 +69,7 @@ Tests for %{name}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n cryptopp-modern-%{version}
 
 

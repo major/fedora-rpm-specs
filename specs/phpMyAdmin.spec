@@ -16,7 +16,7 @@
 
 Name: phpMyAdmin
 Version: %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A web interface for MySQL and MariaDB
 
 # phpMyAdmin is GPL-2.0-or-later
@@ -37,7 +37,7 @@ Source5: phpMyAdmin-bundled.php
 Patch0:  phpMyAdmin-certs.patch
 
 BuildArch: noarch
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 # to run phpMyAdmin-bundled.php
 BuildRequires: php(language) >= 7.2.5
 BuildRequires: php-cli
@@ -122,7 +122,7 @@ is available in 50 languages
 
 
 %prep
-%{?gpgverify:%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE1}' --data='%{SOURCE0}'}
+%{?openpgpverify:%{openpgpverify} --keyring='%{SOURCE4}' --signature='%{SOURCE1}' --data='%{SOURCE0}'}
 
 %setup -qn phpMyAdmin-%{upstream_version}%{?upstream_prever:-%upstream_prever}-all-languages
 %patch -P0 -p1
@@ -226,6 +226,9 @@ sed -e "/'blowfish_secret'/s/MUSTBECHANGEDONINSTALL/$SECRET/" \
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 5.2.3-4
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

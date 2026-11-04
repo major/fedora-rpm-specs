@@ -1,3 +1,9 @@
+%if 0%{?rhel}
+%bcond tests    0
+%else
+%bcond tests    1
+%endif
+
 Name:           python-flufl-bounce
 Version:        4.0
 Release:        %autorelease
@@ -32,7 +38,11 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
+%if %{with tests}
 %pyproject_buildrequires -t
+%else
+%pyproject_buildrequires
+%endif
 
 
 %build
@@ -45,7 +55,9 @@ Summary:        %{summary}
 
 
 %check
+%if %{with tests}
 %pyproject_check_import
+%endif
 
 
 %files -n python3-flufl-bounce -f %{pyproject_files}

@@ -27,7 +27,7 @@ Requires: perl-Razor-Agent
 Requires: pyzor
 Requires: evolution >= 3.55.1
 
-BuildRequires: gettext, evolution-devel >= 3.55.1, perl(XML::Parser), intltool
+BuildRequires: gettext, evolution-devel >= 3.62.1-2, perl(XML::Parser), intltool
 BuildRequires: autoconf, automake, gettext-devel, gnome-common, libtool
 BuildRequires: make
 

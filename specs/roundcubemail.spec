@@ -18,7 +18,7 @@
 %global _logdir /var/log  
 Name: roundcubemail
 Version:  %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary: Round Cube Webmail is a browser-based multilingual IMAP client
 
 # Since 0.8 beta, the main code has been GPLv3+ with exceptions and
@@ -50,7 +50,7 @@ Patch1: roundcubemail-1.7-confpath.patch
 
 
 BuildArch: noarch
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: php(language) >= 8.1
 # For test
 BuildRequires: php-cli
@@ -138,7 +138,7 @@ CSS 2.
 
 
 %prep
-%{?gpgverify: %{gpgverify} --keyring=%{SOURCE9} --signature=%{SOURCE8} --data=%{SOURCE0}}
+%{?openpgpverify: %{openpgpverify} --keyring=%{SOURCE9} --signature=%{SOURCE8} --data=%{SOURCE0}}
 
 %setup -q -n roundcubemail-%{upstream_version}%{?upstream_prever:-%{upstream_prever}}
 %patch -P1 -p1 -b .rpm
@@ -271,6 +271,9 @@ fi
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1.7.5-2
+- Verify upstream source signatures with openpgpverify
+
 * Tue Oct 27 2026 Remi Collet <remi@remirepo.net> - 1.7.5-1
 - update to 1.7.5
 

@@ -1045,16 +1045,22 @@ hardlink -v '%{buildroot}%{_pkgdocdir}/examples/'
 
 
 %check
-%ifarch %{ix86}
+%ifarch %{ix86} s390x
 
 cat <<'EOF'
-Since the following changes are accepted for F37:
+Tests are skipped on these secondary arches:
 
-https://fedoraproject.org/wiki/Changes/RetireARMv7
-https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+- i686: not a leaf package so we still build it, but skip tests to avoid
+  tracking 32-bit-specific issues (see the F37 ARMv7-retirement and
+  i686-leaf-removal changes).
+  https://fedoraproject.org/wiki/Changes/RetireARMv7
+  https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 
-…we still build for i686 since this is not a leaf packages, but skip tests so
-we do not have to keep track of 32-bit-specific issues.
+- s390x (big-endian): grpc has open upstream big-endian bugs that fail %check,
+  e.g. address_sorting (grpc/grpc#35350), ALTS (grpc/grpc#43067), and
+  buffer_list (atomic reads back 1<<32). The 1.75.x suite hits enough of these
+  that per-test exclusion is unmaintainable, so skip %check on s390x. Big-endian
+  support is tracked upstream (grpc#35350) and with the Fedora s390x WG.
 EOF
 
 %else

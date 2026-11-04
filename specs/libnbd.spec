@@ -25,7 +25,7 @@
 
 Name:           libnbd
 Version:        1.25.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -36,13 +36,13 @@ Source1:        http://libguestfs.org/download/libnbd/%{source_directory}/%{name
 # Keyring used to verify tarball signature.  This contains the single
 # key from here:
 # https://pgp.key-server.io/pks/lookup?search=rjones%40redhat.com&fingerprint=on&op=vindex
-Source2:       libguestfs.keyring
+Source2:       https://download.libguestfs.org/rich@annexia.org-pubkey.txt
 
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
 
 %if 0%{verify_tarball_signature}
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 %endif
 
 # For rebuilding autoconf cruft.
@@ -218,7 +218,7 @@ for %{name}.
 
 %prep
 %if 0%{verify_tarball_signature}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -p1
 autoreconf -i
@@ -405,6 +405,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 1.25.8-2
+- Verify upstream source signatures with openpgpverify
+
 * Tue Oct 13 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.8-1
 - New upstream development version 1.25.8
 - Replace TODO with TODO.md

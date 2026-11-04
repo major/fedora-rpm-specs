@@ -20,7 +20,7 @@ BuildRequires:  pkgconfig(yajl)
 BuildRequires:  asciidoc
 BuildRequires:  xmlto
 # gpg verification
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 # tests
 BuildRequires:  perl
 BuildRequires:  make
@@ -56,7 +56,7 @@ Conflicts:      %{name}-config
 This is the configuration file of %{name} used for the Fedora i3 Spin.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

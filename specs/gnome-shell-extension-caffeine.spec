@@ -1,7 +1,7 @@
 %global extdir		caffeine@patapon.info
 
 Name:		gnome-shell-extension-caffeine
-Version:	60
+Version:	61
 Release:	%autorelease
 Summary:	Disable the screen saver and auto suspend in gnome shell
 

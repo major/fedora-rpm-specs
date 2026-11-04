@@ -37,7 +37,7 @@ BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gettext-devel
 BuildRequires:  gnulib-devel
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  gsl-devel >= 1.11-2
 BuildRequires:  gtk3-devel
 BuildRequires:  gtksourceview4-devel
@@ -74,7 +74,7 @@ support is currently limited, but growing.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE3}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 # Remove bundled Gnulib and prepare to import system-wide one
 rm -rf gl/

@@ -75,7 +75,7 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    1%{?dist}
+Release:    %autorelease
 %endif
 Summary:    AMD System Management Interface
 

@@ -5,7 +5,7 @@ Summary:       SyncML client for evolution
 Name:          syncevolution
 Epoch:         1
 Version:       2.0.0
-Release:       22%{?dist}
+Release:       23%{?dist}
 License:       LGPL-2.0-or-later
 URL:           http://syncevolution.org/
 Source:        http://downloads.syncevolution.org/%{name}/sources/%{name}-%{version}.tar.gz
@@ -17,6 +17,9 @@ Patch4:        004-cpp-curl.patch
 Patch5:        005-gcc-c23-changes.patch
 Patch6:        006-evolution-data-server-3.59.1-api-change.patch
 Patch7:        007-fix-pygments2.20-compat.patch
+
+# https://gitlab.freedesktop.org/SyncEvolution/syncevolution/-/merge_requests/8
+Patch8:        008-libical-4x.patch
 
 BuildRequires: pkgconfig(dbus-glib-1)
 
@@ -32,14 +35,14 @@ BuildRequires: perl-generators
 BuildRequires: bluez-libs-devel
 BuildRequires: boost-devel >= 1.73.0
 BuildRequires: cppunit-devel
-BuildRequires: evolution-data-server-devel >= 3.45.1
+BuildRequires: evolution-data-server-devel >= 3.62.1-2
 BuildRequires: expat-devel
 BuildRequires: glib2-devel
 BuildRequires: gnome-online-accounts-devel
 BuildRequires: gtk3-devel
 BuildRequires: libcurl-devel
 BuildRequires: libgnome-keyring-devel
-BuildRequires: libical-devel >= 2.0.0
+BuildRequires: libical-devel >= 4.0
 BuildRequires: libnotify-devel
 BuildRequires: neon-devel
 BuildRequires: pkgconfig(libpcre2-8)
@@ -223,6 +226,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sync.desktop
 %{_datadir}/syncevolution/xml/*.pl
 
 %changelog
+* Tue Nov 03 2026 Milan Crha <mcrha@redhat.com> - 1:2.0.0-23
+- Rebuild for libical 4.x
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:2.0.0-22
 - Rebuilt for libxml-2.5.4
 

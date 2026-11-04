@@ -17,8 +17,8 @@ BuildRequires:	gnutls-devel
 BuildRequires:	libidn2-devel
 BuildRequires:	libsecret-devel
 BuildRequires:	make
-# for %%gpgverify
-BuildRequires:	gnupg2
+# for %%openpgpverify
+BuildRequires:	openpgpverify
 
 Requires(post):		%{_sbindir}/alternatives /sbin/install-info
 Requires(postun):	%{_sbindir}/alternatives /sbin/install-info
@@ -43,7 +43,7 @@ Features include:
   * IPv6 support.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

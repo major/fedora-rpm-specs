@@ -3,7 +3,7 @@
 
 Name:           gnokii
 Version:        0.6.31
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Linux/Unix tool suite for various mobile phones
 
 License:        GPL-2.0-or-later
@@ -23,6 +23,10 @@ Patch2:         %{name}-0.6.31-sqlite3.patch
 Patch3:         %{name}-0.6.31-gcc5.patch
 Patch4:         %{name}-0.6.31-gcc7.patch
 Patch5: gnokii-configure-c99.patch
+# Build with libical 4 (renamed/refcounted recurrence and time APIs,
+# NULL sentinels for icalcomponent_vanew)
+# Not upstreamed: upstream is dead (no release since 2011, project site gone)
+Patch6:         %{name}-0.6.31-libical4.patch
 
 BuildRequires:  gcc
 BuildRequires:  flex
@@ -119,6 +123,7 @@ Requires:       pkgconfig
 %patch -P3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
+%patch -P6 -p1
 install -pm 644 %{SOURCE5} smsd2mail.sh
 install -pm 644 %{SOURCE6} README.smsd2mail
 
@@ -253,6 +258,9 @@ install -m0644 -D gnokii-smsd.sysusers.conf %{buildroot}%{_sysusersdir}/gnokii-s
 %{_libdir}/pkgconfig/xgnokii.pc
 
 %changelog
+* Tue Nov 03 2026 Michel Lind <salimma@fedoraproject.org> - 0.6.31-49
+- Fix build with libical 4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.31-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

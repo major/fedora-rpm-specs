@@ -21,8 +21,8 @@ BuildRequires:  pkgconfig(goa-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libcurl)
-BuildRequires:  pkgconfig(libecal-2.0) >= 3.45.1
-BuildRequires:  pkgconfig(libedataserver-1.2) >= 3.45.1
+BuildRequires:  pkgconfig(libecal-2.0) >= 3.62.1-2
+BuildRequires:  pkgconfig(libedataserver-1.2) >= 3.62.1-2
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(tracker-sparql-3.0)

@@ -1,11 +1,13 @@
 Name:		almanah
 Version:	0.12.4
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Application for keeping an encrypted diary
 
 License:	GPL-3.0-or-later
 URL:		https://wiki.gnome.org/Apps/Almanah_Diary
 Source0:	https://download.gnome.org/sources/almanah/0.12/almanah-%{version}.tar.xz
+
+Patch:          0001-libical-4.x.patch
 
 BuildRequires:	appstream
 BuildRequires:	gcc
@@ -18,8 +20,9 @@ BuildRequires:	pkgconfig(gtk+-3.0)
 BuildRequires:	pkgconfig(gcr-4)
 BuildRequires:	pkgconfig(gtkspell3-3.0)
 BuildRequires:	pkgconfig(gtksourceview-4)
-BuildRequires:	pkgconfig(libecal-2.0) >= 3.45.1
-BuildRequires:	pkgconfig(libedataserver-1.2) >= 3.45.1
+BuildRequires:	pkgconfig(libical) >= 4.0
+BuildRequires:	pkgconfig(libecal-2.0) >= 3.62.1-2
+BuildRequires:	pkgconfig(libedataserver-1.2) >= 3.62.1-2
 BuildRequires:	pkgconfig(sqlite3)
 
 %description
@@ -53,6 +56,9 @@ diary entries using multiple events.
 %{_datadir}/glib-2.0/schemas/org.gnome.%{name}.gschema.xml
 
 %changelog
+* Tue Nov 03 2026 Milan Crha <mcrha@redhat.com> - 0.12.4-8
+- Rebuild for libical 4.x
+
 * Fri Jul 31 2026 Milan Crha <mcrha@redhat.com> - 0.12.4-7
 - Rebuild for evolution-data-server soname bump
 

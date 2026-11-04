@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-bartlett-PHP-CompatInfo
 #
-# SPDX-FileCopyrightText:  Copyright 2011-2025 Remi Collet
+# SPDX-FileCopyrightText:  Copyright 2011-2026 Remi Collet
 # SPDX-License-Identifier: CECILL-2.1
 # http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
@@ -12,12 +12,12 @@
 %global gh_owner          llaville
 %global gh_project        php-compatinfo
 
-%global upstream_version  7.2.6
+%global upstream_version  7.2.7
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
 # SPDX: see bundled libraries list below
@@ -117,6 +117,9 @@ install -D -p -m 755 %{SOURCE1} \
 
 
 %changelog
+* Tue Nov  3 2026 Remi Collet <remi@remirepo.net> - 7.2.7-1
+- update to 7.2.7
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
-%global libical_version 3.0.5
+%global libical_version 4.0
 %global gsettings_desktop_schemas_version 3.21.2
-%global edataserver_version 3.45.1
+%global edataserver_version 3.62.1-2
 %global libadwaita_version 1.8~alpha
 %global glib2_version 2.80.0
 %global gtk4_version 4.21.2
@@ -14,6 +14,8 @@ Summary:        Simple and beautiful calendar application designed to fit GNOME 
 License:        GPL-3.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Calendar
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
+
+Patch:          0001-libical-4.x.patch
 
 %gnome_check_version
 
@@ -31,7 +33,7 @@ BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires:  pkgconfig(libecal-2.0) >= %{edataserver_version}
 BuildRequires:  pkgconfig(libedataserver-1.2) >= %{edataserver_version}
 BuildRequires:  pkgconfig(libgeoclue-2.0)
-BuildRequires:  pkgconfig(libical) >= %{libical_version}
+BuildRequires:  pkgconfig(libical-glib) >= %{libical_version}
 BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  desktop-file-utils
@@ -41,7 +43,7 @@ Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
 Requires:       libadwaita%{?_isa} >= %{libadwaita_version}
-Requires:       libical%{?_isa} >= %{libical_version}
+Requires:       libical-glib%{?_isa} >= %{libical_version}
 
 %description
 Calendar is a simple and beautiful calendar application designed to fit

@@ -17,8 +17,8 @@ BuildRequires:  libgsasl-devel
 BuildRequires:  libidn-devel
 BuildRequires:  make
 BuildRequires:  openssl-devel
-# for %%gpgverify
-BuildRequires:  gnupg2
+# for %%openpgpverify
+BuildRequires:  openpgpverify
 
 %description
 mpop is a small and fast POP3 client. Features include mail filtering,
@@ -27,7 +27,7 @@ fast POP3 implementation, many authentication methods, good TLS/SSL
 support, IPv6 support, and more.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

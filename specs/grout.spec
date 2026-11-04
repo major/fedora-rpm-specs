@@ -39,7 +39,7 @@ Source1: https://fast.dpdk.org/rel/dpdk-%{dpdk_version}.tar.xz
 Source2: %{forgeurl}/releases/download/v%{version}/grout-%{version}.tar.gz.asc
 Source3: %{forgeurl}/raw/refs/heads/main/devtools/release-keys.asc
 
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 %if %{defined toolset}
 BuildRequires: %toolset
 BuildRequires: scl-utils
@@ -120,7 +120,7 @@ This package contains the FRR zebra dataplane plugin for grout.
 %endif
 
 %prep
-%gpgverify -k3 -s2 -d0
+%openpgpverify -k3 -s2 -d0
 %forgesetup
 %autopatch -p1
 mkdir -p subprojects/packagecache/

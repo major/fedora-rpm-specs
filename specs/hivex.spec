@@ -10,7 +10,7 @@
 
 Name:           hivex
 Version:        1.3.24
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPL-2.1-only AND LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -23,7 +23,7 @@ Source1:        http://libguestfs.org/download/hivex/%{name}-%{version}.tar.gz.s
 
 # Keyring used to verify tarball signature.
 %if 0%{verify_tarball_signature}
-Source2:       libguestfs.keyring
+Source2:       https://download.libguestfs.org/rich@annexia.org-pubkey.txt
 %endif
 
 BuildRequires:  make
@@ -62,7 +62,7 @@ BuildRequires:  rubygem(rdoc)
 BuildRequires:  readline-devel
 BuildRequires:  libxml2-devel
 %if 0%{verify_tarball_signature}
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 %endif
 
 Requires:       %{name}-libs = %{version}-%{release}
@@ -197,7 +197,7 @@ ruby-%{name} contains Ruby bindings for %{name}.
 
 %prep
 %if 0%{verify_tarball_signature}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %setup -q
 %autopatch -p1
@@ -319,6 +319,9 @@ fi
 
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 1.3.24-24
+- Verify upstream source signatures with openpgpverify
+
 * Sat Oct 03 2026 Jerry James <loganjerry@gmail.com> - 1.3.24-23
 - Bump and rebuild
 

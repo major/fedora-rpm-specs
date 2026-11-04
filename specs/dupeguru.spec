@@ -1,19 +1,35 @@
 %global         forgeurl0 https://github.com/carlbyington2/dupeguru
 %global         version0  4.3.1
-%global         date      20261101
+%global         date      20261103
 %global         commit    7a2c79ff790ccc7c0f8ec3181ef1eba411026e55
 %forgemeta
 
 Summary:        GUI tool to find duplicate files by content
 Name:           dupeguru
 Version:        %forgeversion
+Release:        %autorelease
 Source:         %forgesource
 URL:            %forgeurl
-Release:        %autorelease
+
+# The upstream should be https://github.com/arsenetar/dupeguru but
+# that version is almost dormant. The last release was four years ago,
+# and there are many critical outstanding pull requests that have
+# not been merged.
+#
+# https://github.com/carlbyington2/dupeguru/tree/fedora-build is a
+# fork with most of the open pull requests from arsenetar applied.
+
+
 # the source code in the tarball is GPL-3.0-only
 # the Sphinx generated HTML static assets use the other licenses
 License:        GPL-3.0-only AND BSD-2-Clause AND BSD-3-Clause AND MIT AND LicenseRef-Fedora-Public-Domain
+
+# remove the about box check for new releases - that should be done via dnf
 Patch0:         remove-check-for-updates.patch
+
+# change github issues references from arsenetar to carlbyington2 repo
+Patch1:         github-references-carlbyington2.patch
+
 
 # tools to build the project
 BuildRequires:  gcc

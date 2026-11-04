@@ -11,7 +11,7 @@ Source0:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.gem
 Source1:        https://downloads.puppetlabs.com/%{name}/%{name}-%{version}.gem.asc
 Source2:        https://downloads.puppetlabs.com/puppet-gpg-signing-key-20250406.pub
 
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  rubygems-devel
 BuildRequires:  ruby >= 2.5
 Requires:       ruby(release) >= 2.5
@@ -64,7 +64,7 @@ Documentation for %{name}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n %{gem_name}-%{version}
 %gemspec_add_dep -g sys-filesystem
 # Revert https://github.com/puppetlabs/facter/commit/5e6c601f2a4ae37e3cd72f8411816a508d2f8b3c

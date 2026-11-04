@@ -6,8 +6,10 @@ Summary:	Stress test a computer system in various ways
 License:	GPL-2.0-or-later
 URL:		https://github.com/ColinIanKing/stress-ng
 Source0:	https://github.com/ColinIanKing/stress-ng/archive/V%{version}/%{name}-%{version}.tar.gz
+## Fedora-specific patches
 # darn is not supported in Power ISA < 3.0, while Fedora aims for Power ISA 2.07
-Patch0:     0_21_01-poewrpc-remove-darn.patch
+# RHEL 9+ does target POWER9+ and therefore requires darn
+Patch1000:      0_21_01-poewrpc-remove-darn.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -32,7 +34,8 @@ various physical subsystems of a computer as well as the various operating
 system kernel interfaces.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -N
+%autopatch -p0 %{?rhel:-M 999}
 
 %build
 %make_build

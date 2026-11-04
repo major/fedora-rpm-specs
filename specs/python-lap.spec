@@ -5,7 +5,7 @@ like Beets for efficient tag matching.
 }
 
 Name:           python-lap
-Version:        0.5.13
+Version:        0.5.14
 Release:        %autorelease
 Summary:        Linear Assignment Problem solver for Python
 License:        BSD-2-Clause

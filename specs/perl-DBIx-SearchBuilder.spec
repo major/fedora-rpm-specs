@@ -6,8 +6,8 @@
 #
 
 Name:		perl-DBIx-SearchBuilder
-Version:	1.85
-Release:	3%{?dist}
+Version:	1.86
+Release:	1%{?dist}
 Summary:	Encapsulate SQL queries and rows in simple perl objects
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/DBIx-SearchBuilder
@@ -15,10 +15,11 @@ Source0:	https://cpan.metacpan.org/authors/id/B/BP/BPS/DBIx-SearchBuilder-%{vers
 
 BuildArch:	noarch
 
-BuildRequires:	%{__make}
+BuildRequires:	make
 
 BuildRequires:	perl(:VERSION) >= 5.10.1
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 
 BuildRequires:	perl(Cache::Simple::TimedExpiry) >= 0.21
 BuildRequires:	perl(Class::Accessor)
@@ -70,15 +71,15 @@ find -type f -exec chmod -x {} \;
 %build
 # --skipdeps causes ExtUtils::AutoInstall not to try auto-installing 
 # missing optional features
-%{__perl} Makefile.PL INSTALLDIRS=vendor --skipdeps NO_PACKLIST=1 NO_PERLLOCAL=1
+perl Makefile.PL INSTALLDIRS=vendor --skipdeps NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
-%{make_install} DESTDIR="$RPM_BUILD_ROOT"
-chmod -R u+w "$RPM_BUILD_ROOT"/*
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-%{__make} test
+make test
 
 %files
 %doc Changes
@@ -104,6 +105,9 @@ DBIx::SearchBuilder bindings for Oracle
 %endif
 
 %changelog
+* Tue Nov 03 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.86-1
+- 1.86 bump (rhbz#2564543)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.85-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

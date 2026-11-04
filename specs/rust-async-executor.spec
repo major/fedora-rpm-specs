@@ -5,7 +5,7 @@
 %global crate async-executor
 
 Name:           rust-async-executor
-Version:        1.14.0
+Version:        1.14.1
 Release:        %autorelease
 Summary:        Async executor
 

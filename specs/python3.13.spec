@@ -314,6 +314,7 @@ BuildRequires: libappstream-glib
 BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 %if %{with tests}
 BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 71
+BuildRequires: ca-certificates
 %endif
 %endif
 
@@ -350,6 +351,16 @@ Source10: idle3.desktop
 # AppData file for idle3
 Source11: idle3.appdata.xml
 
+# Patches for bundled wheels (declared as Sources, applied manually in %%prep):
+#
+# Use the system level root certificate instead of the one bundled in certifi
+# in the pip wheel bundled in ensurepip.
+# https://bugzilla.redhat.com/1655253
+# The same patch is a part of the RPM-packaged python-pip and python-certifi.
+Source41: pip-dummy-certifi.patch
+
+# Patches for Python
+#
 # (Patches taken from github.com/fedora-python/cpython)
 
 # 00251 # 5ac6e7781923cbb3e4606e3bca381a1167d322e5
@@ -567,6 +578,7 @@ License: %{libs_license}
 %else
 Provides: bundled(python3dist(pip)) = %{pip_version}
 %pip_bundled_provides
+Requires: ca-certificates
 # License combined from Python libs + pip
 License: %{libs_license} AND Apache-2.0 AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
@@ -782,6 +794,7 @@ Provides: bundled(python3dist(pip)) = %{pip_version}
 %pip_bundled_provides
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
+Requires: ca-certificates
 # License combined from Python libs + pip + setuptools
 License: %{libs_license} AND Apache-2.0 AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
@@ -841,6 +854,16 @@ extension modules.
 %prep
 %openpgpverify -k2 -s1 -d0
 %autosetup -S git_am -n Python-%{upstream_version}
+
+# Apply patches to pip
+# This is done unconditionally on rpmwheels
+# so that the applicability against the current pip version is always verified,
+# even though the resulting wheel only matters when rpmwheels are disabled.
+unzip -qq Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
+# -p2 to compensate src/ prefix
+patch -p2 < %{SOURCE41}
+zip -rq Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl pip pip-%{pip_version}.dist-info
+rm -rf pip/ pip-%{pip_version}.dist-info/
 
 # Verify the second level of bundled provides is up to date
 # Arguably this should be done in %%check, but %%prep has a faster feedback loop

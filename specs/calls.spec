@@ -2,7 +2,7 @@
 
 Name:       calls
 Version:    51.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later
@@ -25,7 +25,7 @@ BuildRequires:  pkgconfig(libadwaita-1) >= 1.6
 BuildRequires:  pkgconfig(gsound)
 BuildRequires:  pkgconfig(libpeas-2)
 BuildRequires:  pkgconfig(gom-1.0)
-BuildRequires:  pkgconfig(libebook-contacts-1.2)
+BuildRequires:  pkgconfig(libebook-contacts-1.2) >= 3.62.1-2
 BuildRequires:  pkgconfig(folks)
 BuildRequires:  pkgconfig(mm-glib)
 BuildRequires:  pkgconfig(libfeedback-0.0) >= 0.0.1

@@ -1,8 +1,10 @@
 # SPDX-FileCopyrightText: Sergio Arroutbi <sarroutb@redhat.com>
 #
 # SPDX-License-Identifier: MIT
+%global dracut_prio 50
+
 Name:           clevis-pin-trustee
-Version:        0.1.1
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Clevis PIN for Trustee attestation
 
@@ -58,6 +60,10 @@ install -D -m 0755 target/release/%{name} %{buildroot}%{_bindir}/%{name}
 install -D -m 0755 clevis-encrypt-trustee %{buildroot}%{_bindir}/clevis-encrypt-trustee
 install -D -m 0755 clevis-decrypt-trustee %{buildroot}%{_bindir}/clevis-decrypt-trustee
 
+# Install Clevis dracut module
+install -D -p -m 0755 dracut/clevis-pin-trustee/module-setup.sh \
+    %{buildroot}%{_prefix}/lib/dracut/modules.d/%{dracut_prio}%{name}/module-setup.sh
+
 %check
 # Run tests using cargo macro
 %cargo_test
@@ -69,6 +75,8 @@ install -D -m 0755 clevis-decrypt-trustee %{buildroot}%{_bindir}/clevis-decrypt-
 %{_bindir}/%{name}
 %{_bindir}/clevis-encrypt-trustee
 %{_bindir}/clevis-decrypt-trustee
+%dir %{_prefix}/lib/dracut/modules.d/%{dracut_prio}%{name}
+%{_prefix}/lib/dracut/modules.d/%{dracut_prio}%{name}/module-setup.sh
 
 %changelog
 %autochangelog

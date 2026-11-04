@@ -10,6 +10,9 @@ Summary:        GNOME Flashback panel
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/GnomePanel
 Source:         https://download.gnome.org/sources/%{name}/3.58/%{name}-%{version}.tar.xz
+# clock: build with libical 4 (const property getters, duration_as_int removal)
+# https://gitlab.gnome.org/GNOME/gnome-panel/-/merge_requests/85
+Patch:          gnome-panel-3.58.1-libical4.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake >= 1.16.4

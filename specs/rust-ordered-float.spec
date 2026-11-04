@@ -5,7 +5,7 @@
 %global crate ordered-float
 
 Name:           rust-ordered-float
-Version:        5.3.0
+Version:        5.5.1
 Release:        %autorelease
 Summary:        Wrappers for total ordering on floats
 
@@ -176,6 +176,18 @@ This package contains library source intended for building other packages which
 use the "rkyv_08_ck" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rkyv_08_ck-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+schemars1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+schemars1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "schemars1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+schemars1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

@@ -7,7 +7,7 @@
 
 Name:           tigervnc
 Version:        1.16.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -423,6 +423,12 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Nov 03 2026 Jan Grulich <jgrulich@redhat.com> - 1.16.2-9
+- Rebuild tigervnc against fixed xorg-x11-server
+  Fixes CVE-2026-88812, CVE-2026-93516, CVE-2026-93517,
+        CVE-2026-93518, CVE-2026-93519, CVE-2026-93520,
+        CVE-2026-93521, CVE-2026-93523
+
 * Thu Sep 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.16.2-8
 - Rebuilt for FFmpeg 9
 

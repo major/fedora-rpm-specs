@@ -26,7 +26,7 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.32.2
+Version:        3.33.0
 Release:        1%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
@@ -43,6 +43,10 @@ URL:            http://www.freerdp.com/
 # Run the ./freerdp_download_and_repack.sh script to prepare tarball.
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
+
+# Fix TestClipboardFormats failure on s390x
+# https://github.com/FreeRDP/FreeRDP/commit/3f06a90fec8ed1bede3d2aec9c80e623c4e17f7c
+Patch:          winpr-clipboard-fix-big-endian-BMP-test.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -374,6 +378,10 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Mon Nov 02 2026 Ondrej Holy <oholy@redhat.com> - 2:3.33.0-1
+- Update to 3.33.0
+  Resolves: rhbz#2565203
+
 * Wed Oct 14 2026 Ondrej Holy <oholy@redhat.com> - 2:3.32.2-1
 - Update to 3.32.2
   Resolves: rhbz#2549598

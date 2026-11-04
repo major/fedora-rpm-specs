@@ -5,7 +5,7 @@
 %global crate vsock
 
 Name:           rust-vsock
-Version:        0.5.4
+Version:        0.5.5
 Release:        %autorelease
 Summary:        Virtio socket support for Rust
 

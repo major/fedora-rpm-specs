@@ -550,10 +550,8 @@ Patch501: flatpak-Adjust-paths-for-the-sandbox.patch
 Patch502: flatpak-Expose-Widevine-into-the-sandbox.patch
 
 # nodejs patches
-%if ! %{system_nodejs}
 Patch510: 0001-Remove-unused-OpenSSL-config.patch
 Patch511: 0001-fips-disable-options.patch
-%endif
 
 # Patches from ungoogle chromium, https://github.com/ungoogled-software/ungoogled-chromium
 Patch521: disable-ai.patch
@@ -582,13 +580,13 @@ Source9: chromium-browser.xml
 Source10: chromium-browser.appdata.xml
 Source11: master_preferences
 
-%if ! %{system_nodejs}
 # nodejs bundles openssl, but we use the system version in el9
 # because openssl contains prohibited code, we remove openssl completely from
 # the tarball, using the script in Source13
 # http://nodejs.org/dist/v${version}/node-${nodejs_version}.tar.gz
 Source12: node-%{nodejs_version}-stripped.tar.gz
 Source13: nodejs-sources.sh
+%if ! %{system_nodejs}
 BuildRequires: openssl-devel
 %endif
 
@@ -597,11 +595,9 @@ BuildRequires: openssl-devel
 Source14: https://github.com/microsoft/TypeScript/releases/download/v7.0.2/typescript-linux-ppc64.tgz
 
 # License - MIT License, https://github.com/evanw/esbuild/blob/main/LICENSE.md 
-%if ! %{system_esbuild}
 Source15: https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-%{esbuild_version}.tgz
 Source16: https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-%{esbuild_version}.tgz
 Source17: https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-%{esbuild_version}.tgz
-%endif
 
 BuildRequires: golang
 BuildRequires: clang

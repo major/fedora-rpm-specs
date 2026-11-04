@@ -5,7 +5,7 @@
 %global crate jiff-core
 
 Name:           rust-jiff-core
-Version:        0.1.1
+Version:        0.1.2
 Release:        %autorelease
 Summary:        Low level datetime primitives for the Jiff library
 

@@ -1,7 +1,7 @@
 Name: libchipcard
 Summary: A library for easy access to smart cards (chipcards)
 Version: 5.1.6
-Release: 14%{?dist}
+Release: 15%{?dist}
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
 Source0: https://www.aquamaniac.de/rdm/attachments/download/382/libchipcard-%{version}.tar.gz
 Source1: https://www.aquamaniac.de/rdm/attachments/download/381/libchipcard-%{version}.tar.gz.asc
@@ -18,7 +18,7 @@ BuildRequires: gwenhywfar-devel
 BuildRequires: libsysfs-devel
 BuildRequires: pcsc-lite-devel
 BuildRequires: zlib-devel
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 %description 
 Libchipcard allows easy access to smart cards. It provides basic access
@@ -42,7 +42,7 @@ drivers, services or even your own chipcard daemon for LibChipCard.
 %prep
 %autosetup -n %{name}-%{version}
 
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %build
 
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 5.1.6-15
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

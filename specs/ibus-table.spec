@@ -28,10 +28,12 @@ BuildRequires:  dbus-x11
 BuildRequires:  ibus-table-chinese-wubi-jidian
 BuildRequires:  ibus-table-chinese-cangjie
 BuildRequires:  ibus-table-chinese-stroke5
+%if 0%{?fedora}
 BuildRequires:  ibus-table-code
 BuildRequires:  ibus-table-latin
 BuildRequires:  ibus-table-translit
 BuildRequires:  ibus-table-tv
+%endif
 BuildRequires: make
 
 Obsoletes:   ibus-table-additional < 1.2.0.20100111-5

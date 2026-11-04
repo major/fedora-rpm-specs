@@ -1,6 +1,6 @@
 Name:           virt-what
 Version:        1.27
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Detect if we are running in a virtual machine
 License:        GPL-2.0-or-later
 
@@ -9,7 +9,7 @@ Source0:        http://people.redhat.com/~rjones/virt-what/files/%{name}-%{versi
 Source1:        http://people.redhat.com/~rjones/virt-what/files/%{name}-%{version}.tar.gz.sig
 
 # Keyring used to verify tarball signature.
-Source2:       libguestfs.keyring
+Source2:       https://download.libguestfs.org/rich@annexia.org-pubkey.txt
 
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
@@ -26,7 +26,7 @@ BuildRequires:  autoconf, automake, libtool
 BuildRequires:  /usr/bin/pod2man
 
 # Required to verify tarball signature.
-BuildRequires: gnupg2
+BuildRequires:  openpgpverify
 
 # Required at build time in order to do 'make check' (for getopt).
 BuildRequires:  util-linux
@@ -95,7 +95,7 @@ Current types of virtualization detected:
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -S git
 
 # Always rebuild upstream autotools files.
@@ -126,6 +126,9 @@ fi
 
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 1.27-7
+- Verify upstream source signatures with openpgpverify
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

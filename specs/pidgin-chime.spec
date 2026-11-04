@@ -9,7 +9,7 @@
 Name:           pidgin-chime
 Summary:        Pidgin/libpurple protocol plugin for Amazon Chime
 Version:        1.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -40,7 +40,7 @@ BuildRequires:  ImageMagick
 %if %{with evolution}
 BuildRequires:  pkgconfig(evolution-calendar-3.0)
 BuildRequires:  pkgconfig(evolution-shell-3.0)
-BuildRequires:  pkgconfig(evolution-data-server-1.2)
+BuildRequires:  pkgconfig(evolution-data-server-1.2) >= 3.62.1-2
 BuildRequires:  pkgconfig(libebook-1.2)
 # libecal changed from -1.2 to -2.0 in e-d-s 3.33.2
 # Any conditional BR would be based on %_fedora and be distro-specific
@@ -132,6 +132,9 @@ make %{?_smp_mflags} check
 %endif
 
 %changelog
+* Tue Nov 03 2026 Milan Crha <mcrha@redhat.com> - 1.5-17
+- Rebuild for libical 4.x
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.5-16
 - Rebuilt for libxml-2.5.4
 

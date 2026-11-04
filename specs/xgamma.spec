@@ -1,6 +1,6 @@
 Name:       xgamma
 Version:    1.0.8
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    X utility to query and alter the gamma correction of a monitor
 # COPYING:      X11 AND HPND-sell-variant
 # man/xgamma.man:   X11 without the permision grant, probably a copy-and-paste
@@ -36,8 +36,8 @@ BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  coreutils
 BuildRequires:  gcc
-BuildRequires:  gnupg2
 BuildRequires:  make
+BuildRequires:  openpgpverify
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(xorg-macros) >= 1.8
@@ -50,7 +50,7 @@ xgamma allows X users to query and alter the gamma correction of a
 monitor via the X video mode extension (XFree86-VidModeExtension).
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 rm aclocal.m4 compile config.guess config.sub configure depcomp install-sh \
      Makefile.in man/Makefile.in missing
@@ -70,6 +70,9 @@ autoreconf -v --force --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1.0.8-4
+- Verify upstream source signatures with openpgpverify
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

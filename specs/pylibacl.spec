@@ -1,7 +1,7 @@
 Name:           pylibacl
 Summary:        POSIX.1e ACLs library wrapper for Python
 Version:        0.6.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://pylibacl.k1024.org
@@ -14,7 +14,7 @@ Patch:          https://github.com/iustin/pylibacl/commit/64011b3c82746.patch
 BuildRequires:  gcc
 BuildRequires:  libacl-devel
 BuildRequires:  python3-devel
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3-setuptools
 
@@ -34,7 +34,7 @@ Obsoletes: py3libacl < 0.5.4
 %description -n python3-%{name} %_description
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -61,6 +61,9 @@ python3 -m pytest tests -v \
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 0.6.0-20
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.6.0-19
 - Rebuilt for Python 3.15.0b4 ABI change
 

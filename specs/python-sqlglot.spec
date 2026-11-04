@@ -1,17 +1,19 @@
 %global debug_package %{nil}
 
 Name:           python-sqlglot
-Version:        5.2.0
-Release:        17%{?dist}
+Version:        30.23.0
+Release:        1%{?dist}
 Summary:        SQL Parser and Transpiler
 
 License:        MIT
 URL:            https://github.com/tobymao/sqlglot
-Source0:        %{url}/archive/v%{version}/sqlglot-%{version}.tar.gz
+Source0:        https://github.com/tobymao/sqlglot/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires:  python3-devel
 # for tests
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytz
+BuildRequires:  python-unversioned-command
 
 Recommends:     python3-dateutil
 
@@ -43,20 +45,22 @@ Summary: %{summary}
 %autosetup -n sqlglot-%{version}
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 
 %check
-%pytest --pyargs --ignore tests/test_executor.py -k "not test_simplify and not test_tpch"
-# pkgs not available in fedora \
-# not sure why these 2nd two fail
+# Two files needs python-duckdb which is too complex to build at the moment
+%pytest --pyargs --ignore tests/test_optimizer.py --ignore tests/test_executor.py
 
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
 %pyproject_save_files sqlglot
 

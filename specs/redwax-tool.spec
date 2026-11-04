@@ -13,7 +13,7 @@ Source3:       redwax-test-certificates.pem
 Patch0:        0001-Support-OpenSSL4-by-using-opaque-function-accessors.patch
 Patch1:        0002-Fix-header-workarounds-for-p11kit-compilation.patch
 Url:           https://redwax.eu/rs/
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: gcc
 BuildRequires: autoconf
 BuildRequires: automake
@@ -33,7 +33,7 @@ be read, searched for, and converted into other formats as needed by
 common services.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

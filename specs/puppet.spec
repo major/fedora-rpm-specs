@@ -4,7 +4,7 @@
 
 Name:           puppet
 Version:        8.10.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
 URL:            https://puppet.com
@@ -35,7 +35,7 @@ BuildArch: noarch
 
 # ruby-devel does not require the base package, but requires -libs instead
 BuildRequires: facter
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: hiera
 BuildRequires: ruby
 BuildRequires: ruby-devel
@@ -71,7 +71,7 @@ normally aggregated in different files, like users, cron jobs, and hosts,
 along with obviously discrete elements like packages, services, and files.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 cp -a %{sources} .
 for f in puppetlabs-*.tar*; do
@@ -225,6 +225,9 @@ export RUBYLIB=%{buildroot}%{_datadir}/ruby/vendor_ruby
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 8.10.0-7
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.10.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

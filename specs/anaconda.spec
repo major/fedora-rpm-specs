@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 46.4
+Version: 46.5
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -444,6 +444,7 @@ rm -rf \
 %{_unitdir}/*
 %exclude %{_unitdir}/anaconda-shell@.service
 %{_prefix}/lib/systemd/system-generators/*
+%config %{_sysconfdir}/ssh/sshd_config.anaconda
 %{_bindir}/instperf
 %{_bindir}/anaconda-disable-nm-ibft-plugin
 %{_bindir}/anaconda-nm-disable-autocons
@@ -528,6 +529,22 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 03 2026 Packit <hello@packit.dev> - 46.5-1
+- users: Read default home base from /etc/default/useradd instead of hardcoding
+  /home (kkoukiou)
+- core: Finish handled installation failures safely (adamkankovsky)
+- ui: Route GUI/TUI quit actions through Boss shutdown (adamkankovsky)
+- core: Avoid duplicate reporting of installation task failures (adamkankovsky)
+- webui: Update anaconda-webui submodule to latest main (kkoukiou)
+- docs: Add Fedora 45 release notes (kkoukiou)
+- kickstart: Run error scripts consistently on abort (adamkankovsky)
+- boss: Report IPMI before running kickstart error scripts (adamkankovsky)
+- Ship sshd_config.anaconda in anaconda-core instead of lorax (kkoukiou)
+- webui: Run the GLib main loop while watching the browser (adamkankovsky)
+- Adjust datetime import to use conventional dt (kkoukiou)
+- boss: Report and centralize the installation outcome (adamkankovsky)
+- core: Consolidate the kickstart error-script helper (adamkankovsky)
+
 * Tue Oct 27 2026 Packit <hello@packit.dev> - 46.4-1
 - Remove "development" to "rawhide" version workaround (kkoukiou)
 - boss: Support aborted installations and a failure reason (adamkankovsky)

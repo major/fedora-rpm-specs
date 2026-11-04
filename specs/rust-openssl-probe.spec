@@ -5,7 +5,7 @@
 %global crate openssl-probe
 
 Name:           rust-openssl-probe
-Version:        0.2.1
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Find system-wide root certificate locations based on typical OpenSSL paths
 

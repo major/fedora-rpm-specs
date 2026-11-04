@@ -23,7 +23,7 @@
 %global ver_minor    5
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        14.5.0
+Version:        14.5.1
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -202,6 +202,9 @@ exit $ret
 
 
 %changelog
+* Tue Nov  3 2026 Remi Collet <remi@remirepo.net> - 14.5.1-1
+- update to 14.5.1
+
 * Fri Oct 30 2026 Remi Collet <remi@remirepo.net> - 14.5.0-1
 - update to 14.5.0
 - raise dependency on sebastian/git-state 1.1

@@ -36,6 +36,8 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/rust-agirru-crdt.spec
+%exclude %{crate_instdir}/rust2rpm.toml
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

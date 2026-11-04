@@ -7,7 +7,7 @@
 
 Name:           perl-DateTime
 Epoch:          2
-Version:        1.67
+Version:        1.68
 Release:        1%{?dist}
 Summary:        Date and time object for Perl
 License:        Artistic-2.0
@@ -24,7 +24,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(DateTime::Locale) >= 1.06
+BuildRequires:  perl(DateTime::Locale) >= 1.47
 BuildRequires:  perl(DateTime::TimeZone) >= 2.44
 BuildRequires:  perl(Dist::CheckConflicts) >= 0.02
 BuildRequires:  perl(integer)
@@ -114,6 +114,13 @@ make test
 %{_mandir}/man3/DateTime::Types.3*
 
 %changelog
+* Fri Oct 30 2026 Paul Howarth <paul@city-fan.org> - 2:1.68-1
+- Update to 1.68 (rhbz#2563880)
+  - Added support for the 'ddd' CLDR pattern, which formats the day of the
+    month as an ordinal, like "3rd"; before this, 'ddd' was formatted as a
+    zero-padded day, like "03"; DateTime now requires DateTime::Locale 1.47 or
+    newer, which provides the data for this
+
 * Mon Aug 31 2026 Paul Howarth <paul@city-fan.org> - 2:1.67-1
 - Update to 1.67 (rhbz#2526041)
   - Documented that the 'truncate' method can throw a fatal error if the

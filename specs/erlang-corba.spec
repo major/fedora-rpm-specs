@@ -15,7 +15,7 @@
 
 
 Name:		erlang-%{realname}
-Version:	5.2.2
+Version:	5.2.3
 Epoch:		1
 Release:	%autorelease
 Summary:	Erlang CORBA libraries

@@ -22,7 +22,7 @@ BuildRequires:  pkgconfig(girepository-2.0)
 BuildRequires:  pkgconfig(goa-1.0)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(libecal-2.0) >= 3.33.2
+BuildRequires:  pkgconfig(libecal-2.0) >= 3.62.1-2
 BuildRequires:  pkgconfig(libedataserver-1.2)
 BuildRequires:  pkgconfig(libedataserverui4-1.0)
 BuildRequires:  pkgconfig(libpeas-1.0)
