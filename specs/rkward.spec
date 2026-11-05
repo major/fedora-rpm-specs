@@ -1,6 +1,6 @@
 Name:           rkward
 Version:        0.8.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Graphical frontend for R language
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -33,6 +33,7 @@ BuildRequires:  cmake(KF6TextEditor)
 BuildRequires:  cmake(KF6WidgetsAddons)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6XmlGui)
+BuildRequires:  openpgpverify
 
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Core5Compat)
@@ -59,7 +60,7 @@ R-project. RKWard tries to combine the power of the R-language with the
 include integration with office suites
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 rm -rf 3rdparty
 
@@ -92,6 +93,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_libexecdir}/%{name}.rbackend
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 0.8.3-5
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

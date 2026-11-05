@@ -26,7 +26,8 @@ reliable and faster recovery.
 %autosetup
 
 sed -i 's!/usr/local/etc/foremost.conf!%{_sysconfdir}/foremost.conf!' config.c
-sed -i 's|^RAW_FLAGS =.*|RAW_FLAGS = %{optflags}|' Makefile
+sed -i 's|^RAW_FLAGS =.*|RAW_FLAGS = %{optflags} -fPIE|' Makefile
+sed -i 's|\$(CC) \$(OBJ) -o \$(NAME) \$(LINK_OPT)|\0 -pie|' Makefile
 
 %build
 make %{?_smp_mflags} CONF=%{_sysconfdir} V=1
@@ -39,10 +40,14 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
 make install BIN=$RPM_BUILD_ROOT%{_bindir} MAN=$RPM_BUILD_ROOT%{_mandir}/man8 \
     CONF=$RPM_BUILD_ROOT%{_sysconfdir}
 
+%check
+# no upstream test suite (smoke-test the binary)
+%{buildroot}%{_bindir}/foremost -V
+
 %files
 %doc README CHANGES
-%{_bindir}/*
-%{_mandir}/man8/*
+%{_bindir}/foremost
+%{_mandir}/man8/foremost.8*
 %config(noreplace) %{_sysconfdir}/foremost.conf
 
 %changelog

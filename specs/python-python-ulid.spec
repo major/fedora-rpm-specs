@@ -25,7 +25,7 @@ BuildOption(install): --assert-license ulid
 
 BuildArch:      noarch
 
-# Test dependencies are defined in the “dev” dependeny group, which has tight
+# Test dependencies are defined in the “dev” dependency group, which has tight
 # version pins and includes coverage tools and other unwanted dependencies; it
 # is easier to maintain a manual list.
 BuildRequires:  %{py3_dist freezegun}

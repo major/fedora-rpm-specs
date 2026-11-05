@@ -25,7 +25,7 @@ BuildRequires:  chrpath
 BuildRequires:  curl-devel
 BuildRequires:  fstrm-devel
 BuildRequires:  gcc-c++
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  hostname
 BuildRequires:  libcap-devel
 BuildRequires:  libsodium-devel
@@ -53,7 +53,7 @@ PowerDNS Recursor is a non authoritative/recursing DNS server. Use this
 package if you need a dns cache for your network.
 
 %prep
-%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%{openpgpverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup -n %{name}-%{version} -p1
 
 # Create a sysusers.d config file

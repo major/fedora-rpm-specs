@@ -4,24 +4,16 @@
 %global somajor 0
 
 Name:           libeconf
-Version:        0.7.9
-Release:        4%{?dist}
+Version:        0.8.6
+Release:        1%{?dist}
 Summary:        Enhanced config file parser library
 
 License:        MIT
 URL:            https://github.com/openSUSE/libeconf
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-### Patches ###
-# This should be a temporary workaround. I don't have enough time to check what's happening, but since we aren't shipping the html documentation it's fine to stop installing it
-Patch0101:      0001-cmake-no-install-html.patch
-# Intermittent failure of a test in aarch64, thus temporarily disabling the failing test suite
-Patch0102:      0002-disable-test.patch
-
+Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  gcc
-BuildRequires:  make
 
 %description
 libeconf is a highly flexible and configurable library to parse and manage
@@ -48,11 +40,14 @@ configuration files from applications that use %{name}.
 
 
 %prep
-%autosetup -p1
+%autosetup -C -p1
+
+
+%conf
+%cmake -DBUILD_DOCUMENTATION=OFF -DBUILD_TESTS=ON
 
 
 %build
-%cmake
 %cmake_build
 
 
@@ -82,6 +77,9 @@ configuration files from applications that use %{name}.
 %{_mandir}/man8/econftool.8*
 
 %changelog
+* Wed Nov 04 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.8.6-1
+- Rebase to 0.8.6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

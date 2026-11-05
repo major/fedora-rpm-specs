@@ -14,7 +14,7 @@ Source1:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz.sig
 Source2:    gpgkey-3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2.gpg
 
 BuildRequires:  gcc
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 BuildRequires:  meson
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xkbfile)
@@ -27,7 +27,7 @@ be read by various other X utilities for redisplay, printing, editing,
 formatting, archiving, image processing, etc.
 
 %prep
-%gpgverify -k 2 -s 1 -d 0
+%openpgpverify -k 2 -s 1 -d 0
 %autosetup
 
 %build

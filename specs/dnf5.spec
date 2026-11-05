@@ -1,6 +1,6 @@
 %global project_version_prime 5
 %global project_version_major 4
-%global project_version_minor 6
+%global project_version_minor 7
 %global project_version_micro 0
 
 # ========== build options ==========
@@ -19,12 +19,7 @@
 %bcond_without modulemd
 %endif
 %bcond_without systemd
-# Disable SOLVER_FLAG_FOCUS_NEW only for RHEL
-%if 0%{?rhel} && 0%{?rhel} < 11
-%bcond_with    focus_new
-%else
 %bcond_without focus_new
-%endif
 
 # Main components
 %bcond_without dnf5
@@ -43,7 +38,7 @@
 %bcond_without plugin_local
 %endif
 %bcond_without plugin_manifest
-%bcond_without plugin_rhsm
+%bcond_without plugin_rhsm_container
 %if %{with systemd}
 %bcond_without plugin_systemd_inhibit
 %else
@@ -79,7 +74,7 @@ Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
 Release:        1%{?dist}
 Summary:        Command-line package manager
-License:        GPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 
@@ -147,6 +142,7 @@ Provides:       dnf5-command(versionlock) = %{version}-%{release}
 
 # ========== versions of dependencies ==========
 
+%global libpkgmanifest_version 0.5.10
 %if %{with modulemd}
 %global libmodulemd_version 2.5.0
 %endif
@@ -209,8 +205,11 @@ BuildRequires:  systemd
 %if %{with html} || %{with man}
 BuildRequires:  python3dist(breathe)
 BuildRequires:  python3dist(sphinx) >= 4.1.2
-BuildRequires:  python3dist(sphinx-autoapi)
+%endif
+
+%if %{with html}
 BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3dist(sphinx-autoapi)
 %endif
 
 %if %{with sanitizers}
@@ -229,7 +228,7 @@ BuildRequires:  pkgconfig(smartcols)
 %if %{with dnf5_plugins}
 BuildRequires:  libcurl-devel >= 7.62.0
 %if %{with plugin_manifest}
-BuildRequires:  pkgconfig(libpkgmanifest)
+BuildRequires:  pkgconfig(libpkgmanifest) >= %{libpkgmanifest_version}
 %endif
 %endif
 
@@ -245,7 +244,7 @@ BuildRequires:  python3dist(dbus-python)
 %endif
 %endif
 
-%if %{with plugin_rhsm}
+%if %{with plugin_rhsm_container}
 BuildRequires:  pkgconfig(librhsm) >= 0.0.3
 BuildRequires:  pkgconfig(glib-2.0) >= 2.44.0
 %endif
@@ -337,6 +336,8 @@ It supports RPM packages%{?with_modulemd:, modulemd modules,} and comps groups &
 %{zsh_completions_dir}/_dnf5
 %license COPYING.md
 %license gpl-2.0.txt
+%license lgpl-2.1.txt
+%license lgpl-2.0.txt
 %doc AUTHORS.md CHANGELOG.md CONTRIBUTING.md README.md
 %if %{with man}
 %{_mandir}/man8/dnf5.8.*
@@ -467,7 +468,7 @@ It supports RPM packages%{?with_modulemd:, modulemd modules,} and comps groups &
 # ========== libdnf5 ==========
 %package -n libdnf5
 Summary:        Package management library
-License:        LGPL-2.1-or-later
+License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 Requires:       libsolv%{?_isa} >= %{libsolv_version}
 Requires:       librepo%{?_isa} >= %{librepo_version}
 %if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
@@ -524,6 +525,7 @@ Package management library.
 %verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/system.toml
 %verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/transaction_history.sqlite{,-shm,-wal}
 %license lgpl-2.1.txt
+%license lgpl-2.0.txt
 %ghost %attr(0755, root, root) %dir %{_var}/cache/libdnf5
 %{_tmpfilesdir}/libdnf5.conf
 %attr(0755, root, root) %dir %{_sharedstatedir}/dnf
@@ -550,7 +552,7 @@ Library for working with a terminal in a command-line package manager.
 
 %package -n dnf5-devel
 Summary:        Development files for dnf5
-License:        LGPL-2.1-or-later
+License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-devel%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli-devel%{?_isa} = %{version}-%{release}
@@ -562,13 +564,14 @@ Development files for dnf5.
 %{_includedir}/dnf5/
 %license COPYING.md
 %license lgpl-2.1.txt
+%license lgpl-2.0.txt
 
 
 # ========== libdnf5-devel ==========
 
 %package -n libdnf5-devel
 Summary:        Development files for libdnf
-License:        LGPL-2.1-or-later
+License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libsolv-devel%{?_isa} >= %{libsolv_version}
 
@@ -582,6 +585,7 @@ Development files for libdnf.
 %{_libdir}/pkgconfig/libdnf5.pc
 %license COPYING.md
 %license lgpl-2.1.txt
+%license lgpl-2.0.txt
 
 
 # ========== libdnf5-cli-devel ==========
@@ -783,23 +787,25 @@ Libdnf5 plugin for detecting and removing expired PGP keys.
 %endif
 %endif
 
-# ========== libdnf5-plugin-plugin_rhsm ==========
+# ========== libdnf5-plugin-plugin_rhsm_container ==========
 
-%if %{with plugin_rhsm}
-%package -n libdnf5-plugin-rhsm
-Summary:        Libdnf5 rhsm (Red Hat Subscription Manager) plugin
+%if %{with plugin_rhsm_container}
+%package -n libdnf5-plugin-rhsm-container
+Summary:        Libdnf5 rhsm (Red Hat Subscription Manager) plugin for containers
 License:        LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
+Provides:       libdnf5-plugin-rhsm = %{version}-%{release}
+Obsoletes:      libdnf5-plugin-rhsm <= 5.4.6.0-1
 
-%description -n libdnf5-plugin-rhsm
+%description -n libdnf5-plugin-rhsm-container
 Libdnf5 plugin with basic support for Red Hat subscriptions.
 Synchronizes the the enrollment with the vendor system. This can change
 the contents of the repositories configuration files according
-to the subscription levels.
+to the entitlement certificate that is shared by host with containers.
 
-%files -n libdnf5-plugin-rhsm -f libdnf5-plugin-rhsm.lang
-%{_libdir}/libdnf5/plugins/rhsm.*
-%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/rhsm.conf
+%files -n libdnf5-plugin-rhsm-container -f libdnf5-plugin-rhsm-container.lang
+%{_libdir}/libdnf5/plugins/rhsm-container.*
+%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/rhsm-container.conf
 %endif
 
 
@@ -961,6 +967,7 @@ Provides:       dnf5-command(builddep) = %{version}-%{release}
 Provides:       dnf5-command(changelog) = %{version}-%{release}
 Provides:       dnf5-command(config-manager) = %{version}-%{release}
 Provides:       dnf5-command(copr) = %{version}-%{release}
+Provides:       dnf5-command(deptree) = %{version}-%{release}
 Provides:       dnf5-command(needs-restarting) = %{version}-%{release}
 Provides:       dnf5-command(repoclosure) = %{version}-%{release}
 Provides:       dnf5-command(reposync) = %{version}-%{release}
@@ -968,13 +975,14 @@ Provides:       dnf5-command(repomanage) = %{version}-%{release}
 
 %description -n dnf5-plugins
 Core DNF5 plugins that enhance dnf5 with builddep, changelog, config-manager,
-copr, needs-restarting, repoclosure, repomanage, and reposync commands.
+copr, deptree, needs-restarting, repoclosure, repomanage, and reposync commands.
 
-%files -n dnf5-plugins -f dnf5-plugin-builddep.lang -f dnf5-plugin-changelog.lang -f dnf5-plugin-config-manager.lang -f dnf5-plugin-copr.lang -f dnf5-plugin-needs-restarting.lang -f dnf5-plugin-repoclosure.lang -f dnf5-plugin-reposync.lang
+%files -n dnf5-plugins -f dnf5-plugin-builddep.lang -f dnf5-plugin-changelog.lang -f dnf5-plugin-config-manager.lang -f dnf5-plugin-copr.lang -f dnf5-plugin-deptree.lang -f dnf5-plugin-needs-restarting.lang -f dnf5-plugin-repoclosure.lang -f dnf5-plugin-reposync.lang
 %{_libdir}/dnf5/plugins/builddep_cmd_plugin.so
 %{_libdir}/dnf5/plugins/changelog_cmd_plugin.so
 %{_libdir}/dnf5/plugins/config-manager_cmd_plugin.so
 %{_libdir}/dnf5/plugins/copr_cmd_plugin.so
+%{_libdir}/dnf5/plugins/deptree_cmd_plugin.so
 %{_libdir}/dnf5/plugins/needs_restarting_cmd_plugin.so
 %{_libdir}/dnf5/plugins/repoclosure_cmd_plugin.so
 %{_libdir}/dnf5/plugins/reposync_cmd_plugin.so
@@ -984,6 +992,7 @@ copr, needs-restarting, repoclosure, repomanage, and reposync commands.
 %{_mandir}/man8/dnf*-changelog.8.*
 %{_mandir}/man8/dnf*-config-manager.8.*
 %{_mandir}/man8/dnf*-copr.8.*
+%{_mandir}/man8/dnf*-deptree.8.*
 %{_mandir}/man8/dnf*-needs-restarting.8.*
 %{_mandir}/man8/dnf*-repoclosure.8.*
 %{_mandir}/man8/dnf*-reposync.8.*
@@ -997,7 +1006,7 @@ copr, needs-restarting, repoclosure, repomanage, and reposync commands.
 
 %package plugin-automatic
 Summary:        Package manager - automated upgrades
-License:        LGPL-2.1-or-later
+License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1017,6 +1026,8 @@ automatically and regularly from systemd timers, cron jobs or similar.
 %files plugin-automatic -f dnf5-plugin-automatic.lang
 %ghost %attr(0644, root, root) %{_sysconfdir}/motd.d/dnf5-automatic
 %{_libdir}/dnf5/plugins/automatic_cmd_plugin.so
+%license lgpl-2.1.txt
+%license lgpl-2.0.txt
 %{_datadir}/dnf5/dnf5-plugins/automatic.conf
 %{_datadir}/dbus-1/system.d/org.rpm.dnf.v0.Automatic.conf
 %ghost %attr(0644, root, root) %config(noreplace) %{_sysconfdir}/dnf/automatic.conf
@@ -1043,6 +1054,7 @@ License:        LGPL-2.1-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
+Requires:       libpkgmanifest%{?_isa} >= %{libpkgmanifest_version}
 Provides:       dnf5-command(manifest) = %{version}-%{release}
 
 %description plugin-manifest
@@ -1080,7 +1092,7 @@ DNF5 plugin for working with RPM package manifest files.
     -DWITH_PLUGIN_APPSTREAM=%{?with_plugin_appstream:ON}%{!?with_plugin_appstream:OFF} \
     -DWITH_PLUGIN_EXPIRED_PGP_KEYS=%{?with_plugin_expired_pgp_keys:ON}%{!?with_plugin_expired_pgp_keys:OFF} \
     -DWITH_PLUGIN_LOCAL=%{?with_plugin_local:ON}%{!?with_plugin_local:OFF} \
-    -DWITH_PLUGIN_RHSM=%{?with_plugin_rhsm:ON}%{!?with_plugin_rhsm:OFF} \
+    -DWITH_PLUGIN_RHSM_CONTAINER=%{?with_plugin_rhsm_container:ON}%{!?with_plugin_rhsm_container:OFF} \
     -DWITH_PLUGIN_MANIFEST=%{?with_plugin_manifest:ON}%{!?with_plugin_manifest:OFF} \
     -DWITH_PLUGIN_SYSTEMD_INHIBIT=%{?with_plugin_systemd_inhibit:ON}%{!?with_plugin_systemd_inhibit:OFF} \
     -DWITH_PYTHON_PLUGINS_LOADER=%{?with_python_plugins_loader:ON}%{!?with_python_plugins_loader:OFF} \
@@ -1186,6 +1198,7 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %find_lang dnf5-plugin-changelog
 %find_lang dnf5-plugin-config-manager
 %find_lang dnf5-plugin-copr
+%find_lang dnf5-plugin-deptree
 %find_lang dnf5-plugin-needs-restarting
 %find_lang dnf5-plugin-repoclosure
 %find_lang dnf5-plugin-reposync
@@ -1206,13 +1219,16 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %if %{with plugin_expired_pgp_keys}
 %find_lang libdnf5-plugin-expired-pgp-keys
 %endif
-%if %{with plugin_rhsm}
-%find_lang libdnf5-plugin-rhsm
+%if %{with plugin_rhsm_container}
+%find_lang libdnf5-plugin-rhsm-container
 %endif
 
 %ldconfig_scriptlets
 
 %changelog
+* Tue Nov 03 2026 Packit <hello@packit.dev> - 5.4.7.0-1
+- Update to version 5.4.7.0
+
 * Thu Sep 24 2026 Packit <hello@packit.dev> - 5.4.6.0-1
 - Update to version 5.4.6.0
 

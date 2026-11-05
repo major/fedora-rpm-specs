@@ -1,5 +1,5 @@
 Name:           mt32emu
-Version:        2.7.3
+Version:        2.8.5
 Release:        %autorelease
 Summary:        C/C++ library for emulating Roland MT-32, CM-32L and LAPC-I synthesizer modules
 
@@ -11,7 +11,14 @@ License:        LGPL-2.1-or-later AND BSD-3-Clause
 URL:            https://munt.sourceforge.net/
 Source0:        https://github.com/munt/munt/archive/refs/tags/lib%{name}_%{version_}.tar.gz
 
+# Upstream CMakeLists can work with both CMAKE_INSTALL_LIBDIR
+# and LIB_INSTALL_DIR. If both are provided, the second takes precedence.
+# *However*, upstream expects LIB_INSTALL_DIR to be relative to ${PREFIX},
+# whereas Fedora's %%cmake macros specify an absolute path.
+Patch0:         0000-do-not-use-LIB_INSTALL_DIR.patch
+
 BuildRequires:  cmake
+BuildRequires:  doctest-devel
 BuildRequires:  gcc-c++
 
 # Not needed for multilib
@@ -53,8 +60,7 @@ rm -rf DOSBox-mt32-patch FreeBSD mt32emu_{alsadrv,smf2wav,qt,win32drv{,_setup}}
 rm %{buildroot}/%{_docdir}/munt/lib%{name}/COPYING.txt
 
 %check
-# No tests available
-# %%ctest
+%ctest
 
 %files
 %{_libdir}/lib%{name}.so.2*

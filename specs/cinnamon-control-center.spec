@@ -1,17 +1,16 @@
 %global forgeurl https://github.com/linuxmint/cinnamon-control-center
-%global tagver   6.7.7
-%global tag      %{tagver}-unstable
+%global tag      %{version}
 
 %global _artwork_version 1.7.5
 
-%global cinnamon_desktop_version 6.7.0
-%global csd_version 6.7.0
-%global cinnamon_menus_version 6.7.0
+%global cinnamon_desktop_version 6.8.0
+%global csd_version 6.8.0
+%global cinnamon_menus_version 6.8.0
 %global redhat_menus_version 1.8
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: %{tagver}^unstable
+Version: 6.8.0
 Release: %{autorelease}
 %{forgemeta}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT

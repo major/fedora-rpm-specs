@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/linux-msm/qdl/
 
 Name:           qdl
-Version:        2.8
+Version:        2.9
 Release:        %autorelease
 
 %forgemeta
@@ -10,9 +10,8 @@ Summary:        Qualcomm EDL flash tool
 License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-Source1:        51-qcom-usb.rules
-# https://github.com/linux-msm/qdl/pull/324
-Patch0:         324.patch
+# https://github.com/linux-msm/qdl/pull/351
+Patch0:         351.patch
 BuildRequires:  gcc
 BuildRequires:  help2man
 BuildRequires:  meson
@@ -22,11 +21,11 @@ BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libzip)
 BuildRequires:  pkgconfig(nbdkit)
+BuildRequires:	systemd-rpm-macros
 
 %description
 This tool communicates with Qualcomm EDL USB devices (Vendor ID 05c6, Product
 IDs 9008, 900e, 901d) to upload a flash loader and use it to flash images.
-
 
 %package -n nbdkit-qdl-plugin
 Summary:	Qdl plugin for nbdkit
@@ -38,11 +37,6 @@ This package is the Qdl plugin for nbdkit.
 
 %prep
 %autosetup -p1
-
-%if 0%{?rhel} && 0%{?rhel} < 10
-sed -e 's|1.1.0|0.63|g' -i meson.build
-cp -p meson.options meson_options.txt
-%endif
 
 
 %if 0%{?rhel} && 0%{?rhel} < 10
@@ -62,15 +56,13 @@ cp -p meson.options meson_options.txt
 
 %install
 %meson_install
-mkdir -p %{buildroot}%{_sysconfdir}/udev/rules.d
-install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/udev/rules.d/51-qcom-usb.rules
 
 
 %files
 %license LICENSE
 %doc README.md
 %{_bindir}/qdl*
-%config(noreplace) %{_sysconfdir}/udev/rules.d/51-qcom-usb.rules
+%{_udevrulesdir}/70-qdl.rules
 %{_mandir}/man1/qdl*
 
 

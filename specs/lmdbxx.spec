@@ -28,6 +28,8 @@ Provides: %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %prep
 %autosetup
+
+%conf
 %meson -Dtests=true
 
 %build

@@ -8,7 +8,7 @@
 
 Name:           libclc22
 Version:        %{libclc_version}%{?rc_ver:~rc%{rc_ver}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
 License:        Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -26,7 +26,7 @@ BuildRequires:  cmake
 BuildRequires:  spirv-llvm-translator-tools
 
 # For signature verification
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 
 Requires:       %{name}-spirv%{?_isa} = %{version}-%{release}
 
@@ -75,7 +75,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{src_tarball_dir}
 
 %build
@@ -116,6 +116,9 @@ cd libclc
 %{_libdir}/pkgconfig/libclc.pc
 
 %changelog
+* Wed Nov 04 2026 Jakub Jelen <jjelen@redhat.com> - 22.1.8-5
+- Verify upstream source signatures with openpgpverify
+
 * Fri Sep 11 2026 Timm Baeder <tbaeder@redhat.com> - 22.1.8-4
 - Bump release for llvm23 update
 

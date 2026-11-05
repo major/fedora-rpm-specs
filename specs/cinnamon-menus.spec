@@ -1,12 +1,14 @@
-%global upstream_version 6.7.1-unstable
+%global forgeurl https://github.com/linuxmint/cinnamon-menus
+%global tag      %{version}
 
 Summary: A menu system for the Cinnamon project
 Name:    cinnamon-menus
-Version: 6.7.1^unstable
+Version: 6.8.0
 Release: %autorelease
+%{forgemeta}
 License: LGPL-2.0-or-later
-URL:     https://github.com/linuxmint/%{name}
-Source0: %url/archive/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
+URL:     %{forgeurl}
+Source0: %{forgesource}
 
 ExcludeArch:   %{ix86}
 
@@ -34,7 +36,7 @@ This package provides the necessary development libraries for
 writing applications that use the Cinnamon menu system.
 
 %prep
-%autosetup -p1 -n %{name}-%{upstream_version}
+%forgeautosetup -p1
 
 %files
 %doc AUTHORS NEWS

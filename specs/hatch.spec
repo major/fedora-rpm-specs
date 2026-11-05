@@ -151,8 +151,8 @@ tomcli get hatch.toml -F newline-list envs.hatch-test.extra-dependencies |
 # at the same time they switched to python-discovery. This makes sense in
 # principle, because this is the version in which discovery was split out from
 # virtualenv, but it turns out that we can still provide python-discovery on
-# F44 with virtualenv 20.35.4, and there are good reasons (particuarly, updated
-# managed Python interpreters) to backport a current hatch release to F44.
+# F44 with virtualenv 20.35.4, and there are good reasons (updated managed
+# Python interpreters) to backport a current hatch release to F44.
 %pyproject_patch_dependency virtualenv:set_lower:20.13.1
 %endif
 

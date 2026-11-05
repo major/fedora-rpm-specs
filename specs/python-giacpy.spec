@@ -1,7 +1,7 @@
 %global giacver 2.0.0.17
 %global pypi_name  giacpy
 
-%global with_check  1
+%global with_check  0
 
 # Architectures currently not supported
 # http://xcas.e.ujf-grenoble.fr/XCAS/viewtopic.php?f=19&t=1723

@@ -32,7 +32,7 @@ BuildRequires:  desktop-file-utils libappstream-glib
 # for line ending fixups
 BuildRequires:  dos2unix
 # for source file verification
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 # system libraries used by this package
 BuildRequires:  file-devel
 BuildRequires:  gtest-devel
@@ -94,7 +94,7 @@ extraction) from the Password Safe GUI (Help menu or button).
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup -p1 -n %{short}-%{version}
 # make sure our binaries don't depend on any windows/mac stuff

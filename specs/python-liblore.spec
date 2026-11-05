@@ -20,6 +20,7 @@ BuildRequires:  pyproject-rpm-macros
 # linters, typecheckers, etc.; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters.
 # Therefore, we maintain the following list of test dependencies manually.
+BuildRequires:  openpgpverify
 BuildRequires:  python3dist(authheaders)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
@@ -42,7 +43,7 @@ Provides:       python%{python3_pkgversion}-%{srcname} = %{version}-%{release}
 
 
 %prep
-xz -dc '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
+xz -dc '%{SOURCE0}' | %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup -p1 -n %{srcname}-%{version}
 
 

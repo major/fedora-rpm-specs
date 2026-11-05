@@ -1,20 +1,14 @@
 Name:           python-zlib-ng
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Drop-in replacement for zlib and gzip modules using zlib-ng
 
-# The entire source is PSF-2.0, since we do not use the vendored zlib-ng
+# The entire source is PSF-2.0 since we do not use the vendored zlib-ng
 # sources that would be present in the PyPI sdist. We use the GitHub archive
 # because it contains tests and changelogs that the PyPI sdist lacks.
 License:        PSF-2.0
 URL:            https://github.com/pycompression/python-zlib-ng
 Source:         %{url}/archive/v%{version}/python-zlib-ng-%{version}.tar.gz
-
-# Fix a crash when calling `copy()` on a flushed compress object on Python 3.15
-# * test: Address Pytest 9.1 warnings
-# …etc. Fixes https://github.com/pycompression/python-zlib-ng/issues/75.
-# https://github.com/pycompression/python-zlib-ng/commit/10d2ffd6e97dca906da84d59c5b39fad915b5262
-Patch:          0001-Fix-a-crash-when-calling-copy-on-a-flushed-compress-.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license zlib_ng
@@ -22,9 +16,8 @@ BuildOption(install): --assert-license zlib_ng
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(zlib-ng)
 
-# List test dependencies manually because this is easier than patching coverage
-# out of tox.ini
-# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters).
+# Manual test deps. are easier than patching coverage out of tox.ini:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytest-timeout}
 BuildRequires:  python3-test
@@ -51,9 +44,9 @@ zlib_ng and gzip_ng are almost fully compatible with zlib and gzip from the
 Python standard library. There are some minor differences see:
 https://pypi.org/project/zlib-ng/#differences-with-zlib-and-gzip-modules
 
-Beginning with Fedora Linux 40, zlib-ng provides the system-wide zlib
-implementation, so the Python standard library already uses it by default.
-However, some projects still need the APIs provided by this package.}
+In Fedora, zlib-ng provides the system-wide zlib implementation, so the Python
+standard library already uses it by default. However, some projects still need
+the APIs provided by this package.}
 
 %description %{common_description}
 
@@ -67,7 +60,7 @@ Summary:        %{summary}
 %prep -a
 # Remove bundled zlib-ng library if present (not in GitHub archive because it
 # is a git submodule, so this is just an extra precaution).
-rm -rvf src/zlib_ng/zlib-ng
+rm --recursive --verbose src/zlib_ng/zlib-ng
 
 
 %generate_buildrequires -p

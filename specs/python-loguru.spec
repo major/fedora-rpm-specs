@@ -15,6 +15,10 @@ Patch:          0001-Fix-deprecation-warning-raised-by-tests-with-Python-.patch
 # Fix failing "exception_modern" unit test with Python 3.14 (#1331)
 # https://github.com/Delgan/loguru/commit/84023e2bd8339de95250470f422f096edcb8f7b7
 Patch:          %{url}/commit/84023e2bd8339de95250470f422f096edcb8f7b7.patch
+# Fix greedy regex causing quadratic scans and possible reDoS
+# https://github.com/Delgan/loguru/commit/4e7762bcb44862fce877b1f90f19063834509575
+# Fixes CVE-2026-120217. Backported to 0.7.3 without the changelog entry.
+Patch:          CVE-2026-120217.patch
 
 BuildArch:      noarch
 
@@ -22,7 +26,7 @@ BuildSystem:    pyproject
 BuildOption(install): --assert-license loguru
 
 # The dev extra pins exact versions and includes unwanted coverage tools etc.
-# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters), 
+# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
 # and developer tools, so we enumerate test dependencies manually:
 BuildRequires:  %{py3_dist colorama}
 BuildRequires:  %{py3_dist freezegun}

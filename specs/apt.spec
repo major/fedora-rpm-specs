@@ -13,8 +13,8 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        3.3.5
-Release:        2%{?dist}
+Version:        3.3.6
+Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
@@ -183,7 +183,7 @@ EOF
 
 %build
 %{?el9:source /opt/rh/gcc-toolset-15/enable}
-%cmake -GNinja
+%cmake -GNinja -DWITH_HEGEL_TESTS=0
 %cmake_build
 
 %install
@@ -330,6 +330,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Wed Nov 04 2026 Terje Røsten <terjeros@gmail.com> - 3.3.6-1
+- 3.3.6
+
 * Thu Oct 29 2026 Terje Røsten <terjeros@gmail.com> - 3.3.5-2
 - Revert to cmake 3
 

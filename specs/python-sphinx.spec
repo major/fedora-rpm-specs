@@ -48,6 +48,13 @@ Patch:      https://github.com/sphinx-doc/sphinx/pull/14474.patch
 # the test used testroot='root' which lacks literalblock.txt
 Patch:      https://github.com/sphinx-doc/sphinx/pull/14507.patch
 
+# Fix tests for Python 3.16 (and Python 3.15.1+, 3.14.8+)
+# https://github.com/sphinx-doc/sphinx/commit/378a332a8f sans CHANGES.rst
+Patch:      378a332a8f.patch
+
+# Tests: adapt HTML escaping to pygments v2.21.0 change-in-behaviour
+Patch:      https://github.com/sphinx-doc/sphinx/commit/b04a21012.patch
+
 # Make the first party extensions optional
 # This removes the runtime dependencies on:
 #  - sphinxcontrib.applehelp

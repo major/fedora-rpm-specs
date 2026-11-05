@@ -5,7 +5,7 @@
 %global crate crypto-bigint
 
 Name:           rust-crypto-bigint
-Version:        0.7.5
+Version:        0.7.10
 Release:        %autorelease
 Summary:        Pure Rust bigint implementation for use in cryptographic applications
 
@@ -22,8 +22,9 @@ BuildRequires:  cargo-rpm-macros >= 24
 %global _description %{expand:
 Pure Rust implementation of a big integer library which has been
 designed from the ground-up for use in cryptographic applications.
-Provides constant-time, no_std-friendly implementations of modern
-formulas using const generics.}
+Provides constant-time, `no_std`/`no_alloc`-friendly implementations of
+modern formulas using const generics. Also includes optional support for
+heap-backed integers.}
 
 %description %{_description}
 

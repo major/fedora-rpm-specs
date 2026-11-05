@@ -56,6 +56,7 @@
 %endif
 
 %if !0%{?rhel}
+%global with_gfxstream 1
 %global with_libunwind 1
 %global with_lmsensors 1
 %global with_virtio    1
@@ -68,7 +69,7 @@
 %bcond_with valgrind
 %endif
 
-%global vulkan_drivers swrast%{?base_vulkan}%{?intel_platform_vulkan}%{?asahi_platform_vulkan}%{?extra_platform_vulkan}%{?with_nvk:,nouveau}%{?with_virtio:,virtio}%{?with_d3d12:,microsoft-experimental}
+%global vulkan_drivers swrast%{?base_vulkan}%{?intel_platform_vulkan}%{?asahi_platform_vulkan}%{?extra_platform_vulkan}%{?with_nvk:,nouveau}%{?with_virtio:,virtio}%{?with_gfxstream:,gfxstream}%{?with_d3d12:,microsoft-experimental}
 
 %if 0%{?with_nvk} && 0%{?rhel}
 %global vendor_nvk_crates 1
@@ -701,6 +702,10 @@ ln -s libGLX_mesa.so.0 %{buildroot}%{_libdir}/libGLX_system.so.0
 %{_libdir}/libvulkan_virtio.so
 %{_datadir}/vulkan/icd.d/virtio_icd.*.json
 %{_datadir}/drirc.d/00-venus-defaults.conf
+%endif
+%if 0%{?with_gfxstream}
+%{_libdir}/libvulkan_gfxstream.so
+%{_datadir}/vulkan/icd.d/gfxstream_vk_icd.*.json
 %endif
 %if 0%{?with_vulkan_hw}
 %{_libdir}/libvulkan_radeon.so

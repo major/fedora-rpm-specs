@@ -14,8 +14,12 @@ Source2:        https://downloads.apache.org/maven/KEYS
 
 Patch:          0001-Remove-dependency-on-velocity-tools.patch
 
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
+%if 0%{?rhel} && 0%{?rhel} <= 10
+BuildRequires:  maven-local-openjdk21
+%else
 BuildRequires:  maven-local-openjdk25
+%endif
 BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(javax.inject:javax.inject)
@@ -69,7 +73,7 @@ Summary:        Javadoc for %{name}
 API documentation for %{name}.
 
 %prep
-%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+%{openpgpverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup -p1 -n doxia-sitetools-%{version}
 
 # Unavailable plugins
@@ -86,6 +90,10 @@ API documentation for %{name}.
 
 # Add a missing dependency
 %pom_add_dep org.codehaus.plexus:plexus-utils doxia-skin-model
+
+# Inject javaSource=8 for modello-maven-plugin to generate generics-compatible classes
+%pom_xpath_inject "pom:build/pom:plugins/pom:plugin[pom:artifactId='modello-maven-plugin']/pom:configuration" "<javaSource>8</javaSource>" doxia-site-model
+%pom_xpath_inject "pom:build/pom:plugins/pom:plugin[pom:artifactId='modello-maven-plugin']/pom:configuration" "<javaSource>8</javaSource>" doxia-skin-model
 
 # Not actually used in the build or needed at runtime
 %pom_remove_dep -r org.apache.maven.doxia:doxia-module-apt

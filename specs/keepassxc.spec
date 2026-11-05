@@ -2,7 +2,7 @@
 
 Name:           keepassxc
 Version:        2.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cross-platform password manager
 License:        GPL-2.0-or-later AND BSD-2-Clause AND MIT AND CC0-1.0 AND Apache-2.0 AND LGPL-2.0-only AND LGPL-2.1-only
 URL:            https://keepassxc.org/
@@ -53,7 +53,7 @@ BuildRequires:  qt6-qttools-devel
 BuildRequires:  zlib-devel
 BuildRequires:  rubygem-asciidoctor
 # Required for GPG signature verification
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 
 # enforces on the user system, Qt version to be the same one used to build KeepassXC
 # This avoids "not a bug" bugreports like this one
@@ -104,7 +104,7 @@ information can be considered as quite safe.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup -n %{name}-%{version}
 
@@ -170,6 +170,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 2.8.0-4
+- Verify upstream source signatures with openpgpverify
+
 * Sun Oct 25 2026 Jan Grulich <jgrulich@redhat.com> - 2.8.0-3
 - Rebuild (qt6)
 

@@ -1,5 +1,5 @@
 Name:           python-lsp-ruff
-Version:        2.3.3
+Version:        2.3.4
 Release:        %{autorelease}
 Summary:        Ruff linting plugin for Python LSP Server
 

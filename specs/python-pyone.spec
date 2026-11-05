@@ -1,7 +1,7 @@
 %global pypi_name pyone
 
 Name:           python-%{pypi_name}
-Version:        6.0.2
+Version:        6.10.5
 Release:        %autorelease
 Summary:        Python Bindings for OpenNebula XML-RPC API
 
@@ -9,12 +9,10 @@ Summary:        Python Bindings for OpenNebula XML-RPC API
 License:        Apache-2.0
 URL:            http://opennebula.org
 Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-Source1:        https://github.com/OpenNebula/addon-pyone/blob/master/LICENSE
 BuildArch:      noarch
 
-BuildRequires:  python3-aenum
 BuildRequires:  python3-devel
-BuildRequires:  python3-dicttoxml
+BuildRequires:  python3-dict2xml
 BuildRequires:  python3-lxml
 BuildRequires:  python3-requests
 BuildRequires:  python3-six
@@ -45,7 +43,6 @@ find pyone -name '*.py' -exec sed -i -e '/^#!\//d' {} +
 %pyproject_wheel
 
 %install
-install -pm 0644 %{SOURCE1} LICENSE
 %pyproject_install
 %pyproject_save_files pyone
 
@@ -54,7 +51,6 @@ install -pm 0644 %{SOURCE1} LICENSE
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
 
 %changelog
 %autochangelog

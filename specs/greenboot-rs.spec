@@ -7,12 +7,11 @@
 %bcond bundled_rust_deps %{defined rhel}
 
 Name:		greenboot-rs
-Version:	0.16.4
+Version:	0.16.5
 Release:	0%{?dist}
 Summary:	Generic Health Check Framework for systemd
 # Aggregated license of statically linked dependencies as per %%cargo_license_summary
 License:	BSD-3-Clause AND ISC AND MIT AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (Unlicense OR MIT)
-%global debug_package %{nil}
 URL:		https://github.com/fedora-iot/greenboot-rs
 Source0:	%{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:	%{name}-%{version}-vendor-patched.tar.xz
@@ -42,21 +41,20 @@ Requires:	pam >= 1.4.0
 Recommends:	openssh
 
 %description -n %{pkgname}
-
-%{description}.
+Greenboot is a generic health check framework for systemd. It runs health
+checks after system upgrades to verify that the system is in a known-good
+state and allows automated rollback if a required check fails.
 
 %package -n %{pkgname}-default-health-checks
 Summary:	Series of optional and curated health checks
 License:	BSD-3-Clause
-%global debug_package %{nil}
+BuildArch:	noarch
 Requires:	%{pkgname} = %{version}-%{release}
 Requires:	util-linux
 Requires:	jq
 
 %description -n %{pkgname}-default-health-checks
-%{description}.
-
-This package adds some default healthchecks for greenboot.
+This package adds some default health checks for greenboot.
 
 %prep
 %if %{with bundled_rust_deps}
@@ -152,6 +150,10 @@ fi
 %{_unitdir}/greenboot-healthcheck.service.d/10-network-online.conf
 
 %changelog
+* Tue Oct 27 2026 Sarita Mahajan <sarmahaj@redhat.com> - 0.16.5
+- Added backward compatibility for legacy rollback trigger (v0.16.2)
+- Added CI test for legacy trigger upgrade path
+
 * Tue Aug 18 2026 Sayan Paul <saypaul@redhat.com> - 0.16.4
 - Fixed false warning on first time boot
 - Added detection of grub fallback on faulty kernel

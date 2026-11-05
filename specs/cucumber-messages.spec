@@ -101,7 +101,7 @@ information from Cucumber.
 
 
 # We package the RubyGem as a subpackage, rather than as a separate
-# rubygem-cucumber-messages source package based on the relesed Gem archive,
+# rubygem-cucumber-messages source package based on the released Gem archive,
 # because having the full cucumber-messages source code makes it much easier to
 # re-generate the Ruby source code. This approach also makes it easier to keep
 # the RubyGem up to date and synchronized with other languages’ implementations

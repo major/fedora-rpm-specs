@@ -29,7 +29,7 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 BuildRequires:  make
 %if %{with gui}
 BuildRequires:  qt%{qt_ver}-qtbase-devel
@@ -53,7 +53,7 @@ This is a GUI of %{name} based on Qt%{qt_ver}.
 %endif
 
 %prep
-%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%{openpgpverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup
 
 # CRLF quickfix

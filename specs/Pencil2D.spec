@@ -66,7 +66,7 @@ Summary(pt):    Criar animações tradicionais feitas a mão (desenhos animados)
 #   https://github.com/qt/qtbase/blob/5.15/examples/widgets/layouts/flowlayout/flowlayout.h
 #   https://github.com/qt/qtbase/blob/5.15/examples/widgets/layouts/flowlayout/flowlayout.cpp
 #
-# It looks like, despite upstream’s description, the elidedlabel souces are
+# It looks like, despite upstream’s description, the elidedlabel sources are
 # also from an example shipped with qtbase (which contains QtCore) rather than
 # from the QtCore library itself:
 #

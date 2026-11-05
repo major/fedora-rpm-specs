@@ -72,7 +72,7 @@ app - gimp:ui
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.2.6
+Version:        3.2.8
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -106,7 +106,7 @@ ExcludeArch:    s390x
 %global api_version %{major}.0
 %global lib_api_version %{major}.0
 # Mirrored from meson.build
-%global interface_age 0
+%global interface_age 2
 %global binary_age %{lua: print(100 * tonumber(macros.minor) + tonumber(macros.micro))}
 %global lt_current %{lua: print(100 * tonumber(macros.minor) + tonumber(macros.micro) - tonumber(macros.interface_age))}
 %global lt_revision %interface_age
@@ -132,6 +132,7 @@ URL:            https://www.gimp.org
 %global cairopdf_minver 1.12.2
 %global fontconfig_minver 2.12.4
 %global freetype2_minver 2.1.7
+%global fribidi_minver 1.0.8
 %global gdk_pixbuf_minver 2.32.0
 %global gegl_minver 0.4.64
 %global exiv2_minver 0.27.4
@@ -206,6 +207,7 @@ BuildRequires:  pkgconfig(cairo-pdf) >= %cairopdf_minver
 BuildRequires:  pkgconfig(cfitsio)
 BuildRequires:  pkgconfig(fontconfig) >= %fontconfig_minver
 BuildRequires:  pkgconfig(freetype2) >= %freetype2_minver
+BuildRequires:  pkgconfig(fribidi) >= %fribidi_minver
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= %gdk_pixbuf_minver
 BuildRequires:  pkgconfig(gegl-0.4) >= %gegl_minver
 BuildRequires:  pkgconfig(gexiv2) >= %gexiv2_minver
@@ -270,6 +272,7 @@ Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       babl%{?_isa} >= %babl_minver
 Requires:       fontconfig%{?_isa} >= %fontconfig_minver
 Requires:       freetype%{?_isa} >= %freetype2_minver
+Requires:       fribidi%{?_isa} >= %fribidi_minver
 Requires:       gdk-pixbuf2%{?_isa} >= %gdk_pixbuf_minver
 Requires:       gegl04%{?_isa} >= %gegl_minver
 Requires:       gjs
@@ -394,7 +397,6 @@ EOF
 %else
     -Denable-default-bin=disabled \
 %endif
-    -Dilbm=disabled \
 %if %{without aalib}
     -Daa=disabled \
 %endif

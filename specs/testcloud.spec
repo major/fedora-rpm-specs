@@ -3,7 +3,7 @@
 %endif
 
 Name:           testcloud
-Version:        0.12.0
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Tool for running cloud images locally
 

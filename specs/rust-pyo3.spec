@@ -5,7 +5,7 @@
 %global crate pyo3
 
 Name:           rust-pyo3
-Version:        0.29.3
+Version:        0.30.1
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -146,18 +146,6 @@ This package contains library source intended for building other packages which
 use the "abi3-py315" feature of the "%{crate}" crate.
 
 %files       -n %{name}+abi3-py315-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+abi3-py38-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+abi3-py38-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "abi3-py38" feature of the "%{crate}" crate.
-
-%files       -n %{name}+abi3-py38-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+abi3-py39-devel
@@ -607,11 +595,6 @@ use the "uuid" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# convert files with CRLF line endings
-dos2unix --keepdate src/call.rs
-dos2unix --keepdate src/impl_/deprecated.rs
-dos2unix --keepdate src/pyclass/guard.rs
-dos2unix --keepdate tests/test_class_init.rs
 # drop files that are not useful
 rm -r newsfragments/ wasm/
 

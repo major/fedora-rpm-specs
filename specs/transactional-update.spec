@@ -1,8 +1,10 @@
 %global somajor 8
 
+%global econf_minver 0.8.6
+
 Name:           transactional-update
-Version:        6.0.6
-Release:        4%{?dist}
+Version:        6.2.0
+Release:        1%{?dist}
 Summary:        Transactional Updates with btrfs and snapshots
 
 License:        GPL-2.0-or-later and LGPL-2.1-or-later
@@ -18,14 +20,17 @@ BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(dracut)
-BuildRequires:  pkgconfig(libeconf)
+BuildRequires:  pkgconfig(gio-2.0)
+BuildRequires:  pkgconfig(gtk-doc)
+BuildRequires:  pkgconfig(libeconf) >= %{econf_minver}
 BuildRequires:  pkgconfig(libselinux)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(mount)
-BuildRequires:  pkgconfig(rpm)
+BuildRequires:  pkgconfig(rpm) >= 4.15
 BuildRequires:  pkgconfig(systemd)
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  python3dist(lxml)
+BuildRequires:  %{_bindir}/bats
 BuildRequires:  %{_bindir}/xmllint
 BuildRequires:  %{_bindir}/xsltproc
 BuildRequires:  %{_bindir}/w3m
@@ -41,6 +46,7 @@ Summary:        Tool for doing transactional updates using Btrfs snapshots
 License:        GPL-2.0-or-later
 Conflicts:      tukit < 6.0.6-2
 Requires:       libtukit%{?_isa} = %{version}-%{release}
+Requires:       libeconf%{?_isa} >= %{econf_minver}
 Requires:       (tukit-snapper-plugin = %{version}-%{release} if snapper)
 
 %description -n tukit
@@ -173,15 +179,18 @@ transactional updates using btrfs snapshots.
 #--------------------------------------------------------------------
 
 %prep
-%autosetup -p1
+%autosetup -C -p1
 
 # use libexecdir for snapper stuff
 find -type f -exec sed -i -e "s|lib/snapper|libexec/snapper|g" {} ';'
 
 
-%build
+%conf
 autoreconf -fiv
-%configure --disable-static
+%configure --disable-static --with-doc
+
+
+%build
 %make_build
 
 
@@ -202,6 +211,10 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Wed Nov 04 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.2.0-1
+- Update to version 6.2.0
+- Resolves: rhbz#2449148
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.0.6-4
 - Rebuilt for libxml-2.5.4
 

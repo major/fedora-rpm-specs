@@ -3,7 +3,7 @@
 
 # https://github.com/docker/buildx
 %global goipath         github.com/docker/buildx
-Version:                0.38.1
+Version:                0.38.2
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f

@@ -1,5 +1,5 @@
 Name:           x11docker
-Version:        7.6.0
+Version:        7.8.0
 Release:        %autorelease
 Summary:        Run GUI applications and desktops in Linux containers
 

@@ -1,11 +1,14 @@
 Name:           sdorfehs
-Version:        1.5
+Version:        1.7
 Release:        %autorelease
 Summary:        A tiling window manager
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/jcs/sdorfehs
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# Fix command expansion in Makefile
+Patch0:         0000-Makefile-command-expansion.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -31,12 +34,11 @@ then allows a number of bindings accessible with just a single keystroke or any
 other combination.
 
 %prep
-%autosetup
+%autosetup -p1
 # Do not strip binaries on install so we can get debuginfo
 sed -e 's/install -s/install -p/' -i Makefile
 
 %build
-%set_build_flags
 %make_build
 
 %install

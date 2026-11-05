@@ -5,7 +5,7 @@
 %global crate num-bigint
 
 Name:           rust-num-bigint
-Version:        0.4.8
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Big integer implementation for Rust
 
@@ -72,16 +72,52 @@ use the "quickcheck" feature of the "%{crate}" crate.
 %files       -n %{name}+quickcheck-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand-devel
+%package     -n %{name}+rand_0_10-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rand-devel %{_description}
+%description -n %{name}+rand_0_10-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rand" feature of the "%{crate}" crate.
+use the "rand_0_10" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rand-devel
+%files       -n %{name}+rand_0_10-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rand_0_9-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rand_0_9-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rand_0_9" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rand_0_9-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rand_core_0_10-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rand_core_0_10-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rand_core_0_10" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rand_core_0_10-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rand_core_0_9-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rand_core_0_9-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rand_core_0_9" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rand_core_0_9-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

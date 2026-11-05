@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 46
+Version: 47
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -32,21 +32,21 @@ Requires: cockpit-bridge >= 318
 # Replace the older cockpit-navigator provided by 45Drives
 Obsoletes: cockpit-navigator < 0.5.11
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.7.0
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(focus-trap)) = 7.6.6
 Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.5.0
+Provides: bundled(npm(tabbable)) = 6.5.1
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
-Provides: bundled(npm(tslib)) = 2.8.1
+Provides: bundled(npm(tslib)) = 2.9.1
 
 %description
 A filesystem browser for Cockpit
@@ -86,6 +86,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Nov 4 2026 Packit <hello@packit.dev> - 47-1
+- Updated to PatternFly 6.7.0
+
 * Wed Oct 7 2026 Packit <hello@packit.dev> - 46-1
 - Translations and dependency updates
 

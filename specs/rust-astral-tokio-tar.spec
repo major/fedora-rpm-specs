@@ -5,26 +5,18 @@
 %global crate astral-tokio-tar
 
 Name:           rust-astral-tokio-tar
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
-Summary:        Rust implementation of an async TAR file reader and writer
+Summary:        DEPRECATED. Consider tar-codec instead
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/astral-tokio-tar
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Exclude release script from published crate:
-#   https://github.com/astral-sh/tokio-tar/pull/106
-Patch:          astral-tokio-tar-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A Rust implementation of an async TAR file reader and writer. This
-library does not currently handle compression, but it is abstract over
-all I/O readers and writers. Additionally, great lengths are taken to
-ensure that the entire contents are never required to be entirely
-resident in memory all at once.}
+DEPRECATED. Consider tar-codec instead.}
 
 %description %{_description}
 

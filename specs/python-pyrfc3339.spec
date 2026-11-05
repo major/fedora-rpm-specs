@@ -1,7 +1,7 @@
 %global srcname pyrfc3339
 
 Name:           python-pyrfc3339
-Version:        2.1.0
+Version:        2.1.1
 Release:        1%{?dist}
 Summary:        Generate and parse RFC 3339 timestamps
 
@@ -54,6 +54,9 @@ cp -a %{SOURCE1} .
 %doc README.rst
 
 %changelog
+* Wed Nov 4 2026 Nick Bebout <nb@fedoraproject.org> - 2.1.1-1
+- Update to 2.1.1 rhbz#2549186
+
 * Fri Aug 7 2026 Nick Bebout <nb@fedoraproject.org> - 2.1.0-1
 - Update to 2.1.0
 

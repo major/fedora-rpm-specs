@@ -45,7 +45,7 @@ ExclusiveArch: x86_64
 Name:          virt-v2v
 Epoch:         1
 Version:       2.13.9
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -114,7 +114,7 @@ BuildRequires: glibc-static
 %endif
 
 %if 0%{verify_tarball_signature}
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 %endif
 
 Requires:      libguestfs%{?_isa} >= 1:1.61.1-1
@@ -225,7 +225,7 @@ for %{name}.
 
 %prep
 %if 0%{verify_tarball_signature}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -p1
 
@@ -370,6 +370,9 @@ done
 
 
 %changelog
+* Mon Nov 02 2026 Jakub Jelen <jjelen@redhat.com> - 1:2.13.9-2
+- Verify upstream source signatures with openpgpverify
+
 * Fri Oct 30 2026 Richard W.M. Jones <rich@annexia.org> - 1:2.13.9-1
 - New upstream development version 2.13.9
 - New signing key using SHA256 hashes.

@@ -13,7 +13,7 @@ Summary: A complete ODBC driver manager for Linux
 URL:     http://www.unixODBC.org/
 
 Source:  http://www.unixODBC.org/%{name}-%{version}.tar.gz
-Source2: odbcinst-generate
+Source2: odbcinst-generate.in
 Source3: odbcinst-generate.1
 
 Patch8:  so-version-bump.patch
@@ -63,6 +63,9 @@ ODBC, you need to install this package.
 %setup -q
 %patch -P8 -p1 -b .soname-bump
 
+sed -e 's|@sysconfdir@|%{_sysconfdir}|g' -e 's|@prefix@|%{_prefix}|g' \
+  %{SOURCE2} > odbcinst-generate.sh
+
 autoreconf -vfi
 
 %build
@@ -91,7 +94,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 # Drop-in directory infrastructure for ODBC driver registration
 mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/odbc/odbcinst.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/odbc/odbcinst.d
-install -m755 %{SOURCE2} $RPM_BUILD_ROOT%{_bindir}/odbcinst-generate
+install -m755 odbcinst-generate.sh $RPM_BUILD_ROOT%{_bindir}/odbcinst-generate
 install -m644 -D %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/man1/odbcinst-generate.1
 
 # Create %ghost file so RPM tracks ownership of the generated config
@@ -228,15 +231,15 @@ fi
 %dir %{_sysconfdir}/odbc/odbcinst.d
 
 %post -n odbcinst-generate
-odbcinst-generate || :
+%{_bindir}/odbcinst-generate || :
 
 # Regenerate odbcinst.ini when driver packages install drop-in snippets
 %transfiletriggerin -n odbcinst-generate -- %{_prefix}/lib/odbc/odbcinst.d %{_sysconfdir}/odbc/odbcinst.d
-odbcinst-generate || :
+%{_bindir}/odbcinst-generate || :
 
 # Regenerate after driver packages are removed
 %transfiletriggerpostun -n odbcinst-generate -- %{_prefix}/lib/odbc/odbcinst.d %{_sysconfdir}/odbc/odbcinst.d
-odbcinst-generate || :
+%{_bindir}/odbcinst-generate || :
 
 
 %files devel -f devel-so-list

@@ -3,15 +3,13 @@
 
 Name:           nemo
 Summary:        File manager for Cinnamon
-Version:        6.8.1
+Version:        6.8.3
 Release:        %{autorelease}
 %{forgemeta}
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 Source1:        nemo-fedora.gschema.override
-Patch0:         3e05a0514dcb74d23755442b6a9d46cbb794f801.patch
-Patch1:         8d23c3b8bac25105a8709f3c58b1f23dd5d4bb05.patch
 
 ExcludeArch:   %{ix86}
 

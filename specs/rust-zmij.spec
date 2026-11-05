@@ -5,9 +5,9 @@
 %global crate zmij
 
 Name:           rust-zmij
-Version:        1.0.21
+Version:        1.0.23
 Release:        %autorelease
-Summary:        Double-to-string conversion algorithm based on Schubfach and yy
+Summary:        Double-to-string conversion algorithm based on Schubfach and xjb
 
 License:        MIT
 URL:            https://crates.io/crates/zmij
@@ -22,7 +22,7 @@ Patch2:         0001-drop-unnecessary-opt-level-crate-API-calls.patch
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A double-to-string conversion algorithm based on Schubfach and yy.}
+A double-to-string conversion algorithm based on Schubfach and xjb.}
 
 %description %{_description}
 

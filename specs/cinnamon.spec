@@ -2,16 +2,15 @@
 %global __provides_exclude ^libcinnamon\.so|^libst\.so
 
 %global forgeurl https://github.com/linuxmint/cinnamon
-%global tagver   6.7.9
-%global tag      %{tagver}-unstable
+%global tag      %{version}
 
 %global cjs_version 140.0
-%global cinnamon_desktop_version 6.7.5
-%global cinnamon_translations_version 6.7.0
-%global muffin_version 6.7.9
+%global cinnamon_desktop_version 6.8.0
+%global cinnamon_translations_version 6.8.0
+%global muffin_version 6.8.1
 
 Name:    cinnamon
-Version: %{tagver}^unstable
+Version: 6.8.0
 Release: %{autorelease}
 %{forgemeta}
 Summary: Window management and application launching for Cinnamon
@@ -27,8 +26,6 @@ Patch1:  default_panal_launcher.patch
 Patch2:  remove_crap_from_menu.patch
 Patch3:  set_menu_defaults.patch
 Patch4:  prefer-gcr-ssh-agent.patch
-Patch5:  %url/pull/14062.patch#/add_pam_oo7.patch
-Patch6:  %url/pull/14066.patch#/add_oo7-portal.patch
 
 ExcludeArch:    %{ix86}
 

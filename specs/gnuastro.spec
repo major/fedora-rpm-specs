@@ -19,7 +19,7 @@ Patch3: gnuastro-skip-test2.patch
 
 ExcludeArch: %{ix86}
 
-BuildRequires: gpgverify
+BuildRequires: openpgpverify
 
 BuildRequires: gcc
 #
@@ -64,7 +64,7 @@ BuildArch: noarch
 This %{name}-doc package contains the full documentation for %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

@@ -28,6 +28,8 @@ Patch:		0001-remove-usage-of-typing.ByteString.patch
 # for compatibility with SWIG 4.5.0
 # https://github.com/pymupdf/PyMuPDF/pull/5072
 Patch:		0001-Replace-removed-Python-2-C-API-macros-for-SWIG-4.5.0.patch
+# Upstream patch:
+Patch:		0001-src-extra.i-tests-test_annots.py-fix-potential-segv-.patch
 
 # test dependencies not picked up by generator
 BuildRequires:	python3dist(pillow)

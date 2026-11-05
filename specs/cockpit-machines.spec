@@ -3,7 +3,7 @@
 # Copyright (C) 2021 Red Hat, Inc.
 
 Name:           cockpit-machines
-Version:        359
+Version:        360
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -72,11 +72,11 @@ Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.2
-Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.2
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.7.0
 Provides: bundled(npm(@xterm/addon-webgl)) = 0.19.0
 Provides: bundled(npm(@xterm/xterm)) = 6.0.0
 Provides: bundled(npm(dequal)) = 2.0.3
@@ -86,9 +86,9 @@ Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.5.0
+Provides: bundled(npm(tabbable)) = 6.5.1
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
-Provides: bundled(npm(tslib)) = 2.8.1
+Provides: bundled(npm(tslib)) = 2.9.1
 
 %description
 Cockpit component for managing libvirt virtual machines.
@@ -123,6 +123,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 04 2026 Packit <hello@packit.dev> - 360-1
+- CVE-2026-113495
+- CVE-2026-113496
+- Updated to PatternFly 6.7.0
+
 * Thu Oct 22 2026 Packit <hello@packit.dev> - 359-1
 - disks: Use FileChooser for inserting media (RHEL-211920)
 

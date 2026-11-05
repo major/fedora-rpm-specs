@@ -57,7 +57,11 @@ git tag v%{version}
 %pyproject_save_files -l pylsp_jsonrpc
 
 %check
-%pytest -v -k "not test_writer_bad_message"
+# test_writer_bad_message asserts epoch values only valid in specific
+# timezones; pin TZ for determinism.
+export TZ=UTC
+%pyproject_check_import
+%pytest -v
 
 %files -n python3-%{short_name} -f %{pyproject_files}
 %doc README.md

@@ -61,6 +61,8 @@ sed -i '\|/usr/bin/env|d' src/pydocstyle/__main__.py
 
 
 %check
+%pyproject_check_import
+
 # Disable "install_package" fixure for integration tests since we want the
 # tests to be run against the system-installed version of the package.
 sed -i '/pytestmark = pytest.mark.usefixtures("install_package")/d' \

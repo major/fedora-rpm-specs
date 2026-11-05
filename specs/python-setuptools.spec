@@ -10,7 +10,7 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        84.0.0
+Version:        84.2.1
 Release:        %autorelease
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
@@ -79,7 +79,7 @@ Provides: bundled(python%{python3_pkgversion}dist(jaraco-context)) = 6.1
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-functools)) = 4.4
 Provides: bundled(python%{python3_pkgversion}dist(jaraco-text)) = 4
 Provides: bundled(python%{python3_pkgversion}dist(more-itertools)) = 10.8
-Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 26
+Provides: bundled(python%{python3_pkgversion}dist(packaging)) = 26.3
 Provides: bundled(python%{python3_pkgversion}dist(platformdirs)) = 4.4
 Provides: bundled(python%{python3_pkgversion}dist(tomli)) = 2.4
 Provides: bundled(python%{python3_pkgversion}dist(wheel)) = 0.46.3

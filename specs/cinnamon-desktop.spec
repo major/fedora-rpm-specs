@@ -1,10 +1,9 @@
 %global forgeurl https://github.com/linuxmint/cinnamon-desktop
-%global tagver   6.7.6
-%global tag      %{tagver}-unstable
+%global tag      %{version}
 
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
-Version: %{tagver}^unstable
+Version: 6.8.0
 Release: %{autorelease}
 %{forgemeta}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND MIT

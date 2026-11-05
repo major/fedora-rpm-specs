@@ -3,7 +3,7 @@
 
 # https://github.com/prometheus/prometheus
 %global goipath         github.com/prometheus/prometheus
-Version:                3.15.0
+Version:                3.15.1
 
 %gometa -L -f
 

@@ -1,5 +1,5 @@
 Name:           python-lsp-server
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        Python implementation of language server protocol
 
@@ -11,9 +11,6 @@ Summary:        Python implementation of language server protocol
 License:        MIT
 URL:            %{forgeurl}
 Source:         %{forgesource}
-
-# Fixes one test with jedi 0.20.0
-Patch:          https://github.com/python-lsp/python-lsp-server/pull/709.patch
 
 BuildArch:      noarch
 
@@ -72,6 +69,8 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_save_files -l pylsp
 
 %check
+%pyproject_check_import
+
 k="${k:-}${k:+ and }not test_missing_message"
 export RUNNING_IN_CI="True"
 %pytest -r fEs "${k:+-k ${k:-}}"

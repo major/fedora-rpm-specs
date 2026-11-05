@@ -1,5 +1,5 @@
 Name:           python-typing-inspection
-Version:        0.4.4
+Version:        0.4.5
 Release:        %autorelease
 Summary:        Runtime typing introspection tools
 
@@ -7,6 +7,10 @@ Summary:        Runtime typing introspection tools
 License:        MIT
 URL:            https://github.com/pydantic/typing-inspection
 Source:         %{pypi_source typing_inspection}
+
+# Correct version in HISTORY.md
+# https://github.com/pydantic/typing-inspection/commit/5bbf4550d7b6bde6c1fe5813bf0fe29ee2312579
+Patch:          %{url}/commit/5bbf4550d7b6bde6c1fe5813bf0fe29ee2312579.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --dependency-groups tests

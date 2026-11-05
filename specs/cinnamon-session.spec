@@ -1,12 +1,11 @@
 %global forgeurl https://github.com/linuxmint/cinnamon-session
-%global tagver   6.7.6
-%global tag      %{tagver}-unstable
+%global tag      %{version}
 
-%global cinnamon_desktop_version 6.7.1
+%global cinnamon_desktop_version 6.8.0
 
 Summary: Cinnamon session manager
 Name:    cinnamon-session
-Version: %{tagver}^unstable
+Version: 6.8.0
 Release: %{autorelease}
 %{forgemeta}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later

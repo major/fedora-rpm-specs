@@ -1,5 +1,5 @@
 Name:           python-pytest-env
-Version:        1.8.4
+Version:        1.8.5
 Release:        %autorelease
 Summary:        Set environment variables for pytest sessions
 

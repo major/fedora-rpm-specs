@@ -5,8 +5,8 @@ Protego is a pure-Python `robots.txt` parser with support for modern
 conventions.}
 
 Name:		python-protego
-Version:	0.6.2
-Release:	2%{?dist}
+Version:	0.7.0
+Release:	%autorelease
 Summary:	Pure-Python robots.txt parser with support for modern conventions
 
 License:	BSD-3-Clause
@@ -49,86 +49,4 @@ Summary:	%{summary}
 %{python3_sitelib}/protego-*.dist-info
 
 %changelog
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Sun Jun 28 2026 Eduardo Echeverria <echevemaster@gmail.com> - 0.6.2-1
-- Update to 0.6.2
-
-* Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 0.5.0-4
-- Rebuilt for Python 3.15
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.0-2
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Sat Aug 30 2025 Eduardo Echeverria <echevemaster@gmail.com> - 0.5.0-1
-- Update to 0.5.0
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.0-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.4.0-2
-- Rebuilt for Python 3.14
-
-* Sat Jan 25 2025 Eduardo Echeverria  <echevemaster@gmail.com> - 0.4.0-1
-- Update to 0.4.0
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3.0-6
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.3.0-4
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Nov 12 2023 Eduardo Echeverria  <echevemaster@gmail.com> - 0.3.0-1
-- Bump package version
-- Removing six
-
-* Sun Sep 17 2023 Eduardo Echeverria  <echevemaster@gmail.com> - 0.2.1-7
-- Fix install dependencies
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.2.1-5
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.2.1-2
-- Rebuilt for Python 3.11
-
-* Sun Feb 20 2022 Eduardo Echeverria <echevemaster@gmail.com> - 0.2.1-1
-- Bumped to the latest upstream version
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.16-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.16-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.1.16-2
-- Rebuilt for Python 3.10
-
-* Sat Apr 3 2021 Eduardo Echeverria <echevemaster@gmail.com> - 0.1.16-1
-- Initial packaging
+%autochangelog

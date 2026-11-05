@@ -1,10 +1,12 @@
-%global tag     1.4.3-5-g7e2131d44
+#%%global tag     1.4.3-67.dev-gab26ea65c
 
 Name:           clementine
-Version:        1.4.3
+Version:        1.4.4
 Release:        %autorelease
 Summary:        A music player and library organizer
 
+# BSD-2-Clause:
+#   - 3rdparty/monocypher
 # BSD-3-clause:
 #   - 3rdparty/cast_channel
 #   - 3rdparty/qxt
@@ -33,13 +35,21 @@ Summary:        A music player and library organizer
 #   - 3rdparty/qsqlite/smain.cpp
 #   - 3rdparty/qsqlite/smain.h
 # MIT: 3rdparty/qocoa
-License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND Apache-2.0 AND BSD-3-Clause AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
+License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://www.clementine-player.org/
 VCS:            https://github.com/clementine-player/Clementine
+%if 0%{?tag:1}
 Source:         %vcs/archive/%{tag}/%{name}-%{tag}.tar.gz
+%else
+Source:         %vcs/releases/download/%{version}/%{name}-%{version}.tar.xz
+%endif
 
 # Use system libraries (qtiocompressor)
 Patch:          0001-Use-QtIoCompressor-from-Qt6.patch
+Patch:          0002-system-gmp.patch
+
+# fix metainfo
+Patch:          0100-metainfo-releases.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -70,6 +80,7 @@ BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(glu)
 BuildRequires:  pkgconfig(gmock)
+BuildRequires:  pkgconfig(gmp)
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildRequires:  pkgconfig(gstreamer-audio-1.0)
@@ -99,6 +110,7 @@ Requires:       hicolor-icon-theme
 Provides:       bundled(cast_channel)
 Provides:       bundled(libprojectM) = 4.2.0
 Provides:       bundled(libqxt) = 0.7.0
+Provides:       bundled(monocypher) = 4.0.2
 Provides:       bundled(qocoa)
 Provides:       bundled(qsqlite)
 
@@ -125,22 +137,20 @@ Features include:
   * Queue manager
 
 %prep
-%autosetup -p1 -n Clementine-%{tag}
+%autosetup -p1 -C
 
 # fix dependency naming for Fedora
 sed -i -e '/pkg_check_modules.*LIBMYGPO_QT/s/qt5/qt6/' CMakeLists.txt
 
 # Remove most 3rdparty libraries
-mv 3rdparty/{cast_channel,libprojectm,qocoa,qsqlite,qxt}/ .
-rm -rfv 3rdparty/*
-mv {cast_channel,libprojectm,qocoa,qsqlite,qxt}/ 3rdparty/
+rm -rf 3rdparty/{gmock,libgpod,libmygpo-qt5,mini-gmp,qtiocompressor,qtsingleapplication,taglib,utf8-cpp}
 
 %build
 %cmake \
   -DBUILD_WERROR:BOOL=OFF \
   -DCMAKE_BUILD_TYPE:STRING=Release \
   -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON \
-  -DFORCE_GIT_REVISION:STRING=%{tag} \
+  %{?tag:-DFORCE_GIT_REVISION:STRING=%{tag}} \
   -DUSE_SYSTEM_PROJECTM:BOOL=OFF \
   -DUSE_SYSTEM_QTSINGLEAPPLICATION:BOOL=ON \
   -DUSE_SYSTEM_TAGLIB:BOOL=ON

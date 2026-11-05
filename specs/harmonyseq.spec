@@ -90,7 +90,7 @@ https://harmonyseq.wordpress.com
 
 %conf -p
 # We need the preprocessor macro RELEASE set so that src/main.cpp looks for
-# resoures in the installation path (DATA_PATH). Normally this is set with
+# resources in the installation path (DATA_PATH). Normally this is set with
 # -DCMAKE_BUILD_TYPE=Release, but this also asks to strip debugging symbols,
 # which we do not want. Setting -DCMAKE_BUILD_TYPE=RelWithDebInfo does not set
 # the preprocessor macro. Instead, we set it manually:

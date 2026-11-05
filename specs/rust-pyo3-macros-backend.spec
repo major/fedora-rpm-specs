@@ -5,7 +5,7 @@
 %global crate pyo3-macros-backend
 
 Name:           rust-pyo3-macros-backend
-Version:        0.29.3
+Version:        0.30.1
 Release:        %autorelease
 Summary:        Code generation for PyO3 package
 
@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/pyo3-macros-backend
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
 Code generation for PyO3 package.}
@@ -74,7 +73,6 @@ use the "experimental-inspect" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-dos2unix --keepdate src/derive_attributes.rs
 
 %generate_buildrequires
 %cargo_generate_buildrequires

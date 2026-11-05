@@ -1,5 +1,5 @@
 Name:           tang
-Version:        15
+Version:        16
 Release:        %autorelease
 Summary:        Network Presence Binding Daemon
 

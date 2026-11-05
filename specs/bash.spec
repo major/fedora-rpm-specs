@@ -6,7 +6,7 @@
 Version: %{baseversion}.%{patchlevel}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 Url: https://www.gnu.org/software/bash
 Source0: https://ftp.gnu.org/gnu/bash/bash-%{baseversion}.tar.gz
@@ -85,6 +85,10 @@ Patch128: bash-5.0-syslog-history.patch
 
 # Enable audit logs
 Patch131: bash-4.3-audit.patch
+
+# [RFE] Add syslog support for TMOUT timeout
+# This patch should be removed during next rebase.
+Patch132: bash-5.4-tmout-syslog-history.patch
 
 BuildRequires:  gcc
 BuildRequires: texinfo bison
@@ -323,6 +327,10 @@ end
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Nov 03 2026 Siteshwar Vashisht <svashisht@redhat.com> - 5.3.20-2
+- Add message to syslog if user gets logged out due to expired timeout
+  Resolves: #2565790
+
 * Tue Oct 06 2026 Siteshwar Vashisht <svashisht@redhat.com> - 5.3.20-1
 - Update to bash-5.3 patchlevel 20
   Resolves: #2546273

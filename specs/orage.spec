@@ -8,6 +8,13 @@ Summary:        A calendar application
 License:        GPL-2.0-or-later
 URL:            https://gitlab.xfce.org/apps/orage
 Source:         https://archive.xfce.org/src/apps/%{name}/%{xfceversion}/%{name}-%{version}.tar.bz2
+# Build with libical 4: renamed APIs (compat defines), refcounted
+# recurrence rules, and explicit libicalss linking (libical 4's libical.pc
+# no longer pulls it in). Generated autotools files are patched too, as
+# the spec does not run autoreconf. From Milan Crha's libical-4.x COPR
+Patch:          orage-4.20.3-libical4.patch
+# NULL sentinels for icalproperty_vanew_*() (marked sentinel in libical 4)
+Patch:          orage-4.20.3-libical4-null-sentinels.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

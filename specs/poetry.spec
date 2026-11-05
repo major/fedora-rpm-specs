@@ -32,6 +32,11 @@ Patch:          https://github.com/python-poetry/poetry/pull/11014.patch
 # Python 3.15 tarfile normalizes ".." in member names before the traversal
 # check, so the symlink traversal archive extracts safely instead of raising.
 Patch:          https://github.com/python-poetry/poetry/pull/11046.patch
+# Fix unreliable test_threading
+Patch:          https://github.com/python-poetry/poetry/commit/12f29ff3.patch
+# Fix test output with the latest python 3.15.1
+# Upstream commit: https://github.com/python-poetry/poetry/commit/ee03ef0
+Patch:          fix-tests.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

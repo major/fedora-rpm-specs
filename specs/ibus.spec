@@ -47,7 +47,7 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.35~rc1
+Version:        1.5.35
 # https://github.com/fedora-infra/rpmautospec/issues/101
 Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
@@ -97,6 +97,7 @@ Requires:       %{name}-libs%{?_isa}   = %{version}-%{release}
 Requires:      (%{name}-gtk2%{?_isa}   = %{version}-%{release} if gtk2)
 %endif
 Requires:      (%{name}-gtk3%{?_isa}   = %{version}-%{release} if gtk3)
+# ibus-gtk4 is not required by GNOME Wayland desktop environment.
 %if 0%{?fedora}
 Requires:      (%{name}-panel%{?_isa}  = %{version}-%{release} if %ibus_panel_condition)
 %endif
@@ -549,6 +550,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Nov 05 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35-1
+- Bump to 1.5.35
+
 * Tue Sep 22 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35~rc1-1
 - Bump to 1.5.35-rc1
 - Fix `ibus start` in KDE

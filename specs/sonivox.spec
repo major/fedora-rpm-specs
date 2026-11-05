@@ -5,7 +5,7 @@ Summary:        Fork of the AOSP 'platform_external_sonivox' to use out of Andro
 
 # migrated to SPDX
 License:        Apache-2.0
-URL:            https://github.com/pedrolcl/sonivox
+URL:            https://github.com/EmbeddedSynth/sonivox
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake

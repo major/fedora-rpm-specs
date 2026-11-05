@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           bpftop
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Dynamic real-time view of running eBPF programs
 
@@ -32,11 +32,6 @@ License:        %{shrink:
     (LGPL-2.1-only OR BSD-2-Clause)
     }
 # LICENSE.dependencies contains a full license breakdown
-
-# Update the circular-buffer dependency from v1 to v2
-# https://github.com/jfernandez/bpftop/pull/234
-# Without changes to Cargo.lock
-Patch:          bpftop-0.9.0-circular-buffer-2.patch
 
 URL:            https://github.com/jfernandez/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz

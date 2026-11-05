@@ -1,5 +1,5 @@
 Name:           lemonade-server
-Version:        2026.42.1
+Version:        2026.44.1
 Release:        %autorelease
 Summary:        Local LLM serving with GPU and NPU acceleration
 
@@ -72,7 +72,6 @@ sed -i 's/FetchContent_MakeAvailable(httplib)/find_package(httplib REQUIRED)/g' 
 %build
 %cmake -DBUILD_WEB_APP=OFF
 %cmake_build
-
 %install
 %cmake_install
 # Create the configuration directories and empty secrets as a placeholder

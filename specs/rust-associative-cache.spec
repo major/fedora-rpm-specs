@@ -5,26 +5,13 @@
 %global crate associative-cache
 
 Name:           rust-associative-cache
-Version:        3.0.0
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Generic N-way associative cache
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/associative-cache
 Source:         %{crates_source}
-# * # Upstream is inactive/unresponsive and has not included the license texts.
-#   # A bug was filled: https://github.com/fitzgen/associative-cache/issues/14
-#   # The upstream maintainers explicitly specify in Cargo.toml that the crate is
-#   # licensed under the SPDX identifier "MIT OR Apache-2.0".
-#   # Both of these licenses require including their texts when distributing the
-#   # software.
-#   # In compliance with
-#   # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/#_license_text ,
-#   # we include the license text from canonical sources in the package ourselves.
-#   # When/if upstream responds to the aforementioned issue report,
-#   # these will be removed.
-Source2:        https://www.apache.org/licenses/LICENSE-2.0.txt#/LICENSE-APACHE
-Source3:        https://github.com/spdx/license-list-data/raw/main/text/MIT.txt#/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -75,7 +62,6 @@ use the "rand" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p %{S:2} %{S:3} .
 # Remove useless execute bit from Rust sources
 # https://github.com/fitzgen/associative-cache/pull/27
 find src -type f -name '*.rs' -executable -exec chmod -v a-x '{}' '+'

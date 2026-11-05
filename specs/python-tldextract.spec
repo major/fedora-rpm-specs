@@ -1,7 +1,7 @@
 %global pypi_name tldextract
 
 Name:           python-%{pypi_name}
-Version:        5.3.2
+Version:        5.4.0
 Release:        1%{?dist}
 Summary:        Accurately separate the TLD from the registered domain and subdomains of a URL
 
@@ -77,6 +77,9 @@ TEST_SELECTOR="not test_log_snapshot_diff"
 %{_bindir}/tldextract
 
 %changelog
+* Wed Nov 4 2026 Nick Bebout <nb@fedoraproject.org> - 5.4.0-1
+- Update to 5.4.0 rhbz#2545580
+
 * Sat Aug 8 2026 Nick Bebout <nb@fedoraproject.org> - 5.3.2-1
 - Update to 5.3.2
 

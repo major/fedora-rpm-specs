@@ -1,12 +1,13 @@
 Name:		snownews
-Version: 	1.9
-Release: 	15%{?dist}
+Version: 	1.11
+Release: 	1%{?dist}
 Summary: 	A text mode RSS/RDF newsreader
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: 	GPL-3.0-only
 Url:		https://github.com/msharov/snownews
-Source0:	https://github.com/msharov/snownews/archive/v%{version}/snownews-%{version}.tar.gz
-Patch0:		snownews-debugflags.patch
+Source0:	https://downloads.sourceforge.net/sourceforge/snownews/files/snownews-1.11.tar.gz
+Patch0:		0000-no-strip.patch
+Patch1:		0001-print-format.patch
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	libxml2-devel
@@ -24,11 +25,12 @@ for XML parsing. ncurses must be at least version 5.0. It should work
 with any version of libxml2.
 
 %prep
-%setup -q
-%patch -P0 -p1
+%autosetup -p1
 
 %build
+export CFLAGS="${CFLAGS} -fPIE"
 %configure
+%make_build
 
 %install
 make DESTDIR="$RPM_BUILD_ROOT" PREFIX="$RPM_BUILD_ROOT%{_prefix}" install
@@ -41,6 +43,9 @@ make DESTDIR="$RPM_BUILD_ROOT" PREFIX="$RPM_BUILD_ROOT%{_prefix}" install
 %{_mandir}/*/man1/*
 
 %changelog
+* Wed Nov 04 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.11-1
+- Update to v1.11
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.9-15
 - Rebuilt for libxml-2.5.4
 

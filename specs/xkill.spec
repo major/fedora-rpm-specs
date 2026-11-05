@@ -10,7 +10,7 @@ Source1:        https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz.s
 Source2:        gpgkey-3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2.gpg
 
 BuildRequires:  gcc
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 BuildRequires:  meson
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xmuu)
@@ -22,7 +22,7 @@ clients. This program is very dangerous, but is useful for aborting
 programs that have displayed undesired windows on a user's screen.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

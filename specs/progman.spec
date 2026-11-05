@@ -1,6 +1,6 @@
 Name:           progman
-Version:        1.0
-Release:        14%{?dist}
+Version:        1.1
+Release:        1%{?dist}
 Summary:        Simple X11 window manager modeled after Program Manager
 
 License:        MIT
@@ -28,7 +28,6 @@ license.
 sed -e 's/install -s/install -p/' -i Makefile
 
 %build
-%set_build_flags
 %make_build
 
 %install
@@ -41,6 +40,9 @@ export PREFIX="%{buildroot}%{_prefix}"
 %{_bindir}/progman
 
 %changelog
+* Wed Nov 04 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1-1
+- Update to v1.1 (rhbz#2533537)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

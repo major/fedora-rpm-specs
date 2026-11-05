@@ -1,7 +1,7 @@
 %global srcname pg8000
 
 Name:           python-%{srcname}
-Version:        1.31.5
+Version:        1.31.6
 Release:        %autorelease
 Summary:        Pure Python PostgreSQL Driver
 
@@ -10,6 +10,7 @@ URL:            https://codeberg.org/tlocke/pg8000
 # Pypi source is used because with versioningit the usage of tarballs would
 # be complicated: https://codeberg.org/tlocke/pg8000/issues/152
 Source0:        %{pypi_source}
+Patch0:         relax-scramp-version.patch
 BuildArch:      noarch
 
 %description
@@ -34,7 +35,7 @@ Frontend Protocol.
 %pyproject_buildrequires
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %build
 %pyproject_wheel

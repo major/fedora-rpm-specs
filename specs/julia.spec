@@ -1,9 +1,10 @@
-%global uvcommit af4172ec713ee986ba1a989b9e33993a07c60c9e
+%global uvcommit b21d6d84e46f6c97ecbc8e4e8a8ea6ad98049ea8
+# This is not the real version as Julia's libuv fork includes many patches from newer versions
 %global uvversion 1.48.0
 
-%global llvmversion 18.1.7
-%global llvmsoversion 18.1jl
-%global llvmcommit julia-18.1.7-4
+%global llvmversion 20.1.8
+%global llvmsoversion 20.1jl
+%global llvmcommit julia-20.1.8-3
 
 %global libwhichversion 1.2.0
 %global libwhichcommit 99a0ea12689e41164456dba03e93bc40924de880
@@ -11,7 +12,7 @@
 %global blastrampolineversion 5.15.0
 %global blastrampolinecommit 072b5f67895bec0b92f8c83194567c1c48e9833d
 
-%global libunwindversion 1.8.1
+%global libunwindversion 1.8.3
 
 %global ittapiversion 3.24.0
 %global ittapicommit 0014aec56fea2f30c1374f40861e1bccdd53d0cb
@@ -20,14 +21,16 @@
 # https://github.com/JuliaLang/julia/pull/31215
 %global gmpversion 6.3.0
 
-%global juliasyntaxcommit 46723f071d5b2efcb21ca6757788028afb91cc13
-%global juliasyntaxhighlightingcommit b666d3c98cca30d20d1e6f98c0e12c9350ffbc4c
+%global opensslversion 3.5.8
 
-%global logocommit 168fb6c1164e341df360ed6ced519e1e0cb7de3a
+%global juliasyntaxcommit e8a07f51ed0b7c6b356f75354e0c408b299edef2
+%global juliasyntaxhighlightingcommit 2817dbaba2a4abaad91a5ad754558840d95ccf2e
+
+%global logocommit f6d186e1a470cefd13d76f91666f1eb8b76e8067
 
 # List all bundled libraries here
 # OpenBLAS is excluded because we set a symlink to libopenblasp
-%global _privatelibs lib(openblas_|openblas64_|ccalltest|llvmcalltest|LLVM-.*|uv|blastrampoline|unwind|gmp|gmpxx)\\.so.*
+%global _privatelibs lib(openblas_|openblas64_|ccalltest|llvmcalltest|LLVM-.*|uv|blastrampoline|unwind|gmp|gmpxx|ssl)\\.so.*
 %global __provides_exclude ^(%{_privatelibs})$
 %global __requires_exclude ^(%{_privatelibs})$
 
@@ -35,8 +38,8 @@
 %undefine _missing_build_ids_terminate_build
 
 Name:           julia
-Version:        1.12.1
-Release:        3%{?dist}
+Version:        1.13.3
+Release:        0%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
@@ -50,15 +53,14 @@ Source2:        https://api.github.com/repos/JuliaLang/llvm-project/tarball/%{ll
 Source3:        https://api.github.com/repos/vtjnash/libwhich/tarball/%{libwhichcommit}#/libwhich-%{libwhichcommit}.tar.gz
 Source4:        https://gmplib.org/download/gmp/gmp-%{gmpversion}.tar.bz2
 Source5:        https://api.github.com/repos/JuliaLang/JuliaSyntax.jl/tarball/%{juliasyntaxcommit}#/JuliaSyntax-%{juliasyntaxcommit}.tar.gz
-Source6:        https://raw.githubusercontent.com/JuliaLang/julia-logo-graphics/%{logocommit}/images/julia-logo-color.svg
+Source6:        https://raw.githubusercontent.com/JuliaLang/julia-logo-graphics/%{logocommit}/images/julia-logo-color.svg#/julia-logo-color-%{logocommit}.svg
 Source7:        https://api.github.com/repos/staticfloat/libblastrampoline/tarball/%{blastrampolinecommit}#/blastrampoline-%{blastrampolinecommit}.tar.gz
 Source8:        https://github.com/libunwind/libunwind/releases/download/v%{libunwindversion}/libunwind-%{libunwindversion}.tar.gz
 Source9:        https://api.github.com/repos/intel/ittapi/tarball/%{ittapicommit}#/ittapi-%{ittapicommit}.tar.gz
 Source10:       https://api.github.com/repos/JuliaLang/JuliaSyntaxHighlighting.jl/tarball/%{juliasyntaxhighlightingcommit}#/JuliaSyntaxHiglighting-%{juliasyntaxhighlightingcommit}.tar.gz
+Source11:	https://www.openssl.org/source/openssl-%{opensslversion}.tar.gz
 # https://gmplib.org/repo/gmp/rev/8e7bb4ae7a18
 Patch0:         julia-gmp-6.3.0-c23.patch
-# https://github.com/JuliaLang/julia/pull/59998
-Patch1:         julia-avoid-hardcoding-paths-in-Profile.patch
 Provides:       bundled(libuv) = %{uvversion}
 Provides:       bundled(llvm) = %{llvmversion}
 Provides:       bundled(libblastrampoline) = %{blastrampolineversion}
@@ -66,12 +68,14 @@ Provides:       bundled(libwhich) = %{libwhichversion}
 Provides:       bundled(libunwind) = %{libunwindversion}
 Provides:       bundled(ittapi) = %{ittapiversion}
 Provides:       bundled(gmp) = %{gmpversion}
+Provides:       bundled(openssl) = %{opensslversion}
 BuildRequires:  ca-certificates
 BuildRequires:  desktop-file-utils
 BuildRequires:  dSFMT-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-gfortran
 BuildRequires:  gcc-c++
+BuildRequires:  libstdc++-static
 BuildRequires:  gmp-devel >= 6.0
 # Needed for libgit2 test
 BuildRequires:  hostname
@@ -81,7 +85,7 @@ BuildRequires:  libunwind-devel >= 1.8
 BuildRequires:  openblas-devel
 BuildRequires:  openblas-threads
 BuildRequires:  openlibm-devel >= 0.4
-BuildRequires:  libgit2-devel
+BuildRequires:  (pkgconfig(libgit2) >= 1.9.0 with pkgconfig(libgit2) < 1.10.0~)
 # Needed for libgit2 test
 BuildRequires:  openssl
 BuildRequires:  libssh2-devel
@@ -113,6 +117,7 @@ Requires:       ca-certificates
 # For terminfo files
 Requires:       ncurses-base
 Requires:       7zip-standalone
+Requires:       zstd
 # Libraries used by CompilerSupportLibraries_jll and blastrampoline
 # but not detected as they are dlopen()ed but not linked to
 %if 0%{?__isa_bits} == 64
@@ -178,7 +183,7 @@ Julia into external programs or debugging Julia itself.
 
 # Need to reset time stamps set manually to their original values in the diff
 # to prevent make from regenerating docs, which involves downloading files
-patch -p1 -T < %PATCH1
+# patch -p1 -T < %PATCH1
 
 mkdir -p deps/srccache stdlib/srccache
 
@@ -195,6 +200,7 @@ pushd deps/srccache
     cp -p %SOURCE8 .
     cp -p %SOURCE9 .
     cp -p %SOURCE10 .
+    cp -p %SOURCE11 .
 popd
 
 cp -p %SOURCE6 contrib/julia.svg
@@ -203,14 +209,14 @@ cp -p %SOURCE6 contrib/julia.svg
 # (i386 does not work yet: https://github.com/JuliaLang/julia/issues/7185)
 # Without specifying MARCH, the Julia system image would only work on native CPU
 # CPU targets reflect those used upstream at
-# https://github.com/JuliaCI/julia-buildbot/blob/master/master/inventory.py
+# https://github.com/JuliaCI/julia-buildkite/blob/main/utilities/build_envs.sh
 %ifarch %{ix86}
 %global march MARCH=pentium4
 %global cpu_target JULIA_CPU_TARGET="pentium4;sandybridge,-xsaveopt,clone_all"
 %endif
 %ifarch x86_64
 %global march MARCH=x86-64
-%global cpu_target JULIA_CPU_TARGET="generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1)"
+%global cpu_target JULIA_CPU_TARGET="generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1);x86-64-v4,-rdrnd,base(1)"
 %endif
 %ifarch %{arm}
 # gcc and LLVM do not support the same targets
@@ -252,7 +258,7 @@ cp -p %SOURCE6 contrib/julia.svg
 %endif
 
 # About build, build_libdir and build_bindir, see https://github.com/JuliaLang/julia/issues/5063#issuecomment-32628111
-%global commonopts USE_SYSTEM_LLVM=0 USE_SYSTEM_LIBUNWIND=0 USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=0 USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBSUITESPARSE=1 USE_SYSTEM_DSFMT=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_UTF8PROC=1 USE_SYSTEM_LIBGIT2=1 USE_SYSTEM_LIBSSH2=1 USE_SYSTEM_OPENSSL=1 USE_SYSTEM_CURL=1 USE_SYSTEM_PATCHELF=1 USE_SYSTEM_LIBM=0 USE_SYSTEM_OPENLIBM=1 USE_SYSTEM_ZLIB=1 USE_SYSTEM_P7ZIP=1 USE_SYSTEM_NGHTTP2=1 USE_SYSTEM_CSL=1 USE_SYSTEM_LIBBLASTRAMPOLINE=0 USE_SYSTEM_LIBWHICH=0 USE_BINARYBUILDER=0 USE_BINARYBUILDER_LLVM=0 WITH_TERMINFO=0 BUNDLE_DEBUG_LIBS=0 JULIA_SPLITDEBUG=1 TAGGED_RELEASE_BANNER="Fedora %{fedora} build" VERBOSE=1 %{march} %{cpu_target} %{blas} %{suitesparse_lib} prefix=%{_prefix} bindir=%{_bindir} libdir=%{_libdir} libexecdir=%{_libexecdir} datarootdir=%{_datarootdir} includedir=%{_includedir} sysconfdir=%{_sysconfdir} build_prefix=%{_builddir}/%{buildsubdir}/build%{_prefix} build_libdir=%{_builddir}/%{buildsubdir}/build%{_libdir} JULIA_CPU_THREADS=$(echo %{?_smp_mflags} | sed s/-j//)
+%global commonopts USE_SYSTEM_LLVM=0 USE_SYSTEM_LIBUNWIND=0 USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=0 USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBSUITESPARSE=1 USE_SYSTEM_DSFMT=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_UTF8PROC=1 USE_SYSTEM_LIBGIT2=1 USE_SYSTEM_LIBSSH2=1 USE_SYSTEM_OPENSSL=0 USE_SYSTEM_CURL=1 USE_SYSTEM_PATCHELF=1 USE_SYSTEM_LIBM=0 USE_SYSTEM_OPENLIBM=1 USE_SYSTEM_ZLIB=1 USE_SYSTEM_P7ZIP=1 USE_SYSTEM_ZSTD=1 USE_SYSTEM_NGHTTP2=1 USE_SYSTEM_CSL=1 USE_SYSTEM_LIBBLASTRAMPOLINE=0 USE_SYSTEM_LIBWHICH=0 USE_BINARYBUILDER=0 USE_BINARYBUILDER_LLVM=0 WITH_TERMINFO=0 BUNDLE_DEBUG_LIBS=0 JULIA_SPLITDEBUG=1 TAGGED_RELEASE_BANNER="Fedora %{fedora} build" VERBOSE=1 %{march} %{cpu_target} %{blas} %{suitesparse_lib} prefix=%{_prefix} bindir=%{_bindir} libdir=%{_libdir} libexecdir=%{_libexecdir} datarootdir=%{_datarootdir} includedir=%{_includedir} sysconfdir=%{_sysconfdir} build_prefix=%{_builddir}/%{buildsubdir}/build%{_prefix} build_libdir=%{_builddir}/%{buildsubdir}/build%{_libdir} JULIA_CPU_THREADS=$(echo %{?_smp_mflags} | sed s/-j//)
 
 make %{commonopts} -C deps extract-gmp
 pushd deps/srccache/gmp-%{gmpversion}
@@ -298,8 +304,8 @@ sed "s/after_comp - before_comp < 6_000_000_000/after_comp - before_comp < 600_0
 
 # 7z currently fails when called from a symlink, use 7za instead
 # https://bugzilla.redhat.com/show_bug.cgi?id=2373874
-mkdir -p %{_builddir}/%{buildsubdir}/build/%{_bindir}/
-ln -sf /usr/bin/7za %{_builddir}/%{buildsubdir}/build/%{_bindir}/7z
+mkdir -p %{_builddir}/%{buildsubdir}/build/%{_libexecdir}/julia/
+ln -sf /usr/bin/7za %{_builddir}/%{buildsubdir}/build/%{_libexecdir}/julia/7z
 
 # Workaround LLVM being installed in lib and not found
 mkdir -p %{_builddir}/%{buildsubdir}/build/%{_libdir}/
@@ -332,6 +338,9 @@ sed "s/cpu_threads = max(2\*cpu_threads, min(200, 10\*cpu_threads))/cpu_threads 
 
 ## Disable tests that fail on build machines (but not locally)
 sed -i 's/skip_tests = Set()/skip_tests = Set(["loading", "cmdlineargs"])/' test/choosetests.jl
+
+# Disable test that fails for some CPUs (apparently those who don't have two threads per core)
+sed -i "s/const AFFINITY_SUPPORTED = .*/const AFFINITY_SUPPORTED = false/" test/threads.jl
 
 # Julia hardcodes the exact SOVERSION it uses when USE_SYSTEM_*=0
 # https://github.com/JuliaLang/julia/pull/38347#discussion_r574819534
@@ -388,6 +397,11 @@ chmod -x %{buildroot}%{_libdir}/julia/libjulia-codegen*
 # Prevent find-debuginfo from touching sysimage as debugging information is needed
 # for stacktraces in Julia code, which makes tests fail
 chmod -x %{buildroot}%{_libdir}/julia/sys.so
+
+# Prevent find-debuginfo from touching these libraries as it triggers an lld error
+# "undefined hidden symbol: __TMC_END__"
+chmod -x %{buildroot}%{_libdir}/julia/crtbeginS.o
+chmod -x %{buildroot}%{_libdir}/julia/crtendS.o
 
 cp -p CONTRIBUTING.md LICENSE.md NEWS.md README.md %{buildroot}%{_docdir}/julia/
 
@@ -467,7 +481,6 @@ JULIA_TEST_USE_MULTIPLE_WORKERS=true %{buildroot}%{_bindir}/julia -e "Base.runte
 %{_datarootdir}/julia/*.jl
 %{_datarootdir}/julia/base/
 %{_datarootdir}/julia/Compiler/
-%{_datarootdir}/julia/juliac/
 %{_datarootdir}/julia/stdlib/
 %{_datarootdir}/julia/base.cache
 %{_datarootdir}/julia/cert.pem
@@ -493,6 +506,9 @@ JULIA_TEST_USE_MULTIPLE_WORKERS=true %{buildroot}%{_bindir}/julia -e "Base.runte
 exit 0
 
 %changelog
+* Tue Nov 3 2026 Milan Bouchet-Valat <nalimilan@club.fr> - 1.13.3-0
+- New upstream release.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

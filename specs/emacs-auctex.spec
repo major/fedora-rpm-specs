@@ -85,8 +85,9 @@ The tex-preview package is generated from the AUCTeX package for Emacs.
 %autosetup -n auctex-auctex-%{version}
 
 %build
-%make_build TEX=tex
-%make_build preview.pdf TEX=tex
+# Parallel builds repeat work and sometimes fail
+make TEX=tex
+make preview.pdf TEX=tex
 
 %install
 # The makefile no longer has an install target, so install by hand

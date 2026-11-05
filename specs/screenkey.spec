@@ -1,7 +1,7 @@
 %global py_name Screenkey
 Name:		screenkey
 Version:	1.5
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	A screencast tool to display your keys
 License:	GPL-3.0-or-later
 URL:		https://www.thregr.org/~wavexx/software/%{name}
@@ -15,7 +15,7 @@ BuildRequires:	python3-devel
 BuildRequires:	python3-babel
 BuildRequires:	desktop-file-utils
 
-BuildRequires: gnupg2
+BuildRequires:	openpgpverify
 
 Requires:   slop
 
@@ -35,7 +35,7 @@ A screencast tool to display your keys, featuring:
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %generate_buildrequires
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/org.thregr.%{name}.metainfo.xml
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1.5-20
+- Verify upstream source signatures with openpgpverify
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary: Tools for searching and reading man pages
 Name: man-db
 Version: 2.13.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 # GPLv2+ .. man-db
 # GPLv3+ .. gnulib
 License: GPL-2.0-or-later AND GPL-3.0-or-later
@@ -32,7 +32,7 @@ BuildRequires: gcc
 BuildRequires: systemd
 BuildRequires: gdbm-devel, gettext, groff, less, libpipeline-devel, zlib-devel
 BuildRequires: po4a, perl-interpreter, perl-version
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 Recommends: glibc-gconv-extra
 
 Requires(post): %{_sbindir}/update-alternatives
@@ -59,7 +59,7 @@ BuildArch: noarch
 This package provides periodic update of man-db cache.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -235,6 +235,9 @@ fi
 %config(noreplace) %{_sysconfdir}/cron.daily/man-db.cron
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 2.13.1-5
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

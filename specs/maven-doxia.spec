@@ -1,6 +1,6 @@
 Name:           maven-doxia
 Epoch:          0
-Version:        2.1.0
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Content generation framework
 License:        Apache-2.0
@@ -14,7 +14,7 @@ Source2:        https://downloads.apache.org/maven/KEYS
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 %if 0%{?rhel} && 0%{?rhel} <= 10
 BuildRequires:  maven-local-openjdk21
 %else
@@ -185,7 +185,7 @@ Summary:        API documentation for %{name}
 API documentation for %{name}.
 
 %prep
-%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+%{openpgpverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 %autosetup -p1 -n doxia-%{version}
 
 # Convert to Unix line terminators
@@ -200,6 +200,8 @@ done
 %pom_remove_plugin org.apache.maven.plugins:maven-site-plugin
 %pom_remove_plugin org.apache.rat:apache-rat-plugin
 %pom_remove_plugin :maven-install-plugin doxia-modules/doxia-module-markdown
+# Needs network and enforces binary compatibility with 2.0.0
+%pom_remove_plugin com.github.siom79.japicmp:japicmp-maven-plugin
 
 # Inject javaSource=8 for modello-maven-plugin to generate generics-compatible classes
 %pom_xpath_inject "pom:build/pom:plugins/pom:plugin[pom:artifactId='modello-maven-plugin']" "<configuration><javaSource>8</javaSource></configuration>" doxia-modules/doxia-module-fml

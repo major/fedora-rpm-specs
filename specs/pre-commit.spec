@@ -71,7 +71,7 @@ install -D --preserve-timestamps --mode=0644 \
 
 %check -a
 %if %{with check}
-# For general discusson on test failures building distribution packages, see:
+# For general discussion on test failures building distribution packages, see:
 # https://github.com/pre-commit/pre-commit/issues/1183,
 # https://github.com/pre-commit/pre-commit/issues/1202
 

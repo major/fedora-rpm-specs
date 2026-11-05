@@ -1,11 +1,10 @@
 %global forgeurl https://github.com/linuxmint/cinnamon-settings-daemon
-%global tagver   6.7.6
-%global tag      %{tagver}-unstable
+%global tag      %{version}
 
-%global cinnamon_desktop_version 6.7.3
+%global cinnamon_desktop_version 6.8.0
 
 Name:    cinnamon-settings-daemon
-Version: %{tagver}^unstable
+Version: 6.8.1
 Release: %{autorelease}
 %{forgemeta}
 Summary: The daemon sharing settings from CINNAMON to GTK+/KDE applications
@@ -83,7 +82,6 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/*.desktop
 %config(noreplace) %{_sysconfdir}/xdg/autostart/*
 %{_libexecdir}/csd-a11y-settings
 %{_libexecdir}/csd-automount
-%{_libexecdir}/csd-backlight-helper
 %{_libexecdir}/csd-clipboard
 %{_libexecdir}/csd-color
 %{_libexecdir}/csd-datetime-mechanism

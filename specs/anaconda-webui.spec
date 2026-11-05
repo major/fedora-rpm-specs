@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        90
+Version:        91
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -162,6 +162,18 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 04 2026 Katerina Koukiou <kkoukiou@redhat.com> - 91-1
+ * Route Quit actions through the backend's default shutdown
+ * storage: Handle missing reformatted mounts in home reuse
+ * error: Condition bug report flow on BUG_REPORT_URL from os-release
+ * branding: move fedora branding to distribution logos package
+ * password: derive form validity from the live fields
+ * password: build the debouncers once instead of per keystroke
+ * users: keep Accounts editable after interactive refresh
+ * source: Add installation source spoke for DNF payloads
+ * source: Refresh software selection after installation source changes
+ * source: Show kickstart installation sources in the review screen
+
 * Thu Oct 15 2026 Katerina Koukiou <kkoukiou@redhat.com> - 90-1
 - po: Update from Fedora Weblate
 

@@ -9,6 +9,7 @@ Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/v%{version}.tar.gz.asc
 Source2:        69100FFB90E87A320DF8643CBEC39009E8321A61.gpg
 BuildRequires:  gcc
+BuildRequires:  openpgpverify
 BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  pkgconfig(libpcap)
 BuildRequires:  pkgconfig(libpcre2-8)
@@ -24,7 +25,7 @@ supports live capture to display realtime SIP packets and can also be used as
 PCAP viewer.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 rm -f README.md
 cp -f README README.md

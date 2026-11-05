@@ -21,7 +21,7 @@
 }
 
 Name:           sandogasa
-Version:        0.27.0
+Version:        0.27.1
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -61,7 +61,7 @@ License:        %{shrink:
 
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:          %{url}/commit/15e554329798f3141d36a5d4c5f57cff1acb1254.patch#/ebranch-let-compat-package-satisfy-reqs.patch
+Patch:          %{url}/commit/3367fe64f252d2b7f483f48c4c680f58ed832ee5.patch#/fix-bz-expiration-check.patch
 
 BuildRequires:  cargo-rpm-macros
 %if %{with build_and_test_all}

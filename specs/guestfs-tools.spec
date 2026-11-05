@@ -16,7 +16,7 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.57.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -86,7 +86,7 @@ BuildRequires: perl(Win::Hivex::Regedit)
 BuildRequires: perl-generators
 
 %if 0%{verify_tarball_signature}
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 %endif
 
 # Ensure a minimum version of libguestfs is installed.
@@ -230,7 +230,7 @@ for %{name}.
 
 %prep
 %if 0%{verify_tarball_signature}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %setup -q
 %autopatch -p1
@@ -388,6 +388,9 @@ end
 
 
 %changelog
+* Mon Nov 02 2026 Jakub Jelen <jjelen@redhat.com> - 1.57.5-2
+- Verify upstream source signatures with openpgpverify
+
 * Fri Oct 30 2026 Richard W.M. Jones <rich@annexia.org> - 1.57.5-1
 - New upstream development version 1.57.5
 - New signing key using SHA256 hashes.

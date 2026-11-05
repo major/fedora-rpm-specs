@@ -46,7 +46,7 @@ Source3:        https://www.python.org/ftp/python/%{installer_python_version}/%{
 # Python release binaries for macOS
 Source4:        https://keybase.io/nad/pgp_keys.asc?fingerprint=0d96df4d4110e5c43fbfb17f2d347ea6aa65421d#/key.asc
 
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(asn1)
 
@@ -99,7 +99,7 @@ Asahi Linux firmware tools
 
 %prep
 %autosetup -p1
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
+%{openpgpverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
 
 # Set version
 echo "%{version}" > version.tag

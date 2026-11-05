@@ -5,7 +5,7 @@
 %global crate pyo3-ffi
 
 Name:           rust-pyo3-ffi
-Version:        0.29.3
+Version:        0.30.1
 Release:        %autorelease
 Summary:        Python-API bindings for the PyO3 ecosystem
 
@@ -17,7 +17,7 @@ Source:         %{crates_source}
 #   and need to rebuild all dependent packages in Copr, also those that
 #   use pyo3-ffi without patching each and every one of them, hence we
 #   explicitly allow to skip version check when building RPMs.
-Patch2:         Allow-unsupported-Python-versions-in-RPM-builds.patch
+Patch2:         0001-Allow-unsupported-Python-versions-in-RPM-builds.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel >= 3.7
@@ -137,18 +137,6 @@ This package contains library source intended for building other packages which
 use the "abi3-py315" feature of the "%{crate}" crate.
 
 %files       -n %{name}+abi3-py315-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+abi3-py38-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+abi3-py38-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "abi3-py38" feature of the "%{crate}" crate.
-
-%files       -n %{name}+abi3-py38-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+abi3-py39-devel

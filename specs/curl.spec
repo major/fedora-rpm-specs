@@ -13,7 +13,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.23.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -23,7 +23,9 @@ Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
 Source2: mykey.asc
 
 # Fedora-specific
-Patch101: 0101-curl-7.32.0-multilib.patch
+Patch0001: 0001-prevent-multilib-conflicts-on-the-curl-config-script.patch
+Patch0002: 0002-ci-setup-packit.patch
+Patch0003: 0003-conncache-poll-an-idle-connection-for-pending-input-.patch
 
 Provides: curl-full = %{version}-%{release}
 # do not fail when trying to install curl-minimal after drop
@@ -464,6 +466,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Tue Nov 03 2026 Jan Macku <jamacku@redhat.com> - 8.23.0-3
+- conncache: poll an idle connection for pending input on every reuse
+
 * Thu Oct 29 2026 Jakub Jelen <jjelen@redhat.com> - 8.23.0-2
 - Verify upstream source signatures with openpgpverify
 

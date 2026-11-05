@@ -170,7 +170,7 @@ Patch602: mozilla-1516803.patch
 Patch603: %{name}-gcc-always-inline.patch
 
 BuildRequires: alsa-lib-devel
-BuildRequires: autoconf213
+#BuildRequires: autoconf213
 BuildRequires: autotrace
 BuildRequires: bzip2-devel
 BuildRequires: cairo-devel
@@ -180,7 +180,7 @@ BuildRequires: cbindgen
 %endif
 BuildRequires: ccache
 BuildRequires: dbus-devel
-BuildRequires: dbus-glib-devel
+#BuildRequires: dbus-glib-devel
 BuildRequires: dbus-x11
 BuildRequires: dconf
 BuildRequires: desktop-file-utils

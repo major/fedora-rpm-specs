@@ -11,6 +11,17 @@
 # avoid an incompatible update.
 %bcond capi %[ %{undefined epel} && %{undefined fc43} && %{undefined fc44} && %{undefined fc45} ]
 
+# Workaround for ppc64 vectorization bug in LLVM 23:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2553620
+# This can be removed in F45 after the fix is backported, and in F46+ after the
+# fix is backported and/or LLVM is updated to version 24. Set the conditional
+# for F45/F46 only, expecting that this will be fixed before F46 branching.
+%if %{defined fc45} || %{defined fc46}
+%ifarch ppc64le
+%global build_rustflags %{build_rustflags} -Cno-vectorize-loops
+%endif
+%endif
+
 %global crate libcramjam
 
 Name:           rust-libcramjam

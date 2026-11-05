@@ -172,13 +172,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc1.13
+%define pkgrelease 0.rc1.261104g05441d697f7f.14
 %define kversion 7
-%define tarfile_release 7.4-rc1
+%define tarfile_release 7.4-rc1-132-g05441d697f7f
 # This is needed to do merge window version magic
 %define patchlevel 4
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.13%{?buildid}%{?dist}
+%define specrelease 0.rc1.261104g05441d697f7f.14%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -195,6 +195,15 @@ Summary: The Linux kernel
 # libexec dir is not used by the linker, so the shared object there
 # should not be exported to RPM provides
 %global __provides_exclude_from ^%{_libexecdir}/kselftests
+# Skip the interpreter requires of the selftest scripts: rpm runs its
+# script.req generator once per executable script (hundreds of them),
+# each run costing a fork and exec of the by then large rpmbuild process.
+%global __script_exclude_path ^%{_libexecdir}/kselftests/
+# Skip the ELF dependency generators for the selftest object files: elf.attr
+# on RHEL has no exeonly flag, so rpm forks elfdeps twice for each of the
+# ~2700 relocatable .o files there, which have no dynamic section and yield
+# nothing. [.] instead of \. because rpm strips a backslash per expansion.
+%global __elf_exclude_path %{__elf_exclude_path}|^%{_libexecdir}/kselftests/.*[.]o$
 
 # The following build options are (mostly) enabled by default, but may become
 # enabled/disabled by later architecture-specific checks.
@@ -3644,7 +3653,78 @@ find Documentation -type d | xargs chmod u+w
   %{__os_install_post}\
   %{__remove_unwanted_dbginfo_install_post}\
   %{__restore_unstripped_root_post}\
-  %{__modsign_install_post}
+  %{__modsign_install_post}\
+  %{__kmod_depcache_install_post}
+
+#
+# Avoid forking the ksym/modalias provides generators once per module
+# during file classification, which takes minutes with thousands of
+# modules. The stock kernel-rpm-macros scripts are run in parallel after
+# modules are signed and compressed, their output is cached per module,
+# and the generators are replaced by Lua macros that only read the cache.
+#
+%global kmod_depcache %{_builddir}/kmod-depcache
+
+# kernel-rpm-macros defines the ksym and modalias provides generators in its
+# attr files. The macros below replace them, so capture the stock definitions
+# first. The cache step fails the build if they are not the ones this was
+# validated with: a kernel-rpm-macros update that moves the scripts, adds
+# arguments, sets a protocol or drops the generators must be reviewed here,
+# rather than silently caching for a generator rpm no longer calls.
+%global kmod_depcache_ksyms_prov /usr/lib/rpm/redhat/find-provides.ksyms
+%global kmod_depcache_modalias_prov /usr/lib/rpm/redhat/find-provides.d/modalias.prov
+%global kmod_depcache_stock_ksyms %{?__provided_ksyms_provides}
+%global kmod_depcache_stock_modalias %{?__modalias_provides}
+
+# %1 = module path as rpm passes it (buildroot included), %2 = cache suffix,
+# %3 = generator script. The cache is keyed by that full path, so no
+# buildroot stripping is needed on either side.
+# A Lua error() would only be logged and the provides silently dropped, and
+# os.exit() is not permitted here, so on a cache miss warn and run the
+# generator for this module like rpm would.
+%define __kmod_depcache_lookup() %{lua:
+  local path = rpm.expand("%1")
+  local f = io.open(rpm.expand("%{kmod_depcache}") .. path .. "." .. rpm.expand("%2"))
+  if not f then
+    io.stderr:write("warning: no " .. rpm.expand("%2") .. " cache for " .. path .. "\\n")
+    f = io.popen("echo '" .. path .. "' | RPM_BUILD_ROOT='" ..
+                 rpm.expand("%{buildroot}") .. "' " .. rpm.expand("%3"))
+  end
+  print(f:read("a"))
+  f:close()
+}
+
+%define __provided_ksyms_provides() %{__kmod_depcache_lookup %1 ksyms %{kmod_depcache_ksyms_prov}}
+%define __modalias_provides() %{__kmod_depcache_lookup %1 modalias %{kmod_depcache_modalias_prov}}
+
+# Fill the cache read by __kmod_depcache_lookup. This runs as the last step
+# of __spec_install_post, after __modsign_install_post has signed and
+# compressed the modules, so the file names and contents are final. Every
+# .ko* file in the buildroot is fed to the stock find-provides.ksyms and
+# modalias.prov scripts, one module per invocation and RPM_BUILD_NCPUS at a
+# time, and each script's output is stored as <cache>/<full module path>.ksyms
+# and .modalias. The scripts need RPM_BUILD_ROOT, which %%install exports, to
+# tell in-tree modules (kernel() provides) from the rest (ksym() provides).
+# A failed mkdir or generator aborts the build. The %% in ${1%%/*} is rpm's
+# escape for a single %, so the shell sees ${1%/*}, the module's directory.
+%define __kmod_depcache_install_post \
+  if [ "%{?kmod_depcache_stock_ksyms}" != "%{kmod_depcache_ksyms_prov}" ] || \
+     [ "%{?kmod_depcache_stock_modalias}" != "%{kmod_depcache_modalias_prov}" ] || \
+     [ -n "%{?__provided_ksyms_protocol}%{?__modalias_protocol}" ]; then \
+    echo "error: kernel-rpm-macros provides generators differ from what the kmod depcache expects:" >&2 \
+    echo "  __provided_ksyms_provides='%{?kmod_depcache_stock_ksyms}' protocol='%{?__provided_ksyms_protocol}'" >&2 \
+    echo "  __modalias_provides='%{?kmod_depcache_stock_modalias}' protocol='%{?__modalias_protocol}'" >&2 \
+    exit 1 \
+  fi \
+  %{log_msg "Generating kernel module provides cache ..."} \
+  rm -rf %{kmod_depcache} \
+  find $RPM_BUILD_ROOT ! -type d -regextype posix-extended -regex '.*[.]ko([.](gz|bz2|xz|zst))?' -print0 | \
+  xargs -0 -r -n 1 -P${RPM_BUILD_NCPUS} sh -c ' \
+    mkdir -p "%{kmod_depcache}${1%%/*}" || exit 1 \
+    echo "$1" | %{kmod_depcache_ksyms_prov} > "%{kmod_depcache}$1.ksyms" || exit 1 \
+    echo "$1" | %{kmod_depcache_modalias_prov} > "%{kmod_depcache}$1.modalias" \
+  ' _ || exit 1 \
+%{nil}
 
 ###
 ### install
@@ -4869,9 +4949,24 @@ fi\
 #
 #
 %changelog
-* Mon Nov 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.13]
+* Wed Nov 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.05441d697f7f.14]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Wed Nov 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.05441d697f7f.13]
+- redhat: kernel.spec: cache module provides to avoid per-file forks (Jan Stancek)
+- redhat/configs: disable MMC_TOSHIBA_PCI (Eric Chanudet) [RHEL-266569]
+- redhat/configs: disable MMC_VIA_SDMMC (Eric Chanudet) [RHEL-266571]
+- redhat/configs: disable MMC_ARMMMCI (Eric Chanudet) [RHEL-266566]
+- redhat/configs: disable MMC_CB710 (Eric Chanudet) [RHEL-266565]
+- redhat/configs: disable MMC_TIFM_SD (Eric Chanudet) [RHEL-266568]
+- redhat/configs: remove MMC_VUB300 (Eric Chanudet) [RHEL-266572]
+- redhat/configs: disable MMC_SDHCI_OF_ESDHC (Eric Chanudet) [RHEL-266567]
+- redhat: kernel.spec: skip elfdeps for kselftests object files (Jan Stancek)
+- redhat: kernel.spec: skip script.req for kselftests (Jan Stancek)
+- gitlab-ci: enable ccache save on selected baselines (Tales da Aparecida)
+- redhat/configs: Enable CONFIG_VIDEOBUF2_DMA_CONTIG for arm/aarch64 builds (Nirmala Dalvi)
+- Linux v7.4.0-0.rc1.05441d697f7f
 
 * Mon Nov 02 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.12]
 - Fix up some mismatches for 7.4 aarch64 (Justin M. Forbes)

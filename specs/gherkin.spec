@@ -154,7 +154,7 @@ Requires:       gherkin-data = %{version}-%{release}
 
 
 # We package the RubyGem as a subpackage, rather than as a separate
-# rubygem-cucumber-gherkin source package based on the relesed Gem archive,
+# rubygem-cucumber-gherkin source package based on the released Gem archive,
 # because having the full gherkin source code makes it much easier to run
 # acceptance tests and to keep the RubyGem up to date and synchronized with
 # other languages’ implementations without duplication of effort.
@@ -345,7 +345,7 @@ pushd .%{gem_instdir}
 rspec -rspec_helper spec
 popd
 %if %{with acceptance_ruby}
-# Keep make from trying to rebuild the Ruby implemention
+# Keep make from trying to rebuild the Ruby implementation
 mkdir -p .built
 touch Gemfile.lock
 # Override commands so that they don’t use “bundle”; we don’t want a dependency

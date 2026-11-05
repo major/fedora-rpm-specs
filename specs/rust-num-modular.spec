@@ -5,11 +5,11 @@
 %global crate num-modular
 
 Name:           rust-num-modular
-Version:        0.6.1
+Version:        0.7.0
 Release:        %autorelease
 Summary:        A generic implementation of integer division and modular arithmetics
 
-License:        Apache-2.0
+License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/num-modular
 Source:         %{crates_source}
 
@@ -32,7 +32,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/COPYING
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -58,18 +60,6 @@ This package contains library source intended for building other packages which
 use the "num-bigint" feature of the "%{crate}" crate.
 
 %files       -n %{name}+num-bigint-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+num-integer-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+num-integer-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "num-integer" feature of the "%{crate}" crate.
-
-%files       -n %{name}+num-integer-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+num-traits-devel

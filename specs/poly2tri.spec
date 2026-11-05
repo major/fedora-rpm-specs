@@ -1,20 +1,18 @@
 Name:           poly2tri
-%global         rev 26242d0aa7b8
-%global         date 20130501
-%global         snapshot %{date}hg%{rev}
+%global         commit a922022da4c0d3a55b1d6b6d634219caea653053
+%global         shortcommit %{sub %{commit} 0 10}
+%global         commitdate 20240130
+%global         snapshot %{commitdate}.%{shortcommit}
 Version:        0.0^%{snapshot}
 Release:        %autorelease
 Summary:        A 2D constrained Delaunay triangulation library
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/greenm01/poly2tri
-# hg clone %%{url}
-# rm -rf %%{name}/.hg
-# tar -pczf %%{name}-%%{rev}.tar.gz %%{name}
-Source0:        %{name}-%{rev}.tar.gz
+Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 # The Makefile was created for purposes of this package
 # Upstream provides WAF, but it builds example apps and not the library
 Source1:        %{name}-Makefile
+Source2:        %{name}-smoke.cc
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  mesa-libGL-devel
@@ -31,8 +29,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Development files for %{name}.
 
 %prep
-%setup -qn %{name}
+%setup -qn %{name}-%{commit}
 cp %{SOURCE1} %{name}/Makefile
+cp %{SOURCE2} %{name}/smoke.cc
 
 iconv -f iso8859-1 -t utf-8 AUTHORS > AUTHORS.conv && \
 touch -r AUTHORS AUTHORS.conv && \
@@ -51,6 +50,14 @@ ln -s lib%{name}.so.1.0 %{buildroot}%{_libdir}/lib%{name}.so
 for H in %{name}/*/*.h %{name}/*.h; do
   install -Dpm0644 $H %{buildroot}%{_includedir}/$H
 done
+
+%check
+cd %{name}
+make check \
+  CFLAGS="%{optflags}" \
+  LDFLAGS="%{build_ldflags}" \
+  SMOKE_INCLUDE="-I%{buildroot}%{_includedir}" \
+  SMOKE_LIBDIR="%{buildroot}%{_libdir}"
 
 %files
 %doc AUTHORS LICENSE README 

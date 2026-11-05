@@ -2,7 +2,7 @@
 %global pypi_name cloudflare
 
 Name:           python-%{pypi_name}
-Version:        5.8.0
+Version:        5.9.0
 Release:        1%{?dist}
 Summary:        The official Python library for the Cloudflare API
 
@@ -53,6 +53,9 @@ This is the Python 3 version of the package.
 
 
 %changelog
+* Wed Nov 4 2026 Nick Bebout <nb@fedoraproject.org> - 5.9.0-1
+- Update to 5.9.0
+
 * Mon Sep 28 2026 Nick Bebout <nb@fedoraproject.org> - 5.8.0-1
 - Update to 5.8.0 rhbz#2541667
 

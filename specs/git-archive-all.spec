@@ -1,8 +1,8 @@
 %global modname %(n=%{name}; echo ${n//-/_})
 
 Name:           git-archive-all
-Version:        1.23.1
-Release:        17%{?dist}
+Version:        1.24.0
+Release:        1%{?dist}
 Summary:        Archive git repository with its submodules
 
 License:        MIT
@@ -16,7 +16,9 @@ Requires:       git
 BuildArch:      noarch
 
 %description
-%{summary}.
+A python script wrapper for git-archive that archives a git superproject and
+its submodules, if it has any. Takes into account .gitattributes
+
 
 %prep
 %autosetup
@@ -31,7 +33,7 @@ BuildArch:      noarch
 
 %install
 %pyproject_install
-%pyproject_save_files -l %{modname}
+%pyproject_save_files --assert-license -l %{modname} %{modname}-stubs
 
 
 %check
@@ -39,11 +41,15 @@ BuildArch:      noarch
 
 
 %files -f %{pyproject_files}
-%doc README.rst
+%doc CHANGES.rst README.rst
+%license LICENSE.txt
 %{_bindir}/%{name}
 
 
 %changelog
+* Sun Nov 01 2026 Richard Shaw <hobbes1069@gmail.com> - 1.24.0-1
+- Update to 1.24.0.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

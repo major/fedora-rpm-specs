@@ -12,6 +12,9 @@ Summary:        Utilities for prime number related functionalities
 License:        Apache-2.0
 URL:            https://crates.io/crates/num-prime
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop dependency on dropped internal num-modular/num-integer feature
+Patch:          num-prime-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -1,6 +1,6 @@
 Name:           sblim-wbemcli
 Version:        1.6.3
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        SBLIM WBEM Command Line Interface
 
 License:        EPL-1.0
@@ -49,6 +49,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Wed Nov 04 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.3-35
+- Reject the insecure SSLv2/SSLv3 values of WBEMCLI_CURL_SSLVERSION and
+  document the variable as selecting a minimum TLS version
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

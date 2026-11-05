@@ -7,7 +7,7 @@
 %global crate dtor
 
 Name:           rust-dtor
-Version:        1.0.5
+Version:        1.0.6
 Release:        %autorelease
 Summary:        Global, no_std-compatible destructors for all platforms that run after main
 

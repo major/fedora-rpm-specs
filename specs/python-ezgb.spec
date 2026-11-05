@@ -24,6 +24,7 @@ BuildRequires:  pyproject-rpm-macros
 # Therefore, we maintain the following list of test dependencies manually.
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(typing-extensions)
+BuildRequires:  openpgpverify
 
 %global _description %{expand:
 A standalone Python library for working with git-bug repositories. It lets you
@@ -41,7 +42,7 @@ Provides:       python%{python3_pkgversion}-%{srcname} = %{version}-%{release}
 
 
 %prep
-xz -dc '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
+xz -dc '%{SOURCE0}' | %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup -p1 -n %{srcname}-%{version}
 
 

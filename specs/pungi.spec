@@ -1,12 +1,17 @@
 Name:           pungi
 Version:        4.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://forge.fedoraproject.org/pungi/pungi
 Source0:        https://forge.fedoraproject.org/pungi/pungi/archive/%{name}-%{version}.tar.gz
 Patch:          https://forge.fedoraproject.org/pungi/pungi/pulls/1924.patch
+# https://forge.fedoraproject.org/releng/tickets/issues/13580
+# https://forge.fedoraproject.org/pungi/pungi/pulls/1927
+# Fix.treeinfo generation with imagebuilder
+Patch:          0001-many-fix-.treeinfo-handoff.patch
+Patch:          0002-many-well-known-paths-in-.treeinfo-fallback.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -135,6 +140,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Wed Nov 04 2026 Adam Williamson <adamwill@fedoraproject.org> - 4.14.0-3
+- Backport patch 1927 to fix treeinfo generation with imagebuilder
+
 * Mon Aug 31 2026 Lubomír Sedlář <lsedlar@redhat.com> - 4.14.0-2
 - Backport patch 1924
 

@@ -2,7 +2,7 @@
 
 Name:           mingw-libssh2
 Version:        1.11.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW Windows library implementation of the SSH2 protocol
 
 License:        BSD-3-Clause
@@ -20,6 +20,7 @@ BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-openssl
 BuildRequires:  mingw32-zlib
+BuildRequires:  openpgpverify
 
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
@@ -76,7 +77,7 @@ Static version of the MinGW Windows SSH2 library.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n libssh2-%{version}
 
 
@@ -124,6 +125,9 @@ rm -r $RPM_BUILD_ROOT%{mingw64_mandir}/man3
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1.11.1-5
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

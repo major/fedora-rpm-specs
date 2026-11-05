@@ -1,9 +1,8 @@
 %global forgeurl https://github.com/linuxmint/muffin
-%global tagver   6.7.9
-%global tag      %{tagver}-unstable
+%global tag      %{version}
 
 Name:          muffin
-Version:       %{tagver}^unstable
+Version:       6.8.1
 Release:       %{autorelease}
 %{forgemeta}
 Summary:       Window and compositing manager based on Clutter
@@ -30,7 +29,7 @@ BuildRequires: pkgconfig(gobject-2.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(gmodule-no-export-2.0)
 BuildRequires: pkgconfig(json-glib-1.0)
-BuildRequires: pkgconfig(cinnamon-desktop) >= 6.7.0
+BuildRequires: pkgconfig(cinnamon-desktop) >= 6.8.0
 BuildRequires: pkgconfig(xcomposite)
 BuildRequires: pkgconfig(xcursor)
 BuildRequires: pkgconfig(xdamage)
