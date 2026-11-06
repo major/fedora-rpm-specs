@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           python-joserfc
-Version:        1.7.5
+Version:        1.8.0
 Release:        %autorelease
 Summary:        The ultimate Python library for JOSE RFCs, including JWS, JWE, JWK, JWA, JWT
 
@@ -54,6 +54,7 @@ echo "python3dist(pytest)"
 
 
 %files -n python3-joserfc -f %{pyproject_files}
+%doc README.rst
 
 
 %changelog

@@ -1,5 +1,5 @@
 Name:           python-h5io
-Version:        0.2.5
+Version:        0.2.6
 Release:        %autorelease
 Summary:        Read and write simple Python objects using HDF5
 
@@ -8,8 +8,6 @@ URL:            https://github.com/h5io/h5io
 Source:         %{url}/archive/h5io-%{version}/h5io-h5io-%{version}.tar.gz
 
 BuildArch:      noarch
-
-BuildRequires:  python3-devel
 
 # README.rst: ``scipy`` is required for sparse matrix IO support.
 BuildRequires:  python3dist(scipy)
@@ -55,16 +53,7 @@ sed -r -i 's/--cov[^[:blank:]"=]*(=[^[:blank:]"]*)?//g' pyproject.toml
 
 
 %check
-%if v"0%{?python3_version}" >= v"3.13"
-# “Test test_state_with_pathlib fails on Python 3.13.0a4”
-# https://github.com/h5io/h5io/issues/86
-#
-# This appears to be a real problem, but it’s not clear what the correct fix
-# is, so we might as well unblock dependent packages until upstream figures out
-# what to do.
-k="${k-}${k+ and }not test_state_with_pathlib"
-%endif
-%pytest -k "${k-}" -v
+%pytest --verbose
 
 
 %files -n python3-h5io -f %{pyproject_files}

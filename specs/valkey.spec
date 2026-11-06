@@ -5,16 +5,16 @@
 %bcond_with docs
 %endif
 # See https://github.com/valkey-io/valkey-doc/tags
-%global doc_version 9.1.2
+%global doc_version 9.1.3
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
 %global upstream_version 9.2.0
-%global upstream_prever rc1
+%global upstream_prever rc2
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -48,6 +48,9 @@ BuildRequires:     systemd-devel
 BuildRequires:     systemd-rpm-macros
 BuildRequires:     pkgconfig(librdmacm)
 BuildRequires:     pkgconfig(libibverbs)
+# Only static library is supported
+# compression_zstd.c uses ZSTD_STATIC_LINKING_ONLY experimental APIs
+BuildRequires:     libzstd-static >= 1.4.7
 BuildRequires:     openssl-devel
 %if %{with docs}
 # for docs/man pages
@@ -229,7 +232,7 @@ echo '# valkey_rpm_conf' >> valkey.conf
 echo '# valkey-sentinel_rpm_conf' >> sentinel.conf
 %endif
 
-%global make_flags DEBUG="" V="echo" PREFIX=%{buildroot}%{_prefix} BUILD_WITH_SYSTEMD=yes BUILD_TLS=yes BUILD_RDMA=module
+%global make_flags DEBUG="" V="echo" PREFIX=%{buildroot}%{_prefix} BUILD_WITH_SYSTEMD=yes BUILD_TLS=yes BUILD_RDMA=module BUILD_ZSTD=yes
 
 : RDMA configuration file
 cat << EOF | tee rdma.conf
@@ -450,6 +453,12 @@ fi
 
 
 %changelog
+* Thu Nov  5 2026 Remi Collet <remi@remirepo.net> - 9.2.0~rc2-2
+- enable zstd compression
+
+* Thu Nov  5 2026 Remi Collet <remi@remirepo.net> - 9.2.0~rc2-1
+- Valkey 9.2.0-rc2
+
 * Fri Sep 18 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 9.2.0~rc1-1
 - Valkey 9.2.0-rc1
 

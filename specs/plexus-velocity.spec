@@ -1,6 +1,6 @@
 Name:           plexus-velocity
-Version:        2.2.1
-Release:        5%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Plexus Velocity Component
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -8,18 +8,29 @@ URL:            https://codehaus-plexus.github.io/plexus-velocity/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://github.com/codehaus-plexus/%{name}/archive/%{name}-%{version}.tar.gz
-Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
+Source0:        https://repo1.maven.org/maven2/org/codehaus/plexus/%{name}/%{version}/%{name}-%{version}-source-release.zip
+Source1:        https://repo1.maven.org/maven2/org/codehaus/plexus/%{name}/%{version}/%{name}-%{version}-source-release.zip.asc
+# Apache Maven public key
+Source2:        https://downloads.apache.org/maven/KEYS
+Source3:        http://www.apache.org/licenses/LICENSE-2.0.txt
 
+Patch0:         0001-pin-deps-to-maven-local-versions.patch
+
+%if 0%{?rhel} && 0%{?rhel} <= 10
+BuildRequires:  maven-local-openjdk21
+%else
 BuildRequires:  maven-local-openjdk25
-BuildRequires:  mvn(com.google.inject:guice)
-BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
+%endif
+BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.velocity:velocity-engine-core)
-BuildRequires:  mvn(org.codehaus.plexus:plexus-components:pom:)
-BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
+BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
+BuildRequires:  mvn(org.codehaus.plexus:plexus-testing)
 BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
+BuildRequires:  mvn(javax.inject:javax.inject)
+BuildRequires:  openpgpverify
 
 %description
 This package provides Plexus Velocity component - a wrapper for
@@ -33,13 +44,18 @@ Summary:        API documentation for %{name}
 This package provides %{summary}.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%{openpgpverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+%setup -q
+%patch -p1 -P0
 
 find -name '*.jar' -delete
 
-cp -p %{SOURCE1} LICENSE
+cp -p %{SOURCE3} LICENSE
 
 %build
+# Upstream test uses @PlexusTest (plexus-testing) rather than sisu InjectedTest,
+# so the suite runs cleanly in both maven-local-openjdk21 (EPEL 10) and
+# maven-local-openjdk25 (Fedora). Run the tests in both environments.
 %mvn_build
 
 %install
@@ -52,6 +68,14 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Wed Nov 04 2026 filipe rosset <filiperosset@users.noreply.github.com> - 2.4.0-1
+- Update to 2.4.0
+- Test suite now uses @PlexusTest (plexus-testing) instead of sisu InjectedTest,
+  so drop the EPEL 10 -DskipTests workaround and run tests in both environments
+- Refresh BuildRequires for new dependency set (plexus-testing, commons-lang3,
+  javax.inject, junit-jupiter-api) and plexus parent pom 27
+- Remove no-longer-needed guice / sisu.plexus BuildRequires
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -39,7 +39,7 @@
 
 Name:           julia
 Version:        1.13.3
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
@@ -506,6 +506,9 @@ JULIA_TEST_USE_MULTIPLE_WORKERS=true %{buildroot}%{_bindir}/julia -e "Base.runte
 exit 0
 
 %changelog
+* Thu Nov 5 2026 Milan Bouchet-Valat <nalimilan@club.fr> - 1.13.3-1
+- Rebuild for openlibm 0.8.
+
 * Tue Nov 3 2026 Milan Bouchet-Valat <nalimilan@club.fr> - 1.13.3-0
 - New upstream release.
 

@@ -1,8 +1,8 @@
 %bcond_with bootstrap
-%global upstream_version 2.0.0-M1
+%global upstream_version 2.0.0
 
 Name:           maven-verifier
-Version:        2.0.0~M1
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Apache Maven Verifier Component
 License:        Apache-2.0
@@ -15,7 +15,11 @@ Source0:        https://repo1.maven.org/maven2/org/apache/maven/shared/%{name}/%
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
+%if 0%{?rhel} && 0%{?rhel} <= 10
+BuildRequires:  maven-local-openjdk21
+%else
 BuildRequires:  maven-local-openjdk25
+%endif
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-connector-basic)
 BuildRequires:  mvn(org.apache.maven.resolver:maven-resolver-transport-http)
 BuildRequires:  mvn(org.apache.maven.shared:maven-shared-components:pom:)
@@ -26,8 +30,6 @@ BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 %endif
-# TODO Remove in Fedora 46
-Obsoletes:      %{name}-javadoc < 2.0.0~M1-18
 
 %description
 Provides a test harness for Maven integration tests.

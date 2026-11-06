@@ -68,6 +68,9 @@ Patch2: cyrus-imapd-rename-quota.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2223951
 Patch3: cyrus-imapd-remove-always-inline-for-buf-len.patch
 Patch4: cyrus-imapd-rename-imtest.patch
+# Adapt to libical 4.x API changes
+# https://bugzilla.redhat.com/show_bug.cgi?id=2523444
+Patch5: cyrus-imapd-3.12.4-libical4-api.patch
 
 # Cassandane patches:
 # Prevent cassandane from trying to syslog things

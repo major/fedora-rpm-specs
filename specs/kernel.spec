@@ -85,12 +85,7 @@
 # NB: if default compression in /usr/lib/rpm/redhat/macros ever changes,
 # this one might need tweaking (e.g. if default changes to w3.xzdio,
 # change below to w4T.xzdio):
-#
-# This is disabled on i686 as it triggers oom errors
-
-%ifnarch i686
 %define _binary_payload w3T.xzdio
-%endif
 
 Summary: The Linux kernel
 %if 0%{?fedora}
@@ -172,13 +167,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc1.261104g05441d697f7f.14
+%define pkgrelease 0.rc1.261105g05441d697f7f.15
 %define kversion 7
 %define tarfile_release 7.4-rc1-132-g05441d697f7f
 # This is needed to do merge window version magic
 %define patchlevel 4
-# This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.261104g05441d697f7f.14%{?buildid}%{?dist}
+# The Release tag, including the configurable %%{?dist} tag
+%define specrelease 0.rc1.261105g05441d697f7f.15%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -189,8 +184,6 @@ Summary: The Linux kernel
 #
 # End of genspec.sh variables
 #
-
-%define pkg_release %{specrelease}
 
 # libexec dir is not used by the linker, so the shared object there
 # should not be exported to RPM provides
@@ -312,9 +305,6 @@ Summary: The Linux kernel
 # Control whether to install the vdso directories.
 %define with_vdso_install %{?_without_vdso_install: 0} %{?!_without_vdso_install: 1}
 #
-# should we do C=1 builds with sparse
-%define with_sparse    %{?_with_sparse:       1} %{?!_with_sparse:       0}
-#
 # Cross compile requested?
 %define with_cross    %{?_with_cross:         1} %{?!_with_cross:        0}
 
@@ -397,14 +387,6 @@ Summary: The Linux kernel
 %define KVERREL_RE %(echo %KVERREL | sed 's/+/[+]/g')
 %define hdrarch %_target_cpu
 %define asmarch %_target_cpu
-
-%if 0%{!?nopatches:1}
-%define nopatches 0
-%endif
-
-%if %{with_vanilla}
-%define nopatches 1
-%endif
 
 %if !%{with_debuginfo}
 %define _enable_debug_packages 0
@@ -550,10 +532,6 @@ Summary: The Linux kernel
 %define with_kabidwchk 0
 %endif
 
-%if %{with_vdso_install}
-%define use_vdso 1
-%endif
-
 %ifnarch noarch
 %define with_kernel_abi_stablelists 0
 %endif
@@ -588,11 +566,6 @@ Summary: The Linux kernel
 %define with_debug 0
 %endif
 
-# sparse blows up on ppc
-%ifnarch ppc64le
-%define with_sparse 0
-%endif
-
 # zfcpdump mechanism is s390 only
 %ifnarch s390x
 %define with_zfcpdump 0
@@ -612,12 +585,6 @@ Summary: The Linux kernel
 
 # Per-arch tweaks
 
-%ifarch i686
-%define asmarch x86
-%define hdrarch i386
-%define kernel_image arch/x86/boot/bzImage
-%endif
-
 %ifarch x86_64
 %define asmarch x86
 %define kernel_image arch/x86/boot/bzImage
@@ -628,7 +595,7 @@ Summary: The Linux kernel
 %define hdrarch powerpc
 %define make_target vmlinux
 %define kernel_image vmlinux
-%define use_vdso 0
+%define with_vdso_install 0
 %endif
 
 %ifarch s390x
@@ -654,7 +621,7 @@ Summary: The Linux kernel
 
 # Should make listnewconfig fail if there's config options
 # printed out?
-%if %{nopatches}
+%if %{with_vanilla}
 %define with_configchecks 0
 %endif
 
@@ -702,12 +669,6 @@ Summary: The Linux kernel
 # Architectures we build tools/cpupower on
 %define cpupowerarchs x86_64 ppc64le aarch64 riscv64
 
-%if 0%{?use_vdso}
-%define _use_vdso 1
-%else
-%define _use_vdso 0
-%endif
-
 # short-hand for "are we building base/non-debug variants of ...?"
 %if %{with_stock} && %{with_base}
 %define with_stock_base 1
@@ -745,22 +706,18 @@ Summary: The Linux kernel
 # Packages that need to be installed before the kernel is, because the %%post
 # scripts use them.
 #
-%define kernel_prereq  coreutils, systemd >= 203-2, /usr/bin/kernel-install
-%define initrd_prereq  dracut >= 027
+%define kernel_prereq  coreutils, systemd, /usr/bin/kernel-install
+%define initrd_prereq  dracut
 
 
 Name: %{package_name}
 License: ((GPL-2.0-only WITH Linux-syscall-note) OR CDDL-1.0) AND ((GPL-2.0-only WITH Linux-syscall-note) OR Linux-OpenIB) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-3-Clause-Clear AND CC0-1.0 AND GFDL-1.1-no-invariants-or-later AND GPL-1.0-or-later AND (GPL-1.0-or-later WITH Linux-syscall-note) AND GPL-2.0-only AND (GPL-2.0-only OR CDDL-1.0) AND (GPL-2.0-only OR GFDL-1.2-no-invariants-only) AND (GPL-2.0-only OR GFDL-1.2-no-invariants-or-later) AND (GPL-2.0-only WITH Linux-syscall-note) AND GPL-2.0-or-later AND (GPL-2.0-or-later OR CC-BY-4.0) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH Linux-syscall-note) AND ISC AND LGPL-2.0-or-later AND (LGPL-2.0-or-later WITH Linux-syscall-note) AND LGPL-2.1-only AND (LGPL-2.1-only WITH Linux-syscall-note) AND LGPL-2.1-or-later AND (LGPL-2.1-or-later WITH Linux-syscall-note) AND (Linux-OpenIB OR GPL-2.0-only) AND (Linux-OpenIB OR GPL-2.0-only OR BSD-2-Clause) AND Linux-man-pages-copyleft AND MIT AND (MPL-1.1 OR GPL-2.0-only) AND (X11 OR GPL-2.0-only) AND (X11 OR GPL-2.0-or-later) AND Zlib AND (copyleft-next-0.3.1 OR GPL-2.0-or-later)
 URL: https://www.kernel.org/
 Version: %{specrpmversion}
-Release: %{pkg_release}
+Release: %{specrelease}
 # DO NOT CHANGE THE 'ExclusiveArch' LINE TO TEMPORARILY EXCLUDE AN ARCHITECTURE BUILD.
 # SET %%nobuildarches (ABOVE) INSTEAD
-%if 0%{?fedora}
 ExclusiveArch: noarch x86_64 s390x aarch64 ppc64le riscv64
-%else
-ExclusiveArch: noarch i386 i686 x86_64 s390x aarch64 ppc64le riscv64
-%endif
 ExclusiveOS: Linux
 %ifnarch %{nobuildarches}
 Requires: %{name}-core-uname-r = %{KVERREL}
@@ -777,14 +734,14 @@ Provides: installonlypkg(kernel)
 # List the packages used during the kernel build
 #
 BuildRequires: kmod, bash, coreutils, tar, git-core, which
-BuildRequires: bzip2, xz, findutils, m4, perl-interpreter, perl-Carp, perl-devel, perl-generators, make, diffutils, gawk, %compression
+BuildRequires: bzip2, xz, findutils, perl-interpreter, perl-devel, perl-generators, make, diffutils, gawk, %compression
 # Kernel EFI/Compression set by CONFIG_KERNEL_ZSTD
 %ifarch x86_64 aarch64 riscv64
 BuildRequires: zstd
 %endif
 BuildRequires: gcc, binutils, redhat-rpm-config, hmaccalc, bison, flex, gcc-c++
 BuildRequires: rust, rust-src, bindgen, rustfmt, clippy
-BuildRequires: net-tools, hostname, bc, elfutils-devel
+BuildRequires: bc, elfutils-devel
 BuildRequires: dwarves
 BuildRequires: python3
 BuildRequires: python3-devel
@@ -798,9 +755,6 @@ BuildRequires: rsync
 %endif
 %if %{with_doc}
 BuildRequires: xmlto, asciidoc, python3-sphinx, python3-sphinx_rtd_theme
-%endif
-%if %{with_sparse}
-BuildRequires: sparse
 %endif
 %if %{with_perf}
 BuildRequires: zlib-devel binutils-devel newt-devel perl(ExtUtils::Embed) bison flex xz-devel
@@ -825,7 +779,6 @@ BuildRequires: python3-docutils
 BuildRequires: gettext ncurses-devel
 BuildRequires: libcap-devel libcap-ng-devel
 # The following are rtla requirements
-BuildRequires: python3-docutils
 BuildRequires: libtraceevent-devel
 BuildRequires: libtracefs-devel
 BuildRequires: libbpf-devel
@@ -840,7 +793,7 @@ BuildRequires: swig
 %ifnarch s390x
 BuildRequires: pciutils-devel
 %endif
-%ifarch i686 x86_64
+%ifarch x86_64
 BuildRequires: libnl3-devel
 %endif
 %endif
@@ -864,11 +817,8 @@ BuildRequires: libubsan
 BuildRequires: numactl-devel
 BuildRequires: xxd
 %endif
-BuildConflicts: rhbuildsys(DiskFree) < 500Mb
 %if %{with_debuginfo}
-BuildRequires: rpm-build, elfutils
-BuildConflicts: rpm < 4.13.0.1-19
-BuildConflicts: dwarves < 1.13
+BuildRequires: elfutils
 # Most of these should be enabled after more investigation
 %undefine _include_minidebuginfo
 %undefine _find_debuginfo_dwz_opts
@@ -897,7 +847,7 @@ BuildRequires: system-sb-certs
 %endif
 %ifarch x86_64 aarch64 riscv64
 BuildRequires: nss-tools
-BuildRequires: pesign >= 0.10-4
+BuildRequires: pesign
 %endif
 %endif
 %endif
@@ -1184,7 +1134,7 @@ Source4002: gating.yaml
 
 ## Patches needed for building this package
 
-%if !%{nopatches}
+%if !%{with_vanilla}
 
 Patch1: patch-%{patchversion}-redhat.patch
 %endif
@@ -1199,8 +1149,6 @@ The %{name} meta package
 
 # This macro does requires, provides, conflicts, obsoletes for a kernel package.
 #	%%kernel_reqprovconf [-o] <subpackage>
-# It uses any kernel_<subpackage>_conflicts and kernel_<subpackage>_obsoletes
-# macros defined above.
 #
 # Options:
 #   -o: Skip main "Provides" that would satisfy general kernel requirements that
@@ -1219,14 +1167,8 @@ Provides: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires(pre): %{kernel_prereq}\
 Requires(pre): %{initrd_prereq}\
-Requires(pre): ((linux-firmware >= 20150904-56.git6ebf5d57) if linux-firmware)\
 Recommends: linux-firmware\
-Requires(preun): systemd >= 200\
-Conflicts: xfsprogs < 4.3.0-1\
-Conflicts: xorg-x11-drv-vmmouse < 13.0.99\
-%{expand:%%{?kernel%{?1:_%{1}}_conflicts:Conflicts: %%{kernel%{?1:_%{1}}_conflicts}}}\
-%{expand:%%{?kernel%{?1:_%{1}}_obsoletes:Obsoletes: %%{kernel%{?1:_%{1}}_obsoletes}}}\
-%{expand:%%{?kernel%{?1:_%{1}}_provides:Provides: %%{kernel%{?1:_%{1}}_provides}}}\
+Requires(preun): systemd\
 # We can't let RPM do the dependencies automatic because it'll then pick up\
 # a correct but undesirable perl dependency from the module headers which\
 # isn't required for the kernel proper to function\
@@ -1344,14 +1286,14 @@ This package contains the kernel source perf library.
 
 %package -n libperf-devel
 Summary: Developement files for the perf library from kernel source
-Requires: libperf = %{version}-%{release}
+Requires: libperf = %{specrpmversion}-%{release}
 %description -n libperf-devel
 This package includes libraries and header files needed for development
 of applications which use perf library from kernel source.
 
 %package -n libperf-debuginfo
 Summary: Debug information for package libperf
-Requires: %{name}-debuginfo-common-%{_target_cpu} = %{version}-%{release}
+Requires: %{name}-debuginfo-common-%{_target_cpu} = %{specrpmversion}-%{release}
 AutoReqProv: no
 %description -n libperf-debuginfo
 This package provides debug information for the libperf package.
@@ -1368,13 +1310,6 @@ This package provides debug information for the libperf package.
 %package -n %{name}-tools
 Summary: Assortment of tools for the Linux kernel
 %ifarch %{cpupowerarchs}
-Provides:  cpupowerutils = 1:009-0.6.p1
-Obsoletes: cpupowerutils < 1:009-0.6.p1
-Provides:  cpufreq-utils = 1:009-0.6.p1
-Provides:  cpufrequtils = 1:009-0.6.p1
-Obsoletes: cpufreq-utils < 1:009-0.6.p1
-Obsoletes: cpufrequtils < 1:009-0.6.p1
-Obsoletes: cpuspeed < 1:1.5-16
 Requires: %{name}-tools-libs = %{specrpmversion}-%{release}
 %endif
 %description -n %{name}-tools
@@ -1389,12 +1324,8 @@ from the kernel source.
 
 %package -n %{name}-tools-libs-devel
 Summary: Assortment of tools for the Linux kernel
-Requires: %{name}-tools = %{version}-%{release}
-%ifarch %{cpupowerarchs}
-Provides:  cpupowerutils-devel = 1:009-0.6.p1
-Obsoletes: cpupowerutils-devel < 1:009-0.6.p1
-%endif
-Requires: %{name}-tools-libs = %{version}-%{release}
+Requires: %{name}-tools = %{specrpmversion}-%{release}
+Requires: %{name}-tools-libs = %{specrpmversion}-%{release}
 Provides: %{name}-tools-devel
 %description -n %{name}-tools-libs-devel
 This package contains the development files for the tools/ directory from
@@ -1402,7 +1333,7 @@ the kernel source.
 
 %package -n %{name}-tools-debuginfo
 Summary: Debug information for package %{name}-tools
-Requires: %{name}-debuginfo-common-%{_target_cpu} = %{version}-%{release}
+Requires: %{name}-debuginfo-common-%{_target_cpu} = %{specrpmversion}-%{release}
 AutoReqProv: no
 %description -n %{name}-tools-debuginfo
 This package provides debug information for package %{name}-tools.
@@ -1430,7 +1361,7 @@ Requires: libtraceevent
 Requires: libtracefs
 Requires: libbpf
 %ifarch %{cpupowerarchs}
-Requires: %{name}-tools-libs = %{version}-%{release}
+Requires: %{name}-tools-libs = %{specrpmversion}-%{release}
 %endif
 %description -n rtla
 The rtla meta-tool includes a set of commands that aims to analyze
@@ -1444,7 +1375,7 @@ about the properties and root causes of unexpected results.
 Epoch: %{gemini}
 %endif
 Summary: Debug information for package rtla
-Requires: %{name}-debuginfo-common-%{_target_cpu} = %{version}-%{release}
+Requires: %{name}-debuginfo-common-%{_target_cpu} = %{specrpmversion}-%{release}
 AutoReqProv: no
 %description -n rtla-debuginfo
 This package provides debug information for the rtla package.
@@ -1475,7 +1406,7 @@ to analyze the logical and timing behavior of Linux.
 Epoch: %{gemini}
 %endif
 Summary: Debug information for package rv
-Requires: %{name}-debuginfo-common-%{_target_cpu} = %{version}-%{release}
+Requires: %{name}-debuginfo-common-%{_target_cpu} = %{specrpmversion}-%{release}
 AutoReqProv: no
 %description -n rv-debuginfo
 This package provides debug information for the rv package.
@@ -2110,7 +2041,7 @@ cd linux-%{KVERREL}
 cp -a %{SOURCE1} .
 
 %{log_msg "Start of patch applications"}
-%if !%{nopatches}
+%if !%{with_vanilla}
 
 ApplyOptionalPatch patch-%{patchversion}-redhat.patch
 %endif
@@ -2122,7 +2053,6 @@ ApplyOptionalPatch linux-kernel-test.patch
 
 # Any further pre-build tree manipulations happen here.
 %{log_msg "Pre-build tree manipulations"}
-chmod +x scripts/checkpatch.pl
 mv COPYING COPYING-%{specrpmversion}-%{release}
 
 # on linux-next prevent scripts/setlocalversion from mucking with our version numbers
@@ -2317,10 +2247,6 @@ cd ..
 rm -rf %{buildroot_unstripped}
 mkdir -p %{buildroot_unstripped}
 
-%if %{with_sparse}
-%define sparse_mflags	C=1
-%endif
-
 cp_vmlinux()
 {
   eu-strip --remove-comment -o "$2" "$1"
@@ -2442,9 +2368,9 @@ BuildKernel() {
     %{log_msg "Setup build-ids"}
     # This ensures build-ids are unique to allow parallel debuginfo
     perl -p -i -e "s/^CONFIG_BUILD_SALT.*/CONFIG_BUILD_SALT=\"%{KVERREL}\"/" .config
-    %{make} ARCH=$Arch KCFLAGS="$KCFLAGS" WITH_GCOV="%{?with_gcov}" %{?_smp_mflags} $MakeTarget %{?sparse_mflags} %{?kernel_mflags}
+    %{make} ARCH=$Arch KCFLAGS="$KCFLAGS" WITH_GCOV="%{?with_gcov}" %{?_smp_mflags} $MakeTarget %{?kernel_mflags}
     if [ $DoModules -eq 1 ]; then
-	%{make} ARCH=$Arch KCFLAGS="$KCFLAGS" WITH_GCOV="%{?with_gcov}" %{?_smp_mflags} modules %{?sparse_mflags} || exit 1
+	%{make} ARCH=$Arch KCFLAGS="$KCFLAGS" WITH_GCOV="%{?with_gcov}" %{?_smp_mflags} modules || exit 1
     fi
 
     %{log_msg "Setup RPM_BUILD_ROOT directories"}
@@ -2594,16 +2520,8 @@ BuildKernel() {
 %endif
 
     %{log_msg "Add VDSO files"}
-    # add an a noop %%defattr statement 'cause rpm doesn't like empty file list files
-    echo '%%defattr(-,-,-)' > ../kernel${Variant:+-${Variant}}-ldsoconf.list
     if [ $DoVDSO -ne 0 ]; then
         %{make} ARCH=$Arch INSTALL_MOD_PATH=$RPM_BUILD_ROOT vdso_install KERNELRELEASE=$KernelVer
-        if [ -s ldconfig-kernel.conf ]; then
-             install -D -m 444 ldconfig-kernel.conf \
-                $RPM_BUILD_ROOT/etc/ld.so.conf.d/kernel-$KernelVer.conf
-	     echo /etc/ld.so.conf.d/kernel-$KernelVer.conf >> ../kernel${Variant:+-${Variant}}-ldsoconf.list
-        fi
-
         rm -rf $RPM_BUILD_ROOT/lib/modules/$KernelVer/vdso/.build-id
     fi
 
@@ -2629,9 +2547,6 @@ BuildKernel() {
     fi
     cp Module.symvers $RPM_BUILD_ROOT/lib/modules/$KernelVer/build
     cp System.map $RPM_BUILD_ROOT/lib/modules/$KernelVer/build
-    if [ -s Module.markers ]; then
-      cp Module.markers $RPM_BUILD_ROOT/lib/modules/$KernelVer/build
-    fi
 
     # create the kABI metadata for use in packaging
     # NOTENOTE: the name symvers is used by the rpm backend
@@ -2787,12 +2702,6 @@ BuildKernel() {
     if [ -d arch/$Arch/scripts ]; then
       cp -a arch/$Arch/scripts $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/arch/%{_arch} || :
     fi
-    if [ -f arch/$Arch/*lds ]; then
-      cp -a arch/$Arch/*lds $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/arch/%{_arch}/ || :
-    fi
-    if [ -f arch/%{asmarch}/kernel/module.lds ]; then
-      cp -a --parents arch/%{asmarch}/kernel/module.lds $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
-    fi
     find $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/scripts \( -iname "*.o" -o -iname "*.cmd" \) -exec rm -f {} +
 %ifarch ppc64le
     cp -a --parents arch/powerpc/lib/crtsavres.[So] $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
@@ -2812,7 +2721,7 @@ BuildKernel() {
     cp -a include $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/include
     # Cross-reference from include/perf/events/sof.h
     cp -a sound/soc/sof/sof-audio.h $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/sound/soc/sof
-%ifarch i686 x86_64
+%ifarch x86_64
     # files for 'make prepare' to succeed with kernel-devel
     cp -a --parents arch/x86/entry/syscalls/syscall_32.tbl $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
     cp -a --parents arch/x86/entry/syscalls/syscall_64.tbl $RPM_BUILD_ROOT/lib/modules/$KernelVer/build/
@@ -2929,9 +2838,6 @@ BuildKernel() {
         touch $RPM_BUILD_ROOT/lib/modules/$KernelVer/modules.order
         touch $RPM_BUILD_ROOT/lib/modules/$KernelVer/modules.builtin
     fi
-
-    # Copy the System.map file for depmod to use
-    cp System.map $RPM_BUILD_ROOT/.
 
     if [[ "$Variant" == "rt" || "$Variant" == "rt-debug" || "$Variant" == "rt-64k" || "$Variant" == "rt-64k-debug" || "$Variant" == "automotive" || "$Variant" == "automotive-debug" ]]; then
 	%{log_msg "Skipping efiuki build"}
@@ -3189,8 +3095,6 @@ BuildKernel() {
     }
 
     # Cleanup
-    %{log_msg "Cleanup build files"}
-    rm -f $RPM_BUILD_ROOT/System.map
     %{log_msg "Remove depmod files"}
     remove_depmod_files
 
@@ -3278,70 +3182,72 @@ cd linux-%{KVERREL}
 
 %if %{with_debug}
 %if %{with_realtime}
-BuildKernel %make_target %kernel_image %{_use_vdso} rt-debug
+BuildKernel %make_target %kernel_image %{with_vdso_install} rt-debug
 %endif
 
 %if %{with_realtime_arm64_64k}
-BuildKernel %make_target %kernel_image %{_use_vdso} rt-64k-debug
+BuildKernel %make_target %kernel_image %{with_vdso_install} rt-64k-debug
 %endif
 
 %if %{with_automotive} && !%{with_automotive_build}
-BuildKernel %make_target %kernel_image %{_use_vdso} automotive-debug
+BuildKernel %make_target %kernel_image %{with_vdso_install} automotive-debug
 %endif
 
 %if %{with_arm64_16k}
-BuildKernel %make_target %kernel_image %{_use_vdso} 16k-debug
+BuildKernel %make_target %kernel_image %{with_vdso_install} 16k-debug
 %endif
 
 %if %{with_arm64_64k}
-BuildKernel %make_target %kernel_image %{_use_vdso} 64k-debug
+BuildKernel %make_target %kernel_image %{with_vdso_install} 64k-debug
 %endif
 
 %if %{with_stock}
-BuildKernel %make_target %kernel_image %{_use_vdso} debug
+BuildKernel %make_target %kernel_image %{with_vdso_install} debug
 %endif
 %endif
 
 %if %{with_zfcpdump}
-BuildKernel %make_target %kernel_image %{_use_vdso} zfcpdump
+BuildKernel %make_target %kernel_image %{with_vdso_install} zfcpdump
 %endif
 
 %if %{with_arm64_16k_base}
-BuildKernel %make_target %kernel_image %{_use_vdso} 16k
+BuildKernel %make_target %kernel_image %{with_vdso_install} 16k
 %endif
 
 %if %{with_arm64_64k_base}
-BuildKernel %make_target %kernel_image %{_use_vdso} 64k
+BuildKernel %make_target %kernel_image %{with_vdso_install} 64k
 %endif
 
 %if %{with_realtime_base}
-BuildKernel %make_target %kernel_image %{_use_vdso} rt
+BuildKernel %make_target %kernel_image %{with_vdso_install} rt
 %endif
 
 %if %{with_realtime_arm64_64k_base}
-BuildKernel %make_target %kernel_image %{_use_vdso} rt-64k
+BuildKernel %make_target %kernel_image %{with_vdso_install} rt-64k
 %endif
 
 %if %{with_automotive_base}
-BuildKernel %make_target %kernel_image %{_use_vdso} automotive
+BuildKernel %make_target %kernel_image %{with_vdso_install} automotive
 %endif
 
 %if %{with_stock_base}
-BuildKernel %make_target %kernel_image %{_use_vdso}
+BuildKernel %make_target %kernel_image %{with_vdso_install}
 %endif
 
 %ifnarch noarch %{nobuildarches}
-%if !%{with_debug} && !%{with_zfcpdump} && !%{with_stock} && !%{with_arm64_16k} && !%{with_arm64_64k} && !%{with_realtime} && !%{with_realtime_arm64_64k} && !%{with_automotive}
 # If only building the user space tools, then initialize the build environment
 # and some variables so that the various userspace tools can be built.
-%{log_msg "Initialize userspace tools build environment"}
-InitBuildVars
-# Some tests build also modules, and need Module.symvers
-if ! [[ -e Module.symvers ]] && [[ -f $DevelDir/Module.symvers ]]; then
-    %{log_msg "Found Module.symvers in DevelDir, copying to ."}
-    cp "$DevelDir/Module.symvers" .
+# tools_variant selects which variant config to use (e.g. debug, rt, rt-debug);
+# empty means the stock config.
+if [ -z "$DevelDir" ]; then
+    %{log_msg "Initialize userspace tools build environment"}
+    InitBuildVars %{?tools_variant}
+    # Some tests build also modules, and need Module.symvers
+    if ! [[ -e Module.symvers ]] && [[ -f $DevelDir/Module.symvers ]]; then
+        %{log_msg "Found Module.symvers in DevelDir, copying to ."}
+        cp "$DevelDir/Module.symvers" .
+    fi
 fi
-%endif
 %endif
 
 %ifarch aarch64
@@ -3354,12 +3260,10 @@ fi
 %endif
 %endif
 %global perf_make \
-  %{__make} %{?make_opts} HOST_EXTRACFLAGS="${RPM_OPT_FLAGS}" EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" LDFLAGS="%{__global_ldflags} -Wl,-E %{?perf_build_extra_ldflags}" %{?cross_opts} -C tools/perf V=1 NO_PERF_READ_VDSO32=1 NO_PERF_READ_VDSOX32=1 WERROR=0 NO_LIBUNWIND=1 HAVE_CPLUS_DEMANGLE=1 NO_GTK2=1 NO_STRLCPY=1 NO_BIONIC=1 LIBTRACEEVENT_DYNAMIC=1 %{?perf_build_extra_opts} prefix=%{_prefix} PYTHON=%{__python3}
+  %{__make} %{?make_opts} HOST_EXTRACFLAGS="${RPM_OPT_FLAGS}" EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" LDFLAGS="%{__global_ldflags} -Wl,-E %{?perf_build_extra_ldflags}" %{?cross_opts} -C tools/perf V=1 NO_PERF_READ_VDSO32=1 NO_PERF_READ_VDSOX32=1 WERROR=0 NO_LIBUNWIND=1 HAVE_CPLUS_DEMANGLE=1 NO_GTK2=1 NO_BIONIC=1 %{?perf_build_extra_opts} prefix=%{_prefix} PYTHON=%{__python3}
 %if %{with_perf}
 %{log_msg "Build perf"}
 # perf
-# make sure check-headers.sh is executable
-chmod +x tools/perf/check-headers.sh
 %{perf_make} DESTDIR=$RPM_BUILD_ROOT all
 %endif
 
@@ -3398,8 +3302,6 @@ popd
 
 %ifarch %{cpupowerarchs}
 # cpupower
-# make sure version-gen.sh is executable.
-chmod +x tools/power/cpupower/utils/version-gen.sh
 %{log_msg "build cpupower"}
 %{tools_make} %{?_smp_mflags} -C tools/power/cpupower CPUFREQ_BENCH=false DEBUG=false
 %ifarch x86_64
@@ -3798,26 +3700,12 @@ tar -xvf %{SOURCE300} -C $INSTALL_KABI_PATH
 # remove the 'trace' symlink.
 rm -f %{buildroot}%{_bindir}/trace
 
-# For both of the below, yes, this should be using a macro but right now
-# it's hard coded and we don't actually want it anyway right now.
-# Whoever wants examples can fix it up!
-
-# remove examples
-rm -rf %{buildroot}/usr/lib/perf/examples
-rm -rf %{buildroot}/usr/lib/perf/include
-
 # python-perf extension
 %{perf_make} DESTDIR=$RPM_BUILD_ROOT install-python_ext
 
 # perf man pages (note: implicit rpm magic compresses them later)
 mkdir -p %{buildroot}/%{_mandir}/man1
 %{perf_make} DESTDIR=$RPM_BUILD_ROOT install-man
-
-# remove any tracevent files, eg. its plugins still gets built and installed,
-# even if we build against system's libtracevent during perf build (by setting
-# LIBTRACEEVENT_DYNAMIC=1 above in perf_make macro). Those files should already
-# ship with libtraceevent package.
-rm -rf %{buildroot}%{_libdir}/traceevent
 %endif
 
 %if %{with_libperf}
@@ -3888,15 +3776,6 @@ pushd tools/verification/rv/
 popd
 pushd tools/tracing/rtla/
 %{tools_make} DESTDIR=%{buildroot} STRIP=/bin/true install
-rm -f %{buildroot}%{_bindir}/hwnoise
-rm -f %{buildroot}%{_bindir}/osnoise
-rm -f %{buildroot}%{_bindir}/timerlat
-(cd %{buildroot}
-
-        ln -sf rtla ./%{_bindir}/hwnoise
-        ln -sf rtla ./%{_bindir}/osnoise
-        ln -sf rtla ./%{_bindir}/timerlat
-)
 popd
 %endif
 
@@ -4166,11 +4045,17 @@ popd
 %endif
 
 %if %{with_kmap} && %{with_base}
-# Install kmap data files produced during %build.
+# Install kmap data files produced during %build.  The data only exists if
+# a non-debug variant was built; with_base alone does not guarantee that
+# (e.g. --without stock on ppc64le), in which case the package is empty.
 _kmap_basedir=%{_builddir}/kmap-data
 _kmap_destbase=$RPM_BUILD_ROOT%{_datadir}/%{name}-kmap-internal
 mkdir -p $_kmap_destbase
-install -m 644 $_kmap_basedir/kernel-map.json $_kmap_destbase/kernel-map-%{KVERREL}.json
+if [ -f $_kmap_basedir/kernel-map.json ]; then
+    install -m 644 $_kmap_basedir/kernel-map.json $_kmap_destbase/kernel-map-%{KVERREL}.json
+else
+    echo "warning: no kmap data was generated, %{name}-kmap-internal will be empty" >&2
+fi
 %endif
 
 ###
@@ -4181,24 +4066,12 @@ install -m 644 $_kmap_basedir/kernel-map.json $_kmap_destbase/kernel-map-%{KVERR
 ### scripts
 ###
 
-%if %{with_tools}
-%post -n %{name}-tools-libs
-/sbin/ldconfig
-
-%postun -n %{name}-tools-libs
-/sbin/ldconfig
-%endif
-
 #
 # This macro defines a %%post script for a kernel*-devel package.
 #	%%kernel_devel_post [<subpackage>]
 # Note we don't run hardlink if ostree is in use, as ostree is
 # a far more sophisticated hardlink implementation.
 # https://github.com/projectatomic/rpm-ostree/commit/58a79056a889be8814aa51f507b2c7a4dccee526
-#
-# The deletion of *.hardlink-temporary files is a temporary workaround
-# for this bug in the hardlink binary (fixed in util-linux 2.38):
-# https://github.com/util-linux/util-linux/issues/1602
 #
 # Arguments:
 #   %1 - Variant name (e.g., "debug", "rt"), or empty for stock kernel
@@ -4218,8 +4091,7 @@ then\
     (cd /usr/src/kernels/%{KVERREL}%{?1:+%{1}} &&\
      /usr/bin/find . -type f | while read f; do\
        hardlink -c /usr/src/kernels/*%{?dist}.*/$f $f > /dev/null\
-     done;\
-     /usr/bin/find /usr/src/kernels -type f -name '*.hardlink-temporary' -delete\
+     done\
     )\
 fi\
 %endif\
@@ -4404,7 +4276,7 @@ exit 0\
 %{expand:%%kernel_variant_verify %{?-v*:-v %{-v*}}}\
 %{expand:%%post %{?-v*:%{-v*}-}core}\
 %{-r:\
-if [ `uname -i` == "x86_64" -o `uname -i` == "i386" ] &&\
+if [ `uname -i` == "x86_64" ] &&\
    [ -f /etc/sysconfig/kernel ]; then\
   /bin/sed -r -i -e 's/^DEFAULTKERNEL=%{-r*}$/DEFAULTKERNEL=kernel%{?-v:-%{-v*}}/' /etc/sysconfig/kernel || exit 0\
 fi}\
@@ -4766,8 +4638,7 @@ fi\
 %if %{with_kmap} && %{with_base}
 %files -n %{name}-kmap-internal
 %defattr(-,root,root)
-%dir %{_datadir}/%{name}-kmap-internal
-%{_datadir}/%{name}-kmap-internal/kernel-map-%{KVERREL}.json
+%{_datadir}/%{name}-kmap-internal/
 %endif
 
 # empty meta-package
@@ -4780,7 +4651,7 @@ fi\
 #
 # This macro defines the %%files sections for a kernel package
 # and its devel and debuginfo packages.
-#	%%kernel_variant_files <use_vdso> <condition> <subpackage>
+#	%%kernel_variant_files <with_vdso_install> <condition> <subpackage>
 #
 # Arguments:
 #   %1 - Whether VDSO was built (1=yes, 0=no) - controls if vdso files are included
@@ -4800,9 +4671,9 @@ fi\
 #
 %define kernel_variant_files() \
 %if %{2}\
-%{expand:%%files %{?1:-f kernel-%{?3:%{3}-}ldsoconf.list} %{?3:%{3}-}core}\
+%{expand:%%files %{?3:%{3}-}core}\
 %{!?_licensedir:%global license %%doc}\
-%%license linux-%{KVERREL}/COPYING-%{version}-%{release}\
+%%license linux-%{KVERREL}/COPYING-%{specrpmversion}-%{release}\
 /lib/modules/%{KVERREL}%{?3:+%{3}}/vmlinuz\
 %ghost /%{image_install_path}/vmlinuz-%{KVERREL}%{?3:+%{3}}\
 /lib/modules/%{KVERREL}%{?3:+%{3}}/.vmlinuz.hmac \
@@ -4882,7 +4753,7 @@ fi\
 %endif\
 %if %{with_dtbloader} && ("%{?3}" == "" || "%{?3}" == "debug")\
 %{expand:%%files %{?3:%{3}-}uki-dtbloader}\
-%%license linux-%{KVERREL}/COPYING-%{version}-%{release}\
+%%license linux-%{KVERREL}/COPYING-%{specrpmversion}-%{release}\
 %dir /lib/modules\
 %dir /lib/modules/%{KVERREL}%{?3:+%{3}}\
 /lib/modules/%{KVERREL}%{?3:+%{3}}/System.map\
@@ -4913,31 +4784,31 @@ fi\
 %endif\
 %{nil}
 
-%kernel_variant_files %{_use_vdso} %{with_stock_base}
+%kernel_variant_files %{with_vdso_install} %{with_stock_base}
 %if %{with_stock}
-%kernel_variant_files %{_use_vdso} %{with_debug} debug
+%kernel_variant_files %{with_vdso_install} %{with_debug} debug
 %endif
 %if %{with_arm64_16k}
-%kernel_variant_files %{_use_vdso} %{with_debug} 16k-debug
+%kernel_variant_files %{with_vdso_install} %{with_debug} 16k-debug
 %endif
 %if %{with_arm64_64k}
-%kernel_variant_files %{_use_vdso} %{with_debug} 64k-debug
+%kernel_variant_files %{with_vdso_install} %{with_debug} 64k-debug
 %endif
-%kernel_variant_files %{_use_vdso} %{with_realtime_base} rt
+%kernel_variant_files %{with_vdso_install} %{with_realtime_base} rt
 %if %{with_realtime}
-%kernel_variant_files %{_use_vdso} %{with_debug} rt-debug
+%kernel_variant_files %{with_vdso_install} %{with_debug} rt-debug
 %endif
-%kernel_variant_files %{_use_vdso} %{with_automotive_base} automotive
+%kernel_variant_files %{with_vdso_install} %{with_automotive_base} automotive
 %if %{with_automotive} && !%{with_automotive_build}
-%kernel_variant_files %{_use_vdso} %{with_debug} automotive-debug
+%kernel_variant_files %{with_vdso_install} %{with_debug} automotive-debug
 %endif
 
-%kernel_variant_files %{_use_vdso} %{with_zfcpdump} zfcpdump
-%kernel_variant_files %{_use_vdso} %{with_arm64_16k_base} 16k
-%kernel_variant_files %{_use_vdso} %{with_arm64_64k_base} 64k
-%kernel_variant_files %{_use_vdso} %{with_realtime_arm64_64k_base} rt-64k
+%kernel_variant_files %{with_vdso_install} %{with_zfcpdump} zfcpdump
+%kernel_variant_files %{with_vdso_install} %{with_arm64_16k_base} 16k
+%kernel_variant_files %{with_vdso_install} %{with_arm64_64k_base} 64k
+%kernel_variant_files %{with_vdso_install} %{with_realtime_arm64_64k_base} rt-64k
 %if %{with_realtime_arm64_64k}
-%kernel_variant_files %{_use_vdso} %{with_debug} rt-64k-debug
+%kernel_variant_files %{with_vdso_install} %{with_debug} rt-64k-debug
 %endif
 
 %ifnarch noarch %{nobuildarches}
@@ -4949,9 +4820,38 @@ fi\
 #
 #
 %changelog
-* Wed Nov 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.05441d697f7f.14]
+* Thu Nov 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.05441d697f7f.15]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Thu Nov 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.05441d697f7f.14]
+- redhat: kernel.spec: tolerate missing kmap data when no base kernel is built (Jan Stancek)
+- redhat: fix the stale pkg_release comment in the kernel-headers spec (Jan Stancek)
+- redhat: drop the pkg_release alias of specrelease (Jan Stancek)
+- redhat: drop the nopatches alias of with_vanilla (Jan Stancek)
+- redhat: drop the use_vdso and _use_vdso aliases of with_vdso_install (Jan Stancek)
+- redhat: drop the with_sparse build option (Jan Stancek)
+- redhat: drop the i686 remnants that no build can reach (Jan Stancek)
+- redhat: drop the vdso ldconfig machinery (Jan Stancek)
+- redhat: drop the 2013-2015 dependency floors and RHEL 6/7-era obsoletes (Jan Stancek)
+- redhat: use one spelling for the version in versioned requires (Jan Stancek)
+- redhat: drop the BuildRequires nothing in the build uses (Jan Stancek)
+- redhat: drop the duplicate python3-docutils BuildRequires (Jan Stancek)
+- redhat: drop the ancient BuildConflicts and the rpm-build BuildRequires (Jan Stancek)
+- redhat: drop the unused per-variant Conflicts/Obsoletes/Provides hooks (Jan Stancek)
+- redhat: drop the ldconfig scriptlets of kernel-tools-libs (Jan Stancek)
+- redhat: drop the chmod +x on scripts the tarball already ships executable (Jan Stancek)
+- redhat: drop the rtla symlink fixup after install (Jan Stancek)
+- redhat: drop the perf examples cleanup (Jan Stancek)
+- redhat: drop NO_STRLCPY from the perf build flags (Jan Stancek)
+- redhat: drop the libtraceevent leftovers from the perf build (Jan Stancek)
+- redhat: drop the hardlink-temporary cleanup from the devel %%post (Jan Stancek)
+- redhat: drop the unused System.map copy in the buildroot root (Jan Stancek)
+- redhat: drop the stale linker-script copies from the devel tree (Jan Stancek)
+- redhat: drop the Module.markers copy from the devel tree (Jan Stancek)
+- Fix up some Fedora configs for 7.4 (Justin M. Forbes)
+- Fedora: Updates for 7.4 (Peter Robinson)
+- fedora: replace the staging rtl8723bs driver with rtw88 (Peter Robinson)
 
 * Wed Nov 04 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.05441d697f7f.13]
 - redhat: kernel.spec: cache module provides to avoid per-file forks (Jan Stancek)

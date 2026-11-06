@@ -5,7 +5,7 @@
 %global crate ureq
 
 Name:           rust-ureq
-Version:        3.4.2
+Version:        3.5.1
 Release:        %autorelease
 Summary:        Simple, safe HTTP client
 

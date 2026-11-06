@@ -25,7 +25,7 @@ BuildArch:  noarch
 BuildRequires:  python3-devel
 
 %if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
+BuildRequires:  openpgpverify
 %endif
 
 BuildRequires:  git-core
@@ -73,7 +73,7 @@ This package contains the documentation for tacker client.
 %prep
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%{openpgpverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n python_%{sclient}-%{version} -S git -p1
 

@@ -30,34 +30,19 @@
 %else
 %global           imap       1
 %endif
-%if 0%{?fedora} >= 21 || 0%{?rhel} >=7
 %global           jack       0
-%else
-%global           jack       1
-%endif
-%if 0%{?fedora} >= 28 || 0%{?rhel} >= 7
 %global           phone      0
 %global           xmpp       0
 %global           ices       0
-%else
-%global           phone      1
-%global           xmpp       1
-%global           ices       1
-%endif
 %global           meetme     0
 %global           ooh323     0
-%if 0%{?rhel} > 7
-# Do nothing. We want this to be undefined.
-%else
-%global           sysilbc    1
-%endif
 
 %global           makeargs        DEBUG= OPTIMIZE= DESTDIR=%{buildroot} ASTVARRUNDIR=%{astvarrundir} ASTDATADIR=%{_datadir}/asterisk ASTVARLIBDIR=%{_datadir}/asterisk ASTDBDIR=%{_localstatedir}/spool/asterisk NOISY_BUILD=1
 
 Summary:          The Open Source PBX
 Name:             asterisk
-Version:          23.5.0
-Release:          %{?_rc||?_beta:0.}5%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
+Version:          24.0.0
+Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.1
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -96,15 +81,9 @@ Source99:         0030-ssl_sock_ossl-fix-OpenSSL-4.0-compatibility-5036.patch
 Source100:        0031-Merge-commit-from-fork.patch
 Source101:        0032-Merge-commit-from-fork.patch
 
-%if 0%{?fedora} || 0%{?rhel} >=7
-Patch1:           asterisk-16.1.0-explicit-python3.patch
-%endif
-
+Patch: asterisk-0001-Update-from-python2-to-python3-for-various-scripts.patch
 # https://github.com/asterisk/asterisk/pull/2136
-Patch3:           asterisk-18.12.1-ilbc_macros.patch
-
-# https://github.com/asterisk/asterisk/pull/2133
-Patch4:           asterisk-23.5.0-Bundled-pjproject-do-not-discard-the-ambient-CFLAGS.patch
+Patch: asterisk-0002-codec_ilbc-Build-against-system-libilbc-3.x.patch
 
 # Asterisk now builds against a bundled copy of pjproject, as they apply some patches
 # directly to pjproject before the build against it
@@ -154,10 +133,7 @@ BuildRequires:    libical-devel
 
 # for codec_speex
 BuildRequires:    speex-devel >= 1.2
-%if (0%{?fedora} > 21 || 0%{?rhel} > 7)
 BuildRequires:    speexdsp-devel >= 1.2
-%endif
-
 
 # for format_ogg_vorbis
 BuildRequires:    libogg-devel
@@ -170,9 +146,7 @@ BuildRequires:    gsm-devel
 BuildRequires:    libedit-devel
 
 # codec_ilbc
-%if 0%{?sysilbc}
 BuildRequires:    ilbc-devel
-%endif
 
 # res_rtp_asterisk
 BuildRequires:    libuuid-devel
@@ -624,7 +598,7 @@ Jabber/XMPP resources for Asterisk.
 rpm -q libgcrypt
 gpgv2 --keyring %{SOURCE7} %{SOURCE1} %{SOURCE0}
 %endif
-%setup -q -n asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}
+%autosetup -p1 -n asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}
 
 
 # copy the pjproject tarball to the cache/ directory
@@ -641,14 +615,6 @@ echo '*************************************************************************'
 ls -altr cache/
 pwd
 echo '*************************************************************************'
-
-%if 0%{?fedora} || 0%{?rhel} >=7
-%patch -P1 -p1
-%endif
-
-%patch -P3 -p1
-
-%patch -P4 -p1
 
 cp %{S:99} ./third-party/pjproject/patches
 cp %{S:100} ./third-party/pjproject/patches
@@ -686,15 +652,15 @@ popd
 
 %if 0%{?fedora}
 %if 0%{?imap}
-%configure --with-imap=system --with-libjwt-bundled --with-gsm=/usr %{?sysilbc:--with-ilbc=/usr} --with-libedit=yes --with-srtp --with-pjproject-bundled --with-externals-cache=%{_builddir}/asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}/cache LDFLAGS="%{ldflags}" NOISY_BUILD=1 CPPFLAGS="-fPIC"
+%configure --with-imap=system --with-libjwt-bundled --with-gsm=/usr --with-ilbc=/usr --with-libedit=yes --with-srtp --with-pjproject-bundled --with-externals-cache=%{_builddir}/asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}/cache LDFLAGS="%{ldflags}" NOISY_BUILD=1 CPPFLAGS="-fPIC"
 %else
-%configure --without-imap --with-libjwt-bundled --with-gsm=/usr %{?sysilbc:--with-ilbc=/usr} --with-libedit=yes --with-srtp --with-pjproject-bundled --with-externals-cache=%{_builddir}/asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}/cache LDFLAGS="%{ldflags}" NOISY_BUILD=1 CPPFLAGS="-fPIC"
+%configure --without-imap --with-libjwt-bundled --with-gsm=/usr --with-ilbc=/usr --with-libedit=yes --with-srtp --with-pjproject-bundled --with-externals-cache=%{_builddir}/asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}/cache LDFLAGS="%{ldflags}" NOISY_BUILD=1 CPPFLAGS="-fPIC"
 %endif
 %else
 %if 0%{?imap}
-%configure --with-imap=system --with-libjwt-bundled --with-gsm=/usr %{?sysilbc:--with-ilbc=/usr} --with-libedit=yes --with-srtp --with-jansson-bundled --with-pjproject-bundled --with-externals-cache=%{_builddir}/asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}/cache LDFLAGS="%{ldflags}" NOISY_BUILD=1 CPPFLAGS="-fPIC"
+%configure --with-imap=system --with-libjwt-bundled --with-gsm=/usr --with-ilbc=/usr --with-libedit=yes --with-srtp --with-jansson-bundled --with-pjproject-bundled --with-externals-cache=%{_builddir}/asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}/cache LDFLAGS="%{ldflags}" NOISY_BUILD=1 CPPFLAGS="-fPIC"
 %else
-%configure --without-imap --with-libjwt-bundled --with-gsm=/usr %{?sysilbc:--with-ilbc=/usr} --with-libedit=yes --with-srtp --with-jansson-bundled --with-pjproject-bundled --with-externals-cache=%{_builddir}/asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}/cache LDFLAGS="%{ldflags}" NOISY_BUILD=1 CPPFLAGS="-fPIC"
+%configure --without-imap --with-libjwt-bundled --with-gsm=/usr --with-ilbc=/usr --with-libedit=yes --with-srtp --with-jansson-bundled --with-pjproject-bundled --with-externals-cache=%{_builddir}/asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}/cache LDFLAGS="%{ldflags}" NOISY_BUILD=1 CPPFLAGS="-fPIC"
 %endif
 %endif
 
@@ -1378,7 +1344,7 @@ fi
 %attr(0640,asterisk,asterisk) %config(noreplace) %{_sysconfdir}/asterisk/chan_dahdi.conf
 %attr(0640,asterisk,asterisk) %config(noreplace) %{_sysconfdir}/asterisk/ss7.timers
 %{_libdir}/asterisk/modules/app_flash.so
-%if 0%{?meetme} 
+%if 0%{?meetme}
 %{_libdir}/asterisk/modules/app_meetme.so
 %endif
 # %%{_libdir}/asterisk/modules/app_dahdiras.so
@@ -1646,6 +1612,18 @@ fi
 %endif
 
 %changelog
+* Thu Nov 05 2026 Michel Lind <salimma@fedoraproject.org> - 24.0.0-1.1
+- Rebuild for libical 4.x
+
+* Thu Nov  5 2026 Peter Lemenkov <lemenkov@gmail.com> - 24.0.0-1
+- update to 24.0.0
+
+* Thu Nov  5 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.6.0-1
+- update to 23.6.0
+
+* Wed Sep 23 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@amutable.com> - 23.5.0-5.1
+- Rebuilt for libxml-2.15.4 (again)
+
 * Wed Sep 23 2026 Peter Lemenkov <lemenkov@gmail.com> - 23.5.0-5
 - Fix for CVE-2026-84975
 
@@ -1851,7 +1829,7 @@ fi
 - Update to upstream 7.4.0-rc2
 
 * Sat Apr 25 2020 Jared K. Smith <jsmith@fedoraproject.org> - 17.4.0-0.rc1.1
-- Update to upstream 7.4.0 RC 1 
+- Update to upstream 7.4.0 RC 1
 
 * Thu Mar 12 2020 Jared K. Smith <jsmith@fedoraproject.org> - 17.3.0-1
 - Update to upstream 7.3.0 release for bug fixes

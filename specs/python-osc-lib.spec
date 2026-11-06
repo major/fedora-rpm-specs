@@ -27,7 +27,7 @@ BuildRequires:  python3-devel
 BuildRequires:  git-core
 
 %if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
+BuildRequires:  openpgpverify
 %endif
 
 
@@ -67,7 +67,7 @@ This package contains the documentation.
 %prep
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%{openpgpverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n %{module}-%{version} -S git
 

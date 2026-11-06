@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	2026.10.01
+%global srcver	2026.11.01
 # for default font
 %global hprio	56
 # for default font but static

@@ -1,7 +1,7 @@
 %global pypi_name jsonpointer
 
 Name:           python-%{pypi_name}
-Version:        3.7
+Version:        3.8
 Release:        %autorelease
 Summary:        Resolve JSON Pointers in Python
 
@@ -34,7 +34,7 @@ BuildRequires:  python3-devel
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files %{pypi_name} %{pypi_name}-stubs
 
 %check
 %python3 -m unittest discover

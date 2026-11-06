@@ -33,7 +33,7 @@
 %global optflags %{optflags} -w
 
 # This patch level is reused in cflags
-%global igc_patch 15
+%global igc_patch 16
 
 Name: intel-igc
 Version: 2.41.%{igc_patch}

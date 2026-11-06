@@ -14,28 +14,17 @@ Summary:        Extensions for Nemo
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+Patch0:         %{url}/commit/c3e1369dba41dd223d86963d6ccd7da64d7e1bd6.patch
 
 ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  desktop-file-utils
-BuildRequires:  gpgme-devel
-BuildRequires:  pkgconfig(gcr-3)
-BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  meson
+BuildRequires:  gcc
 BuildRequires:  pkgconfig(libnemo-extension) >= 6.7.0
 BuildRequires:  python3-devel
 BuildRequires:  pkgconfig(pygobject-3.0)
-BuildRequires:  meson
-BuildRequires:  pkgconfig(gtk-doc)
-BuildRequires:  pkgconfig(cjs-1.0) >= %{cjs_version}
-BuildRequires:  pkgconfig(xreader-view-1.5)
-BuildRequires:  pkgconfig(libmusicbrainz5)
-BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
-BuildRequires:  pkgconfig(webkit2gtk-4.1)
-BuildRequires:  pkgconfig(clutter-gtk-1.0)
-BuildRequires:  pkgconfig(clutter-gst-3.0)
-BuildRequires:  pkgconfig(gtksourceview-4)
-BuildRequires:  perl(XML::Parser)
 
 %description
 Extensions for Nemo
@@ -106,22 +95,6 @@ Requires:    nemo-python = %{version}-%{release}
 
 %description -n nemo-terminal
 Embedded terminal window for Nemo
-
-%package     -n nemo-preview
-Summary:     A quick previewer for Nemo
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:     GPL-2.0-or-later
-Requires:    nemo
-Requires:    cjs >= %{cjs_version}
-
-%description -n nemo-preview
-Nemo Preview is a GtkClutter and Javascript-based quick previewer
-for Nemo.
-It is capable of previewing documents, PDFs, sound and video files,
-some text files, and possibly others in the future.
-
-To activate the preview, left-click the file and hit space.
-The preview can be closed by hitting space again, or escape.
 
 %package     -n nemo-emblems
 Summary:     Emblem support for nemo
@@ -213,11 +186,6 @@ pushd nemo-terminal
 %pyproject_wheel
 popd
 
-pushd nemo-preview
-%meson
-%meson_build
-popd
-
 pushd nemo-emblems
 %pyproject_wheel
 popd
@@ -244,10 +212,6 @@ pushd nemo-fileroller
 popd
 
 pushd nemo-python
-%meson_install
-popd
-
-pushd nemo-preview
 %meson_install
 popd
 
@@ -305,15 +269,6 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_datadir}/nemo-terminal/
 %{_datadir}/glib-2.0/schemas/org.nemo.extensions.nemo-terminal.gschema.xml
 %{python3_sitelib}/nemo_terminal-%{version}.dist-info/
-
-%files -n nemo-preview
-%doc nemo-preview/README
-%license nemo-preview/COPYING
-%{_bindir}/nemo-preview
-%{_libdir}/nemo-preview/
-%{_libexecdir}/nemo-preview-start
-%{_datadir}/nemo-preview/
-%{_datadir}/dbus-1/services/org.nemo.Preview.service
 
 %files -n nemo-emblems
 %license nemo-emblems/COPYING.GPL3

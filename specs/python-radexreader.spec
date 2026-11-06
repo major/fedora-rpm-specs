@@ -19,7 +19,7 @@ de débrancher l'appareil après l'installation.}
 
 Name:          python-radexreader
 Version:       1.3.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       %{common_summary_en}
 Summary(fr):   %{common_summary_fr}
 License:       GPL-2.0-or-later
@@ -27,7 +27,6 @@ URL:           https://github.com/luigifab/python-radexreader
 Source0:       %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:     noarch
-BuildRequires: aspell-fr
 
 %description %{common_description_en}
 %description -l fr %{common_description_fr}
@@ -85,6 +84,9 @@ install -Dpm 644 ../scripts/debian/python3-radexreader.udev %{buildroot}/lib/ude
 
 
 %changelog
+* Mon Nov 02 2026 Fabrice Creuzot <code@luigifab.fr> - 1.3.0-7
+- Remove aspell-fr (Closes: rhbz#2564626)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
@@ -107,7 +109,7 @@ install -Dpm 644 ../scripts/debian/python3-radexreader.udev %{buildroot}/lib/ude
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
 * Sat Jul 12 2025 Fabrice Creuzot <code@luigifab.fr> - 1.2.5-3
-- Migrating to %pyproject macros
+- Migrating to pyproject macros
 
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.5-2
 - Rebuilt for Python 3.14

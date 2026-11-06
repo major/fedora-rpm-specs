@@ -5,42 +5,55 @@
 
 Name:           perl-Test-WWW-Selenium
 Version:        1.36
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Perl Client for the Selenium Remote Control test tool
+# README:                           GPL-1.0-or-later OR Artistic-1.0-Perl
+# t/files/test_click_page1.html:    Apache-2.0
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Apache-2.0
 URL:            https://metacpan.org/release/Test-WWW-Selenium
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MATTP/Test-WWW-Selenium-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.8
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+%if %with core_iedoc
+BuildRequires:  selenium-core
+%endif
+# Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(CPAN)
+# Data::Dumper not used at tests
+# Devel::REPL not used at tests
+# Devel::REPL::Plugin not used at tests
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(HTTP::Headers)
+BuildRequires:  perl(HTTP::Request)
+BuildRequires:  perl(IO::Socket)
+BuildRequires:  perl(LWP::UserAgent)
+# namespace::clean not used at tests
+BuildRequires:  perl(Test::Builder)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Time::HiRes)
+BuildRequires:  perl(URI::Escape)
+# Optional run-time:
+BuildRequires:  perl(Encode)
+# Tests:
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(LWP::UserAgent)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::Builder)
+BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Mock::LWP)
-BuildRequires:  perl(Test::More) >= 0.42
-BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Time::HiRes)
-BuildRequires:  perl(URI::Escape) >= 1.31
-BuildRequires:  perl(warnings)
-%if %with core_iedoc
-BuildRequires:  selenium-core
-%endif
-Requires:       perl(Time::HiRes)
+Requires:       perl(Devel::REPL)
+Recommends:     perl(Encode)
 
 %description
 Selenium Remote Control (SRC) is a test tool that allows you to write
@@ -51,7 +64,6 @@ browser. It works by using Selenium Core, a pure-HTML+JS library that
 performs automated tasks in JavaScript; the Selenium Server communicates
 directly with the browser using AJAX (XmlHttpRequest).
 
-
 %prep
 %setup -q -n Test-WWW-Selenium-%{version}
 
@@ -61,38 +73,45 @@ mkdir -p target
 unzip -qc %{_datadir}/java/selenium-core.jar core/iedoc.xml >target/iedoc.xml
 %endif
 
-
 %build
 %if %with core_iedoc
 # Recreate module with newer API
-%{__perl} util/create_www_selenium.pl
+perl util/create_www_selenium.pl
 %endif
 
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
-
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
-
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
-
 
 %files
 %doc Changes README todo.txt
-%{perl_vendorlib}/*
+%dir %{perl_vendorlib}/Devel
+%dir %{perl_vendorlib}/Devel/REPL
+%dir %{perl_vendorlib}/Devel/REPL/Plugin
+%{perl_vendorlib}/Devel/REPL/Plugin/Selenium.pm
+%dir %{perl_vendorlib}/Test
+%dir %{perl_vendorlib}/Test/WWW
+%{perl_vendorlib}/Test/WWW/Selenium.pm
+%dir %{perl_vendorlib}/WWW
+%{perl_vendorlib}/WWW/Selenium
+%{perl_vendorlib}/WWW/Selenium.pm
 %exclude %{perl_vendorlib}/Test/WWW/mypod2html.pl
-%{_mandir}/man3/*
-
+%{_mandir}/man3/Devel::REPL::Plugin::Selenium.*
+%{_mandir}/man3/Test::WWW::Selenium.*
+%{_mandir}/man3/WWW::Selenium.*
+%{_mandir}/man3/WWW::Selenium::*
 
 %changelog
+* Thu Nov 05 2026 Petr Pisar <ppisar@redhat.com> - 1.36-36
+- Modernize the spec file
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,9 +1,12 @@
 Name:           esptool
-Version:        5.5.0
+Version:        5.6.0
 Release:        %autorelease
 Summary:        A utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32
 
-License:        GPL-2.0-or-later
+# GPL-2.0-or-later: main source code + stub_flasher/1 (legacy stubs, GPL-only)
+# MIT: bundled espefuse/efuse/bitstring.py
+# (Apache-2.0 OR MIT): stub_flasher/2 dual-licensed stubs
+License:        GPL-2.0-or-later AND MIT AND (Apache-2.0 OR MIT)
 URL:            https://github.com/espressif/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -16,6 +19,8 @@ BuildRequires:  python3-pyelftools
 BuildRequires:  python3-requests
 
 Provides:       %{name}.py = %{version}-%{release}
+# Bundled a subset of bitstring in espefuse/efuse/bitstring.py
+Provides:       bundled(python3dist(bitstring)) = 4.3.1
 
 
 %description

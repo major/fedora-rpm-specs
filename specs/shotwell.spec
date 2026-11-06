@@ -2,7 +2,7 @@
 %bcond_with facedetect
 
 Name:           shotwell
-Version:        33.0
+Version:        33.2
 Release:        %autorelease
 Summary:        A photo organizer for the GNOME desktop
 

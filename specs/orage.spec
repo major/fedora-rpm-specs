@@ -10,10 +10,13 @@ URL:            https://gitlab.xfce.org/apps/orage
 Source:         https://archive.xfce.org/src/apps/%{name}/%{xfceversion}/%{name}-%{version}.tar.bz2
 # Build with libical 4: renamed APIs (compat defines), refcounted
 # recurrence rules, and explicit libicalss linking (libical 4's libical.pc
-# no longer pulls it in). Generated autotools files are patched too, as
-# the spec does not run autoreconf. From Milan Crha's libical-4.x COPR
+# no longer pulls it in). Backport of upstream commit 0969b1a1 (meson
+# there) to the 4.20.3 autotools build, including the generated files,
+# as the spec does not run autoreconf
+# https://gitlab.xfce.org/apps/orage/-/merge_requests/94
 Patch:          orage-4.20.3-libical4.patch
 # NULL sentinels for icalproperty_vanew_*() (marked sentinel in libical 4)
+# Backport of https://gitlab.xfce.org/apps/orage/-/commit/7691de85
 Patch:          orage-4.20.3-libical4-null-sentinels.patch
 
 BuildRequires:  desktop-file-utils

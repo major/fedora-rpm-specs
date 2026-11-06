@@ -1,6 +1,6 @@
 Summary: Matroska container manipulation utilities
 Name: mkvtoolnix
-Version: 102.0
+Version: 103.0
 Release: %autorelease
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
@@ -36,7 +36,7 @@ BuildRequires: pkgconfig(libmatroska) >= 1.7.2
 BuildRequires: pkgconfig(libpcre2-8)
 BuildRequires: pkgconfig(pugixml)
 BuildRequires: pkgconfig(zlib)
-BuildRequires: rubygem-drake
+BuildRequires: rubygem-rake
 BuildRequires: rubygem-json
 BuildRequires: utf8cpp-devel >= 3.2-2
 BuildRequires: /usr/bin/qmake6
@@ -77,10 +77,10 @@ rm -rf rake.d/vendor drake
   --disable-update-check \
   --with-boost-libdir=%{_libdir} \
   || cat config.log
-drake %{?_smp_mflags} V=1
+rake %{?_smp_mflags} V=1
 
 %install
-drake DESTDIR=$RPM_BUILD_ROOT TOOLS=1 install
+rake DESTDIR=$RPM_BUILD_ROOT TOOLS=1 install
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.bunkus.mkvtoolnix-gui.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.bunkus.mkvtoolnix-gui.metainfo.xml
 
@@ -98,7 +98,7 @@ cat mkv{extract,info,merge,propedit}.lang >> mkvtoolnix.lang
 %find_lang mkvtoolnix-gui --with-man
 
 %check
-drake tests:run_unit
+rake tests:run_unit
 
 %files -f %{name}.lang
 %license COPYING

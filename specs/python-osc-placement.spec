@@ -23,7 +23,7 @@ Source2:          https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 BuildArch:        noarch
 
 %if 0%{?sources_gpg} == 1
-BuildRequires:    /usr/bin/gpgv2
+BuildRequires:    openpgpverify
 %endif
 BuildRequires:    git-core
 BuildRequires:    python%{python3_pkgversion}-devel
@@ -51,7 +51,7 @@ Requires:         python%{python3_pkgversion}-osc-placement = %{version}-%{relea
 
 %prep
 %if 0%{?sources_gpg} == 1
-%{gpgverify}  --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%{openpgpverify}  --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %endif
 %autosetup -n osc_placement-%{version} -S git
 

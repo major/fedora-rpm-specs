@@ -2,11 +2,13 @@
 
 Summary:        High quality system independent, open source libm
 Name:           openlibm
-Version:        0.7.5
-Release:        14%{?dist}
+Version:        0.8.8
+Release:        1%{?dist}
 # Automatically converted from old format: BSD and MIT and ISC and Public Domain - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND ISC AND LicenseRef-Callaway-Public-Domain
-Source0:        https://github.com/JuliaLang/openlibm/archive/v%{version}.tar.gz
+Source0:        https://github.com/JuliaLang/openlibm/archive/v%{version}.tar.gz#/openlibm-%{version}.tar.gz
+# https://github.com/JuliaMath/openlibm/pull/364
+Patch:	        openlibm-pc-destdir.patch
 URL:            https://github.com/JuliaLang/openlibm/
 ExclusiveArch:  %{arm} %{ix86} x86_64 aarch64 %{power64}
 
@@ -37,6 +39,7 @@ Static %{name} library.
 
 %prep
 %setup -q
+%patch 0
 
 # File under the Apple Public Source License Version 1.1
 rm -f test/ieeetestnew.c
@@ -69,7 +72,7 @@ rm %{buildroot}/%{_libdir}/libopenlibm.a
 
 %files
 %doc LICENSE.md README.md
-%{_libdir}/libopenlibm.so.3*
+%{_libdir}/libopenlibm.so.4*
 
 %files devel
 %{_libdir}/libopenlibm.so
@@ -82,6 +85,9 @@ rm %{buildroot}/%{_libdir}/libopenlibm.a
 %endif
 
 %changelog
+* Thu Nov 5 2026 Milan Bouchet-Valat <nalimilan@club.fr> - 0.8.8-1
+- New upstream release (SONAME bump).
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

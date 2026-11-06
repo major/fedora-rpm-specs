@@ -1,5 +1,5 @@
 Name: subscription-manager-cockpit
-Version: 19
+Version: 20
 Release: 1%{?dist}
 Summary: Subscription Manager Cockpit UI
 %if 0%{?suse_version}
@@ -30,19 +30,19 @@ Requires: rhsm-icons
 Suggests: insights-client
 %endif
 
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.7.0
 Provides: bundled(npm(focus-trap)) = 7.6.6
 Provides: bundled(npm(lodash)) = 4.18.1
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.5.0
-Provides: bundled(npm(tslib)) = 2.8.1
+Provides: bundled(npm(tabbable)) = 6.5.1
+Provides: bundled(npm(tslib)) = 2.9.1
 
 %description
 Subscription Manager Cockpit UI
@@ -94,6 +94,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*
 %{_datadir}/icons/hicolor/symbolic/apps/*.svg
 
 %changelog
+* Thu Nov 05 2026 Packit <hello@packit.dev> - 20-1
+- Updated to PatternFly 6.7.0
+- Resolves: rhbz#2566796
+
 * Thu Sep 24 2026 Packit <hello@packit.dev> - 19-1
 - Translation and dependency updates
 - Resolves: rhbz#2484858

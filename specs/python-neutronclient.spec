@@ -30,7 +30,7 @@ BuildRequires: python3-devel
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
+BuildRequires: openpgpverify
 %endif
 
 %description
@@ -70,7 +70,7 @@ Summary:          Documentation for OpenStack Neutron API Client
 %prep
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%{openpgpverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n python_neutronclient-%{version} -S git
 

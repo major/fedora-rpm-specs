@@ -1,13 +1,12 @@
 Name: tin
 Version: 2.6.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Basic Internet news reader
 # all sources built into binaries are BSD-3-Clause except
 # src/parsdate.{c,y} which are Public Domain
 License: BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL: http://www.tin.org/
 Source0: ftp://ftp.tin.org/pub/news/clients/tin/stable/tin-%{version}.tar.xz
-BuildRequires: aspell
 BuildRequires: byacc
 BuildRequires: gcc-c++
 BuildRequires: gettext
@@ -46,6 +45,7 @@ rm -rv libcanlock pcre
 	--disable-mime-strict-charset \
 	--with-screen=ncursesw \
 	--with-gpg=%{_bindir}/gpg2 \
+	--with-ispell=%{_bindir}/hunspell \
 	--with-mime-default-charset=UTF-8 \
 	--with-nntps=openssl \
 	--with-pcre2-config=/usr/bin/pcre2-config \
@@ -88,6 +88,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man3 doc/wildmat.3
 %{_mandir}/man5/tin.5*
 
 %changelog
+* Thu Nov 05 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.6.6-2
+- switch to hunspell instead of deprecated aspell (resolves rhbz#2564628)
+
 * Sun Aug 23 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.6.6-1
 - update to 2.6.6 (resolves rhbz#2521568)
 

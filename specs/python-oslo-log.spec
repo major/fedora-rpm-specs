@@ -30,7 +30,7 @@ BuildRequires:  git-core
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-BuildRequires:  %{gpgverify}
+BuildRequires:  openpgpverify
 %endif
 
 %description
@@ -77,7 +77,7 @@ Translation files for Oslo log library
 
 %prep
 %if 0%{?sources_gpg} == 1
-%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%{openpgpverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n oslo_log-%{version} -S git
 

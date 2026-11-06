@@ -1,15 +1,12 @@
 %bcond mingw %{undefined rhel}
 
 Name:          libmad
-Version:       0.16.4
+Version:       0.16.5
 Release:       %autorelease
 Summary:       MPEG audio decoder library
 License:       GPL-2.0-or-later
 URL:           https://codeberg.org/tenacityteam/libmad
 Source0:       %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:        %{url}/commit/326363f04e583b563f63941db3cf7f50e76aceb2.patch#/cmake_fix.patch
-# fix CPU arch detection on x86
-Patch1:        libmad-x86.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 %if %{with mingw}
@@ -65,8 +62,10 @@ BuildArch:     noarch
 
 %install
 %cmake_install
+rm -v %{buildroot}%{_libdir}/libmad.a
 %if %{with mingw}
 %mingw_make_install
+rm -v %{buildroot}{%{mingw32_libdir},%{mingw64_libdir}}/libmad.a
 %mingw_debug_install_post
 %endif
 

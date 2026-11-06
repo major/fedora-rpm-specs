@@ -1,6 +1,6 @@
 Name:          human-theme-gtk
 Version:       3.2.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Human theme for GTK
 Summary(fr):   Thème Human pour GTK
 License:       GPL-3.0-or-later and LGPL-2.1-or-later and CC-BY-SA-3.0
@@ -8,7 +8,6 @@ URL:           https://github.com/luigifab/human-theme
 Source0:       %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:     noarch
-BuildRequires: aspell-fr
 Recommends:    mate-icon-theme
 Recommends:    dmz-cursor-themes
 Recommends:    gtk-murrine-engine
@@ -59,6 +58,9 @@ install -Dpm 644 data/profile.sh %{buildroot}%{_sysconfdir}/profile.d/%{name}.sh
 
 
 %changelog
+* Mon Nov 02 2026 Fabrice Creuzot <code@luigifab.fr> - 3.2.0-3
+- Remove aspell-fr
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

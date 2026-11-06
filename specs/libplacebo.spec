@@ -3,7 +3,7 @@
 #global prerelease -rc1
 
 Name:           libplacebo
-Version:        7.360.1
+Version:        7.387.0
 Release:        %autorelease
 Summary:        Reusable library for GPU-accelerated video/image rendering primitives
 
@@ -79,7 +79,7 @@ developing applications that use %{name}.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libplacebo.so.360
+%{_libdir}/libplacebo.so.387
 
 %files devel
 %{_includedir}/libplacebo

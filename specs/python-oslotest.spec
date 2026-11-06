@@ -32,7 +32,7 @@ BuildArch:      noarch
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-BuildRequires:  /usr/bin/gpgv2
+BuildRequires:  openpgpverify
 %endif
 
 BuildRequires:  git-core
@@ -62,7 +62,7 @@ Summary:        Documentation for the OpenStack test framework
 %prep
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%{openpgpverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n %{pypi_name}-%{version} -S git
 

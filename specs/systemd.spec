@@ -85,7 +85,7 @@ Url:            https://systemd.io
 # But don't do that on OBS, otherwise the version subst fails, and will be
 # like 257-123-gabcd257.1 instead of 257-123-gabcd
 %if %{without obs}
-Version:        %{?version_override}%{!?version_override:262.1}
+Version:        %{?version_override}%{!?version_override:262.2}
 %else
 Version:        %{?version_override}%{!?version_override:%(cat meson.version)}
 %endif
@@ -647,7 +647,6 @@ This package contains the signed version.
 
 %package import-keys
 Summary:        GPG keys for verifying systemd image imports
-BuildArch:      noarch
 License:        LGPL-2.1-or-later
 # self-obsoletes after package split
 Obsoletes:      systemd-container < 262~rc3-2

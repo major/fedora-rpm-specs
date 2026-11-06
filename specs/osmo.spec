@@ -3,13 +3,17 @@ Summary(pl):    Osobisty organizer
 Summary(de):    Persönlicher Organizer
 Name:           osmo
 Version:        0.4.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://osmo-pim.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}-pim/%{name}-%{version}.tar.gz
 
 Patch0:         0000-incompatible-pointer-types.patch
+# Build with libical 4: renamed set_zone_directory(), and link libicalss
+# explicitly (libical 4's libical.pc no longer pulls it in).
+# From Milan Crha's libical-4.x COPR
+Patch1:         0001-libical4.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext-devel
@@ -130,6 +134,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/sounds/osmo/alarm.wav
 
 %changelog
+* Wed Nov 04 2026 Michel Lind <salimma@fedoraproject.org> - 0.4.4-8
+- Fix build with libical 4 (patch by Milan Crha)
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.4.4-7
 - Rebuilt for libxml-2.5.4
 

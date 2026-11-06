@@ -1,7 +1,7 @@
 
 Name:           raysession
 Version:        0.17.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Session manager for audio software
 License:        GPL-2.0-only
 URL:            https://github.com/Houston4444/RaySession
@@ -15,6 +15,7 @@ BuildArch:      noarch
 
 # Essential build dependencies
 BuildRequires:  make
+BuildRequires:  python3-devel
 BuildRequires:  python3-pyqt6
 BuildRequires:  qt6-linguist
 BuildRequires:  pkgconfig(Qt6Core)
@@ -84,7 +85,6 @@ ensure_dirs() { mkdir -p "$@" || true; }
 # Common path shortcuts for readability
 DATADIR="$BR%{_datadir}/%{name}"
 PY_SITELIB="$BR%{python3_sitelib}"
-PY_LEGACY="$BR%{_prefix}/lib/python3.14/site-packages"
 
 ## Fix bash completion path
 if [ -f "%{buildroot}%{_sysconfdir}/bash_completion.d/ray_completion.sh" ]; then
@@ -219,7 +219,7 @@ EOF
 fi
 
 ## Add .pth for Python import path
-ensure_dirs "$PY_SITELIB" "$PY_LEGACY"
+ensure_dirs "$PY_SITELIB"
 cat > "$PY_SITELIB/raysession.pth" <<'EOF'
 /usr/share/raysession/src/gui
 /usr/share/raysession/HoustonPatchbay/source
@@ -227,27 +227,15 @@ cat > "$PY_SITELIB/raysession.pth" <<'EOF'
 /usr/share/raysession/src
 EOF
 chmod 644 "$PY_SITELIB/raysession.pth" || true
-cp -p "$PY_SITELIB/raysession.pth" "$PY_LEGACY/raysession.pth" || true
-chmod 644 "$PY_LEGACY/raysession.pth" || true
-
 ## Install xdg compat shim if present
 if [ -f "%{SOURCE5}" ]; then
-  ensure_dirs "$PY_SITELIB" "$PY_LEGACY"
-  for dst in "$PY_SITELIB" "$PY_LEGACY"; do
-    cp -p "%{SOURCE5}" "$dst/raysession_xdg_compat.py" || true
-    printf '%s\n' 'import raysession_xdg_compat' > "$dst/raysession_xdg_compat.pth" || true
-    chmod 644 "$dst/raysession_xdg_compat.py" "$dst/raysession_xdg_compat.pth" || true
-  done
+  cp -p "%{SOURCE5}" "$PY_SITELIB/raysession_xdg_compat.py" || true
+  printf '%s\n' 'import raysession_xdg_compat' > "$PY_SITELIB/raysession_xdg_compat.pth" || true
+  chmod 644 "$PY_SITELIB/raysession_xdg_compat.py" "$PY_SITELIB/raysession_xdg_compat.pth" || true
 fi
 
 ## Remove __pycache__ from site-packages
-rm -rf "$PY_LEGACY/__pycache__" || true
 rm -rf "$PY_SITELIB/__pycache__" || true
-
-## Copy .pth for older Python envs
-ensure_dirs "$BR%{_prefix}/lib/python3.14/site-packages"
-cp -p "$BR%{python3_sitelib}/raysession.pth" "$BR%{_prefix}/lib/python3.14/site-packages/raysession.pth" || true
-chmod 644 "$BR%{_prefix}/lib/python3.14/site-packages/raysession.pth" || true
 
 ## Patch patchcanvas __init__ to avoid circular import
 PC_INIT="%{buildroot}%{_datadir}/%{name}/HoustonPatchbay/source/patchbay/patchcanvas/__init__.py"
@@ -442,32 +430,24 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/bash-completion/completions/*
 %{_mandir}/man1/*
 
-%if %{defined python3_sitelib}
 %{python3_sitelib}/raysession.pth
-%else
-%{_prefix}/lib/python3.14/site-packages/raysession.pth
-%endif
 
 ## Include xdg compat shim in package
-%if %{defined python3_sitelib}
 %{python3_sitelib}/raysession_xdg_compat.py
 %{python3_sitelib}/raysession_xdg_compat.pth
-%else
-%{_prefix}/lib/python3.14/site-packages/raysession_xdg_compat.py
-%{_prefix}/lib/python3.14/site-packages/raysession_xdg_compat.pth
-%endif
 
 ## Include byte-compiled compat cache files
-%if %{defined python3_sitelib}
 %{python3_sitelib}/__pycache__/*raysession_xdg_compat*.pyc
-%else
-%{_prefix}/lib/python3.14/site-packages/__pycache__/*raysession_xdg_compat*.pyc
-%endif
 
 ## Exclude duplicate upstream data
 %exclude %{_datadir}/%{name}/data/share/applications/*
 
 %changelog
+* Thu Nov 5 2026 Erich Eickmeyer <erich@ericheickmeyer.com> - 0.17.4-3
+- Add python3-devel build dependency and remove hard-coded Python 3.14 paths
+- Fix FTBFS in Fedora 45
+- Resolves: rhbz#2504627
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           python-installer
-Version:        1.0.1
+Version:        1.1.0
 Release:        %autorelease
 Summary:        A library for installing Python wheels
 
@@ -8,9 +8,6 @@ License:        MIT
 URL:            https://github.com/pypa/installer
 Source:         %{pypi_source installer}
 
-# Replace deprecated posixpath.commonprefix() usage with path.startswith()
-# Fixes tests with Python 3.15
-Patch:          https://github.com/pypa/installer/pull/340.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

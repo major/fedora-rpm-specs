@@ -22,7 +22,7 @@ Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 BuildRequires: git-core
 BuildRequires: python3-devel
 %if 0%{?sources_gpg} == 1
-BuildRequires: /usr/bin/gpgv2
+BuildRequires: openpgpverify
 %endif
 
 BuildArch: noarch
@@ -51,7 +51,7 @@ Components of TripleO that are responsible for building disk images.
 %prep
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%{openpgpverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
 %autosetup -n diskimage_builder-%{version} -S git
 

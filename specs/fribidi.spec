@@ -1,6 +1,6 @@
 Summary: Library implementing the Unicode Bidirectional Algorithm
 Name: fribidi
-Version: 1.0.17
+Version: 1.0.18
 Release: %autorelease
 URL: https://github.com/fribidi/fribidi/
 Source: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz

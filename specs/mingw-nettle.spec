@@ -2,7 +2,7 @@
 
 Name:           mingw-nettle
 Version:        3.10.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary: MinGW package for nettle cryptographic library
 # Automatically converted from old format: LGPLv3+ or GPLv2+ - review is highly recommended.
@@ -11,7 +11,7 @@ URL:    http://www.lysator.liu.se/~nisse/nettle/
 
 Source0: http://www.lysator.liu.se/~nisse/archive/nettle-%{version}.tar.gz
 Source1: http://www.lysator.liu.se/~nisse/archive/nettle-%{version}.tar.gz.sig
-Source2: nettle-release-keyring.gpg
+Source2: https://keys.openpgp.org/vks/v1/by-fingerprint/343C2FF0FBEE5EC2EDBEF399F3599FF828C67298#/nettle-release-keyring.asc
 # MinGW does not support explicit_bzero()
 #Patch0:  nettle-3.8-zeroize-stack.patch
 Patch1:  nettle-3.10-hobble-to-configure.patch
@@ -33,6 +33,7 @@ BuildRequires:  mingw64-openssl
 BuildRequires:  autoconf, automake
 BuildRequires:  gcc
 BuildRequires:  m4
+BuildRequires:  openpgpverify
 
 
 %description
@@ -71,7 +72,7 @@ or even in kernel space.
 
 %prep
 %autosetup -Tb 0 -p1 -n nettle-%{version}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 
 %build
@@ -132,6 +133,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_infodir}/
 
 
 %changelog
+* Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 3.10.2-4
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

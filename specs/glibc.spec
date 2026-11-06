@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.44.9000-246-g81ac10977d
+%global glibcsrcdir glibc-2.44.9000-330-ga9a746e4af
 %global glibcversion 2.44.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 5
+%global baserelease 6
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2479,6 +2479,94 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Nov 05 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-6
+- Auto-sync with upstream branch master,
+  commit a9a746e4af7aac370937a88d5483cc72c5198602:
+- advisories: Fix up some formatting nits (Siddhesh Poyarekar)
+- advisories: Fix spelling in GLIBC-SA-2026-0026 (Carlos O'Donell)
+- Publish CVE-2026-122054 advisory (Carlos O'Donell)
+- aarch64: tests: Fix MTE tests compilation failure with -mcpu=native (Yury Khrustalev)
+- nss: Fix NUL terminator handling in __nss_readline whitespace strip [BZ #34765] (Avinal Kumar)
+- nss: Fix getnameinfo NI_IDN memory leak on EAI_OVERFLOW (XiaoLei Wu)
+- intl: Restrict path traversal when using LANGUAGE env var [BZ #17142, CVE-2026-84243] (Avinal Kumar)
+- RISC-V: Document that PR_RISCV_V_SET_CONTROL is unsupported (Palmer Dabbelt)
+- elf: Add a zero terminator to the .eh_frame section of ld.so (Adrian Ratiu)
+- elf: Do not over-align __FRAME_END__ in sofini.c (Adrian Ratiu)
+- Makefile: Fix elf/tst-trace tests (Yury Khrustalev)
+- hurd: Fix spawni adding . to PATH [BZ #34932] (Samuel Thibault)
+- Add check-cxx-linkage test for installed headers (Adhemerval Zanella)
+- misc: Add __BEGIN_DECLS/__END_DECLS to generic sys/swap.h (Adhemerval Zanella)
+- mips: Add __BEGIN_DECLS/__END_DECLS to fpu_control.h (Adhemerval Zanella)
+- loongarch: Add __BEGIN_DECLS/__END_DECLS to fpu_control.h (Adhemerval Zanella)
+- alpha: Add __BEGIN_DECLS/__END_DECLS to bits/fenv.h (Adhemerval Zanella)
+- Move internal err, error, and argp prototypes under !_ISOMAC (Adhemerval Zanella)
+- nptl_db: Add __BEGIN_DECLS/__END_DECLS to thread_db.h (Adhemerval Zanella)
+- scripts: Check multiple inclusion in check-installed-headers.sh (Adhemerval Zanella)
+- linux: Add C++ and multiple inclusion guards to sys/pidfd.h (BZ 34752) (Adhemerval Zanella)
+- AArch64: Preserve SVE pow/powf base magnitude across lanes [BZ #34921] (Pierre Blanchard)
+- AArch64: Fix SVE pow and powf negative-base predication [BZ #34920] (Pierre Blanchard)
+- malloc: Preserve errno in tcache_free_init [BZ #34890] (Wilco Dijkstra)
+- AArch64: Improve memcpy performance of 96-128 bytes (Wilco Dijkstra)
+- Publish CVE-2026-84243 advisory (Adhemerval Zanella)
+- x86/string: Fix overflow issue in memrchr-evex [BZ #34771] (Noah Goldstein)
+- LoongArch: Get cache information through sysconf (Deng Jianbo)
+- include: add an internal stdckdint.h header (Collin Funk)
+- nss: Remove redundant seeks in fget*ent [BZ #31936] (Shamil Abdulaev)
+- aarch64: Do not remap writable segments to enable BTI (Adhemerval Zanella)
+- math: Make rsqrtf correctly rounded (Adhemerval Zanella)
+- x86/string: Make page-unrolled memmove default for Intel processors (Noah Goldstein)
+- x86/string: Add version of memmove with page unrolled large impl (Noah Goldstein)
+- x86/string: Use simpler approach for large memcpy [BZ #32475] (Noah Goldstein)
+- x86/string: Factor out large memmove implemention to seperate file (Noah Goldstein)
+- elf: ld.so: Fix printing main program name (Yury Khrustalev)
+- AArch64: Enable SVE2 only if SVE is also enabled (Wilco Dijkstra)
+- arm: Fix typo in swapcontext.S comment (Kyle Fick)
+- io: Reject fts_open root arguments longer than USHRT_MAX (BZ 34782) (Adhemerval Zanella)
+- io: Fix fts_pathlen overflow for paths longer than USHRT_MAX (BZ 34782) (Ahelenia Ziemiańska)
+- io: Fix fts_set FTS_FOLLOW in a physical walk (BZ 34775) (Adhemerval Zanella)
+- io: Fix fts FTS_CWDFD return from a followed directory (BZ 34781) (Adhemerval Zanella)
+- configure: Fix have-no-error-execstack substitution (Adhemerval Zanella)
+- aarch64: Return with ret from the la_pltexit path of _dl_runtime_profile (Adhemerval Zanella)
+- Makefile.in: Run the build directory goals serially (BZ 34699) (Adhemerval Zanella)
+- x86: Bound Hygon non-temporal threshold [BZ #34875] (Wang Lei)
+- misc: Fix typos in comments (Yury Khrustalev)
+- AArch64: Fix AOR string mappings in SHARED-FILES (Pierre.Blanchard@arm.com)
+- AArch64: Update recorded AOR revisions for SVE math (Pierre.Blanchard@arm.com)
+- stdio-common: Reduce printf_spec padding (Shamil Abdulaev)
+- io: Reduce ftw_frame padding (Shamil Abdulaev)
+- elf: Move _dl_find_object updates out of dl_load_tls_lock (Aliaksei Kandratsenka)
+- elf: Handle _dl_find_object_update failure in dlopen [BZ #34769] (Aliaksei Kandratsenka)
+- elf: Correctly count nloaded in dl_iterate_phdr [BZ #22277] (Aliaksei Kandratsenka)
+- elf: Avoid rare out-of-bounds read in _dl_find_object [BZ #34768] (Aliaksei Kandratsenka)
+- htl: cap __pthread_timedblock timeouts (Samuel Thibault)
+- manual: document audit interface (DJ Delorie)
+- Makefile: Support installing scripts without building all of Glibc (Yury Khrustalev)
+- malloc: aarch64: Add MTE memory tagging (Muhammad Kamran)
+- malloc: aarch64: Add MTE ifunc resolvers (Muhammad Kamran)
+- malloc: Add sysdep hook for user allocation size alignment (Muhammad Kamran)
+- conform: sort Makefile (Andreas Schwab)
+- conform: enable checking for POSIX2024 and XOPEN2K24 (Andreas Schwab)
+- htl: Detect rwlock maximum number of readers exceeded (Samuel Thibault)
+- htl: increase maximum number of readers (Samuel Thibault)
+- conform: add memmem, strlcpy, strlcat to string.h data (Andreas Schwab)
+- conform: add POSIX2024 and XOPEN2K24 definitions to the checking scripts (Andreas Schwab)
+- conform: derive POSIX.1-2024 data from C17 (Andreas Schwab)
+- aarch64: Vectorise AdvSIMD fp32 tanf special case (Dylan Fleming)
+- math: add missing term -x^11/11! to TAYLOR_SIN comment (Zhuxuan Huang)
+- benchtests: Add workloads to rsqrt (Adhemerval Zanella)
+- benchtests: Add workloads to rsqrtf (Adhemerval Zanella)
+- nptl: Fix lost wake-up in robust mutex ENOTRECOVERABLE path (BZ 34724) (Adhemerval Zanella)
+- sparc: Export sparc64 setcontext with weak_alias [BZ #34669] (Stian Halseth)
+- linux: Do not return stack garbage in sparc tcgetattr c_cc [BZ #34734] (Stian Halseth)
+- x86-64: Remove XFD handling from <sys/platform/x86.h> (bug 34742) (Florian Weimer)
+- conform: add wcslcpy, wcslcat to wchar.h data (Andreas Schwab)
+- malloc: Minor cleanup (Wilco Dijkstra)
+- inet: Fix article typo in inet_ntop comment (Jannes vagenende)
+- riscv: Avoid R_RISCV_JAL for __sigjmp_save (Mingliang Liu)
+- posix: expose pipe2 under _POSIX_C_SOUCE >= 202405 (bug 34746) (Andreas Schwab)
+- LoongArch: Use aligned memcpy/memmove in static symbol redirection (Deng Jianbo)
+- doc: fix SECURITY.md typos (Paul Eggert)
+
 * Tue Oct 13 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-5
 - Auto-sync with upstream branch master,
   commit 81ac10977d3c0c4291838bb0e220eeb670bfc90d:

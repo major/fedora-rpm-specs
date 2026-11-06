@@ -28,7 +28,7 @@ BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6Xml)
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: ninja-build
 BuildRequires: openssl-devel
 BuildRequires: qt6-qtbase-private-devel
@@ -52,7 +52,7 @@ A Headless Bittorrent client using rb_libtorrent.
 It aims to be as fast as possible and to provide multi-OS, unicode support.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 cp %{SOURCE3} .
 

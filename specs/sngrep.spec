@@ -8,6 +8,9 @@ VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/v%{version}.tar.gz.asc
 Source2:        69100FFB90E87A320DF8643CBEC39009E8321A61.gpg
+
+Patch0:         sngrep-0001.patch
+Patch1:         sngrep-0002.patch
 BuildRequires:  gcc
 BuildRequires:  openpgpverify
 BuildRequires:  pkgconfig(libcrypto)

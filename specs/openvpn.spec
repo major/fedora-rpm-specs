@@ -19,8 +19,8 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.7.8
-Release:           2%{?dist}
+Version:           2.7.9
+Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -236,6 +236,9 @@ done
 
 
 %changelog
+* Thu Nov 5 2026 Frank Lichtenheld <frank@lichtenheld.com> - 2.7.9-1
+- Update to upstream 2.7.9 release
+
 * Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 2.7.8-2
 - Verify upstream source signatures with openpgpverify
 

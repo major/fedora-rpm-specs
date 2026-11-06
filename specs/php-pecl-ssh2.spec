@@ -1,4 +1,6 @@
 %define pecl_name  ssh2
+%global pie_vend   pecl
+%global pie_proj   %{pecl_name}
 %global ini_name   40-%{pecl_name}.ini
 
 # Github forge
@@ -10,8 +12,8 @@
 Name:           php-pecl-ssh2
 Summary:        Bindings for the libssh2 library
 License:        PHP-3.01
-Version:        1.5.0
-Release:        2%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -29,7 +31,8 @@ Provides:       php-%{pecl_name}%{?_isa}       = %{version}
 # PECL
 Provides:       php-pecl(%{pecl_name})         = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
-# No PIE for now
+# PIE
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -74,11 +77,6 @@ sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 : Install config file
 install -Dpm644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
-: Install the Documentation
-for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
-do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
-done
-
 
 %check
 : Minimal load test for NTS extension
@@ -96,6 +94,10 @@ done
 
 
 %changelog
+* Wed Nov  4 2026 Remi Collet <remi@remirepo.net> - 1.6.0-1
+- update to 1.6.0
+- add pie virtual provides
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

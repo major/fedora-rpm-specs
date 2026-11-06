@@ -2,7 +2,7 @@
 %global tag      %{version}
 
 Name:           velocitty
-Version:        1.0.4
+Version:        1.0.6
 Release:        %autorelease
 %forgemeta
 Summary:        Terminal emulator for Linux desktops
@@ -10,7 +10,6 @@ Summary:        Terminal emulator for Linux desktops
 License:        GPL-3.0-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-Patch0:         %{url}/commit/0debf1333c3251164373c2334ec52be450c3ecae.patch
 
 BuildArch:      noarch
 

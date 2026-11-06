@@ -1,6 +1,10 @@
+# The -lexical export option uses core lexical subs, Perl 5.37.2 or newer.
+# On an older Perl the CPAN module Lexical::Var provides the same feature.
+%bcond lexical_var 0
+
 Name:		perl-Exporter-Tiny
 Version:	1.006003
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	An exporter with the features of Sub::Exporter but only core dependencies
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://exportertiny.github.io/
@@ -12,7 +16,11 @@ BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 # If we don't have at least 5.37.2 then we'll need Lexical::Var
+%if %{with lexical_var}
+BuildRequires:	perl(Lexical::Var)
+%else
 BuildRequires:	perl(:VERSION) >= 5.37.2
+%endif
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	sed
 # Module Runtime
@@ -28,6 +36,9 @@ BuildRequires:	perl(Test::Fatal)
 BuildRequires:	perl(Test::Warnings)
 # Dependencies
 Requires:	perl(Carp)
+%if %{with lexical_var}
+Recommends:	perl(Lexical::Var)
+%endif
 
 # Avoid doc-file dependency on perl(base)
 %{?perl_default_filter}
@@ -77,6 +88,10 @@ make test
 %{_mandir}/man3/Exporter::Shiny.3*
 
 %changelog
+* Sun Nov 01 2026 Sai Harsha Suryadevara <ssuryad@amazon.com> - 1.006003-4
+- Add a build conditional to use Lexical::Var for the -lexical export option on
+  Perl older than 5.37.2, default off
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.006003-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

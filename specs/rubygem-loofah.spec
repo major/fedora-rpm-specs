@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.22.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Manipulate and transform HTML/XML documents and fragments
 License: MIT
 URL: https://github.com/flavorjones/loofah
@@ -18,10 +18,13 @@ Patch1:  %{gem_name}-pr298-testsuite-accept-libxml2-2_14.patch
 # https://github.com/flavorjones/loofah/pull/307
 # Fix json 3 compatibility
 Patch2: %{gem_name}-pr307-support-json3-allow-comments.patch
+# https://github.com/flavorjones/loofah/pull/324/changes/7ba1e7b77e043fb7dc832ef746fcbf83137135e6
+# Nokogiri is updated to 1.19.7, fixing HTML5 behavior
+Patch3: %{gem_name}-pr324-nokogiri-1_19_7-html5.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-BuildRequires: rubygem(nokogiri) >= 1.6.6.2
+BuildRequires: rubygem(nokogiri) >= 1.9.5
 BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(minitest-mock)
 BuildRequires: rubygem(crass)
@@ -43,13 +46,11 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version} -b1
-(
-cd %{_builddir}
+%setup -q -n %{gem_name}-%{version} -a1
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
-)
+%patch -P3 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -63,8 +64,8 @@ cp -a .%{gem_dir}/* \
 
 
 %check
+cp -a test .%{gem_instdir}
 pushd .%{gem_instdir}
-cp -a %{_builddir}/test .
 
 ruby -Ilib:test -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
 popd
@@ -83,6 +84,9 @@ popd
 %doc %{gem_instdir}/SECURITY.md
 
 %changelog
+* Thu Nov 05 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.22.0-12
+- Backport upstream patch to support nokogiri 1.19.7 html5 behavior fix
+
 * Sun Sep 20 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.22.0-11
 - Apply upstream patch to support json 3
 

@@ -2,7 +2,7 @@
 
 Name:			cage
 Version:		0.3.1
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		A Wayland kiosk
 
 License:		MIT
@@ -10,10 +10,10 @@ URL:			https://www.hjdskes.nl/projects/cage
 Source0:		%{forgeurl}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:		%{forgeurl}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
 # https://keys.openpgp.org/search?q=34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48
-Source2:		gpgkey-E88F5E48.gpg
+Source2:		https://keys.openpgp.org/vks/v1/by-fingerprint/34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48#/gpgkey-0FDE7BE0E88F5E48.asc
 
 BuildRequires:	gcc
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 BuildRequires:	meson
 BuildRequires:	pkgconfig(scdoc)
 BuildRequires:	pkgconfig(wlroots-0.20)
@@ -30,7 +30,7 @@ project page and the Wiki.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 
@@ -51,6 +51,9 @@ project page and the Wiki.
 
 
 %changelog
+* Wed Nov 04 2026 Jakub Jelen <jjelen@redhat.com> - 0.3.1-3
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %bcond_without check
 
 Name:       python-distlib
-Version:    0.4.3
+Version:    0.4.4
 Release:    %autorelease
 Summary:    Low-level components of distutils2/packaging, augmented with higher-level APIs
 

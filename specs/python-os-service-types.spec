@@ -33,7 +33,7 @@ Source2:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 BuildArch:      noarch
 BuildRequires:  git-core
 %if 0%{?sources_gpg} == 1
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 %endif
 
 
@@ -64,7 +64,7 @@ Documentation for %{pypi_name}
 
 %prep
 %if 0%{?sources_gpg} == 1
-%{gpgverify}  --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%{openpgpverify}  --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %endif
 %autosetup -n %{module_name}-%{version} -S git
 

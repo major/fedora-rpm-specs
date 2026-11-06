@@ -24,7 +24,7 @@ BuildArch:      noarch
 
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 %endif
 BuildRequires:  python3-devel
 BuildRequires:  git-core
@@ -45,7 +45,7 @@ Group:          Development/Libraries
 %prep
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-%{gpgverify}  --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify}  --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %setup -q -n stevedore-%{version}
 

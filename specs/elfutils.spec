@@ -4,13 +4,15 @@
 
 Name: elfutils
 Version: 0.197
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
-%global source_url ftp://sourceware.org/pub/elfutils/%{version}/
+%global source_url https://sourceware.org/pub/elfutils/%{version}/
 License: GPL-3.0-or-later AND (GPL-2.0-or-later OR LGPL-3.0-or-later) AND GFDL-1.3-no-invariants-or-later
-Source: %{?source_url}%{name}-%{version}.tar.bz2
-Source1: elfutils-debuginfod.sysusers
+Source0: %{?source_url}%{name}-%{version}.tar.bz2
+Source1: %{?source_url}%{name}-%{version}.tar.bz2.sig
+Source2: upstream-key.gpg
+Source3: elfutils-debuginfod.sysusers
 Summary: A collection of utilities and DSOs to handle ELF files and DWARF data
 
 # Needed for isa specific Provides and Requires.
@@ -94,6 +96,8 @@ BuildRequires: libpfm-devel
 BuildRequires: automake
 BuildRequires: autoconf
 BuildRequires: gettext-devel
+
+BuildRequires: openpgpverify
 
 %global _gnu %{nil}
 %global _program_prefix eu-
@@ -354,6 +358,7 @@ The ELF/DWARF file searching functions in libdwfl can query
 such servers to download those files on demand.
 
 %prep
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 autoreconf -f -v -i
@@ -415,7 +420,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}/cache/debuginfod
 touch ${RPM_BUILD_ROOT}%{_localstatedir}/cache/debuginfod/debuginfod.sqlite
 
 %if %{with_sysusers}
-install -Dm0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/elfutils-debuginfod.conf
+install -Dm0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/elfutils-debuginfod.conf
 %endif
 
 %check
@@ -566,7 +571,7 @@ fi
 
 %pre debuginfod
 %if %{with_sysusers}
-%sysusers_create_compat %{SOURCE1}
+%sysusers_create_compat %{SOURCE3}
 %else
 getent group debuginfod >/dev/null || groupadd -r debuginfod
 getent passwd debuginfod >/dev/null || \
@@ -582,6 +587,15 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Tue Nov  3 2026 Mark Wielaard <mjw@fedoraproject.org> = 0.197-3
+- Update source_url to use https (not ftp)
+- Rename Source to Source0, add Source1 signature and Source2 the
+  upstream gpg key. Renumber the elfutils-debuginfod.sysusers to
+  Source3.
+- Buildrequire openpgpverify and run it in prep.
+- Remove upstream-key.gpg and elfutils-debuginfod.sysusers from git
+  they are now "pure" Sources.
+
 * Fri Oct 30 2026 Aaron Merey <amerey@redhat.com> - 0.197-2
 - Enable experimental thread safety (--enable-thread-safety) in the
   elfutils libraries on Fedora rawhide (46+) only

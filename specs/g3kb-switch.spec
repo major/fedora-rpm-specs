@@ -13,6 +13,8 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch:          gnome-47.patch
 Patch:          gnome-48.patch
 Patch:          gnome-49.patch
+Patch:          gnome-50.patch
+Patch:          gnome-51.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

@@ -5,7 +5,7 @@
 %global crate reflink-copy
 
 Name:           rust-reflink-copy
-Version:        0.1.31
+Version:        0.1.32
 Release:        %autorelease
 Summary:        Copy-on-write mechanism on supported file systems
 
@@ -15,9 +15,6 @@ URL:            https://crates.io/crates/reflink-copy
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          reflink-copy-fix-metadata-auto.diff
-# * Fix out-of-order changelog
-# * https://github.com/cargo-bins/reflink-copy/pull/235
-Patch10:        https://github.com/cargo-bins/reflink-copy/pull/235.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

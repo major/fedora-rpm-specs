@@ -128,7 +128,7 @@ Patch:          %{url}/pull/1236.patch
 #
 # NULL pointer dereference in the stb_image.h
 # https://github.com/nothings/stb/issues/1452
-# NULL pointer derefence in PIC loading (CVE-2023-43898)
+# NULL pointer derefence [sic] in PIC loading (CVE-2023-43898)
 # https://github.com/nothings/stb/issues/1521
 # Null pointer dereference in stbi__convert_format (GHSL-2023-149)
 # https://github.com/nothings/stb/issues/1546
@@ -368,7 +368,7 @@ Requires:       stb_image-devel = %{stb_image_version}%{snapinfo}-%{release}
 Requires:       stb_image-static = %{stb_image_version}%{snapinfo}-%{release}
 # For compatibility, we still depend on the subpackages for the original,
 # deprecated-upstream stb_image_resize library in existing stable releases, but
-# we drop the dependendency going forward as an acknowledgement of its status.
+# we drop the dependency going forward as an acknowledgement of its status.
 %if %{with stb_image_resize} && %{defined el9}
 Requires:       stb_image_resize-devel = %{stb_image_resize_version}%{snapinfo}-%{release}
 Requires:       stb_image_resize-static = %{stb_image_resize_version}%{snapinfo}-%{release}

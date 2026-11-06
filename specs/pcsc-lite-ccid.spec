@@ -10,7 +10,7 @@ License:        BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://ccid.apdu.fr/files
 Source0:        https://ccid.apdu.fr/files/ccid-%{version}.tar.xz
 Source1:        https://ccid.apdu.fr/files/ccid-%{version}.tar.xz.asc
-Source2:        gpgkey-F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E.gpg
+Source2:        https://ludovic-rousseau.pages-perso.free.fr/gpg_key_E8F9C57E.txt
 Patch0:         ccid-1.4.26-omnikey-3121.patch
 
 BuildRequires:  meson
@@ -19,7 +19,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl-Getopt-Long
 BuildRequires:  libusb1-devel
 BuildRequires:  pcsc-lite-devel >= %{pcsc_lite_ver}
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  flex
 BuildRequires:  zlib-devel
 # for udev.pc dependency
@@ -40,7 +40,7 @@ PC/SC Lite daemon.
 
 
 %prep
-gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup -n ccid-%{version} -p1
 
 %build

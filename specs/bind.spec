@@ -46,10 +46,10 @@
 %global        upstream_sources 0 2
 %global        pgp_signature_sources 2
 
-%global        git_commit d0a87358dad598e830664c78349c31cd0eafacbc
+%global        git_commit 973d86462600356a97487a6ba734144ee3014996
 %global        git_short %{sub %git_commit 1 8}
 # git log --format=%ai -1 $COMMIT | tr -d - | cut -d' ' -f1
-%global        git_date 20261003
+%global        git_date 20261102
 
 ## The order of libs is important. See lib/Makefile.in for details
 %define bind_export_libs isc dns isccfg irs

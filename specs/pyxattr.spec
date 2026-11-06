@@ -1,7 +1,7 @@
 Name:           pyxattr
 Summary:        Extended attributes library wrapper for Python
 Version:        0.7.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        LGPL-2.1-or-later
 URL:            https://pyxattr.k1024.org/
 Source0:        %{URL}/downloads/%{name}-%{version}.tar.gz
@@ -11,7 +11,6 @@ Source2:        https://k1024.org/files/key.asc
 BuildRequires:  gcc
 BuildRequires:  libattr-devel
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  openpgpverify
 BuildRequires:  %{py3_dist pytest}
 
@@ -23,7 +22,6 @@ add and remove extended attributes from files and directories.}
 
 %package -n python3-%{name}
 Summary: %{summary}
-%{?python_provide:%python_provide python3-%{name}}
 
 %description -n python3-%{name} %_description
 
@@ -31,13 +29,19 @@ Summary: %{summary}
 %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l xattr
 
 %check
+%pyproject_check_import
+
 # selinux in koji produces unexpected xattrs for tests
 export TEST_IGNORE_XATTRS=security.selinux
 # the module is just a C extension => need to add the installed destination to
@@ -46,13 +50,13 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}:$PYTHONPATH
 # in Copr, skip tests that fail with OSError: [Errno 95] Operation not supported
 python3 -m pytest tests %{?copr_projectname:-k 'not (binary_payload or create_on_existing or empty_value or large_value or many_ops or mixed_access or set_get_remove)'}
 
-%files -n python3-%{name}
-%{python3_sitearch}/xattr.cpython-%{python3_version_nodots}*
-%{python3_sitearch}/*egg-info
-%license COPYING
+%files -n python3-%{name} -f %{pyproject_files}
 %doc NEWS README.md
 
 %changelog
+* Wed Nov 04 2026 Miro Hrončok <miro@hroncok.cz> - 0.7.2-24
+- Convert to pyproject RPM macros (rhbz#2378421)
+
 * Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 0.7.2-23
 - Verify upstream source signatures with openpgpverify
 

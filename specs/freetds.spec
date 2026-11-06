@@ -2,7 +2,7 @@
 
 Name: freetds
 Summary: Implementation of the TDS (Tabular DataStream) protocol
-Version: 1.5.18
+Version: 1.5.20
 Release: 1%{?dist}
 # Automatically converted from old format: LGPLv2+ and GPLv2+ - review is highly recommended.
 License: LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -101,11 +101,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 chmod -x $RPM_BUILD_ROOT%{_sysconfdir}/*
 
 # Move ODBC plugin to a dedicated subdirectory (rhbz#2453060)
-# libtdsodbc.so is a symlink to libtdsodbc.so.0 -- recreate it with
-# a correct relative path from the subdirectory back to the parent
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/odbc
-unlink $RPM_BUILD_ROOT%{_libdir}/libtdsodbc.so
-ln -s ../libtdsodbc.so.0 $RPM_BUILD_ROOT%{_libdir}/odbc/libtdsodbc.so
+mv -f $RPM_BUILD_ROOT%{_libdir}/libtdsodbc.so $RPM_BUILD_ROOT%{_libdir}/odbc
 
 mv -f $RPM_BUILD_ROOT%{_includedir}/tds_sysdep_public.h \
 	$RPM_BUILD_ROOT%{_includedir}/tds_sysdep_public_%{bits}.h
@@ -157,7 +154,6 @@ find docdir -type f -print0 | xargs -0 chmod -x
 %license COPYING_LIB.txt
 %doc samples
 %{_libdir}/*.so
-%exclude %{_libdir}/odbc/libtdsodbc.so
 %{_includedir}/*
 
 
@@ -166,6 +162,10 @@ find docdir -type f -print0 | xargs -0 chmod -x
  
 
 %changelog
+* Thu Nov  5 2026 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.5.20-1
+- update to 1.5.20
+- actually install ODBC driver (#2567301)
+
 * Tue Aug 11 2026 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.5.18-1
 - update to 1.5.18 (#2513794)
 

@@ -12,10 +12,10 @@ Name:           GoldenCheetah
 %if 0%{?usesnapshot}
 Version:        3.8
 # Release:        0.19.%%{commitdate}git%%{shortcommit0}%%{?dist}
-Release:        0.2.RC2%{?dist}
+Release:        0.3.RC2%{?dist}
 %else
 Version:        3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 
 Summary:        Cycling Performance Software
@@ -166,6 +166,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %doc doc/user/*.pdf
 
 %changelog
+* Thu Nov 05 2026 Michel Lind <salimma@fedoraproject.org> - 1:3.8-3
+- Rebuild for libical 4.x
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 1:3.8-2
 - Rebuild (qt6)
 

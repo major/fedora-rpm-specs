@@ -68,7 +68,7 @@
 
 Name:		erlang
 Version:	27.3.4.19
-Release:	3%{?dist}
+Release:	6%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -80,13 +80,19 @@ Source6:	epmd.socket
 Source7:	epmd@.service
 Source8:	epmd@.socket
 # The Requires of the subpackages on each other, generated from the calls
-# of their BEAM files
-Source998:	otp-find-requires.py
-BuildRequires:	python3
-%global _local_file_attrs otp
-%global __otp_requires %{__python3} %{SOURCE998} %{_libdir}/erlang/lib %{name} %{version}-%{release} %{?_isa}
-%global __otp_path ^%{_libdir}/erlang/lib/[^/]+/ebin/[^/]+\\.beam$
+# of their BEAM files, and erlang(APP) = VSN for every application resource
+# file. Runs on the escript of the build tree, as the Erlang being built is
+# not installed yet.
+Source998:	otp-find-requires.escript
+%global _local_file_attrs otp:otpabi
+%global __otp_requires %{builddir}/otp-OTP-%{version}/bin/escript %{SOURCE998} %{_libdir}/erlang/lib %{name} %{version}-%{release} %{?_isa}
+%global __otp_provides %{builddir}/otp-OTP-%{version}/bin/escript %{SOURCE998} --app
+%global __otp_path ^%{_libdir}/erlang/lib/[^/]+/ebin/[^/]+\\.(beam|app)$
 %global __otp_protocol multifile
+# erlang(erl_drv_version) and erlang(erl_nif_version) of erlang-erts, taken
+# from erlang:system_info/1 of the emulator being built
+%global __otpabi_provides %{builddir}/otp-OTP-%{version}/bin/escript %{SOURCE998} --abi
+%global __otpabi_path ^%{_libdir}/erlang/erts-[^/]+/bin/beam\\.smp$
 # This file is intended for Fedora package maintainers only.
 Source999:	otp-get-patches.sh
 
@@ -290,12 +296,8 @@ BuildRequires: ncurses-devel
 BuildRequires: zlib-devel
 # epmd user, epmd group
 Requires: lksctp-tools
-# See erts/emulator/beam/erl_driver.h or call erlang:system_info(driver_version).
-#Provides: erlang(erl_drv_version) = %%(%%{buildroot}/bin/erl -noshell -eval 'io:format(erlang:system_info(driver_version)).' -s erlang halt)
-Provides: erlang(erl_drv_version) = 3.3
-# See erts/emulator/beam/erl_nif.h or call erlang:system_info(nif_version).
-#Provides: erlang(erl_nif_version) = %%(%%{buildroot}/bin/erl -noshell -eval 'io:format(erlang:system_info(nif_version)).' -s erlang halt)
-Provides: erlang(erl_nif_version) = 2.17
+# erlang(erl_drv_version) and erlang(erl_nif_version) are generated, see
+# __otpabi_provides
 # git commit a465fe71ab3d0e224b2b4bd0fac69ae68ab9239d, see erts/emulator/asmjit.version
 Provides: bundled(asmjit)
 # Bundled parts of openssl in commit 609a562ff60e5456739dfd62bb395b9083a78cba
@@ -1771,6 +1773,18 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Fri Nov 06 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.19-6
+- Provide erlang(APP) = VSN for every OTP application, as erlang-rpm-macros
+  does for other Erlang packages
+
+* Thu Nov 05 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.19-5
+- Generate erlang(erl_drv_version) and erlang(erl_nif_version) of
+  erlang-erts from the emulator being built
+
+* Thu Nov 05 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.19-4
+- Rewrite the subpackage Requires generator as an escript, so the build
+  no longer needs Python
+
 * Tue Nov 03 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.19-3
 - Generate the Requires of the subpackages on each other at build time
   from the calls of their BEAM files (rhbz#1297132)

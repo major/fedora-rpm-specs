@@ -8,7 +8,7 @@
 %global unsupported_arches s390x
 
 Name:           rust-simple-dns
-Version:        0.12.0
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Rust implementation to parse and write DNS packets
 

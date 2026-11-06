@@ -76,6 +76,7 @@ It is also responsible for handling the icons on the Cinnamon desktop.
 %package extensions
 Summary: Nemo extensions library
 License:    LGPL-2.0-or-later
+Obsoletes:  nemo-preview < %{version}-%{release}
 
 %description extensions
 This package provides the libraries used by nemo extensions.

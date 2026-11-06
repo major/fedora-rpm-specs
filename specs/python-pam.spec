@@ -1,6 +1,9 @@
+# RHEL does not include poetry-core
+%bcond poetry %{undefined rhel}
+
 Name:           python-pam
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure Python interface to the Pluggable Authentication Modules system on Linux
 License:        MIT
 URL:            https://github.com/FirefighterBlu3/python-pam
@@ -26,6 +29,12 @@ authenticate a given username / password against the PAM system on Linux.
 %prep
 %autosetup -p1
 
+%if %{without poetry}
+# avoid poetry-core, use setuptools fallback
+sed -i 's/\[build-system\]/[ignore-this]/' pyproject.toml
+echo -e 'from setuptools import setup\nsetup(packages=["pam"], package_dir={"": "python-pam"})' > setup.py
+%endif
+
 # https://github.com/FirefighterBlu3/python-pam/issues/142
 # Remove reimplementation of the footgun
 rm -f python-pam/pam/pam.py
@@ -45,6 +54,9 @@ rm -f python-pam/pam/pam.py
 %license LICENSE
 
 %changelog
+* Wed Nov 04 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.1-2
+- Avoid poetry-core build dependency on RHEL
+
 * Sun Nov 01 2026 Juan Orti Alcaine <jortialc@redhat.com> - 2.1.1-1
 - Version 2.1.1 (#2535813)
 

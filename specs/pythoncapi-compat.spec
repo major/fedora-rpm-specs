@@ -1,6 +1,6 @@
 # Increment the serial number every time we update the commit hash.
-%global serial 3
-%global commit b8fe76f597af6593dfcb43a6dd388bab98938b91
+%global serial 4
+%global commit d3ebabff3a4b43e40f7b3db5f55b8a54f84b0091
 
 Name:           pythoncapi-compat
 Summary:        Python C API compatibility
@@ -47,6 +47,7 @@ Obsoletes:      pythoncapi-compat-tools < 2:0^1.2682b1e-1
 # only one binary package to document the reStructuredText files are not large
 # or numerous enough to justify keeping a separate -doc subpackage.
 Obsoletes:      pythoncapi-compat-doc < 2:0^1.2682b1e-1
+# We can remove the above upgrade paths after Fedora 48.
 
 %description devel %{common_description}
 

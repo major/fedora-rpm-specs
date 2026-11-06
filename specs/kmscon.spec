@@ -1,5 +1,5 @@
 Name:           kmscon
-Version:        10.1.0
+Version:        10.1.1
 Release:        %autorelease
 Summary:        Linux KMS/DRM based virtual Console Emulator
 # MIT for the source code, and OFL-1.1 for the unifont font.
@@ -19,6 +19,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(fontconfig) >= 2.16.0
 BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  google-noto-sans-mono-fonts
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(libdrm)

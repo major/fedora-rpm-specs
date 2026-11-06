@@ -1,9 +1,11 @@
 Name:		flashrom
-Version:	1.6.0
-Release:	6%{?dist}
+Version:	1.8.0
+Release:	1%{?dist}
 Summary:	Simple program for reading/writing flash chips content
-License:	GPL-2.0-only
 URL:		https://flashrom.org
+
+# For a licensing breakdown, grep the sources for "SPDX-License-Identifier:" tags
+License:	GPL-2.0-only AND GPL-2.0-or-later AND (BSD-3-Clause OR GPL-2.0-only)
 
 Source0:	https://download.flashrom.org/releases/%{name}-v%{version}.tar.xz
 Source1:	https://download.flashrom.org/releases/%{name}-v%{version}.tar.xz.asc
@@ -60,7 +62,7 @@ Files for development with %{name}.
 sed -e 's/MODE="[0-9]*", GROUP="plugdev"/TAG+="uaccess"/g' util/flashrom_udev.rules -i
 
 %build
-%meson -Dtests=disabled -Ddocumentation=disabled
+%meson -Dtests=disabled -Ddocumentation=disabled -Duse_git_version=disabled
 %meson_build
 
 %install
@@ -70,7 +72,7 @@ install -D -p -m 0644 util/flashrom_udev.rules %{buildroot}/%{_udevrulesdir}/60_
 rm %{buildroot}/%{_libdir}/libflashrom.a
 
 %files
-%license COPYING
+%license COPYING.rst
 %doc README.rst doc/
 %{_sbindir}/%{name}
 %{_mandir}/man8/%{name}.*
@@ -85,6 +87,9 @@ rm %{buildroot}/%{_libdir}/libflashrom.a
 %{_libdir}/pkgconfig/flashrom.pc
 
 %changelog
+* Wed Sep 30 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.8.0-1
+- Update to v1.8.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

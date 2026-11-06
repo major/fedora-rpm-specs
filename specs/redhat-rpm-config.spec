@@ -151,6 +151,10 @@ Provides: system-rpm-config = %{version}-%{release}
 
 %global rrcdir /usr/lib/rpm/redhat
 
+# These files must be shipped unchanged because they are copied into
+# release tarballs, and have to run on machines that lack a merged /usr.
+%global __brp_mangle_shebangs_exclude_from ^%{rrcdir}/config[.](guess|sub)$
+
 %description
 Red Hat specific rpm configuration files.
 

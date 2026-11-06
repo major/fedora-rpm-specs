@@ -1,3 +1,6 @@
+# tutorial doctests require simplejson, not included in RHEL
+%bcond doctests %{undefined rhel}
+
 %global pypi_name jsonpatch
 
 Name:           python-%{pypi_name}
@@ -19,7 +22,9 @@ Summary:        Applying JSON Patches in Python 3
 
 BuildRequires:  python3-devel
 # For tests
+%if %{with doctests}
 BuildRequires:  python3-simplejson
+%endif
 
 
 %description -n python3-%{pypi_name}
@@ -49,6 +54,10 @@ rm %{buildroot}%{_bindir}/jsondiff
 
 
 %check
+%if %{without doctests}
+# doctests are skipped if file is missing
+rm -f doc/tutorial.rst
+%endif
 %{__python3} tests.py
 
 

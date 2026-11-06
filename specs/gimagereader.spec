@@ -1,5 +1,5 @@
 Name:          gimagereader
-Version:       3.4.4
+Version:       3.4.5
 Release:       1%{?dist}
 Summary:       A front-end to tesseract-ocr
 
@@ -141,6 +141,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-q
 %{_datadir}/applications/%{name}-qt6.desktop
 
 %changelog
+* Thu Nov 05 2026 Sandro Mani <manisandro@gmail.com> - 3.4.5-1
+- Update to 3.4.5
+
 * Sun Oct 25 2026 Sandro Mani <manisandro@gmail.com> - 3.4.4-1
 - Update to 3.4.4
 

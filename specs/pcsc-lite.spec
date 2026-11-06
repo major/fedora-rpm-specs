@@ -14,7 +14,7 @@ License:        BSD-3-Clause AND BSD-2-Clause AND GPL-3.0-or-later
 URL:            https://pcsclite.apdu.fr/
 Source0:        https://pcsclite.apdu.fr/files/%{name}-%{version}.tar.xz
 Source1:        https://pcsclite.apdu.fr/files/%{name}-%{version}.tar.xz.asc
-Source2:        gpgkey-F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E.gpg
+Source2:        https://ludovic-rousseau.pages-perso.free.fr/gpg_key_E8F9C57E.txt
 
 BuildRequires:  doxygen
 BuildRequires:  graphviz
@@ -26,7 +26,7 @@ BuildRequires:  perl-podlators
 BuildRequires:  polkit-devel
 %endif
 BuildRequires:  gettext-devel
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -79,7 +79,7 @@ Requires:       %{name}-libs = %{version}-%{release}
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup
 
