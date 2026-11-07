@@ -14,6 +14,10 @@ Source1:  https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc
 # Similar situation as gvc
 Source2:  https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_version}/libcall-ui-%{libcall_ui_version}.tar.gz
 Source3:  phosh
+# calendar-server: build with libical 4 (const property getters);
+# same fix as gnome-shell b34766f3 by Xi Ruoyao
+# https://gitlab.gnome.org/World/Phosh/phosh/-/merge_requests/1991
+Patch:    phosh-0.57.0-libical4.patch
 
 ExcludeArch:  %{ix86}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2426735
@@ -121,6 +125,7 @@ Development headers for libphosh.
 
 mv libgnome-volume-control-%{gvc_commit} subprojects/gvc
 mv libcall-ui-%{libcall_ui_version} subprojects/libcall-ui
+%autopatch -p1
 
 %build
 %meson -Dphoc_tests=disabled -Dbindings-lib=true -Dsearchd=true

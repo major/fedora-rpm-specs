@@ -23,8 +23,8 @@
 %endif
 
 Name:           %{upstream_name}%{?v2_suffix}
-Version:        2.15.3
-Release:        4%{?dist}
+Version:        2.15.4
+Release:        1%{?dist}
 Summary:        Module metadata manipulation library
 
 # COPYING:      MIT
@@ -40,7 +40,7 @@ URL:            https://github.com/fedora-modularity/libmodulemd
 Source0:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz
 Source1:        %{url}/releases/download/%{version}/modulemd-%{version}.tar.xz.asc
 # Key exported from Petr Pisar's keyring
-Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
+Source2:        keyring-10E1B1BC73B4796EE25B9CA42D20EEFCA8895F65.pgp
 
 %if (0%{?rhel} && 0%{?rhel} <= 7)
 BuildRequires:  gnupg2
@@ -190,6 +190,9 @@ mv %{buildroot}%{_mandir}/man1/modulemd-validator.1 \
 
 
 %changelog
+* Fri Nov 06 2026 Petr Pisar <ppisar@redhat.com> - 2.15.4-1
+- 2.15.4 bump
+
 * Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 2.15.3-4
 - Verify upstream source signatures with openpgpverify
 

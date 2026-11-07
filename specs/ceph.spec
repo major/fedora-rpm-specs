@@ -197,7 +197,7 @@ fi
 #################################################################################
 Name:		ceph
 Version:	21.2.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -3213,6 +3213,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Nov 05 2026 Neil Hanlon <neil@shrug.pw> - 2:21.2.0-4
+- Rebuild for grpc 1.75.1
+
 * Tue Nov 3 2026 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:21.2.0-2
 - ceph-21.2.0, rebuild with libarrow-26.0.1, f46-build-side-158624
 

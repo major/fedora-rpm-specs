@@ -35,7 +35,7 @@ BuildOption(conf): -DBENCHMARK_ENABLE_INSTALL:BOOL=ON
 BuildOption(conf): -DBENCHMARK_INSTALL_DOCS:BOOL=OFF
 BuildOption(conf): -DBENCHMARK_INSTALL_TOOLS:BOOL=OFF
 BuildOption(conf): -DBENCHMARK_USE_BUNDLED_GTEST:BOOL=OFF
-BuildOption(conf): -DBENCHMARK_ENABLE_LIBPFM:BOOL=%{with libfpm}
+BuildOption(conf): -DBENCHMARK_ENABLE_LIBPFM:BOOL=%{with libpfm}
 BuildOption(conf): -DBENCHMARK_ENABLE_GTEST_TESTS:BOOL=%{with ctest}
 BuildOption(conf): -DBENCHMARK_ENABLE_TESTING:BOOL=%{with ctest}
 

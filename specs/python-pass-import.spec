@@ -22,6 +22,7 @@ BuildArch:     noarch
 BuildRequires: python3-devel
 BuildRequires: python3dist(pytest)
 BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: pass
 
 Requires:      pass
@@ -42,7 +43,7 @@ Summary:    %{summary}
 %pyproject_extras_subpkg -n python3-%{srcname} xml keepass gnomekeyring encrypted_otp decrypt %{?has_jsonpath_ng_170:filter}
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires

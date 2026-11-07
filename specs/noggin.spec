@@ -1,6 +1,6 @@
 Name:           noggin
 Version:        1.9.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -57,6 +57,9 @@ Provides a theme for Noggin used for openSUSE Accounts.
 
 # Allow markupsafe 3 and newer
 sed -i "/^markupsafe/s/\^/>=/" pyproject.toml
+
+# Allow Flask-Mail 0.10 and newer
+sed -i "/^Flask-Mail/s/\^/>=/" pyproject.toml
 
 # Install README.Fedora file
 install -pm 0644 %{SOURCE10} README.Fedora
@@ -124,6 +127,9 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
 %changelog
+* Sun Oct 18 2026 Filipe Rosset <rosset.filipe@gmail.com> - 1.9.0-13
+- Allow Flask-Mail 0.10 and newer
+
 * Mon Aug 03 2026 Kevin Fenzi <kevin@scrye.com> - 1.9.0-12
 - Rebuild for new python-translitcodec
 

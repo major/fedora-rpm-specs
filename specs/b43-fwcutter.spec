@@ -6,12 +6,12 @@ License:        BSD-2-Clause
 URL:            https://bues.ch/b43/fwcutter/
 Source0:        https://bues.ch/b43/fwcutter/%{name}-%{version}.tar.xz
 Source1:        https://bues.ch/b43/fwcutter/%{name}-%{version}.tar.xz.asc
-# gpg --no-default-keyring --keyring ./keyring.gpg --keyserver keyserver.ubuntu.com --recv-key 757FAB7CED1814AE15B4836E5FB027474203454C
-# gpg --no-default-keyring --keyring ./keyring.gpg  --output 757FAB7CED1814AE15B4836E5FB027474203454C.gpg --export --armor
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 0392335A78083894A4301C43236E8A58C6DB4512 69100FFB90E87A320DF8643CBEC39009E8321A61 757FAB7CED1814AE15B4836E5FB027474203454C --output 757FAB7CED1814AE15B4836E5FB027474203454C.gpg --overwrite
 Source2:        757FAB7CED1814AE15B4836E5FB027474203454C.gpg
 Source100:      README.too
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 
 %description
@@ -22,7 +22,7 @@ See the README.too file shipped in the package's documentation for
 instructions on using this tool.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p2
 
 cp %{SOURCE100} .

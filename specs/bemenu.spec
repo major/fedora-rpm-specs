@@ -11,12 +11,14 @@ License:    GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:        https://github.com/Cloudef/bemenu
 Source0:    %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:    %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 16B6B7CACAF339DECE9F154729317348D687B86B --output bemenu-pgp.txt --overwrite
 Source2:    https://cloudef.pw/bemenu-pgp.txt
 
 Patch:      respect-env-build-flags.patch
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 BuildRequires:  pkgconfig(cairo)
 BuildRequires:  pkgconfig(ncursesw)
@@ -42,7 +44,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Development files for extending %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

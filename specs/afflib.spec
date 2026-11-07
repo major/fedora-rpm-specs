@@ -1,19 +1,18 @@
 Name:           afflib
-Version:        3.7.22
+Version:        3.7.23
 Release:        %autorelease
 License:        LicenseRef-Callaway-BSD-with-advertising
 Summary:        Library to support the Advanced Forensic Format
 
 %global         gituser      sshock
 %global         gitname      AFFLIBv3
-%global         gitdate      20250908
-%global         commit       23935ba31271e55890a2126bd0f1944daeb33438
+%global         gitdate      20261102
+%global         commit       a1d6b350d283f4f5bff2afece8f5247b0c438a34
 %global         shortcommit %(c=%{commit}; echo ${c:0:7})
 
 URL:            https://github.com/sshock/AFFLIBv3
 VCS:            https://github.com/sshock/AFFLIBv3
 Source0:        %{vcs}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-Patch0:         fix-60-build-error-with-gcc-16.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  libtool

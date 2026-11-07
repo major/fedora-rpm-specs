@@ -9,14 +9,14 @@ URL:            http://tevent.samba.org/
 Source0:        http://samba.org/ftp/tevent/tevent-%{version}.tar.gz
 Source1:        http://samba.org/ftp/tevent/tevent-%{version}.tar.asc
 # gpg2 --no-default-keyring --keyring ./tevent.keyring --recv-keys 9147A339719518EE9011BCB54793916113084025
-Source2:        tevent.keyring
+Source2:        https://download.samba.org/pub/samba/samba-pubkey.asc#/tevent.keyring
 
 # Patches
 
 BuildRequires: docbook-style-xsl
 BuildRequires: doxygen
 BuildRequires: gcc
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: libcmocka-devel >= 1.1.3
 BuildRequires: libtalloc-devel >= %{talloc_version}
 BuildRequires: libxslt
@@ -54,7 +54,7 @@ Requires: libtevent%{?_isa} = %{version}-%{release}
 Python 3 bindings for libtevent
 
 %prep
-zcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
+zcat %{SOURCE0} | %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup -n tevent-%{version} -p1
 
 %build

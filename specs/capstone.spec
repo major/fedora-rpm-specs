@@ -76,10 +76,7 @@ BuildRequires:  python2-setuptools
 %endif
 
 %if %{with python3}
-BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-pip
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pytest
 %endif
 
@@ -133,7 +130,6 @@ The python2-capstone package contains python bindings for %{name}.
 %if %{with python3}
 %package	-n python%{python3_pkgversion}-capstone
 BuildArch:      noarch
-%{?python_provide:%python_provide python%{python3_pkgversion}-capstone}
 Provides:       %{name}-python%{python3_pkgversion} = %{version}-%{release}
 Obsoletes:      %{name}-python%{python3_pkgversion} < %{version}-%{release}
 Requires:       %{name} = %{version}-%{release}
@@ -176,9 +172,8 @@ The ocaml-%{name} package contains OCaml bindings for %{name}.
 %autosetup -n %{gitname}-%{version} -p1
 
 %if %{with python3}
-pushd bindings/python
-%pyproject_buildrequires
-popd
+%generate_buildrequires
+%pyproject_buildrequires --directory bindings/python
 %endif
 
 
@@ -194,13 +189,15 @@ mv capstone.pc.tmp capstone.pc
 # build python bindings
 pushd bindings/python
 
+# don't build another copy of libcapstone in Python sitelib
+export LIBCAPSTONE_PATH=%{buildroot}%{_libdir}
+
 %if %{with python2}
 %py2_build
 %endif
 
 %if %{with python3}
-# %%pyproject_wheel
-%py3_build
+%pyproject_wheel
 %endif
 popd
 
@@ -246,22 +243,11 @@ install -p -m 644 -D %{SOURCE1} %{buildroot}%{_mandir}/man1/
 pushd bindings/python
 %if %{with python2}
 %py2_install
-
-# cleanup the install
-rm -rf %{buildroot}%{python2_sitelib}/capstone/lib/libcapstone.a
-rm -rf %{buildroot}%{python2_sitelib}/capstone/lib/libcapstone.so
-rm -rf %{buildroot}%{python2_sitelib}/capstone/include/capstone
 %endif
 
 %if %{with python3}
-%py3_install
-# %%pyproject_install
-# %%pyproject_save_files capstone
-
-# cleanup the install
-rm -rf %{buildroot}%{python3_sitelib}/capstone/lib/libcapstone.a
-rm -rf %{buildroot}%{python3_sitelib}/capstone/lib/libcapstone.so
-rm -rf %{buildroot}%{python3_sitelib}/capstone/include/capstone
+%pyproject_install
+%pyproject_save_files -l capstone
 
 %endif
 popd
@@ -280,8 +266,11 @@ install -D -p -m 0644 bindings/java/%{name}.jar  %{buildroot}/%{_javadir}/%{name
 
 
 %check
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+%pyproject_check_import
+
 # ln -s libcapstone.so.5 libcapstone.so
-make check LD_LIBRARY_PATH="`pwd`"
+make check
 
 %if %{with python3}
 pushd bindings/python
@@ -292,7 +281,7 @@ popd
 
 %if %{with ocaml}
 pushd bindings/ocaml
-make check LD_LIBRARY_PATH="`pwd`"
+make check
 popd
 %endif
 
@@ -327,9 +316,7 @@ popd
 
 
 %if %{with python3}
-#%%files -n python%%{python3_pkgversion}-capstone -f %%{pyproject_files}
-%files -n python%{python3_pkgversion}-capstone
-%{python3_sitelib}/capstone*
+%files -n python%{python3_pkgversion}-capstone -f %{pyproject_files}
 %endif
 
 

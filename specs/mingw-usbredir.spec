@@ -2,7 +2,7 @@
 
 Name:           mingw-usbredir
 Version:        0.14.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        MinGW USB network redirection protocol libraries
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -10,6 +10,8 @@ License:        LicenseRef-Callaway-LGPLv2+
 URL:            http://spice-space.org/page/UsbRedir
 Source0:        http://spice-space.org/download/usbredir/usbredir-%{version}.tar.xz
 Source1:        http://spice-space.org/download/usbredir/usbredir-%{version}.tar.xz.sig
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 206D3B352F566F3B0E6572E997D9123DE37A484F --output victortoso-E37A484F.keyring --overwrite
 Source2:        victortoso-E37A484F.keyring
 Patch0001:      0001-Fix-Wincompatible-pointer-types-on-mingw32.patch
 
@@ -24,7 +26,7 @@ BuildRequires:  mingw32-glib2
 BuildRequires:  mingw64-glib2
 BuildRequires:  git-core
 BuildRequires:  meson
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 
 %description
 The usbredir libraries allow USB devices to be used on remote and/or virtual
@@ -76,7 +78,7 @@ applications that use usbredir with MinGW.
 
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -S git_am -p1 -n usbredir-%{version}
 
 %build
@@ -135,6 +137,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 0.14.0-7
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

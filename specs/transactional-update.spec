@@ -4,12 +4,30 @@
 
 Name:           transactional-update
 Version:        6.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Transactional Updates with btrfs and snapshots
 
 License:        GPL-2.0-or-later and LGPL-2.1-or-later
 URL:            https://github.com/openSUSE/transactional-update
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# All patches listed below are from https://github.com/openSUSE/transactional-update/pull/179 except Patch0007: https://github.com/openSUSE/transactional-update/pull/184
+# Only bind mount /var/lib/ca-certificates if it exists (it does not on Fedora)
+Patch0001:      0001-Only-bind-mount-var-lib-ca-certificates-if-it-exists.patch
+# Do not assume the .snapshots subvolume lives below "@"
+Patch0002:      0002-Do-not-assume-the-snapshots-subvol-lives-below-at.patch
+# Report files that can not be synced instead of aborting with a core dump
+Patch0003:      0003-sync-etc-state-Report-files-that-can-not-be-synced.patch
+# Remove the snapshot a failed "snapper create" leaves behind
+Patch0004:      0004-Snapper-Remove-the-snapshot-left-behind-by-a-failed-creation.patch
+# Delete directories that were deleted in the old snapshot, without crashing
+Patch0005:      0005-sync-etc-state-Fix-deleting-directories-removed-in-the-old-snapshot.patch
+# Find the default BLS entry in the snapshot for kexec when sdbootutil is missing
+Patch0006:      0006-Reboot-Find-the-BLS-entry-in-the-snapshot-without-sdbootutil.patch
+# Make Transaction::getBindDir() public so that the libdnf5 plugin can run
+# package scriptlets in tukit's mount namespace
+Patch0007:      0007-Make-Transaction-getBindDir-public.patch
+
 
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
@@ -211,6 +229,9 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Thu Nov 05 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 6.2.0-2
+- Add Patches for compatibility with transactional tooling on Fedora
+
 * Wed Nov 04 2026 Neal Gompa <ngompa@fedoraproject.org> - 6.2.0-1
 - Update to version 6.2.0
 - Resolves: rhbz#2449148

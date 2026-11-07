@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -1841,6 +1841,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Fri  Nov 05 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-25
+- And another attempt to remove global static variables from libbfd.so.  (#2564442)
+
 * Thu  Nov 05 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-24
 - Another attempt to remove global static variables from libbfd.so.  (#2564442)
 

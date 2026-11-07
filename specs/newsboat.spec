@@ -2,7 +2,7 @@
 %bcond check 0
 
 Name:    newsboat
-Version: 2.45
+Version: 2.45.1
 Release: %{autorelease}
 Summary: RSS/Atom feed reader for the text console
 
@@ -10,7 +10,7 @@ License: MIT
 URL:     https://www.newsboat.org
 Source0: https://newsboat.org/releases/%{version}/%{name}-%{version}.tar.xz
 Source1: https://newsboat.org/releases/%{version}/%{name}-%{version}.tar.xz.asc
-Source2: https://newsboat.org/newsboat.pgp
+Source2: https://keys.openpgp.org/vks/v1/by-fingerprint/B8B1756A0DDBF0760CE67CCF4ED6CD61932B9EBE#/newsboat.asc
 
 Patch:  0001-make-do-not-require-Cargo.lock.patch
 Patch:  0002-libnewsboat-relax-requirements.patch
@@ -19,7 +19,7 @@ Patch:  0003-Do-not-build-http-test-server-by-default.patch
 
 # Source file verification
 BuildRequires: make
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 BuildRequires: asciidoctor
 BuildRequires: gcc-c++
@@ -44,7 +44,7 @@ Provides: podboat = %{version}-%{release}
 Newsboat is a fork of Newsbeuter, an RSS/Atom feed reader for the text console.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 # Note to self: do not use -S git_am for released builds, it messes up version string
 %autosetup -p1
 %cargo_prep

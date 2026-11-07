@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 
 %global __requires_exclude /usr/local/bin/dib-python
 %global __requires_exclude %{__requires_exclude}|/sbin/runscript
@@ -7,7 +7,7 @@
 
 Name:           diskimage-builder
 Summary:        Image building tools for OpenStack
-Version:        3.43.0
+Version:        3.44.0
 Release:        %autorelease
 License:        Apache-2.0
 Group:          System Environment/Base

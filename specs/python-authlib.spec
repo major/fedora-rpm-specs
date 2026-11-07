@@ -5,12 +5,12 @@
 %bcond tests_jose %{undefined rhel}
 
 Name:           python-authlib
-Version:        1.5.2
+Version:        1.9.5
 Release:        %autorelease
 Summary:        Build OAuth and OpenID Connect servers in Python
 
 License:        BSD-3-Clause
-URL:            https://github.com/lepture/authlib
+URL:            https://github.com/authlib/authlib
 Source0:        %{url}/archive/v%{version}/authlib-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -32,12 +32,15 @@ Summary:        %{summary}
 %autosetup -p1 -n authlib-%{version}
 
 # Remove OAuth 1 tests, because they require support for SHA1.
-sed -i '/tests\.django\.test_oauth1/d' tests/django/settings.py
+sed -i '/tests\.django\.test_oauth1/d' tests/django_settings.py
 rm -rf \
   tests/django/test_oauth1 \
   tests/flask/test_oauth1 \
   tests/clients/test_requests/test_oauth1_session.py \
   tests/clients/test_httpx/test_oauth1_client.py
+
+# Strip non-test/developer tools from pyproject.toml
+sed -i -E '/"(coverage|diff-cover|prek|scriv|tox-uv)/d' pyproject.toml
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -i 's/coverage run --source=authlib -p -m pytest/python3 -m pytest/' tox.ini

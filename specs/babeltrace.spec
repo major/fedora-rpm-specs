@@ -1,12 +1,13 @@
 Name:           babeltrace
 Version:        1.5.11
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Trace Viewer and Converter, mainly for the Common Trace Format
 License:        MIT AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LGPL-2.1-only AND BSD-4-Clause-UC
 URL:            https://www.efficios.com/babeltrace
 Source0:        https://www.efficios.com/files/%{name}/%{name}-%{version}.tar.bz2
 Source1:        https://www.efficios.com/files/%{name}/%{name}-%{version}.tar.bz2.asc
-# gpg2 --export --export-options export-minimal 7F49314A26E0DE78427680E05F1B2A0789F12B11 > gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 7F49314A26E0DE78427680E05F1B2A0789F12B11 --output gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg --overwrite
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 Patch0:         babeltrace-getaddrinfo.patch
 Patch1:         0001-Fix-handle-NULL-list-pointer-to-avoid-Python-segfaul.patch
@@ -22,7 +23,7 @@ BuildRequires:  python3-setuptools
 BuildRequires:  swig >= 2.0
 BuildRequires:  elfutils-devel >= 0.154
 BuildRequires:  autoconf automake libtool
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
@@ -66,7 +67,7 @@ to/from another trace format.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -119,6 +120,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.txt
 
 
 %changelog
+* Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 1.5.11-23
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 1.5.11-22
 - Rebuilt for Python 3.15.0b4 ABI change
 

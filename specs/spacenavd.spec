@@ -1,6 +1,6 @@
 Name:           spacenavd
 Version:        1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, compatible alternative for 3Dconnexion's input drivers
 
 License:        GPL-3.0-or-later
@@ -45,6 +45,10 @@ sed -i "s/CFLAGS =/CFLAGS +=/g" Makefile
 mkdir -p %{buildroot}%{_unitdir}
 install -p -m 0644 contrib/systemd/spacenavd.service %{buildroot}%{_unitdir}
 
+# Install example config file
+mkdir -p %{buildroot}%{_sysconfdir}
+install -p -m 0644 doc/example-spnavrc %{buildroot}%{_sysconfdir}/spnavrc
+
 
 %post
 %systemd_post spacenavd.service
@@ -60,10 +64,15 @@ install -p -m 0644 contrib/systemd/spacenavd.service %{buildroot}%{_unitdir}
 %doc AUTHORS doc/* README.md
 %license COPYING
 %{_bindir}/*
+%config(noreplace) %{_sysconfdir}/spnavrc
 %{_unitdir}/%{name}.service
 
 
 %changelog
+* Fri Nov 06 2026 Richard Shaw <hobbes1069@gmail.com> - 1.4-2
+- Install /etc/spnavrc example as it is required for the service, fixes
+  BZ#2567303.
+
 * Sun Oct 25 2026 Richard Shaw <hobbes1069@gmail.com> - 1.4-1
 - Update to 1.4.
 

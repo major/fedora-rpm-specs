@@ -6,7 +6,7 @@ Name: gnucash
 Summary: Finance management application
 Version: 5.17
 URL: https://gnucash.org/
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -50,10 +50,9 @@ BuildRequires: python3-devel >= 3.6
 BuildRequires: python3-setuptools
 
 Requires: gnucash-docs >= %{version}
-Requires: dconf
-Requires: perl(Finance::Quote)
-Requires: perl(JSON::Parse)
-Requires: perl(Getopt::Std)
+Recommends: perl(Finance::Quote)
+Recommends: perl(JSON::Parse)
+Recommends: perl(Getopt::Std)
 Requires: gnome-icon-theme
 Recommends: libdbi-dbd-sqlite
 Suggests: libdbi-dbd-mysql
@@ -120,6 +119,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Fri Nov 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 5.17-2
+- Soften Finance::Quote dependency
+
 * Mon Sep 28 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.17-1
 - 5.17
 

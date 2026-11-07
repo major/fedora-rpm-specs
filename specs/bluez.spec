@@ -4,15 +4,21 @@
 %bcond_with deprecated
 %endif
 
-# Snapshot generated with:
+# To package an upstream git snapshot instead of a release, uncomment
+# gitdate and shortcommit below (as %%global) and generate the tarball with
+# the commands below. The Version then follows the snapshot guidelines,
+# <base_version>^<number>.<revision> with the snapshot's commit date as
+# the number (keep the base version at the last upstream release; the date
+# must increase with every new snapshot):
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_snapshots
 # git config tar.tar.xz.command "xz -c"
-# export VERSION=5.87 ; export DATE=`date +%Y%m%d` ; export SHA=`git rev-parse --short HEAD` ; git archive --format=tar.xz -o bluez-${VERSION}^${DATE}git${SHA}.tar.xz --prefix=bluez-${VERSION}^${DATE}git${SHA}/ HEAD
-%global gitdate 20260918
-%global shortcommit b5ed56d8c
+# export VERSION=5.88 ; export DATE=`git log -1 --format=%cd --date=format:%Y%m%d HEAD` ; export SHA=`git rev-parse --short HEAD` ; git archive --format=tar.xz -o bluez-${VERSION}^${DATE}.${SHA}.tar.xz --prefix=bluez-${VERSION}^${DATE}.${SHA}/ HEAD
+#global gitdate YYYYMMDD
+#global shortcommit 0123abcde
 
 Name:    bluez
-Version: 5.87%{?shortcommit:^%{gitdate}git%{shortcommit}}
-Release: 4%{?dist}
+Version: 5.88%{?shortcommit:^%{gitdate}.%{shortcommit}}
+Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
@@ -76,7 +82,6 @@ Bluetooth applications that have bee deprecated by upstream. They have been
 replaced by functionality in the core bluetoothctl and will eventually
 be dropped by upstream. Utilities include:
 	- ciptool
-	- gatttool
 	- hciattach
 	- hciconfig
 	- hcitool
@@ -161,12 +166,6 @@ autoreconf -vif
 
 %install
 %{make_install}
-
-%if %{with deprecated}
-# "make install" fails to install gatttool, necessary for Bluetooth Low Energy
-# Red Hat Bugzilla bug #1141909, Debian bug #720486
-install -m0755 attrib/gatttool $RPM_BUILD_ROOT%{_bindir}
-%endif
 
 # "make install" fails to install avinfo
 # Red Hat Bugzilla bug #1699680
@@ -281,7 +280,6 @@ fi
 %if %{with deprecated}
 %files deprecated
 %{_bindir}/ciptool
-%{_bindir}/gatttool
 %{_bindir}/hciattach
 %{_bindir}/hciconfig
 %{_bindir}/hcitool
@@ -352,6 +350,13 @@ fi
 %{_userunitdir}/obex.service
 
 %changelog
+* Thu Nov 05 2026 Michel Lind <salimma@fedoraproject.org> - 5.88-1
+- Update to 5.88, which also fixes the upgrade path from the 5.87 snapshots
+- Use the snapshot versioning from the packaging guidelines for future
+  snapshots
+- Drop gatttool from bluez-deprecated: upstream removed it, use the gatt
+  menu of bluetoothctl instead
+
 * Mon Nov 02 2026 Michel Lind <salimma@fedoraproject.org> - 5.87^20260918gitb5ed56d8c-4
 - hid2hci: don't fail %%post when udevadm is unavailable
 - mesh: use system unit scriptlets for bluetooth-mesh.service

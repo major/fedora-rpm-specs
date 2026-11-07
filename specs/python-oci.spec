@@ -4,7 +4,7 @@
 %global         srcname     oci
 
 Name:           python-%{srcname}
-Version:        2.185.2
+Version:        2.190.0
 Release:        %autorelease
 Summary:        Oracle Cloud Infrastructure SDK for Python
 
@@ -60,6 +60,13 @@ Requires:       python3dist(six)
 # Remove upper limits and pinned dependencies.
 sed -i -e 's/,[<= ]\+[0-9\.]\+//' -e 's/==/>=/' pyproject.toml
 
+# Fedora has no python-pkcs11 package and nothing provides
+# python3dist(python-pkcs11). Upstream treats it as an optional dependency:
+# the import is wrapped in try/except in oci/auth/signers/__init__.py, so
+# the SDK imports and works without it. Only the PKCS#11 signers are
+# unavailable until python-pkcs11 is packaged in Fedora.
+sed -i '/python-pkcs11/d' pyproject.toml
+
 # Compatibility with pytest 7.4.0
 # reported upstream: https://github.com/oracle/oci-python-sdk/issues/565
 sed -i 's/--config-file/--config-file-path/' tests/conftest.py
@@ -78,7 +85,8 @@ sed -i 's/--config-file/--config-file-path/' tests/conftest.py
 
 
 %check
-%pyproject_check_import -e 'oci.addons.*'
+# oci.auth.signers.pkcs11_signer imports the unpackaged python-pkcs11 module.
+%pyproject_check_import -e 'oci.addons.*' -e 'oci.auth.signers.pkcs11_signer'
 
 %if %{with tests}
 %pytest tests/autogentest tests/unit tests/integ

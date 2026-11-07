@@ -186,7 +186,8 @@ Patch100:       rustc-1.99.0-disable-libssh2.patch
   elseif arch == "ppc64le" then
     arch = "powerpc64le"
   elseif arch == "riscv64" then
-    arch = "riscv64gc"
+    local rhel = tonumber(rpm.expand("%{?rhel}")) or 0
+    arch = rhel >= 11 and "riscv64a23" or "riscv64gc"
   end
   return arch.."-unknown-linux-"..abi
 end}
@@ -232,6 +233,7 @@ end}
 %if %defined bootstrap_arches
 # For each bootstrap arch, add an additional binary Source.
 # Also define bootstrap_source just for the current target.
+# For RISC-V, only GC is tier 2 with host tools at this time.
 %{lua: do
   local bootstrap_arches = {}
   for arch in rpm.expand("%{bootstrap_arches}"):gmatch("%S+") do
@@ -242,7 +244,8 @@ end}
   local target_arch = rpm.expand("%{_target_cpu}")
   for i, arch in ipairs(bootstrap_arches) do
     local i = 1000 + i * 6
-    local suffix = channel.."-"..rust_triple(arch)
+    local upstream_arch = arch == "riscv64" and "riscv64gc" or arch
+    local suffix = channel.."-"..rust_triple(upstream_arch)
     print(string.format("Source%d: %s/cargo-%s.tar.xz\n", i, base, suffix))
     print(string.format("Source%d: %s/cargo-%s.tar.xz.asc\n", i+1, base, suffix))
     print(string.format("Source%d: %s/rustc-%s.tar.xz\n", i+2, base, suffix))
@@ -840,9 +843,11 @@ end}
 
 # Set up shared environment variables for build/install/check.
 # *_USE_PKG_CONFIG=1 convinces *-sys crates to use the system library.
+# We need PKG_CONFIG_ALLOW_CROSS when BOOTSTRAP_TRIPLE is different.
 %global rust_env %{shrink:
   %{?rustflags:RUSTFLAGS="%{rustflags}"}
   %{rustc_target_cpus}
+  PKG_CONFIG_ALLOW_CROSS=1
   %{!?with_bundled_sqlite3:LIBSQLITE3_SYS_USE_PKG_CONFIG=1}
   %{!?with_disabled_libssh2:LIBSSH2_SYS_USE_PKG_CONFIG=1}
   %{?llvm_path:PATH="%{llvm_path}:$PATH"}
@@ -870,6 +875,17 @@ end}
 }
 %endif
 %constrain_build -m 4096
+
+%define host_target_config() %{shrink:
+  --set target.%1.linker=%{__cc}
+  --set target.%1.cc=%{__cc}
+  --set target.%1.cxx=%{__cxx}
+  --set target.%1.ar=%{__ar}
+  --set target.%1.ranlib=%{__ranlib}
+  --set target.%1.profiler="%{profiler}"
+  --set target.%1.optimized-compiler-builtins="%{optimized_builtins}"
+  %{!?with_bundled_llvm: --set target.%1.llvm-config=%{llvm_root}/bin/llvm-config}
+}
 
 %if %defined mingw_targets
 %define mingw_target_config %{shrink:
@@ -918,24 +934,26 @@ test -r "%{profiler}"
 %define optimized_builtins %{clang_lib}/%{_arch}-redhat-linux-gnu/libclang_rt.builtins.a
 test -r "%{optimized_builtins}"
 
+# It is possible to use a different bootstrap triple than the desired host,
+# e.g. using riscv64gc-unknown-linux-gnu to build riscv64a23
+BOOTSTRAP_TRIPLE=$(%{local_rust_root}/bin/rustc --print host-tuple)
+BOOTSTRAP_TARGET_CONFIG=""
+if [ "$BOOTSTRAP_TRIPLE" != "%{rust_triple}" ]; then
+  BOOTSTRAP_TARGET_CONFIG="%{host_target_config $BOOTSTRAP_TRIPLE}"
+fi
+
 %configure --disable-option-checking \
   --docdir=%{_pkgdocdir} \
   --libdir=%{common_libdir} \
-  --build=%{rust_triple} --host=%{rust_triple} --target=%{rust_triple} \
-  --set target.%{rust_triple}.linker=%{__cc} \
-  --set target.%{rust_triple}.cc=%{__cc} \
-  --set target.%{rust_triple}.cxx=%{__cxx} \
-  --set target.%{rust_triple}.ar=%{__ar} \
-  --set target.%{rust_triple}.ranlib=%{__ranlib} \
-  --set target.%{rust_triple}.profiler="%{profiler}" \
-  --set target.%{rust_triple}.optimized-compiler-builtins="%{optimized_builtins}" \
+  --build="$BOOTSTRAP_TRIPLE" $BOOTSTRAP_TARGET_CONFIG \
+  --host=%{rust_triple} --target=%{rust_triple} \
+  %{host_target_config %{rust_triple}} \
   %{?mingw_target_config} \
   %{?wasm_target_config} \
   --python=%{__python3} \
   --local-rust-root=%{local_rust_root} \
   --set build.rustfmt=/bin/true \
-  %{!?with_bundled_llvm: --llvm-root=%{llvm_root} \
-    %{!?with_llvm_static: --enable-llvm-link-shared } } \
+  %{!?with_bundled_llvm: %{!?with_llvm_static: --enable-llvm-link-shared }} \
   --disable-llvm-static-stdcpp \
   --disable-llvm-bitcode-linker \
   --disable-lld \
@@ -971,8 +989,8 @@ mkdir -p "%{profraw}"
 # We normally use `x.py`, but in this case we invoke the stage 2 compiler and libs
 # directly to ensure we use the instrumented compiler.
 env LLVM_PROFILE_FILE="%{profraw}/default_%%m_%%p.profraw" \
-  LD_LIBRARY_PATH=$PWD/build/host/stage2/lib \
-  RUSTC=$PWD/build/host/stage2/bin/rustc \
+  LD_LIBRARY_PATH=$PWD/build/%{rust_triple}/stage2/lib \
+  RUSTC=$PWD/build/%{rust_triple}/stage2/bin/rustc \
   %{local_rust_root}/bin/cargo build --manifest-path=src/tools/cargo/Cargo.toml
 # Finalize the profile data and clean up the raw files
 llvm-profdata merge -o "%{profdata}" "%{profraw}"
@@ -1024,6 +1042,11 @@ rm -rf ./build/dist/ ./build/tmp/
 
 # Some of the components duplicate-install binaries, leaving backups we don't want
 rm -f %{buildroot}%{_bindir}/*.old
+
+# Remove proc-macros libraries leaked by cross builds
+# https://github.com/rust-lang/rust/issues/165478
+find %{buildroot}%{common_libdir} -maxdepth 1 -type f -name '*.so' \
+  ! -name 'librustc_driver-*.so' -exec rm -v '{}' '+'
 
 # Make sure the compiler's shared libraries are in the proper libdir
 %if "%{_libdir}" != "%{common_libdir}"

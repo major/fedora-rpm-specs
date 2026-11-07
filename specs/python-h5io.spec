@@ -35,8 +35,16 @@ Recommends:     python%{python3_version}dist(scipy)
 
 %prep
 %autosetup -n h5io-h5io-%{version} -p1
+
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/--cov[^[:blank:]"=]*(=[^[:blank:]"]*)?//g' pyproject.toml
+
+# Normally, vcs_versioning should be an indirect dependency via setuptools_scm.
+# Upstream depends on it directly solely to avoid version 2.0.1. The problem is
+# that vcs_versioning was introduced relatively recently, and Fedora releases
+# with older setuptools_scm versions (before F45) do not have vcs_versioning.
+# The sensible solution is to remove the direct dependency.
+%pyproject_patch_dependency vcs_versioning:ignore
 
 
 %generate_buildrequires

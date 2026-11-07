@@ -7,11 +7,11 @@ URL:             http://tdb.samba.org/
 Source0:         http://samba.org/ftp/tdb/tdb-%{version}.tar.gz
 Source1:         http://samba.org/ftp/tdb/tdb-%{version}.tar.asc
 # gpg2 --no-default-keyring --keyring ./tdb.keyring --recv-keys 9147A339719518EE9011BCB54793916113084025
-Source2:         tdb.keyring
+Source2:         https://download.samba.org/pub/samba/samba-pubkey.asc#/tdb.keyring
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: libxslt
 BuildRequires: docbook-style-xsl
 BuildRequires: python3-devel
@@ -50,7 +50,7 @@ Python3 bindings for libtdb
 %autosetup -n tdb-%{version} -p1
 
 %build
-zcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
+zcat %{SOURCE0} | %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 # workaround https://gitlab.com/ita1024/waf/-/issues/2472
 export PYTHONARCHDIR=%{python3_sitearch}
 %configure --disable-rpath \

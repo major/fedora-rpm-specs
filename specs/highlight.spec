@@ -1,5 +1,5 @@
 %global forgeurl https://gitlab.com/saalen/highlight
-Version:        4.21
+Version:        4.22
 %forgemeta
 
 Name:           highlight
@@ -73,9 +73,16 @@ cd ../..
 make install-gui DESTDIR=%{buildroot} PREFIX="%{_prefix}" conf_dir="%{_sysconfdir}/"
 %endif
 
-rm -rf %{buildroot}%{_docdir}/%{name}/
+mkdir -p %{buildroot}%{_licensedir}/%{name}
+mv %{buildroot}%{_docdir}/%{name}/COPYING %{buildroot}%{_licensedir}/%{name}/
 
 %check
+# Upstream test suite (src/ci_test.sh) requires network (git clone), so run a
+# basic smoke test of the built binary instead
+printf 'print(\"hello\")' > test.py
+%{buildroot}%{_bindir}/highlight --version
+grep -q 'hello' <(%{buildroot}%{_bindir}/highlight test.py)
+
 %if %{with qt}
 desktop-file-validate %{buildroot}%{_datadir}/applications/highlight.desktop
 %endif
@@ -90,7 +97,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/highlight.desktop
 %{_datadir}/zsh/site-functions/_highlight
 %config(noreplace) %{_sysconfdir}/highlight/
 
-%doc ChangeLog* AUTHORS README* extras/
+%doc ChangeLog* AUTHORS README* INSTALL extras/
 %license COPYING
 
 %if %{with qt}

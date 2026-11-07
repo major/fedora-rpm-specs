@@ -5,7 +5,7 @@
 %global crate string-cases
 
 Name:           rust-string-cases
-Version:        0.2.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        String case conversion utilities
 

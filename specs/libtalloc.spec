@@ -15,7 +15,7 @@ BuildRequires: libxslt
 BuildRequires: docbook-style-xsl
 BuildRequires: python3-devel
 BuildRequires: doxygen
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 Provides: bundled(libreplace)
 Obsoletes: python2-talloc < 2.2.0-1
@@ -54,7 +54,7 @@ Development libraries for python3-talloc
 %autosetup -n talloc-%{version} -p1
 
 %build
-zcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
+zcat %{SOURCE0} | %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 
 # workaround https://gitlab.com/ita1024/waf/-/issues/2472
 export PYTHONARCHDIR=%{python3_sitearch}

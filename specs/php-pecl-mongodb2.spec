@@ -18,7 +18,7 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.5.6
+%global upstream_version  2.5.7
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 
@@ -165,6 +165,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Nov  6 2026 Remi Collet <remi@remirepo.net> - 2.5.7-1
+- update to 2.5.7
+
 * Wed Nov  4 2026 Remi Collet <remi@remirepo.net> - 2.5.6-1
 - update to 2.5.6
 

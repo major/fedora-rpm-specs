@@ -3799,6 +3799,7 @@ fi
 %expand_libs libomptarget.so.%{so_suffix}
 %expand_libs libLLVMOffload.so.%{so_suffix}
 %if %{maj_ver} >= 24
+%expand_libs libacctarget.so.%{so_suffix}
 %expand_libs libLLVMOffloadKernel.so.%{so_suffix}
 %endif
 %endif
@@ -3818,6 +3819,7 @@ fi
 }}
 %if %{maj_ver} >= 24
 %{expand_libs %{expand:
+    libacctarget.so
     libLLVMOffloadKernel.so
     LLVMOffloadKernelPerThreadDefaultStream.o
 }}

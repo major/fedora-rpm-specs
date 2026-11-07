@@ -12,7 +12,7 @@
 
 Name:           rust-coreos-installer
 Version:        0.27.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -182,6 +182,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Fri Nov 06 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.27.0-3
+- Rebuild to address multiple security advisories in zstd / zstd-safe
+
 * Mon Nov 02 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 0.27.0-2
 - Rebuilt with webpki-roots 1.0.11 (removed emSign Root CA - C1/C3)
 - Updated License expression based on a current Rawhide build

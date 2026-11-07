@@ -2,7 +2,7 @@
 %bcond_without perl_Sereal_Decoder_enables_optional_test
 
 Name:           perl-Sereal-Decoder
-Version:        6.003
+Version:        7.001
 Release:        1%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
@@ -122,6 +122,35 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Thu Nov  5 2026 Paul Howarth <paul@city-fan.org> - 7.001-1
+- Update to 7.001 (rhbz#2564204)
+  - Read protocol versions 1 through 7; decode portable little-endian v7
+    floats, including IEEE binary128 on Perl builds without quadmath,
+    converting values to the local NV type
+  - Validate v7 native long-double declarations and reject known format,
+    byte-order and size mismatches; add allow_unknown_long_double for
+    explicitly trusted same-build reads of unidentified layouts; storage sizes
+    must still match
+  - Preserve native floating-point behavior for protocol v1-v6 input; add
+    legacy_float_byteorder for older data with a known source byte order
+  - Include protocol v6 v-string and negative-integer support, keyed SipHash
+    verification, checksum keys, modes, policies and defaults; add
+    prepare_checksum_key(), get_sereal_checksum() and validate_sereal_checksum()
+  - Restore regexp character-set modifiers, /n and /xx, and report the required
+    Perl version for unsupported modifiers
+  - Harden malformed-input and object handling; retain Decoder handles across
+    callbacks, and run output DESTROY callbacks before capturing input on Perl
+    5.24
+  - Restore older-Perl builds, avoid read-only regexp buffer corruption on Perl
+    5.14, and correct 32-bit size handling and allocation diagnostics
+  - Fix bundled Snappy builds on Haiku and hobodecoder compatibility with
+    BusyBox od; improve optional-dependency diagnostics
+  - Extend independent wire-format and stored corpus coverage, including real
+    Fedora s390x producer captures; add a floating-point corpus collector and
+    named declarations in diagnostics and hobodecoder (GH#337)
+  - Ship the shared SECURITY policy and clarify security, checksum and
+    floating-point interoperability documentation
+
 * Sun Nov  1 2026 Paul Howarth <paul@city-fan.org> - 6.003-1
 - Update to 6.003 (rhbz#2564204)
   - Fix bundled Snappy builds on Haiku, which has no byteswap.h

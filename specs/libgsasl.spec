@@ -1,17 +1,19 @@
 Name:           libgsasl
 Version:        1.10.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        GNU SASL library
 License:        LGPL-2.1-or-later
 URL:            https://www.gnu.org/software/gsasl/
 Source0:        https://ftp.gnu.org/gnu/gsasl/%{name}-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/gsasl/%{name}-%{version}.tar.gz.sig
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 9AA9BDB11BB1B99A21285A330664A76954265E8C --output 54265e8c.txt --overwrite
 Source2:        https://josefsson.org/54265e8c.txt
 Patch:          0001-GSSAPI-server-Boundary-check-gss_wrap-token-read-OOB.patch
 Patch:          0002-Fix-NULL-pointer-dereference-in-DIGEST-MD5-parser.patch
 BuildRequires:  gcc
-# for %%gpgverify
-BuildRequires:  gnupg2
+# for %%openpgpverify
+BuildRequires:  openpgpverify
 BuildRequires:  krb5-devel
 BuildRequires:  libgcrypt-devel
 BuildRequires:  libidn-devel
@@ -35,7 +37,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p2
 
 %build
@@ -61,6 +63,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/libgsasl.pc
 
 %changelog
+* Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 1.10.0-18
+- Verify upstream source signatures with openpgpverify
+
 * Fri Aug  7 2026 Peter Lemenkov <lemenkov@gmail.com> - 1.10.0-17
 - Fix CVE-2026-48829
 

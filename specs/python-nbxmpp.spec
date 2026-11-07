@@ -1,5 +1,5 @@
 Name:           python-nbxmpp
-Version:        7.4.0
+Version:        7.5.0
 Release:        1%{?dist}
 Summary:        Python library for non-blocking use of Jabber/XMPP
 License:        GPL-3.0-or-later
@@ -48,6 +48,9 @@ Recommends:     python3-gssapi
 %doc README.md ChangeLog
 
 %changelog
+* Fri Nov 06 2026 Michael Kuhn <suraia@fedoraproject.org> - 7.5.0-1
+- Update to 7.5.0
+
 * Thu Aug 27 2026 Michael Kuhn <suraia@fedoraproject.org> - 7.4.0-1
 - Update to 7.4.0
 

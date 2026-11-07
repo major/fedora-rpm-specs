@@ -14,13 +14,13 @@
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
-%global upstream_tag v10.0.113
+%global upstream_tag v10.0.114
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
 %global hostfxr_version %{runtime_version}
-%global runtime_version 10.0.13
-%global aspnetcore_runtime_version 10.0.13
-%global sdk_version 10.0.113
+%global runtime_version 10.0.14
+%global aspnetcore_runtime_version 10.0.14
+%global sdk_version 10.0.114
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{aspnetcore_runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -34,6 +34,13 @@
 %global use_bundled_llvm_libunwind 1
 %global use_bundled_rapidjson 0
 %global use_bundled_zlib 0
+
+%global bundled_brotli_version 1.1.1
+%global bundled_libunwind_version 1.8.0
+%global bundled_llvm_libunwind_version 20.1.0
+%global bundled_rapidjson_version 24b5e7a8b27f42fa16b96fc70aade9106cf7102f
+%global bundled_zlib_version 2.2.5
+%global bundled_linuxtracepoints_version 1.3.3
 
 %global use_lttng 0
 
@@ -77,13 +84,13 @@
 
 Name:           dotnet%{dotnetver}
 Version:        %{sdk_rpm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        .NET %{dotnetver} Runtime and SDK
 License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND APSL-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSL-1.0 AND bzip2-1.0.6 AND CC0-1.0 AND CC-BY-3.0 AND CC-BY-4.0 AND CC-PDDC AND CNRI-Python AND EPL-1.0 AND GPL-2.0-only AND (GPL-2.0-only WITH GCC-exception-2.0) AND GPL-2.0-or-later AND GPL-3.0-only AND ICU AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-ISO-8879 AND MIT AND MIT-Wu AND MS-PL AND MS-RL AND NCSA AND OFL-1.1 AND OpenSSL AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND W3C-19980720 AND X11 AND Zlib
 
 URL:            https://github.com/dotnet/
 
-Source0:        https://github.com/dotnet/dotnet/archive/refs/tags/%{upstream_tag}.tar.gz#/dotnet-%{sdk_version}.tar.gz
+Source0:        https://builds.dotnet.microsoft.com/dotnet/source-build/dotnet-source-10.0.114-servicing.26522.126.tar.gz#/dotnet-%{sdk_version}.tar.gz
 Source1:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/dotnet-%{sdk_version}.tar.gz.sig
 Source2:        https://dotnet.microsoft.com/download/dotnet/release-key-2023.asc
 Source3:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/release.json
@@ -163,7 +170,8 @@ BuildRequires:  openssl-devel
 %endif
 BuildRequires:  python3
 %if ! %{use_bundled_rapidjson}
-BuildRequires:  rapidjson-devel
+# header-only library must use -static, not -devel
+BuildRequires:  rapidjson-static
 %endif
 BuildRequires:  tar
 BuildRequires:  util-linux
@@ -286,29 +294,32 @@ Requires:       dotnet-hostfxr-%{dotnetver}%{?_isa} >= %{runtime_rpm_version}-%{
 # libicu is dlopen()ed
 Requires:       libicu%{?_isa}
 
+# See: src/runtime/src/native/external/LinuxTracepoints-version.txt
+Provides: bundled(LinuxTracepoints) = %{bundled_linuxtracepoints_version}
+
 %if %{use_bundled_brotli}
 # See: src/runtime/src/native/external/brotli-version.txt
-Provides: bundled(libbrotli) = 1.1.0
+Provides: bundled(brotli) = %{bundled_brotli_version}
 %endif
 
 %if %{use_bundled_libunwind}
 # See: src/runtime/src/native/external/libunwind-version.txt
-Provides: bundled(libunwind) = 1.8.0
+Provides: bundled(libunwind) = %{bundled_libunwind_version}
 %endif
 
 %if %{use_bundled_llvm_libunwind}
 # See: src/runtime/src/native/external/llvm-libunwind-version.txt
-Provides: bundled(llvm-libunwind) = 20.1.0
+Provides: bundled(llvm-libunwind) = %{bundled_llvm_libunwind_version}
 %endif
 
 %if %{use_bundled_rapidjson}
 # See: src/runtime/src/native/external/rapidjson-version.txt
-Provides: bundled(rapidjson) = 24b5e7a8b27f42fa16b96fc70aade9106cf7102f
+Provides: bundled(rapidjson) = %{bundled_rapidjson_version}
 %endif
 
 %if %{use_bundled_zlib}
 # See: src/runtime/src/native/external/zlib-ng-version.txt
-Provides: bundled(zlib) = 2.2.5
+Provides: bundled(zlib) = %{bundled_zlib_version}
 %endif
 
 %description -n dotnet-runtime-%{dotnetver}
@@ -494,6 +505,25 @@ if [[ ${release_json_tag} != %{upstream_tag} ]]; then
 fi
 
 %setup -q -n dotnet-%{upstream_tag_without_v}
+
+# Fail early if an upstream update changes a bundled library without updating
+# the RPM's bundled() metadata. Some version files prefix their version with v.
+check_bundled_version() {
+    local expected=$1 version_file=$2 actual
+    actual=$(head -n 1 "$version_file") || exit 1
+    actual=${actual#v}
+    if [[ "$actual" != "$expected" ]]; then
+        echo "error: $version_file has version $actual; expected $expected" >&2
+        exit 1
+    fi
+}
+
+check_bundled_version %{bundled_brotli_version} src/runtime/src/native/external/brotli-version.txt
+check_bundled_version %{bundled_libunwind_version} src/runtime/src/native/external/libunwind-version.txt
+check_bundled_version %{bundled_llvm_libunwind_version} src/runtime/src/native/external/llvm-libunwind-version.txt
+check_bundled_version %{bundled_rapidjson_version} src/runtime/src/native/external/rapidjson-version.txt
+check_bundled_version %{bundled_zlib_version} src/runtime/src/native/external/zlib-ng-version.txt
+check_bundled_version %{bundled_linuxtracepoints_version} src/runtime/src/native/external/LinuxTracepoints-version.txt
 
 # Remove all prebuilts and binaries
 rm -rf .dotnet/
@@ -1005,6 +1035,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Fri Nov 06 2026 Omair Majid <omajid@redhat.com> - 10.0.114-1
+- Update to .NET SDK 10.0.114 and Runtime 10.0.14
+
 * Mon Nov 02 2026 Jakub Jelen <jjelen@redhat.com> - 10.0.113-2
 - Verify upstream source signatures with openpgpverify
 

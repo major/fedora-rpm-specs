@@ -77,7 +77,7 @@ ExcludeArch: i686
 %global system_webp       1
 %global system_drm        1
 %global system_gbm        1
-%if 0%{?fedora} > 43
+%if 0%{?fedora} > 43 || 0%{?rhel} > 10
 %global system_pipewire   1
 %else
 %global system_pipewire   0
@@ -145,7 +145,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.38.2
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.131
+%global nss_version 3.132
 %global nss_build_version %{nss_version}
 %endif
 
@@ -189,14 +189,14 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        159.0.1
+Version:        160.0
 Release:        1%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20261104.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20261106.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -219,7 +219,6 @@ Source32:       node-stdout-nonblocking-wrapper
 Source33:       firefox.appdata.xml.in
 Source34:       org.mozilla.firefox.search-provider.ini
 Source35:       google-loc-api-key
-Source37:       mochitest-python.tar.gz
 Source38:       print_results
 Source39:       print-errors
 Source40:       run-tests-x11
@@ -259,7 +258,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
-Patch402:        color-range.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -293,7 +291,7 @@ BuildRequires:  pkgconfig(libnotify) >= %{libnotify_version}
 BuildRequires:  pkgconfig(dri)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(alsa)
-BuildRequires:  dbus-glib-devel
+BuildRequires:  dbus-devel
 %if %{?system_av1}
 BuildRequires:  pkgconfig(aom) >= %{aom_version}
 BuildRequires:  pkgconfig(dav1d) >= %{dav1d_version}
@@ -305,7 +303,6 @@ BuildRequires:  libvpx-devel >= %{libvpx_version}
 BuildRequires:  pkgconfig(libwebp) >= %{libwebp_version}
 BuildRequires:  pkgconfig(libwebpdemux) >= %{libwebp_version}
 %endif
-BuildRequires:  autoconf213
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  llvm
 BuildRequires:  llvm-devel
@@ -526,8 +523,8 @@ This package contains results of tests executed during build.
 
 # We need to create the wasi.patch with the correct path to the wasm libclang_rt.
 %if %{with wasi_sdk}
-cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysroot/install/wasi-resource-dir/lib/wasm32-unknown-wasip1/libclang_rt.builtins.a|" > %{_sourcedir}/wasi.patch
-%patch -P80 -p1 -b .wasi
+cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysroot/install/wasi-resource-dir/lib/wasm32-unknown-wasip1/libclang_rt.builtins.a|" > wasi.patch
+patch -p1 -b --suffix .wasi < wasi.patch
 %endif
 %patch -P90 -p2 -b .pgo-simple
 
@@ -544,7 +541,6 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-30/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
-%patch -P402 -p1 -b .color-range
 
 # PGO patches
 %if %{build_with_pgo}
@@ -891,14 +887,6 @@ cp %{SOURCE45} .
 . ./run-wayland-compositor
 %endif
 
-mkdir -p objdir/_virtualenvs/init_py3
-cat > objdir/_virtualenvs/init_py3/pip.conf << EOF
-[global]
-find-links=`pwd`/mochitest-python
-no-index=true
-EOF
-tar xf %{SOURCE37}
-
 #Use python 3.11 for mach
 sed -i -e 's|#!/usr/bin/env python3|#!/usr/bin/env python3.11|' mach
 
@@ -1201,6 +1189,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Fri Nov 06 2026 Martin Stransky <stransky@redhat.com> - 160.0-1
+- Update to latest upstream (160.0)
+
 * Wed Nov 04 2026 Martin Stransky <stransky@redhat.com> - 159.0.1-1
 - Update to latest upstream (159.0.1)
 

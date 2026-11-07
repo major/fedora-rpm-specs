@@ -19,7 +19,7 @@
 
 # https://github.com/gohugoio/hugo
 %global goipath         github.com/gohugoio/hugo
-Version:                0.168.0
+Version:                0.169.0
 
 %gometa -L -f
 
@@ -43,6 +43,8 @@ Patch0:         0001-unix-linux-revert-ppc64x-syscall-assembly-wrapper.patch
 
 BuildRequires:  go-vendor-tools
 BuildRequires:  gcc-c++
+# Hugo 0.166.0 and later declare "go 1.27.0" in go.mod.
+BuildRequires:  golang >= 1.27.0
 
 %description
 The world’s fastest framework for building websites.
@@ -102,7 +104,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %endif
 
 %files -f %{go_vendor_license_filelist}
-%doc docs AGENTS.md CLAUDE.md CONTRIBUTING.md README.md SECURITY.md
+%doc docs AGENTS.md CONTRIBUTING.md README.md SECURITY.md
 %{_bindir}/hugo
 
 

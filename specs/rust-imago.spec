@@ -5,7 +5,7 @@
 %global crate imago
 
 Name:           rust-imago
-Version:        0.2.4
+Version:        0.2.6
 Release:        %autorelease
 Summary:        Library for accessing virtual machine disk images
 
@@ -33,6 +33,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/FOR-0.3.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

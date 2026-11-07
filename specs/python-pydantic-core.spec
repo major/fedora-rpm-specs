@@ -20,7 +20,8 @@ Source:         %{pypi_source pydantic_core}
 
 # Manually created patch for downstream crate metadata changes
 # * Bump jiter to v0.17.0, https://github.com/pydantic/pydantic/pull/13806,
-#   and further allow v0.18, https://github.com/pydantic/pydantic/pull/14003
+#   and further allow v0.18, https://github.com/pydantic/pydantic/pull/14003,
+#   and v0.19, https://github.com/pydantic/pydantic/pull/14247
 Patch:          pydantic-core-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros

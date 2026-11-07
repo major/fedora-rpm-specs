@@ -2,7 +2,7 @@
 
 Name:       nss-pem
 Version:    1.1.1
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    PEM file reader for Network Security Services (NSS)
 
 # See README for details
@@ -13,13 +13,13 @@ URL:        https://github.com/kdudka/nss-pem
 Source0:    https://github.com/kdudka/nss-pem/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
 Source1:    https://github.com/kdudka/nss-pem/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz.asc
 
-# gpg --keyserver pgp.mit.edu --recv-key 992A96E075056E79CD8214F9873DB37572A37B36
-# gpg --output kdudka.pgp --armor --export kdudka@redhat.com
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 992A96E075056E79CD8214F9873DB37572A37B36 --output kdudka.pgp --overwrite
 Source2:    kdudka.pgp
 
 BuildRequires: cmake
 BuildRequires: gcc
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: make
 BuildRequires: nss-pkcs11-devel
 
@@ -31,7 +31,7 @@ PEM file reader for Network Security Services (NSS), implemented as a PKCS#11
 module.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 %build
@@ -49,6 +49,9 @@ module.
 %license COPYING.{GPL,MPL}
 
 %changelog
+* Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 1.1.1-6
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 23 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.1.1-5
 - Build with CMake 4
 - fix FTBFS (rhbz#2504373)

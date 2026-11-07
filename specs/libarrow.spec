@@ -33,7 +33,7 @@
 
 Name:		libarrow
 Version:	26.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -882,6 +882,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Thu Nov 05 2026 Neil Hanlon <neil@shrug.pw> - 26.0.1-2
+- Rebuild for grpc 1.75.1
+
 * Tue Nov 3 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.1-1
 - Arrow 26.0.1 (f46-build-side-158624)
 

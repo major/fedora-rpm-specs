@@ -10,7 +10,7 @@ Source1:    https://xorg.freedesktop.org/archive/individual/app/%{name}-%{versio
 Source2:    gpgkey-3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2.gpg
 
 BuildRequires:  gcc
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 BuildRequires:  meson
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xaw7)
@@ -27,7 +27,7 @@ CLIPBOARD selections for later use.  It stores each CLIPBOARD
 selection as a separate string, each of which can be selected.
 
 %prep
-%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%{openpgpverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup
 
 %build

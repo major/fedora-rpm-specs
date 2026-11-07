@@ -1,12 +1,13 @@
 Name:           babeltrace2
 Version:        2.1.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A trace manipulation toolkit
 License:        MIT AND GPL-2.0-only
 URL:            https://www.efficios.com/babeltrace
 Source0:        https://www.efficios.com/files/babeltrace/babeltrace2-%{version}.tar.bz2
 Source1:        https://www.efficios.com/files/babeltrace/babeltrace2-%{version}.tar.bz2.asc
-# gpg2 --export --export-options export-minimal 7F49314A26E0DE78427680E05F1B2A0789F12B11 > gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 7F49314A26E0DE78427680E05F1B2A0789F12B11 --output gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg --overwrite
 Source2:        gpgkey-7F49314A26E0DE78427680E05F1B2A0789F12B11.gpg
 
 Patch0:         0001-Fix-bt2.TraceCollectionMessageIterator-avoid-circula.patch
@@ -22,7 +23,7 @@ BuildRequires:  flex >= 2.5.35
 BuildRequires:  gcc
 BuildRequires:  gcc-g++
 BuildRequires:  glib2-devel >= 2.28.0
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  libtool >= 2.2
 BuildRequires:  make
 BuildRequires:  python3-devel >= 3.4
@@ -68,7 +69,7 @@ The python3-bt2 package provides Python 3 bindings for libbabeltrace2.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -126,6 +127,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.md
 
 
 %changelog
+* Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 2.1.2-11
+- Verify upstream source signatures with openpgpverify
+
 * Mon Jul 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.1.2-10
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

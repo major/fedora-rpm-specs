@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        5.011
+Version:        7.001
 Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
@@ -36,9 +36,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Devel::CheckLib) >= 1.16
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 7.0
-# File::Find not used
-# File::Path not used in inc/Sereal/BuildTools.pm
-# File::Spec not used in inc/Sereal/BuildTools.pm
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -46,24 +43,31 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(XSLoader)
 # Tests:
-# Benchmark not used
+BuildRequires:  perl(B)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Devel::Peek)
 BuildRequires:  perl(Encode)
+BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(Getopt::Long)
 # Hash::Util is needed on perl >= 5.25. It's in an eval to proceed to
 # num_buckets() definition with older perls.
 BuildRequires:  perl(Hash::Util)
 BuildRequires:  perl(integer)
+BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(List::Util)
+BuildRequires:  perl(locale)
 BuildRequires:  perl(overload)
+BuildRequires:  perl(re)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Sereal::Decoder) >= %{version}
 BuildRequires:  perl(Storable)
+BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::LongString)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Warn)
@@ -72,11 +76,11 @@ BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(Tie::Scalar)
-# Time::HiRes not used
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(version)
 %if %{with perl_Sereal_Encoder_enables_optional_test}
 # Optional tests:
+BuildRequires:  perl(Compress::Zlib)
 BuildRequires:  perl(Test::Deep) >= 0.110
 BuildRequires:  perl(Test::Deep::NoTest)
 %endif
@@ -119,12 +123,67 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%doc Changes
+%doc Changes SECURITY
 %{perl_vendorarch}/auto/Sereal/
 %{perl_vendorarch}/Sereal/
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Fri Nov  6 2026 Paul Howarth <paul@city-fan.org> - 7.001-1
+- Update to 7.001 (rhbz#2564205)
+  - Use protocol v7 by default, with portable little-endian IEEE floating-point
+    storage; extended values use IEEE binary128 by default, including on
+    long-double Perl builds
+  - Add float_type (std/native) for explicit native long-double output; declare
+    the native format, byte order and storage size once per document, and clear
+    known padding; unidentified layouts support explicitly trusted same-build
+    round trips
+  - Preserve protocol v1-v6 numeric output behavior and keep v7 header floats
+    portable; upgrade Decoder to version 7 before emitting v7 packets
+  - Include protocol v6 support for v-strings, negative-integer encoding and
+    keyed SipHash checksums; add checksum keys, modes, policies, shared and
+    module-specific defaults, and prepare_checksum_key()
+  - Preserve regexp character-set modifiers, /n and /xx, and improve
+    unsupported-type diagnostics
+  - Preserve unsigned tied integer values on older Perls and strengthen
+    callback lifetime handling
+  - Fix bundled Snappy builds on Haiku and hobodecoder compatibility with
+    BusyBox od; improve older-Perl and optional-dependency handling
+  - Extend hobodecoder and stored corpus coverage for portable and native
+    floats; include real Fedora s390x producer captures for regression tests
+    (GH#337)
+  - Ship the shared SECURITY policy and clarify security, checksum and
+    floating-point interoperability documentation
+
+* Sun Nov  1 2026 Paul Howarth <paul@city-fan.org> - 6.003-1
+- Update to 6.003 (rhbz#2564205)
+  - Add protocol v6 support for VSTRING extension tags, NEG_VARINT, and keyed
+    SipHash checksums; upgrade Decoder to version 6 throughout the fleet before
+    emitting v6 packets
+  - Add checksum_key, checksum_key_v1/v2/v3, checksum_mode, and checksum_policy
+    options, shared and Encoder-specific defaults, and prepare_checksum_key()
+  - Preserve regexp character set modifiers, /n, and /xx; upgrade Decoder
+    before emitting these modifiers
+  - Ship a SECURITY policy in release archives and improve the protocol
+    specification, diagnostics, build and compatibility tests, and general
+    robustness
+  - Reported fixes: regexp modifiers
+    (https://github.com/Sereal/Sereal/issues/180 and
+    https://github.com/Sereal/Sereal/issues/262), and unsupported-type
+    diagnostics (https://github.com/Sereal/Sereal/issues/191)
+  - Related work: specification (https://github.com/Sereal/Sereal/issues/218)
+    and packaged security policy (https://github.com/Sereal/Sereal/issues/305)
+  - Preserve unsigned tied integer values on older Perls instead of converting
+    their private cached values through a signed integer
+  - Keep sorted-key wire expectations independent of Perl's temporary hash
+    reference counts
+  - Report the actual missing dependency when skipping t/400_evil.t
+  - Skip only hobodecoder decompression checks when its optional
+    Compress::Zlib dependency is unavailable, and show child errors
+  - Fix bundled Snappy builds on Haiku, which has no byteswap.h
+  - Use portable od arguments in hobodecoder for BusyBox systems and report
+    signal termination correctly in checksum tests
+
 * Wed Oct 21 2026 Paul Howarth <paul@city-fan.org> - 5.011-1
 - Update to 5.011 (rhbz#2558319)
   - Robustness fixes

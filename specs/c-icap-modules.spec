@@ -4,7 +4,7 @@
 
 Name:       c-icap-modules
 Version:    0.5.7
-Release:    9.%{date}git%{shortcommit0}%{?dist}
+Release:    10.%{date}git%{shortcommit0}%{?dist}
 Summary:    Services for the c-icap server
 License:    LGPL-2.0-or-later
 URL:        http://c-icap.sourceforge.net/
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{_sysconfdir}/c-icap/*.default
 %{_mandir}/man8/c-icap-mktcb.8*
 
 %changelog
+* Fri Nov 06 2026 Frank Crawford <frank@crawford.emu.id.au> - 0.5.7-10.20250117git36a6688
+- Rebuilt for EPEL8 for libclamav.so.11 bump to libclamav.so.12 - BZ2561534
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-9.20250117git36a6688
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

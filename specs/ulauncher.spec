@@ -1,5 +1,5 @@
 Name:           ulauncher
-Version:        5.16.1
+Version:        5.16.3
 Release:        %{autorelease}
 Summary:        Feature rich application Launcher for Linux
 BuildArch:      noarch

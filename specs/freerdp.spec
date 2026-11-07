@@ -21,13 +21,10 @@
 %global _with_uriparser 1
 %endif
 
-# Disable support for AAD WebView popup since it uses webkit2gtk-4.0
-#global _with_webview 1
-
 Name:           freerdp
 Epoch:          2
 Version:        3.33.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -47,6 +44,10 @@ Source1:        freerdp_download_and_repack.sh
 # Fix TestClipboardFormats failure on s390x
 # https://github.com/FreeRDP/FreeRDP/commit/3f06a90fec8ed1bede3d2aec9c80e623c4e17f7c
 Patch:          winpr-clipboard-fix-big-endian-BMP-test.patch
+
+# Fix build with SDL 3.4.20
+# https://github.com/FreeRDP/FreeRDP/commit/1b67e1ef6edb716644e472eca8463bfe21bfa26e
+Patch:          client-sdl-fix-version-guard.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -73,6 +74,7 @@ BuildRequires:  libXv-devel
 %{?_with_openh264:BuildRequires:  pkgconfig(openh264)}
 %{?_with_x264:BuildRequires:  x264-devel}
 BuildRequires:  pam-devel
+BuildRequires:  python3-devel
 BuildRequires:  zlib-devel
 %{!?rhel:BuildRequires:  multilib-rpm-config}
 
@@ -103,7 +105,6 @@ BuildRequires:  pkgconfig(opus)
 BuildRequires:  pkgconfig(sso-mib)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-scanner)
-%{?_with_webview:BuildRequires:  pkgconfig(webkit2gtk-4.0)}
 BuildRequires:  pkgconfig(xkbcommon)
 
 %{?_with_ffmpeg:
@@ -115,6 +116,9 @@ BuildRequires:  pkgconfig(libswscale)
 Provides:       xfreerdp = %{?epoch}:%{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{?epoch}:%{version}-%{release}
 Requires:       libwinpr%{?_isa} = %{?epoch}:%{version}-%{release}
+Requires:       python3
+Requires:       xdg-utils
+Requires:       desktop-file-utils
 
 %description
 The xfreerdp & wlfreerdp Remote Desktop Protocol (RDP) clients from the FreeRDP
@@ -178,6 +182,8 @@ developing applications that use %{name}-libwinpr.
 %prep
 %autosetup -p1 -n FreeRDP-%{version}
 
+%py3_shebang_fix client/common/xdg-aad-helper/xdg-aad-helper.py client/common/xdg-aad-helper/freerdp_aad_handler.py
+
 # Rpmlint fixes
 find . -name "*.h" -exec chmod 664 {} \;
 find . -name "*.c" -exec chmod 664 {} \;
@@ -235,9 +241,9 @@ find . -name "*.c" -exec chmod 664 {} \;
     -DWITH_VERBOSE_WINPR_ASSERT=OFF \
     -DWITH_VIDEO_FFMPEG=%{?_with_ffmpeg:ON}%{?!_with_ffmpeg:OFF} \
     -DWITH_WAYLAND=ON \
-    -DWITH_WEBVIEW=%{?_with_webview:ON}%{?!_with_webview:OFF} \
     -DWITH_X11=ON \
     -DWITH_XCURSOR=ON \
+    -DWITH_XDG_AAD_AUTH_HELPER=ON \
     -DWITH_XEXT=ON \
     -DWITH_XKBFILE=ON \
     -DWITH_XI=ON \
@@ -294,6 +300,8 @@ find %{buildroot} -name "*.a" -delete
 %{_bindir}/winpr-makecert
 %{_bindir}/wlfreerdp
 %{_bindir}/xfreerdp
+%{_libexecdir}/freerdp-aad-handler
+%{_libexecdir}/freerdp-xdg-aad-helper
 %{?_with_sdl_client:
 %{_mandir}/man1/sdl-freerdp.1*
 }
@@ -378,6 +386,13 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Fri Nov 06 2026 Ondrej Holy <oholy@redhat.com> - 2:3.33.0-3
+- Fix build with SDL 3.4.20
+
+* Thu Nov 05 2026 Ondrej Holy <oholy@redhat.com> - 2:3.33.0-2
+- Enable the XDG AAD authentication helper
+  Resolves: rhbz#2520877
+
 * Mon Nov 02 2026 Ondrej Holy <oholy@redhat.com> - 2:3.33.0-1
 - Update to 3.33.0
   Resolves: rhbz#2565203

@@ -11,7 +11,7 @@
 Summary: Qt6 - Support for using gRPC and Protobuf
 Name:    qt6-%{qt_module}
 Version: 6.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -166,6 +166,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Thu Nov 05 2026 Neil Hanlon <neil@shrug.pw> - 6.12.0-2
+- Rebuild for grpc 1.75.1
+
 * Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
 - 6.12.0
 

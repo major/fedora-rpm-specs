@@ -1,6 +1,6 @@
-%global abiver 2.58
+%global abiver 2.59
 Name:           librealsense
-Version:        2.58.2
+Version:        2.59.1
 Release:        %autorelease
 Summary:        Cross-platform camera capture for Intel RealSense
 
@@ -19,15 +19,8 @@ Patch2:         librealsense.use-system-pybind11.patch
 Patch3:         librealsense.remove-invalid-unused-code.patch
 # https://github.com/morxa/librealsense/tree/rsutils-shared-library
 Patch4:         librealsense.rsutils-shared-library.patch
-# https://github.com/morxa/librealsense/tree/use-system-json
-Patch5:         librealsense.use-system-json.patch
-# https://github.com/morxa/librealsense/tree/utf8-string-literals
-Patch6:         librealsense.utf8-string-literals.patch
-# Fix pybind11 3.x incompatibility: def_property does not support keep_alive
-Patch7:         librealsense.fix-pybind11-keep-alive.patch
 # Use system lz4 via pkg-config instead of bundled static library
-Patch8:         librealsense.use-system-lz4.patch
-Patch9:         librealsense.fix-remove-underlying-unicode-in-rmse.py.patch
+Patch5:         librealsense.use-system-lz4.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(glfw3)
@@ -67,6 +60,7 @@ developing applications that use %{name}.
 
 %package -n     python3-%{name}
 Summary:        Python bindings for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{?python_provide:%python_provide python3-%{name}}
 Provides:       python3-librealsense2 = %{version}-%{release}
 
@@ -105,11 +99,14 @@ with %{name}.
   -DBUILD_UNIT_TESTS=NO \
   -DBUILD_ROSBAG2=NO \
   -DCHECK_FOR_UPDATES=NO \
+  -DENABLE_AI_ASSISTANT=OFF \
+  -DENABLE_STATS=OFF \
   -DCMAKE_INSTALL_BINDIR=%{_bindir} \
   -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
   -DCMAKE_INSTALL_INCLUDEDIR=%{_includedir} \
   -DBUILD_PYTHON_BINDINGS:bool=true \
   -DPYTHON_EXECUTABLE=%{python3} \
+  -DUSE_EXTERNAL_NLOHMANN_JSON=ON \
   -DUSE_EXTERNAL_LZ4=ON
 %cmake_build
 
@@ -150,6 +147,8 @@ mv %{buildroot}/builddir/Documents/librealsense2/presets %{buildroot}/%{_datadir
 %{_bindir}/rs-callback
 %{_bindir}/rs-capture
 %{_bindir}/rs-color
+%{_bindir}/rs-composite-ctl
+%{_bindir}/rs-composite-option
 %{_bindir}/rs-convert
 %{_bindir}/rs-data-collect
 %{_bindir}/rs-depth
@@ -162,7 +161,9 @@ mv %{buildroot}/builddir/Documents/librealsense2/presets %{buildroot}/%{_datadir
 %{_bindir}/rs-fw-logger
 %{_bindir}/rs-fw-update
 %{_bindir}/rs-gl
+%{_bindir}/rs-gpu-frame
 %{_bindir}/rs-hdr
+%{_bindir}/rs-hdrd-control
 %{_bindir}/rs-hello-realsense
 %{_bindir}/rs-infrared
 %{_bindir}/rs-labeled-pointcloud

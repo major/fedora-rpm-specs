@@ -42,7 +42,7 @@
 Summary:          The Open Source PBX
 Name:             asterisk
 Version:          24.0.0
-Release:          %{?_rc||?_beta:0.}1%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}.1
+Release:          %{?_rc||?_beta:0.}3%{?_rc:.rc%{_rc}}%{?_beta:.beta%{_beta}}%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:          GPL-2.0-only
 URL:              http://www.asterisk.org/
@@ -54,16 +54,8 @@ Source5:          asterisk.service
 Source6:          asterisk-tmpfiles
 # GPG keyring with Asterisk developer signatures
 # Created by running:
-#gpg2 --no-default-keyring --keyring ./asterisk-gpgkeys.gpg \
-#--keyserver=hkp://pool.sks-keyservers.net --recv-keys \
-#0x21A91EB1F012252993E9BF4A368AB332B59975F3 \
-#0x80CEBC345EC9FF529B4B7B808438CBA18D0CAA72 \
-#0xCDBEE4CC699E200EB4D46BB79E76E3A42341CE04 \
-#0x639D932D5170532F8C200CCD9C59F000777DCC45 \
-#0x551F29104B2106080C6C2851073B0C1FC9B2E352 \
-#0x57E769BC37906C091E7F641F6CB44E557BD982D8 \
-#0x0F77FB5D216A02390B4C51DB7C2C8A8BCB3F61BD \
-#0xF2FC93DB7587BD1FB49E045A5D984BE337191CE7
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search F2FC93DB7587BD1FB49E045A5D984BE337191CE7 0F77FB5D216A02390B4C51DB7C2C8A8BCB3F61BD 57E769BC37906C091E7F641F6CB44E557BD982D8 551F29104B2106080C6C2851073B0C1FC9B2E352 639D932D5170532F8C200CCD9C59F000777DCC45 CDBEE4CC699E200EB4D46BB79E76E3A42341CE04 80CEBC345EC9FF529B4B7B808438CBA18D0CAA72 21A91EB1F012252993E9BF4A368AB332B59975F3 --output asterisk-gpgkeys.gpg --overwrite
 Source7:          asterisk-gpgkeys.gpg
 
 # Now building Asterisk with bundled pjproject, because they apply custom patches to it
@@ -233,6 +225,7 @@ Provides:         bundled(jansson) = %{jansson_version}
 # for gpg to be able to verify the signature
 BuildRequires:    libgcrypt
 BuildRequires:    make
+BuildRequires:    openpgpverify
 
 
 Requires(post):   systemd-units
@@ -596,7 +589,7 @@ Jabber/XMPP resources for Asterisk.
 %if 0%{?fedora} || 0%{?rhel} >=8
 # only verifying on Fedora and RHEL >=8 due to version of gpg
 rpm -q libgcrypt
-gpgv2 --keyring %{SOURCE7} %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyring='%{SOURCE7}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -p1 -n asterisk-%{version}%{?_rc:-rc%{_rc}}%{?_beta:-beta%{_beta}}
 
@@ -1612,6 +1605,12 @@ fi
 %endif
 
 %changelog
+* Fri Nov  6 2026 Peter Lemenkov <lemenkov@gmail.com> - 24.0.0-3
+- Release bump
+
+* Fri Nov 06 2026 Jakub Jelen <jjelen@redhat.com> - 24.0.0-1.2
+- Verify upstream source signatures with openpgpverify
+
 * Thu Nov 05 2026 Michel Lind <salimma@fedoraproject.org> - 24.0.0-1.1
 - Rebuild for libical 4.x
 

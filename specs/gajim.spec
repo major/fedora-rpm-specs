@@ -1,12 +1,12 @@
 %global appid org.gajim.Gajim
 
 Name:     gajim
-Version:  2.6.0
+Version:  2.7.0
 Release:  1%{?dist}
 Summary:  Jabber client written in PyGTK
-License:  GPL-3.0-or-later
+License:  GPL-3.0-only AND MIT
 URL:      https://gajim.org/
-Source0:  https://gajim.org/downloads/2.6/gajim-%{version}.tar.gz
+Source0:  https://gajim.org/downloads/2.7/gajim-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -30,10 +30,6 @@ Requires:    libadwaita >= 1.7.0
 Requires:    gstreamer1
 Requires:    gstreamer1-plugins-base
 Requires:    sqlite-libs >= 3.35
-
-# Required for httpx
-Requires:    python3-h2
-Requires:    python3-socksio
 
 # Required but not listed
 # gobject-introspection contains cairo-1.0.typelib
@@ -105,6 +101,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{appid}.
 %{_datadir}/icons/hicolor/scalable/apps/%{appid}-symbolic.svg
 
 %changelog
+* Fri Nov 06 2026 Michael Kuhn <suraia@fedoraproject.org> - 2.7.0-1
+- Update to 2.7.0
+
 * Fri Aug 28 2026 Michael Kuhn <suraia@fedoraproject.org> - 2.6.0-1
 - Update to 2.6.0
 

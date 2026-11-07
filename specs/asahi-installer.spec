@@ -16,7 +16,7 @@
 
 # These should match the versions in build.sh
 %global installer_libffi_version 3.5.2
-%global installer_python_version 3.13.9
+%global installer_python_version 3.13.17
 
 # This should match the version in asahi_firmware/asn1.py
 %global installer_python_asn1_version 2.5.0
@@ -45,6 +45,8 @@ Source3:        https://www.python.org/ftp/python/%{installer_python_version}/%{
 # Per https://www.python.org/downloads/ this is Ned Deily's key, who signs the
 # Python release binaries for macOS
 Source4:        https://keybase.io/nad/pgp_keys.asc?fingerprint=0d96df4d4110e5c43fbfb17f2d347ea6aa65421d#/key.asc
+# Bump Python to 3.13.17
+Patch:          %{url}/pull/453.patch
 
 BuildRequires:  openpgpverify
 BuildRequires:  python3-devel

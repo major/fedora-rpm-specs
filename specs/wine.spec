@@ -46,7 +46,7 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        11.20
+Version:        11.21
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -1515,6 +1515,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/mfplay.dll
 %{_libdir}/wine/%{winepedirs}/mfreadwrite.dll
 %{_libdir}/wine/%{winepedirs}/mfsrcsnk.dll
+%{_libdir}/wine/%{winepedirs}/mfwmaaec.dll
 %{_libdir}/wine/%{winepedirs}/mgmtapi.dll
 %{_libdir}/wine/%{winepedirs}/midimap.dll
 %{_libdir}/wine/%{winepedirs}/mlang.dll
@@ -2340,6 +2341,9 @@ fi
 %endif
 
 %changelog
+* Thu Nov 05 2026 Michael Cronenworth <mike@cchtml.com> - 11.21-1
+- version update
+
 * Mon Oct 19 2026 Michael Cronenworth <mike@cchtml.com> - 11.20-1
 - version update
 - Strip MimeType from wine.desktop

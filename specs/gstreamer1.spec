@@ -12,7 +12,7 @@
 %bcond_with unwind
 
 Name:           gstreamer1
-Version:        1.28.8
+Version:        1.28.9
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -205,6 +205,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Nov 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.9-1
+- 1.28.9
+
 * Thu Oct 08 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.8-1
 - 1.28.8
 

@@ -637,7 +637,7 @@ BuildRequires:	python%{python3_pkgversion}-rpm-macros
 %endif
 
 # For gpg source verification
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 
 BuildRequires:	swig
 BuildRequires:	libxml2-devel
@@ -1307,11 +1307,11 @@ Flang runtime libraries.
 %prep
 %if %{without snapshot_build}
 # llvm
-%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE6}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 
 %if %{with bundle_compat_lib}
-%{gpgverify} --keyring='%{SOURCE6}' --signature='%{SOURCE3001}' --data='%{SOURCE3000}'
+%{openpgpverify} --keyring='%{SOURCE6}' --signature='%{SOURCE3001}' --data='%{SOURCE3000}'
 %setup -T -q -b 3000 -n llvm-project-%{compat_ver}.src
 
 # Apply all patches with number < 500 (unconditionally)

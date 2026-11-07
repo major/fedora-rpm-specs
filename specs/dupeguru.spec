@@ -1,6 +1,6 @@
 %global         forgeurl0 https://github.com/carlbyington2/dupeguru
 %global         version0  4.3.1
-%global         date      20261103
+%global         date      20261106
 %global         commit    7a2c79ff790ccc7c0f8ec3181ef1eba411026e55
 %forgemeta
 

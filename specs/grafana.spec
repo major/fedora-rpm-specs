@@ -1,18 +1,4 @@
-%if 0%{?rhel}
-%define enable_fips_mode 1
-%else
-%define enable_fips_mode 0
-%endif
-
-%global grafana_arches %{lua: go_arches = {}
-  for arch in rpm.expand("%{go_arches}"):gmatch("%S+") do
-    go_arches[arch] = 1
-  end
-  for arch in rpm.expand("%{nodejs_arches}"):gmatch("%S+") do
-    if go_arches[arch] then
-      print(arch .. " ")
-  end
-end}
+%global grafana_arches %{go_arches}
 
 %global gomodulesmode GO111MODULE=auto
 %global _gotestflags_save %{?gotestflags}
@@ -22,7 +8,7 @@ end}
 
 Name:             grafana
 Version:          12.4.3
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPL-3.0-only
 URL:              https://grafana.org
@@ -73,7 +59,6 @@ Patch10:          0010-use-npm-as-package-manager.patch
 
 # Patches affecting the vendor tarball
 Patch1001:        1001-vendor-patch-removed-backend-crypto.patch
-Patch1002:        1002-vendor-use-pbkdf2-from-OpenSSL.patch
 Patch1003:        1003-vendor-skip-goldenfiles-tests.patch
 
 # Intersection of go_arches and nodejs_arches
@@ -88,10 +73,6 @@ BuildRequires:    go-rpm-macros
 %ifarch x86_64
 BuildRequires:    /usr/bin/node
 BuildRequires:    /usr/bin/npm
-%endif
-
-%if %{enable_fips_mode}
-BuildRequires:    openssl-devel
 %endif
 
 %global           GRAFANA_USER %{name}
@@ -913,9 +894,6 @@ Built from source on x86_64 and installable on all architectures.
 %patch -P 10 -p1
 
 %patch -P 1001 -p1
-%if %{enable_fips_mode}
-%patch -P 1002 -p1
-%endif
 %ifarch s390x i686 armv7hl
 %patch -P 1003 -p1
 %endif
@@ -944,9 +922,6 @@ export PATH=$(pwd)/.nodejs_bin:$PATH
 
 # see grafana-X.Y.Z/pkg/build/cmd.go
 export LDFLAGS="-X main.version=%{version} -X main.buildstamp=${SOURCE_DATE_EPOCH}"
-%if %{enable_fips_mode}
-export GOEXPERIMENT=boringcrypto
-%endif
 for cmd in grafana grafana-cli grafana-server; do
     %gobuild -o %{_builddir}/bin/${cmd} ./pkg/cmd/${cmd}
 done
@@ -1084,16 +1059,9 @@ chmod 640 %{_sysconfdir}/%{name}/ldap.toml
 # which is usually true except if the daylight saving time change falls into the last 10 days, then it's either 239 or 241 hours...
 # let's set the time zone to a time zone without daylight saving time
 export TZ=GMT
-%if %{enable_fips_mode}
-export GOEXPERIMENT=boringcrypto
-%endif
 
 # comment out temporarily while intermittent ngalert tests are investigated
 # % gotest ./pkg/...
-
-# %if %{enable_fips_mode}
-# OPENSSL_FORCE_FIPS_MODE=1 GOLANG_FIPS=1 go test -v ./pkg/util -run TestEncryption
-# %endif
 
 %files
 # binaries and wrappers
@@ -1190,6 +1158,9 @@ done
 %endif
 
 %changelog
+* Wed Oct 28 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 12.4.3-7
+- Remove boringcrypto workarounds for RHEL golang 1.27
+
 * Thu Aug 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 12.4.3-6
 - Build with latest nodejs
 

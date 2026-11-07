@@ -1,6 +1,6 @@
 Name:           openfortivpn
-Version:        1.23.1
-Release:        7%{?dist}
+Version:        1.24.1
+Release:        1%{?dist}
 Summary:        Client for PPP+SSL VPN tunnel services
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -47,6 +47,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Fri Nov 06 2026 Peter Georg <peter.georg@georg-regensburg.de> - 1.24.1-1
+- Update to 1.24.1 (#2002489)
+
 * Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.23.1-7
 - Rebuilt for new ppp
 

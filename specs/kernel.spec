@@ -167,13 +167,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc1.261105g05441d697f7f.15
+%define pkgrelease 0.rc1.261106gf66469d9905b.16
 %define kversion 7
-%define tarfile_release 7.4-rc1-132-g05441d697f7f
+%define tarfile_release 7.4-rc1-536-gf66469d9905b
 # This is needed to do merge window version magic
 %define patchlevel 4
 # The Release tag, including the configurable %%{?dist} tag
-%define specrelease 0.rc1.261105g05441d697f7f.15%{?buildid}%{?dist}
+%define specrelease 0.rc1.261106gf66469d9905b.16%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -1162,7 +1162,6 @@ The %{name} meta package
 Provides: kernel = %{specversion}-%{release}\
 Provides: %{name} = %{specversion}-%{release}\
 %endif\
-Provides: %{name}-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires(pre): %{kernel_prereq}\
@@ -1500,7 +1499,6 @@ Linux kernel, suitable for the kabi-dw tool.
 %package %{?1:%{1}-}debuginfo\
 Summary: Debug information for package %{name}%{?1:-%{1}}\
 Requires: %{name}-debuginfo-common-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}%{?1:-%{1}}-debuginfo-%{_target_cpu} = %{specrpmversion}-%{release}\
 Provides: installonlypkg(kernel)\
 AutoReqProv: no\
 %description %{?1:%{1}-}debuginfo\
@@ -1519,8 +1517,6 @@ This is required to use SystemTap with %{name}%{?1:-%{1}}-%{KVERREL}.\
 %define kernel_devel_package() \
 %package %{?1:%{1}-}devel\
 Summary: Development package for building kernel modules to match the %{?1:%{1} }kernel\
-Provides: %{name}%{?1:-%{1}}-devel-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}-devel-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: kernel-devel-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Provides: %{name}-devel-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel)\
@@ -1571,9 +1567,6 @@ This meta package provides a single reference that other packages can Require to
 %define kernel_modules_internal_package() \
 %package %{?1:%{1}-}modules-internal\
 Summary: Extra kernel modules to match the %{?1:%{1} }kernel\
-Provides: %{name}%{?1:-%{1}}-modules-internal-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}%{?1:-%{1}}-modules-internal-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
-Provides: %{name}%{?1:-%{1}}-modules-internal = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
 Provides: %{name}%{?1:-%{1}}-modules-internal-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
@@ -1596,9 +1589,6 @@ This package provides kernel modules for the %{?1:%{1} }kernel package for Red H
 %define kernel_modules_extra_package() \
 %package %{?1:%{1}-}modules-extra\
 Summary: Extra kernel modules to match the %{?1:%{1} }kernel\
-Provides: %{name}%{?1:-%{1}}-modules-extra-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}%{?1:-%{1}}-modules-extra-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
-Provides: %{name}%{?1:-%{1}}-modules-extra = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
 Provides: %{name}%{?1:-%{1}}-modules-extra-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
@@ -1620,9 +1610,6 @@ This package provides less commonly used kernel modules for the %{?1:%{1} }kerne
 %define kernel_modules_package() \
 %package %{?1:%{1}-}modules\
 Summary: kernel modules to match the %{?1:%{1}-}core kernel\
-Provides: %{name}%{?1:-%{1}}-modules-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}%{?1:-%{1}}-modules-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
-Provides: %{name}%{?1:-%{1}}-modules = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
 Provides: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
@@ -1640,9 +1627,6 @@ This package provides commonly used kernel modules for the %{?1:%{1}-}core kerne
 %define kernel_modules_core_package() \
 %package %{?1:%{1}-}modules-core\
 Summary: Core kernel modules to match the %{?1:%{1}-}core kernel\
-Provides: %{name}%{?1:-%{1}}-modules-core-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}%{?1:-%{1}}-modules-core-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
-Provides: %{name}%{?1:-%{1}}-modules-core = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
 Provides: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
@@ -1743,9 +1727,6 @@ Conflicts: %{name}%{?1:-%{1}}-core = %{specrpmversion}-%{release}\
 %define kernel_modules_partner_package() \
 %package %{?1:%{1}-}modules-partner\
 Summary: Extra kernel modules to match the %{?1:%{1} }kernel\
-Provides: %{name}%{?1:-%{1}}-modules-partner-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}%{?1:-%{1}}-modules-partner-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
-Provides: %{name}%{?1:-%{1}}-modules-partner = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
 Provides: %{name}%{?1:-%{1}}-modules-partner-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
@@ -4820,9 +4801,14 @@ fi\
 #
 #
 %changelog
-* Thu Nov 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.05441d697f7f.15]
+* Fri Nov 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.f66469d9905b.16]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Fri Nov 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.f66469d9905b.15]
+- redhat: drop the explicit self-name provides from the modules packages (Jan Stancek)
+- redhat: drop the <package>-<arch> provides (Jan Stancek)
+- Linux v7.4.0-0.rc1.f66469d9905b
 
 * Thu Nov 05 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.05441d697f7f.14]
 - redhat: kernel.spec: tolerate missing kmap data when no base kernel is built (Jan Stancek)
