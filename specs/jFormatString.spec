@@ -1,6 +1,6 @@
 %global commit f159b88a16be4d103c7e7beb90e07a92617980b9
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global zipcommit %(c=%{commit}; echo ${c:0:12})
+%global shortcommit %{sub %commit 0 7}
+%global zipcommit %{sub %commit 0 12}
 
 Name:           jFormatString
 Version:        0

@@ -1,8 +1,10 @@
 %global giturl  https://github.com/stp/stp
 %global _cmake_generator "Unix Makefiles"
 
+%bcond_with tests
+
 Name:		stp
-Version:	2.3.4
+Version:	2.4.1
 Release:	%autorelease
 Summary:	Constraint solver/decision procedure
 
@@ -17,14 +19,14 @@ Source0:	%{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
 # The code assumes that certain minisat names are variables, but in the Fedora
 # package, they are macros instead, leading to build failures
 Patch0:		%{name}-minisat-macros.patch
-# Do not declare cryptominisat and minisat as public libs
-# See https://bugzilla.redhat.com/show_bug.cgi?id=1981466
-Patch1:		%{name}-private-libs.patch
-# Distutils has been deprecated.  Use sysconfig instead.
-# https://github.com/stp/stp/pull/450
-Patch2:		%{name}-distutils.patch
-# The Threads::Threads is required in cryptominisat cmake but never imported.
-Patch3:     %{name}-threads-cmake.patch
+# Use the system GTest for the test suite.  The upstream build requires a
+# vendored copy cloned over the network at build time, which is not allowed
+# in the Fedora chroot.
+%{?with_tests:Patch1:		%{name}-system-gtest.patch}
+# Fix the test suite for modern Fedora dependencies: Python 3.12 replaced the
+# deprecated ast.Num node with ast.Constant, and lit 23 (LLVM-23) rejects the
+# deprecated external shell in favor of the internal one.
+%{?with_tests:Patch2:		%{name}-test-compat.patch}
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}
@@ -36,13 +38,16 @@ BuildRequires:	cmake(cryptominisat5)
 BuildRequires:	cryptominisat
 BuildRequires:	flex
 BuildRequires:	gcc-c++
+BuildRequires:	git
 BuildRequires:	help2man
 BuildRequires:	make
 BuildRequires:	minisat2-devel
+%{?with_tests:BuildRequires:	gtest-devel}
 BuildRequires:	perl(Getopt::Long)
 BuildRequires:	pkgconfig(gmp)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	python3-devel
+%{?with_tests:BuildRequires:	python3-lit}
 
 %description
 STP (Simple Theorem Prover) is a constraint solver (also referred to as
@@ -86,9 +91,6 @@ Python 3 interface to STP.
 # We do not want to know about the order of member initializers
 sed -i "s/-Wno-deprecated/-Wno-reorder/" CMakeLists.txt
 
-# Fix the version number
-sed -i 's/2\.3\.3/%{version}/' CMakeLists.txt
-
 # Prevent useless rpaths
 sed -e '/CMAKE_SKIP_BUILD_RPATH/s/FALSE/TRUE/' \
     -e '/SET(CMAKE_INSTALL_RPATH .*)/d' \
@@ -99,15 +101,25 @@ sed -e '/CMAKE_SKIP_BUILD_RPATH/s/FALSE/TRUE/' \
 %build
 export CFLAGS='%{build_cflags} -I %{_includedir}/minisat'
 export CXXFLAGS='%{build_cxxflags} -I %{_includedir}/minisat'
-%cmake -DPYTHON_EXECUTABLE:FILEPATH=%{_bindir}/python%{python3_version} \
+%cmake -DSTP_ALLOCATOR=system \
+       -DPYTHON_EXECUTABLE:FILEPATH=%{_bindir}/python%{python3_version} \
        -DPYTHON_LIBRARY:FILEPATH=%{_libdir}/libpython%{python3_version}.so \
-       -DPYTHON_INCLUDE_DIR:FILEPATH=%{_includedir}/python%{python3_version}
+       -DPYTHON_INCLUDE_DIR:FILEPATH=%{_includedir}/python%{python3_version} \
+       -DENABLE_TESTING=%{?with_tests:ON}%{!?with_tests:OFF}
 
 # Fix the help2man invocation
 sed -i "s,help2man,LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/lib &," \
     %{_vpath_builddir}/CMakeFiles/man_stp.dir/build.make
 
 %cmake_build
+
+%check
+%if 0%{?without_tests}
+%else
+# The build rpath is stripped in %%prep, so point at the built lib
+export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/lib:$LD_LIBRARY_PATH
+%ctest
+%endif
 
 %install
 %cmake_install

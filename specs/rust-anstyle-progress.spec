@@ -5,7 +5,7 @@
 %global crate anstyle-progress
 
 Name:           rust-anstyle-progress
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        ANSI escape code progress reporting (OSC 9;4)
 

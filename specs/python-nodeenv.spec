@@ -1,7 +1,5 @@
-# Generating shell completions requires shtab 1.11.0 or later,
-# https://bugzilla.redhat.com/show_bug.cgi?id=2415592,
-# https://src.fedoraproject.org/rpms/python-shtab/pull-request/2
-%bcond completion 0
+# Generating shell completions requires shtab 1.11.0 or later
+%bcond completion %[ %{undefined el10} && %{undefined fc43} && %{undefined fc44} && %{undefined fc45} ]
 
 Name:           python-nodeenv
 Version:        1.12.0

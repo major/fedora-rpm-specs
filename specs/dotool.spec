@@ -65,14 +65,21 @@ scdoc < doc/%{name}.1.scd > %{buildroot}%{_mandir}/man1/%{name}.1
 # dotool.x86_64: W: files-duplicate /usr/share/licenses/dotool/vendor/git.sr.ht/~geb/opt/LICENSE /usr/share/licenses/dotool/LICENSE
 %fdupes %{buildroot}%{_datadir}/licenses
 
-# As recommended at https://git.sr.ht/~geb/dotool#install-from-source
+# As recommended at https://git.sr.ht/~geb/dotool#install-from-source,
+# but skipped when udevd isn't reachable (containers, rpm-ostree's
+# sandbox), where these calls fail and abort the transaction. Only
+# uinput needs re-triggering to pick up the rule's permissions.
 %post
-udevadm control --reload
-udevadm trigger
+if [ -S /run/udev/control ]; then
+    udevadm control --reload || :
+    udevadm trigger --sysname-match=uinput || :
+fi
 
 %postun
-udevadm control --reload
-udevadm trigger
+if [ -S /run/udev/control ]; then
+    udevadm control --reload || :
+    udevadm trigger --sysname-match=uinput || :
+fi
 
 %check
 %go_vendor_license_check -c %{S:2}

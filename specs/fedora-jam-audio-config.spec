@@ -1,10 +1,10 @@
 %global forgeurl https://github.com/eeickmeyer/fedora-jam-audio-configuration
 
 Name:           fedora-jam-audio-config
-Version:        2.0.4
+Version:        2.1.0
 %global tag     %{version}
 %forgemeta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PipeWire-JACK audio configuration tool for Fedora Jam
 
 BuildArch:      noarch
@@ -102,6 +102,12 @@ fi
 %doc README.md
 
 %changelog
+* Sat Nov 07 2026 Erich Eickmeyer <erich@ericheickmeyer.com> 2.1.0-2
+- Rebuild using correct source tarball
+
+* Sat Nov 07 2026 Erich Eickmeyer <erich@ericheickmeyer.com> 2.1.0-1
+- Update to version 2.1.0
+
 * Sun Feb 22 2026 Erich Eickmeyer <erich@ericheickmeyer.com> 2.0.3-1
 - Complete rewrite in Python
 

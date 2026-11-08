@@ -3,15 +3,13 @@
 ExcludeArch:    %{ix86}
 
 Name:           libXISF
-Version:        0.2.15
+Version:        0.2.17
 Release:        %autorelease
 Summary:        Library to load and write XISF format
 License:        GPL-3.0-or-later
 URL:            https://gitea.nouspiro.space/nou/libXISF
 Source0:        %{url}/archive/v%{version}.tar.gz
 
-# Backport upstream patch to fix s390x build
-Patch:          053c794.patch
 
 BuildRequires:  cmake >= 3.14
 BuildRequires:  gcc
@@ -39,9 +37,6 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1 -n libxisf
-
-# Fix project version, upstream missed to update it
-sed -i 's/libXISF VERSION 0.2.14/libXISF VERSION 0.2.15/g' ./CMakeLists.txt
 
 # remove bundled libraries
 for d in "lz4" "pugixml" "zlib"

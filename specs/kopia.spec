@@ -26,6 +26,17 @@
 #        t.Errorf after the parent test has completed, so Go reports
 #        "Fail in goroutine after test has completed"
 # Go 1.27 fixes are upstream commit 56ff291 (#5681); the race has no fix yet.
+# 3) Statistically flaky upstream test:
+#      - TestPickActionWeighted (tests/robustness/engine) draws 100000
+#        weighted samples and asserts that each count lands within 10 percent
+#        of the expected value. For the A:B:C = 1:10:100 case the expected
+#        count for A is 900.9 with a standard deviation of ~29.9, so the 10
+#        percent band is only about 3 standard deviations wide and the test
+#        fails roughly 0.27 percent of the time. The F43 x86_64 build hit it
+#        (expected 900.9, actual 810), while the identical source passed on
+#        F44/F45/F46. Upstream widened the tolerance to 15 percent after
+#        0.23.1. The package carries a "darwin || (linux && amd64)" build tag,
+#        so it only ever runs on x86_64.
 # Only those tests are skipped; everything else still runs. Note: gocheck2
 # combines the -s values into a single go test -skip expression, where "/"
 # separates parent and subtest names, so the full subtest paths are passed
@@ -156,7 +167,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
-%gocheck2 -F -s TestMetrics_CompressibleData -s TestBuildFromExtraError -s TestFormatV1/TestCompression_CompressibleData -s TestFormatV1/TestFlushWaitsForAllPendingWriters -s TestFormatV2/TestCompression_CompressibleData -s TestFormatV2/TestFlushWaitsForAllPendingWriters %{?skip_ppc64le_tests} %{?skip_s390x_tests} -- -p 1 -timeout 30m
+%gocheck2 -F -s TestMetrics_CompressibleData -s TestBuildFromExtraError -s TestFormatV1/TestCompression_CompressibleData -s TestFormatV1/TestFlushWaitsForAllPendingWriters -s TestFormatV2/TestCompression_CompressibleData -s TestFormatV2/TestFlushWaitsForAllPendingWriters -s TestPickActionWeighted %{?skip_ppc64le_tests} %{?skip_s390x_tests} -- -p 1 -timeout 30m
 %endif
 
 %files -f %{go_vendor_license_filelist}

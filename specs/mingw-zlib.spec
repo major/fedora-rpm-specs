@@ -1,9 +1,10 @@
-%global mingw_build_ucrt64 1
+%global mingw_build_ucrt64 %{!?el10:1}%{?el10:0}
+
 %{?mingw_package_header}
 
 Name:           mingw-zlib
-Version:        1.3.2
-Release:        2%{?dist}
+Version:        1.4
+Release:        1%{?dist}
 Summary:        MinGW Windows zlib compression library
 
 License:        Zlib
@@ -23,8 +24,10 @@ BuildRequires:  mingw32-gcc
 BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc
 
+%if %mingw_build_ucrt64
 BuildRequires:  ucrt64-filesystem
 BuildRequires:  ucrt64-gcc
+%endif
 
 
 %description
@@ -63,6 +66,7 @@ The mingw64-zlib-static package contains static library for mingw64-zlib develop
 
 
 # UCRT64
+%if %mingw_build_ucrt64
 %package -n ucrt64-zlib
 Summary:        MinGW Windows zlib compression library for the ucrt64 target
 
@@ -75,7 +79,7 @@ Requires:       ucrt64-zlib = %{version}-%{release}
 
 %description -n ucrt64-zlib-static
 The ucrt64-zlib-static package contains static library for ucrt64-zlib development.
-
+%endif
 
 %{?mingw_debug_package}
 
@@ -129,6 +133,7 @@ rm -rf %{buildroot}%{ucrt64_docdir}
 %{mingw64_libdir}/libz.a
 
 # UCRT64
+%if %mingw_build_ucrt64
 %files -n ucrt64-zlib
 %{ucrt64_includedir}/zconf.h
 %{ucrt64_includedir}/zlib.h
@@ -139,9 +144,13 @@ rm -rf %{buildroot}%{ucrt64_docdir}
 
 %files -n ucrt64-zlib-static
 %{ucrt64_libdir}/libz.a
+%endif
 
 
 %changelog
+* Sat Nov 07 2026 Sandro Mani <manisandro@gmail.com> - 1.4-1
+- Update to 1.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

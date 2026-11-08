@@ -1,6 +1,6 @@
 Name:    nawk
-Version: 20260426
-Release: 2%{?dist}
+Version: 20261106
+Release: 1%{?dist}
 Summary: "The one true awk" descended from UNIX V7
 License: MIT
 URL:     https://github.com/onetrueawk/awk
@@ -38,6 +38,9 @@ install -D -p -m 0644 awk.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sun Nov  8 2026 Mark McKinstry <mmckinst@fedoraproject.org> - 20261106-1
+- Upgrade to 20261106 (#2568506)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20260426-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

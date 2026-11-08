@@ -15,8 +15,8 @@
 
 Name:          scotch
 Summary:       Graph, mesh and hypergraph partitioning library
-Version:       7.0.17
-Release:       2%{?dist}
+Version:       7.0.18
+Release:       1%{?dist}
 
 License:       CeCILL-C
 URL:           https://gitlab.inria.fr/scotch/scotch
@@ -451,6 +451,9 @@ rm -rf %{buildroot}%{_mandir}/*
 
 
 %changelog
+* Sat Nov 07 2026 Sandro Mani <manisandro@gmail.com> - 7.0.18-1
+- Update to 7.0.18
+
 * Tue Oct 27 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 7.0.17-2
 - Rebuilt for mpich-5.0.2
 

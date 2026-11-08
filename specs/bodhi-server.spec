@@ -1,6 +1,6 @@
 %global pypi_name bodhi-server
 %global src_name bodhi_server
-%global pypi_version 26.4.0
+%global pypi_version 26.11.0
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
@@ -10,9 +10,6 @@ Summary:        Bodhi server
 License:        GPL-2.0-or-later
 URL:            https://github.com/fedora-infra/bodhi
 Source:         %{pypi_source bodhi_server}
-# https://github.com/fedora-infra/bodhi/pull/6136
-# Drop use of createrepo_c --deltas arg, it is gone in F45+
-Patch:          0001-createrepo_c-has-no-more-deltas-option.patch
 
 BuildArch:      noarch
 

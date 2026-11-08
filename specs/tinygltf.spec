@@ -8,7 +8,7 @@ locale-independent JSON backend. It has no external dependencies.}
 %global debug_package %{nil}
 
 Name:           tinygltf
-Version:        3.0.1
+Version:        3.1.0
 Release:        %autorelease
 Summary:        C11 tiny glTF 2.0 loader/writer library
 

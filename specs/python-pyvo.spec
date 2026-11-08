@@ -12,13 +12,12 @@ The pyvo module currently provides these main capabilities:              \
 * Get information about an object via its name                   
 
 Name:           python-%{srcname}
-Version:        1.9.1
+Version:        1.10.0
 Release:        %autorelease
 Summary:        %{sum}
 License:        BSD-3-Clause
 URL:            https://github.com/astropy/%{srcname}
 Source:         %{pypi_source %{srcname}}
-Patch:          https://github.com/astropy/pyvo/pull/771.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

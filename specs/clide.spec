@@ -1,5 +1,5 @@
 %global commit 11c08954f983345b8a4a49f330d21085d2a87603
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global shortcommit %{sub %commit 0 7}
 
 Name:           clide
 Version:        0.9

@@ -11,13 +11,15 @@ URL:            https://github.com/fcitx/fcitx5
 Source:         https://download.fcitx-im.org/fcitx5/fcitx5/fcitx5-%{version}_dict.tar.zst
 Source1:        https://download.fcitx-im.org/fcitx5/fcitx5/fcitx5-%{version}_dict.tar.zst.sig
 # Checked by chatting, this key is used to verify fcitx* tarballs
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9 --output 0x8E8B898CBF2412F9 --overwrite
 Source2:        https://pgp.key-server.io/download/0x8E8B898CBF2412F9
 Source3:        fcitx5-xinput
 Source4:        fcitx5.sh
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
@@ -99,7 +101,7 @@ Requires:       %{name} = %{version}-%{release}
 This package will setup autostart and environment needed for fcitx5 to work properly.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

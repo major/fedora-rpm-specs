@@ -211,7 +211,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        4%{?rc_version:.%rc_version}%{?dist}
+Release:        4%{?rc_version:.%rc_version}%{?dist}.1
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -272,7 +272,7 @@ BuildRequires:  jansson-devel
 %endif
 BuildRequires:  popt-devel
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconf
@@ -1082,7 +1082,7 @@ Custom SELinux policy module for Thales Luna HSMs
 %prep
 # Verify release signature
 %if %{NON_DEVELOPER_BUILD}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 
 %autosetup -n freeipa-%{TARBALL_IPA_VERSION}%{?rc_version} -N -p1
@@ -1973,6 +1973,9 @@ fi
 %endif
 
 %changelog
+* Wed Nov 04 2026 Jakub Jelen <jjelen@redhat.com> - 4.13.4-4.1
+- Verify upstream source signatures with openpgpverify
+
 * Mon Oct 26 2026 David Hanina <dhanina@redhat.com> - 4.13.4-4
 - Rebuild against Samba 4.25.1
 - Consolidate post-4.13.4 patches from ipa-4-13 branch upstream

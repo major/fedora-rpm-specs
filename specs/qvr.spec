@@ -12,7 +12,7 @@ Source2:        https://marlam.de/key.txt
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 
 BuildRequires:  libxkbcommon-devel
@@ -43,7 +43,7 @@ BuildArch:      noarch
 This package provides additional documentation for %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

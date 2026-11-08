@@ -5,7 +5,7 @@
 %global crate zip
 
 Name:           rust-zip
-Version:        8.6.0
+Version:        9.4.1
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 
@@ -23,20 +23,11 @@ Source11:       get_test_data.sh
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          zip-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Drop unused benchmark-only / example-only dev-dependencies
+# * Drop unused dev-dependencies, e.g. those that are benchmark-only or
+#   example-only: clap, count_instructions, criterion, rand, walkdir
 # * Patch out the nt-time features; rust-nt-time not yet packaged
 # * Patch out the deflate-flate2-zlib-ng-compat feature, which requires
 #   flate2/zlib-ng-compat, not packaged.
-# * Update lzma-rust2 to 0.23: https://github.com/zip-rs/zip2/pull/891,
-#   https://github.com/zip-rs/zip2/pull/905,
-#   https://github.com/zip-rs/zip2/pull/942,
-#   https://github.com/zip-rs/zip2/pull/963,
-#   https://github.com/zip-rs/zip2/pull/1017,
-#   https://github.com/zip-rs/zip2/pull/1060,
-#   https://github.com/zip-rs/zip2/pull/1096
-# * Allow typed-path 0.13: https://github.com/zip-rs/zip2/pull/1115
-# * Allow constant_time_eq 0.6:
-#   https://github.com/zip-rs/zip2/commit/4bf486b4cf0c2495ae2a02bda60108b2b289c4fc
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile
@@ -115,6 +106,18 @@ This package contains library source intended for building other packages which
 use the "_deflate-any" feature of the "%{crate}" crate.
 
 %files       -n %{name}+_deflate-any-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+_miri_compatible_features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+_miri_compatible_features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "_miri_compatible_features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+_miri_compatible_features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+aes-crypto-devel
@@ -261,18 +264,6 @@ use the "deflate64" feature of the "%{crate}" crate.
 %files       -n %{name}+deflate64-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+deprecated-time-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+deprecated-time-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "deprecated-time" feature of the "%{crate}" crate.
-
-%files       -n %{name}+deprecated-time-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+getrandom-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -331,6 +322,18 @@ This package contains library source intended for building other packages which
 use the "ppmd" feature of the "%{crate}" crate.
 
 %files       -n %{name}+ppmd-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rayon-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rayon-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rayon" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rayon-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+time-devel

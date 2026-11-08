@@ -14,6 +14,8 @@ License:	GPL-2.0-or-later AND BSD-3-Clause AND MIT AND CC0-1.0
 URL:		https://ocserv.openconnect-vpn.net/
 Source0:	https://www.infradead.org/ocserv/download/%{name}-%{version}.tar.xz
 Source1:	https://www.infradead.org/ocserv/download/%{name}-%{version}.tar.xz.sig
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 1F42418905D8206AA754CCDC29EE58B996865171 --output gpgkey-1F42418905D8206AA754CCDC29EE58B996865171.gpg --overwrite
 Source2:	gpgkey-1F42418905D8206AA754CCDC29EE58B996865171.gpg
 Source3:	ocserv.conf
 Source4:	ocserv.service
@@ -47,7 +49,7 @@ BuildRequires:	uid_wrapper
 %ifnarch aarch64 %{ix86} %{arm}
 BuildRequires:	socket_wrapper
 %endif
-BuildRequires:	gnupg2
+BuildRequires: openpgpverify
 BuildRequires:	libseccomp-devel
 
 %endif
@@ -84,7 +86,7 @@ to provide the secure VPN service.
 
 %prep
 %if %{have_gpgv2}
-gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0} || gpgv2 --keyring %{SOURCE10} %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyrings '%{SOURCE2}' '%{SOURCE10}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 
 %autosetup -p1

@@ -1,11 +1,8 @@
 Name:           primecount
-Version:        8.8
+Version:        9.0
 Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
-
-# BSD-2-Clause: the project as a whole
-# Zlib OR BSL-1.0: due to including libdivide headers
-License:        BSD-2-Clause AND (Zlib OR BSL-1.0)
+License:        BSD-2-Clause
 URL:            https://github.com/kimwalisch/%{name}/
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -15,7 +12,6 @@ ExcludeArch:    %{ix86}
 BuildRequires:  asciidoc
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  libdivide-static
 %ifarch %{x86_64} ia64 %{power64}
 BuildRequires:  libquadmath-devel
 %endif
@@ -58,10 +54,6 @@ libprimecount.
 %prep
 %autosetup -p1
 
-# Unbundle libdivide
-rm -f include/libdivide.h
-ln -s %{_includedir}/libdivide.h include/libdivide.h
-
 %build
 # WITH_FLOAT128 should be ON only for architectures:
 # - with a __float128 type that is different from long double
@@ -70,25 +62,6 @@ ln -s %{_includedir}/libdivide.h include/libdivide.h
 # - All x86/x86_64 CPUs have __float128; it is different from long double
 # - ppc64le has __float128; it is the same as long double
 # - No other architecture has libquadmath
-%ifarch %{x86_64_v4}
-export CFLAGS='%{build_cflags} -DLIBDIVIDE_AVX512'
-export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_AVX512'
-%else
-%ifarch %{x86_64_v3}
-export CFLAGS='%{build_cflags} -DLIBDIVIDE_AVX2'
-export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_AVX2'
-%else
-%ifarch %{x86_64}
-export CFLAGS='%{build_cflags} -DLIBDIVIDE_SSE2'
-export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
-%else
-%ifarch %{arm64}
-export CFLAGS='%{build_cflags} -DLIBDIVIDE_NEON'
-export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_NEON'
-%endif
-%endif
-%endif
-%endif
 %cmake -DBUILD_LIBPRIMESIEVE=OFF \
        -DBUILD_MANPAGE=ON \
        -DBUILD_SHARED_LIBS=ON \
@@ -112,7 +85,7 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_NEON'
 
 %files          libs
 %license COPYING
-%{_libdir}/libprimecount.so.8*
+%{_libdir}/libprimecount.so.9*
 
 %files          devel
 %doc ChangeLog doc/*.pdf doc/*.md
@@ -124,6 +97,57 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_NEON'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Sat Nov 07 2026 Kim Walisch <walki@fedoraproject.org> - 9.0-1
+- main.cpp: Avoid KMP_BLOCKTIME warnings with LLVM OpenMP before version 18
+- StatusS2.cpp: Tune the work model of D, S2_hard and LMO separately
+- LoadBalancerS2.cpp: Limit segment size growth to avoid huge workloads
+- LoadBalancerS2.cpp: Increase per-thread segment size, improves scaling
+- LoadBalancerS2.cpp: Remove lazy initialization of workload finish times
+- D.cpp: Limit threads to sqrt(x / y) / 150, up to 1.3x faster for x < 1e16
+- pi_lmo_parallel.cpp: Limit threads to sqrt(x / y) / 300, up to 2x faster
+- S2_hard.cpp: Limit threads to sqrt(x / y) / 250, up to 1.7x faster
+- AC_*.hpp: Limit threads to x^(1/6) / 4, up to 1.5x faster for x < 1e17
+- LoadBalancerP2.cpp: Tune threads and chunk sizes, up to 2x faster B and P2
+- Choose default status precision using estimated runtime and thread count
+- LoadBalancerP2, LoadBalancerAC: Throttle status printing in C++14 builds
+- StatusS2.cpp: Smoother status for D, S2_hard and LMO using a model of
+  the special leaves' work distribution
+- FastDivider.hpp: New faster multiply-shift division by precomputed
+  reciprocals, replaces libdivide in AC and S2_easy
+- CMake: Rename WITH_LIBDIVIDE option to WITH_FASTDIVIDER
+- CMake: Disable FastDivider if not supported by the compiler (32-bit)
+- Remove libdivide.h, rename AC_libdivide.hpp to AC_fastdivider.hpp
+- Gourdon: Compute part of D and the former C1 easy leaves using a weighted
+  Dirichlet hyperbola algorithm, cancelling prime-leaf sieve queries
+- AC_*.hpp: New C1_hyperbola formula computes the hyperbola terms at
+  positions < p^2 using the segmented pi(x) lookup table
+- D: Bound the outer prime loops by x^(1/4) and skip factor-table scans
+  when the remaining cofactors must be prime
+- Gourdon: Share one PiTable between Sigma, Phi0, AC and D, and extract
+  Phi0's primes from it instead of sieving them again
+- AC.cpp: Reduce memory usage by limiting the primes vector to the range
+  required by the A, C1 and C2 formulas
+- Gourdon: Remove the z parameter and --alpha-y/--alpha-z options;
+  use --alpha to tune y
+- Gourdon: Allow y = sqrt(x) and simplify algorithm bounds
+- Apply --alpha only to the requested computation, without affecting
+  nested pi(x) calls
+- test.cpp: Support --alpha with --test and parse all options before testing
+- FactorTable.hpp: Reduce Deleglise-Rivat S2_hard memory using 16-bit
+  prime factor ordinals; share the implementation with Gourdon D
+- D, S2_hard, LMO: Reduce integer divisions in the cofactor bounds
+- D_avx2.hpp: Add AVX2 filtering and runtime dispatch for Gourdon D
+- D_arm_sve.hpp: Fix ambiguous svwhilelt_b64() call on macOS
+- PhiTiny.cpp: Use static lookup tables instead of initializing them at startup
+- CMake: Avoid internal variable name collisions with parent projects
+- CMake: Fix C++14 compiler mode for the executable and tests, including
+  Emscripten builds
+- Build Windows x64 binaries and run Windows GCC CI using UCRT64
+- Add SIMD runtime dispatching support for the MSVC compiler
+- popcnt.hpp: Use ARM NEON population count with the MSVC ARM64 compiler
+- Remove libdivide BuildRequires, unbundling and CFLAGS, no longer used
+- Update License to BSD-2-Clause, libdivide.h is no longer included
+
 * Mon Sep 28 2026 Kim Walisch <walki@fedoraproject.org> - 8.8-1
 - D_arm_neon.hpp: ARM NEON filtering for Gourdon's D algorithm
 - D.cpp: Refactor runtime SIMD dispatching

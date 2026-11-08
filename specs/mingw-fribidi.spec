@@ -3,7 +3,7 @@
 %global pkgname fribidi
 
 Name:          mingw-%{pkgname}
-Version:       1.0.17
+Version:       1.0.18
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -103,6 +103,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Sat Nov 07 2026 Sandro Mani <manisandro@gmail.com> - 1.0.18-1
+- Update to 1.0.18
+
 * Sun Sep 20 2026 Sandro Mani <manisandro@gmail.com> - 1.0.17-1
 - Update to 1.0.17
 

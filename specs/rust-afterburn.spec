@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -17,8 +17,10 @@ Source0:        %{crates_source}
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
 Source2:        90-afterburn-authorized-keys-file.conf
 
-# build(deps): bump mailparse from 0.15.0 to 0.16.1
+# Allow mailparse through 0.18
+# https://github.com/coreos/afterburn/pull/1322
 # (Only the Cargo.toml portion, not the Cargo.lock portion)
+Patch0:         afterburn-fix-metadata.diff
 
 ExcludeArch:    %{ix86}
 
@@ -169,6 +171,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/ssh/sshd_config.d/90-af
 %endif
 
 %changelog
+* Thu Nov 05 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 5.11.0-3
+- Allow mailparse through 0.18
+
 * Mon Oct 26 2026 Benjamin A. Beasley <code@musicinmybrain.net> - 5.11.0-2
 - Rebuilt with `rustls-webpki` 0.103.16 for RUSTSEC-2026-0382. This provides
   added protection against trusting the eMudhra intermediate CA certificates.

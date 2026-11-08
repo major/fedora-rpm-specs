@@ -7,9 +7,11 @@ Summary:    This is a library to support generic input method implementation
 URL:        https://github.com/fcitx/libime
 Source:     https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}_dict.tar.zst
 Source1:    https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}_dict.tar.zst.sig
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9 --output 0x8E8B898CBF2412F9 --overwrite
 Source2:    https://pgp.key-server.io/download/0x8E8B898CBF2412F9
 
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: cmake
 BuildRequires: ninja-build
 BuildRequires: gcc-c++
@@ -46,7 +48,7 @@ Requires:       boost-devel%{?_isa}
 Development files for %{name}
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

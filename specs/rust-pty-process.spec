@@ -5,7 +5,7 @@
 %global crate pty-process
 
 Name:           rust-pty-process
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Spawn commands attached to a pty
 

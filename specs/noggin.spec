@@ -1,6 +1,6 @@
 Name:           noggin
 Version:        1.9.0
-Release:        13%{?dist}
+Release:        %autorelease
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -98,6 +98,10 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.access.log
 touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
+%check
+%pyproject_check_import
+
+
 %files -f %{pyproject_files}
 %license LICENSE
 %doc README.md deployment/noggin.cfg.example README.Fedora
@@ -127,116 +131,4 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 
 
 %changelog
-* Sun Oct 18 2026 Filipe Rosset <rosset.filipe@gmail.com> - 1.9.0-13
-- Allow Flask-Mail 0.10 and newer
-
-* Mon Aug 03 2026 Kevin Fenzi <kevin@scrye.com> - 1.9.0-12
-- Rebuild for new python-translitcodec
-
-* Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.0-9
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9.0-8
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 1.9.0-6
-- Rebuilt for Python 3.14
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Oct 10 2024 Lumír Balhar <lbalhar@redhat.com> - 1.9.0-4
-- Allow markupsafe 3 and newer
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Jun 09 2024 Python Maint <python-maint@redhat.com> - 1.9.0-2
-- Rebuilt for Python 3.13
-
-* Tue Feb 06 2024 Aurelien Bompard <abompard@fedoraproject.org> - 1.9.0-1
-- Update to 1.0.9
-- Remove upstreamed patches
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Dec 13 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.8.0-1
-- Rebase to 1.8.0 (Fixes RHBZ#2254144)
-
-* Tue Sep 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.7.1-4
-- Add patch to support flask-babel v3
-- Reorganize patches to apply unconditionally
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue May 02 2023 Jonathan Wright <jonathan@almalinux.org> - 1.7.1-2
-- Add patch for building in epel9
-
-* Sat Feb 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.7.1-1
-- Rebase to 1.7.1
-- Add quick start documentation as README.Fedora
-
-* Sat Feb 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.6.1-6
-- Add sample no-op nginx configuration
-- Fix noggin.service to use correct launch function call
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Sep 08 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.6.1-4
-- Fix noggin.service to use correct launch method
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 16 2022 Python Maint <python-maint@redhat.com> - 1.6.1-2
-- Rebuilt for Python 3.11
-
-* Mon Jun 06 2022 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 1.6.1-1
-- Moved out the tests from the installed package
-- Updated the dependencies
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1^git20210323.3b487ed-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1^git20210323.3b487ed-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.0.1^git20210323.3b487ed-2
-- Rebuilt for Python 3.10
-
-* Tue Mar 23 2021 Neal Gompa <ngompa13@gmail.com> - 0.0.1^git20210323.3b487ed-1
-- Bump to new git snapshot
-
-* Sun Mar 21 2021 Neal Gompa <ngompa13@gmail.com> - 0.0.1+git20210319.511d606-1.1
-- Bump to new git snapshot
-- Refresh patches
-
-* Fri Oct 30 2020 Neal Gompa <ngompa13@gmail.com> - 0.0.1+git20201028.542001b-0.1
-- Bump to new git snapshot
-
-* Sat Oct 24 2020 Neal Gompa <ngompa13@gmail.com> - 0.0.1+git20200923.6ed6757-0.2
-- Add CentOS theme subpackage
-
-* Sun Oct 04 2020 Neal Gompa <ngompa13@gmail.com> - 0.0.1+git20200923.6ed6757-0.1
-- Bump to new git snapshot
-
-* Sun Jul 26 2020 Neal Gompa <ngompa13@gmail.com> - 0.0.1+git20200722.fcba2d8-0.1
-- Bump to new post-release git snapshot
-
-* Sun Apr 19 2020 Neal Gompa <ngompa13@gmail.com> - 0.0.1-0.1
-- Initial packaging
+%autochangelog

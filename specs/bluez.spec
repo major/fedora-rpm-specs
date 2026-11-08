@@ -18,7 +18,7 @@
 
 Name:    bluez
 Version: 5.88%{?shortcommit:^%{gitdate}.%{shortcommit}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
@@ -350,6 +350,9 @@ fi
 %{_userunitdir}/obex.service
 
 %changelog
+* Sat Nov 07 2026 Michel Lind <salimma@fedoraproject.org> - 5.88-2
+- Rebuild for libical 4.x
+
 * Thu Nov 05 2026 Michel Lind <salimma@fedoraproject.org> - 5.88-1
 - Update to 5.88, which also fixes the upgrade path from the 5.87 snapshots
 - Use the snapshot versioning from the packaging guidelines for future

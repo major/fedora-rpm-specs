@@ -34,7 +34,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.61.5
+Version:       1.61.6
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -1031,6 +1031,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Sat Nov 07 2026 Richard W.M. Jones <rich@annexia.org> - 1:1.61.6-1
+- New upstream development version 1.61.6
+
 * Fri Oct 30 2026 Richard W.M. Jones <rich@annexia.org> - 1:1.61.5-1
 - New upstream development version 1.61.5
 - New signing key using SHA256 hashes.

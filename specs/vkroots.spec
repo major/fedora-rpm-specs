@@ -46,13 +46,17 @@ cd gen
 
 %install
 %meson_install
+# Architecture independent, %%{_libdir} is not in the pkgconf search path of
+# 64 bit architectures for noarch packages
+mkdir -p %{buildroot}%{_datadir}/pkgconfig
+mv %{buildroot}%{_libdir}/pkgconfig/%{name}.pc %{buildroot}%{_datadir}/pkgconfig/
 
 
 %files devel
 %license LICENSE
 %doc README.md
 %{_includedir}/%{name}.h
-%{_libdir}/pkgconfig/%{name}.pc
+%{_datadir}/pkgconfig/%{name}.pc
 
 
 %changelog

@@ -7,7 +7,7 @@ ExcludeArch:    %{ix86}
 
 
 Name:           astrometry
-Version:        0.98
+Version:        0.99
 Release:        %autorelease
 Summary:        Blind astrometric calibration of arbitrary astronomical images
 
@@ -64,9 +64,6 @@ Patch:          Fix-shared-lib-flags-so-that-the-package-can-be-built-on-s390x.p
 Patch:          Don-t-copy-demo-files-to-examples.patch
 Patch:          Remove-errornous-generation-of-net-client.py.patch
 Patch:          Remove-horizons.py-from-Python-package.patch
-# Replace removed Python 2 C API macros with Python 3 equivalents
-# for compatibility with SWIG 4.5.0
-Patch:          Replace-removed-Python-2-C-API-macros-for-SWIG-4.5.0.patch
 
 BuildRequires:  gcc
 BuildRequires:  make

@@ -1,5 +1,15 @@
+# I have given up on building the Java support. First, something is wrong with
+# the makefiles. Install targets for Java often fail because the thing they are
+# trying to install hasn't been built yet. Second, the bytecode doesn't pass
+# verification. That could be ignored with older JDKs, but modern JDKs are not
+# happy about that at all.
+#
+# If those two problems are fixed, we can bring Java support back.
+
 # The hardened build breaks bigloo's plugin architecture.
 %undefine _hardened_build
+
+%global giturl  https://github.com/manuel-serrano/bigloo
 
 # Bigloo uses the terminology "release" for what Fedora calls version,
 # and "version" for a sub-version revision.
@@ -17,27 +27,63 @@
 %bcond customgc 1
 %global         bundledgc 8.2.2
 
-# Bigloo bundles libbacktrace, which is intended to be a copylib
-%bcond customlbt 1
-%global         bundlelbt 1.0.20210529
+# Bigloo needs itself to build, because the compiler is written in Scheme
+%bcond bootstrap 0
+
+# Whether to build Java support
+%ifarch %{java_arches}
+%bcond java %[%{without bootstrap} && 0]
+%else
+%bcond java 0
+%endif
+
+%if %{with java}
+%global build_java yes
+%else
+%global build_java no
+%endif
 
 Name:           bigloo
-Version:        4.6a%{?patch_ver:.%{patch_ver}}
+Version:        4.7b%{?patch_ver:.%{patch_ver}}
 Release:        %autorelease
 Summary:        A compiler for the Scheme programming language
 
 # The compiler and tools are GPL-2.0-or-later.
 # The runtime system and libraries are LGPL-2.0-or-later.
 # Exceptions:
-# - examples/Socket/socket.scm is some unknown form of BSD (not packaged)
-# - runtime/Unsafe/sha2.scm is BSD-3-Clause
+# - api/csv is LGPL-3.0-or-later
+# - api/mail/src/Llib/imap.stk is GPL-2.0-or-later
 # - api/packrat/src/Llib/json.scm is MIT
 # - api/packrat/src/Llib/packrat.scm is MIT
 # - api/text/src/Llib/levenshtein.scm is LGPL-3.0-or-later
+# - examples/Socket/socket.scm is some unknown form of BSD (not packaged)
+# - manuals is Latex2e, except:
+# - manuals/r5rs.texi is SchemeReport
+# - runtime/Unsafe/sha2.scm is BSD-3-Clause
+# - www/lib is MIT
+# - the bundled GC library is Boehm-GC
 License:        GPL-2.0-or-later
+# Files not shipped in any binary with additional licenses:
+# - bench/fft/fft.scm is LicenseRef-Fedora-Public-Domain
+# - libunistring/config.guess is GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+SourceLicense:  %{shrink:%{license}
+                  AND LGPL-2.0-or-later
+                  AND LGPL-3.0-or-later
+                  AND BSD-3-Clause
+                  AND MIT
+                  AND Boehm-GC
+                  AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+                  AND Latex2e
+                  AND SchemeReport
+                }
 URL:            https://www-sop.inria.fr/mimosa/fp/Bigloo
-VCS:            git:https://github.com/manuel-serrano/bigloo.git
-Source:         ftp://ftp-sop.inria.fr/indes/fp/Bigloo/%{name}-%{version}%{?patch_suffix}.tar.gz
+VCS:            git:%{giturl}.git
+%if %{with bootstrap}
+# The bootstrap compiler has pregenerated C files for the Scheme compiler
+Source:         http://www-sop.inria.fr/indes/fp/Bigloo/download/bigloo-unstable.tar.gz
+%else
+Source:         %{giturl}/archive/v%{version}%{?patch_suffix}/%{name}-%{version}%{?patch_suffix}.tar.gz
+%endif
 # Not yet sent upstream: fix some bugs in the Emacs interface, and also
 # modernizes the code somewhat.
 Patch:          %{name}-emacs.patch
@@ -45,39 +91,34 @@ Patch:          %{name}-emacs.patch
 Patch:          %{name}-stat64.patch
 # Not yet sent upstream: add some noreturn attributes
 Patch:          %{name}-noreturn.patch
-# Fix reading past the limits of a stack buffer
-Patch:          %{name}-memread.patch
 # Make type declarations match, silences LTO warning
 Patch:          %{name}-lto-type.patch
-# Make the test suite fail if individual tests fail
-Patch:          %{name}-test.patch
 # Round top of stack to a multiple of 1024.  Fixes stack overflow on s390x.
 Patch:          %{name}-callcc.patch
-# Adapt to Java 11
+# Adapt to Java 25
 Patch:          %{name}-javac.patch
 # Fix signal numbers in the Java code
 Patch:          %{name}-java-signum.patch
-# Adapt to changed semantics in C23, the default in GCC 15
-Patch:          %{name}-gcc15.patch
+# Avoid undefined behavior in the hashing code
+Patch:          %{name}-hash-undefined.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-BuildRequires:  emacs
+%if %{without bootstrap}
+BuildRequires:  bigloo
+%endif
+BuildRequires:  emacs-nox
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
 BuildRequires:  indent
-%ifarch %{java_arches}
+%if %{with java}
 BuildRequires:  java-25-devel
 BuildRequires:  javapackages-tools
 %endif
 %if %{with customgc}
 BuildRequires:  libatomic
-%endif
-BuildRequires:  libtool
-%if %{without customlbt}
-BuildRequires:  libbacktrace-devel
 %endif
 BuildRequires:  libunistring-devel
 BuildRequires:  make
@@ -103,7 +144,7 @@ BuildRequires:  zip
 
 Requires:       bigloo-libs%{?_isa} = %{version}-%{release}
 Requires:       emacs-filesystem >= %{?_emacs_version}%{!?_emacs_version:0}
-%ifarch %{java_arches}
+%if %{with java}
 Requires:       javapackages-filesystem
 %endif
 Requires:       indent
@@ -121,11 +162,14 @@ Requires:       libuv-devel%{?_isa}
 Provides:       bundled(gc) = %{bundledgc}
 %endif
 
-%if %{with customlbt}
-Provides:       bundled(libbacktrace) = %{bundlelbt}
+# Bigloo bundles libbacktrace, which is intended to be a copylib
+Provides:       bundled(libbacktrace) = 1.0.20231209
 %global __provides_exclude libbacktrace.*
 %global __requires_exclude libbacktrace.*
-%endif
+
+# This can be removed when Fedora 49 reaches EOL
+Obsoletes:      %{name}-doc < 4.6b-1
+Provides:       %{name}-doc = %{version}-%{release}
 
 %description
 Bigloo is a Scheme implementation devoted to one goal: enabling a Scheme based
@@ -137,22 +181,29 @@ executables.  Bigloo enables full connections between Scheme and C programs.
 
 %package libs
 Summary:        Bigloo runtime libraries
-License:        LGPL-2.0-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND MIT
+# See above
+License:        %{shrink:GPL-2.0-or-later
+                  AND LGPL-2.0-or-later
+                  AND LGPL-3.0-or-later
+                  AND BSD-3-Clause
+                  AND MIT
+                  AND Boehm-GC
+                 }
 
 %description libs
 Runtime libraries for Bigloo compiled programs.
 
-%package doc
-Summary:        Bigloo documentation
-BuildArch:      noarch
-
-%description doc
-Documentation for the Bigloo compiler and integrated development environment.
-
 %prep
+%if %{with bootstrap}
+%autosetup -p0 -n %{name}-unstable
+%else
 %autosetup -p0 -n %{name}-%{version}%{?patch_suffix}
+%endif
 
 %conf
+# Remove prebuilt binaries
+rm api/{mqtt,text}/recette/recette
+
 # Remove an example with a dubious license
 rm -fr examples/Socket
 
@@ -183,41 +234,55 @@ sed -i 's/ -Wno-parentheses-equality//;s/ -Wno-invalid-source-encoding//' \
     autoconf/ccwarning
 
 %build
-%define inplace $PWD/inplace
+%if %{with bootstrap}
+bgver=$(sed -n 's/^release=\(.*\)/\1/p' configure)
+%else
+bgver=%{version}
+%endif
 
 # Large stack needed to build
 ulimit -s unlimited
 
 # Enable UTF-8 filename support
-export LOCALE="C.utf8"
-# The sources are not ready for C23
-export CFLAGS="%{build_cflags} -std=gnu17 -D_GNU_SOURCE=1 -fwrapv -fno-strict-aliasing -Wno-unused"
+export LOCALE=C.utf8
+
+# Work around a TLS definition issue
 sed -i 's/TLS=thread_local/TLS=_Thread_local/;s/"thread_local"/"_Thread_local"/' autoconf/pthreadlocalstorage
 
 # Build blib with the correct flags
 sed -i "s|^CFLAGS.*|& $CFLAGS|" bdb/blib/Makefile
 
+%if %{without bootstrap}
+# Use the system bigloo to build
+export BGLBUILDBINDIR=%{_bindir}
+export BUILDBIGLOO=%{_bindir}/bigloo
+# Look for whatever version the bootstrap compiler claims to be
+bootver=$(bigloo -q -eval "(exit (print (bigloo-config 'release-number)))")
+sed -i "s/^\(buildrelease=\).*/\1$bootver/" configure
+%endif
+
+# Help the bigloo binary find its libraries
+sed -i "/EXTRA_LD_OPT/s|\$(LDCOMPLIBS)|& -Wl,-rpath=%{_libdir}/bigloo/$bgver|" comptime/Makefile
+
 export LDFLAGS="-Wl,-z,relro -Wl,--as-needed"
 ./configure \
+        --cflags='%{build_cflags} -D_GNU_SOURCE=1 -fno-strict-aliasing -Wno-unused' \
+        --ldflags='-Wl,-z,relro -Wl,--as-needed' \
         --prefix=%{_prefix} \
         --bindir=%{_bindir} \
         --libdir=%{_libdir} \
-        --mandir=%{_mandir}/man1 \
+        --mandir=%{_mandir} \
         --infodir=%{_infodir} \
         --docdir=%{_docdir} \
         --lispdir=%{_emacs_sitelispdir}/bigloo \
-%ifarch %{java_arches}
-        --jvm=yes \
         --javaprefix=%{_jvmdir}/java/bin \
-%else
-        --jvm=no \
-%endif
+        --jvm=%{build_java} \
 %ifarch %{power64} s390x
         --no-c-musttail \
 %endif
         --bee=full \
         --customgc=%{?with_customgc:yes}%{!?with_customgc:no} \
-        --customlibbacktrace=%{?with_customlbt:yes}%{!?with_customlbt:no} \
+        --customlibbacktrace=yes \
         --coflags="$CFLAGS" \
         --cpicflags="-fPIC" \
         --sharedbde=yes \
@@ -228,43 +293,40 @@ export LDFLAGS="-Wl,-z,relro -Wl,--as-needed"
         --strip=no \
         --configureinfo=yes
 
-# Remove extraneous rpath
-sed -i '/^RPATH=/s,\$(DESTDIR).*:,,' Makefile.config
-
-%if %{with customlbt}
-# Fix broken link line for the bundled libbacktrace
-sed -i 's/-llibbacktrace/$(LDBUILDOPTS) -lbacktrace/' Makefile.config
-%endif
+# Work around missing Makefile dependency
+%make_build -C libbacktrace
 
 # _smp_mflags breaks the build
-LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} make
-LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} \
-    BIGLOOLIB=%{inplace}%{_libdir}/bigloo/%{version} \
-    make DESTDIR=%{inplace} install
-LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} \
+LD_LIBRARY_PATH=$PWD/lib/bigloo/$bgver make
+LD_LIBRARY_PATH=$PWD/lib/bigloo/$bgver \
+    BIGLOOLIB=$PWD/inplace%{_libdir}/bigloo/$bgver \
+    make DESTDIR=$PWD/inplace install
+LD_LIBRARY_PATH=$PWD/lib/bigloo/$bgver \
     PATH=$PWD/bin:$PATH \
-    BIGLOOLIB=%{inplace}%{_libdir}/bigloo/%{version} \
+    BIGLOOLIB=$PWD/inplace%{_libdir}/bigloo/$bgver \
     make compile-bee
+make -C manuals info info-bee
 
 # Other permissions are missing from a lot of files
 chmod -R o+r .
 
-
 %install
+%if %{with bootstrap}
+bgver=$(sed -n 's/^release=\(.*\)/\1/p' configure)
+%else
+bgver=%{version}
+%endif
+
 mkdir -p %{buildroot}%{_emacs_sitelispdir}/bigloo
-env LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} %make_install
-env LD_LIBRARY_PATH=$PWD/lib/bigloo/%{version} \
-    make DESTDIR=%{buildroot} EMACSDIR=%{_emacs_sitelispdir}/bigloo install-bee
+LD_LIBRARY_PATH=$PWD/lib/bigloo/$bgver %make_install
+LD_LIBRARY_PATH=$PWD/lib/bigloo/$bgver make DESTDIR=%{buildroot} install-bee
+touch %{buildroot}%{_infodir}/dir
 make -C manuals DESTDIR=%{buildroot} install-bee
 
-# Remove empty directory
-rmdir %{buildroot}%{_libdir}/pkgconfig
-
 # fix permissions
-chmod 755 %{buildroot}%{_bindir}/*
 find %{buildroot}%{_libdir} -name \*.so -exec chmod 755 {} +
 
-%ifarch %{java_arches}
+%if %{with java}
 # move jigloo to the proper place
 mkdir %{buildroot}%{_javadir}
 mv %{buildroot}%{_bindir}/jigloo.class %{buildroot}%{_javadir}
@@ -273,15 +335,15 @@ mv %{buildroot}%{_bindir}/jigloo.class %{buildroot}%{_javadir}
 # Remove references to the build root
 sed -e 's|^BOOTDIR=.*|BOOTDIR=%{_prefix}|g' \
     -e 's|^BOOTBINDIR=.*|BOOTBINDIR=%{_bindir}|g' \
-    -e 's|^BOOTLIBDIR=.*|BOOTLIBDIR=%{_libdir}/bigloo/%{version}|g' \
+    -e 's|^BOOTLIBDIR=.*|BOOTLIBDIR=%{_libdir}/bigloo/'"$bgver"'|g' \
     -e 's|^BGLBUILDBINDIR=.*|BGLBUILDBINDIR=%{_bindir}|g' \
-    -e 's|^BGLBUILDLIBDIR=.*|BGLBUILDLIBDIR=%{_libdir}/bigloo/%{version}|g' \
+    -e 's|^BGLBUILDLIBDIR=.*|BGLBUILDLIBDIR=%{_libdir}/bigloo/'"$bgver"'|g' \
     -e 's|^\(BIGLOO=.*\)\.sh|\1|' \
     -e 's|^\(BGL.*=.*\)\.sh|\1|' \
-    -i %{buildroot}%{_libdir}/bigloo/%{version}/Makefile.config
+    -i %{buildroot}%{_libdir}/bigloo/$bgver/Makefile.config
 
 # Remove references to the build root and the build directory
-sed -i 's|\(LIBRARY_PATH=\).*|\1%{_libdir}/bigloo/%{version}:$LD_LIBRARY_PATH|' \
+sed -i 's|\(LIBRARY_PATH=\).*|\1%{_libdir}/bigloo/'"$bgver"':$LD_LIBRARY_PATH|' \
     %{buildroot}%{_bindir}/*.sh
 
 # Fix symlinks that point to the buildroot
@@ -300,10 +362,15 @@ mkdir -p %{buildroot}%{_emacs_sitestartdir}
 cat > %{buildroot}%{_emacs_sitestartdir}/bigloo.el <<EOF
 (require 'bmacs)
 EOF
-pushd %{buildroot}%{_emacs_sitelispdir}/bigloo
+cd %{buildroot}%{_emacs_sitelispdir}/bigloo
 rm -f bmacs-xemacs.el xemacs-etags.el
 %{_emacs_bytecompile} bmacs.el bmacs-config.el bmacs-gnu-emacs.el
-popd
+cd -
+
+# FIXME: bigloo-4.7b doesn't install these
+# The current unstable version does, though, so check on next release
+cp -p manuals/bigloo.info* %{buildroot}%{_infodir}
+cp -p manuals/bigloo.man %{buildroot}%{_mandir}/man1/bigloo.1
 
 # FIXME: Unexplained segfaults when running tests on ppc64le
 %ifnarch %{power64}
@@ -315,25 +382,26 @@ export TZ=$(date +%%Z)
 # The commands below are the exact ones that make executes, but they succeed
 # if run this way.  Investigation continues.
 NATIVEBACKEND=$(sed -n 's/NATIVEBACKEND=\(.*\)/\1/p' Makefile.config)
-JVMBACKEND=$(sed -n 's/JVMBACKEND=\(.*\)/\1/p' Makefile.config)
 cd recette
 if [ "$NATIVEBACKEND" = yes ]; then
   make recette-static
   ../bin/bglrun.sh ./recette-static
 fi
 cd -
+%if %{with java}
+JVMBACKEND=$(sed -n 's/JVMBACKEND=\(.*\)/\1/p' Makefile.config)
 if [ "$JVMBACKEND" = yes ]; then
   make jvm-test
 fi
 %endif
-
+%endif
 
 %files
 %{_bindir}/bdb
 %{_bindir}/bgl*
 %{_bindir}/bigloo*
 %{_bindir}/cigloo
-%ifarch %{java_arches}
+%if %{with java}
 %{_javadir}/jigloo.class
 %endif
 %{_infodir}/bdb.info*
@@ -342,19 +410,14 @@ fi
 %{_mandir}/man1/bigloo.1*
 %{_emacs_sitelispdir}/bigloo/
 %{_emacs_sitestartdir}/bigloo.el
-%doc ChangeLog Makefile.config examples
+# Omitted from the 4.7b release
+#%%doc ChangeLog
+%doc Makefile.config examples
 %doc README*
-
 
 %files libs
 %{_libdir}/bigloo/
 %license LICENSE COPYING
-
-
-%files doc
-%doc manuals/*.html
-%license LICENSE COPYING
-
 
 %changelog
 %autochangelog

@@ -1,8 +1,8 @@
 Name:     primesieve
-Version:  12.16
-Release:  1%{?dist}
+Version:  12.17
+Release:  2%{?dist}
 Summary:  Fast prime number generator
-License:  LicenseRef-Callaway-BSD
+License:  BSD-2-Clause
 URL:      https://github.com/kimwalisch/primesieve
 Source0:  https://github.com/kimwalisch/primesieve/archive/v%{version}.tar.gz
 Requires: primesieve-libs%{?_isa} = %{version}-%{release}
@@ -71,6 +71,40 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Sat Nov 07 2026 Kim Walisch <walki@fedoraproject.org> - 12.17-2
+- Fix rpminspect license check: Convert License LicenseRef-Callaway-BSD to SPDX BSD-2-Clause
+
+* Sat Nov 07 2026 Kim Walisch <walki@fedoraproject.org> - 12.17-1
+- PreSieve_arm_sve.hpp: Fix ambiguous svwhilelt_b8() call on macOS
+- ci.yml: Compile Linux x64 tests with -march=x86-64, Ubuntu 26.04 enables AVX2
+- primesieveConfig.cmake.in: Avoid overwriting the LOWER_COMPONENTS variable of consumers
+- CMake: Prefix internal cache variables with PRIMESIEVE_ to avoid name collisions
+- PreSieveTables.hpp: Simplify the lookup table generator program
+- CMake: Require C++14 for the executable and tests
+- Vector.hpp: Make Array member functions constexpr
+- PreSieveTables.hpp: Fix MSVC initializing preSieveTables at startup
+- scripts: Remove unused build_mingw64_x64.sh and build_mingw64_arm64.sh
+- Add AGENTS.md file for AI agents
+- ci.yml: Migrate Windows GCC CI from MINGW64 to UCRT64
+- ci.yml: Check that SIMD runtime dispatch probes succeed
+- CMake: Reuse cpu_arch_macros.hpp in SIMD runtime dispatch probes
+- Implement SIMD runtime dispatching for MSVC compiler
+- main.cpp: Add -march=native support to --cpu-info option
+- popcnt.hpp: Add ARM NEON popcnt64() implementation for MSVC compiler
+- popcnt.hpp: Get rid of popcnt64_native(), use _mm_popcnt_u64() instead
+- cpu_arch_macros.hpp: New header to simplify SIMD preprocessor logic
+- PrimeGenerator_arm_neon.hpp: Convert 1-bits from sieve array to primes using ARM NEON
+- PrimeGenerator_x86_avx512.hpp: New AVX512 algorithm with fewer branch mispredictions
+- PrimeGenerator_x86_avx2.hpp: Convert 1-bits from sieve array to primes using AVX2
+- PrimeGenerator.hpp: Update SIMD runtime dispatching
+- PreSieve.cpp: Update SIMD runtime dispatching
+- PreSieve.cpp: Use ARM NEON only on 64-bit ARM CPUs
+- PreSieve.cpp: Enable SSE2 algorithm for MSVC on x64
+- PreSieve_x86_avx2.hpp: Add AVX2 pre-sieving algorithm
+- CMakeLists.txt: Building now requires C++14 (linking still works using C++11)
+- macros.hpp: Add NO_UNROLL_LOOP and NO_VECTORIZE_LOOP macros
+- CpuInfo.cpp: Fix uninitialized read of 32-bit hw.logicalcpu sysctl on macOS
+
 * Mon Sep 28 2026 Kim Walisch <walki@fedoraproject.org> - 12.16-1
 - Fix MinGW GCC 16 assertion warning in debug mode
 - Remove unnecessary integer literal suffixes

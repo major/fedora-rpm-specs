@@ -6,10 +6,12 @@ License: GPL-2.0-or-later
 URL: https://gitlab.com/ipcalc/ipcalc
 Source0: https://gitlab.com/api/v4/projects/ipcalc%%2Fipcalc/packages/generic/ipcalc/%{version}/ipcalc-%{version}.tar.xz
 Source1: https://gitlab.com/api/v4/projects/ipcalc%%2Fipcalc/packages/generic/ipcalc/%{version}/ipcalc-%{version}.tar.xz.sig
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 1F42418905D8206AA754CCDC29EE58B996865171 --output gpgkey-1F42418905D8206AA754CCDC29EE58B996865171.gpg --overwrite
 Source2: gpgkey-1F42418905D8206AA754CCDC29EE58B996865171.gpg
 
 BuildRequires: gcc, libmaxminddb-devel, meson, rubygem-ronn-ng
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 # for the test suite (JsonEscapeHostname)
 BuildRequires: jq
 Recommends:    libmaxminddb, geolite2-city, geolite2-country, geolite2-asn
@@ -28,7 +30,7 @@ parsing in scripts, generate random private addresses, resolve an IP address,
 or check the validity of an address.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

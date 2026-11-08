@@ -9,9 +9,11 @@ License:    GPL-3.0-or-later
 URL:        https://github.com/fcitx/fcitx5-skk
 Source:     https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.tar.zst
 Source1:    https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.tar.zst.sig
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9 --output 0x8E8B898CBF2412F9 --overwrite
 Source2:    https://pgp.key-server.io/download/0x8E8B898CBF2412F9
 
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -35,7 +37,7 @@ Fcitx5-skk is an SKK (Simple Kana Kanji) engine for Fcitx.  It provides
 Japanese input method using libskk.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

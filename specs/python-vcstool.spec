@@ -12,9 +12,10 @@ Source0:        https://github.com/dirk-thomas/%{srcname}/archive/%{version}/%{s
 
 BuildArch:      noarch
 
+Patch1:         0001-use-importlib-metadata-instead-of-pkg_resources.patch
+
 BuildRequires:  git
 BuildRequires:  python3-devel
-BuildRequires:  python3-pkg_resources
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
 

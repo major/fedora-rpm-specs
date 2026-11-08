@@ -77,6 +77,7 @@ Source:         https://github.com/uutils/coreutils/archive/%{version}/%{name}-%
 # loosen selinux version bound from =0.6.0 to 0.6.0
 # update clap_mangen to 0.3:
 #   https://github.com/uutils/coreutils/commit/9397a9c09332dd4a701f344be58d0d59782b2d91
+# update zip to 9: https://github.com/uutils/coreutils/commit/33a2889a6
 Patch:          coreutils-fix-metadata.diff
 # bump ctor from 0.6 to 1
 Patch:          coreutils-ctor-1_x.diff

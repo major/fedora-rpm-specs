@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        JSON Matching Expressions
 
 License:        MIT
@@ -16,11 +16,8 @@ a JSON document.
 
 %package -n     python3-%{pypi_name}
 Summary:        JSON Matching Expressions
-%{?python_provide:%python_provide python3-%{pypi_name}}
-%{?python_provide:%python_provide python-%{pypi_name}}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 BuildRequires:  python3-pytest
 %if %{undefined rhel}
@@ -35,27 +32,32 @@ a JSON document.
 
 %prep
 %setup -q -n jmespath.py-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 %check
+%pyproject_check_import
+
 # RHEL does not have python3-hypothesis. Only one file in the upstream repo
 # depends on hypothesis, so we can omit this dependency for RHEL.
 %pytest %{?rhel:--ignore=extra/test_hypothesis.py}
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE.txt
 %{_bindir}/jp.py
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Nov 04 2026 Miro Hrončok <miro@hroncok.cz> - 1.0.1-17
+- Convert to pyproject RPM macros (rhbz#2377823)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %global github_version 1.0-1
-%global fedora_version %(echo -n %{github_version} | sed 's/-/./')
+%global fedora_version %{gsub %github_version - .}
 
 Name:           jcip-annotations
 Version:        %{fedora_version}

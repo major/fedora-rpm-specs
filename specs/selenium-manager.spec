@@ -10,12 +10,10 @@ Summary:        Automated driver and browser management for Selenium
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-3-Clause
-# CDLA-Permissive-2.0
 # ISC
 # MIT
 # MIT OR Apache-2.0
@@ -23,6 +21,7 @@ Summary:        Automated driver and browser management for Selenium
 # MPL-2.0
 # Unicode-3.0
 # Unlicense OR MIT
+# Zlib
 # bzip2-1.0.6
 
 
@@ -31,15 +30,14 @@ Summary:        Automated driver and browser management for Selenium
 License:        %{shrink:
                 Apache-2.0 AND
                 BSD-3-Clause AND
-                CDLA-Permissive-2.0 AND
                 ISC AND
                 MIT AND
                 MPL-2.0 AND
                 Unicode-3.0 AND
                 Unicode-DFS-2016 AND
+                Zlib AND
                 bzip2-1.0.6 AND
                 (0BSD OR MIT OR Apache-2.0) AND
-                (Apache-2.0 OR BSL-1.0) AND
                 (Apache-2.0 OR ISC OR MIT) AND
                 (Apache-2.0 OR MIT) AND
                 (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
@@ -59,6 +57,9 @@ Source0:        %{url}/archive/selenium-%{version}.tar.gz
 # Upstream status: https://github.com/SeleniumHQ/selenium/issues/15009#issuecomment-3027302387
 Patch0:         0001-remove-unnecessary-dependencies.patch
 Patch1:         0001-remove-unsupported-function.patch
+# Source-code patch to update from zip v8 to v9 (see Patch0).
+# https://github.com/SeleniumHQ/selenium/commit/7dfc0139a8d06bf72b74072159903353bb61c1f4
+Patch2:         selenium-4.45.0-zip9.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -72,6 +73,7 @@ that provides automated driver and browser management for Selenium.
 cd src
 %patch -P 1 
 cd ..
+%patch -P 2 -p2
 %cargo_prep 
 
 %generate_buildrequires

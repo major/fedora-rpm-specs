@@ -1,5 +1,5 @@
 Name:           python-pysequoia
-Version:        0.1.35
+Version:        0.1.36
 Release:        %autorelease
 Summary:        OpenPGP in Python using Sequoia PGP
 License:        Apache-2.0

@@ -7,8 +7,7 @@ Version:        1.4.0
 Release:        2%{?dist}
 Summary:        Parses CSS3 Selectors and translates them to XPath 1.0
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/scrapy/cssselect
 Source0:        %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 

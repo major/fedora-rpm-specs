@@ -13,9 +13,12 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tar
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow astral-tokio-tar 0.7 for testing:
-#   https://github.com/composefs/tar-rs/pull/475
+# * Drop dev-dependency on deprecated/unmaintained astral-tokio-tar
 Patch:          tar-fix-metadata.diff
+# * Downstream: omit tests that cross-validate against astral-tokio-tar
+# * See “Test dependency astral-tokio-tar is deprecated and unmaintained,”
+#   https://github.com/composefs/tar-rs/issues/496.
+Patch10:        0001-Downstream-omit-tests-that-cross-validate-against-as.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

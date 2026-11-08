@@ -15,9 +15,11 @@ License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/fcitx/fcitx5-chinese-addons
 Source:         https://download.fcitx-im.org/fcitx5/fcitx5-chinese-addons/fcitx5-chinese-addons-%{version}_dict.tar.zst
 Source1:        https://download.fcitx-im.org/fcitx5/fcitx5-chinese-addons/fcitx5-chinese-addons-%{version}_dict.tar.zst.sig
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9 --output 0x8E8B898CBF2412F9 --overwrite
 Source2:        https://pgp.key-server.io/download/0x8E8B898CBF2412F9
 
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
@@ -70,7 +72,7 @@ Requires:       fcitx5-devel
 devel files for fcitx5-chinese-addons
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

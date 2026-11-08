@@ -8,9 +8,11 @@ License:    LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-MIT
 URL:        https://github.com/fcitx/xcb-imdkit
 Source:     https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.tar.zst
 Source1:    https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.tar.zst.sig
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9 --output 0x8E8B898CBF2412F9 --overwrite
 Source2:    https://pgp.key-server.io/download/0x8E8B898CBF2412F9
 
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
@@ -32,7 +34,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Devel files for xcb-imdkit
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

@@ -1,6 +1,6 @@
 Name:           waybar
-Version:        0.15.0
-Release:        6%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -24,11 +24,6 @@ Patch:          waybar-fedora-config-changes.patch
 # Downstream changes to the systemd service:
 #  - Check that the environment is Wayland and is not listed as unsupported
 Patch:          waybar-fedora-systemd-target-conflicts.patch
-
-# Fix for hot update loop that can spike CPU and
-# destabilize rendering in drawer/group setups
-# https://github.com/Alexays/Waybar/pull/4838
-Patch:          fix-treat-missing-interval-as-once.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -54,6 +49,7 @@ BuildRequires:  pkgconfig(libnl-genl-3.0)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(mm-glib)
 BuildRequires:  pkgconfig(playerctl)
 BuildRequires:  pkgconfig(sigc++-2.0)
 BuildRequires:  pkgconfig(spdlog) >= 1.10.0
@@ -75,6 +71,13 @@ Recommends:     font(fontawesome7brands)
 %endif
 
 %description
+%{summary}.
+
+%package        module-gps
+Summary:        GPS module for Waybar
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    module-gps
 %{summary}.
 
 %prep
@@ -106,10 +109,18 @@ Recommends:     font(fontawesome7brands)
 %config(noreplace) %{_sysconfdir}/xdg/%{name}/config.jsonc
 %config(noreplace) %{_sysconfdir}/xdg/%{name}/style.css
 %{_bindir}/%{name}
-%{_mandir}/man5/%{name}*
+%{_mandir}/man5/%{name}*.5*
+%exclude %{_mandir}/man5/%{name}-gps.5*
 %{_userunitdir}/%{name}.service
 
+%files module-gps
+%{_libdir}/%{name}/%{name}-gps.so
+%{_mandir}/man5/%{name}-gps.5*
+
 %changelog
+* Thu Nov 05 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.16.0-1
+- Update to 0.16.0 (#2387223)
+
 * Sun Aug 02 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.15.0-6
 - systemd: declare known incompatible desktop environments
 

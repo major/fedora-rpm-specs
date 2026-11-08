@@ -12,6 +12,8 @@ License:        ISC
 URL:            %forgeurl
 Source:         %forgesource
 
+Patch1:         0001-handle-None-arguments-in-codegen.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 # For tests
@@ -42,6 +44,7 @@ sed -r \
     -e "s/--cov.* //g" \
     -e "s/ --cov.*'/'/" \
     -e "s/ --doctest.*'/'/" \
+    -e "s/graphql-core~=3.2.6/graphql-core>=3.2.6/" \
     -i pyproject.toml
 
 

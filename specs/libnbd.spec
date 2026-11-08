@@ -24,8 +24,8 @@
 %global source_directory 1.25-development
 
 Name:           libnbd
-Version:        1.25.8
-Release:        2%{?dist}
+Version:        1.25.9
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -405,6 +405,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Sat Nov 07 2026 Richard W.M. Jones <rjones@redhat.com> - 1.25.9-1
+- New upstream development version 1.25.9
+
 * Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 1.25.8-2
 - Verify upstream source signatures with openpgpverify
 

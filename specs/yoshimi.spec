@@ -1,7 +1,7 @@
 %global _vpath_srcdir src
 
 Name:		yoshimi
-Version:	2.3.6.1
+Version:	2.3.6.5
 Release:	%autorelease
 Summary:	Rewrite of ZynAddSubFx aiming for better JACK support
 
@@ -40,7 +40,7 @@ made by it sound like those from professional keyboards. The program has
 effects like Reverb, Echo, Chorus, Phaser...
 
 %prep
-%autosetup -p1 -n home/will/%{name}-%{version}
+%autosetup -p1 -n %{name}_%{version}
 sed -i '/<icon/d' desktop/metainfo/yoshimi.metainfo.xml
 
 

@@ -11,7 +11,7 @@
 
 %global forgeurl https://github.com/arighi/virtme-ng
 
-Version:        1.41
+Version:        1.42
 %forgemeta
 Name:           virtme-ng
 Release:        %autorelease
@@ -79,6 +79,7 @@ for file in \
 	virtme/architectures.py \
 	virtme/mkinitramfs.py \
 	virtme/qemu_helpers.py \
+	virtme/kernel_image.py \
 	virtme/commands/run.py
 do
 	sed -i \

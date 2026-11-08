@@ -11,7 +11,7 @@ Version:        4.1
 Release:        %autorelease
 Summary:        Extensions for Django
 
-License:        GPL-3.0-or-later
+License:        MIT
 URL:            https://github.com/django-extensions/django-extensions
 %if %{with pypi_source}
 # PyPI tarball doesn't contain some requirements files

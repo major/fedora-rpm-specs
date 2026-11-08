@@ -1,8 +1,8 @@
 %global pname fypp
 
 Name: python-%{pname}
-Version: 3.2
-Release: 14%{?dist}
+Version: 3.3
+Release: 1%{?dist}
 Summary: Fortran preprocessor
 License: BSD-2-Clause
 URL: https://github.com/aradi/fypp
@@ -45,11 +45,14 @@ BuildRequires: python3-devel
 test/runtests.sh %{__python3}
 
 %files -n python3-%{pname} -f %{pyproject_files}
-%license LICENSE.txt
+%license LICENSE
 %doc CHANGELOG.rst README.rst
 %{_bindir}/%{pname}
 
 %changelog
+* Sat Nov 07 2026 Dominik Mierzejewski <dominik@greysector.net> - 3.3-1
+- update to 3.3 (resolves rhbz#2547618)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

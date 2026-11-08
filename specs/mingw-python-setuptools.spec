@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       84.0.0
-Release:       3%{?dist}
+Version:       84.2.1
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -101,6 +101,9 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
 %changelog
+* Sat Nov 07 2026 Sandro Mani <manisandro@gmail.com> - 84.2.1-1
+- Update to 84.2.1
+
 * Tue Sep 22 2026 Sandro Mani <manisandro@gmail.com> - 84.0.0-3
 - Rebuild (mingw-python)
 

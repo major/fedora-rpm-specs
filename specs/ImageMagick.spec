@@ -14,7 +14,7 @@
 Name:           ImageMagick
 Epoch:          1
 Version:        7.1.2.35
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -83,6 +83,7 @@ BuildRequires:  make
 BuildRequires:  gnupg2
 # for doc
 BuildRequires:  doxygen
+BuildRequires:  /usr/bin/hardlink
 
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # allow smooth upgrade for 3rd party repository
@@ -97,7 +98,7 @@ and Photo CD image formats. It can resize, rotate, sharpen, color
 reduce, or add special effects to an image, and when finished you can
 either save the completed work in the original format or a different
 one. ImageMagick also includes command line programs for creating
-animated or transparent .gifs, creating composite images, creating
+animated or transparent GIF images, creating composite images, creating
 thumbnail images, and more.
 
 ImageMagick is one of your choices if you need a program to manipulate
@@ -144,8 +145,8 @@ Obsoletes: %{name}7-djvu       < %{epoch}:%{version}-%{release}
 Provides:  %{name}7-djvu       = %{epoch}:%{version}-%{release}
 
 %description djvu
-This packages contains a plugin for ImageMagick which makes it possible to
-save and load DjvU files from ImageMagick and libMagickCore using applications.
+This package provides a plugin for reading and writing DjVu images with
+ImageMagick and applications using its core library.
 
 
 %if %{with libheif}
@@ -155,19 +156,20 @@ BuildRequires:  pkgconfig(libheif) >= 1.4.0
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description heic
-This packages contains a plugin for ImageMagick which makes it possible to
-save and load HEIC files from ImageMagick and libMagickCore using applications.
+This package provides a plugin for reading and writing HEIC images with
+ImageMagick and applications using its core library.
 %endif
 
 
 %package doc
-Summary: ImageMagick html documentation
+Summary: ImageMagick HTML documentation
+BuildArch: noarch
 Obsoletes: %{name}7-doc < %{epoch}:%{version}-%{release}
 Provides:  %{name}7-doc = %{epoch}:%{version}-%{release}
 
 %description doc
 ImageMagick documentation, this package contains usage (for the
-commandline tools) and API (for the libraries) documentation in html format.
+command line tools) and API (for the libraries) documentation in HTML format.
 Note this documentation can also be found on the ImageMagick website:
 http://www.imagemagick.org/
 
@@ -224,6 +226,10 @@ however.
 %{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup -p1 -n %{name}-%{VER}-%{Patchlevel}
 
+# Preserve example sources and input images before the demos are built.
+mkdir -p Magick++/examples
+cp -p Magick++/demo/*.cpp Magick++/demo/*.miff Magick++/examples/
+
 
 %build
 autoconf -f -i -v
@@ -276,6 +282,25 @@ make html-local
 
 %install
 %make_install
+
+# List core modules without processing plugins owned by other subpackages.
+# Recursive inclusion followed by exclusion also collects their build-ID links.
+find %{buildroot}%{_libdir}/%{name}-%{VER} -type d -print \
+    | sed 's|%{buildroot}||; s|^|%%dir |' > libs-modules.list
+find %{buildroot}%{_libdir}/%{name}-%{VER} ! -type d \
+    ! -path '*/coders/djvu.*' \
+%if %{with libheif}
+    ! -path '*/coders/heic.*' \
+%endif
+    -print | sed 's|%{buildroot}||' >> libs-modules.list
+
+# Install clean examples instead of the demo build directory.
+mkdir -p %{buildroot}%{_docdir}/%{name}-c++-devel
+cp -pr Magick++/examples %{buildroot}%{_docdir}/%{name}-c++-devel/
+
+# Deduplicate within each subpackage; do not link files across packages.
+hardlink -tv --reflink=never %{buildroot}%{_docdir}/%{name}-7
+hardlink -tv --reflink=never %{buildroot}%{_docdir}/%{name}-c++-devel
 
 # Compatibility symlinks for headers for IM6->IM7 transition
 ln -sr %{buildroot}%{_includedir}/%{name}-7/MagickCore %{buildroot}%{_includedir}/%{name}-7/magick
@@ -358,17 +383,12 @@ rm PerlMagick/demo/Generic.ttf
 %{_mandir}/man[145]/[a-z]*
 %{_mandir}/man1/%{name}.*
 
-%files libs
+%files libs -f libs-modules.list
 %doc NOTICE AUTHORS.txt
 %license LICENSE
 %{_libdir}/libMagickCore-7.Q16HDRI.so.%{libsover}{,.*}
 %{_libdir}/libMagickWand-7.Q16HDRI.so.%{libsover}{,.*}
-%{_libdir}/%{name}-%{VER}
 %{_datadir}/%{name}-7
-%exclude %{_libdir}/%{name}-%{VER}/modules-Q16HDRI/coders/djvu.*
-%if %{with libheif}
-%exclude %{_libdir}/%{name}-%{VER}/modules-Q16HDRI/coders/heic.*
-%endif
 %dir %{_sysconfdir}/%{name}-7
 %config(noreplace) %{_sysconfdir}/%{name}-7/*.xml
 
@@ -392,10 +412,14 @@ rm PerlMagick/demo/Generic.ttf
 %{_mandir}/man1/MagickWand-config.*
 
 %files djvu
+%doc NOTICE AUTHORS.txt
+%license LICENSE
 %{_libdir}/%{name}-%{VER}/modules-Q16HDRI/coders/djvu.*
 
 %if %{with libheif}
 %files heic
+%doc NOTICE AUTHORS.txt
+%license LICENSE
 %{_libdir}/%{name}-%{VER}/modules-Q16HDRI/coders/heic.*
 %endif
 
@@ -408,7 +432,7 @@ rm PerlMagick/demo/Generic.ttf
 %{_libdir}/libMagick++-7.Q16HDRI.so.%{libcxxsover}{,.*}
 
 %files c++-devel
-%doc Magick++/demo
+%doc %{_docdir}/%{name}-c++-devel
 %{_bindir}/Magick++-config
 %{_includedir}/%{name}-7/Magick++/
 %{_includedir}/%{name}-7/Magick++.h
@@ -424,6 +448,12 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Sun Nov 01 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.35-2
+- Correct package descriptions and include plugin documentation and licenses
+- List core modules separately to avoid duplicate plugin build-ID links
+- Package clean Magick++ example sources without demo build artifacts
+- Make the documentation subpackage noarch and hardlink duplicate documentation
+
 * Sun Nov 01 2026 Packit <hello@packit.dev> - 1:7.1.2.35-1
 - Update to version 7.1.2.35
 - Resolves: rhbz#2564509

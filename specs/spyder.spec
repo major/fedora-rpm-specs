@@ -62,6 +62,7 @@ components, such as the interactive console, in your own software.}
 %package -n python3-spyder
 Summary:    %{summary}
 
+Requires:       fontawesome-fonts-web
 Requires:       hicolor-icon-theme
 Requires:       mathjax
 Requires:       python3dist(python-lsp-black) >= 2
@@ -116,6 +117,30 @@ ln -s %{_datadir}/javascript/mathjax/ \
 
 # provide spyder3 as symlink to spyder binary for continuity
 ln -s spyder %{buildroot}%{_bindir}/spyder3
+
+# python3-QtAwesome symlinks its fontawesome5/6 webfonts to
+# /usr/share/fontawesome/webfonts/fa-*.ttf, but fontawesome-fonts-web 7.x
+# only ships woff2 files -> dangling symlinks -> qtawesome crashes spyder at
+# import time (FileNotFoundError on open() of the font data).
+# Those font files are owned by python3-QtAwesome, so they are not in our
+# buildroot; fix the symlinks in a scriptlet after install instead.
+# Repoint them at the woff2 files; Qt loads them fine as raw font data (the
+# .ttf extension is only used as a filename by qtawesome).
+%posttrans -n python3-spyder
+qta_fonts="$(python3 -c 'import os,qtawesome;print(os.path.dirname(qtawesome.__file__)+"/fonts")' 2>/dev/null)"
+if [ -d "$qta_fonts" ]; then
+    for ttf in "$qta_fonts"/fontawesome[56]-*-webfont-*.ttf; do
+        [ -L "$ttf" ] || continue
+        case "$(basename "$ttf")" in
+            *solid*)   target=fa-solid-900.woff2 ;;
+            *regular*) target=fa-regular-400.woff2 ;;
+            *brands*)  target=fa-brands-400.woff2 ;;
+            *) continue ;;
+        esac
+        ln -sf %{_datadir}/fontawesome/webfonts/$target "$ttf"
+    done
+fi
+exit 0
 
 
 %check

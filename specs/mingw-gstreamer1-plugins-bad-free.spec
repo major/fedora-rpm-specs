@@ -4,7 +4,7 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-bad-free
-Version:        1.28.8
+Version:        1.28.9
 Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
@@ -601,6 +601,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Sat Nov 07 2026 Sandro Mani <manisandro@gmail.com> - 1.28.9-1
+- Update to 1.28.9
+
 * Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 1.28.8-1
 - Update to 1.28.8
 

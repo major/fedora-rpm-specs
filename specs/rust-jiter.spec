@@ -5,7 +5,7 @@
 %global crate jiter
 
 Name:           rust-jiter
-Version:        0.17.0
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Fast Iterable JSON parser
 
@@ -14,7 +14,15 @@ URL:            https://crates.io/crates/jiter
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit benchmark-only dependency codspeed-criterion-compat
+# * Allow PyO3 0.29 for now, RHBZ#2544176; source patch required. Needed for
+#   python-pydantic-core-2.46.5 in Fedora 45 to avoid a rust-jiter0.17 compat
+#   package.
 Patch:          jiter-fix-metadata.diff
+# * Downstream-only: Restore support for PyO3 0.29 by restoring
+#   skip_from_py_object on LosslessFloat, which will lead to a deprecation
+#   warning with PyO3 0.30. This is a partial revert
+#   ofhttps://github.com/pydantic/jiter/commit/e02134b389f90d1aaefa8caeda3c2df1ce9c053f.
+Patch10:        jiter-0.19.0-pyo3-0.29.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

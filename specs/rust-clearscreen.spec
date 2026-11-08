@@ -5,7 +5,7 @@
 %global crate clearscreen
 
 Name:           rust-clearscreen
-Version:        4.0.6
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Cross-platform terminal screen clearing
 
@@ -40,6 +40,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
+%doc %{crate_instdir}/SAFETY.md
 %doc %{crate_instdir}/TERMINALS.md
 %{crate_instdir}/
 
