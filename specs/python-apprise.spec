@@ -65,22 +65,23 @@ notification services. It supports sending alerts to platforms such as: \
 `Apprise API`, `APRS`, \
 `AWS SES`, `AWS SNS`, `Bark`, `Better Stack`, `Blink(1)`, `BlueSky`, \
 `Brevo`, `Burst SMS`, `BulkSMS`, `BulkVS`, \
-`Chanify`, `Clickatell`, `ClickSend`, `DAPNET`, `Delta Chat`, \
+`Chanify`, `Clickatell`, `ClickSend`, `CM.com`, `DAPNET`, `Delta Chat`, \
 `DingTalk`, `Discord`, \
 `Dot. (Quote/0)`, `E-Mail`, `Emby`, `Evolution API`, `Exotel`, \
-`FCM`, `Feishu`, `Flock`, `Flowtriq`, `Fluxer`, `Free Mobile`, `GitHub`, \
-`GoAlert`, `Google Chat`, `Gorush`, `Gotify`, `GroupMe`, `Growl`, \
-`Guilded`, `Home Assistant`, `httpSMS`, \
-`HumHub`, `IFTTT`, `ilert`, `incident.io`, \
-`IRC`, `Jellyfin`, `Jira`, `Join`, `Kavenegar`, `KODI`, `Kook`, \
-`Kumulos`, `LaMetric`, `Lark`, `Lauther`, `LFG Alarm`, `Line`, \
-`MacOSX`, `Mailgun`, \
+`FCM`, `Feishu`, `FireHydrant`, `Flock`, `Flowtriq`, `Fluxer`, \
+`Free Mobile`, `GitHub`, `GoAlert`, `Google Chat`, `Gorush`, `Gotify`, \
+`Groundmail`, `GroupMe`, \
+`Growl`, `Guilded`, `Gupshup`, `Home Assistant`, `httpSMS`, \
+`HumHub`, `IFTTT`, `ilert`, `incident.io`, `Infobip`, \
+`IRC`, `Jellyfin`, `Jira`, `Join`, `KakaoTalk`, `Kaleyra`, `Kavenegar`, \
+`KODI`, `Kook`, `Kudosity`, `Kumulos`, `LaMetric`, `Lark`, `Lauther`, \
+`LFG Alarm`, `Line`, `MacOSX`, `Mailgun`, \
 `MailerSend`, \
 `Mastodon`, \
 `Mattermost`, `Matrix`, `MessageBird`, `Microsoft Windows`, \
 `Microsoft Teams`, `Misskey`, `Mobile Message`, \
 `MQTT`, `MSG91`, `MyAndroid`, `Nexmo`, `Nextcloud`, \
-`NextcloudTalk`, `Notica`, `Notifiarr`, `Notifico`, \
+`NextcloudTalk`, `Nostr`, `Notica`, `Notifiarr`, `Notifico`, \
 `Notifyre`, \
 `ntfy`, `Octopush`, `Office365`, `OneBot`, `OneSignal`, \
 `Opsgenie`, `PagerDuty`, \
@@ -93,19 +94,21 @@ notification services. It supports sending alerts to platforms such as: \
 `SendPulse`, `ServerChan`, `SerwerSMS`, `Session Open Group Server`, \
 `Seven`, `SFR`, \
 `Signal`, `Signalgrid`, `SIGNL4`, `Simplepush`, \
-`Sinch`, `Slack`, `SMPP`, `SMSC`, `SMSEagle`, `SMS Manager`, `SMTP2Go`, \
+`Sinch`, `Slack`, `SMPP`, `SMSC`, `SMSEagle`, `SMS Manager`, `SMSTunnel`, \
+`SMTP2Go`, \
 `SparkPost`, `Splunk`, `Spike`, `Spug Push`, `Squadcast`, \
 `Stackfield`, `Super Toasty`, \
 `Streamlabs`, `Stride`, \
-`Synology Chat`, `Syslog`, `Techulus Push`, `Telegram`, `Telnyx`, \
+`Synology Chat`, `Syslog`, `Techulus Push`, `Telegram`, `Telesign`, \
+`Telnyx`, \
 `Threema Gateway`, `Trigv`, `Twilio`, `Twitter`, `Twist`, `Vapid`, \
 `Viber`, `VictorOps`, \
-`Voipms`, `Vonage`, `WebPush`, `WeChat (WeCom)`, `WeCom Bot`, `WhatsApp`, \
-`Webex Teams`, `Workflows`, `WPUSH`, `WxPusher`, `XBMC`, `XMPP`, `YouLMK`, \
-`Zalo`, `Zoho Cliq`, `Zoom`, and `Zulip`.}
+`Voipms`, `Vonage`, `WebPush`, `WeChat (WeCom)`, `WeCom Bot`, `Whapi.Cloud`, \
+`WhatsApp`, `Webex Teams`, `Workflows`, `WPUSH`, `WxPusher`, `XBMC`, \
+`xMatters`, `XMPP`, `YouLMK`, `Zalo`, `Zoho Cliq`, `Zoom`, and `Zulip`.}
 
 Name:           python-%{pypi_name}
-Version:        2.1.0
+Version:        2.2.0
 Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
@@ -304,6 +307,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %{python3_sitelib}/%{pypi_name}/__pycache__/cli*.py?
 
 %changelog
+* Sat Nov  7 2026 Chris Caron <lead2gold@gmail.com> - 2.2.0-1
+- Updated to v2.2.0
+
 * Sat Oct 24 2026 Chris Caron <lead2gold@gmail.com> - 2.1.0-1
 - Updated to v2.1.0
 

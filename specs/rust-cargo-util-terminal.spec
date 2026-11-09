@@ -5,7 +5,7 @@
 %global crate cargo-util-terminal
 
 Name:           rust-cargo-util-terminal
-Version:        0.1.1
+Version:        0.1.2
 Release:        %autorelease
 Summary:        Cargo's terminal rendering
 

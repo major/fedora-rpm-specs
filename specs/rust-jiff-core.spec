@@ -5,16 +5,13 @@
 %global crate jiff-core
 
 Name:           rust-jiff-core
-Version:        0.1.2
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Low level datetime primitives for the Jiff library
 
 License:        Unlicense OR MIT
 URL:            https://crates.io/crates/jiff-core
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Patch out the defmt feature; rust-defmt is not (yet) packaged
-Patch:          jiff-core-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

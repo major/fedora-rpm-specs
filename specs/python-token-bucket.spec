@@ -1,6 +1,6 @@
 Name:           python-token-bucket
-Version:        0.3.0
-Release:        20%{?dist}
+Version:        0.4.0
+Release:        1%{?dist}
 Summary:        A Token Bucket implementation
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -10,15 +10,6 @@ Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-
-# Temporary, until https://github.com/falconry/token-bucket/pull/24 gets
-# merged upstream.
-Patch0:         0000-py312-imp.patch
-# Drop pytest-runner and "setup.py test" support
-# https://github.com/falconry/token-bucket/pull/28
-# Cherry-picked on 0.3.0
-# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
-Patch1:         0001-Drop-pytest-runner-and-setup.py-test-support.patch
 
 %global _description %{expand:
 The token-bucket package provides an implementation of the token bucket
@@ -55,6 +46,9 @@ Summary: %{summary}
 %license LICENSE
 
 %changelog
+* Sun Nov 08 2026 Simon de Vlieger <cmdr@supakeen.com> - 0.4.0-1
+- Update to upstream release 0.4.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

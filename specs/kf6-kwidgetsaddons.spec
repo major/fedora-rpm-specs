@@ -1,8 +1,8 @@
 %global		framework kwidgetsaddons
 
 Name:		kf6-%{framework}
-Version:	6.31.0
-Release:	2%{?dist}
+Version:	6.32.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtWidgets
 License:	BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -100,6 +100,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 6.32.0-1
+- 6.32.0
+
 * Sat Oct 24 2026 Jan Grulich <jgrulich@redhat.com> - 6.31.0-2
 - Rebuild (qt6)
 

@@ -43,7 +43,7 @@ Patch:          river-classic-0.3.16-Revert-build-switch-to-translate-c-package.
 ExclusiveArch:  %{zig_arches}
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  scdoc
 BuildRequires:  (zig >= 0.16 with zig < 0.17)
 BuildRequires:  zig-rpm-macros
@@ -101,7 +101,7 @@ License:        ISC
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -a 4 -a 5 -a 6 -a 7
 %autopatch -p1
 

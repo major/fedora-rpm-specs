@@ -4,7 +4,7 @@
 %global builddate       %(date -u '+%Y-%m-%dT%H:%M:%SZ')
 # https://github.com/jesseduffield/lazygit
 %global goipath         github.com/jesseduffield/lazygit
-Version:                0.66.2
+Version:                0.66.3
 
 %gometa -L -f
 
@@ -26,7 +26,7 @@ BuildRequires:  git-core
 
 Requires:       git-core
 
-# Cannot create a bug yet, because bugzilla doesn't see lazygit.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2568679
 %if 0%{?fedora} < 45
 ExcludeArch:    ppc64le
 %endif

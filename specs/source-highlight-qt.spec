@@ -1,7 +1,7 @@
 Summary:       Library for performing syntax highlighting in Qt documents
 Name:          source-highlight-qt
 Version:       0.2.3
-Release:       50%{?dist}
+Release:       51%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:       GPL-3.0-only
 URL:           http://srchiliteqt.sourceforge.net/
@@ -34,12 +34,12 @@ develop programs using source-highlight-qt, you will need to install
 source-highlight-qt-devel.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 %configure --with-qt=%{_libdir}/qt4/bin
-make %{?_smp_mflags}
+%make_build
 
 %install
 %make_install
@@ -56,7 +56,8 @@ make check
 %ldconfig_scriptlets
 
 %files
-%doc AUTHORS COPYING ChangeLog NEWS THANKS TODO.txt
+%license COPYING
+%doc AUTHORS ChangeLog NEWS THANKS TODO.txt
 %{_libdir}/libsource-highlight-qt4.so.3*
 
 %files devel
@@ -66,6 +67,9 @@ make check
 %{_libdir}/pkgconfig/source-highlight-qt4.pc
 
 %changelog
+* Sun Nov 08 2026 Terje Røsten <terjeros@gmail.com> - 0.2.3-51
+- Minor fixes
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

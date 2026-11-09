@@ -13,7 +13,7 @@ Source1:        %{url}/-/releases/v%{version}/downloads/%{name}-%{version}.tar.g
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 
 BuildRequires:  gcc
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 BuildRequires:  meson >= 1
 BuildRequires:  (pkgconfig(aml1) or pkgconfig(aml))
 BuildRequires:  pkgconfig(json-c)
@@ -31,7 +31,7 @@ developing applications that use %{name}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 

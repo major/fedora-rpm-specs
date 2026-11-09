@@ -17,13 +17,14 @@
 %global _docdir_fmt %{name}
 
 Name:       vdirsyncer
-Version:    0.20.0
-Release:    7%{?dist}
+Version:    0.21.0
+Release:    1%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
 URL:        https://github.com/pimutils/%{name}
 Source:     %{pypi_source}
+Patch:      vdirsyncer-allow-aiostream-0.8.diff
 # conditional patches
 Patch1000:  vdirsyncer-revert-license-metadata-update.diff
 
@@ -161,6 +162,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Fri Nov 06 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.20.0-8
+- Relax aiostream upper bound (<0.9.0) for aiostream 0.8.x - Resolves rhbz#2567974
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

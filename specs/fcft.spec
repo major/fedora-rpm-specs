@@ -2,7 +2,7 @@
 
 Name:           fcft
 Version:        3.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple library for font loading and glyph rasterization
 
 # main source:  MIT
@@ -16,7 +16,7 @@ Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.si
 Source2:        gpgkey-5BBD4992C116573F.asc
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  meson >= 0.58.0
 
 BuildRequires:  pkgconfig(check)
@@ -52,7 +52,7 @@ developing applications that use %{name}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 cp 3rd-party/nanosvg/LICENSE.txt LICENSE.nanosvg
 cp unicode/license.txt LICENSE.Unicode
@@ -91,6 +91,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/LICENSE
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 3.3.3-4
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

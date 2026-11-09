@@ -3,10 +3,17 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global uid 133
+
+# GCC 8 does not know about -Wattribute-warning
+%if 0%{?rhel} == 8
+%global warning_flags %{nil}
+%else
+%global warning_flags -Wno-error=attribute-warning
+%endif
 %global username bacula
 
 Name:               bacula
-Version:            15.0.3
+Version:            17.0.0
 Release:            %autorelease
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
@@ -44,7 +51,6 @@ Patch3:             %{name}-non-free-code.patch
 Patch4:             %{name}-traceback-man.patch
 Patch5:             %{name}-compile-options.patch
 Patch6:             %{name}-install.patch
-Patch7:             %{name}-desktop.patch
 Patch8:             %{name}-docker-plugin.patch
 # Original patch removed by mistake, upstream is not willing to add it again:
 # http://www.bacula.org/git/cgit.cgi/bacula/commit/?h=Branch-7.0&id=51b3b98fb77ab3c0decee455cc6c4d2eb3c5303a
@@ -57,6 +63,30 @@ Patch10:            %{name}-scripts.patch
 # [PATCH] OpenSSL 4.0 compatibility - based on Debian / Ubuntu patches from:
 # https://gitlab.bacula.org/bacula-community-edition/bacula-community/-/issues/2771
 Patch11:            %{name}-openssl4.patch
+
+# Fixes from Branch-17.0 after the 17.0.0 release:
+# Generate the 1026 to 1027 PostgreSQL and MySQL catalog update scripts
+# https://gitlab.bacula.org/bacula-community-edition/bacula-community/-/commit/006758c341592099d21626f6e412e44ce090870f
+Patch12:            %{name}-update-tables-1027.patch
+# https://gitlab.bacula.org/bacula-community-edition/bacula-community/-/commit/dc1c47f26661f680368fc558ef942ea4af170e0c
+Patch13:            %{name}-sqlite3-update-typo.patch
+# Fix SQLite3 catalog update from 1026 to 1027
+# https://gitlab.bacula.org/bacula-community-edition/bacula-community/-/commit/3b9b67d1289a67db7b8a53e266850575a9004ba7
+Patch14:            %{name}-sqlite3-update-1027.patch
+# Fix cloud storage drivers not loading
+# https://gitlab.bacula.org/bacula-community-edition/bacula-community/-/commit/e96a38c018e129ec212f8ef80abe84eaf2b04521
+Patch15:            %{name}-cloud-driver-loading.patch
+# Fix Nagios plugin build
+# https://gitlab.bacula.org/bacula-community-edition/bacula-community/-/commit/dc229047c6462016454c0837318747b240b38fa5
+Patch16:            %{name}-nagios-compilation.patch
+# Compatibility with Docker CLI 29+
+# https://gitlab.bacula.org/bacula-community-edition/bacula-community/-/commit/3f114ff206358ce52a784890e83b1756413e2ea7
+Patch17:            %{name}-docker-cli-29.patch
+
+# The bundled libs3 is a static library: link the S3 cloud drivers against its
+# dependencies (curl, libxml2 and OpenSSL), or the drivers fail to load:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2413541
+Patch18:            %{name}-s3-driver-linking.patch
 
 BuildRequires:      autoconf
 BuildRequires:      automake
@@ -176,6 +206,10 @@ Requires:           mt-st
 Requires:           mtx
 Requires:           sdparm
 Provides:           bundled(libs3) = 4.1.bac
+# Only required for protecting the volume encryption keys with a GnuPG master
+# key (install-key-manager.sh):
+Recommends:         gnupg2
+Recommends:         python3-gnupg
 
 Requires(post):     systemd
 Requires(preun):    systemd
@@ -286,8 +320,8 @@ EOF
 
 %build
 %set_build_flags
-export CFLAGS="%{optflags} -fPIC -Wno-error=attribute-warning -I%{_includedir}/ncurses"
-export CXXFLAGS="%{optflags} -fPIC -Wno-error=attribute-warning -I%{_includedir}/ncurses"
+export CFLAGS="%{optflags} -fPIC %{warning_flags} -I%{_includedir}/ncurses"
+export CXXFLAGS="%{optflags} -fPIC %{warning_flags} -I%{_includedir}/ncurses"
 export PATH="$PATH:%{_qt5_bindir}"
 
 pushd libs3-%{commit}
@@ -301,7 +335,6 @@ popd
     --docdir=%{_datadir}/bacula \
     --enable-antivirus-plugin \
     --enable-bat \
-    --enable-antivirus-plugin \
     --enable-batch-insert \
     --enable-build-dird \
     --enable-build-stored \
@@ -314,7 +347,6 @@ popd
     --enable-readline \
     --enable-smartalloc \
     --enable-totp-bpam \
-    --enable-ldap-bpam \
     --sysconfdir=%{_sysconfdir}/bacula \
     --with-aws \
     --with-basename=bacula \
@@ -338,8 +370,7 @@ popd
     --with-s3=`pwd`/libs3-%{commit}/build \
     --with-sqlite3 \
     --with-subsys-dir=%{_localstatedir}/lock/subsys \
-    --with-working-dir=%{_localstatedir}/spool/bacula \
-    --with-x
+    --with-working-dir=%{_localstatedir}/spool/bacula
 
 # Remove RPATH
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
@@ -347,10 +378,15 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 %make_build
 %make_build -C examples/nagios/check_bacula
+%make_build -C src/tools bsnapshot
 
 %install
 %make_install
-%make_install -C examples/nagios/check_bacula
+# Not part of the default install target
+%make_install -C src/tools/cdp-client
+%{__make} -C src/stored install-aligned DESTDIR=%{buildroot} INSTALL="%{__install} -p"
+%{__make} -C src/tools install-bsnapshot DESTDIR=%{buildroot} INSTALL="%{__install} -p"
+install -p -m 755 -D examples/nagios/check_bacula/.libs/check_bacula %{buildroot}%{_libdir}/nagios/plugins/check_bacula
 
 # Remove unused unversioned Storage Daemon plugins
 rm -f %{buildroot}%{_libdir}/%{name}/%{name}-sd-*-driver.so
@@ -364,13 +400,18 @@ rm -f %{buildroot}%{_libexecdir}/%{name}/baculabackupreport
 
 # Bat
 install -p -m 644 -D src/qt-console/images/bat_icon.png %{buildroot}%{_datadir}/pixmaps/bat_icon.png
-install -p -m 644 -D scripts/bat.desktop %{buildroot}%{_datadir}/applications/bat.desktop
 install -p -m 755 -D src/qt-console/.libs/bat %{buildroot}%{_sbindir}/bat
 
 install -p -m 644 -D manpages/bacula-tray-monitor.1 %{buildroot}%{_mandir}/man1/bacula-tray-monitor.1
 install -p -m 644 -D %{SOURCE19} %{buildroot}%{_datadir}/pixmaps/bacula-tray-monitor.png
-install -p -m 644 -D scripts/bacula-tray-monitor.desktop %{buildroot}%{_datadir}/applications/bacula-tray-monitor.desktop
 install -p -m 755 -D src/qt-console/tray-monitor/.libs/bacula-tray-monitor %{buildroot}%{_sbindir}/bacula-tray-monitor
+
+desktop-file-install \
+    --dir %{buildroot}%{_datadir}/applications \
+    --remove-key=Encoding \
+    --remove-category=Application \
+    --remove-category=X-Red-Hat-Base \
+    scripts/bat.desktop scripts/bacula-tray-monitor.desktop
 
 # Logrotate
 mkdir -p %{buildroot}%{_localstatedir}/log/bacula
@@ -401,7 +442,7 @@ install -p -m 644 -D %{SOURCE7} %{buildroot}%{_prefix}/lib/firewalld/services/ba
 install -p -m 644 -D %{SOURCE8} %{buildroot}%{_prefix}/lib/firewalld/services/bacula-director.xml
 
 # Remove stuff we do not need
-rm -f %{buildroot}%{_libexecdir}/bacula/{bacula,bacula-ctl-*,startmysql,stopmysql,bconsole,make_catalog_backup}
+rm -f %{buildroot}%{_libexecdir}/bacula/{bacula,bacula-ctl-*,bacula-tray-monitor.desktop,startmysql,stopmysql,bconsole,make_catalog_backup}
 rm -f %{buildroot}%{_sbindir}/bacula
 rm -f %{buildroot}%{_mandir}/man8/bacula.8.gz
 rm -f %{buildroot}%{_libdir}/*.la
@@ -503,11 +544,13 @@ fi
 %{_libexecdir}/%{name}/btraceback.dbx
 %{_libexecdir}/%{name}/btraceback.gdb
 %{_libexecdir}/%{name}/bacula_config
+%{_libexecdir}/%{name}/create_config
 %{_libexecdir}/%{name}/btraceback.mdb
 %{_mandir}/man8/btraceback.8*
 %{_prefix}/lib/firewalld/services/bacula-director.xml
 %{_prefix}/lib/firewalld/services/bacula-storage.xml
 %{_sbindir}/btraceback
+%{_sbindir}/get-os
 %{_sysusersdir}/bacula.conf
 
 %files director
@@ -516,13 +559,12 @@ fi
 %config(noreplace) %{_sysconfdir}/bacula/query.sql %attr(640,root,bacula)
 %config(noreplace) %{_sysconfdir}/sysconfig/bacula-dir
 %{_libdir}/%{name}/ldap-dir.so
+%{_libdir}/%{name}/totp-dir.so
 %{_libexecdir}/%{name}/create_bacula_database
 %{_libexecdir}/%{name}/delete_catalog_backup
 %{_libexecdir}/%{name}/drop_bacula_database
 %{_libexecdir}/%{name}/drop_bacula_tables
 %{_libexecdir}/%{name}/grant_bacula_privileges
-%{_libexecdir}/%{name}/install-key-manager.sh
-%{_libexecdir}/%{name}/key-manager.py
 %{_libexecdir}/%{name}/make_bacula_tables
 %{_libexecdir}/%{name}/make_catalog_backup.pl
 %{_libexecdir}/%{name}/update_bacula_tables
@@ -578,11 +620,15 @@ fi
 %{_libdir}/%{name}/bacula-sd-cloud-aws-driver-%{version}.so
 %{_libdir}/%{name}/bacula-sd-cloud-driver-%{version}.so
 %{_libdir}/%{name}/bacula-sd-cloud-s3-driver-%{version}.so
-%{_libdir}/%{name}/totp-dir.so
+%{_libexecdir}/%{name}/bacula-resource-auto-creator.py
 %{_libexecdir}/%{name}/disk-changer
+%{_libexecdir}/%{name}/install-key-manager.sh
 %{_libexecdir}/%{name}/isworm
+%{_libexecdir}/%{name}/key-manager.py
 %{_libexecdir}/%{name}/mtx-changer
 %{_libexecdir}/%{name}/mtx-changer.conf
+%{_libexecdir}/%{name}/mtx-changer-python.conf
+%{_libexecdir}/%{name}/mtx-changer-python.py
 %{_libexecdir}/%{name}/tapealert
 %{_mandir}/man8/bacula-sd.8*
 %{_mandir}/man8/bcopy.8*
@@ -611,6 +657,7 @@ fi
 %{_libdir}/%{name}/docker-fd.so
 %{_sbindir}/bacula-fd
 %{_sbindir}/bfdjson
+%{_sbindir}/bsnapshot
 %{_sbindir}/cdp-client
 %{_unitdir}/bacula-fd.service
 

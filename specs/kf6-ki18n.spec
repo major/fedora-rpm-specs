@@ -1,7 +1,7 @@
 %global		framework ki18n
 
 Name:		kf6-%{framework}
-Version:	6.31.0
+Version:	6.32.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon for localization
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND ODbl-1.0
@@ -92,6 +92,7 @@ Developer Documentation files for %{name} in HTML format
 %files devel
 %{_kf6_includedir}/KI18n/
 %{_kf6_includedir}/KI18nLocaleData/
+%{_kf6_includedir}/KI18nQml/
 %{_kf6_libdir}/libKF6I18n.so
 %{_kf6_libdir}/libKF6I18nQml.so
 %{_kf6_libdir}/libKF6I18nLocaleData.so
@@ -108,6 +109,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 6.32.0-1
+- 6.32.0
+
 * Fri Oct 02 2026 Steve Cossette <farchord@gmail.com> - 6.31.0-1
 - 6.31.0
 

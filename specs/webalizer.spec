@@ -10,7 +10,7 @@
 Name: webalizer
 Summary: A flexible Web server log file analysis program
 Version: 2.23_08
-Release: 31%{?dist}
+Release: 32%{?dist}
 URL: http://www.mrunix.net/webalizer/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -32,7 +32,11 @@ Patch25: 27_fix_compilation_with_gcc-10.diff
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: gd-devel, %{db_devel}, bzip2-devel
+%if !0%{?rhel} || 0%{?rhel} > 10
 BuildRequires: GeoIP-devel
+%else
+Requires(pre): shadow-utils
+%endif
 Requires: httpd, crontabs
 
 %description
@@ -54,15 +58,22 @@ Web traffic is coming from easy.
 %patch -P24 -p1 -b .sample_typo
 %patch -P25 -p1 -b .gcc10_common_support
 
+%if !0%{?rhel} || 0%{?rhel} > 10
 # Create a sysusers.d config file
 cat >webalizer.sysusers.conf <<EOF
 u webalizer - 'Webalizer' %{_localstatedir}/www/usage -
 EOF
+%endif
 
 %build
 #CPPFLAGS="-I%{_includedir}/db4" ; export CPPFLAGS
 #CFLAGS="$RPM_OPT_FLAGS $CPPFLAGS -D_GNU_SOURCE" ; export CFLAGS
-%configure --enable-dns --enable-bz2 --enable-geoip
+%configure --enable-dns --enable-bz2 \
+%if 0%{?rhel} && 0%{?rhel} <= 10
+    --disable-geoip
+%else
+    --enable-geoip
+%endif
 
 %make_build
 
@@ -87,7 +98,16 @@ install -p -m 644 %{SOURCE4} \
 
 rm -f %{buildroot}%{_sysconfdir}/webalizer.conf.sample
 
+%if !0%{?rhel} || 0%{?rhel} > 10
 install -m0644 -D webalizer.sysusers.conf %{buildroot}%{_sysusersdir}/webalizer.conf
+%else
+%pre
+getent group webalizer >/dev/null || groupadd -r webalizer
+getent passwd webalizer >/dev/null || \
+    useradd -r -g webalizer -d %{_localstatedir}/www/usage -s /sbin/nologin \
+    -c "Webalizer" webalizer
+exit 0
+%endif
 
 
 %files
@@ -101,9 +121,15 @@ install -m0644 -D webalizer.sysusers.conf %{buildroot}%{_sysusersdir}/webalizer.
 %attr(-, webalizer, root) %dir %{_localstatedir}/www/usage
 %attr(-, webalizer, root) %dir %{_localstatedir}/lib/webalizer
 %attr(-, webalizer, root) %{_localstatedir}/www/usage/*.png
+%if !0%{?rhel} || 0%{?rhel} > 10
 %{_sysusersdir}/webalizer.conf
+%endif
 
 %changelog
+* Sun Nov 08 2026 Webalizer maintainers - 2.23_08-32
+- Support EPEL 9 and 10 without the unavailable legacy GeoIP library
+- Create the system account with a scriptlet on EPEL 9 and 10
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.23_08-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           perl-Mojolicious
-Version:        9.53
+Version:        9.54
 Release:        1%{?dist}
 Summary:        A next generation web framework for Perl
 License:        Artistic-2.0
@@ -142,6 +142,9 @@ a new attempt at implementing this idea using state of the art technology.
 %{_mandir}/man3/Test::Mojo*
 
 %changelog
+* Sun Nov 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 9.54-1
+- Update to 9.54
+
 * Sun Oct 25 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 9.53-1
 - Update to 9.53
 

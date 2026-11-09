@@ -4,7 +4,7 @@
 
 Name:           foot
 Version:        1.28.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, lightweight and minimalistic Wayland terminal emulator
 
 # Main package license: MIT
@@ -18,7 +18,7 @@ Source2:        gpgkey-5BBD4992C116573F.asc
 Source3:        org.codeberg.dnkl.foot.metainfo.xml
 
 BuildRequires:  gcc
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -83,7 +83,7 @@ Requires:       ncurses-base
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 
@@ -148,6 +148,9 @@ desktop-file-validate \
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1.28.0-2
+- Verify upstream source signatures with openpgpverify
+
 * Wed Sep 02 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.28.0-1
 - Update to 1.28.0 (#2527360)
 

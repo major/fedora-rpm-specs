@@ -5,7 +5,7 @@
 %global crate cargo-credential
 
 Name:           rust-cargo-credential
-Version:        0.4.10
+Version:        0.4.11
 Release:        %autorelease
 Summary:        Library to assist writing Cargo credential helpers
 

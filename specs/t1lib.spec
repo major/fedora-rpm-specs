@@ -1,26 +1,26 @@
 Summary:        PostScript Type 1 font rasterizer
 Name:           t1lib
 Version:        5.1.2
-Release:        44%{?dist}
+Release:        45%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
-URL:            ftp://sunsite.unc.edu/pub/Linux/libs/graphics/t1lib-%{version}.lsm
-Source0:        ftp://sunsite.unc.edu/pub/Linux/libs/graphics/t1lib-%{version}.tar.gz
-Patch0:         http://ftp.de.debian.org/debian/pool/main/t/t1lib/t1lib_5.1.2-3.diff.gz
-Patch1:         t1lib-5.1.2-segf.patch
+URL:            https://www.ibiblio.org/pub/Linux/libs/graphics/!INDEX.html
+Source0:        https://www.ibiblio.org/pub/Linux/libs/graphics/t1lib-%{version}.tar.gz
+Patch:          http://ftp.de.debian.org/debian/pool/main/t/t1lib/t1lib_5.1.2-3.diff.gz
+Patch:          t1lib-5.1.2-segf.patch
 # Fixes CVE-2010-2642, CVE-2011-0433
 # http://bugzilla.redhat.com/show_bug.cgi?id=679732
-Patch2:         t1lib-5.1.2-afm-fix.patch
+Patch:          t1lib-5.1.2-afm-fix.patch
 # Fixes CVE-2011-0764, CVE-2011-1552, CVE-2011-1553, CVE-2011-1554
 # http://bugzilla.redhat.com/show_bug.cgi?id=692909
-Patch3:         t1lib-5.1.2-type1-inv-rw-fix.patch
+Patch:          t1lib-5.1.2-type1-inv-rw-fix.patch
 # Add aarch64 support
 # https://bugzilla.redhat.com/show_bug.cgi?id=926603
-Patch4:         t1lib-5.1.2-aarch64.patch
-Patch5:         t1lib-5.1.2-format-security.patch
-Patch6:         t1lib-5.1.2-t1.patch
-Patch7:         t1lib-configure-c99.patch
-Patch8:         t1lib-c99.patch
+Patch:          t1lib-5.1.2-aarch64.patch
+Patch:          t1lib-5.1.2-format-security.patch
+Patch:          t1lib-5.1.2-t1.patch
+Patch:          t1lib-configure-c99.patch
+Patch:          t1lib-c99.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libXaw-devel
@@ -111,7 +111,8 @@ touch %{buildroot}%{_datadir}/t1lib/{FontDatabase,t1lib.config}
 %ldconfig_postun
 
 %files
-%doc Changes LGPL LICENSE README
+%license LGPL LICENSE
+%doc Changes README
 %dir %{_datadir}/t1lib
 %ghost %verify(not size mtime md5) %{_datadir}/t1lib/t1lib.config
 %ghost %verify(not size mtime md5) %{_datadir}/t1lib/FontDatabase
@@ -137,6 +138,9 @@ touch %{buildroot}%{_datadir}/t1lib/{FontDatabase,t1lib.config}
 %{_libdir}/libt1x.a
 
 %changelog
+* Sun Nov 08 2026 Terje Røsten <terjeros@gmail.com> - 5.1.2-45
+- Fix upstream locations
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

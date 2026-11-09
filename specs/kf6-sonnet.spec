@@ -4,8 +4,8 @@
 %global		framework sonnet
 
 Name:		kf6-%{framework}
-Version:	6.31.0
-Release:	2%{?dist}
+Version:	6.32.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 solution for spell checking
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -162,6 +162,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 6.32.0-1
+- 6.32.0
+
 * Mon Nov 02 2026 Steve Cossette <steve@ninjasinpajamas.ca> - 6.31.0-2
 - Removed aspell on F46+
 

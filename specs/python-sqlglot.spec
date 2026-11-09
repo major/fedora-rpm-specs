@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:           python-sqlglot
-Version:        30.23.0
+Version:        30.30.0
 Release:        1%{?dist}
 Summary:        SQL Parser and Transpiler
 
@@ -70,6 +70,12 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
 
 %changelog
+* Sun Nov 08 2026 Terje Røsten <terjeros@gmail.com> - 30.30.0-1
+- 30.30.0
+
+* Mon Oct 19 2026 Terje Røsten <terjeros@gmail.com> - 30.23.0-1
+- 30.23.0
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 5.2.0-17
 - Rebuilt for Python 3.15.0b4 ABI change
 

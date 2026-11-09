@@ -12,17 +12,18 @@
 %bcond label_overlay 1
 %endif
 
-# libunwind support (only available on some architectures)
-%if ! 0%{?fedora}%{?rhel} || 0%{?fedora} >= 40 || 0%{?rhel} >= 11
-%global unwind_arches %{arm} aarch64 hppa ia64 mips ppc %{power64} %{ix86} x86_64 riscv64
+# Shadow Stack is available on x86_64 and enabled by default from F46 on
+%if ! 0%{?fedora}%{?rhel} || 0%{?fedora} >= 46 || 0%{?rhel} >= 11
+%global shadow_stack_arches x86_64
 %else
-%global unwind_arches %{arm} aarch64 hppa ia64 mips ppc %{power64} %{ix86} x86_64
+%global shadow_stack_arches %{nil}
 %endif
 
-%ifarch %unwind_arches
-%bcond libunwind 1
-%else
+# Libunwind is incompatible with the Shadow Stack feature
+%ifarch %shadow_stack_arches __this_is_not_an_arch__
 %bcond libunwind 0
+%else
+%bcond libunwind 1
 %endif
 
 %if ! 0%{?rhel} || 0%{?epel}
@@ -408,6 +409,11 @@ EOF
 %endif
 %if %{with skip_headless_tests}
     -Dheadless-tests=disabled \
+%endif
+%if %{with libunwind}
+    -Dlibunwind=true \
+%else
+    -Dlibunwind=false \
 %endif
     -Dbug-report-url="https://bugzilla.redhat.com/"
 

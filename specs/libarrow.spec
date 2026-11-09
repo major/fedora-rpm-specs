@@ -43,9 +43,8 @@ Source1:	https://github.com/apache/arrow-testing/archive/%{arrow_test_data_commi
 Source2:	https://github.com/apache/parquet-testing/archive/%{parquet_test_data_commit}/apache-arrow-parquet-test-data-%{parquet_test_data_commit}.tar.gz
 Patch:		0001-python-pyarrow-tests-read_record_patch.py.patch
 Patch:		0002-python-pyarrow-tests-test_ipc.py.patch
-#Patch:		0003-cpp-src-parquet-CMakeLists.txt.patch
-#Patch:		0004-cpp-src-arrow-compute-kernels-CMakeLists.txt.patch
 Patch:		0005-tests.patch
+Patch:		0006-tests.patch
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc

@@ -1,7 +1,7 @@
 %global framework kbookmarks
 
 Name:    kf6-%{framework}
-Version: 6.31.0
+Version: 6.32.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon for bookmarks manipulation
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND LicenseRef-KDE-Accepted-LGPL
@@ -92,6 +92,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 6.32.0-1
+- 6.32.0
+
 * Fri Oct 02 2026 Steve Cossette <farchord@gmail.com> - 6.31.0-1
 - 6.31.0
 

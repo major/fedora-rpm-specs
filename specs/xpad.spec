@@ -1,12 +1,12 @@
 Name:           xpad
-Version:        5.9.0
+Version:        6.0.0
 Release:        1%{?dist}
 Summary:        Sticky notepad for GTK
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://launchpad.net/xpad
-Source0:        https://launchpad.net/xpad/trunk/%{version}/+download/%{name}-%{version}.tar.bz2
+Source0:        https://launchpad.net/xpad/trunk/6.0/+download/%{name}-%{version}.tar.bz2
 
 Patch1:         xpad-5.8.0-gettext-version.patch
 
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Nov 08 2026 Kevin Fenzi <kevin@scrye.com> - 6.0.0-1
+- Update to 6.0.0. Fixes rhbz#2549526
+
 * Tue Aug 25 2026 Kevin Fenzi <kevin@scrye.com> - 5.9.0-1
 - Update to 5.9.0. Fixes rhbz#2516012
 

@@ -48,7 +48,7 @@ Requires: mod_fcgid
 
 Name:		rt
 Version:	5.0.11
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Request tracker
 
 License:	GPL-2.0-or-later
@@ -301,6 +301,8 @@ Requires: rt-mailgate
 
 # Work-around rpm's depgenerator defect:
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(DBIx::SearchBuilder::Handle::\\)
+# Fix RHBZ#2565811
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Auth::GoogleAuth\\)
 # Word-around RHBZ#2148952
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(.::t/lifecycles/utils.pl\\)
 
@@ -645,7 +647,10 @@ fi
 %endif
 
 %changelog
-* Sun Nov 01 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 5.0.11
+* Sun Nov 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 5.0.11-2
+- Exclude perl(Auth::GoogleAuth) from Requires (#2565811)
+
+* Sun Nov 01 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 5.0.11-1
 - Update to 5.0.11
 
 * Mon Jul 20 2026 Xavier Bachelot <xavier@bachelot.org> - 5.0.10-1

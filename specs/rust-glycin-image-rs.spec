@@ -8,7 +8,7 @@
 %global crate glycin-image-rs
 
 Name:           rust-glycin-image-rs
-Version:        2.2.0
+Version:        2.2.4
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 

@@ -1,9 +1,9 @@
-%global	majorver	3.13.5
+%global	majorver	3.13.6
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	6
+%global	baserelease	1
 
 %global	gem_name	rspec-expectations
 
@@ -125,6 +125,9 @@ cucumber \
 %{gem_docdir}
 
 %changelog
+* Sun Nov 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.6-1
+- 3.13.6
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

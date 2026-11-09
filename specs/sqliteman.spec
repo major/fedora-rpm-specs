@@ -1,65 +1,62 @@
-Summary:       Manager for sqlite - Sqlite Databases Made Easy
+Summary:       A developer's and administrator's tool for SQLite databases
 Name:          sqliteman
-Version:       1.2.2
-Release:       44%{?dist}
-# src is GPLv2+, icons are LGPLv2+
-# Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
-License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
-URL:           http://sqliteman.yarpen.cz/
-Patch:         sqliteman-1.2.2-desktop.patch
-Patch:         sqliteman-1.2.2-cmake4.patch
-Source:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-# converted from logo_design/logo-original.ai by gimp
-Source1:       sqliteman.png
-Requires:      qt-sqlite
-Requires:      sqlite
+Version:       2.0.0
+Release:       1%{?dist}
+License:       GPL-3.0-or-later
+URL:           https://github.com/pvanek/sqliteman
+Source:        https://github.com/pvanek/sqliteman/archive/refs/tags/v%{version}.tar.gz
 BuildRequires: cmake
-BuildRequires: qt4-devel >= 4.2.0
-BuildRequires: desktop-file-utils
+BuildRequires: python3-furo
+BuildRequires: python3-myst-parser
+BuildRequires: python3-sphinx
+BuildRequires: qscintilla-qt6-devel
+BuildRequires: qt6-qttools-devel
+BuildRequires: sqlite-devel
+Requires:      sqlite
 %description
-If you are looking for a tool for tuning SQL statements, manage
-tables, views, or triggers, administrate the database space and index
-statistics then Sqliteman is the perfect choice.
+A developer's and administrator's tool for SQLite databases, built
+with Qt6.
 
-If you are looking for a graphical queries creation wizards, user
-interface designers for your database, or an universal report tool try
-the applications designed for tasks such this (Kexi, knoda).
+Sqliteman opens SQLite files, runs SQL against them, shows and edits
+their rows, and does what SQLite itself makes awkward — altering a
+table, for one. It talks to SQLite through its C API, on a thread of
+its own, so a long query never freezes the window.
 
 %prep
 %autosetup -p1
 
 %build
-%cmake -DWANT_INTERNAL_QSCINTILLA=1
+%cmake
 %cmake_build
 
 %install
 %cmake_install
-desktop-file-install   \
-    --delete-original  \
-    --dir=%{buildroot}%{_datadir}/applications \
-    %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
-# fix location of desktop icon
-rm %{buildroot}%{_datadir}/icons/hicolor/%{name}.png
-install -p -m 0644 -D %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/%{name}.png
-rm -rf %{buildroot}%{_datadir}/icons
+%check
+%ctest --output-on-failure
 
 %files
-%license COPYING
-%doc AUTHORS README
-%{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/%{name}.png
-%{_datadir}/%{name}
+%license LICENSE
+%doc README.md
+%{_bindir}/sqliteman
+%{_datadir}/sqliteman
+%{_datadir}/applications/cz.yarpen.sqliteman.desktop
+%{_datadir}/icons/hicolor/*/apps/cz.yarpen.sqliteman.png
+%{_datadir}/icons/hicolor/scalable/apps/cz.yarpen.sqliteman.svg
+%{_datadir}/metainfo/cz.yarpen.sqliteman.metainfo.xml
 
 %changelog
+* Sun Nov 08 2026 Terje Røsten <terjeros@gmail.com> - 2.0.0-1
+- 2.0.0
+- New upstream location
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
 * Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
 
-* Sat Aug 16 2025 Terje Rosten <terje.rosten@ntnu.no> - 1.2.2-42
+* Sat Aug 16 2025 Terje Røsten <terjeros@gmail.com> - 1.2.2-42
 - Make build compatible with cmake 4
 
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-41

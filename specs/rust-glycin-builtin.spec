@@ -5,7 +5,7 @@
 %global crate glycin-builtin
 
 Name:           rust-glycin-builtin
-Version:        4.0.2
+Version:        4.0.5
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 

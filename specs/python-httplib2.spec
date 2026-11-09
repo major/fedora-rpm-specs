@@ -1,8 +1,8 @@
 %global srcname httplib2
 
 Name:           python-%{srcname}
-Version:        0.22.0
-Release:        10%{?dist}
+Version:        0.32.1
+Release:        1%{?dist}
 Summary:        Comprehensive HTTP client library
 License:        MIT
 URL:            https://pypi.python.org/pypi/httplib2
@@ -40,6 +40,9 @@ BuildRequires:  python3-pyparsing
 # Drop coverage
 sed -i '/--cov/d' setup.cfg
 
+# remove the proxy test, as it depends on an upackaged module
+rm -f tests/test_proxy.py
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -63,12 +66,20 @@ sed -i '/--cov/d' setup.cfg
 	test_invalid_ca_certs_path and not test_max_tls_version and not \
 	test_get_301_via_https and not test_client_cert_password_verified and not\
 	test_get_via_https and not test_min_tls_version and not\
-	test_client_cert_verified and not test_inject_space and not test_get_301_no_redirect"
+	test_client_cert_verified and not test_inject_space and not\
+        test_get_301_no_redirect"
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md
+# Remove the bundled ca list, we use the fedora one.
+%exclude %{python3_sitelib}/httplib2/cacerts.txt
+
 
 %changelog
+* Sun Nov 08 2026 Kevin Fenzi <kevin@scrye.com> - 0.32.1-1
+- Update to 0.32.1. Fixes rhbz#2391904
+- Drop cacert.txt doc file to avoid confusion ( rhbz#2563344 )
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

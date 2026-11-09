@@ -1,10 +1,10 @@
 Name:           perl-Catalyst-Plugin-Authentication
 Summary:        Infrastructure plugin for the Catalyst authentication framework
-Version:        0.10028
+Version:        0.10029
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Catalyst-Plugin-Authentication-%{version}.tar.gz
-URL:            https://metacpan.org/release/Catalyst-Plugin-Authentication
+URL:            https://metacpan.org/dist/Catalyst-Plugin-Authentication
 BuildArch:      noarch
 
 # build requirements
@@ -79,6 +79,9 @@ authorizes them to do).
 %{_mandir}/man3/*
 
 %changelog
+* Sun Nov 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.10029-1
+- Update to 0.10029
+
 * Sat Aug 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.10028-1
 - Update to 0.10028
 

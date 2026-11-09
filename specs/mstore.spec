@@ -1,7 +1,7 @@
 %global soversion 0
 
 Name:           mstore
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Molecular structure store for testing
 License:        Apache-2.0

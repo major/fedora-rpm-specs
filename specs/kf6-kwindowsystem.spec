@@ -1,8 +1,8 @@
 %global		framework kwindowsystem
 
 Name:		kf6-%{framework}
-Version:	6.31.0
-Release:	2%{?dist}
+Version:	6.32.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module with classes for windows management
 License:	CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -102,6 +102,9 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 6.32.0-1
+- 6.32.0
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.31.0-2
 - Rebuild (qt6)
 

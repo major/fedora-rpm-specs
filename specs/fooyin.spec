@@ -1,13 +1,11 @@
 Name:           fooyin
-Version:        0.14.1
+Version:        0.15.0
 Release:        %autorelease
 Summary:        A customizable music player
 
 License:        GPL-3.0-or-later
 URL:            https://www.fooyin.org/
 Source0:        https://github.com/fooyin/fooyin/archive/v%{version}/fooyin-%{version}.tar.gz
-Patch0:         https://github.com/fooyin/fooyin/commit/12b32d2c467f4351516ae066c1204b8867df4e94.patch
-Patch1:         https://github.com/fooyin/fooyin/commit/56dd74893588c4f1d25a9163ce3278bd414755c2.patch
 
 ExcludeArch:    %{ix86}
 

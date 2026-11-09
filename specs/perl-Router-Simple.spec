@@ -1,20 +1,28 @@
 Name:           perl-Router-Simple
-Version:        0.17
-Release:        33%{?dist}
+Version:        0.18
+Release:        1%{?dist}
 Summary:        Simple HTTP router
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Router-Simple
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOKUHIROM/Router-Simple-%{version}.tar.gz
 BuildArch:      noarch
+# build dependencies
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter >= 5.0.10
+BuildRequires:  perl(Module::Build::Tiny)
+# runtime dependencies
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Accessor::Lite)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(List::Util)
-BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(parent)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(utf8)
 
 %{?perl_default_filter}
 
@@ -25,15 +33,11 @@ Router::Simple is a simple router class.
 %setup -q -n Router-Simple-%{version}
 
 %build
-%{__perl} Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
+./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -43,9 +47,12 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %doc Changes README.md
 %license LICENSE
 %{perl_vendorlib}/Router
-%{_mandir}/man3/*
+%{_mandir}/man3/Router*
 
 %changelog
+* Sun Nov 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.18-1
+- Update to 0.18
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

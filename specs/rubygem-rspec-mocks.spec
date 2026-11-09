@@ -1,9 +1,9 @@
-%global	majorver	3.13.8
+%global	majorver	3.13.9
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	2
+%global	baserelease	1
 
 %global	gem_name	rspec-mocks
 
@@ -23,9 +23,6 @@ Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem
 # %%{SOURCE2} %%{name} %%{version}
 Source1:	rubygem-%{gem_name}-%{version}-full.tar.gz
 Source2:	rspec-related-create-full-tarball.sh
-# https://github.com/rspec/rspec/pull/282/commits/939c4799993b7ff7e524fac701ae6490772ca6de
-# Skip mock for ruby4_0 Kernel#inspect
-Patch0:	rspec-mocks-pr282-skip-mock-for-ruby4_0-inspect.patch
 
 BuildRequires:	rubygems-devel
 %if %{without bootstrap}
@@ -58,7 +55,6 @@ This package contains documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version} -b 1
-%patch -P0 -p2
 
 # Cucumber 7 syntax change
 sed -i cucumber.yml -e "s|~@wip|not @wip|"
@@ -122,6 +118,9 @@ cucumber
 %{gem_docdir}
 
 %changelog
+* Sun Nov 08 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.9-1
+- 3.13.9
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

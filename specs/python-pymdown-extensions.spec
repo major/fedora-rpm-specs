@@ -1,7 +1,7 @@
 %global pypi_name pymdown-extensions
 
 Name:           python-%{pypi_name}
-Version:        10.21.2
+Version:        12.3
 Release:        %autorelease
 Summary:        Extension pack for Python Markdown
 
@@ -9,9 +9,6 @@ Summary:        Extension pack for Python Markdown
 License:        MIT and BSD-2-Clause
 URL:            https://facelessuser.github.io/pymdown-extensions
 Source:         %{pypi_source pymdown_extensions}
-# Conditional compatibility for markdown 3.5 for el10 based on
-# https://github.com/facelessuser/pymdown-extensions/commit/722461c65829ed6bf45ae83934c04b2dbb691e12
-Patch:          pymdown-extensions-markdown-3.5.patch
 
 BuildArch:      noarch
  
@@ -23,6 +20,7 @@ Markdown.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(pytest)
 
 %description -n python3-%{pypi_name}
 PyMdown Extensions (pymdownx) is a collection of extensions for Python
@@ -33,13 +31,6 @@ Markdown.
 %prep
 %autosetup -n pymdown_extensions-%{version} -p1
 
-# Drop invalid entry that breaks the pyproject macros
-sed -i '/\.\[extra\]/d' pyproject.toml
-
-# Don't run mypy and drop its unpackaged typing deps
-sed -e '/^mypy/d' -e '/^types-/d' -i requirements/test.txt
-sed -i '/"{envpython}" -m mypy/d' pyproject.toml
-
 # EL10 only has markdown 3.5
 # https://issues.redhat.com/browse/RHEL-74397
 %if 0%{?el10}
@@ -47,7 +38,7 @@ sed -i 's/"Markdown>=3.6"/"Markdown>=3.5"/' pyproject.toml
 %endif
 
 %generate_buildrequires
-%pyproject_buildrequires -t -x extra
+%pyproject_buildrequires -x extra
 
 %build
 %pyproject_wheel
@@ -57,7 +48,7 @@ sed -i 's/"Markdown>=3.6"/"Markdown>=3.5"/' pyproject.toml
 %pyproject_save_files pymdownx
 
 %check
-%tox
+%pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.md

@@ -1,11 +1,14 @@
 Name:           perl-HTML-FormFu-Model-DBIC
 Summary:        Integrate HTML::FormFu with DBIx::Class
 Version:        2.03
-Release:        26%{?dist}
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
+Release:        27%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFRANKS/HTML-FormFu-Model-DBIC-%{version}.tar.gz
-URL:            https://metacpan.org/release/HTML-FormFu-Model-DBIC
+# https://github.com/FormFu/HTML-FormFu-Model-DBIC/pull/12
+Patch0:         HTML-FormFu-Model-DBIC-2.03-autoincrement.patch
+# https://github.com/FormFu/HTML-FormFu-Model-DBIC/pull/13
+Patch1:         HTML-FormFu-Model-DBIC-2.03-missing-when.patch
+URL:            https://metacpan.org/dist/HTML-FormFu-Model-DBIC
 BuildArch:      noarch
 
 BuildRequires:  coreutils
@@ -66,24 +69,31 @@ Integrate your HTML::FormFu forms with a DBIx::Class model.
 
 %prep
 %setup -q -n HTML-FormFu-Model-DBIC-%{version}
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install} DESTDIR=%{buildroot}
 %{_fixperms} %{buildroot}/*
 
 %check
-make test
+%{make_build} test
 
 %files
-%doc Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%doc Changes README
+%{perl_vendorlib}/HTML*
+%{_mandir}/man3/HTML::FormFu*.3*
 
 %changelog
+* Sun Oct 18 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 2.03-27
+- Fix failures in tests due HTML-FormFu 2.09
+- Make auto_increment warnings in test ouput go away
+- Modernize spec file
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

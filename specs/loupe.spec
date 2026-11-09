@@ -3,7 +3,7 @@
 %bcond bundled_rust_deps %{defined rhel}
 
 Name:           loupe
-Version:        51.0
+Version:        51.1
 Release:        %autorelease
 Summary:        Image viewer
 

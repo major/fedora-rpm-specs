@@ -1,7 +1,7 @@
 %global giturl  https://github.com/4ti2/4ti2
 
 Name:           4ti2
-Version:        1.6.15
+Version:        1.6.16
 Release:        %autorelease
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
@@ -60,7 +60,7 @@ BuildRequires:  texlive-ec
 BuildRequires:  texlive-latex
 
 # 4ti2 contains a copy of gnulib, which has been granted a bundling exception:
-# https://fedoraproject.org/wiki/Bundled_Libraries_Virtual_Provides
+# https://forge.fedoraproject.org/packaging/guidelines/issues/174
 Provides:       bundled(gnulib)
 
 Requires:       4ti2-libs%{?_isa} = %{version}-%{release}

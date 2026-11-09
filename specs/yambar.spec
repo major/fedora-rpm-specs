@@ -9,7 +9,7 @@ end}
 
 Name:           yambar
 Version:        1.11.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Modular status panel for X11 and Wayland
 
 # The main source is MIT
@@ -32,7 +32,7 @@ BuildRequires:  bison
 BuildRequires:  desktop-file-utils
 BuildRequires:  flex
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  meson >= 0.59
 
 BuildRequires:  pkgconfig(fcft) >= 3.0.0
@@ -84,7 +84,7 @@ applications and plugins for %{name}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 chmod -x examples/scripts/*
 
@@ -125,6 +125,9 @@ desktop-file-validate \
 %{_includedir}/%{name}
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1.11.0-7
+- Verify upstream source signatures with openpgpverify
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

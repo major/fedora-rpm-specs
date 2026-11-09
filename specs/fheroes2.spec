@@ -1,5 +1,5 @@
 Name: fheroes2
-Version: 1.1.17
+Version: 1.1.18
 Release: %autorelease
 Summary: Free implementation of the popular game engine
 # ./src/thirdparty/libsmacker is under LGPL-2.1-or-later
@@ -65,6 +65,7 @@ install -Dpm 0755 %{SOURCE2} %{buildroot}%{_bindir}/%{name}
 
 # Remove files we'll install differently
 rm -f  %{buildroot}%{_docdir}/%{name}/LICENSE
+rm -f  %{buildroot}%{_docdir}/%{name}/LICENSE-ART
 rm -f  %{buildroot}%{_docdir}/%{name}/README.txt
 rm -f  %{buildroot}%{_docdir}/%{name}/changelog.txt
 rm -f  %{buildroot}%{_docdir}/%{name}/demo/download_demo_version.sh
@@ -76,7 +77,7 @@ mkdir -p %{buildroot}%{_datadir}/%{name}/{anim,data,lang,maps}/
 
 %files
 %doc README.md changelog.txt
-%license LICENSE
+%license LICENSE LICENSE-ART
 %dir %{_datadir}/%{name}/
 %dir %{_datadir}/%{name}/anim/
 %dir %{_datadir}/%{name}/data/

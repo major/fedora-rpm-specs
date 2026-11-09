@@ -6,7 +6,7 @@
 %global crate gufo
 
 Name:           rust-gufo
-Version:        0.5.3
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Gufo
 

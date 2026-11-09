@@ -103,7 +103,7 @@ emulating the games faithfully.
 
 %package tools
 Summary:        Additional tools for MAME
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       ((%{name}%{?_isa} = %{version}-%{release}) if %{name})
 
 %description tools
 %{summary}.
