@@ -231,6 +231,7 @@ pushd cpp
 popd
 
 echo '==== Building Python implementation ===='
+%pyproject_verify_license --directory python
 %pyproject_wheel --directory python
 
 echo '==== Building Ruby implementation ===='

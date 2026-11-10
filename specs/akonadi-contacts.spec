@@ -1,5 +1,5 @@
 Name:    akonadi-contacts
-Version: 26.08.2
+Version: 26.08.3
 Release: 1%{?dist}
 Summary: The Akonadi Contacts Library
 
@@ -88,6 +88,9 @@ find ./po -type f -name akonadicontact5-serializer.po -execdir mv {} akonadicont
 %files doc
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
+- 26.08.3
+
 * Thu Oct 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.2-1
 - 26.08.2
 

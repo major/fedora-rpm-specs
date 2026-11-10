@@ -132,7 +132,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        1000.rocm%{rocm_version}%{?dist}
 %else
-Release:        2.rocm%{rocm_version}%{?dist}
+Release:        3.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -275,7 +275,11 @@ must ensure the compiler options are appropriate for the target compiler.
 %package -n %{rocm_llvm_name}-filesystem
 Summary: Filesystem package that owns the rocm llvm directory
 Requires: rocm-filesystem%{pkg_suffix}
-
+%if %{without libcxx}
+Obsoletes: %{rocm_libcxx_name} < %{version}-%{release}
+Obsoletes: %{rocm_libcxx_name}-devel < %{version}-%{release}
+Obsoletes: %{rocm_libcxx_name}-static < %{version}-%{release}
+%endif
 %description -n %{rocm_llvm_name}-filesystem
 This package owns the rocm llvm directory : %{bundle_prefix}
 
@@ -420,8 +424,6 @@ Requires:      %{rocm_libcxx_name}-devel%{?_isa} = %{version}-%{release}
 %description -n %{rocm_libcxx_name}-static
 %{summary}
 
-%else
-Obsoletes:      %{rocm_libcxx_name} <= %{version}-%{release}
 %endif
 
 %if %{with sa}
@@ -1137,6 +1139,9 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %{bundle_prefix}/lib/libomp*.so
 
 %changelog
+* Mon Nov 9 2026 Tim Flink <tflink@fedoraproject.org> - 24-3.rocm10.1.0
+- update obsoletes for rocm-libcxx so that upgrades go smoothly
+
 * Mon Oct 19 2026 Tom Rix <Tom.Rix@amd.com> - 24-2.rocm10.1.0
 - Simplify arches
 

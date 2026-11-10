@@ -1,5 +1,5 @@
 Name:           pyshp
-Version:        3.1.7
+Version:        3.1.8
 Release:        %autorelease
 Summary:        Pure Python read/write support for ESRI Shapefile format
 
@@ -49,6 +49,7 @@ Summary:        %{summary}
 
 
 %check -a
+%pyproject_verify_license
 %pytest -m 'not network' --verbose
 %{py3_test_envvars} %{python3} tests/run_doctests.py -m 'not network'
 

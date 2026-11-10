@@ -100,7 +100,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        9.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -127,6 +127,8 @@ Patch5:         https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/883e8a6336b2651f7be
 # fix H.264/HEVC streamcopy timestamps without native decoders
 # https://bugzilla.redhat.com/show_bug.cgi?id=2483137
 Patch6:         https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/24968.patch#/ffmpeg-fix-streamcopy-pts.patch
+# fix build with openapv >= 1.1
+Patch7:         https://code.ffmpeg.org/FFmpeg/FFmpeg/commit/a7502e5ff39ef53d475b9ee7dd6d4aeb48f047e6.patch#/ffmpeg-openapv1.1.patch
 
 # Add first_dts getter to libavformat for Chromium
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=2240127
@@ -982,6 +984,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Tue Nov 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 9.0.2-4
+- fix build with openapv >= 1.1
+
 * Fri Oct 30 2026 Dominik Mierzejewski <dominik@greysector.net> - 9.0.2-3
 - enable free Vulkan encoders (patch by Stepan Fomin)
 - backport fix for backward seeking with openh264 (resolves rhbz#2547586)

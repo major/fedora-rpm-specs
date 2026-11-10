@@ -1,6 +1,6 @@
 Name: merkuro
-Version: 26.08.2
-Release: 3%{?dist}
+Version: 26.08.3
+Release: 1%{?dist}
 Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
 License: GPL-3.0-or-later
@@ -151,6 +151,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_qtplugindir}/plasma/applets/org.kde.merkuro.contact.applet.so
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
+- 26.08.3
+
 * Fri Oct 30 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.08.2-3
 - Separate plasma applet subpackage
 

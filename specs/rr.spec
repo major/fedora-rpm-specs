@@ -2,9 +2,9 @@
 %undefine __cmake_in_source_build
 
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
-%global gittag 5.9.0
+%global gittag 5.10.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 10
+%global baserelease 1
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -15,7 +15,7 @@ ExclusiveArch:  %{ix86} x86_64 aarch64
 %endif
 Summary:        Tool to record and replay execution of applications
 Name:           rr
-Version:        5.9.0
+Version:        5.10.0
 Release:        %{baserelease}%{?dist}
 # The entire source code is MIT with the exceptions of
 # files in following directories:
@@ -29,15 +29,6 @@ License:        MIT AND BSD-2-Clause AND Zlib AND CC0-1.0 AND FSFAP-no-warranty-
 URL:            http://rr-project.org
 
 Source: https://github.com/rr-debugger/rr/archive/%{gittag}/%{name}-%{version}.tar.gz
-
-Patch1: remove-termio.patch
-Patch2: update-cmake-ver.patch
-# https://github.com/rr-debugger/rr/issues/4037
-Patch3: rr-5.9.0-use-openat2-header.patch
-# https://github.com/rr-debugger/rr/issues/3997
-Patch4: rr-5.9.0-emulate-madv-guard.patch
-# Fix FTBFS on rawhide (gcc 16, glibc 2.43+): missing <limits.h> for INT_MAX.
-Patch5: rr-5.9.0-include-limits-h.patch
 
 %if  0%{?rhel} == 7
 BuildRequires: cmake3
@@ -69,6 +60,7 @@ Requires: rr
 Requires: gdb
 Requires: lldb
 Requires: python3
+Requires: jq
 %if  0%{?rhel} == 7
 Requires: python36-pexpect
 Requires: cmake3
@@ -140,6 +132,11 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Sat Nov 07 2026 Aaron Merey <amerey@redhat.com> - 5.10.0-1
+- Rebase to rr-5.10.0.
+- Drop patches now included upstream.
+- Add jq to rr-testsuite Requires.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

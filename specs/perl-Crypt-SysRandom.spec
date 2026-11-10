@@ -1,6 +1,6 @@
 Name:           perl-Crypt-SysRandom
-Version:        0.007
-Release:        3%{?dist}
+Version:        0.008
+Release:        1%{?dist}
 Summary:        Perl interface to system randomness
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Crypt-SysRandom
@@ -19,6 +19,7 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Crypt::SysRandom::XS)
 BuildRequires:  perl(Errno)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(MIME::Base64) >= 3.11
 # Tests
 BuildRequires:  perl(blib)
 BuildRequires:  perl(File::Spec)
@@ -78,6 +79,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 09 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.008-1
+- 0.008 bump (rhbz#2568389)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

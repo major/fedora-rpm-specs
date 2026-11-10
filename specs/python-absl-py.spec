@@ -38,6 +38,7 @@ Summary:        %{summary}
 # Since we cannot run the full upstream test suite (see comments below), we
 # start with the implicit default import “smoke test.” Then:
 %check -a
+%pyproject_verify_license
 # Upstream provides some “smoke tests” that we can run, too. We cannot use the
 # wrapper smoke_tests/smoke_test.sh because it downloads things from the
 # Internet, but we can run the Python scripts manually.

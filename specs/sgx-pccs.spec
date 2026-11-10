@@ -1,6 +1,6 @@
 
 # Change after running pccs-nodejs-bundler
-%global node_modules_date 20260723
+%global node_modules_date 20261109
 
 %global with_sysusers_scripts 0
 %if 0%{?rhel} == 9
@@ -9,7 +9,7 @@
 
 
 Name: sgx-pccs
-Version: 1.26
+Version: 1.27
 Release: %autorelease
 # The PCCS service was previously bundled in linux-sgx RPMs,
 # whose versioning follows the SGX versions.
@@ -75,9 +75,7 @@ Source4: pccs-%{version}-%{node_modules_date}-node-modules.tar.xz
 # Maintained in https://github.com/berrange/confidential-computing.tee.dcap.pccs/tree/dist-git-<version>
 #
 Patch: 0001-service-sanitize-paths-to-all-resources.patch
-Patch: 0002-pccsadmin-make-keyring-module-optional.patch
-Patch: 0003-pccsadmin-ignore-errors-trying-to-clear-the-keyring.patch
-Patch: 0004-service-update-sqlite3-to-6.0.0-series-override-seri.patch
+Patch: 0002-service-update-sqlite3-to-6.0.0-series-force-newer-d.patch
 
 
 %if 0%{?fedora} >= 45 || 0%{?rhel} >= 11
@@ -159,14 +157,17 @@ tar Jxvf %{SOURCE4}
   # The {SOURCE3} bundler script  uses '--ignore-scripts'
   # when creating the bundle on the packager's local dev
   # machine. We must re-run install now to finish job in
-  # RPM build context
-  for pkg in node_modules/*
+  # RPM build context. To mitigate risk of malicious NPM
+  # modules we hardcode list of what scripts to run.
+  # pccs-nodejs-bundler will warn us if any modules
+  # gain a new install script we need to run here.
+  for pkg in node_modules/sqlite3
   do
     (
       cd $pkg
       # Get verbose output from node-gyp for sqlite3 build
       export V=1
-      npm run install --if-present
+      npm run install
     )
   done
 

@@ -1,6 +1,6 @@
 Name:           abcde
 Version:        2.9.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A Better CD Encoder
 
 # previously license field included Public Domain, but FOSSology scan of v2.9.3 did not 
@@ -18,7 +18,7 @@ Patch0:         %{name}-normalize.patch
 Patch1:         https://bugzilla.redhat.com/attachment.cgi?id=1748056#/abcde-gnudb.patch
 
 BuildArch:      noarch
-BuildRequires:  %{_bindir}/gpgv2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 BuildRequires:  perl-generators
 Requires:       cd-discid
@@ -53,7 +53,7 @@ tags them, all in one go.
 
 
 %prep
-%{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
+%{openpgpverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %autosetup
 mv examples/cue2discid .
 sed -i -e 's|bin/python\b|bin/python3|' cue2discid
@@ -82,6 +82,9 @@ install -pm 755 cue2discid $RPM_BUILD_ROOT%{_bindir}
 
 
 %changelog
+* Fri Oct 30 2026 Jakub Jelen <jjelen@redhat.com> - 2.9.3-22
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

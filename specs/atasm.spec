@@ -1,6 +1,6 @@
 Name:           atasm
-Version:        1.30
-Release:        5%{?dist}
+Version:        1.32
+Release:        1%{?dist}
 Summary:        6502 cross-assembler
 
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ popd
 
 
 %changelog
+* Mon Nov 09 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.32-1
+- Update to 1.32 (rhbz#2569242)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

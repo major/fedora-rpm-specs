@@ -2,11 +2,11 @@
 
 Name:           mingw-bzip2
 Version:        1.0.8
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        MinGW port of bzip2 file compression utility
 
 # Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-4-Clause
 URL:            http://www.bzip.org/
 Source0:        http://www.bzip.org/%{version}/bzip2-%{version}.tar.gz
 
@@ -135,7 +135,7 @@ rm $RPM_BUILD_ROOT%{mingw64_libdir}/libbz2.la
 
 # Win32
 %files -n mingw32-bzip2
-%doc COPYING
+%license COPYING
 %{mingw32_bindir}/libbz2-1.dll
 %{mingw32_bindir}/bunzip2.exe
 %{mingw32_bindir}/bzcat.exe
@@ -157,7 +157,7 @@ rm $RPM_BUILD_ROOT%{mingw64_libdir}/libbz2.la
 
 # Win64
 %files -n mingw64-bzip2
-%doc COPYING
+%license COPYING
 %{mingw64_bindir}/libbz2-1.dll
 %{mingw64_bindir}/bunzip2.exe
 %{mingw64_bindir}/bzcat.exe
@@ -179,6 +179,9 @@ rm $RPM_BUILD_ROOT%{mingw64_libdir}/libbz2.la
 
 
 %changelog
+* Sun Nov 08 2026 Marian Koncek <mkoncek@redhat.com> - 1.0.8-19
+- Use license macro for license files
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

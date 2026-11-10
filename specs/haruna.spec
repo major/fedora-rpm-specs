@@ -14,7 +14,7 @@ Source2: gpgkey-4E421C6554B89766DF9B7A37E12AB207C8755905.gpg
 ## upstreamable patches
 
 BuildRequires: cmake
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: gcc-c++
 BuildRequires: gettext
 BuildRequires: kf6-rpm-macros
@@ -78,7 +78,7 @@ Features:
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 

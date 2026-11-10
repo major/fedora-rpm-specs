@@ -285,7 +285,10 @@ end
 # The upper bound must remain and never exceed the latest RHEL version with GTS,
 # so that this does not apply to ELN or a brand new RHEL version.
 %if %{defined rhel} && 0%{?rhel} <= 10
+# TODO: Remove this in the future when GTS gets fully built on riscv64.
+%ifnarch riscv64
 %global gts_version 15
+%endif
 %endif
 
 %if %{defined rhel} && 0%{?rhel} <= 8

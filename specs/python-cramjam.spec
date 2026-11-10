@@ -22,11 +22,12 @@ Release:        %autorelease
 Summary:        Thin Python bindings to de/compression algorithms in Rust
 
 # SPDX
-License:        MIT
+%global upstream_license MIT
+License:        %{upstream_license}
 # tests/data/integration/plaintext.txt and its various compressed forms contain
 # the text of The Zen of Python, from https://peps.python.org/pep-0020/, which
 # carries the declaration “This document has been placed in the public domain.”
-SourceLicense:  %{license} AND LicenseRef-Fedora-Public-Domain
+SourceLicense:  %{upstream_license} AND LicenseRef-Fedora-Public-Domain
 # From %%{cargo_license_summary}:
 #
 # 0BSD OR MIT OR Apache-2.0
@@ -164,6 +165,7 @@ cp --preserve ../LICENSE ../LICENSE.dependencies .
 
 
 %check
+%pyproject_verify_license %{upstream_license}
 # If upstream starts listing license files explicitly, LICENSE.dependencies may
 # be dropped from the .dist-info directory. Guard against this.
 [ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSE.dependencies)" ]

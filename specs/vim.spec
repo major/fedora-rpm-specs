@@ -1,4 +1,7 @@
 %bcond hunspell         0
+# switch to gtk4 once it is no longer experimental upstream
+# see https://github.com/vim/vim/blob/master/runtime/doc/version9.txt
+%bcond gtk4             0
 
 %bcond flakytests       1
 %bcond gui              1
@@ -15,9 +18,6 @@
 
 %bcond desktop_file     %{with gui}
 
-%if 0%{?fedora} >= 45
-%bcond gtk4             1
-%endif
 
 # VIm upstream wants to build with FORTIFY_SOURCE=1,
 # because higher levels causes crashes of valid code constructs
@@ -40,7 +40,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -1066,6 +1066,9 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Mon Nov 09 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.1302-2
+- switch back to GTK 3
+
 * Fri Nov 06 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.1302-1
 - patchlevel 1302 (fedora#2568065)
 

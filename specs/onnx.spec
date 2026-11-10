@@ -39,7 +39,6 @@ BuildRequires:  python3-pybind11
 BuildRequires:  python3-pytest
 BuildRequires:  python3-nanobind
 BuildRequires:  python3-ml-dtypes 
-BuildRequires:  protobuf-devel
 BuildRequires:  protobuf-static
 
 %global _description %{expand:

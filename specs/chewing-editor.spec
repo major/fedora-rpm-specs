@@ -1,6 +1,6 @@
 Name:           chewing-editor
 Version:        0.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cross platform chewing user phrase editor
 Summary(zh_TW): 跨平台酷音詞庫編輯器
 
@@ -19,7 +19,7 @@ BuildRequires:  pkgconfig(chewing) >= 0.4.0
 BuildRequires:  pkgconfig(gtest) >= 1.7.0
 BuildRequires:  help2man
 BuildRequires:  desktop-file-utils
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 Requires:       hicolor-icon-theme
 
 %description
@@ -32,7 +32,7 @@ chewing-editor 是一個跨平台的詞庫編輯器。它提供了簡單管理�
 有了它，使用者可以自訂自己的詞庫來提高輸入效率。
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{name}-%{version}-Source
 
 
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/chewing-editor.deskt
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 0.1.2-5
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

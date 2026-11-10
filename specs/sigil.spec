@@ -1,5 +1,5 @@
 Name:           sigil
-Version:        2.8.1
+Version:        2.8.6
 Release:        1%{?dist}
 Summary:        WYSIWYG ebook editor
 # Automatically converted from old format: GPL-3.0-or-later AND Apache-2.0 - review is highly recommended.
@@ -151,6 +151,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Nov 09 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.8.6-1
+- Update to 2.8.6 (rhbz#2568015)
+
 * Wed Jul 22 2026 Dan Horák <dan[at]danny.cz> - 2.8.1-1
 - New upstream release 2.8.1 (rhbz#2502084)
 

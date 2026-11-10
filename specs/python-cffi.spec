@@ -2,9 +2,11 @@ Name:           python-cffi
 Version:        2.1.1
 Release:        %autorelease
 Summary:        Foreign Function Interface for Python to call C code
-# cffi is MIT
+# cffi is MIT-0
+%global upstream_license MIT-0
 # cffi/_imp_emulation.py has bits copied from CPython (PSF-2.0)
-License:        MIT AND PSF-2.0
+# see https://github.com/python-cffi/cffi/issues/290
+License:        %{upstream_license} AND PSF-2.0
 URL:            https://github.com/python-cffi/cffi
 Source:         %{url}/archive/v%{version}/cffi-%{version}.tar.gz
 
@@ -63,6 +65,7 @@ rm build/html/.buildinfo
 
 
 %check
+%pyproject_verify_license %{upstream_license}
 %pytest
 
 

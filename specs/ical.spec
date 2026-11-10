@@ -8,7 +8,7 @@ Name:    ical
 Version: %{forgeversion}
 Source:  %{forgesource}
 URL:     %{forgeurl}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-only AND NTP AND CC0-1.0
 
 BuildRequires:  autoconf automake libtool

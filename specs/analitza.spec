@@ -8,8 +8,8 @@
 
 Name:    analitza
 Summary: Library of mathematical features
-Version: 26.08.2
-Release: 2%{?dist}
+Version: 26.08.3
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -92,6 +92,9 @@ popd
 
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
+- 26.08.3
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
 - Rebuild (qt6)
 

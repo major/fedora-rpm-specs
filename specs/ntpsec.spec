@@ -1,6 +1,6 @@
 Name:           ntpsec
 Version:        1.2.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NTP daemon and utilities
 
 License:        NTP AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND Apache-2.0 AND Beerware
@@ -12,7 +12,7 @@ Source3:        ntp.conf
 
 BuildRequires:  bison
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  libbsd-devel
 BuildRequires:  libcap-devel
 BuildRequires:  m4
@@ -55,7 +55,7 @@ NTPsec is a more secure and improved implementation of the Network Time
 Protocol derived from the original NTP project.
 
 %prep
-%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%{openpgpverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %autosetup -p1
 
 # Fix egg info to use a shorter version which will work as an rpm provide
@@ -209,6 +209,9 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %{_sysusersdir}/ntpsec.conf
 
 %changelog
+* Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 1.2.6-2
+- Verify upstream source signatures with openpgpverify
+
 * Wed Oct 21 2026 Miroslav Lichvar <mlichvar@redhat.com> 1.2.6-1
 - update to 1.2.6 (CVE-2026-102483 CVE-2026-102484 CVE-2026-102485
   CVE-2026-102486)

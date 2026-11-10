@@ -65,6 +65,8 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check -a
+%pyproject_verify_license
+
 # Requires python3dist(vermin):
 k="${k-}${k+ and }not test_script_parses_down_to_python27"
 

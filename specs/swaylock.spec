@@ -7,11 +7,10 @@ License:    MIT
 URL:        https://github.com/swaywm/swaylock
 Source0:    %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:    %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
-# gpg2 --export --armor --export-options export-minimal 34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48 >gpgkey-E88F5E48.asc
-Source2:    gpgkey-E88F5E48.asc
+Source2:    https://keys.openpgp.org/vks/v1/by-fingerprint/34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48#/gpgkey-0FDE7BE0E88F5E48.asc
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(cairo)
@@ -26,7 +25,7 @@ BuildRequires:  scdoc
 swaylock is a screen locking utility for Wayland compositors.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

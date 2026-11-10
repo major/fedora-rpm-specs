@@ -2,18 +2,13 @@
 
 Name:    kdenlive
 Summary: Non-linear video editor
-Version: 26.08.2
-Release: 2%{?dist}
+Version: 26.08.3
+Release: 1%{?dist}
 
 License: (GPL-2.0-only or GPL-3.0-only) and GPL-2.0-or-later and GPL-3.0-or-later and LGPL-3.0-only and BSD-3-Clause and CC0-1.0
 URL:     http://www.kdenlive.org
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# https://github.com/KDE/kdenlive/commit/614a6d686ca158043f12dd0227894917f2bd9b5e
-Patch:   kdenlive-fix-timeline-qml-property-access.patch
-# https://github.com/KDE/kdenlive/commit/2a40ef90e699ae270fc8c1e4b0db36c0c9b9a029
-Patch:   kdenlive-fix-confusing-expression-statement-qml-error.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -140,6 +135,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
+- 26.08.3
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
 - Rebuild (qt6)
 

@@ -50,11 +50,7 @@ Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
 URL:            https://github.com/trixirt/rocm-rpm-macros
-%if %{with preview}
-Source0:        macros.rocm.preview
-%else
 Source0:        macros.rocm
-%endif
 Source1:        GPL
 # Modules
 Source2:        default

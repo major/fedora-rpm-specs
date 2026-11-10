@@ -12,7 +12,7 @@ URL:		https://www.courier-mta.org/sysconftool/
 BuildArch:	noarch
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 BuildRequires:  make
 BuildRequires:	perl-generators
 
@@ -28,7 +28,7 @@ istniejących aplikacji na nowsze wersje bez straty starszych wersji
 plików konfiguracyjnych.
 
 %prep
-%{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
+%{openpgpverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %setup -q
 
 %build

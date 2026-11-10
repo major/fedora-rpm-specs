@@ -66,6 +66,7 @@ Requires:       spatialindex
 
 
 %check -a
+%pyproject_verify_license
 %pytest --doctest-modules tests rtree
 
 

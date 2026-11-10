@@ -13,6 +13,8 @@ License:        GPL-3.0-or-later
 URL:            https://apps.gnome.org/Showtime/
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
+Patch0: 0001-play-Use-GstPlay-s-missing-plugin-details-instead-of.patch
+
 %gnome_check_version
 
 BuildArch:      noarch

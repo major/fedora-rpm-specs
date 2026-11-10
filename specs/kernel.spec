@@ -167,13 +167,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc1.261106gf66469d9905b.16
+%define pkgrelease 0.rc2.19
 %define kversion 7
-%define tarfile_release 7.4-rc1-536-gf66469d9905b
+%define tarfile_release 7.4-rc2
 # This is needed to do merge window version magic
 %define patchlevel 4
 # The Release tag, including the configurable %%{?dist} tag
-%define specrelease 0.rc1.261106gf66469d9905b.16%{?buildid}%{?dist}
+%define specrelease 0.rc2.19%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -3223,6 +3223,17 @@ BuildKernel %make_target %kernel_image %{with_vdso_install}
 if [ -z "$DevelDir" ]; then
     %{log_msg "Initialize userspace tools build environment"}
     InitBuildVars %{?tools_variant}
+    # The CI build-tools stage may normalize the variant kernel-devel path
+    # to the base path (e.g. +debug → base).  If the variant DevelDir does
+    # not exist, fall back to the base path so Module.symvers, vmlinux.h,
+    # and vmlinux can still be found.
+    if [ ! -d "$DevelDir" ]; then
+        _base_devel="/usr/src/kernels/%{KVERREL}"
+        if [ -d "$_base_devel" ]; then
+            %{log_msg "DevelDir '$DevelDir' not found, falling back to '$_base_devel'"}
+            DevelDir="$_base_devel"
+        fi
+    fi
     # Some tests build also modules, and need Module.symvers
     if ! [[ -e Module.symvers ]] && [[ -f $DevelDir/Module.symvers ]]; then
         %{log_msg "Found Module.symvers in DevelDir, copying to ."}
@@ -4801,9 +4812,26 @@ fi\
 #
 #
 %changelog
-* Fri Nov 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.f66469d9905b.16]
+* Mon Nov 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.19]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Mon Nov 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.18]
+- Linux v7.4.0-0.rc2
+
+* Sun Nov 08 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.fa4ad798f6f6.17]
+- redhat: spec: fix tools_variant detection (Nico Pache)
+- mptsas, mptscsih, mptbase: disable the drivers (Tomas Henzl)
+- mptspi: disable the driver (Tomas Henzl)
+- hpsa: disable the driver (Tomas Henzl)
+- aacraid: disable the driver (Tomas Henzl)
+- redhat/configs: Enable Printk Ringbuffer KUNIT tests (Derek Barbosa)
+- redhat/configs: Enable some automotive configs (Derek Barbosa)
+- redhat/configs: Enable 8250_NI (Derek Barbosa)
+- Linux v7.4.0-0.rc1.fa4ad798f6f6
+
+* Sat Nov 07 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.d48723711bae.16]
+- Linux v7.4.0-0.rc1.d48723711bae
 
 * Fri Nov 06 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc1.f66469d9905b.15]
 - redhat: drop the explicit self-name provides from the modules packages (Jan Stancek)

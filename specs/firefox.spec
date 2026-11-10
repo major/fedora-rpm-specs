@@ -240,7 +240,6 @@ Source50:       wasi-sdk-30.tar.gz
 Patch44:        build-arm-libopus.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
-Patch80:        wasi.patch
 Patch85:        build-wasm32-wasip1.patch
 Patch90:        pgo-simple-programs-2.patch
 

@@ -19,6 +19,10 @@ License:        Apache-2.0 AND 0BSD AND PSF-2.0
 URL:            https://github.com/MagicStack/asyncpg
 Source:         %{pypi_source asyncpg}
 
+# Make the license metadata more complete
+# https://github.com/MagicStack/asyncpg/pull/1405
+Patch:          %{url}/pull/1405.patch
+
 BuildSystem:    pyproject
 BuildOption(install): --assert-license asyncpg
 BuildOption(generate_buildrequires): --extras gssauth --dependency-groups test
@@ -105,6 +109,8 @@ export ASYNCPG_BUILD_CYTHON_ALWAYS=1
 
 
 %check -a
+%pyproject_verify_license
+
 # See the “test” target in the Makefile:
 PYTHONASYNCIODEBUG=1 %pytest -k "${k-}"
 %pytest -k "${k-}"

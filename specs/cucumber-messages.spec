@@ -164,6 +164,7 @@ popd
 %make_build --directory python clean
 %make_build --directory python generate
 %endif
+%pyproject_verify_license --directory python
 %pyproject_wheel --directory python
 
 pushd ruby

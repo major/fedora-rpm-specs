@@ -1,8 +1,11 @@
 %global srcname Wildcard
-%global app_id com.felipekinoshita.Wildcard
+%global app_id net.ffkkinos.Wildcard
+
+%global commit 446f85fc82677a2c416aa63651608e0d1041d1ec
+%global shortcommit %{sub %{commit} 1 8}
 
 Name:           wildcard
-Version:        0.3.3
+Version:        0.3.5^1.%{shortcommit}
 Release:        %autorelease
 Summary:        Test your regular expressions
 
@@ -15,17 +18,14 @@ Summary:        Test your regular expressions
 # Unlicense OR MIT
 # See LICENSE.depndencies for the full breakdown
 License:        %{shrink:
-    GPL-3.0-or-later AND
-    MIT AND
-    Unicode-DFS-2016 AND
-    (Apache-2.0 OR MIT) AND
-    (Unlicense OR MIT)
+    GPL-3.0-or-later
+    AND MIT
+    AND Unicode-DFS-2016
+    AND (Apache-2.0 OR MIT)
+    AND (Unlicense OR MIT)
 }
 URL:            https://gitlab.gnome.org/World/Wildcard
-Source:         %{url}/-/archive/v%{version}/%{srcname}-v%{version}.tar.gz
-
-# https://gitlab.gnome.org/World/Wildcard/-/issues/42
-Patch:          0001-Port-to-gtk4-rs-0.9-and-libadwaita-rs-0.7.patch
+Source:         %{url}/-/archive/%{commit}/%{srcname}-%{shortcommit}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -40,6 +40,7 @@ BuildRequires:  meson
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
 
+Requires:       dbus-common
 Requires:       hicolor-icon-theme
 
 %description
@@ -47,7 +48,7 @@ Wildcard gives you a nice and simple to use interface to test/practice regular
 expressions.
 
 %prep
-%autosetup -p1 -n %{srcname}-v%{version}
+%autosetup -C -p1
 %cargo_prep
 
 %generate_buildrequires
@@ -72,6 +73,7 @@ expressions.
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/applications/%{app_id}.desktop
+%{_datadir}/dbus-1/services/%{app_id}.service
 %{_datadir}/glib-2.0/schemas/%{app_id}.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/%{app_id}*.svg
 %{_metainfodir}/%{app_id}.metainfo.xml

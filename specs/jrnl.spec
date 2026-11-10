@@ -59,6 +59,7 @@ install --directory '%{buildroot}%{_mandir}/man1'
 
 
 %check -a
+%pyproject_verify_license
 %tox -- -- -rs
 
 

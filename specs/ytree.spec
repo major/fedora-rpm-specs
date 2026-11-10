@@ -1,6 +1,6 @@
 Summary:	A file manager similar to XTree
 Name:		ytree
-Version:	2.13
+Version:	2.14
 Release:	%autorelease
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later

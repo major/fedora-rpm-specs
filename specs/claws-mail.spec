@@ -26,7 +26,7 @@ Obsoletes: claws-mail-plugin-gdata < 4.2.0-1
 
 Name:           claws-mail
 Version:        4.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Email client and news reader based on GTK+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -35,6 +35,12 @@ Source0:        https://claws-mail.org/releases/%{name}-%{version}.tar.xz
 
 # rhbz#1179279
 Patch11:        claws-mail-system-crypto-policies.patch
+# vCalendar plugin: build with libical 4 (claws-mail bug 4942), and keep
+# building with libical 3; upstream commits, in order (two reverted
+# attempts in between cancel out)
+Patch12:        https://git.claws-mail.org/?p=claws.git;a=patch;h=1ad8482186cdcd056047aa5f9e2d495e6296a1bb#/claws-mail-vcalendar-libical4.patch
+Patch13:        https://git.claws-mail.org/?p=claws.git;a=patch;h=f754d8d9ae50f2beb1385798c541af623d5c2820#/claws-mail-vcalendar-libical3-compat.patch
+Patch14:        https://git.claws-mail.org/?p=claws.git;a=patch;h=9b6b82879c75ceb52d93eaa137eafe04b258136e#/claws-mail-vcalendar-libical4-version-check.patch
 
 BuildRequires:  gcc, flex, bison, make
 BuildRequires:  pkgconfig(glib-2.0) >= 2.20
@@ -423,9 +429,10 @@ exporting of your meetings or all your calendars.
 %prep
 %setup -q
 
-%if 0%{?fedora} > 20
 %patch 11 -p1 -b.syscrypto
-%endif
+%patch 12 -p1 -b.libical4
+%patch 13 -p1 -b.libical3
+%patch 14 -p1 -b.libical4check
 
 # guard for pluginapi
 SOURCEAPI=$(grep -A 1 VERSION_NUMERIC src/common/version.h | tr -d '\n' | perl -ne 's/[\\\s]//g; m/(\d+),(\d+),(\d+),(\d+)/; print("$1.$2.$3.$4");')
@@ -652,6 +659,11 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Thu Nov 05 2026 Michel Lind <salimma@fedoraproject.org> - 4.4.0-10
+- Backport upstream libical 4 support for the vCalendar plugin
+  (claws-mail bug 4942 and follow-up fixes)
+- Apply patches unconditionally
+
 * Wed Sep 02 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.4.0-9
 - gumbo-parser rebuild
 

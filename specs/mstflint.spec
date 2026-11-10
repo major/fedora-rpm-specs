@@ -1,7 +1,7 @@
 %global __remake_config 1
 
-%global mainver 4.37.0
-%global subver  1.1
+%global mainver	4.37.0
+%global subver	1.1
 
 Name:		mstflint
 Summary:	Mellanox firmware burning tool
@@ -13,13 +13,12 @@ Release:	%autorelease
 # ext_libs/sqlite/ has the SQLite blessing.
 License:	(GPL-2.0-only OR Linux-OpenIB) AND BSD-3-Clause AND MIT AND blessing
 Url:		https://github.com/Mellanox/%{name}
-# The upstream tarball at
-# https://github.com/Mellanox/%{name}/releases/download/v%{mainver}-%{subver}/%{name}-%{mainver}-%{subver}.tar.gz
-# ships prebuilt, non-free libdpa_elf blobs (mlxdpa/dpa_elf/*/libdpa_elf).
-# Removing them in %%prep is not enough, since they would still be present
-# in the source RPM. Instead, Source0 is a repacked version with the
-# blobs stripped out by generate-tarball.sh, distinguished from the
-# pristine upstream tarball by a ".free" suffix.
+# The upstream tarball at %%realSource0 ships prebuilt, non-free libdpa_elf
+# blobs (mlxdpa/dpa_elf/*/libdpa_elf). Removing them in %%prep is not enough,
+# since they would still be present in the source RPM. Instead, Source0 is a
+# repacked version with the blobs stripped out by generate-tarball.sh,
+# distinguished from the pristine upstream tarball by a ".free" suffix.
+%global realSource0 https://github.com/Mellanox/%{name}/releases/download/v%{mainver}-%{subver}/%{name}-%{mainver}-%{subver}.tar.gz
 Source0:	%{name}-%{mainver}-%{subver}.free.tar.gz
 Source1:	generate-tarball.sh
 
@@ -65,6 +64,9 @@ Provides:	bundled(muParser)
 %if %{__remake_config}
 BuildRequires:	libtool, autoconf, automake
 %endif
+%if 0%{?rhel}
+BuildRequires:	hardlink
+%endif
 Obsoletes:	openib-mstflint <= 1.4 openib-tvflash <= 0.9.2 tvflash <= 0.9.0
 ExcludeArch:	s390 %{arm} %{ix86}
 Requires:	python3
@@ -79,6 +81,9 @@ Requires:	python3
 # https://github.com/Mellanox/mstflint/pull/2090
 0020-mlxfwupdate-use-the-system-trust-store-instead-of-a-.patch
 0021-mlxfwupdate-rename-_ceritifcate-to-_caBundlePath.patch
+# drop the vestigial shebang that rpmlint flags as non-executable-script
+# https://github.com/Mellanox/mstflint/commit/557414fb2ec970f52ae5ed97a6a79bb5f40aaaac
+0030-mlxreg-remove-shebang-from-mstgenerate_pgcb_commands.patch
 
 %description
 This package contains firmware update tool, vpd dump and register dump tools
@@ -114,6 +119,14 @@ find %{buildroot} -type f,l \( -name '*.a' -o -name '*.la' \) -delete
 # Mark these shared libs executable for find-debuginfo.sh to find them.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Debuginfo/
 chmod +x %{buildroot}/%{_libdir}/mstflint/{python_tools,sdk}/*.so
+
+%if 0%{?rhel}
+# rpmlint reports files-duplicated-waste for identical files that are not
+# hardlinked. Fedora deduplicates the whole buildroot as part of
+# %%__os_install_post (linkdupes from add-determinism), RHEL buildroots
+# do not, so hardlink the duplicates here.
+hardlink -c %{buildroot}
+%endif
 
 %files
 %doc README

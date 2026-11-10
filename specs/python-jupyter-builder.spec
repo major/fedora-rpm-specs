@@ -1,5 +1,5 @@
 Name:           python-jupyter-builder
-Version:        1.2.3
+Version:        1.2.4
 Release:        %autorelease
 Summary:        Build tools for JupyterLab extensions
 # jupyter-builder is BSD-3-Clause.
@@ -34,7 +34,6 @@ Source:         %{pypi_source jupyter_builder}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 # For tests
-BuildRequires:  toml-cli
 BuildRequires:  python3dist(pytest)
 
 
@@ -205,8 +204,9 @@ Provides:       bundled(npm(yup)) = 0.32.9
 # Remove shebang line from yarn.js
 sed -i '1{/^#!/d}' jupyter_builder/yarn.js
 
-# Pytest cannot import copier
-toml unset --toml-path pyproject.toml tool.pytest.ini_options.filterwarnings
+# Pytest cannot import copier, so drop the filterwarnings that references
+# copier.errors.OldTemplateWarning (resolved at pytest config time).
+sed -i '/^filterwarnings = \[/,/^\]/d' pyproject.toml
 
 
 %generate_buildrequires

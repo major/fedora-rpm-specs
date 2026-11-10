@@ -171,6 +171,8 @@ install -D --preserve-timestamps --mode=0644 pipx.bash \
 
 
 %check -a
+%pyproject_verify_license
+
 # It’s just not practical to run the tests. For most of them, we need either
 # (by default) a bundle of sample wheels from PyPI–which is arch-specific, as
 # some of them have compiled extensions—or network access. Previously, we tried

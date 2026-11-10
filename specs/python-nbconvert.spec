@@ -12,7 +12,7 @@
 %bcond doc %{undefined rhel}
 
 Name:           python-%{pypi_name}
-Version:        7.17.1
+Version:        7.17.2
 Release:        %autorelease
 Summary:        Converting Jupyter Notebooks
 

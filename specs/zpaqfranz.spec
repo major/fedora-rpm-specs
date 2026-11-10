@@ -20,7 +20,7 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        65.17
+Version:        65.19
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -68,6 +68,12 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 #       but there is no such code
 # zpaqfranz.cpp parts from Zstd: BSD-3-Clause OR GPL-2.0-only
 # zpaqfranz.cpp parts from Mbed TLS: Apache-2.0 OR GPL-2.0-or-later
+# zpaqfranz.cpp parts from Monocypher 4.0.2: BSD-2-Clause (OR CC0-1.0)
+#       Fedora does not recognize CC0-1.0 for a code.
+#       TODO: Extract license text when built without -DNOFRANZEN.
+#       XXX: Building with -DNOFRANZEN to disable this bundled
+#       cryptographical library
+#       <https://github.com/fcorbelli/zpaqfranz/issues/359>.
 # ZSFX/libzpaq.cpp: MIT AND Unlicense AND LicenseRef-Fedora-Public-Domain
 #       (a subset and an old version of zpaqfranz.cpp)
 # ZSFX/LICENSE:     MIT text
@@ -78,11 +84,14 @@ URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Unbundle curl.h and fix loading curl libary, probably not suitable for
 # the upstream.
-Patch0:         zpaqfranz-65.3-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
+Patch0:         zpaqfranz-65.19-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
 # Unbundle zstd, probably not suitable for the upstream.
-Patch1:         zpaqfranz-65.7-Unbundle-zstd.patch
+Patch1:         zpaqfranz-65.19-Unbundle-zstd.patch
 # Unbundle mbedtls, probably not suitable for the upstream.
-Patch2:         zpaqfranz-65.15-Unbundle-mbedtls.patch
+Patch2:         zpaqfranz-65.19-Unbundle-mbedtls.patch
+# Fix building with -DNOFRANZEN, proposed upstream,
+# <https://github.com/fcorbelli/zpaqfranz/pull/358>
+Patch3:         zpaqfranz-65.19-Fix-building-with-DNOFRANZEN.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
@@ -119,8 +128,7 @@ Recommends:     libcurl-full
 %if 0%(/usr/lib/rpm/elfdeps --provides --soname-only %{_libdir}/libcurl.so.4 >/dev/null 2>&1 && echo 1)
 Recommends:     %(/usr/lib/rpm/elfdeps --provides --soname-only %{_libdir}/libcurl.so.4)
 %endif
-# libsodium is not yet needed. It's experimental and requires building with
-# -DZPAQFULL which do not do.
+# libsodium is optional and never used if built with -DNOFRANZEN.
 # For libssh library. It's dlopened at run-time as an optional feature.
 Recommends:     libssh
 %if 0%(/usr/lib/rpm/elfdeps --provides --soname-only %{_libdir}/libssh.so.4 >/dev/null 2>&1 && echo 1)
@@ -171,6 +179,7 @@ sed -n -e '/^Credits and copyrights and licenses/,/^   _____ _____/ p' \
 %ifarch s390x
     -DBIG \
 %endif
+    -DNOFRANZEN \
     -DSFTP \
 %if %{with fuse}
     -DZPAQMOUNT \
@@ -211,6 +220,10 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Mon Nov 09 2026 Petr Pisar <ppisar@redhat.com> - 1:65.19-1
+- 65.19 bump
+- "franzen" subcommands disabled
+
 * Mon Nov 02 2026 Petr Pisar <ppisar@redhat.com> - 1:65.17-1
 - 65.17 bump
 

@@ -1,5 +1,5 @@
 Name:           zeal
-Version:        0.9.1
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Offline documentation browser inspired by Dash
 
@@ -36,6 +36,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  zlib-ng-compat-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+BuildRequires:  patchelf
 
 Requires:       hicolor-icon-theme
 
@@ -59,6 +60,7 @@ Zeal is a simple offline documentation browser inspired by Dash.
 
 %install
 %cmake_install
+patchelf --remove-rpath %{buildroot}%{_bindir}/%{name}
 
 
 %check
@@ -75,7 +77,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.zealdocs.z
 %{_metainfodir}/org.zealdocs.zeal.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/icons/hicolor/scalable/apps/%{name}-tray.svg
+%{_datadir}/icons/hicolor/scalable/apps/%{name}-tray{,-dark,-light,-symbolic}.svg
 
 
 %changelog

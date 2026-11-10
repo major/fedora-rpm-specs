@@ -7,7 +7,7 @@
 
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
-Version:	4.80
+Version:	4.81
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
@@ -165,6 +165,11 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Mon Nov  9 2026 Paul Howarth <paul@city-fan.org> - 4.81-1
+- Update to 4.81
+  - Fix memory leak when croak is called while encoding a tied hash in
+    canonical mode (GH#261)
+
 * Thu Oct 15 2026 Paul Howarth <paul@city-fan.org> - 4.80-1
 - Update to 4.80
   - Security fixes:

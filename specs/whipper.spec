@@ -33,6 +33,7 @@ Requires: python3dist(mutagen)
 Requires: python3dist(pycdio)
 Requires: python3dist(pygobject)
 Requires: python3dist(ruamel-yaml)
+Requires: python3dist(setuptools)
 Requires: sox
 
 

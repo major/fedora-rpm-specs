@@ -83,8 +83,8 @@ URL:            https://www.webkitgtk.org/
 Source0:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz
 Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # Use the keys from https://webkitgtk.org/verifying.html
-# $ gpg --import aperez.key carlosgc.key
-# $ gpg --export --export-options export-minimal 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B --output webkitgtk-keys.gpg --overwrite
 Source2:        webkitgtk-keys.gpg
 
 # CMake: add missing ordering information to fix a potential race condition that
@@ -103,7 +103,7 @@ BuildRequires:  flite-devel
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
 BuildRequires:  git
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  gperf
 BuildRequires:  hyphen-devel
 BuildRequires:  libatomic
@@ -305,7 +305,7 @@ The javascriptcoregtk4.1-devel package contains libraries, build data, and heade
 files for developing applications that use JavaScript engine from webkit2gtk-4.1.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n webkitgtk-%{version}
 
 %build

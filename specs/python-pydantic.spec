@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-pydantic
-Version:        2.14.1
+Version:        2.14.3
 #%%global srcversion %%{lua:return(rpm.expand("%%{version}"):gsub("~",""))}
 Release:        %autorelease
 Summary:        Data validation using Python type hinting
@@ -101,26 +101,7 @@ tomcli-set pyproject.toml append tool.pytest.markers \
 ignore="${ignore-} --ignore=tests/test_docs.py"
 ignore="${ignore-} --ignore=tests/benchmarks"
 
-# [XPASS(strict)] When rebuilding model fields, we individually re-evaluate all
-# fields (using `_eval_type()`) and as such we don't benefit from PEP 649's
-# capabilities.
-#
-# (This actually passes beginning with Python 3.14.1; see
-# https://github.com/pydantic/pydantic/issues/12080#issuecomment-3608739542.)
-k="${k-}${k+ and }not test_deferred_annotations_nested_model"
-
-# Python 3.15+ base64.urlsafe_b64decode() accepts unpadded input by default (padded=False),
-# so the test data is no longer invalid
-# https://github.com/python/cpython/commit/8bf8bf9292
-# Python 3.15 support tracker https://github.com/pydantic/pydantic/issues/13173
-k="${k-}${k+ and }not test_base64url_invalid"
-
-# Python 3.15+ warns:
-# test_base64url: FutureWarning: invalid character '+' in URL-safe Base64 data will be discarded in future Python versions
-# https://github.com/pydantic/pydantic/issues/12778 closed as not planed
-W="ignore:invalid character '+' in URL-safe Base64:FutureWarning"
-
-%pytest ${ignore-} -k "${k-}" -rs -W "${W}"
+%pytest ${ignore-} -rs
 %endif
 
 

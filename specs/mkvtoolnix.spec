@@ -22,7 +22,7 @@ BuildRequires: fmt-devel >= 8.0.0
 BuildRequires: gcc-c++
 BuildRequires: gettext
 BuildRequires: gmp-devel
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: gtest-devel
 BuildRequires: json-devel
 BuildRequires: libappstream-glib
@@ -66,7 +66,7 @@ streams into and from Matroska containers.
 This package contains the QT graphical interface for these utilities.
 
 %prep
-%{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
+%{openpgpverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %setup -q
 rm -rf lib/{fmt,libebml,libmatroska,nlohmann-json,pugixml,utf8-cpp}
 rm -rf rake.d/vendor drake

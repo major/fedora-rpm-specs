@@ -1,10 +1,14 @@
+%global forgeurl https://github.com/bluetooth-devices/dbus-fast
+%global tag v5.0.22
+%forgemeta
+
 Name:           python-dbus-fast
-Version:        5.0.9
+Version:        5.0.22
 Release:        %autorelease
 Summary:        A faster version of dbus-next
 License:        MIT
-URL:            https://github.com/bluetooth-devices/dbus-fast
-Source:         %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            %forgeurl
+Source:         %forgesource
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc
@@ -34,6 +38,7 @@ Summary:        %{summary}
 
 
 %prep
+%forgesetup
 %autosetup -n dbus-fast-%{version} -p1
 
 # Relax poetry dependencies

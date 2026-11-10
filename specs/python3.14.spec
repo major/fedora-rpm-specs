@@ -317,8 +317,9 @@ BuildRequires: libappstream-glib
 BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 %if %{with tests}
 BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 71
-BuildRequires: ca-certificates
 %endif
+%else
+BuildRequires: ca-certificates
 %endif
 
 %if %{without bootstrap}

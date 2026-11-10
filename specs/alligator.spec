@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           alligator
-Version:        26.08.2
-Release:        2%{?dist}
+Version:        26.08.3
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 or GPLv3 - review is highly recommended.
 License:        GPL-2.0-only OR GPL-3.0-only
 Summary:        Kirigami-based RSS reader
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/qlogging-categories6/alligator.categories
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
+- 26.08.3
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 26.08.2-2
 - Rebuild (qt6)
 

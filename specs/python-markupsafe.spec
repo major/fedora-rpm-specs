@@ -1,5 +1,5 @@
 Name:           python-markupsafe
-Version:        3.0.2
+Version:        3.0.4
 Release:        %autorelease
 Summary:        Implements a XML/HTML/XHTML Markup safe string for Python
 License:        BSD-3-Clause
@@ -29,11 +29,11 @@ Summary:        %{summary}
 %autosetup -n markupsafe-%{version}
 # Exclude C source from the package:
 echo 'global-exclude *.c' >> MANIFEST.in
-# Allow older setuptools
-sed -i '/setuptools/s/>=.*"/"/' pyproject.toml
+# Remove optional test dependency
+%pyproject_patch_dependency pytest-run-parallel:ignore
 
 %generate_buildrequires
-%pyproject_buildrequires requirements/tests.in
+%pyproject_buildrequires -g tests
 
 
 %build

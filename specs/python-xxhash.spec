@@ -1,5 +1,5 @@
 Name:           python-xxhash
-Version:        4.0.2
+Version:        4.1.0
 Release:        %autorelease
 Summary:        Python Binding for xxHash
 
@@ -9,6 +9,9 @@ URL:            https://github.com/ifduyue/python-xxhash
 # portions of the xxhash C library would also be present in the source archive;
 # it is under the same license and should be removed in %%prep.
 Source:         %{url}/archive/v%{version}/python-xxhash-%{version}.tar.gz
+# Add `@pytest.mark.benchmark` to new benchmarks
+# https://github.com/ifduyue/python-xxhash/pull/211
+Patch:          %{url}/pull/211.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license xxhash

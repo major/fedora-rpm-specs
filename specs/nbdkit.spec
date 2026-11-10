@@ -54,8 +54,8 @@
 %global source_directory 1.49-development
 
 Name:           nbdkit
-Version:        1.49.4
-Release:        2%{?dist}
+Version:        1.49.5
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -1586,6 +1586,9 @@ fi
 
 
 %changelog
+* Mon Nov 09 2026 Richard W.M. Jones <rjones@redhat.com> - 1.49.5-1
+- New upstream development version 1.49.5
+
 * Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 1.49.4-2
 - Verify upstream source signatures with openpgpverify
 

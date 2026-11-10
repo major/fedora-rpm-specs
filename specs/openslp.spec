@@ -2,7 +2,7 @@
 Summary: Open implementation of Service Location Protocol V2
 Name:    openslp
 Version: 2.0.0
-Release: 45%{?dist}
+Release: 46%{?dist}
 
 License: BSD-3-Clause
 URL:     http://sourceforge.net/projects/openslp/
@@ -41,6 +41,12 @@ Patch8:  openslp-2.0.0-dhcp-integer-overflow.patch
 #   4-byte struct in_addr to KnownDABadDA() where a struct sockaddr is
 #   expected, so failed DAs were never evicted from the known DA cache
 Patch9:  openslp-2.0.0-cwe-843-knownda-type-confusion.patch
+# Patch10: fixes heap buffer overflow in ProcessDASrvRqst when copying
+#   initial DAAdvert into fixed 4096-byte buffer
+Patch10:  openslp-2.0.0-processDASrvRqst-buffer-overflow.patch
+# Patch11: fixes reply size truncation from size_t to the 24-bit header
+#   length field in SrvRply, AttrRply and SrvTypeRply
+Patch11:  openslp-2.0.0-reply-size-truncation.patch
 
 BuildRequires: make
 BuildRequires: automake libtool
@@ -84,6 +90,8 @@ OpenSLP server daemon to dynamically register services.
 %patch -P7 -p1 -b .cve-2019-5544
 %patch -P8 -p1 -b .dhcp-integer-overflow
 %patch -P9 -p1 -b .cwe-843-knownda-type-confusion
+%patch -P10 -p1 -b .processDASrvRqst-buffer-overflow
+%patch -P11 -p1 -b .reply-size-truncation
 
 # tarball goof (?), it wants to re-automake anyway, so let's do it right.
 #libtoolize --force
@@ -181,6 +189,12 @@ rm -f  $RPM_BUILD_ROOT%{_libdir}/lib*.la
 
 
 %changelog
+* Mon Nov 09 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.0.0-46
+- Fix heap buffer overflow in ProcessDASrvRqst when copying initial
+  DAAdvert into fixed 4096-byte buffer
+- Fix reply size truncation from size_t to the 24-bit header length field
+  in SrvRply, AttrRply and SrvTypeRply
+
 * Wed Sep 30 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.0.0-45
 - Fix type confusion in KnownDABadDA call, so that failed directory agents
   are correctly removed from the known DA cache

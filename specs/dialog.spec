@@ -2,13 +2,16 @@ Summary: A utility for creating TTY dialog boxes
 Name: dialog
 %global dialogsubversion 20250116
 Version: 1.3
-Release: 58.%{dialogsubversion}%{?dist}
+Release: 59.%{dialogsubversion}%{?dist}
 License: LGPL-2.1-only
 URL: https://invisible-island.net/dialog/dialog.html
 Source0: https://invisible-mirror.net/archives/dialog/dialog-%{version}-%{dialogsubversion}.tgz
 Source1: https://invisible-mirror.net/archives/dialog/dialog-%{version}-%{dialogsubversion}.tgz.asc
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 19882D92DDA4C400C22C0D56CC2AF4472167BE03 --output dickey@invisible-island.net-rsa3072.asc --overwrite
 Source2: https://invisible-island.net/public/dickey@invisible-island.net-rsa3072.asc
-BuildRequires: ncurses-devel gcc gettext findutils libtool gnupg2
+BuildRequires: ncurses-devel gcc gettext findutils libtool
+BuildRequires: openpgpverify
 BuildRequires: make
 Patch2: dialog-multilib.patch
 Patch3: dialog-libs.patch
@@ -33,7 +36,7 @@ contains the files needed for developing applications, which use the
 dialog library.
 
 %prep
-%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%{openpgpverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 %setup -q -n dialog-%{version}-%{dialogsubversion}
 %patch -P2 -p1 -b .multilib
 %patch -P3 -p1 -b .libs
@@ -80,6 +83,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libdialog.{,l}a
 %{_mandir}/man3/dialog.*
 
 %changelog
+* Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 1.3-59.20250116
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-58.20250116
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

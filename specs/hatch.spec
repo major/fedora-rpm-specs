@@ -195,6 +195,7 @@ install -D --preserve-timestamps --mode=0644 \
 
 
 %check -a
+%pyproject_verify_license
 %if %{with tests}
 # These tests are actually for hatchling, and may fail due to small differences
 # between the state of hatchling in the hatch release tag and in the latest

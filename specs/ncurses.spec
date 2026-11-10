@@ -4,17 +4,20 @@
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT-open-group
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/ncurses-%{version}.tar.gz
 Source1: https://invisible-mirror.net/archives/ncurses/ncurses-%{version}.tar.gz.asc
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search 19882D92DDA4C400C22C0D56CC2AF4472167BE03 --output dickey@invisible-island.net-rsa3072.asc --overwrite
 Source2: https://invisible-island.net/public/dickey@invisible-island.net-rsa3072.asc
 
 Patch8: ncurses-config.patch
 Patch9: ncurses-libs.patch
 Patch11: ncurses-urxvt.patch
-BuildRequires: gcc gcc-c++ gnupg2 make pkgconfig
+BuildRequires: gcc gcc-c++ make pkgconfig
+BuildRequires: openpgpverify
 %{?with_gpm:BuildRequires: gpm-devel}
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -106,7 +109,7 @@ Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 The ncurses-static package includes static libraries of the ncurses library.
 
 %prep
-%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%{openpgpverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 
 %setup -q -n %{name}-%{version}
 
@@ -285,6 +288,9 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 6.6-4
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

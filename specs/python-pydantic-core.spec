@@ -10,18 +10,37 @@
 %bcond inline_snapshot_tests 1
 
 Name:           python-pydantic-core
-Version:        2.50.1
+Version:        2.50.4
 Release:        %autorelease
 Summary:        Core functionality for Pydantic validation and serialization
 
-License:        MIT
-URL:            https://github.com/pydantic/pydantic-core
+%global upstream_license MIT
+# Licenses from Rust dependencies. See output of %%{cargo_license_summary}:
+#
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
+# MIT
+# MIT OR Apache-2.0
+# Unicode-3.0
+# Unlicense OR MIT
+# Zlib
+#
+# LICENSE.dependencies contains a full license breakdown
+%global additional_rust_licenses %{shrink:
+    Unicode-3.0
+    AND Unicode-DFS-2016
+    AND Zlib
+    AND (Apache-2.0 OR MIT)
+    AND (BSD-2-Clause OR Apache-2.0 OR MIT)
+    AND (Unlicense OR MIT)
+    }
+License:        %{upstream_license}
+URL:            https://github.com/pydantic/pydantic
 Source:         %{pypi_source pydantic_core}
 
 # Manually created patch for downstream crate metadata changes
-# * Bump jiter to v0.17.0, https://github.com/pydantic/pydantic/pull/13806,
-#   and further allow v0.18, https://github.com/pydantic/pydantic/pull/14003,
-#   and v0.19, https://github.com/pydantic/pydantic/pull/14247
+# * Bump jiter to v0.19, https://github.com/pydantic/pydantic/pull/14247
 Patch:          pydantic-core-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros
@@ -35,23 +54,7 @@ BuildRequires:  tomcli
 
 %package -n python3-pydantic-core
 Summary:        %{summary}
-# (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
-# MIT
-# MIT OR Apache-2.0
-# Unicode-3.0
-# Unlicense OR MIT
-# Zlib
-License:        %{shrink:
-    (MIT OR Apache-2.0)
-    AND MIT
-    AND Unicode-3.0
-    AND Unicode-DFS-2016
-    AND Zlib
-    AND (BSD-2-Clause OR Apache-2.0 OR MIT)
-    AND (Unlicense OR MIT)
-    }
+License:        %{upstream_license} AND %{additional_rust_licenses}
 
 %description -n python3-pydantic-core %_description
 
@@ -120,9 +123,9 @@ tomcli set pyproject.toml append project.license-files LICENSE.dependencies
 
 
 %build
+%pyproject_verify_license %{upstream_license}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
-
 %pyproject_wheel
 
 

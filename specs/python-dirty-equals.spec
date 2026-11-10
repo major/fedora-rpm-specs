@@ -64,6 +64,8 @@ sed --regexp-extended --in-place \
 
 
 %check -a
+%pyproject_verify_license
+
 # Tests in this module require pytest-examples; see %%prep for notes on this.
 ignore="${ignore-} --ignore=tests/test_docs.py"
 

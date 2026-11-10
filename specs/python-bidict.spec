@@ -44,6 +44,8 @@ Summary:        %{summary}
 
 
 %check -a
+%pyproject_verify_license
+
 # This contains one doctest, which requires the sortedcollections dependency.
 # It’s not worth maintaining the dependency solely for that, especially as it
 # is otherwise not needed in Fedora at all.

@@ -1,7 +1,7 @@
 %global pypi_name graphql-core
 
 Name:           python-%{pypi_name}
-Version:        3.3.1
+Version:        3.3.2
 Release:        %autorelease
 Summary:        GraphQL implementation for Python
 
@@ -41,10 +41,11 @@ Summary:        %{summary}
 # and other unused / unavailable plugins.
 
 %pyproject_patch_dependency tox:drop_lower
-sed -i 's/tox>=4.64/tox/' tox.ini
+sed -i 's/tox>=.*/tox/' tox.ini
 
 %pyproject_patch_dependency anyio:drop_lower
 
+%pyproject_patch_dependency pytest:drop_lower
 %pyproject_patch_dependency pytest-cov:ignore
 %pyproject_patch_dependency pytest-codspeed:ignore
 %pyproject_patch_dependency pytest-benchmark:ignore

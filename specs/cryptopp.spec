@@ -1,12 +1,8 @@
-# Per upstream recommendations.
-# https://www.cryptopp.com/wiki/Link_Time_Optimization
-%define _lto_cflags %{nil}
-
 %global upstream_url https://github.com/cryptopp-modern/cryptopp-modern
 
 Name:           cryptopp
-Version:        2026.11.0
-Release:        %autorelease
+Version:        2026.11.1
+Release:        1%{?dist}
 Summary:        C++ class library of cryptographic schemes
 License:        BSL-1.0
 URL:            https://cryptopp-modern.com/

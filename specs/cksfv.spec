@@ -1,6 +1,6 @@
 Name:           cksfv
 Version:        1.3.15
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Utility to manipulate SFV files
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -10,7 +10,7 @@ Source0:        https://zakalwe.fi/~shd/foss/%{name}/files/%{name}-%{version}.ta
 Source1:        https://zakalwe.fi/~shd/foss/%{name}/files/%{name}-%{version}.tar.bz2.asc
 Source2:        https://zakalwe.fi/~shd/keys/heikki-orsila-2017.pub
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires: make
 
 %description
@@ -20,7 +20,7 @@ checksums.
 
 
 %prep
-%{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
+%{openpgpverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %setup -q
 
 # fix rpmlint warnings
@@ -56,6 +56,9 @@ mv -f ChangeLog.conv ChangeLog
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1.3.15-18
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.15-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

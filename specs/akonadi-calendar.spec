@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:    akonadi-calendar
-Version: 26.08.2
-Release: 3%{?dist}
+Version: 26.08.3
+Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -138,6 +138,9 @@ find ./po -type f -name libakonadi-calendar5-serializer.po -execdir mv {} libako
 %{python3_sitearch}/AkonadiCalendar.cpython-*-linux-gnu.so
 
 %changelog
+* Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
+- 26.08.3
+
 * Thu Oct 29 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.08.2-3
 - Split out PySide bindings into separate subpackage
 

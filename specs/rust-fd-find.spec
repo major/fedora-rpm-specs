@@ -4,23 +4,13 @@
 %global crate fd-find
 
 Name:           rust-fd-find
-Version:        10.4.2
+Version:        10.5.2
 Release:        %autorelease
 Summary:        Fd is a simple, fast and user-friendly alternative to find
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/fd-find
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Temporary lower MSRV from 1.90.0 to 1.88.0 for EL9
-# * Allow lscolors 0.20
-# * Allow tikv-jemallocator 0.7: https://github.com/sharkdp/fd/pull/2027
-Patch:          fd-find-fix-metadata.diff
-# Fix test_follow_broken_symlink with ignore >= 0.4.28, which wraps the io::Error
-# in an extra Error::WithDepth layer that fd's pattern match did not expect, so
-# broken symlinks were reported as errors instead of entries. Merged upstream
-# after 10.4.2; drop on the next release.
-Patch:          https://github.com/sharkdp/fd/commit/f898e95db5a90190fee6eb6e000e024615d2be85.patch#/fd-find-refactor-Get-io-error-from-method.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -38,12 +28,12 @@ Summary:        %{summary}
 # MIT OR Apache-2.0
 # Unlicense OR MIT
 License:        %{shrink:
-    MIT AND
-    Unicode-DFS-2016 AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (Unlicense OR MIT)
-    }
+    (MIT OR Apache-2.0)
+    AND MIT
+    AND Unicode-DFS-2016
+    AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
+    AND (Unlicense OR MIT)
+}
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

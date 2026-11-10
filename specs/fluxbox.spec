@@ -1,19 +1,24 @@
+%global commit  9aeb2a8eaba249deaa8c13e8b108dfdfc9c457fa
+%global shortcommit %(c=%{commit}; echo ${c:0:8})
+%global snapdate 20261104
+
 Name:           fluxbox
 Version:        1.3.7
-Release:        30%{?dist}
+Release:        31.%{snapdate}git%{shortcommit}%{?dist}
 
 Summary:        Window Manager based on Blackbox
 
 License:        MIT
 URL:            http://fluxbox.org
 
-Source0:        http://sourceforge.net/projects/%{name}/files/%{name}/%{version}/%{name}-%{version}.tar.bz2
+Source0:        https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{version}-%{snapdate}git%{shortcommit}.tar.gz
 Source3:        fluxbox-xsessions.desktop
 Source5:        fluxbox-applications.desktop
 
 Patch0:         fluxbox-startfluxbox-pulseaudio.patch
-Patch1:         %{name}-gcc11.patch
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  imlib2-devel
@@ -76,7 +81,14 @@ Enable vim syntax highlighting support for fluxbox configuration files (menu,
 keys, apps).
 
 %prep
-%autosetup -p0
+%autosetup -p0 -n %{name}-%{version}
+autoreconf -fi
+
+# Convert non-UTF-8 files to UTF-8
+for f in AUTHORS ChangeLog; do
+  iconv -f ISO-8859-1 -t UTF-8 "$f" > "$f.utf8" && \
+  touch -r "$f" "$f.utf8" && mv "$f.utf8" "$f"
+done
 
 %build
 %configure \
@@ -88,6 +100,9 @@ keys, apps).
   --x-libraries=%{_libdir} \
 
 %make_build LIBTOOL=/usr/bin/libtool
+
+%check
+# Upstream tests require a running X display; not suitable for build environment
 
 %install
 %make_install
@@ -107,16 +122,31 @@ touch -r ChangeLog %{buildroot}%{_sysconfdir}/fluxbox-pulseaudio
 
 # vim syntax files
 mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/syntax/
-install -m 0644 -p 3rd/vim/vim/syntax/fluxapps.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/fluxapps.vim
-install -m 0644 -p 3rd/vim/vim/syntax/fluxkeys.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/fluxkeys.vim
-install -m 0644 -p 3rd/vim/vim/syntax/fluxmenu.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/fluxmenu.vim
+install -m 0644 -p 3rd/vim/syntax/fluxapps.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/fluxapps.vim
+install -m 0644 -p 3rd/vim/syntax/fluxkeys.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/fluxkeys.vim
+install -m 0644 -p 3rd/vim/syntax/fluxmenu.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax/fluxmenu.vim
 
 %files
-%doc AUTHORS ChangeLog INSTALL NEWS README TODO
+%doc AUTHORS ChangeLog NEWS README TODO
 %license COPYING
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man5/*
+%{_bindir}/fbrun
+%{_bindir}/fbsetbg
+%{_bindir}/fbsetroot
+%{_bindir}/fluxbox
+%{_bindir}/fluxbox-generate_menu
+%{_bindir}/fluxbox-remote
+%{_bindir}/fluxbox-update_configs
+%{_bindir}/startfluxbox
+%{_mandir}/man1/fbrun.1*
+%{_mandir}/man1/fbsetbg.1*
+%{_mandir}/man1/fbsetroot.1*
+%{_mandir}/man1/fluxbox.1*
+%{_mandir}/man1/fluxbox-remote.1*
+%{_mandir}/man1/startfluxbox.1*
+%{_mandir}/man5/fluxbox-apps.5*
+%{_mandir}/man5/fluxbox-keys.5*
+%{_mandir}/man5/fluxbox-menu.5*
+%{_mandir}/man5/fluxbox-style.5*
 %{_datadir}/%{name}
 %{_datadir}/xsessions/fluxbox.desktop
 %{_datadir}/applications/fluxbox.desktop
@@ -128,6 +158,16 @@ install -m 0644 -p 3rd/vim/vim/syntax/fluxmenu.vim %{buildroot}%{_datadir}/vim/v
 %{_datadir}/vim/vimfiles/syntax/flux*.vim
 
 %changelog
+* Mon Nov 09 2026 Ding-Yi Chen <dchen@fedoraproject.com> - 1.3.7-31.20261104git9aeb2a8e
+- Update to upstream git snapshot 9aeb2a8e
+- Fixes CVE-2026-123784: OS command injection via style backgrounds (CWE-78)
+- Drop fluxbox-gcc11.patch (merged upstream)
+- Add autoconf automake BuildRequires for git snapshot
+- Fix vim syntax file paths (upstream moved 3rd/vim/vim/ to 3rd/vim/)
+- Convert AUTHORS and ChangeLog to UTF-8
+- Remove INSTALL from %%doc
+- Expand file globs to explicit file lists
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

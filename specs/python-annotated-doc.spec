@@ -35,6 +35,8 @@ Summary:        %{summary}
 
 
 %check -a
+%pyproject_verify_license
+
 # These tests pertain to upstream workflow and don’t really add value
 # downstream, and they would require a circular dependency on python-typer.
 ignore="${ignore-} --ignore=tests/test_prepare_release.py"

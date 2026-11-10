@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 25%{?dist}
+Release: 27%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -403,10 +403,11 @@ Patch21: binutils-ld-default-z-text.patch
 
 # %%ifarch x86_64 
 # Purpose:  The x86_64 architecture does not allow a shared library to access
-# static variables inside a static library.  This is a problem for the
-# libbfd.so library, since it is really a static library in disguise.
+# thread local global variables inside a static library.  This is a problem
+# for the libbfd.so library, since it is really a static library in disguise.
+# Solution: hide the global symbols.
 # Lifetime: Permanent.
-Patch22: binutils-no-static-globals-in-libbfd.so.patch
+Patch22: binutils-hide-global-symbols.patch
 # %%endif
 
 #----------------------------------------------------------------------------
@@ -1841,7 +1842,13 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
-* Fri  Nov 05 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-25
+* Mon Nov 09 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-27
+- Yet another attempt to remove global static variables from libbfd.so.  (#2564442)
+
+* Mon Nov 09 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-26
+- Yet another attempt to remove global static variables from libbfd.so.  (#2564442)
+
+* Fri Nov 06 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-25
 - And another attempt to remove global static variables from libbfd.so.  (#2564442)
 
 * Thu  Nov 05 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-24

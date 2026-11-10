@@ -71,6 +71,8 @@ Requires: aha
 Requires: clinfo
 Requires: pulseaudio-utils
 Requires: libdisplay-info-tools
+# Required for Battery info
+Requires: qt6-qtgraphs
 # 'sensors' section. Recommends as this pulls in Perl which is excluded on Kinoite
 Recommends: lm_sensors
 

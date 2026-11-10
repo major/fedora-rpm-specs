@@ -7,7 +7,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -31,6 +31,8 @@ Patch005: 0001-pdftopdf-assume-print-scaling-auto-by-default.-Fixes.patch
 Patch006: 0001-Fix-minor-errors-this-caused-issue-239.-240.patch
 # https://github.com/OpenPrinting/libcupsfilters/commit/318cd5b581d4261700add229ad23513cd30a0275
 Patch007: 0001-ghostscript-serialize-raster-integer-parameters-as-s.patch
+# https://github.com/OpenPrinting/libcupsfilters/commit/d3043e3c8b32d73c80f98b7c5d59613a9d844d69
+Patch008: 0001-pdftopdf-keep-annotations-without-an-appearance-from.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -216,6 +218,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Mon Nov 09 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-6
+- pdftopdf exits with status 1 after Key 'N' not found messages (fedora#2568601)
+
 * Wed Sep 23 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-5
 - fix gstoraster error
 

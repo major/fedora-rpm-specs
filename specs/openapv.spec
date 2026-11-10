@@ -1,19 +1,16 @@
+%global abi 11
+
 Name:          openapv
 Release:       %autorelease
-Version:       0.3.0.0
+Version:       1.1.3.0
 Summary:       Open Advanced Professional Video Codec
 License:       BSD-3-Clause
 URL:           https://github.com/AcademySoftwareFoundation/openapv
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/AcademySoftwareFoundation/openapv/pull/177
-Patch0:        %{name}-fix-md5-hash-mismatch-on-big-endian.patch
 BuildRequires: cmake
 BuildRequires: ninja-build
 BuildRequires: gcc
 Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
-
-%global somaj %{lua:t={} for f in string.gmatch(macros['version'], "([^.]*)(.?)") do table.insert(t,f) end print(t[2])}
-%global sover %{lua:t={} for f in string.gmatch(macros['version'], "([^.]*)(.?)") do table.insert(t,f) end print(string.format("%s.%s.%s",t[2],t[3],t[4]))}
 
 %description
 OpenAPV provides the reference implementation of the APV codec which can
@@ -48,7 +45,7 @@ The openapv-libs package contains the shared library files
 
 %install
 %cmake_install
-rm -v %{buildroot}%{_libdir}/oapv/liboapv.a
+rm -v %{buildroot}%{_libdir}/liboapv.a
 
 %check
 %ctest
@@ -65,7 +62,7 @@ rm -v %{buildroot}%{_libdir}/oapv/liboapv.a
 %files libs
 %license LICENSE
 %doc README.md
-%{_libdir}/liboapv.so.{%{somaj},%{sover}}
+%{_libdir}/liboapv.so.%{abi}{,.*}
 
 %changelog
 %autochangelog

@@ -18,6 +18,7 @@ URL: https://gitlab.com/virt-viewer/virt-viewer
 Source0: https://virt-manager.org/download/sources/%{name}/%{name}-%{version}.tar.xz
 Patch: 0001-data-remove-bogus-param-for-meson-i18n.merge_file.patch
 Patch: 0001-Read-oVirt-CA-and-pass-it-to-gtk-vnc.patch
+Patch: 0001-Fix-subtitle-compile-error.patch
 Requires: openssh-clients
 
 # Our bash completion script uses virsh to list domains

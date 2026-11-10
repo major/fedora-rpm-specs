@@ -14,7 +14,7 @@ Requires:       hicolor-icon-theme
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  libappstream-glib
 BuildRequires:  pandoc
 
@@ -32,7 +32,7 @@ and it can be used for powerwalls, virtual reality installations and other
 multi-projector setups.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build

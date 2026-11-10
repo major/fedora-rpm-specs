@@ -1,6 +1,6 @@
 Name:       kdominate
 Epoch:      1
-Version:    26.08.2
+Version:    26.08.3
 Release:    %autorelease
 Summary:    KDominate is a tactical game for one or two players
 License:    GPL-2.0-or-later AND BSD-3-Clause AND CC0-1.0

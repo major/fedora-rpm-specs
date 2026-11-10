@@ -1,11 +1,12 @@
 Name:		qmmp
-Version:	2.4.2
-Release:	2%{?dist}
+%global majmin 2.4
+Version:	%{majmin}.3
+Release:	1%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPL-2.0-or-later AND CC-BY-SA-4.0
-URL:		http://qmmp.ylsoftware.com/
-Source:		http://qmmp.ylsoftware.com/files/%{name}-%{version}.tar.bz2
+URL:		https://qmmp.ylsoftware.com/
+Source:		https://qmmp.ylsoftware.com/files/%{majmin}/%{name}-%{version}.tar.bz2
 
 BuildRequires:	alsa-lib-devel
 BuildRequires:	cmake
@@ -15,6 +16,7 @@ BuildRequires:	faad2-devel
 BuildRequires:	ffmpeg-free-devel
 BuildRequires:	flac-devel
 BuildRequires:	game-music-emu-devel
+BuildRequires:	gcc-c++
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	libarchive-devel
 BuildRequires:	libbs2b-devel
@@ -38,16 +40,12 @@ BuildRequires:	pipewire-devel
 BuildRequires:	qt6-qtmultimedia-devel
 BuildRequires:	qt6-qttools-devel
 BuildRequires:	soxr-devel
-BuildRequires:	taglib-devel >= 1.10
+BuildRequires:	taglib-devel
 BuildRequires:	wavpack-devel
 BuildRequires:	wildmidi-devel
 
 # /usr/share/solid/actions owner
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 Requires:	kde-filesystem
-%elif %{undefined flatpak}
-Requires:	kf5-filesystem
-%endif
 
 Recommends:	qmmp-plugin-pack
 # some external tools listed in
@@ -58,7 +56,7 @@ Recommends:	opus-tools
 Recommends:	wavpack
 Recommends:	flac
 
-Obsoletes:	qmmp-plugins-freeworld <= 2.3.2-2%{?dist}
+Obsoletes:	qmmp-plugins-freeworld <= 2.3.2-2
 Provides:	qmmp-plugins-freeworld = %{version}-%{release}
 
 # Do not check .so files in an application-specific library directory
@@ -104,14 +102,13 @@ Main opportunities:
 QMMP is Qt-based audio player. This package contains its development files.
 
 %prep
-%setup -q
+%autosetup
 
 
 %build
 %cmake \
 	-D USE_LIBRCD:BOOL=TRUE \
 	-D QMMP_DEFAULT_OUTPUT=pipewire \
-	-D CMAKE_INSTALL_PREFIX=%{_prefix} \
 	-D LIB_DIR=%{_lib} \
 	-D PLUGIN_DIR=%{_lib}/%{name}
 %cmake_build
@@ -141,11 +138,17 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_metainfodir}/com.ylsoftware.%{name}.metainfo.xml
 
 %files devel
-%{_includedir}/*
+%{_includedir}/%{name}
+%{_includedir}/%{name}ui
 %{_libdir}/pkgconfig/qmmp*
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Mon Nov 09 2026 Karel Volný <kvolny@redhat.com> 2.4.3-1
+- new version 2.4.3 (rhbz#2564592)
+- see the upstream changelog at http://qmmp.ylsoftware.com/
+- fixed source url, spec cleanup
+
 * Fri Sep 18 2026 Karel Volný <kvolny@redhat.com> 2.4.2-2
 - rebuild for libsidplayfp 3.x
 

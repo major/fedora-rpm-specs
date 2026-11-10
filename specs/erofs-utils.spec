@@ -1,5 +1,5 @@
 %bcond curl     1
-%bcond deflate  %[ 0%{?fedora} >= 34 || 0%{?rhel} >=  8 ]
+%bcond deflate  %[ 0%{?fedora} >= 34 || 0%{?epel} >=  8 ]
 %bcond fuse     1
 %bcond jsonc    1
 %bcond libnl3   1
@@ -19,7 +19,7 @@
 
 Name:           erofs-utils
 Version:        1.9.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Utilities for working with EROFS
 License:        GPL-2.0-only AND (BSD-2-Clause OR GPL-2.0-only) AND (BSD-2-Clause OR GPL-2.0-or-later) AND (GPL-2.0-or-later OR MIT) AND MIT AND Unlicense
@@ -123,6 +123,9 @@ autoreconf -fi
 
 
 %changelog
+* Fri Oct 30 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.9.4-3
+- Disable libdeflate on RHEL
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.9.4-2
 - Rebuilt for libxml-2.5.4
 

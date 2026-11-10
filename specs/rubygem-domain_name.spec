@@ -2,7 +2,7 @@
 
 Summary:	Domain Name manipulation library for Ruby
 Name:		rubygem-%{gem_name}
-Version:	0.7.20261007
+Version:	0.7.20261031
 Release:	1%{?dist}
 
 # See LICENSE.txt
@@ -95,6 +95,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Mon Nov 09 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.20261031-1
+- 0.7.20261031
+
 * Thu Oct 15 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.20261007-1
 - 0.7.20261007
 

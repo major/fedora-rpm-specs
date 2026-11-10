@@ -1,5 +1,5 @@
 Name:          ktextaddons
-Version:       2.1.2
+Version:       2.2.0
 Release:       1%{?dist}
 Summary:       Various text handling addons
 
@@ -72,6 +72,8 @@ BuildArch:      noarch
 
 %files qt6
 %license LICENSES/
+%{_kf6_bindir}/kokoro_helper.py
+%{_kf6_bindir}/whisper_helper.py
 %{_kf6_libdir}/libKF6TextAddonsWidgets.so.1
 %{_kf6_libdir}/libKF6TextAddonsWidgets.so.%{version}
 %{_kf6_libdir}/libKF6TextAutoCorrectionCore.so.1
@@ -106,6 +108,7 @@ BuildArch:      noarch
 %{_kf6_plugindir}/translator/translator_yandex.so
 %{_kf6_plugindir}/textautogeneratetext/autogeneratetext*.so
 %{_kf6_plugindir}/textautogeneratetext/mcpprotocol/
+%{_kf6_qtplugindir}/texttospeech/KokoroTextToSpeechPlugin.so
 %{_kf6_libdir}/libtextutils-cmark-rc-copy.so.0
 %{_kf6_libdir}/libtextutils-cmark-rc-copy.so.0.31.0
 %{_kf6_libdir}/libmcpprotocolclientplugin.so.0
@@ -128,9 +131,22 @@ BuildArch:      noarch
 %{_kf6_libdir}/libKF6TextAutoGenerateTextMcpProtocolCore.so.%{version}
 %{_kf6_libdir}/libKF6TextAutoGenerateTextMcpProtocolWidgets.so.1
 %{_kf6_libdir}/libKF6TextAutoGenerateTextMcpProtocolWidgets.so.%{version}
+%{_kf6_libdir}/libkokoroinstalltexttospeech.so.1
+%{_kf6_libdir}/libkokoroinstalltexttospeech.so.%{version}
+%{_kf6_libdir}/libkokorotexttospeech.so.1
+%{_kf6_libdir}/libkokorotexttospeech.so.%{version}
+%{_kf6_libdir}/libspeechtotextwhisper.so.1
+%{_kf6_libdir}/libspeechtotextwhisper.so.%{version}
+%{_kf6_libdir}/libspeechtotextwhisperinstall.so.1
+%{_kf6_libdir}/libspeechtotextwhisperinstall.so.%{version}
 %{_kf6_datadir}/qlogging-categories6/ktextaddons.categories
 %{_kf6_datadir}/qlogging-categories6/ktextaddons.renamecategories
 %{_kf6_datadir}/config.kcfg/textautogeneratetextglobalconfig.kcfg
+%{_kf6_qtplugindir}/designer/textcustomeditor.so
+%{_kf6_qtplugindir}/designer/texttranslatorwidgets6.so
+%{_kf6_qtplugindir}/kf6/speechtotext/speechtotext_google.so
+%{_kf6_qtplugindir}/kf6/speechtotext/speechtotext_whisper.so
+%{_kf6_qtplugindir}/kf6/textautogeneratetext/autogeneratetext_ollama.so
 
 
 %files qt6-devel
@@ -178,11 +194,6 @@ BuildArch:      noarch
 %{_kf6_libdir}/libtextutils-cmark-rc-copy.so
 %{_kf6_libdir}/libKF6TextAutoGenerateText.so
 %{_kf6_libdir}/libKF6TextSpeechToText.so
-%{_kf6_qtplugindir}/designer/textcustomeditor.so
-%{_kf6_qtplugindir}/designer/texttranslatorwidgets6.so
-%{_kf6_qtplugindir}/kf6/speechtotext/speechtotext_google.so
-%{_kf6_qtplugindir}/kf6/speechtotext/speechtotext_whisper.so
-%{_kf6_qtplugindir}/kf6/textautogeneratetext/autogeneratetext_ollama.so
 
 %files qt6-doc
 
@@ -190,6 +201,9 @@ BuildArch:      noarch
 %doc README.md
 
 %changelog
+* Mon Nov 09 2026 Steve Cossette <farchord@gmail.com> - 2.2.0-1
+- 2.2.0
+
 * Fri Aug 14 2026 Steve Cossette <farchord@gmail.com> - 2.1.2-1
 - 2.1.2
 

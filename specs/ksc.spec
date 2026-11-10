@@ -3,12 +3,11 @@
 %global commit 5955c6b2288353c5b093677221cc91a83a2c800c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%{?python_enable_dependency_generator}
 %forgemeta
 
 Name:		ksc
 Version:	1.7
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Kernel source code checker
 Group:		Development/Tools
 AutoReqProv:	no
@@ -20,35 +19,45 @@ Requires:	binutils
 Requires:	kernel-devel
 Requires:	python3-requests
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
 Source0:	https://github.com/RedHatOfficial/ksc/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+
+# Use prefix-relative data_files paths instead of absolute ones to enable wheel-based installation
+# Not sent upstream yet
+# Requires %%install fixup for /etc
+Patch:		ksc-no-absolute-datafiles.patch
 
 %description
 A kernel module source code checker to find usage of select symbols
 
 %prep
-%forgesetup
+%forgeautosetup -p1
 # Fix build with setuptools 62.1
 # https://github.com/RedHatOfficial/ksc/issues/3
 sed -i "15i packages=[]," setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l -M
+mv %{buildroot}%{_prefix}/etc %{buildroot}%{_sysconfdir}
 install -D ksc.1 %{buildroot}%{_mandir}/man1/ksc.1
 
-%files
-%license COPYING
+%files -f %{pyproject_files}
 %doc README PKG-INFO
 %{_bindir}/ksc
 %{_datadir}/ksc
 %{_mandir}/man1/ksc.*
 %config(noreplace) %{_sysconfdir}/ksc.conf
-%{python3_sitelib}/ksc-%{version}*.egg-info
 
 %changelog
+* Thu Nov 05 2026 Miro Hrončok <miro@hroncok.cz> - 1.7-16
+- Convert to pyproject RPM macros (rhbz#2377303)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
