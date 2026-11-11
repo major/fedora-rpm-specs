@@ -28,11 +28,10 @@ License:        MIT AND BSL-1.0
 #     autoconf/ax_pthread.m4
 # • GPL-2.0-or-later WITH Autoconf-exception-generic:
 #     autoconf/ax_cuda.m4
-SourceLicense:  %{shrink:
-    %{license} AND
-    FSFAP AND
-    GPL-3.0-or-later WITH Autoconf-exception-macro AND
-    GPL-2.0-or-later WITH Autoconf-exception-generic
+SourceLicense:  %{license} %{shrink:
+    AND FSFAP
+    AND GPL-3.0-or-later WITH Autoconf-exception-macro
+    AND GPL-2.0-or-later WITH Autoconf-exception-generic
     }
 URL:            https://github.com/cr-marcstevens/snippets
 Source0:        %{url}/archive/%{commit}/snippets-%{commit}.tar.gz

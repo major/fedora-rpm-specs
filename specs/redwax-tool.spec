@@ -56,27 +56,4 @@ autoreconf -fiv
 %license COPYING
 
 %changelog
-* Thu Jan 29 2026 Graham Leggett <minfrin@sharp.fm> 1.0.0-4
-- Fix test case in spec file
-* Mon Jun 23 2025 Graham Leggett <minfrin@sharp.fm> 1.0.0-1
-- Major release
-* Thu Feb 27 2025 Graham Leggett <minfrin@sharp.fm> 0.9.9-1
-- Bugfix release
-* Thu Feb 27 2025 Graham Leggett <minfrin@sharp.fm> 0.9.8-1
-- Bugfix release
-* Thu Nov 28 2024 Graham Leggett <minfrin@sharp.fm> 0.9.7-1
-- Bugfix release
-* Mon Nov 11 2024 Graham Leggett <minfrin@sharp.fm> 0.9.6-1
-- Feature release
-* Mon Nov 11 2024 Graham Leggett <minfrin@sharp.fm> 0.9.5-1
-- Feature release
-* Thu Feb 08 2024 Graham Leggett <minfrin@sharp.fm> 0.9.4-1
-- Feature release
-* Sun Oct 15 2023 Graham Leggett <minfrin@sharp.fm> 0.9.3-1
-- Feature release
-* Mon Jan 02 2023 Graham Leggett <minfrin@sharp.fm> 0.9.2-1
-- Feature release
-* Sat Dec 11 2021 Graham Leggett <minfrin@sharp.fm> 0.9.1-1
-- Feature release
-* Sat May 15 2021 Graham Leggett <minfrin@sharp.fm> 0.9.0-1
-- Initial release
+%autochangelog

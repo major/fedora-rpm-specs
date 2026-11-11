@@ -40,8 +40,6 @@ Requires:       dbus
 Requires:       gvfs
 Requires:       tumbler
 
-Obsoletes:     thunar-vcs-plugin <= 0.2.0-24
-
 # Provide lowercase name to help people find the package. 
 Provides:       thunar = %{version}-%{release}
 

@@ -6,9 +6,6 @@ License:        MIT
 URL:            https://github.com/tsl0922/ttyd
 Source:         https://github.com/tsl0922/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Needed to make CMake find Libwebsockets
-Patch0:         ttyd-CMakeLists.txt.patch
-
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  json-c-devel

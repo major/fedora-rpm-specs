@@ -2,7 +2,7 @@
 %bcond benchmarks 0
 
 Name:           python-pyroaring
-Version:        1.0.4
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Library for handling efficiently sorted integer sets
 
@@ -14,16 +14,6 @@ SourceLicense:  %{license} AND (Apache-2.0 OR MIT)
 URL:            https://github.com/Ezibenroc/PyRoaringBitMap
 Source:         %{url}/archive/%{version}/PyRoaringBitMap-%{version}.tar.gz
 
-# Respect system compiler flags (no -O3)
-#
-# Downstream-only because upstream validly wants to add -O3, but we have not
-# proven it is justified. A casual comparative benchmark on x86_64 showed no
-# consistent and measurable improvement, and perhaps a small loss in some
-# microbenchmarks. This makes sense because we use the system croaring library,
-# and if there are any routines that benefit from -O3, they are likely to be in
-# those inner “hot” loops, not in the surrounding “glue” in the Python
-# extension.
-Patch:          0001-Respect-system-compiler-flags-no-O3.patch
 # Do not build bundled croaring library; link libroaring
 #
 # Removing the bundled copy and dealing with include paths are outside the
@@ -32,7 +22,7 @@ Patch:          0001-Respect-system-compiler-flags-no-O3.patch
 # Downstream-only for now; it would be nice to suggest an easy way to use a
 # system copy upstream, but it’s not immediately obvious how best to do this in
 # an upstreamable way.
-Patch:          0002-Do-not-build-bundled-croaring-library-link-libroarin.patch
+Patch:          0001-Do-not-build-bundled-croaring-library-link-libroarin.patch
 
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --tox --toxenv=cython3

@@ -11,7 +11,7 @@ Name:           guayadeque
 Version:        0.7.6
 Release:        0.1.beta9.git%{shortcommit0}%{?dist}
 %else
-Version:        1.0.2
+Version:        1.1.0
 Release:        1%{?dist}
 %endif
 Summary:        Music player
@@ -205,6 +205,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Tue Oct 20 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.1.0-1
+- Update to 1.1.0-1
+
 * Tue Oct 20 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.0.2-1
 - Update to 1.0.2-1
 - Add GDK_BACKEND=x11 to desktop-file as the visualizer crashes on wayland

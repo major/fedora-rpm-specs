@@ -63,14 +63,15 @@ Summary:        GUI that provides a complete workflow for HDR imaging
 #   net.sourceforge.qtpfsgui.LuminanceHDR.appdata.xml
 #
 # Note that CC0-1.0 is allowed only for content, such as this AppData XML file.
-License:        %{shrink:
-    GPL-2.0-only AND
-    GPL-3.0-or-later AND
-    LGPL-2.1-or-later AND
-    BSD-3-Clause AND
-    MIT AND
-    BSL-1.0 AND
-    CC0-1.0
+%global base_license GPL-2.0-or-later
+License:        %{base_license} %{shrink:
+    AND GPL-2.0-only
+    AND GPL-3.0-or-later
+    AND LGPL-2.1-or-later
+    AND BSD-3-Clause
+    AND MIT
+    AND BSL-1.0
+    AND CC0-1.0
     }
 # Additionally, the following are only build system files and do not contribute
 # to the License field:
@@ -267,7 +268,7 @@ Without their contribution all of this would have not been possible.
 
 %package data
 Summary:        Architecture-independent data files for luminance-hdr
-License:        GPL-2.0-or-later
+License:        %{base_license}
 
 BuildArch:      noarch
 

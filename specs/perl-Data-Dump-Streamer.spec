@@ -1,6 +1,6 @@
 Name:           perl-Data-Dump-Streamer
-Version:        2.42
-Release:        13%{?dist}
+Version:        3.00
+Release:        1%{?dist}
 Summary:        Accurately serialize a data structure as Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dump-Streamer
@@ -12,30 +12,22 @@ BuildRequires:  gcc
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::CBuilder)
-BuildRequires:  perl(ExtUtils::Depends)
-BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(:VERSION) >= 5.18
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(B)
 BuildRequires:  perl(B::Deparse)
-BuildRequires:  perl(B::Utils) >= 0.05
-BuildRequires:  perl(bytes)
 BuildRequires:  perl(Compress::Zlib)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Hash::Util)
-BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(MIME::Base64)
-BuildRequires:  perl(overload)
 BuildRequires:  perl(PadWalker) >= 0.99
 BuildRequires:  perl(re)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Symbol)
-BuildRequires:  perl(Text::Abbrev)
-BuildRequires:  perl(Text::Balanced)
-BuildRequires:  perl(utf8)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(warnings::register)
 # Test Suite
@@ -44,16 +36,22 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(Devel::Peek)
 BuildRequires:  perl(Cpanel::JSON::XS)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Devel::Peek)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(overload)
+BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(Test::More) >= 0.96
+BuildRequires:  perl(threads)
+BuildRequires:  perl(Tie::Array)
+BuildRequires:  perl(Tie::Hash)
+BuildRequires:  perl(utf8)
+BuildRequires:  perl(vars)
 # Dependencies
-Requires:       perl(bytes)
 Requires:       perl(Compress::Zlib)
-Requires:       perl(Hash::Util)
 Requires:       perl(MIME::Base64)
 Requires:       perl(PadWalker) >= 0.99
-Requires:       perl(re)
 
 %global __provides_exclude ::_::|Streamer\\.so
 %global __requires_exclude ::_::
@@ -69,16 +67,16 @@ output correctly.
 %setup -q -n Data-Dump-Streamer-%{version}
 
 %build
-perl Build.PL DDS --installdirs=vendor --optimize="%{optflags}"
-./Build
+perl Makefile.PL DDS INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-./Build install --destdir=%{buildroot} --create_packlist=0
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} -c %{buildroot}
 
 %check
-./Build test
+make test
 
 %files
 %doc Changes README.md
@@ -89,6 +87,15 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/DDS.3*
 
 %changelog
+* Tue Nov 10 2026 Paul Howarth <paul@city-fan.org> - 3.00-1
+- Update to 3.00
+  - Rewrite the dumping engine in C/XS, with AI assistance, for improved speed,
+    correctness and compatibility with Perl's refcounted stack
+  - Improve Unicode and regexp handling, and add experimental support for XPerl
+    class objects
+  - Require Perl 5.18 or newer and a C compiler
+  - Replace Module::Build with ExtUtils::MakeMaker
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.42-13
 - Perl 5.44 rebuild
 

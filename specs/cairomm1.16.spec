@@ -32,12 +32,11 @@ License:        LGPL-2.0-or-later
 #   untracked/docs/reference/html/jquery.js
 #   untracked/docs/reference/html/menu.js
 #   untracked/docs/reference/html/menudata.js
-SourceLicense:  %{shrink:
-    %{license} AND
-    FSFAP AND
-    GPL-2.0-or-later AND
-    LGPL-2.1-or-later AND
-    MIT
+SourceLicense:  %{license} %{shrink:
+    AND FSFAP
+    AND GPL-2.0-or-later
+    AND LGPL-2.1-or-later
+    AND MIT
     }
 
 %global src_base https://www.cairographics.org/releases

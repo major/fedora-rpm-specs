@@ -5,7 +5,7 @@
 %global components libschily libdeflt libmdigest libfind librmt rmt star
 Name:           star
 Version:        %{gsub %version_schily - .}
-Release:        %autorelease 
+Release:        9%{?dist}
 Summary:        An archiving tool with ACL support
 
 # libschily: CDDL-1.0 AND BSD-3-Clause AND BSD-4-Clause
@@ -34,11 +34,15 @@ Patch3:         star-2024.03.21-manpagereferences.patch
 # Prevent buffer overflow for filenames with length of 100 characters (#556664)
 # Although I couldn't replicate it with 2024.03.21-4, candidate for removal
 Patch4:         star-2024.03.21-bufferoverflow.patch
+# Add riscv64 Linux build rules (MKLINKS was missing riscv64-linux-*.rul symlinks)
+Patch5:         star-2024.03.21-riscv64-rules.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  libattr-devel libacl-devel libselinux-devel libcap-devel
 BuildRequires:  make e2fsprogs-devel
 BuildRequires:  sed
+# we need newer config.{guess,sub} files for RISC-V
+BuildRequires:  autoconf
 
 # drop i686 support (https://fedoraproject.org/wiki/Changes/Noi686Repositories)
 ExcludeArch:    %{ix86}
@@ -95,6 +99,7 @@ sed -i 's/sbin/bin/' rmt/Makefile
 sed -i 's/$(SHELL)/$(SHELL) -c $(TEST_FLAGS)/' star/tests/Makefile
 
 %build
+cp /usr/share/autoconf/build-aux/config.{guess,sub} autoconf/
 make_command() {
   cd $i
   make %{_make_output_sync} -f Makefile \
@@ -240,6 +245,9 @@ fi
 %{_libdir}/librmt.so.1.0
 
 %changelog
+* Thu Oct 22 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2024.03.21-7
+- Fix build on RISC-V
+
 * Mon Jan 19 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 2024.03.21-6
 - Re-add old patches that still make sense (#2430022)
 

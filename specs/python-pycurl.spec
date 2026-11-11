@@ -8,7 +8,7 @@
 %global modname pycurl
 
 Name:           python-%{modname}
-Version:        7.48.0
+Version:        7.49.0
 Release:        1%{?dist}
 Summary:        A Python interface to libcurl
 
@@ -63,7 +63,7 @@ Requires:       libcurl%{?_isa} >= %{libcurl_ver}
 %autosetup -n %{modname}-%{version} -p1
 
 # use %%{python3} instead of python to invoke tests
-sed -e 's|python |%{python3} |' -i tests/ext/test-suite.sh
+sed -e 's|python |%{python3} |' -i tests/run-quickstart.sh
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -95,6 +95,9 @@ export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
 %doc ChangeLog README.rst examples doc
 
 %changelog
+* Tue Nov 10 2026 Jacek Migacz <jmigacz@redhat.com> - 7.49.0-1
+- Update to 7.49.0 (#2561539)
+
 * Fri Oct 16 2026 Jacek Migacz <jmigacz@redhat.com> - 7.48.0-1
 - Update to 7.48.0 (#2535595)
 

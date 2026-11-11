@@ -86,7 +86,7 @@
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.56.0
+Version:        2.56.1
 Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -139,10 +139,6 @@ Patch3:         0003-t-lib-git-svn-try-harder-to-find-a-port.patch
 # Configurates Apache test server to use `DavLockDBType sdbm`
 # Prevents t5540 failures on i686, s390x and ppc64le
 Patch4:         git-test-apache-davlockdbtype-config.patch
-
-# http: handle curl stripping creds from effective url (curl >= 8.23.0)
-# https://lore.kernel.org/git/20260928040149.GA498186@coredump.intra.peff.net/
-Patch5:         git-2.56.0-http-strip-creds-effective-url.patch
 
 %if %{with docs}
 # pod2man is needed to build Git.3pm
@@ -1053,6 +1049,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Tue Nov 10 2026 Ondřej Pohořelský <opohorel@redhat.com> - 2.56.1-1
+- update to 2.56.1
+
 * Mon Oct 05 2026 Ondřej Pohořelský <opohorel@redhat.com> - 2.56.0-1
 - update to 2.56.0
 

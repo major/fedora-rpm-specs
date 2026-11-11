@@ -41,6 +41,8 @@ sed --regexp-extended --in-place 's/--cov[^[:blank:]]*//g' tox.ini
 
 
 %check -a
+%pyproject_verify_license
+
 # Because of its name, flask_socketio.test_client is mistaken for a test; then,
 # pytest fails because of an import path mismatch, since that module is
 # available both here in the build directory and in the buildroot. Simply

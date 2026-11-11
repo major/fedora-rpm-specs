@@ -1,4 +1,5 @@
-%bcond_without docs
+# Don't build documentation on RHEL
+%bcond docs %{undefined rhel}
 
 Name:           python-testpath
 Version:        0.6.0

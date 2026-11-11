@@ -167,13 +167,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc2.19
+%define pkgrelease 0.rc2.261110gb3dfbde62cf1.20
 %define kversion 7
-%define tarfile_release 7.4-rc2
+%define tarfile_release 7.4-rc2-21-gb3dfbde62cf1
 # This is needed to do merge window version magic
 %define patchlevel 4
 # The Release tag, including the configurable %%{?dist} tag
-%define specrelease 0.rc2.19%{?buildid}%{?dist}
+%define specrelease 0.rc2.261110gb3dfbde62cf1.20%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -273,6 +273,7 @@ Summary: The Linux kernel
 %define with_kernel_abi_stablelists %{?_without_kernel_abi_stablelists: 0} %{?!_without_kernel_abi_stablelists: 1}
 # internal samples and selftests
 %define with_selftests %{?_without_selftests: 0} %{?!_without_selftests: 1}
+%global selftests_targets bpf cgroup kmod mm net net/af_unix net/can net/forwarding net/hsr net/mptcp net/netfilter net/packetdrill net/tcp_ao tc-testing memfd drivers/net drivers/net/hw iommu cachestat pid_namespace rlimits timens pidfd capabilities clone3 exec filesystems firmware landlock mount mount_setattr move_mount_set_group filesystems/nsfs filesystems/openat2 proc safesetid seccomp tmpfs uevent vDSO vfio
 #
 # Additional options for user-friendly one-off kernel building:
 #
@@ -806,7 +807,7 @@ BuildRequires: (python3-wheel if python3-setuptools < 70)
 BuildRequires: openssl-devel
 
 %if %{with_selftests}
-BuildRequires: clang llvm-devel fuse-devel zlib-devel binutils-devel libuuid-devel python3-docutils python3-jsonschema
+BuildRequires: clang llvm-devel fuse-devel zlib-devel binutils-devel libuuid-devel python3-docutils python3-jsonschema libasan
 %ifarch x86_64 riscv64
 BuildRequires: lld
 %endif
@@ -3399,7 +3400,32 @@ pushd tools/testing/selftests
 export CFLAGS="%{build_cflags}"
 export CXXFLAGS="%{build_cxxflags}"
 
-%{make} %{?_smp_mflags} EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" EXTRA_LDFLAGS="%{__global_ldflags}" ARCH=$Arch V=1 TARGETS="bpf cgroup kmod mm net net/af_unix net/can net/forwarding net/hsr net/mptcp net/netfilter net/packetdrill net/tcp_ao tc-testing memfd drivers/net drivers/net/hw iommu cachestat pid_namespace rlimits timens pidfd capabilities clone3 exec filesystems firmware landlock mount mount_setattr move_mount_set_group nsfs openat2 proc safesetid seccomp tmpfs uevent vDSO vfio" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
+SELFTESTS_FLAGS=()
+SELFTESTS_FLAGS+=("ARCH=$Arch")
+SELFTESTS_FLAGS+=("V=1")
+SELFTESTS_FLAGS+=("$force_targets")
+SELFTESTS_FLAGS+=("SKIP_TARGETS=")
+SELFTESTS_FLAGS+=("TARGETS=%{selftests_targets}")
+
+SELFTESTS_BUILD_FLAGS=()
+SELFTESTS_BUILD_FLAGS+=("EXTRA_CFLAGS=${CFLAGS}")
+SELFTESTS_BUILD_FLAGS+=("EXTRA_CXXFLAGS=${CXXFLAGS}")
+SELFTESTS_BUILD_FLAGS+=("EXTRA_LDFLAGS=%{__global_ldflags}")
+SELFTESTS_BUILD_FLAGS+=("USERCFLAGS=-fPIE")
+SELFTESTS_BUILD_FLAGS+=("VMLINUX_H=${RPM_VMLINUX_H}")
+SELFTESTS_BUILD_FLAGS+=("INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests")
+
+SELFTESTS_BPF_FLAGS=()
+%if %{with_automotive} || !%{selftests_must_build}
+  SELFTESTS_BPF_FLAGS+=("BPF_STRICT_BUILD=0")
+%endif
+
+%{log_msg "build selftests"}
+%{make} %{?_smp_mflags} \
+  "${SELFTESTS_FLAGS[@]}" \
+  "${SELFTESTS_BUILD_FLAGS[@]}" \
+  "${SELFTESTS_BPF_FLAGS[@]}" \
+  install
 
 # Restore the original level of source fortification
 %define _fortify_level %{_fortify_level_bak}
@@ -3792,248 +3818,20 @@ find . -type f -executable -exec install -m755 {} %{buildroot}%{_libexecdir}/ksa
 find . -type f ! -executable -exec install -m644 {} %{buildroot}%{_libexecdir}/ksamples/pktgen/{} \;
 popd
 popd
-# install mm selftests
-pushd tools/testing/selftests/mm
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/mm/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/mm/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/mm/{} \;
-popd
-# install cgroup selftests
-pushd tools/testing/selftests/cgroup
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/cgroup/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/cgroup/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/cgroup/{} \;
-popd
-# install drivers/net selftests
-pushd tools/testing/selftests/drivers/net
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/drivers/net/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/drivers/net/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/drivers/net/{} \;
-popd
-# install drivers/net/mlxsw selftests
-pushd tools/testing/selftests/drivers/net/mlxsw
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/drivers/net/mlxsw/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/drivers/net/mlxsw/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/drivers/net/mlxsw/{} \;
-popd
-# install drivers/net/hw selftests
-pushd tools/testing/selftests/drivers/net/hw
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/drivers/net/hw/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/drivers/net/hw/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/drivers/net/hw/{} \;
-popd
-# install drivers/net/netdevsim selftests
-pushd tools/testing/selftests/drivers/net/netdevsim
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/drivers/net/netdevsim/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/drivers/net/netdevsim/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/drivers/net/netdevsim/{} \;
-popd
-# install drivers/net/bonding selftests
-pushd tools/testing/selftests/drivers/net/bonding
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/drivers/net/bonding/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/drivers/net/bonding/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/drivers/net/bonding/{} \;
-popd
-# install net/af_unix selftests
-pushd tools/testing/selftests/net/af_unix
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/net/af_unix/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/net/af_unix/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/net/af_unix/{} \;
-popd
-# install net/can selftests
-pushd tools/testing/selftests/net/can
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/net/can/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/net/can/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/net/can/{} \;
-popd
-# install net/forwarding selftests
-pushd tools/testing/selftests/net/forwarding
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/net/forwarding/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/net/forwarding/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/net/forwarding/{} \;
-popd
-# install net/hsr selftests
-pushd tools/testing/selftests/net/hsr
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/net/hsr/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/net/hsr/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/net/hsr/{} \;
-popd
-# install net/mptcp selftests
-pushd tools/testing/selftests/net/mptcp
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/net/mptcp/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/net/mptcp/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/net/mptcp/{} \;
-popd
-# install tc-testing selftests
-pushd tools/testing/selftests/tc-testing
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/tc-testing/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/tc-testing/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/tc-testing/{} \;
-popd
-# install net/netfilter selftests
-pushd tools/testing/selftests/net/netfilter
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/net/netfilter/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/net/netfilter/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/net/netfilter/{} \;
-popd
-# install net/packetdrill selftests
-pushd tools/testing/selftests/net/packetdrill
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/net/packetdrill/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/net/packetdrill/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/net/packetdrill/{} \;
-popd
 
-# install net/tcp_ao selftests
-pushd tools/testing/selftests/net/tcp_ao
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/net/tcp_ao/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/net/tcp_ao/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/net/tcp_ao/{} \;
-popd
-
-# install memfd selftests
-pushd tools/testing/selftests/memfd
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/memfd/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/memfd/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/memfd/{} \;
-popd
-# install iommu selftests
-pushd tools/testing/selftests/iommu
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/iommu/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/iommu/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/iommu/{} \;
-popd
-# install rlimits selftests
-pushd tools/testing/selftests/rlimits
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/rlimits/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/rlimits/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/rlimits/{} \;
-popd
-# install pid_namespace selftests
-pushd tools/testing/selftests/pid_namespace
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/pid_namespace/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/pid_namespace/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/pid_namespace/{} \;
-popd
-# install timens selftests
-pushd tools/testing/selftests/timens
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/timens/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/timens/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/timens/{} \;
-popd
-# install pidfd selftests
-pushd tools/testing/selftests/pidfd
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/pidfd/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/pidfd/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/pidfd/{} \;
-popd
-# install capabilities selftests
-pushd tools/testing/selftests/capabilities
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/capabilities/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/capabilities/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/capabilities/{} \;
-popd
-# install clone3 selftests
-pushd tools/testing/selftests/clone3
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/clone3/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/clone3/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/clone3/{} \;
-popd
-# install exec selftests
-pushd tools/testing/selftests/exec
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/exec/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/exec/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/exec/{} \;
-popd
-# install filesystems selftests
-pushd tools/testing/selftests/filesystems
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/filesystems/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/filesystems/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/filesystems/{} \;
-popd
-# install firmware selftests
-pushd tools/testing/selftests/firmware
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/firmware/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/firmware/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/firmware/{} \;
-popd
-# install landlock selftests
-pushd tools/testing/selftests/landlock
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/landlock/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/landlock/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/landlock/{} \;
-popd
-# install mount selftests
-pushd tools/testing/selftests/mount
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/mount/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/mount/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/mount/{} \;
-popd
-# install mount_setattr selftests
-pushd tools/testing/selftests/mount_setattr
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/mount_setattr/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/mount_setattr/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/mount_setattr/{} \;
-popd
-# install move_mount_set_group selftests
-pushd tools/testing/selftests/move_mount_set_group
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/move_mount_set_group/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/move_mount_set_group/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/move_mount_set_group/{} \;
-popd
-# install nsfs selftests
-pushd tools/testing/selftests/nsfs
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/nsfs/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/nsfs/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/nsfs/{} \;
-popd
-# install openat2 selftests
-pushd tools/testing/selftests/openat2
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/openat2/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/openat2/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/openat2/{} \;
-popd
-# install proc selftests
-pushd tools/testing/selftests/proc
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/proc/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/proc/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/proc/{} \;
-popd
-# install safesetid selftests
-pushd tools/testing/selftests/safesetid
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/safesetid/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/safesetid/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/safesetid/{} \;
-popd
-# install seccomp selftests
-pushd tools/testing/selftests/seccomp
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/seccomp/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/seccomp/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/seccomp/{} \;
-popd
-# install tmpfs selftests
-pushd tools/testing/selftests/tmpfs
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/tmpfs/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/tmpfs/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/tmpfs/{} \;
-popd
-# install uevent selftests
-pushd tools/testing/selftests/uevent
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/uevent/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/uevent/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/uevent/{} \;
-popd
-# install vDSO selftests
-pushd tools/testing/selftests/vDSO
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/vDSO/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/vDSO/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/vDSO/{} \;
-popd
-# install vfio selftests
-pushd tools/testing/selftests/vfio
-find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/vfio/{} \;
-find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/vfio/{} \;
-find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/vfio/{} \;
-popd
+# install remaining selftests
+# skipping bpf which has custom install logic above
+# skip net itself; only copy its selected subdirectories
+for _selftest_dir in %{selftests_targets}; do
+    [ "$_selftest_dir" = "bpf" ] && continue
+    [ "$_selftest_dir" = "net" ] && continue
+    test -d tools/testing/selftests/$_selftest_dir || continue
+    pushd tools/testing/selftests/$_selftest_dir
+    find -type d -exec install -d %{buildroot}%{_libexecdir}/kselftests/$_selftest_dir/{} \;
+    find -type f -executable -exec install -D -m755 {} %{buildroot}%{_libexecdir}/kselftests/$_selftest_dir/{} \;
+    find -type f ! -executable -exec install -D -m644 {} %{buildroot}%{_libexecdir}/kselftests/$_selftest_dir/{} \;
+    popd
+done
 %endif
 
 %if %{with_kmap} && %{with_base}
@@ -4812,9 +4610,22 @@ fi\
 #
 #
 %changelog
-* Mon Nov 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.19]
+* Tue Nov 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.b3dfbde62cf1.20]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Tue Nov 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.b3dfbde62cf1.19]
+- redhat/configs: riscv: Misc fixes for K3 and DP1000 (Jennifer Berringer)
+- redhat/configs: enable tc modules required by tc-testing selftests (Ivan Vecera)
+- redhat/configs: automotive: enable NXP i.MX platform support (Vinicius Zein) [RHEL-254743]
+- redhat: BPF_STRICT_BUILD (Nico Pache)
+- redhat: selftests: correct build flags (Nico Pache)
+- redhat: selftests: seperate out the shared selftests flags (Nico Pache)
+- redhat: selftests: handle nsfs and openat2 dir move (Nico Pache)
+- redhat: selftests: add libasan as a build dependencies (Nico Pache)
+- redhat: selftests: install selftest builds in a loop (Nico Pache)
+- fedora: updates for 7.4-rc2 (Peter Robinson)
+- Linux v7.4.0-0.rc2.b3dfbde62cf1
 
 * Mon Nov 09 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.18]
 - Linux v7.4.0-0.rc2

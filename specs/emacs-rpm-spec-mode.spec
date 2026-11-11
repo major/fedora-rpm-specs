@@ -10,7 +10,7 @@ VCS:            git:%{url}.git
 Source0:        https://elpa.nongnu.org/nongnu-devel/rpm-spec-mode-0.16.0.20260616.59.tar.lz
 
 BuildArch:      noarch
-BuildRequires:  emacs-nw
+BuildRequires:  emacs-nw >= 1:31.1-13
 BuildRequires:  lzip
 Requires:       emacs(bin) >= %{?_emacs_version}%{!?_emacs_version:0}
 
@@ -23,9 +23,7 @@ Major GNU Emacs mode for editing RPM spec files.
 
 
 %install
-emacs --batch \
-      --eval '(let ((package-user-dir "%{buildroot}%{_emacs_sitelispdir}/elpa"))
-                (package-install-file (or (pop argv) default-directory)))'
+%{_emacs_package_install}
 
 
 %files

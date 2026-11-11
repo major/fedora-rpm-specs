@@ -1,6 +1,6 @@
 Name:       smatch
 Version:    1.75
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    A static analyzer for C
 
 # License breakdown:
@@ -28,6 +28,7 @@ BuildRequires: openssl-devel
 BuildRequires: sqlite-devel
 
 Requires: %{name}-data = %{version}-%{release}
+Requires: sparse
 
 Provides: bundled(cwchash)
 Provides: bundled(sparse)
@@ -54,7 +55,6 @@ Data for Smatch the static analysis tool for C.
 
 %install
 %make_install PREFIX='%{_prefix}'
-install -m755 cgcc %{buildroot}%{_bindir}/cgcc
 
 %check
 echo 'int main(void) { int a[2]; return a[2]; }' > test.c
@@ -65,12 +65,15 @@ grep "test.c:1 main() error: buffer overflow 'a' 2 <= 2" out
 %doc README Documentation/{arm64-detecting-tagged-addresses,smatch}.txt
 %license GPL-2 LICENSE
 %{_bindir}/%{name}
-%{_bindir}/cgcc
 
 %files data
 %{_datadir}/%{name}
 
 %changelog
+* Tue Nov 10 2026 Bastien Nocera <bnocera@redhat.com> - 1.75-5
+- Remove cgcc and use the one from sparse instead, to prevent a
+  file conflict (#2566754)
+
 * Thu Aug 13 2026 Bastien Nocera <bnocera@redhat.com> - 1.75-4
 - Also install cgcc wrapper tool
 

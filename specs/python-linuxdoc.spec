@@ -1,0 +1,73 @@
+%global _description %{expand:
+The LinuxDoc library contains Sphinx-doc extensions and command line tools to
+extract documentation from C/C++ source file comments. Even if this project
+started in context of the Linux-Kernel documentation, you can use these
+extensions in common Sphinx-doc projects.}
+
+Name:           python-linuxdoc
+Version:        20260504
+Release:        %autorelease
+Summary:        Sphinx-doc extensions for sophisticated C developer
+
+
+License:        AGPL-3.0-or-later
+URL:            https://return42.github.io/linuxdoc/
+Source0:        %{pypi_source linuxdoc}
+
+BuildArch:      noarch
+
+%description %_description
+
+%package -n python3-linuxdoc
+Summary:        %{summary}
+BuildRequires:  python3-devel
+BuildRequires:  python3-pkg-resources
+BuildRequires:  help2man
+
+Requires:       python3-pkg-resources
+
+%description -n python3-linuxdoc %_description
+
+%prep
+%autosetup -n linuxdoc-%{version} -p1
+
+# nothing here, empty package that gets installed in %%{python3_sitelib}
+rm -rf tests
+
+# remove shebangs
+find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+
+# generate man pages
+# must be done here because binaries must be installed
+for binfile in "linuxdoc.autodoc" "linuxdoc.rest" "linuxdoc.grepdoc" "linuxdoc.lintdoc"
+do
+    ls -lash "%{buildroot}/%{_bindir}/${binfile}"
+    help2man -N --version-string %{version} -h -h --no-discard-stderr "%{buildroot}/%{_bindir}/${binfile}" > "${binfile}.1"
+done
+
+install -p -m 0644 -D -t "%{buildroot}/%{_mandir}/man1/"  *.1
+
+%pyproject_save_files linuxdoc
+
+%check
+# exclude sphinx < 3.0 bits, we don't have it in Fedora
+%pyproject_check_import linuxdoc -e *cdomainv2*
+
+%files -n python3-linuxdoc -f %{pyproject_files}
+%doc README.rst
+%{_bindir}/linuxdoc.*
+%{_mandir}/man1/linuxdoc.*
+
+
+%changelog
+%autochangelog

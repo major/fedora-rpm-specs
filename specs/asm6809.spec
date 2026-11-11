@@ -1,6 +1,6 @@
 Name:           asm6809
-Version:        2.16
-Release:        5%{?dist}
+Version:        2.17
+Release:        1%{?dist}
 Summary:        Multiple pass 6809 & 6309 cross assembler
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -41,6 +41,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Tue Nov 10 2026 John W. Linville <linville@tuxdriver.com> 2.17-1
+- Update for version 2.17 from upstream
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

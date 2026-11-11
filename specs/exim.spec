@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.100.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -89,7 +89,7 @@ BuildRequires: libgsasl-devel
 # Workaround for NIS removal from glibc, bug 1534920
 BuildRequires: libnsl2-devel
 BuildRequires: libtirpc-devel
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: grep
 BuildRequires: perl-devel
 BuildRequires: perl-generators
@@ -188,7 +188,7 @@ greylisting for whatever 'offences' you can dream of, or even to make
 greylisting unconditional.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 cp src/EDITME Local/Makefile
@@ -512,6 +512,9 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 4.100.1-2
+- Verify upstream source signatures with openpgpverify
+
 * Tue Oct 06 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.100.1-1
 - New version
   Resolves: rhbz#2537003

@@ -13,11 +13,10 @@ License:        GPL-2.0-or-later
 #     should probably also consider it AND GPL-2.0-or-later, since it is
 #     partially derived from configure.ac, which is GPL-2.0-or-later.
 #   - install-sh is X11
-SourceLicense:  %{shrink:
-    %{license} AND
-    FSFUL AND
-    GPL-2.0-or-later WITH Autoconf-exception-macro AND
-    X11
+SourceLicense:  %{license} %{shrink:
+    AND FSFUL
+    AND GPL-2.0-or-later WITH Autoconf-exception-macro
+    AND X11
     }
 URL:            https://github.com/grondo/edac-utils
 Source0:        %{url}/archive/%{version}/edac-utils-%{version}.tar.gz

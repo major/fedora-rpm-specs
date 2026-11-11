@@ -95,6 +95,8 @@ Requires:       /usr/bin/patchelf
 
 
 %check -a
+%pyproject_verify_license
+
 %if %{with tests}
 # Note: tests are *not* safe for parallel execution with pytest-xdist.
 

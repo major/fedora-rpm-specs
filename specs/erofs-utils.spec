@@ -13,7 +13,7 @@
 %bcond selinux  1
 %bcond ublk     %[ 0%{?fedora} >= 35 || 0%{?rhel} >=  9 ]
 %bcond uuid     1
-%bcond xxhash   1
+%bcond xxhash   %[ 0%{?fedora} || 0%{?epel} || 0%{?rhel} == 9 ]
 %bcond zlib     1
 %bcond zstd     1
 
@@ -125,6 +125,7 @@ autoreconf -fi
 %changelog
 * Fri Oct 30 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.9.4-3
 - Disable libdeflate on RHEL
+- Disable xxhash on RHEL 10+
 
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.9.4-2
 - Rebuilt for libxml-2.5.4

@@ -1,7 +1,7 @@
-Summary:       A developer's and administrator's tool for SQLite databases
+Summary:       A tool for development and admininistration of SQLite databases
 Name:          sqliteman
 Version:       2.0.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-3.0-or-later
 URL:           https://github.com/pvanek/sqliteman
 Source:        https://github.com/pvanek/sqliteman/archive/refs/tags/v%{version}.tar.gz
@@ -9,18 +9,17 @@ BuildRequires: cmake
 BuildRequires: python3-furo
 BuildRequires: python3-myst-parser
 BuildRequires: python3-sphinx
+BuildRequires: python3-sphinxcontrib-qthelp
 BuildRequires: qscintilla-qt6-devel
 BuildRequires: qt6-qttools-devel
+BuildRequires: qt6-qttools-libs-help
 BuildRequires: sqlite-devel
 Requires:      sqlite
 %description
-A developer's and administrator's tool for SQLite databases, built
-with Qt6.
-
 Sqliteman opens SQLite files, runs SQL against them, shows and edits
-their rows, and does what SQLite itself makes awkward — altering a
-table, for one. It talks to SQLite through its C API, on a thread of
-its own, so a long query never freezes the window.
+their rows. And does what SQLite itself makes awkward, for example
+altering a table. It talks to SQLite through its C API, on a thread of
+its own, not hangs due to long queries.
 
 %prep
 %autosetup -p1
@@ -28,9 +27,12 @@ its own, so a long query never freezes the window.
 %build
 %cmake
 %cmake_build
+cmake --build %{__cmake_builddir} --target docs
 
 %install
 %cmake_install
+install -m 0644 %{__cmake_builddir}/docs/sqliteman.qch \
+	%{buildroot}%{_datadir}/sqliteman
 
 %check
 %ctest --output-on-failure
@@ -38,6 +40,7 @@ its own, so a long query never freezes the window.
 %files
 %license LICENSE
 %doc README.md
+%doc %{__cmake_builddir}/docs/html
 %{_bindir}/sqliteman
 %{_datadir}/sqliteman
 %{_datadir}/applications/cz.yarpen.sqliteman.desktop
@@ -46,6 +49,9 @@ its own, so a long query never freezes the window.
 %{_datadir}/metainfo/cz.yarpen.sqliteman.metainfo.xml
 
 %changelog
+* Tue Nov 10 2026 Terje Røsten <terjeros@gmail.com> - 2.0.0-2
+- Add help
+
 * Sun Nov 08 2026 Terje Røsten <terjeros@gmail.com> - 2.0.0-1
 - 2.0.0
 - New upstream location

@@ -39,6 +39,7 @@ Summary:        %{summary}
 
 
 %check -a
+%pyproject_verify_license
 %pytest
 
 

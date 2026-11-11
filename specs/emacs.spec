@@ -44,6 +44,9 @@ Source9:       emacs-desktop.sh.in
 
 Source10:      emacs_lisp.attr
 Source11:      emacs_lisp.rec
+Source12:      emacs_package.deps
+Source13:      emacs_package.attr
+Source14:      emacs_builtin_package.attr
 
 Source20:      emacs-fedora.texi
 Source21:      emacs-desktop.1
@@ -315,10 +318,22 @@ Recommends:    /usr/bin/git
 Recommends:    gcc
 Recommends:    (gcc-c++ if libtree-sitter < 0.24.0)
 
-%global _local_file_attrs emacs_lisp
+%global _local_file_attrs emacs_lisp:emacs_package:emacs_builtin_package
 %{load:%SOURCE10}
+%{load:%SOURCE13}
+%{load:%SOURCE14}
 %global __emacs_lisp_recommends \
-        %{_builddir}/%{name}-%{version}/build-pgtk/src/emacs -x %SOURCE11
+        %{_builddir}/%{name}-%{version}/build-pgtk/src/emacs -x \
+        %SOURCE11
+%global __emacs_package_provides \
+        %{_builddir}/%{name}-%{version}/build-pgtk/src/emacs -x \
+        %SOURCE12 --provides
+%global __emacs_package_requires \
+        %{_builddir}/%{name}-%{version}/build-pgtk/src/emacs -x \
+        %SOURCE12 --requires
+%global __emacs_builtin_package_provides \
+        %{_builddir}/%{name}-%{version}/build-pgtk/src/emacs -x \
+        %SOURCE12 --builtin-provides
 
 %description common
 %desc
@@ -507,6 +522,7 @@ cat > macros.emacs << EOF
 %%_emacs_sitelispdir %{site_lisp}
 %%_emacs_sitestartdir %{site_start_d}
 %%_emacs_bytecompile(W) /usr/bin/emacs --batch --no-site-file --eval '(push nil load-path)' %%{-W:--eval '(setq byte-compile-error-on-warn t)' }-f batch-byte-compile %%*
+%%_emacs_package_install /usr/bin/emacs --batch --eval '(let ((package-user-dir "%%{buildroot}%%{_emacs_sitelispdir}/elpa")) (package-install-file (or (pop argv) default-directory)))'
 EOF
 
 cat > 00-dynamic-module-dir.el << 'EOF'
@@ -615,6 +631,9 @@ mkdir -p \
       %{buildroot}%{_rpmmacrodir}
 install -p -m 0644 %SOURCE10 %{buildroot}%{_fileattrsdir}
 install -p -m 0755 %SOURCE11 %{buildroot}%{_rpmconfigdir}
+install -p -m 0755 %SOURCE12 %{buildroot}%{_rpmconfigdir}
+install -p -m 0644 %SOURCE13 %{buildroot}%{_fileattrsdir}
+install -p -m 0644 %SOURCE14 %{buildroot}%{_fileattrsdir}
 install -p -m 0644 macros.emacs %{buildroot}%{_rpmmacrodir}
 
 # After everything is installed, remove info "dir"
@@ -833,8 +852,11 @@ fi
 
 %files common -f common-filelist
 %config(noreplace) %{_sysconfdir}/skel/.emacs
+%{_fileattrsdir}/emacs_builtin_package.attr
 %{_fileattrsdir}/emacs_lisp.attr
+%{_fileattrsdir}/emacs_package.attr
 %{_rpmconfigdir}/emacs_lisp.rec
+%{_rpmconfigdir}/emacs_package.deps
 %{_rpmconfigdir}/macros.d/macros.emacs
 %license build-pgtk/etc/COPYING
 %doc build-pgtk/doc/NEWS build-pgtk/BUGS build-pgtk/README

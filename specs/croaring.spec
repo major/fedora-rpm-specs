@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/RoaringBitmap/CRoaring
-Version:        4.3.12
+Version:        5.5.5
 %forgemeta
 
-%global sover 18
+%global sover 31
 
 Name:           croaring
 Release:        %autorelease
@@ -10,10 +10,6 @@ Summary:        Roaring bitmaps in C (and C++), with SIMD optimizations
 License:        Apache-2.0 OR MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# “fixing issue 793” (fixes compatibility with CMake 4.0)
-# https://github.com/RoaringBitmap/CRoaring/commit/2157a666099f77e7d5431f519862e951f50ec931
-# https://github.com/RoaringBitmap/CRoaring/issues/793
-Patch:          %{forgeurl}/commit/2157a666099f77e7d5431f519862e951f50ec931.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

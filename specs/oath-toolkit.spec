@@ -1,6 +1,6 @@
 Name:          oath-toolkit
 Version:       2.6.15
-Release:       1%{?dist}
+Release:       2%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 Summary:       One-time password components
@@ -13,12 +13,10 @@ BuildRequires: xmlsec1-devel
 BuildRequires: xmlsec1-openssl-devel
 BuildRequires: autoconf
 BuildRequires: automake
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 Source0:       https://download.savannah.nongnu.org/releases/%{name}/%{name}-%{version}.tar.gz
 Source1:       https://download.savannah.nongnu.org/releases/%{name}/%{name}-%{version}.tar.gz.sig
-# gpg2 --recv-keys EDA21E94B565716F
-# gpg2 --armor --export D73CF638C53C06BE > keyring.asc
-Source2:       keyring.asc
+Source2:       https://keys.openpgp.org/vks/v1/by-fingerprint/B1D2BD1375BECB784CF4F8C4D73CF638C53C06BE#/keyring.asc
 URL:           https://www.nongnu.org/oath-toolkit/
 Patch:        oath-toolkit-2.6.14-lockfile.patch
 
@@ -116,7 +114,7 @@ Requires: pam
 A PAM module for pluggable login authentication for OATH.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -189,6 +187,9 @@ mkdir -p -m 0600 %{buildroot}%{_sysconfdir}/liboath
 %{_libdir}/security/pam_oath.so
 
 %changelog
+* Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 2.6.15-2
+- Verify upstream source signatures with openpgpverify
+
 * Mon Oct 19 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 2.6.15-1
 - New version
   Resolves: rhbz#2552043

@@ -1,6 +1,6 @@
 Name:           pygame
 Version:        2.6.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python modules for writing games
 
 License:        LGPL-2.0-or-later
@@ -26,6 +26,8 @@ BuildRequires:  gcc
 Patch:          pygame-2.6.1-python-3.15-fix.patch
 # https://github.com/pygame/pygame/pull/4849
 Patch:          pygame-2.6.1-setuptools-82-fix.patch
+# Fix Cython 3.3 compatibility: __dict__ is now a special attribute in extension types
+Patch:          https://github.com/pygame/pygame/pull/4912.patch
 
 %global _description\
 Pygame is a set of Python modules designed for writing games. It is\
@@ -117,6 +119,9 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 %{_includedir}/python*/%{name}/
 
 %changelog
+* Wed Nov 04 2026 Lumír Balhar <lbalhar@redhat.com> - 2.6.1-15
+- Fix compatibility with Cython 3.3
+
 * Mon Oct 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 2.6.1-14
 - Require libxmp, see 2554603
 

@@ -13,12 +13,11 @@ License:        W3C
 #   - configure is FSFUL, or more likely (W3C AND FSFUL)
 #   - depcomp and missing are GPL-2.0-or-later
 #   - install-sh is X11
-SourceLicense:  %{shrink:
-    %{license} AND
-    FSFUL AND
-    FSFULLR AND
-    GPL-2.0-or-later AND
-    X11
+SourceLicense:  %{shrink:%{license}
+    AND FSFUL
+    AND FSFULLR
+    AND GPL-2.0-or-later
+    AND X11
     }
 URL:            https://www.w3.org/Tools/eot-utils/
 Source:         %{url}/eot-utilities-%{version}.tar.gz

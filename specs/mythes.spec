@@ -1,11 +1,9 @@
 Name:      mythes
 Summary:   A thesaurus library
-Version:   1.2.6
-Release:   1%{?dist}
+Version:   1.2.7
+Release:   2%{?dist}
 Source:    https://github.com/hunspell/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 URL:       https://github.com/hunspell/mythes
-# upstream fix https://github.com/hunspell/mythes/commit/61597ef51bf9e82d0387a12d5a42ad77f2a572cd
-Patch0:    mythes-1.2.6-index-words-shorter-than-MAX_WD_LEN.patch
 License:   BSD-3-Clause-Modification AND MIT
 BuildRequires: make
 BuildRequires: hunspell-devel, gcc-c++
@@ -55,6 +53,12 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_bindir}/th_gen_idx.pl
 
 %changelog
+* Tue Nov 10 2026 Parag Nemade <panemade AT redhat DOT com> - 1.2.7-2
+- Remove upstreamed patch and build again
+
+* Tue Nov 10 2026 Parag Nemade <pnemade AT redhat DOT com> - 1.2.7-1
+- Update to 1.2.7 version (#2568064)
+
 * Mon Nov 02 2026 Parag Nemade <panemade AT redhat DOT com> - 1.2.6-2
 - Fix build failure in rawhide by using upstream patch
 

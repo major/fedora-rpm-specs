@@ -2,8 +2,9 @@
 # There's no concept of debuginfo for SGX enclaves
 %global debug_package %{nil}
 
-%global linux_sgx_version 2.28
-%global dcap_version 1.25
+%global linux_sgx_version 2.30
+%global sgx_sdk_version 2.30
+%global dcap_version 1.27
 
 # If setting any of these to 0, modify repack.sh to strip
 # the binary from the prebuilt_dcap tarball to prevent src.rpm
@@ -101,26 +102,29 @@ License: %{shrink:
   LicenseRef-Fedora-Public-Domain
 }
 
-URL:            https://github.com/intel/linux-sgx
+URL:            https://github.com/intel/confidential-computing.sgx
 
 # The sources are needed so we can determine the ELF so version
 # symlinks that the loader code will expect to find
 
-Source0: https://github.com/intel/linux-sgx/archive/refs/tags/sgx_%{linux_sgx_version}_reproducible.tar.gz#/linux-sgx-%{linux_sgx_version}-reproducible.tar.gz
+Source0: https://github.com/intel/confidential-computing.sgx/archive/refs/tags/sgx_%{linux_sgx_version}_reproducible.tar.gz#/linux-sgx-%{linux_sgx_version}-reproducible.tar.gz
 
-Source1: https://github.com/intel/SGXDataCenterAttestationPrimitives/archive/refs/tags/dcap_%{dcap_version}_reproducible.tar.gz
+Source1: https://github.com/intel/confidential-computing.sgx.sdk/archive/refs/tags/sgx_%{sgx_sdk_version}.tar.gz#/sgx-sdk-%{sgx_sdk_version}.tar.gz
+
+Source2: https://github.com/intel/confidential-computing.tee.dcap/archive/refs/tags/dcap_%{dcap_version}_reproducible.tar.gz
+
 
 # repack.sh purges AE's that we do not want to (& are forbidden to)
 # ship, as well as 'prebuilt/' content (openssl / OPA binaries) that
 # we must not distribute
-Source2: repack.sh
+Source3: repack.sh
 
 # Upload tarball is:
 #
 #   https://download.01.org/intel-sgx/sgx-dcap/%{dcap_version}/linux/prebuilt_dcap_%{dcap_version}.tar.gz
 #
 # but is then post-processed using repack.sh to create this
-Source3: prebuilt_dcap_%{dcap_version}-repacked.tar.gz
+Source4: prebuilt_dcap_%{dcap_version}-repacked.tar.gz
 
 BuildRequires: sgx-rpm-macros
 
@@ -161,16 +165,23 @@ prebuilt by Intel. \
 %prep
 %autosetup -n confidential-computing.sgx-sgx_%{linux_sgx_version}_reproducible
 
+# sdk
+(
+  cd sdk
+  tar zxf %{SOURCE1} --strip 1
+)
+
+
 # dcap
 (
   cd external/dcap_source
 
-  tar zxf %{SOURCE1} --strip 1
+  tar zxf %{SOURCE2} --strip 1
 )
 
 (
   cd external/dcap_source/QuoteGeneration
-  tar zxf %{SOURCE3}
+  tar zxf %{SOURCE4}
 )
 
 %build
@@ -187,10 +198,10 @@ prebuilt by Intel. \
 # that is known to be built into the enclaves
 mkdir licenses
 for f in License.txt \
-         sdk/compiler-rt/LICENSE.TXT \
-         sdk/cpprt/linux/libunwind/LICENSE \
-         sdk/gperftools/gperftools-2.7/COPYING \
-         sdk/tlibcxx/LICENSE.TXT \
+         sdk/sdk/compiler-rt/LICENSE.TXT \
+         sdk/sdk/cpprt/linux/libunwind/LICENSE \
+         sdk/sdk/gperftools/gperftools-2.7/COPYING \
+         sdk/sdk/tlibcxx/LICENSE.TXT \
          external/dcap_source/License.txt \
          external/dcap_source/QuoteGeneration/ThirdPartyLicenses.txt
 do

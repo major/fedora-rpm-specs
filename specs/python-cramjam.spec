@@ -37,11 +37,11 @@ SourceLicense:  %{upstream_license} AND LicenseRef-Fedora-Public-Domain
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
 # bzip2-1.0.6
-%global rust_additional_licenses %{shrink:
-    BSD-3-Clause AND
-    bzip2-1.0.6 AND
-    (0BSD OR MIT OR Apache-2.0) AND
-    (MIT OR Zlib OR Apache-2.0)
+%global full_license %{shrink:%{upstream_license}
+    AND BSD-3-Clause
+    AND bzip2-1.0.6
+    AND (0BSD OR MIT OR Apache-2.0)
+    AND (MIT OR Zlib OR Apache-2.0)
     }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://github.com/milesgranger/cramjam
@@ -75,7 +75,7 @@ BuildRequires:  %{py3_dist hypothesis}
 
 %package -n     python3-cramjam
 Summary:        %{summary}
-License:        %{license} AND %{rust_additional_licenses}
+License:        %{full_license}
 
 %description -n python3-cramjam %{common_description}
 
@@ -85,7 +85,7 @@ License:        %{license} AND %{rust_additional_licenses}
 
 %package -n     python3-cramjam-pure-rust
 Summary:        Pure-Rust backend for cramjam
-License:        %{license} AND %{rust_additional_licenses}
+License:        %{full_license}
 
 %description -n python3-cramjam-pure-rust
 The pure-Rust backend for cramjam: the same API, with zstd, lz4, bzip2, xz and
@@ -165,7 +165,6 @@ cp --preserve ../LICENSE ../LICENSE.dependencies .
 
 
 %check
-%pyproject_verify_license %{upstream_license}
 # If upstream starts listing license files explicitly, LICENSE.dependencies may
 # be dropped from the .dist-info directory. Guard against this.
 [ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSE.dependencies)" ]

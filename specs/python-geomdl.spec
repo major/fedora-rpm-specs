@@ -21,7 +21,8 @@ Summary:        Object-oriented pure Python B-Spline and NURBS library
 #
 # While we no longer package a full Sphinx-generated manual, we consider the
 # documentation license to apply to files packaged as %%doc, *.md/*.rst.
-License:        MIT AND CC-BY-4.0
+%global upstream_license MIT
+License:        %{upstream_license} AND CC-BY-4.0
 URL:            https://onurraufbingol.com/NURBS-Python/
 %global forgeurl https://github.com/orbingol/NURBS-Python
 Source:         %{forgeurl}/archive/v%{version}/NURBS-Python-%{version}.tar.gz
@@ -109,6 +110,7 @@ export SETUPTOOLS_USE_CYTHON=1
 
 
 %check -a
+%pyproject_verify_license %{upstream_license}
 %pytest
 
 

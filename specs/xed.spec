@@ -1,15 +1,19 @@
 # Filter provides from plugins.
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins/.*$
 
+%global forgeurl https://github.com/linuxmint/xed
+%global tag      %{version}
+
 Name:		xed
-Version:	3.9.0
+Version:	3.9.1
 Release:	%autorelease
+%{forgemeta}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
-URL:		https://github.com/linuxmint/%{name}
-Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:        %{forgeurl}
+Source0:    %{forgesource}
 
 ExcludeArch:   %{ix86}
 
@@ -68,7 +72,7 @@ BuildArch:	noarch
 This package contains the documentation files for %{name}.
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 
 # Use 'classic'-theme by default.
 %{__sed} -i -e 's!xed!classic!g' data/org.x.editor.gschema.xml.in

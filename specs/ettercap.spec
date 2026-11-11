@@ -1,8 +1,8 @@
 %global __cmake_in_source_build 1
 %define _hardened_build 1
 Name: ettercap
-Version: 0.8.4.1
-Release: 3%{?dist}
+Version: 0.8.5.1
+Release: 1%{?dist}
 Summary: Network traffic sniffer/analyser, NCURSES interface version
 License: GPL-2.0-or-later
 URL: http://ettercap.sourceforge.net
@@ -12,7 +12,6 @@ Source2: ettercap-README.fedora
 # Permission from upstream to drop the silly modification restriction
 Source3: ettercap_easter_egg_license.txt
 Patch1: ettercap-0.8.1-radius-stack-overflow.patch
-Patch2: 2168090f5b023573ebea0f83574950401ed5d67b.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: ImageMagick
@@ -55,7 +54,6 @@ analysis.
 %setup -q
 
 %patch -P 1 -p1
-%patch -P 2 -p1
 
 %build
 mkdir build
@@ -116,6 +114,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/ettercap.metainfo.xml
 
 %changelog
+* Tue Nov 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.8.5.1-1
+- 0.8.5.1
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

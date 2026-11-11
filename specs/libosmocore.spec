@@ -1,8 +1,8 @@
-%global git_commit 8450f365f86954db5ed81db28802ff994763707e
-%global git_date 20260129
+#%%global git_commit 8450f365f86954db5ed81db28802ff994763707e
+#%%global git_date 20260129
 
-%global git_short_commit %(echo %{git_commit} | cut -c -8)
-%global git_suffix %{git_date}git%{git_short_commit}
+#%%global git_short_commit %%(echo %%{git_commit} | cut -c -8)
+#%%global git_suffix %%{git_date}git%%{git_short_commit}
 
 # export name=%%{name}
 # export version=%%{version}
@@ -16,8 +16,8 @@
 
 Name:             libosmocore
 URL:              https://osmocom.org/projects/libosmocore
-Version:          1.12.0
-Release:          2.%{git_suffix}%{?dist}
+Version:          1.14.2
+Release:          2%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ and AGPLv3+ - review is highly recommended.
 License:          GPL-2.0-or-later AND GPL-3.0-or-later AND AGPL-3.0-or-later
 BuildRequires:    autoconf
@@ -36,7 +36,7 @@ BuildRequires:    sed
 BuildRequires:    python3
 BuildRequires:    make
 Summary:          Utility functions for OsmocomBB, OpenBSC and related projects
-Source0:          %{name}-%{version}-%{git_suffix}.tar.bz2
+Source0:          https://github.com/osmocom/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # upstream dropped support for s390x and it is broken
 ExcludeArch:      %{ix86} s390x
 
@@ -81,8 +81,14 @@ make check
 %doc %{_docdir}/%{name}
 # fallback for cases where there is no _licensdir
 %exclude %{_docdir}/%{name}/codec
+%exclude %{_docdir}/%{name}/coding
 %exclude %{_docdir}/%{name}/core
+%exclude %{_docdir}/%{name}/ctrl
+%exclude %{_docdir}/%{name}/gb
 %exclude %{_docdir}/%{name}/gsm
+%exclude %{_docdir}/%{name}/isdn
+%exclude %{_docdir}/%{name}/sim
+%exclude %{_docdir}/%{name}/usb
 %exclude %{_docdir}/%{name}/vty
 %{!?_licensedir:%global license %%doc}
 %license COPYING
@@ -98,11 +104,33 @@ make check
 
 %files doc
 %doc %{_docdir}/%{name}/codec
+%doc %{_docdir}/%{name}/coding
 %doc %{_docdir}/%{name}/core
+%doc %{_docdir}/%{name}/ctrl
+%doc %{_docdir}/%{name}/gb
 %doc %{_docdir}/%{name}/gsm
+%doc %{_docdir}/%{name}/isdn
+%doc %{_docdir}/%{name}/sim
+%doc %{_docdir}/%{name}/usb
 %doc %{_docdir}/%{name}/vty
 
 %changelog
+* Tue Nov 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.14.2-2
+- Fixed packaging of docs
+
+* Tue Nov 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 1.14.2-1
+- New version
+- Fixed denial of service via buffer overflow in osmo_iuup_compute_payload_crc()
+  Resolves: CVE-2026-104591
+- Fixed denial of service via out-of-bounds read in CBSP decoder
+  Resolves: CVE-2026-104592
+- Fixed information disclosure via out-of-bounds read in IPA CCM parser
+  Resolves: CVE-2026-104594
+- Fixed information disclosure via out-of-bounds read in GSM 04.80 parser
+  Resolves: CVE-2026-104596
+- Fixed information disclosure via out-of-bounds read in iuup_rx_initialization
+  Resolves: CVE-2026-104597
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-2.20260129git8450f365
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

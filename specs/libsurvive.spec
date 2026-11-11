@@ -1,5 +1,5 @@
-%global date 20261009
-%global commit 23f03665070549f0c13a6e768dfaf7764f75c417
+%global date 20261103
+%global commit 44b1e2f0cb95e5697bc0b86f58fd8520a813b713
 %global shortcommit %{sub %{commit} 1 7}
 
 # These are artifacts used by the unit tests
@@ -46,10 +46,6 @@ Patch:          %{name}-no-external-project.patch
 Patch:          %{name}-eigen3.patch
 # Do not build the bundled puff and crc32; zlib provides both
 Patch:          %{name}-system-zlib.patch
-# add_scenes() cleanup (f23d298) copies only the SurviveObject pointer when
-# compacting and resets the scene ring counter on every call, which feeds
-# mismatched scenes to the global solver and fails 2 ctest cases
-Patch:          %{name}-gss-scene-cleanup.patch
 
 ExclusiveArch:  aarch64 %{ix86} x86_64
 

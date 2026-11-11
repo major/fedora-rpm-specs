@@ -4,7 +4,7 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.9.3
+Version:        3.9.4
 Release:        %autorelease
 Summary:        Daemon that manages block devices to create filesystems
 
@@ -12,21 +12,6 @@ License:        (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND (Apa
 URL:            https://github.com/stratis-storage/stratisd
 Source0:        %{url}/archive/stratisd-v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/stratisd-v%{version}/%{name}-%{version}-vendor.tar.gz
-
-# https://github.com/stratis-storage/stratisd/pull/4110
-# https://bugzilla.redhat.com/show_bug.cgi?id=2552449
-# Wait indefinitely for encryption passphrase on boot
-Patch:          0001-Add-infinite-timeout-to-systemd-ask-password.patch
-# https://github.com/stratis-storage/stratisd/pull/4113
-# https://bugzilla.redhat.com/show_bug.cgi?id=2543511
-# Wait for all pool devices before attempting decryption
-Patch:          0002-Add-stratis-min-pool-all-devices-present-command.patch
-Patch:          0003-Wait-for-all-pool-devices-in-dracut-and-systemd-setu.patch
-# https://github.com/stratis-storage/stratisd/pull/4109
-# https://github.com/fedora-eln/eln/issues/650
-# Fix FTBFS on RHEL11/ppc64le
-Patch:          0004-Allow-dead-code-in-systemd-bindings-file.patch
-Patch:          0004-Start-udev-monitor-before-engine-device-enumeration.patch
 
 
 %if 0%{?rhel}
@@ -95,7 +80,7 @@ Requires:     stratisd
 %{summary}.
 
 %prep
-%autosetup -p1 -n stratisd-stratisd-v%{version} %{?rhel:-a1}
+%autosetup -n stratisd-stratisd-v%{version} %{?rhel:-a1}
 
 %if 0%{?rhel}
 %cargo_prep -v vendor

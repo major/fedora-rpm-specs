@@ -1,6 +1,6 @@
 Name:           libfyaml
-Version:        0.8
-Release:        10%{?dist}
+Version:        0.9.6
+Release:        1%{?dist}
 Summary:        Complete YAML parser and emitter
 
 # All files MIT except
@@ -14,17 +14,16 @@ URL:            https://github.com/pantoniou/libfyaml
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        LICENSE-GPL-2.0
 Source2:        LICENSE-BSD-2-Clause
-Patch0:         obsolete-macros-update.patch
+# Fixed in master already
+Patch0:         libfyaml-0.9.6-fix-manpage-install.patch
 
-BuildRequires: autoconf
-BuildRequires: automake
-BuildRequires: check
+BuildRequires: cmake
+BuildRequires: cmake(check)
 BuildRequires: gcc
-BuildRequires: libtool
-BuildRequires: libtool-ltdl-devel
-BuildRequires: libyaml-devel
-BuildRequires: make
+BuildRequires: pkgconfig(yaml-0.1)
 BuildRequires: python3-sphinx
+BuildRequires: python3dist(linuxdoc)
+BuildRequires: python3dist(sphinx-markdown-builder)
 #BuildRequires: xxhash-devel
 # Needed to update macro
 BuildRequires: sed
@@ -59,23 +58,23 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Header files and libraries for libfyaml
 
 %prep
-%autosetup
+%autosetup -C -p1
+
+%conf
+%cmake -DENABLE_NETWORK:BOOL=OFF
 
 %build
 cp %{SOURCE1} .
 cp %{SOURCE2} .
 
-autoreconf -fi
-%configure --disable-static --disable-network
-sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
-%make_build
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 
 %check
 # Run basic tests
-make check
+%ctest
 
 %files
 %license LICENSE
@@ -84,7 +83,7 @@ make check
 %doc README.md
 %doc AUTHORS
 %{_libdir}/libfyaml.so.0
-%{_libdir}/libfyaml.so.0.0.0
+%{_libdir}/libfyaml.so.%{version}
 
 %files -n fyaml-utils
 %{_bindir}/fy-compose
@@ -94,20 +93,20 @@ make check
 %{_bindir}/fy-testsuite
 %{_bindir}/fy-tool
 %{_bindir}/fy-ypath
-%{_mandir}/man1/fy-compose.1.gz
-%{_mandir}/man1/fy-dump.1.gz
-%{_mandir}/man1/fy-filter.1.gz
-%{_mandir}/man1/fy-join.1.gz
-%{_mandir}/man1/fy-testsuite.1.gz
-%{_mandir}/man1/fy-tool.1.gz
-%{_mandir}/man1/fy-ypath.1.gz
+%{_mandir}/man?/fy-*
 
 %files devel
 %{_includedir}/libfyaml.h
-%{_libdir}/libfyaml.so
+%{_includedir}/libfyaml/
+%{_libdir}/cmake/libfyaml/
 %{_libdir}/pkgconfig/libfyaml.pc
+%{_libdir}/libfyaml.so
+%{_mandir}/man3/libfyaml*
 
 %changelog
+* Tue Nov 10 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.9.6-1
+- Rebase to 0.9.6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

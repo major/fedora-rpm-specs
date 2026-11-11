@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.44.9000-330-ga9a746e4af
+%global glibcsrcdir glibc-2.44.9000-351-g7510a659b8
 %global glibcversion 2.44.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 6
+%global baserelease 7
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2479,6 +2479,31 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Nov 10 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-7
+- Auto-sync with upstream branch master,
+  commit 7510a659b83bedc45560d4405054f2709a8bdf95:
+- io: Fix silent readdir failures in ftw/nftw (BZ 33085) (Adhemerval Zanella)
+- sparc64: Add nop before __start_context to stop unwinding [BZ #34978] (Stian Halseth)
+- x86_64: Fix strncpy and strncat overflow calls without multiarch (Adhemerval Zanella)
+- x86_64: Fix memcpy compat symbol in the page-unrolled memmove (Adhemerval Zanella)
+- elf: Set the library path for tst-ptrguard-static-dlopen (BZ 34966) (Adhemerval Zanella)
+- aarch64: Fix SVE tanf mixed-lane results [BZ #34922] (Dylan Fleming)
+- aarch64: Fix SVE log1pf special case results [BZ #34940] (Dylan Fleming)
+- aarch64: Fix SVE log1p helper mixed-lane shortcut [BZ #34923] (Dylan Fleming)
+- linux: Implement unshare in C (BZ 34917) (Adhemerval Zanella)
+- linux: Implement remap_file_pages in C (BZ 34917) (Adhemerval Zanella)
+- linux: Implement pkey_alloc in C (BZ 34917) (Adhemerval Zanella)
+- linux: Implement mprotect in C (BZ 34917) (Adhemerval Zanella)
+- x86_64: Extend 32-bit syscall arguments to the full register (BZ 34917) (Adhemerval Zanella)
+- AArch64: Minor ifunc list cleanup (Wilco Dijkstra)
+- advisories: Fix invalid data (Siddhesh Poyarekar)
+- configure: Fix typo in a comment (Yury Khrustalev)
+- math: Use stdbit.h instead of builtin in fmodf (Adhemerval Zanella)
+- math: Use stdbit.h for remaining builtins in math_config.h (Adhemerval Zanella)
+- math: Relax the fast-math gate for vector math declarations (Philipp Tomsich)
+- allow-failures.txt: Handle test names containing . and + (Florian Weimer)
+- s390: Fix missing early-clobber in __to_generic_vx [BZ #34952] (Florian Fuchs)
+
 * Thu Nov 05 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-6
 - Auto-sync with upstream branch master,
   commit a9a746e4af7aac370937a88d5483cc72c5198602:

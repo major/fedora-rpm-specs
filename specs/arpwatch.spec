@@ -15,12 +15,11 @@ License:        BSD-3-Clause
 #   - configure is FSFUL
 #   - install-sh is X11
 #   - mkdep is BSD-4.3RENO
-SourceLicense:  %{shrink:
-    %{license} AND
-    BSD-4.3RENO AND
-    FSFUL AND
-    GPL-3.0-or-later AND
-    X11
+SourceLicense:  %{license} %{shrink:
+    AND BSD-4.3RENO
+    AND FSFUL
+    AND GPL-3.0-or-later
+    AND X11
     }
 URL:            https://ee.lbl.gov/
 

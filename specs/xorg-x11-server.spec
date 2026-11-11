@@ -16,8 +16,8 @@
 
 Summary:    X.Org X11 X server
 Name:       xorg-x11-server
-Version:    21.1.25
-Release:    2%{?dist}
+Version:    21.1.26
+Release:    1%{?dist}
 URL:        http://www.x.org
 # SPDX
 License:    Adobe-Display-PostScript AND BSD-3-Clause AND DEC-3-Clause AND HPND AND HPND-sell-MIT-disclaimer-xserver AND HPND-sell-variant AND ICU AND ISC AND MIT AND MIT-open-group AND NTP AND SGI-B-2.0 AND SMLNJ AND X11 AND X11-distribute-modifications-variant
@@ -41,13 +41,6 @@ Patch1:     0001-xfree86-use-modesetting-driver-by-default-on-GeForce.patch
 Patch2:     0001-xf86-dri2-Use-va_gl-as-vdpau_driver-for-Intel-i965-G.patch
 # because the display-managers are not ready yet, do not upstream
 Patch3:     0001-Fedora-hack-Make-the-suid-root-wrapper-always-start-.patch
-# xorg-server-21.1.25 fixups:
-# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/2355
-Patch:      0001-Revert-damage-Unlink-a-damage-from-the-list-it-was-a.patch
-# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/2352
-Patch:      0002-Xi-avoid-memory-leak-when-hitting-bounds-check-for-b.patch
-# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/2353
-Patch:      0003-Xi-fix-event_id-time-delta-in-generated-barrier-even.patch
 
 
 BuildRequires:  bison
@@ -423,6 +416,12 @@ find %{buildroot} -type f -name '*.la' -delete
 
 
 %changelog
+* Tue Nov 10 2026 Olivier Fourdan <ofourdan@redhat.com> - 21.1.26-1
+- Update to xserver 21.1.26
+  CVE fix for:
+  CVE-2026-109091, CVE-2026-109092, CVE-2026-109093, CVE-2026-109904,
+  CVE-2026-109094, CVE-2026-109095, CVE-2026-109096, CVE-2026-109903
+
 * Thu Oct 15 2026 Olivier Fourdan <ofourdan@redhat.com> - 21.1.25-2
 - xorg-server-21.1.25 fixups (#2548280)
 

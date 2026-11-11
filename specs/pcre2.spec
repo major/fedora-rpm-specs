@@ -9,7 +9,7 @@
 #%%global rcversion RC1
 Name:       pcre2
 Version:    10.49
-Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}
+Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}.1
 %global     myversion %{version}%{?rcversion:-%rcversion}
 Summary:    Perl-compatible regular expression library
 # the library:                          BSD with exceptions
@@ -61,7 +61,7 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  libtool
 BuildRequires:  make
 %if %{with pcre2_enables_readline}
@@ -147,7 +147,7 @@ Requires:   %{name}-utf16 = %{version}-%{release}
 Utilities demonstrating PCRE2 capabilities like pcre2grep or pcre2test.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{name}-%{myversion} -p1
 # Because of multilib patch
 libtoolize --copy --force
@@ -262,6 +262,9 @@ make %{?_smp_mflags} check VERBOSE=yes
 %{_mandir}/man1/pcre2test.*
 
 %changelog
+* Fri Oct 23 2026 Jakub Jelen <jjelen@redhat.com> - 10.49-1.1
+- Verify upstream source signatures with openpgpverify
+
 * Mon Sep 21 2026 Daniel Handzus <dhandzus@redhat.com> - 10.49-1
 - Rebase to the latest upstream version 10.49
 - Regenerate multilib patch for the 10.49 (upstream changed -L flag logic)

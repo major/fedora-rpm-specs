@@ -37,6 +37,8 @@ Summary:        A python package that provides useful locks
 
 
 %check -a
+%pyproject_verify_license
+
 %if %{with tests}
 # See notes in %%prep:
 ignore="${ignore-} --ignore=tests/test_eventlet.py"

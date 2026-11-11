@@ -1,8 +1,8 @@
 %bcond gpu_demo %{undefined rhel}
 
 Name:           harfbuzz
-Version:        15.0.0
-Release:        2%{?dist}
+Version:        15.1.0
+Release:        1%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -167,6 +167,9 @@ This package contains Harfbuzz Vector support library.
 %{_libdir}/libharfbuzz-gpu.so.0*
 
 %changelog
+* Tue Nov 10 2026 Parag Nemade <pnemade AT redhat DOT com> - 15.1.0-1
+- Update to 15.1.0 version (#2567166)
+
 * Fri Oct 23 2026 Parag Nemade <panemade AT redhat DOT com> - 15.0.0-2
 - Skip failing test harfbuzz:test-raster
 

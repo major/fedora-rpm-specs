@@ -37,13 +37,13 @@ Summary:        Tool for extracting information from PDF documents
 #       converted from
 #       https://partners.adobe.com/public/developer/en/opentype/glyphlist.txt
 #       under the Adobe Glyph List License
-License:        %{shrink:
-    MIT AND
-    LicenseRef-Fedora-Public-Domain AND
-    APAFML AND
-    BSD-3-Clause AND
-    (Apache-2.0 AND MIT) AND
-    Adobe-Glyph
+%global upstream_license MIT
+License:        %{upstream_license} %{shrink:
+    AND LicenseRef-Fedora-Public-Domain
+    AND APAFML
+    AND BSD-3-Clause
+    AND (Apache-2.0 AND MIT)
+    AND Adobe-Glyph
     }
 URL:            https://github.com/pdfminer/pdfminer.six
 # This has the samples/ directory stripped out. While upstream claims the
@@ -218,6 +218,8 @@ done
 
 
 %check -a
+%pyproject_verify_license %{upstream_license}
+
 # Skipped tests (and ignored files) are those that require the sample PDFs,
 # which are not included in our version of the source tarball.
 k="${k-}${k+ and }not TestColorSpace"

@@ -14,16 +14,12 @@ Summary:        Fix macOS 27 bootability flag from linux side
 # and since this is the only nontrivial file in the project, it’s clear that
 # this (and not GPL-2.0-or-later) is the intended overall license.
 SourceLicense:  GPL-2.0-only
-# Rust dependency licenses, from %%{cargo_licens_summary}:
+# Rust dependency licenses, from %%{cargo_license_summary}:
 #
 # Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
-License:        %{shrink:
-    GPL-2.0-only AND
-    MIT AND
-    (Apache-2.0 OR MIT)
-}
+License:        %{sourcelicense} AND MIT AND (Apache-2.0 OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/AsahiLinux/asahi-fix27

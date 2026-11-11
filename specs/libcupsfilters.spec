@@ -7,7 +7,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.2.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -33,6 +33,8 @@ Patch006: 0001-Fix-minor-errors-this-caused-issue-239.-240.patch
 Patch007: 0001-ghostscript-serialize-raster-integer-parameters-as-s.patch
 # https://github.com/OpenPrinting/libcupsfilters/commit/d3043e3c8b32d73c80f98b7c5d59613a9d844d69
 Patch008: 0001-pdftopdf-keep-annotations-without-an-appearance-from.patch
+# https://github.com/OpenPrinting/libcupsfilters/commit/b13e63e80d9c094bc4484dcbc7efd000f21308db
+Patch009: 0001-libcupsfilters.pc-Add-pdfio-as-public-Requires-dep.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -218,6 +220,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Mon Nov 09 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.2.1-7
+- libcupsfilters-devel requires pdfio-devel
+
 * Mon Nov 09 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-6
 - pdftopdf exits with status 1 after Key 'N' not found messages (fedora#2568601)
 

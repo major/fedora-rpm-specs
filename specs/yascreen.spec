@@ -1,6 +1,6 @@
 Name:           yascreen
 Version:        2.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Yet Another Screen Library (lib(n)curses alternative)
 
 License:        LGPL-3.0-only
@@ -10,7 +10,7 @@ Source1:        %{url}releases/download/v%{version}/yascreen-%{version}.tar.xz.a
 Source2:        https://raw.githubusercontent.com/bbonev/yascreen/master/debian/upstream/signing-key.asc
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 
 %description
@@ -47,7 +47,7 @@ compile applications or shared objects that use yascreen.
 %global _hardened_build 1
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build
@@ -74,6 +74,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libyascreen.a
 %{_includedir}/yascreen.h
 
 %changelog
+* Thu Oct 22 2026 Jakub Jelen <jjelen@redhat.com> - 2.14-2
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 29 2026 Boian Bonev <bbonev@ipacct.com> - 2.14-1
 - Update to latest ver 2.14
 

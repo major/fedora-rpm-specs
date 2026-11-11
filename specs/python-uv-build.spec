@@ -10,7 +10,9 @@ Summary:        The uv build backend
 # Apache-2.0 OR BSD-2-Clause:
 #   - crates/uv-pep440/ is vendored and forked from crate(pep440_rs)
 #   - crates/uv-pep508/ is vendored and forked from crate(pep508_rs)
-#
+%global upstream_license Apache-2.0 OR MIT
+%global full_license (%{upstream_license}) AND (Apache-2.0 OR BSD-2-Clause)
+License:        %{full_license}
 # Rust crates compiled into the executable contribute additional license terms.
 # To obtain the following list of licenses, build the package and note the
 # output of %%{cargo_license_summary}.
@@ -34,25 +36,21 @@ Summary:        The uv build backend
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-License:        %{shrink:
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 OR BSD-2-Clause) AND
-    MPL-2.0
-    }
-%global extra_crate_licenses %{shrink:
-    (0BSD OR Apache-2.0 OR MIT) AND
-    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
-    (Apache-2.0 OR BSD-2-Clause OR MIT) AND
-    (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR MIT OR Zlib) AND
-    (Apache-2.0 OR MIT-0) AND
-    BSD-3-Clause AND
-    CC0-1.0 AND
-    MIT AND
-    (MIT OR Unlicense) AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    Zlib
+%global built_license %{full_license} %{shrink:
+    AND BSD-3-Clause
+    AND CC0-1.0
+    AND MIT
+    AND MPL-2.0
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND Zlib
+    AND (0BSD OR Apache-2.0 OR MIT)
+    AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT)
+    AND (Apache-2.0 OR BSD-2-Clause OR MIT)
+    AND (Apache-2.0 OR BSL-1.0)
+    AND (Apache-2.0 OR MIT OR Zlib)
+    AND (Apache-2.0 OR MIT-0)
+    AND (MIT OR Unlicense)
     }
 URL:            https://pypi.org/project/uv-build
 Source:         %{pypi_source uv_build}
@@ -93,7 +91,7 @@ backend.}
 
 %package -n     python3-uv-build
 Summary:        %{summary}
-License:        %{license} AND %{extra_crate_licenses}
+License:        %{full_license}
 # LICENSE.dependencies contains a full license breakdown
 
 # In https://github.com/astral-sh/uv/issues/5588#issuecomment-2257823242,
@@ -159,6 +157,7 @@ tomcli set Cargo.toml false profile.release.strip
 
 
 %check -a
+%pyproject_verify_license %{upstream_license}
 # If upstream starts listing license files explicitly, LICENSE.dependencies may
 # be dropped from the .dist-info directory. Guard against this.
 [ -n "$(find '%{buildroot}%{python3_sitearch}' -name LICENSE.dependencies)" ]

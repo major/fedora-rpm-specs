@@ -1,6 +1,6 @@
 Name:           rxvt-unicode
-Version:        9.31
-Release:        18%{?dist}
+Version:        9.32
+Release:        1%{?dist}
 Summary:        Unicode version of rxvt
 
 License:        GPL-3.0-or-later
@@ -18,8 +18,6 @@ Source5:        rxvt-unicode.desktop
 
 Patch0:         rxvt-unicode-9.21-Fix-hard-coded-wrong-path-to-xsubpp.patch
 Patch1:         rxvt-unicode-0001-Prefer-XDG_RUNTIME_DIR-over-the-HOME.patch
-# Backport of https://github.com/exg/rxvt-unicode/commit/417b540d6dba67d440e3617bc2cf6d7cea1ed968
-Patch2:         Fix-OSC-responses-with-7-bit-ST.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  fontconfig-devel
@@ -185,6 +183,9 @@ popd
 %{_libdir}/urxvt
 
 %changelog
+* Tue Nov 10 2026 Dave Cantrell <dcantrell@redhat.com> - 9.32-1
+- Upgrade to rxvt-unicode-9.32 (#2569356)
+
 * Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 9.31-18
 - Verify upstream source signatures with openpgpverify
 

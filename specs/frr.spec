@@ -9,7 +9,7 @@
 
 Name:           frr
 Version:        10.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
@@ -27,6 +27,7 @@ Patch0002:      0002-enable-openssl.patch
 Patch0003:      0003-disable-eigrp-crypto.patch
 Patch0004:      0004-fips-mode.patch
 Patch0005:      0005-remove-grpc-test.patch
+Patch0006:      0006-fix-compilation-with-bison.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if %{undefined fc40} && %{undefined fc41}
@@ -315,6 +316,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Thu Nov 05 2026 Neil Hanlon <neil@shrug.pw> - 10.7.1-2
+- Rebuild for grpc 1.75.1
+
 * Thu Oct 01 2026 Michal Ruprich <mruprich@redhat.com> - 10.7.1-1
 - New version 10.7.1
 

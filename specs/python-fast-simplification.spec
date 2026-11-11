@@ -9,7 +9,15 @@ Version:        0.2.0
 Release:        %autorelease
 Summary:        Wrapper around the Fast-Quadric-Mesh-Simplification library
 
-License:        MIT
+# The entire source is (SPDX) MIT. However, while the python3-nanobind package
+# is not a header-only library, it functions rather like one, in that it ships
+# C++ sources that are compiled into extensions that use it. Furthermore, it
+# brings in an indirect dependency on the header-only robin-map library.  -
+# python3-nanobind is BSD-3-Clause
+#   - robin-map-static is MIT
+%global upstream_license MIT
+%global full_license %{upstream_license} AND BSD-3-Clause
+License:        %{upstream_license}
 URL:            https://github.com/pyvista/fast-simplification
 # The GitHub archive contains many ancillary files, like the README, the
 # examples, and the list of test requirements, that the PyPI sdist lacks.
@@ -62,7 +70,7 @@ Summary:        %{summary}
 # brings in an indirect dependency on the header-only robin-map library.  -
 # python3-nanobind is BSD-3-Clause
 #   - robin-map-static is MIT
-License:        MIT AND BSD-3-Clause
+License:        %{full_license}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
 # Required indirectly, via python3-nanobind:
@@ -107,6 +115,8 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check -a
+%pyproject_verify_license %{upstream_license}
+
 %if %{with tests}
 %pytest --verbose -rs
 %endif

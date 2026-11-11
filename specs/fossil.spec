@@ -70,6 +70,8 @@ sed -i "s:^#\!/usr/bin/env\s\+tclsh\s\?$:#!%_bindir/tclsh:" www/mkindex.tcl
 
 %install
 %make_install
+install -D -m 0644 tools/fossil-autocomplete.bash %{buildroot}%{_datadir}/bash-completion/completions/fossil
+install -D -m 0644 tools/fossil-autocomplete.zsh %{buildroot}%{_datadir}/zsh/site-functions/_fossil
 install -D -m 0644 -t %{buildroot}%{_mandir}/man1 fossil.1
 
 
@@ -96,6 +98,8 @@ cp %{SOURCE3} README
 %license COPYRIGHT-BSD2.txt
 %{_bindir}/%name
 %{_mandir}/man1/%name.1*
+%{_datadir}/bash-completion/completions/fossil
+%{_datadir}/zsh/site-functions/_fossil
 
 %files doc
 %{_bindir}/%name-doc

@@ -3,6 +3,7 @@
 
 # not shipping dbranch as it's not that useful in Fedora
 %global tools %{shrink:
+  cbspkg
   cpu-sig-tracker
   ebranch
   fedora-cve-triage
@@ -21,7 +22,7 @@
 }
 
 Name:           sandogasa
-Version:        0.27.1
+Version:        0.28.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -61,13 +62,9 @@ License:        %{shrink:
 
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch:          %{url}/commit/3367fe64f252d2b7f483f48c4c680f58ed832ee5.patch#/fix-bz-expiration-check.patch
 
 BuildRequires:  cargo-rpm-macros
-%if %{with build_and_test_all}
-# needed by dbranch
 BuildRequires:  git-core
-%endif
 
 Requires:       koji
 Recommends:     bodhi-client
@@ -83,6 +80,13 @@ Recommends:     fedrq-config-centos-snapshot
 # need to be updated in RPM Fusion as well
 Recommends:     fedrq-config-rpmfusion
 Recommends:     tzdata
+# CentOS work: mock-centos-sig-configs (or centos-packager) marks a
+# system used for CentOS packaging. cbspkg and cpu-sig-tracker use
+# cbs and centos-cert from centos-packager, and cbspkg upload-sources
+# and cpu-sig-tracker mr run centpkg, which centos-packager does not
+# pull in.
+Recommends:     (centos-packager if mock-centos-sig-configs)
+Recommends:     (centpkg if (centos-packager or mock-centos-sig-configs))
 Suggests:       centos-packager
 
 # ebranch is in Fedora <= 44 and EPEL <= 9
@@ -210,6 +214,20 @@ cp -pr configs/rpmfusion %{buildroot}%{_datadir}/ebranch/
 cp -p configs/fedora-cve-triage/run.toml %{buildroot}%{_sysconfdir}/fedora-cve-triage/
 cp -p configs/fesco-chair/config.toml %{buildroot}%{_sysconfdir}/fesco-chair/
 
+# One block of %%files per tool, so a new tool only needs adding to
+# %%{tools}. A tool whose config.toml is shipped (fesco-chair) owns it
+# as a real %%config; the rest leave it as a %%ghost for the admin.
+for tool in %{tools}; do
+  echo "%{_bindir}/${tool}"
+  echo "%{_mandir}/man1/${tool}.1*"
+  echo "%%dir %{_sysconfdir}/${tool}"
+  if [ -e %{buildroot}%{_sysconfdir}/${tool}/config.toml ]; then
+    echo "%%config(noreplace) %{_sysconfdir}/${tool}/config.toml"
+  else
+    echo "%%ghost %%config(noreplace) %{_sysconfdir}/${tool}/config.toml"
+  fi
+done > tools.files
+
 
 %check
 %if %{with build_and_test_all}
@@ -219,79 +237,19 @@ cp -p configs/fesco-chair/config.toml %{buildroot}%{_sysconfdir}/fesco-chair/
 %endif
 
 
-%files
+%files -f tools.files
 %license LICENSE-APACHE
 %license LICENSE-MIT
 %license LICENSE.dependencies
 %doc README.md README.*.md CHANGELOG.md
 %doc configs/hs-relmon configs/sandogasa-pkg-acl configs/sandogasa-report
-%{_bindir}/cpu-sig-tracker
-%{_bindir}/ebranch
-%{_bindir}/fedora-cve-triage
-%{_bindir}/fedora-review-digest
-%{_bindir}/fesco-chair
-%{_bindir}/hs-intake
-%{_bindir}/hs-meetings
-%{_bindir}/hs-relmon
-%{_bindir}/koji-diff
-%{_bindir}/koji-lag
 %{_bindir}/koji-lag-backup-store
 %{_bindir}/koji-lag-fetch-store
 %{_bindir}/koji-lag-publish-store
 %{_bindir}/koji-lag-vacuum-store
-%{_bindir}/poi-tracker
-%{_bindir}/sandogasa-hattrack
-%{_bindir}/sandogasa-pkg-acl
-%{_bindir}/sandogasa-pkg-health
-%{_bindir}/sandogasa-report
+%config(noreplace) %{_sysconfdir}/fedora-cve-triage/run.toml
 %{_datadir}/ebranch/
 %{_datadir}/koji-lag/
-%{_mandir}/man1/cpu-sig-tracker.1*
-%{_mandir}/man1/ebranch.1*
-%{_mandir}/man1/fedora-cve-triage.1*
-%{_mandir}/man1/fedora-review-digest.1*
-%{_mandir}/man1/fesco-chair.1*
-%{_mandir}/man1/hs-intake.1*
-%{_mandir}/man1/hs-meetings.1*
-%{_mandir}/man1/hs-relmon.1*
-%{_mandir}/man1/koji-diff.1*
-%{_mandir}/man1/koji-lag.1*
-%{_mandir}/man1/poi-tracker.1*
-%{_mandir}/man1/sandogasa-hattrack.1*
-%{_mandir}/man1/sandogasa-pkg-acl.1*
-%{_mandir}/man1/sandogasa-pkg-health.1*
-%{_mandir}/man1/sandogasa-report.1*
-%dir %{_sysconfdir}/cpu-sig-tracker
-%dir %{_sysconfdir}/ebranch
-%dir %{_sysconfdir}/fedora-cve-triage
-%dir %{_sysconfdir}/fedora-review-digest
-%dir %{_sysconfdir}/fesco-chair
-%dir %{_sysconfdir}/hs-intake
-%dir %{_sysconfdir}/hs-meetings
-%dir %{_sysconfdir}/hs-relmon
-%dir %{_sysconfdir}/koji-diff
-%dir %{_sysconfdir}/koji-lag
-%dir %{_sysconfdir}/poi-tracker
-%dir %{_sysconfdir}/sandogasa-hattrack
-%dir %{_sysconfdir}/sandogasa-pkg-acl
-%dir %{_sysconfdir}/sandogasa-pkg-health
-%dir %{_sysconfdir}/sandogasa-report
-%ghost %config(noreplace) %{_sysconfdir}/cpu-sig-tracker/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/ebranch/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/fedora-cve-triage/config.toml
-%config(noreplace) %{_sysconfdir}/fedora-cve-triage/run.toml
-%ghost %config(noreplace) %{_sysconfdir}/fedora-review-digest/config.toml
-%config(noreplace) %{_sysconfdir}/fesco-chair/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/hs-intake/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/hs-meetings/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/hs-relmon/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/koji-diff/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/koji-lag/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/poi-tracker/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/sandogasa-hattrack/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/sandogasa-pkg-acl/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/sandogasa-pkg-health/config.toml
-%ghost %config(noreplace) %{_sysconfdir}/sandogasa-report/config.toml
 
 %files -n fedrq-config-centos-hyperscale
 %license LICENSE-APACHE

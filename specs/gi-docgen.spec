@@ -33,12 +33,8 @@ Summary:        Documentation tool for GObject-based libraries
 # with placeholder values and is not copied from a real project, so it’s
 # reasonable to consider LGPL-2.1-or-later a placeholder rather than a real
 # license as well.
-License:        %{shrink:
-    (Apache-2.0 OR GPL-3.0-or-later) AND
-    BSD-2-Clause AND
-    MIT AND
-    CC0-1.0
-    }
+%global base_license Apache-2.0 OR GPL-3.0-or-later
+License:        (%{base_license}) AND BSD-2-Clause AND MIT AND CC0-1.0
 # Additionally, the following sources are under licenses other than (Apache-2.0
 # OR GPL-3.0-or-later), but are not packaged in any of the binary RPMs:
 #
@@ -75,13 +71,12 @@ License:        %{shrink:
 #
 # LGPL-2.0-or-later OR MPL-1.1:
 #   - tests/data/gir/cairo-1.0.gir (not installed; test only)
-SourceLicense:  %{shrink:
-    %{license} AND
-    CC-BY-SA-3.0 AND
-    GPL-2.0-or-later AND
-    LGPL-2.0-or-later AND
-    (LGPL-2.0-or-later OR MPL-1.1) AND
-    OFL-1.1
+SourceLicense:  %{shrink:%{license}
+    AND CC-BY-SA-3.0
+    AND GPL-2.0-or-later
+    AND LGPL-2.0-or-later
+    AND (LGPL-2.0-or-later OR MPL-1.1)
+    AND OFL-1.1
     }
 URL:            https://gitlab.gnome.org/GNOME/gi-docgen
 Source:         %{url}/-/archive/%{version}/gi-docgen-%{version}.tar.bz2
@@ -185,7 +180,7 @@ stable.
 Summary:        Metapackage providing fonts for gi-docgen output
 # Really, there is nothing copyrightable in this metapackage, so we give it the
 # overall license of the project.
-License:        Apache-2.0 OR GPL-3.0-or-later
+License:        %{base_license}
 
 Requires:       font(redhatdisplay)
 Requires:       font(redhatdisplayitalic)

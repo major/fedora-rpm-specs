@@ -1,5 +1,5 @@
 Name:           qlog
-Version:        0.54.0
+Version:        0.54.2
 Release:        %autorelease
 Summary:        Qt Logging program for ham-radio operators
 

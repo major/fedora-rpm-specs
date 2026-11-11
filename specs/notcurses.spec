@@ -8,7 +8,7 @@ Source0:       https://github.com/dankamongmen/%{name}/releases/download/v%{vers
 Source1:       https://github.com/dankamongmen/%{name}/releases/download/v%{version}/notcurses_%{version}+dfsg.orig.tar.xz.asc
 Source2:       https://nick-black.com/dankamongmen.gpg
 
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: cmake
 BuildRequires: doctest-devel
 BuildRequires: gcc-c++
@@ -67,7 +67,7 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 Python wrappers and a demonstration script for the notcurses library.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %define __cmake_in_source_build 1

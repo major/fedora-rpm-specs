@@ -1,6 +1,6 @@
 Name:           calcurse
-Version:        4.8.2
-Release:        4%{?dist}
+Version:        4.9.0
+Release:        1%{?dist}
 Summary:        Text-based personal organizer
 
 License:        BSD-2-Clause
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 
 
 %changelog
+* Tue Nov 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.9.0-1
+- 4.9.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

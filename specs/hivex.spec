@@ -9,8 +9,8 @@
 %global verify_tarball_signature 1
 
 Name:           hivex
-Version:        1.3.24
-Release:        25%{?dist}
+Version:        1.3.25
+Release:        1%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPL-2.1-only AND LGPL-2.0-or-later AND GPL-2.0-or-later
@@ -25,12 +25,6 @@ Source1:        http://libguestfs.org/download/hivex/%{name}-%{version}.tar.gz.s
 %if 0%{verify_tarball_signature}
 Source2:       https://download.libguestfs.org/rich@annexia.org-pubkey.txt
 %endif
-
-# Fix for CVE-2026-120740
-# https://access.redhat.com/security/cve/CVE-2026-120740
-# https://bugzilla.redhat.com/show_bug.cgi?id=2565405
-# https://github.com/libguestfs/hivex/commit/aa9acb0e2e980913ecf9fb47c561fe7988089e89
-Patch:          0001-lib-value.c-Avoid-out-of-bounds-read-in-db-record-CV.patch
 
 BuildRequires:  make
 BuildRequires:  autoconf, automake, libtool, gettext-devel
@@ -325,6 +319,9 @@ fi
 
 
 %changelog
+* Tue Nov 10 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.25-1
+- New upstream version 1.3.25
+
 * Thu Nov 05 2026 Richard W.M. Jones <rjones@redhat.com> - 1.3.24-25
 - Avoid out of bounds read in "db" record (CVE-2026-120740)
 

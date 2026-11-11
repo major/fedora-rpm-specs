@@ -17,8 +17,6 @@ Source500:      hatchling-version.1
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license hatchling
-# We cannot run the “downstream integration tests” included with the PyPI sdist
-# in an offline build. The primary tests are Hatch’s “backend” tests.
 
 BuildArch:      noarch
 
@@ -42,6 +40,12 @@ install -D --preserve-timestamps --mode=0644 \
     '%{SOURCE300}' '%{SOURCE310}' \
     '%{SOURCE400}' \
     '%{SOURCE500}'
+
+
+%check -a
+# We cannot run the “downstream integration tests” included with the PyPI sdist
+# in an offline build. The primary tests are Hatch’s “backend” tests.
+%pyproject_verify_license
 
 
 %files -n python3-hatchling -f %{pyproject_files}

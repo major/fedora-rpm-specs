@@ -1,5 +1,5 @@
 Name: datovka
-Version: 4.29.5
+Version: 4.30.1
 Release: 1%{?dist}
 Summary: A free graphical interface for Czech Databox (Datové schránky)
 
@@ -18,7 +18,6 @@ BuildRequires: libdatovka-devel
 BuildRequires: make
 Requires: gnupg2-smime
 # https://gitlab.nic.cz/datovka/datovka/-/issues/541
-Patch:        datovka-4.28.0-s390x-disable-failing-test.patch
 
 %description
 GUI application allowing access to Czech Databox - an electronic communication
@@ -57,6 +56,14 @@ cd tests
 %{_datadir}/metainfo/cz.nic.datovka.metainfo.xml
 
 %changelog
+* Tue Nov 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.30.1-1
+- New version
+  Resolves: rhbz#2569184
+
+* Tue Nov 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.30.0-1
+- New version
+  Resolves: rhbz#2569184
+
 * Mon Aug 31 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.29.5-1
 - New version
   Resolves: rhbz#2520962

@@ -5,7 +5,7 @@
 %global crate notify-types
 
 Name:           rust-notify-types
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Types used by the notify crate
 

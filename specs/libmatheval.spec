@@ -1,6 +1,6 @@
 Name:           libmatheval
-Version:        1.1.11
-Release:        29%{?dist}
+Version:        1.1.12
+Release:        1%{?dist}
 Summary:        Library for parsing and evaluating symbolic expressions input as text
 
 License:        GPL-3.0-or-later
@@ -8,7 +8,7 @@ URL:            http://www.gnu.org/software/libmatheval/
 Source0:        http://ftp.gnu.org/gnu/libmatheval/libmatheval-%{version}.tar.gz
 
 
-BuildRequires:  gcc-gfortran, compat-guile18-devel, bison, flex, flex-static, texinfo
+BuildRequires:  gcc-gfortran, guile30-devel, bison, flex, flex-static, texinfo
 BuildRequires: make
 
 
@@ -55,7 +55,7 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 %files
 %doc COPYING AUTHORS README
-%{_libdir}/*.so.*
+%{_libdir}/*.so.1*
 
 %files devel
 %doc NEWS 
@@ -66,6 +66,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 
 %changelog
+* Tue Nov 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.1.12-1
+- 1.1.12
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -13,14 +13,14 @@
 %endif
 
 Name: fail2ban
-Version: 1.1.0
-Release: 20%{?dist}
+Version: 1.1.1
+Release: 1%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
-License: GPL-2.0-or-later
-URL: https://www.fail2ban.org
-Source0: https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Source1: https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
+License:        GPL-2.0-or-later
+URL:            https://www.fail2ban.org
+Source0:        https://github.com/%{name}/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source1:        https://github.com/%{name}/%{name}/releases/download/%{version}/%{version}.tar.gz.asc
 # Releases are signed by Serg G. Brester (sebres) <info AT sebres.de>.  The
 # fingerprint can be found in a signature file:
 #   gpg --list-packets fail2ban-1.0.2.tar.gz.asc | grep 'issuer fpr'
@@ -30,38 +30,25 @@ Source1: https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}
 #   fpr=8738559E26F671DF9E2C6D9E683BF1BEBD0A882C
 #   gpg --receive-keys $fpr
 #   gpg -a --export-options export-minimal --export $fpr >gpgkey-$fpr.asc
-Source2: gpgkey-8738559E26F671DF9E2C6D9E683BF1BEBD0A882C.asc
+Source2:        gpgkey-8738559E26F671DF9E2C6D9E683BF1BEBD0A882C.asc
 # SELinux policy
-Source3: fail2ban.fc
-Source4: fail2ban.if
-Source5: fail2ban.te
-Source6: Makefile
+Source3:        fail2ban.fc
+Source4:        fail2ban.if
+Source5:        fail2ban.te
+Source6:        Makefile
 
 # Give up being PartOf iptables and ipset for now
 # https://bugzilla.redhat.com/show_bug.cgi?id=1379141
 # https://bugzilla.redhat.com/show_bug.cgi?id=1573185
-Patch0: fail2ban-partof.patch
+Patch0:         fail2ban-partof.patch
 # default port in jail.conf is not compatible with firewalld-cmd syntax
 # https://bugzilla.redhat.com/show_bug.cgi?id=1850164
-Patch1: fail2ban-nftables.patch
-# Work around encoding issues during tests
-Patch2: https://github.com/fail2ban/fail2ban/commit/ab9d41e5309b417a3c7a84fa8f03cf4f93831f1b.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2315252
-Patch3: https://patch-diff.githubusercontent.com/raw/fail2ban/fail2ban/pull/3782.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2295265
-Patch4: https://patch-diff.githubusercontent.com/raw/fail2ban/fail2ban/pull/3728.patch
-# Upstream fix to also catch sshd-session logs
-# https://bugzilla.redhat.com/show_bug.cgi?id=2332945
-Patch5: https://github.com/fail2ban/fail2ban/commit/54c0effceb998b73545073ac59c479d9d9bf19a4.patch
-# Needed for Dovecot change to loging format in 2.4, fixed in f2b version 1.1.1.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2426440
-Patch6: https://github.com/fail2ban/fail2ban/commit/04ff4c060cdc233af9a6deeb85a6523da0416f31.patch
-# Fix compatibility with Python 3.15
-# https://bugzilla.redhat.com/show_bug.cgi?id=2423879
-Patch7: https://github.com/fail2ban/fail2ban/commit/7528fce11b7de0d6df6152c2365540dc1d554561.patch
+#Patch1: fail2ban-nftables.patch
+# banaction needs to be specified here for testcases to work, 00-firewalld.conf
+# will override after package install.
+Patch1:         https://github.com/fail2ban/fail2ban/commit/63c0a4682654bdcfe94f707c5f166f62696c0dc0.patch
 
-
-BuildArch: noarch
+BuildArch:      noarch
 
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -290,7 +277,7 @@ install -d -m 0755 %{buildroot}/run/fail2ban/
 install -m 0600 /dev/null %{buildroot}/run/fail2ban/fail2ban.pid
 install -d -m 0755 %{buildroot}%{_localstatedir}/lib/fail2ban/
 mkdir -p %{buildroot}%{_tmpfilesdir}
-install -p -m 0644 files/fail2ban-tmpfiles.conf %{buildroot}%{_tmpfilesdir}/fail2ban.conf
+#install -p -m 0644 files/fail2ban-tmpfiles.conf %{buildroot}%{_tmpfilesdir}/fail2ban.conf
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}/jail.d
 
 # Remove non-Linux actions
@@ -397,7 +384,7 @@ fi
 %exclude %{_sysconfdir}/fail2ban/action.d/shorewall.conf
 %exclude %{_sysconfdir}/fail2ban/jail.d/*.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/fail2ban
-%{_tmpfilesdir}/fail2ban.conf
+#{_tmpfilesdir}/fail2ban.conf
 %dir %{_localstatedir}/lib/fail2ban/
 %dir /run/%{name}/
 %ghost %verify(not size mtime md5) /run/%{name}/%{name}.pid
@@ -440,6 +427,10 @@ fi
 
 
 %changelog
+* Mon Nov 02 2026 Richard Shaw <hobbes1069@gmail.com> - 1.1.1-1
+- Update to 1.1.1, for changes see:
+  https://raw.githubusercontent.com/fail2ban/fail2ban/refs/tags/1.1.1/ChangeLog
+
 * Sun Nov 01 2026 Sai Harsha Suryadevara <ssuryad@amazon.com> - 1.1.0-20
 - Add a build conditional for the hostsdeny subpackage, default on, for builds without tcp_wrappers
 

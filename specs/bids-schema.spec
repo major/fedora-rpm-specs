@@ -18,12 +18,13 @@ Summary:        BIDS schema description
 %global bidsversion 1.11.2
 
 # The specification, and the schema data derived from it, are CC-BY-4.0.
-#
+%global spec_license CC-BY-4.0
 # The Python library in tools/schemacode/, packaged as python3-bidsschematools,
 # is MIT.
-License:        CC-BY-4.0
+%global code_license MIT
+License:        %{spec_license}
 # CC0-1.0 comes from the filtered test datasets, Source2 and Source3
-SourceLicense:  CC0-1.0 AND CC-BY-4.0 AND MIT
+SourceLicense:  CC0-1.0 AND %{spec_license} AND %{code_license}
 URL:            https://github.com/bids-standard/bids-specification
 # The PyPI sdist corresponds to the tools/schemacode directory in git.
 Source0:        %{url}/archive/schema-%{version}/bids-specification-schema-%{version}.tar.gz
@@ -118,7 +119,8 @@ Any changes to the specification should be mirrored in the schema.
 
 %package -n python3-bidsschematools
 Summary:        Python tools for working with the BIDS schema
-License:        MIT
+
+License:        %{code_license}
 
 Requires:       %{name} = %{version}-%{release}
 

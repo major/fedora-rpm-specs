@@ -17,14 +17,13 @@ License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 #   - macros/instr_set.m4 is CECILL-B
 #   - macros/ltoptions.m4, macros/ltsugar.m4, macros/ltversion.m4, and
 #     macros/lt~obsolete.m4 are FSFULLR
-SourceLicense:  %{shrink:
-    %{license} AND
-    CECILL-B AND
-    FSFAP AND
-    FSFUL AND
-    FSFULLR AND
-    GPL-2.0-or-later AND
-    GPL-2.0-or-later WITH Autoconf-exception-generic
+SourceLicense:  %{shrink:%{license}
+    AND CECILL-B
+    AND FSFAP
+    AND FSFUL
+    AND FSFULLR
+    AND GPL-2.0-or-later
+    AND GPL-2.0-or-later WITH Autoconf-exception-generic
     }
 URL:            https://linbox-team.github.io/fflas-ffpack/
 %global forgeurl https://github.com/linbox-team/fflas-ffpack

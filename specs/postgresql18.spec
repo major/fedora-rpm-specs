@@ -16,7 +16,7 @@
 %{!?external_libpq:%global external_libpq 0}
 %{!?upgrade:%global upgrade 1}
 %{!?plpython3:%global plpython3 1}
-%{!?pltcl:%global pltcl 0}
+%{!?pltcl:%global pltcl 1}
 %{!?plperl:%global plperl 1}
 %{!?ssl:%global ssl 1}
 %{!?icu:%global icu 1}
@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: 18.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -1510,6 +1510,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Tue Nov 03 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 18.6-2
+- Re-enable pltcl
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 18.3-12
 - Rebuilt for libxml-2.5.4
 

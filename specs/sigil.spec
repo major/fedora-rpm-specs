@@ -1,6 +1,6 @@
 Name:           sigil
 Version:        2.8.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WYSIWYG ebook editor
 # Automatically converted from old format: GPL-3.0-or-later AND Apache-2.0 - review is highly recommended.
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -12,6 +12,8 @@ Patch2:         %{name}-0.9.3-global-plugin-support.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1632199
 # port to minizip 2.x for F-30+
 Patch3:         %{name}-1.9.20-minizip2.patch
+# link liblexborcss statically
+Patch4:         %{name}-2.8.6-lexbor-static.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -45,6 +47,8 @@ Requires:       hicolor-icon-theme
 # See internal/about.md for rationale for this
 Provides:       bundled(gumbo) = 0.9.2
 Provides:       bundled(nodejs-mathjax) = 2.75
+# only the css part + core parts from https://github.com/lexbor/lexbor are bundled
+Provides:       bundled(lexbor) = 3.0.0
 
 ExclusiveArch: %{qt6_qtwebengine_arches}
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -151,6 +155,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Tue Nov 10 2026 Dan Horák <dan[at]danny.cz> - 2.8.6-2
+- liblexborcss needs to be built statically
+
 * Mon Nov 09 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2.8.6-1
 - Update to 2.8.6 (rhbz#2568015)
 

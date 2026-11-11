@@ -8,10 +8,16 @@ Url:            http://cwrap.org/
 
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
+# Upstream signing key from its website, completed from keyservers/WKD:
+#   curl -fsSL -o key.asc https://cryptomilk.org/0x8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D_asn_cryptomilk_org_gpgkey.asc
+#   sq --home=none network search --output - 8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D | sq keyring filter --experimental --cert 8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D --output update.pgp
+#   sq keyring merge key.asc update.pgp | sq packet dearmor --output pam_wrapper.keyring.new
+#   mv pam_wrapper.keyring.new pam_wrapper.keyring
+#   rm -f key.asc update.pgp
 Source2:        pam_wrapper.keyring
 
 BuildRequires:  gcc
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 BuildRequires:  cmake
 BuildRequires:  libcmocka-devel
 BuildRequires:  python3-devel
@@ -83,7 +89,7 @@ Python module to quickly write tests in Python.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 # Not compatible with Python 3.12 headers
 sed -i -e '/Werror=declaration-after-statement/d' CompilerChecks.cmake

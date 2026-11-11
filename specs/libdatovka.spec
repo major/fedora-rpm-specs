@@ -1,6 +1,6 @@
 Name: libdatovka
-Version: 0.7.4
-Release: 2%{?dist}
+Version: 0.8.0
+Release: 1%{?dist}
 Summary: Client library for accessing SOAP services of ISDS (Czech Data Boxes)
 
 # Automatically converted from old format: LGPLv3+ and GPLv3+ - review is highly recommended.
@@ -92,6 +92,10 @@ make check %{?_smp_mflags}
 %doc client
 
 %changelog
+* Tue Nov 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.8.0-1
+- New version
+  Resolves: rhbz#2569221
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.7.4-2
 - Rebuilt for libxml-2.5.4
 

@@ -1,5 +1,5 @@
 Name:		sdrangel
-Version:	8.0.0
+Version:	8.1.0
 Release:	1%{?dist}
 Summary:	Software defined radio (SDR) and signal analyzer frontend to various hardware
 License:	GPL-3.0-or-later
@@ -52,6 +52,7 @@ BuildRequires:	libiio-devel
 #BuildRequires:	ffmpeg-devel
 BuildRequires:	hidapi-devel
 BuildRequires:	flac-devel
+BuildRequires:	libzstd-devel
 BuildRequires:	desktop-file-utils
 Requires:	hicolor-icon-theme
 
@@ -113,6 +114,10 @@ appstream-util validate-relax \
 %{_metainfodir}/org.sdrangel.SDRangel.metainfo.xml
 
 %changelog
+* Tue Nov 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 8.1.0-1
+- New version
+  Resolves: rhbz#2568925
+
 * Tue Oct 27 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 8.0.0-1
 - New version
   Resolves: rhbz#2560339

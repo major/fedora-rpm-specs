@@ -1,5 +1,4 @@
 %global elpa_name jinx
-%global emacs_version_with_archsitelispdir 1:30.2-9
 
 Name:           emacs-%{elpa_name}
 Version:        2.11
@@ -11,12 +10,11 @@ Source:         https://elpa.gnu.org/packages/%{elpa_name}-%{version}.tar.lz
 
 BuildRequires:  /usr/bin/pkg-config
 BuildRequires:  emacs-devel
-BuildRequires:  emacs-nw >= %{emacs_version_with_archsitelispdir}
+BuildRequires:  emacs-nw >= 1:31.1-13
 BuildRequires:  enchant2-devel
 BuildRequires:  gcc
 BuildRequires:  lzip
 
-Requires:       emacs(bin) >= %{emacs_version_with_archsitelispdir}
 Requires:       emacs(bin)%{?_emacs_version: >= 1:%{_emacs_version}}
 
 %description
@@ -47,9 +45,7 @@ rm emacs-module.h \
    %{elpa_name}-mod.c \
    %{elpa_name}-mod.so
 
-emacs --batch \
-      --eval '(let ((package-user-dir "%{buildroot}%{_emacs_sitelispdir}/elpa"))
-                (package-install-file (or (pop argv) default-directory)))'
+%{_emacs_package_install}
 
 
 %files

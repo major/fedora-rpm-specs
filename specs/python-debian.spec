@@ -1,5 +1,5 @@
 Name:           python-debian
-Version:        1.1.1
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Modules for Debian-related data formats
 # debfile.py, arfile.py, debtags.py are release under GPL v3 or above
@@ -57,7 +57,8 @@ related files. Currently handled are:
 
 
 %prep
-%autosetup -p1 -n python-debian-%{version}
+# Note: in 1.2.0 package contains a work/ dir instead of python-debian-<version>
+%autosetup -p1 -n work
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

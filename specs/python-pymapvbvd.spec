@@ -50,6 +50,8 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check -a
+%pyproject_verify_license
+
 %if %{undefined fc43} && %{undefined fc44}
 # Test regression due to a “ValueError: object too deep for desired array” in
 # scipy.interpolate.RectBivariateSpline in scipy 1.18.0 would be fixed by

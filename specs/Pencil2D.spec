@@ -105,13 +105,7 @@ License:        GPL-2.0-only AND BSD-3-Clause AND GPL-2.0-or-later
 # because it is content (for which CC0-1.0 is allowed) rather than code (for
 # which it is not-allowed).
 #   - util/installer/cog.svg
-SourceLicense:  %{shrink:
-    %{license} AND
-    BSL-1.0 AND
-    CC0-1.0 AND
-    MIT AND
-    Unlicense
-    }
+SourceLicense:  %{license} AND BSL-1.0 AND CC0-1.0 AND MIT AND Unlicense
 URL:            https://www.pencil2d.org
 %global forgeurl https://github.com/pencil2d/pencil
 Source:         %{forgeurl}/archive/v%{version}/pencil-%{version}.tar.gz

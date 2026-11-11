@@ -1,8 +1,8 @@
 %define __cmake_in_source_build 1
 
 Name:           libcomps
-Version:        0.1.24
-Release:        5%{?dist}
+Version:        0.1.25
+Release:        1%{?dist}
 Summary:        Comps XML file manipulation library
 
 License:        GPL-2.0-or-later
@@ -113,9 +113,12 @@ popd
 
 %files -n python3-%{name}
 %{python3_sitearch}/%{name}/
-%{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/%{name}-*.dist-info
 
 %changelog
+* Tue Nov 10 2026 Pavla Jaburkova <pkratoch@redhat.com> - 0.1.25-1
+- Update to 0.1.25
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.1.24-5
 - Rebuilt for libxml-2.5.4
 

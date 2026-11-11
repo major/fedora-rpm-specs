@@ -1,6 +1,6 @@
 Name:		ukiboot
-Version:	0.2.1
-Release:	3%{?dist}
+Version:	0.2.2
+Release:	1%{?dist}
 Summary:	A UEFI bootloader implementing UEFI based A/B boot
 License:	LGPL-2.1-or-later
 URL:		https://gitlab.com/CentOS/automotive/src/ukiboot
@@ -10,6 +10,7 @@ BuildRequires:	gcc
 BuildRequires:	meson
 BuildRequires:	efi-srpm-macros
 BuildRequires:	gnu-efi-devel
+BuildRequires:	openssl-devel
 BuildRequires:	python3
 BuildRequires:	systemd
 BuildRequires:	systemd-ukify
@@ -55,9 +56,13 @@ install %{buildroot}%{_libexecdir}/ukiboot/efi/slot_b.addon.efi %{buildroot}%{ef
 %{efi_esp_dir}/ukiboot*
 %{_libexecdir}/ukiboot
 %{_bindir}/ukibootctl
+%{_bindir}/ukibootimg
 %{_unitdir}/ukiboot-set-success.service
 
 %changelog
+* Tue Nov 10 2026 Javier Martinez Canillas <javierm@redhat.com> - 0.2.2-1
+- Update to 0.2.2
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

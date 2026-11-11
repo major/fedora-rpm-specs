@@ -1,6 +1,6 @@
 Name:           bpfmon
 Version:        2.60
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Traffic monitor for BPF expression/iptables rule/custom script
 
 License:        GPL-2.0-or-later
@@ -10,7 +10,7 @@ Source1:        %{url}releases/download/v%{version}/bpfmon-%{version}.tar.xz.asc
 Source2:        https://raw.githubusercontent.com/bbonev/bpfmon/v%{version}/debian/upstream/signing-key.asc
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  make
 BuildRequires:  pkgconfig(libpcap)
 BuildRequires:  pkgconfig(yascreen)
@@ -31,7 +31,7 @@ counters from a custom script.
 %global _hardened_build 1
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build
@@ -48,6 +48,9 @@ install -TD -m 0644 bpfmon.8 $RPM_BUILD_ROOT/%{_mandir}/man8/bpfmon.8
 %{_mandir}/man8/bpfmon.8*
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 2.60-2
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 29 2026 Boian Bonev <bbonev@ipacct.com> - 2.60-1
 - New version 2.60
 

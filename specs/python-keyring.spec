@@ -120,6 +120,7 @@ install --directory '%{buildroot}%{_mandir}/man1'
 
 
 %check -a
+%pyproject_verify_license
 %if %{with tests}
 
 %if %{with desktop_tests}

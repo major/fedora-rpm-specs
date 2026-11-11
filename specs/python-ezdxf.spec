@@ -42,15 +42,14 @@ License:        MIT AND ISC AND AGPL-3.0-only
 # Fedora, but they are used only for testing and do not contribute to the
 # licenses of the binary RPMs. We double-check for incorrectly-installed font
 # files in %%check.
-SourceLicense:  %{shrink:
-    %{license} AND
-    Apache-2.0 AND
-    Bitstream-Vera AND
-    GPL-2.0-only AND
-    LicenseRef-Fedora-Public-Domain AND
-    LicenseRef-Liberation AND
-    LicenseRef-Fedora-UltraPermissive AND
-    OFL-1.1
+SourceLicense:  %{license} %{shrink:
+    AND Apache-2.0
+    AND Bitstream-Vera
+    AND GPL-2.0-only
+    AND LicenseRef-Fedora-Public-Domain
+    AND LicenseRef-Liberation
+    AND LicenseRef-Fedora-UltraPermissive
+    AND OFL-1.1
     }
 URL:            https://ezdxf.mozman.at/
 %global forgeurl https://github.com/mozman/ezdxf

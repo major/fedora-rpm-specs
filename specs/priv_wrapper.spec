@@ -1,6 +1,6 @@
 Name:           priv_wrapper
 Version:        1.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 
 Summary:        A library to disable resource limits and other privilege dropping
 License:        GPL-3.0-or-later
@@ -8,13 +8,19 @@ Url:            http://cwrap.org/
 
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
+# Upstream signing key from its website, completed from keyservers/WKD:
+#   curl -fsSL -o key.asc https://cryptomilk.org/0x8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D_asn_cryptomilk_org_gpgkey.asc
+#   sq --home=none network search --output - 8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D | sq keyring filter --experimental --cert 8DFF53E18F2ABC8D8F3C92237EE0FC4DCC014E3D --output update.pgp
+#   sq keyring merge key.asc update.pgp | sq packet dearmor --output priv_wrapper.keyring.new
+#   mv priv_wrapper.keyring.new priv_wrapper.keyring
+#   rm -f key.asc update.pgp
 Source2:        priv_wrapper.keyring
 
 Patch0:         priv_wrapper-fix-cmocka-1.1.6+-support.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  libcmocka-devel >= 1.1.0
 
 Recommends:     cmake
@@ -36,7 +42,7 @@ This package does not have a devel package, because this project is for
 development/testing.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -65,6 +71,9 @@ development/testing.
 %{_mandir}/man1/priv_wrapper.1*
 
 %changelog
+* Tue Nov 03 2026 Jakub Jelen <jjelen@redhat.com> - 1.0.1-13
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

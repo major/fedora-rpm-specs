@@ -31,6 +31,19 @@ Patch1:  poppler-0.90.0-position-independent-code.patch
 
 Patch2:  poppler-21.01.0-glib-introspection.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2543972 - CVE-2026-102621
+Patch3:  poppler-26.08.0-clipToPath-integer-overflow.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2544506 - CVE-2026-102620
+Patch4:  poppler-26.08.0-cvtSfnts-integer-overflow.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2548446 - CVE-2026-107705
+Patch5:  poppler-26.08.0-decrypt-password-length.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2537011 - CVE-2026-93653
+Patch6:  poppler-26.08.0-splash-infinite-loop.patch
+
+
 BuildRequires: make
 BuildRequires: cmake
 BuildRequires: gcc-c++

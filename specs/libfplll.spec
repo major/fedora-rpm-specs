@@ -58,17 +58,16 @@ License:        LGPL-2.1-or-later AND MIT AND CC0-1.0
 #   - m4/ax_pthread.m4
 # X11:
 #   - install-sh
-SourceLicense:  %{shrink:
-    %{license} AND
-    FSFAP-no-warranty-disclaimer AND
-    FSFUL AND
-    FSFULLR AND
-    GPL-2.0-or-later WITH Libtool-exception AND
-    GPL-2.0-or-later WITH Autoconf-exception-generic AND
-    GPL-3.0-or-later AND
-    GPL-3.0-or-later WITH Autoconf-exception-generic AND
-    GPL-3.0-or-later WITH Autoconf-exception-macro AND
-    X11
+SourceLicense:  %{shrink:%{license}
+    AND FSFAP-no-warranty-disclaimer
+    AND FSFUL
+    AND FSFULLR
+    AND GPL-2.0-or-later WITH Autoconf-exception-generic
+    AND GPL-2.0-or-later WITH Libtool-exception
+    AND GPL-3.0-or-later
+    AND GPL-3.0-or-later WITH Autoconf-exception-generic
+    AND GPL-3.0-or-later WITH Autoconf-exception-macro
+    AND X11
     }
 URL:            https://fplll.github.io/fplll/
 Source0:        https://github.com/fplll/fplll/releases/download/%{version}/fplll-%{version}.tar.gz

@@ -3,7 +3,7 @@
 
 Summary:        Password Safe is a password management utility
 Name:           passwordsafe
-Version:        1.26.0
+Version:        1.26.1
 Source0:        https://github.com/%{short}/%{short}/archive/refs/tags/%{version}/%{short}-%{version}.tar.gz
 Source1:        https://github.com/%{short}/%{short}/releases/download/%{version}/%{version}.tar.gz.sig
 Source2:        ronys-at-pwsafe-dot-org.gpg
@@ -138,6 +138,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.pwsafe.pws
 %{_bindir}/pwsafe
 %{_bindir}/pwsafe-cli
 %{_mandir}/man1/pwsafe.1*
+%{_mandir}/man1/pwsafe-cli.1*
 %{_datadir}/applications/pwsafe.desktop
 %{_datadir}/icons/*/*/*/pwsafe.png
 %{_metainfodir}/org.pwsafe.pwsafe.metainfo.xml

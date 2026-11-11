@@ -1,5 +1,5 @@
-%global commit      f5da489383e12b7cc8e6277a3ef827266730bac1
-%global date        20261022
+%global commit      4f5025c4d420cd1057ab4a3999d53f5acfa114db
+%global date        20261109
 %global shortcommit %{sub %{commit} 1 7}
 
 %global libmonado_somajor 25

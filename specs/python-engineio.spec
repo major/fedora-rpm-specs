@@ -56,6 +56,8 @@ find examples -type f -name 'engine.io.js' -print -delete
 
 
 %check -a
+%pyproject_verify_license
+
 %pytest
 
 

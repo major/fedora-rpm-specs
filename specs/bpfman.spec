@@ -15,11 +15,14 @@ License:        %{shrink:
     AND MIT
     AND MPL-2.0
     AND OpenSSL
+    AND Unicode-3.0
     AND Unicode-DFS-2016
     AND Zlib
     AND (0BSD OR MIT OR Apache-2.0)
     AND (Apache-2.0 OR BSL-1.0)
+    AND (Apache-2.0 OR ISC)
     AND (Apache-2.0 OR ISC OR MIT)
+    AND (Apache-2.0 OR ISC OR MIT-0)
     AND (Apache-2.0 OR MIT)
     AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT)
     AND (BSD-2-Clause OR Apache-2.0 OR MIT)
@@ -56,6 +59,9 @@ Patch2:         0003-bump-quinn-proto-to-0.11.14-CVE-2026-31812.patch
 Patch3:         0004-bump-tar-to-0.4.45-CVE-2026-33056.patch
 Patch4:         0005-bump-time-to-0.3.47-CVE-2026-25727.patch
 Patch5:         0006-bump-openssl-to-0.10.78-openssl4-support.patch
+Patch6:         0007-bump-rustls-webpki-to-0.103.16-CVE-2026-93601.patch
+# Refresh the GPLv2 copy from https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+Patch7:         0008-update-GPLv2-license-text.patch
 
 # aya-obj doesn't compile in x86
 ExcludeArch: %{ix86}

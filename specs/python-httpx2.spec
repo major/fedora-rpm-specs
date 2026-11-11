@@ -24,8 +24,10 @@ Summary:        A next-generation HTTP client for Python
 # Since these are only in the python3-httpx2 subpackage (not python3-httpcore2
 # or any of the extras metapackages), we only include the MIT term in that
 # subpackage’s License field and in SourceLicense.
+%global main_license BSD-3-Clause
+%global httpx2_license %{main_license} AND MIT
 License:        BSD-3-Clause
-SourceLicense:  %{license} AND MIT
+SourceLicense:  %{httpx2_license}
 URL:            https://github.com/pydantic/httpx2
 Source:         %{url}/archive/v%{version}/httpx2-%{version}.tar.gz
 
@@ -35,6 +37,10 @@ Source:         %{url}/archive/v%{version}/httpx2-%{version}.tar.gz
 # the controversial relicensing in v7. See https://bugzilla.redhat.com/2441716,
 # https://lwn.net/Articles/1061534.
 Patch:          0001-Downstream-only-make-tests-backward-compatible-with-.patch
+
+# Add “AND MIT” to SPDX license expression for httpx2
+# https://github.com/pydantic/httpx2/pull/1325
+Patch:          %{url}/pull/1325.patch
 
 BuildArch:      noarch
 
@@ -80,8 +86,7 @@ provides both sync and async APIs.}
 
 %package -n python3-httpx2
 Summary:        %{summary}
-# See notes above the base package’s License field.
-License:       %{license} AND MIT
+License:        %{httpx2_license}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Requires:       python3-httpcore2 = %{version}-%{release}
@@ -116,6 +121,7 @@ Provides:       bundled(python3dist(httpx-sse)) = 0.4.3
 
 %package -n python3-httpcore2
 Summary:        A minimal low-level HTTP client
+License:        %{main_license}
 
 %description -n python3-httpcore2
 The HTTP Core package provides a minimal low-level HTTP client, which does one
@@ -213,6 +219,9 @@ install --directory '%{buildroot}%{_mandir}/man1'
 
 
 %check
+%pyproject_verify_license --directory src/httpcore2 %{main_license}
+%pyproject_verify_license --directory src/httpx2 %{httpx2_license}
+
 %pyproject_check_import --dist-name httpcore2
 %pyproject_check_import --dist-name httpx2
 

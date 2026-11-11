@@ -26,10 +26,10 @@ Name:           gn
 #  7. Commit the changes
 #
 # See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit ed7fee04cb30b96ed40ef188acfad5417349e399
-%global access 20261102
+%global commit 4df39f484f1f49f5c7f6264adc88d27811cb7b00
+%global access 20261110
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2614
+%global position 2616
 Version:        %{position}^%{access}.%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja
@@ -55,11 +55,10 @@ Summary:        Meta-build system that generates build files for Ninja
 #   However, the two files from gn/infra/ are installed in the -doc subpackage.
 #   The required Apache-2.0 license text is missing,
 #   https://gn.issues.chromium.org/issues/529413117.
-License:        %{shrink:
-    BSD-3-Clause AND
-    ICU AND
-    Unicode-DFS-2016 AND
-    (Apache-2.0 OR MIT)
+License:        BSD-3-Clause %{shrink:
+    AND ICU
+    AND Unicode-DFS-2016
+    AND (Apache-2.0 OR MIT)
     }
 SourceLicense:  %{license} AND Apache-2.0
 URL:            https://gn.googlesource.com/gn

@@ -9,11 +9,13 @@ Summary:        Fast iterable JSON parser
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
-License:        %{shrink:
-    MIT AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (MIT OR Apache-2.0)
+%global upstream_license MIT
+%global full_license %{shrink:%{upstream_license}
+    AND (BSD-2-Clause OR Apache-2.0 OR MIT)
+    AND (MIT OR Apache-2.0)
     }
+License:        %{upstream_license}
+
 URL:            https://github.com/pydantic/jiter
 Source:         %{pypi_source jiter}
 
@@ -38,6 +40,7 @@ BuildRequires:  %{py3_dist dirty-equals}
 
 %package -n     python3-jiter
 Summary:        %{summary}
+License:        %{full_license}
 
 %description -n python3-jiter %{_description}
 
@@ -67,6 +70,7 @@ tomcli set pyproject.toml append project.license-files LICENSE.dependencies
 
 
 %build -p
+%pyproject_verify_license %{upstream_license}
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
 

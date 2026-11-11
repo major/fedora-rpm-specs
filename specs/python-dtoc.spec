@@ -1,5 +1,5 @@
 Name:           python-dtoc
-Version:        0.1.1
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Devicetree-to-C generator
 

@@ -91,13 +91,13 @@ ExcludeArch: armv7hl
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        158.0
+Version:        159.0
 Release:        %autorelease
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20261014.tar.xz
+Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20261110.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -130,7 +130,7 @@ Patch78:        firefox-i686-build.patch
 Patch82:        build-s390x-protobuf-musttail.patch
 # Build failure on rawhide of wrongly defined SYS_SECCOMP
 Patch83:        build-seccomp.patch
-
+Patch84:        0001-Bug-2085342-Hash-the-little-endian-ICU-data-in-icu_d.patch
 # PPC fix
 
 # Fedora specific patches
@@ -288,6 +288,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P78 -p1 -b .firefox-i686
 #%%patch -P82 -p1 -b .build-s390x-protobuf-musttail
 %patch -P83 -p1 -b .build-seccomp
+%patch -P84 -p1 -b .0001-Bug-2085342-Hash-the-little-endian-ICU-data-in-icu_d
 
 
 %if %{official_branding}

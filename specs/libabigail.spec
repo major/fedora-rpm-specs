@@ -1,12 +1,13 @@
 # dependencies are not available in RHEL
 %bcond abidb %{undefined rhel}
+%bcond inline_xxh %{defined rhel}
 
 %global tarball_revision 1
 %global tarball_name %{name}-%{version}
 
 Name: libabigail
 Version: 3.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Set of ABI analysis tools
 
 License: Apache-2.0 WITH LLVM-exception
@@ -24,6 +25,9 @@ BuildRequires: elfutils-devel >= 0.197
 BuildRequires: tbb-devel
 BuildRequires: libxml2-devel
 BuildRequires: xxhash-devel
+%if %{with inline_xxh}
+BuildRequires: xxhash-static
+%endif
 BuildRequires: xz-devel >= 5.2.0
 BuildRequires: doxygen
 BuildRequires: python3-sphinx
@@ -116,7 +120,7 @@ them manually.
 %autosetup -v -S git
 
 %build
-%configure %{?with_abidb:--enable-abidb} --enable-ctf --enable-btf --disable-silent-rules --disable-zip-archive --disable-static
+%configure %{?with_abidb:--enable-abidb} %{?with_inline_xxh:--enable-inlined-xxhash} --enable-ctf --enable-btf --disable-silent-rules --disable-zip-archive --disable-static
 make %{?_smp_mflags}
 pushd doc
 make html-doc
@@ -181,6 +185,9 @@ time make %{?_smp_mflags} check-self-compare || (cat tests/test-suite.log && exi
 %endif
 
 %changelog
+* Tue Nov 10 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.0-3
+- Build with inline xxhash on RHEL
+
 * Mon Nov 2 2026 Dodji Seketeli <dodji@seketeli.org> - 3.0-2
 - Apply several fixes that are in Git, on top of Libabigail 3.0:
   - https://sourceware.org/cgit/libabigail/commit/?id=e3dd2aeb4aa4744abcfb47e8c8d052b0413b5712

@@ -25,11 +25,9 @@ SourceLicense:  MIT AND BSL-1.0
 #   - fast-float (5.0+) is Apache-2.0 OR MIT OR BSL-1.0
 # The doctest-static BR is used only for tests and does not contribute to the
 # binary RPMs.
-License:        %{shrink:
-    MIT AND
-    BSL-1.0 AND
-    BSD-2-Clause AND
-    (Apache-2.0 OR MIT OR BSL-1.0)
+License:        %{sourcelicense} %{shrink:
+    AND BSD-2-Clause
+    AND (Apache-2.0 OR MIT OR BSL-1.0)
     }
 Source:         %{url}/archive/v%{version}/c4core-%{version}.tar.gz
 

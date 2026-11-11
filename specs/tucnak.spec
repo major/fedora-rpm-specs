@@ -1,5 +1,5 @@
-%global ver 5.00
-%global date 20261101
+%global ver 5.01
+%global date 20261109
 
 Name:		tucnak
 Version:	%{ver}~%{date}
@@ -94,6 +94,10 @@ rmdir %{buildroot}%{_prefix}/lib/tucnak
 %{_datadir}/%{name}
 
 %changelog
+* Tue Nov 10 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 5.01~20261109-1
+- New version
+  Resolves: rhbz#2569209
+
 * Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 5.00~20261101-1
 - New version
   Resolves: rhbz#2564615

@@ -240,6 +240,7 @@ Patch:		0065-src-os-memstore-CMakelists.txt.patch
 Patch:		0066-src-lss-linux_syscall_support.h.patch
 Patch:		0067-src-os-CMakeLists.txt.patch
 Patch:		0068-add-riscv-support.patch
+Patch:		0069-src-CMakeLists.txt.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl

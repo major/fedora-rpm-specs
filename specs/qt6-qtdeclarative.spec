@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.12.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -34,6 +34,8 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 Source5: qv4global_p-multilib.h
 
 ## upstream patches
+# https://codereview.qt-project.org/c/qtdeclarative/+/777121
+Patch0:  qtdeclarative-fix-teardown-hang-with-quickpixmapreader.patch
 
 ## upstreamable patches
 
@@ -814,6 +816,10 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Tue Nov 10 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-2
+- Upstream backport:
+  - Fix teardown hang with QuickPixmapReader
+
 * Mon Oct 19 2026 Jan Grulich <jgrulich@redhat.com> - 6.12.0-1
 - 6.12.0
 

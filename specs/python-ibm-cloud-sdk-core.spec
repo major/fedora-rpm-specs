@@ -3,7 +3,7 @@
 
 Name:           python-ibm-cloud-sdk-core
 Epoch:          2
-Version:        3.28.0
+Version:        3.28.2
 Release:        %autorelease
 Summary:        Core library used by SDKs for IBM Cloud Services
 
@@ -13,6 +13,9 @@ Source0:        %{pypi_source ibm_cloud_sdk_core}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildSystem:    pyproject
+BuildOption(install): --assert-license %{srcname}
+BuildRequires:  python3-dateutil
 
 %global _description %{expand:
 The python-sdk-core repository contains core functionality required by Python
@@ -31,23 +34,11 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n ibm_cloud_sdk_core-%{version}
 echo > requirements-dev.txt
-# relax dependency on urllib.
-# it can be removed when urllib3 is rebased to 2.x
-sed -i 's/requests>=2.32.4,<3.0.0/requests/' pyproject.toml
+%pyproject_patch_dependency requests:drop_constraints
+# set explicitely in BR
+%pyproject_patch_dependency python-dateutil:ignore
 
-%generate_buildrequires
-%pyproject_buildrequires -r
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files %{srcname}
-
-%check
-%pyproject_check_import
+%check -a
 # some tests requires internet connections or credentials
 # %%pytest --strict-markers --verbose --tb=long test
 
