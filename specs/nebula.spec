@@ -55,11 +55,7 @@ install -m 0644 -vDp %{SOURCE3}         %{buildroot}%{_unitdir}/nebula.service
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
-%ifarch s390x
-%gocheck -d github.com/slackhq/nebula/service
-%else
 %gotest -skip '^(TestControlSocketWithAGroupTrustsTheKernel|TestPeerCheckRefusesAnotherUser|TestRebindFailureKeepsTheOldSocket|TestReloadRouteFailures)$' ./...
-%endif
 %endif
 
 %post

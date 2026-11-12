@@ -9,8 +9,8 @@
 %global _cmake_generator "Unix Makefiles"
 
 Name:           qpid-proton
-Version:        0.40.0
-Release:        20%{?dist}
+Version:        0.41.1
+Release:        1%{?dist}
 Summary:        A high performance, lightweight messaging library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -143,7 +143,6 @@ Obsoletes: qpid-proton-c-devel-docs
 %license %{proton_licensedir}/LICENSE.txt
 %doc %{proton_datadir}/docs/api-c
 %doc %{proton_datadir}/examples/README.md
-%doc %{proton_datadir}/examples/c/ssl-certs
 %doc %{proton_datadir}/examples/c/*.c
 %doc %{proton_datadir}/examples/c/*.h
 %doc %{proton_datadir}/examples/c/README.dox
@@ -166,7 +165,6 @@ Obsoletes: qpid-proton-cpp-devel-docs
 %doc %{proton_datadir}/examples/cpp/*.hpp
 %doc %{proton_datadir}/examples/cpp/README.dox
 %doc %{proton_datadir}/examples/cpp/CMakeLists.txt
-%doc %{proton_datadir}/examples/cpp/ssl-certs
 %doc %{proton_datadir}/examples/cpp/tutorial.dox
 
 
@@ -314,6 +312,10 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Wed Nov 11 2026 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.41.1-1
+- Update to 0.41.1
+- Update proton.patch for python/proton/_events.py
+
 * Thu Aug 27 2026 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-20
 - Fix EPEL build by yselkowitz.
 

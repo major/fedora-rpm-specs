@@ -11,7 +11,7 @@ Name:           guayadeque
 Version:        0.7.6
 Release:        0.1.beta9.git%{shortcommit0}%{?dist}
 %else
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 %endif
 Summary:        Music player
@@ -205,7 +205,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
-* Tue Oct 20 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.1.0-1
+* Wed Nov 11 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.1.1-1
+- Update to 1.1.1-1
+
+* Tue Nov 10 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.1.0-1
 - Update to 1.1.0-1
 
 * Tue Oct 20 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.0.2-1

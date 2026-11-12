@@ -5,7 +5,7 @@
 %global crate yoke
 
 Name:           rust-yoke
-Version:        0.8.3
+Version:        0.8.4
 Release:        %autorelease
 Summary:        Abstraction allowing borrowed data to be carried along with its backing data
 

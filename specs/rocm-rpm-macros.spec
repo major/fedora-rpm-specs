@@ -136,6 +136,8 @@ install -pm 644 %{SOURCE19} modules
 install -pm 644 %{SOURCE30} modules
 install -pm 644 %{SOURCE31} modules
 
+%build
+
 %install
 mkdir -p %{buildroot}%{_rpmmacrodir}/
 install -Dpm 644 %{SOURCE0} %{buildroot}%{_rpmmacrodir}/macros.rocm

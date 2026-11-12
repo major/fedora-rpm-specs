@@ -55,7 +55,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later AND GPL-3.0-or-later AND MIT AND CC-BY-SA-3.0 AND BSD-3-Clause
 URL:            https://cockpit-project.org/
 
-Version:        371
+Version:        372
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 Source1:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-node-%{version}.tar.xz
@@ -382,7 +382,7 @@ Provides: bundled(npm(focus-trap)) = 7.6.6
 Provides: bundled(npm(ipaddr.js)) = 2.5.0
 Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
 Provides: bundled(npm(lodash)) = 4.18.1
-Provides: bundled(npm(markdown-to-jsx)) = 9.10.3
+Provides: bundled(npm(markdown-to-jsx)) = 9.10.4
 Provides: bundled(npm(prop-types)) = 15.8.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(react-dom)) = 18.3.1
@@ -666,6 +666,12 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Nov 10 2026 Packit <hello@packit.dev> - 372-1
+- CVE-2026-91151
+- CVE-2026-91150
+- Link Red Hat issue references in changelogs
+- Support version-specific branding directories
+
 * Wed Nov 04 2026 Packit <hello@packit.dev> - 371-1
 - Allow updating individual packages during OS updates
 - Updated to PatternFly 6.7.0

@@ -28,11 +28,10 @@ Summary:        Compare files on a word per word basis
 #     - the following, which are GPL-3.0-or-later:
 #       lib/xalloc-die.c lib/xalloc.h lib/xmalloc.c
 #   lib/*/*.*
-License:        %{shrink:
-    GPL-3.0-or-later AND
-    LGPL-2.0-or-later AND
-    LGPL-2.1-or-later AND
-    Latex2e
+License:        GPL-3.0-or-later %{shrink:
+    AND LGPL-2.0-or-later
+    AND LGPL-2.1-or-later
+    AND Latex2e
     }
 # Additionally, build-system files do not contribute to the licenses of the
 # binary RPMs, and some of these are under other licenses:
@@ -90,20 +89,19 @@ License:        %{shrink:
 #   build-aux/texinfo.tex
 # X11 AND LicenseRef-Fedora-Public-Domain:
 #   build-aux/install (“FSF changes to this file are in the public domain.”)
-SourceLicense:  %{shrink:
-    %{license} AND
-    FSFAP AND
-    FSFAP-no-warranty-disclaimer AND
-    FSFUL AND
-    FSFULLR AND
-    FSFULLRWD AND
-    GPL-2.0-or-later AND
-    GPL-2.0-or-later WITH Autoconf-exception-generic AND
-    GPL-3.0-or-later WITH Autoconf-exception-generic AND
-    GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND
-    GPL-3.0-or-later WITH Texinfo-exception AND
-    LicenseRef-Fedora-Public-Domain AND
-    X11
+SourceLicense:  %{license} %{shrink:
+    AND FSFAP
+    AND FSFAP-no-warranty-disclaimer
+    AND FSFUL
+    AND FSFULLR
+    AND FSFULLRWD
+    AND GPL-2.0-or-later
+    AND GPL-2.0-or-later WITH Autoconf-exception-generic
+    AND GPL-3.0-or-later WITH Autoconf-exception-generic
+    AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+    AND GPL-3.0-or-later WITH Texinfo-exception
+    AND LicenseRef-Fedora-Public-Domain
+    AND X11
     }
 URL:            https://www.gnu.org/software/wdiff
 Source0:        https://ftp.gnu.org/gnu/wdiff/wdiff-%{version}.tar.gz

@@ -6,7 +6,7 @@
 %global crate actix-router
 
 Name:           rust-actix-router
-Version:        0.5.4
+Version:        0.5.5
 Release:        %autorelease
 Summary:        Resource path matching and router
 

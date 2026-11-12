@@ -1,5 +1,5 @@
 Name:           fastapi-cli
-Version:        0.0.32
+Version:        0.0.33
 Release:        %autorelease
 Summary:        Run and manage FastAPI apps from the command line with FastAPI CLI
 

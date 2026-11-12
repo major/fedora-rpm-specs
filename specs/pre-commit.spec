@@ -96,7 +96,9 @@ k="${k-}${k+ and }not test_local_python_repo"
 
 
 %files -f %{pyproject_files}
-%doc README.md CHANGELOG.md CONTRIBUTING.md
+%doc README.md
+%doc CHANGELOG.md
+
 %{_bindir}/pre-commit
 %{_mandir}/man1/pre-commit*.1*
 

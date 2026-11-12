@@ -1,26 +1,34 @@
 Name:           perl-URI-Escape-XS
-Version:        0.14
-Release:        35%{?dist}
+Version:        0.15
+Release:        1%{?dist}
 Summary:        Drop-In replacement for URI::Escape
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/URI-Escape-XS
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DANKOGAI/URI-Escape-XS-%{version}.tar.gz
 
+# build requirements
+BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# runtime requirements
 BuildRequires:  perl(base)
+BuildRequires:  perl(bytes)
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Test::Pod::Coverage)
+BuildRequires:  perl(Net::IDN::Encode)
+BuildRequires:  perl(Net::LibIDN)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
+# testign requirements
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(utf8)
 Requires:       perl(Carp)
 
 %{?perl_default_filter}
@@ -33,23 +41,26 @@ uses XS, it is really fast except for uri_escape("noop").
 %setup -q -n URI-Escape-XS-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{make_build} test
 
 %files
 %doc Changes README
 %{perl_vendorarch}/auto/URI*
 %{perl_vendorarch}/URI*
-%{_mandir}/man3/*
+%{_mandir}/man3/URI*
 
 %changelog
+* Wed Nov 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.15-1
+- Update to 0.15
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.14-35
 - Perl 5.44 rebuild
 

@@ -5,7 +5,7 @@
 %bcond_without docs
 
 Name:           python-%{pypi_name}
-Version:        2.2.0
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        JOSE protocol implementation in Python
 
@@ -104,6 +104,9 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/*.1*
 %endif
 
 %changelog
+* Tue Nov 10 2026 Nick Bebout <nb@fedoraproject.org> - 2.3.0-1
+- Update to 2.3.0 rhbz#2570196
+
 * Fri Aug 7 2026 Nick Bebout <nb@fedoraproject.org> - 2.2.0-1
 - Update to 2.2.0
 

@@ -12,20 +12,14 @@ Source:         %{url}/archive/v%{version}/aiohappyeyeballs-%{version}.tar.gz
 # Downstream-only: remove pytest options for coverage analysis
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-remove-pytest-options-for-coverage-a.patch
-# Do not restore the default event loop policy in test module teardowns
-#
-# The event loop policy system, deprecated since Python 3.14, is removed
-# in Python 3.16. See https://docs.python.org/dev/whatsnew/3.16.html#id3.
+# test: handle event loop policy removal in Python 3.16
+# https://github.com/aio-libs/aiohappyeyeballs/pull/270
 #
 # Fixes:
 #
 # Tests affected by event loop policy system removal in Python 3.16
 # https://github.com/aio-libs/aiohappyeyeballs/issues/266
-#
-# Raised as a potential solution in the upstream issue, but not yet offered as
-# a PR because feedback is wanted. Still, this is good enough for a downstream
-# patch.
-Patch:          0002-Do-not-restore-the-default-event-loop-policy-in-test.patch
+Patch:          %{url}/pull/270.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license aiohappyeyeballs

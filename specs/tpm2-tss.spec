@@ -79,7 +79,7 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/tpm2-tss.conf
 %files
 %doc README.md CHANGELOG.md
 %license LICENSE
-%{_sysconfdir}/tpm2-tss/
+%dir %{_sysconfdir}/tpm2-tss/
 %{_libdir}/libtss2-mu.so.0*
 %{_libdir}/libtss2-sys.so.1*
 %{_libdir}/libtss2-esys.so.0*
@@ -101,6 +101,7 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/tpm2-tss.conf
 %{_udevrulesdir}/%{udevrules_prefix}ltt2go-udev.rules
 
 %files fapi
+%{_sysconfdir}/tpm2-tss/fapi*
 %{_libdir}/libtss2-fapi.so.1*
 %{_tmpfilesdir}/tpm2-tss-fapi.conf
 

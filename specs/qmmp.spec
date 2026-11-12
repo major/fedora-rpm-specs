@@ -1,7 +1,7 @@
 Name:		qmmp
 %global majmin 2.4
 Version:	%{majmin}.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPL-2.0-or-later AND CC-BY-SA-4.0
@@ -144,6 +144,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Wed Nov 11 2026 Adrian Reber <adrian@lisas.de> - 2.4.3-2
+- Rebuilt for libcdio 2.4.0
+
 * Mon Nov 09 2026 Karel Volný <kvolny@redhat.com> 2.4.3-1
 - new version 2.4.3 (rhbz#2564592)
 - see the upstream changelog at http://qmmp.ylsoftware.com/

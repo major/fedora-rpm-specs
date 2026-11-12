@@ -102,7 +102,6 @@ cp --recursive --preserve sample examples
 
 %files doc
 %license LICENSE-APACHE.txt LICENSE-MIT.txt LICENSE.spdx
-%doc CONTRIBUTING.md
 %doc README.md
 %doc examples/
 

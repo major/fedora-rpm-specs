@@ -17,7 +17,7 @@
 %global crate icu_time_data
 
 Name:           rust-icu_time_data
-Version:        2.3.1
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Data for the icu_time crate
 

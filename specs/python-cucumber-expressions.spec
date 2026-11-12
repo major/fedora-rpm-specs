@@ -1,5 +1,5 @@
 Name:           python-cucumber-expressions
-Version:        20.1.0
+Version:        20.2.0
 Release:        %autorelease
 Summary:        Cucumber Expressions - a simpler alternative to Regular Expressions
 

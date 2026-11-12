@@ -4,7 +4,7 @@
 %global pkgname moonscript
 
 Name:           lua-%{pkgname}
-Version:        0.6.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        A little language that compiles to Lua
 

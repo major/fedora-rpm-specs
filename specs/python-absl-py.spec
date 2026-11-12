@@ -57,9 +57,8 @@ Summary:        %{summary}
 %files -n python3-absl-py -f %{pyproject_files}
 %doc AUTHORS
 %doc CHANGELOG.md
-%doc CONTRIBUTING.md
 %doc README.md
-%doc smoke_tests
+%doc smoke_tests/
 
 
 %changelog

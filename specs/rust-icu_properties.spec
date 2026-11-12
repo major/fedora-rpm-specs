@@ -5,7 +5,7 @@
 %global crate icu_properties
 
 Name:           rust-icu_properties
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Definitions for Unicode properties
 

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 46.5
+Version: 46.6
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -42,6 +42,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.29.31
 %define utillinuxver 2.15.1
+%define ostreever 2026.1
 %define rpmostreever 2023.2
 %define s390utilscorever 2.31.0
 
@@ -285,7 +286,7 @@ Requires: brltty
 Requires: python3-pam
 # dependencies for rpm-ostree payload module
 Requires: rpm-ostree >= %{rpmostreever}
-Requires: ostree
+Requires: ostree >= %{ostreever}
 # used by ostree command for native containers
 Requires: skopeo
 # External tooling for managing NVMe-FC devices in the installation environment
@@ -435,6 +436,8 @@ rm -rf \
 %files install-img-deps
 %{_unitdir}/anaconda-shell@.service
 %{_prefix}/lib/systemd/logind.conf.d/*
+%{_prefix}/lib/systemd/user/pipewire.service.d/*
+%{_prefix}/lib/systemd/user/pipewire.socket.d/*
 
 # Allow the lang file to be empty here too
 %define _empty_manifest_terminate_build 0
@@ -529,6 +532,25 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 10 2026 Packit <hello@packit.dev> - 46.6-1
+- fix: Log checkisomd5 media check pass result to the journal (kkoukiou)
+- anaconda: `pipewire` dropin for `allowroot` (cmdr)
+  Resolves: rhbz#2567769
+- fix: Only add ro mount option to /boot, not root, for ostree (kkoukiou)
+- fix: Skip root fstab entry and pass rootflags for ostree/bootc (kkoukiou)
+  Resolves: rhbz#2332319
+- fix: Raise NonCriticalInstallationError on auth tool failure (kkoukiou)
+- Revert "Fix ostree container deploy failing on non-ASCII pathnames"
+  (kkoukiou)
+- Require ostree >= 2026.1 for UTF-8 pathname support (kkoukiou)
+- storage: Preserve supported boot layouts during reinstall (adamkankovsky)
+- storage: Avoid mutating the request when collecting autopart specs
+  (adamkankovsky)
+- docs: add release note for inst.cert boot option (rvykydal)
+- dracut: add inst.cert= boot option to import CA certificates early (rvykydal)
+- fix: Tear down sysroot rbind mount before exit (kkoukiou)
+- Unify installer exit codes with the Boss installation outcome (adamkankovsky)
+
 * Tue Nov 03 2026 Packit <hello@packit.dev> - 46.5-1
 - users: Read default home base from /etc/default/useradd instead of hardcoding
   /home (kkoukiou)

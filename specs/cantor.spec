@@ -25,7 +25,7 @@
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
 Version: 26.08.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://apps.kde.org/cantor/
@@ -40,6 +40,8 @@ Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 Patch2:  cantor-21.04.3-no-julia-internal.patch
 # Fixes for R API 4.6
 Patch:   cantor-26.04.0-r-api-4.6.patch
+# Fix for Julia API 1.13 (backport of 0d1fd2ede08d3904e1b6781f2f0578bb76ed8601)
+Patch:   cantor-26.08.3-julia-api-1.13.patch
 
 BuildRequires: openblas-devel
 
@@ -265,6 +267,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Nov 11 2026 Milan Bouchet-Valat <nalimilan@club.fr> - 26.08.3-2
+- Patch for Julia API 1.13
+
 * Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
 - 26.08.3
 

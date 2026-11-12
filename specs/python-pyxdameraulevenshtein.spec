@@ -52,6 +52,7 @@ sed --regexp-extended --in-place \
 
 
 %check -a
+%pyproject_verify_license
 %pytest --verbose
 
 

@@ -1,5 +1,5 @@
 Name:           perl-Data-Dump-Streamer
-Version:        3.00
+Version:        3.001
 Release:        1%{?dist}
 Summary:        Accurately serialize a data structure as Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -87,6 +87,10 @@ make test
 %{_mandir}/man3/DDS.3*
 
 %changelog
+* Wed Nov 11 2026 Paul Howarth <paul@city-fan.org> - 3.001-1
+- Update to 3.001
+  - Fix version assignments so PAUSE can index the distribution
+
 * Tue Nov 10 2026 Paul Howarth <paul@city-fan.org> - 3.00-1
 - Update to 3.00
   - Rewrite the dumping engine in C/XS, with AI assistance, for improved speed,

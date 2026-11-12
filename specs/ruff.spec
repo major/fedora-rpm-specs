@@ -90,12 +90,9 @@ Summary:        Extremely fast Python linter and code formatter
 #     https://github.com/microsoft/vscode-icons/; we do not package the
 #     in-browser playground, available at https://play.ruff.rs/, so this file
 #     does not contribute to the licenses of the binary RPMs
-SourceLicense:  %{shrink:
-    MIT AND
-    Apache-2.0 AND
-    (Apache-2.0 OR MIT)
-    }
-
+%global upstream_license MIT
+%global full_license %{upstream_license} AND Apache-2.0 AND (Apache-2.0 OR MIT)
+SourceLicense:  %{full_license}
 # Rust crates compiled into the executable contribute additional license terms.
 # To obtain the following list of licenses, build the package and note the
 # output of %%{cargo_license_summary}. This should automatically include the
@@ -124,26 +121,23 @@ SourceLicense:  %{shrink:
 # WTFPL
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
-License:        %{shrink:
-    MIT AND
-    Apache-2.0 AND
-    (Apache-2.0 OR BSD-2-Clause) AND
-    (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 OR MIT OR Zlib) AND
-    (Apache-2.0 OR MIT-0) AND
-    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
-    BSD-3-Clause AND
-    (BSD-3-Clause OR MIT) AND
-    CC0-1.0 AND
-    ISC AND
-    (MIT OR Unlicense) AND
-    MPL-2.0 AND
-    PSF-2.0 AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    WTFPL AND
-    Zlib
+License:        %{full_license} %{shrink:
+    AND BSD-3-Clause
+    AND CC0-1.0
+    AND ISC
+    AND MPL-2.0
+    AND PSF-2.0
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND WTFPL
+    AND Zlib
+    AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT)
+    AND (Apache-2.0 OR BSD-2-Clause)
+    AND (Apache-2.0 OR BSL-1.0)
+    AND (Apache-2.0 OR MIT OR Zlib)
+    AND (Apache-2.0 OR MIT-0)
+    AND (BSD-3-Clause OR MIT)
+    AND (MIT OR Unlicense)
     }
 
 URL:            https://github.com/astral-sh/ruff
@@ -223,6 +217,7 @@ hundreds of times faster than any individual tool.}
 
 %package -n python3-ruff
 Summary:        Importable Python module for ruff
+License:        %{upstream_license}
 
 BuildArch:      noarch
 
@@ -250,8 +245,8 @@ This package provides an importable Python module for ruff.
 #   wanted: 0.6.0
 #   currently packaged: 0.7.0
 #   https://github.com/astral-sh/ruff/pull/25582
-tomcli set Cargo.toml str workspace.dependencies.tikv-jemallocator.version \
-    '>=0.6.0, <0.8.0'
+tomcli set Cargo.toml str \
+    workspace.dependencies.tikv-jemallocator.version '>=0.6.0, <0.8.0'
 
 # phf, phf_codegen
 #   wanted: 0.14.0
@@ -313,7 +308,6 @@ fi
 # Since maturin always checks for dev-dependencies, we need -t so that they are
 # generated even when the “check” bcond is disabled.
 %cargo_generate_buildrequires -a -t
-%pyproject_buildrequires
 
 
 %build -a
@@ -346,6 +340,8 @@ install -Dpm 0644 _ruff -t %{buildroot}/%{zsh_completions_dir}
 
 
 %check -a
+%pyproject_verify_license %{upstream_license}
+
 %if %{with check}
 # Ignore false positive snapshot test failures.
 #export INSTA_UPDATE=always
@@ -387,8 +383,6 @@ skip="${skip-} --skip mdtest__generics_specialize_constrained"
 export RUST_TEST_THREADS=1
 %cargo_test -- -- ${skip-}
 %endif
-
-%pyproject_check_import
 
 
 %files

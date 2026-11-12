@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.5.2
-Release:    10%{?dist}
+Release:    12%{?dist}
 Epoch:      1
 
 License:    MIT-CMU AND BSD-3-Clause AND MIT
@@ -48,6 +48,7 @@ Patch21:    net-snmp-libs-misunderstanding.patch
 Patch22:    net-snmp-5.9-ipv6-disable-leak.patch
 Patch26:    net-snmp-5.9.4-tls.patch
 Patch27:    net-snmp-5.9.4-revert-n-snmptrapd-log.patch
+Patch28:    net-snmp-5.9-trap-needs-agent.patch
 
 # Modern RPM API means at least EL6
 Patch101:   net-snmp-5.8-modern-rpm-api.patch
@@ -74,7 +75,7 @@ BuildRequires:   gcc
 BuildRequires:   openssl-devel, bzip2-devel, elfutils-devel
 BuildRequires:   libselinux-devel, elfutils-libelf-devel, rpm-devel
 BuildRequires:   perl-devel, perl(ExtUtils::Embed), procps
-BuildRequires:   python3-devel, python3-setuptools
+BuildRequires:   python3-devel
 BuildRequires:   chrpath
 BuildRequires:   mariadb-connector-c-devel
 BuildRequires:   libnl3-devel
@@ -240,6 +241,7 @@ cp %{SOURCE10} .
 %patch 22 -p1 -b .ipv6-disable-leak
 %patch 26 -p1 -b .tls
 %patch 27 -p1 -b .revert-n-snmptrapd-log
+%patch 28 -p1 -b .trap-needs-agent
 
 %patch 101 -p1 -b .modern-rpm-api
 %patch 102 -p1
@@ -254,6 +256,9 @@ rm testing/fulltests/default/T200*
 # Autoreconf is run during build, which may be a different version than upstream used,
 # resulting in a mismatch during "Checking the Net-SNMP configure script validity" test
 autoconf --version | awk 'NR==1 {print $4}' > dist/autoconf-version
+
+%generate_buildrequires
+%pyproject_buildrequires --directory python
 
 %build
 
@@ -310,9 +315,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 find perl/blib -type f -name "*.so" -print -exec chrpath --delete {} \;
 
 # compile python module
-pushd python
-%{__python3} setup.py --basedir="../" build
-popd
+%pyproject_wheel --directory python -C--global-option=--basedir=../
 
 
 %install
@@ -372,9 +375,8 @@ rm -f README.aix README.hpux11 README.osX README.Panasonic_AM3X.txt README.solar
 install -m 644 local/mib2c.*.conf %{buildroot}%{_datadir}/snmp
 
 # install python module
-pushd python
-%{__python3} setup.py --basedir=.. install -O1 --skip-build --root %{buildroot} 
-popd
+%pyproject_install
+%pyproject_save_files -l netsnmp
 
 find %{buildroot} -name '*.so' | xargs chmod 0755
 
@@ -397,6 +399,9 @@ install -m 755 -d %{buildroot}/%{_unitdir}
 install -m 644 %SOURCE8 %SOURCE9 %{buildroot}/%{_unitdir}/
 
 %check
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+%pyproject_check_import
+
 %if %{netsnmp_check}
 %ifarch ppc ppc64
 rm -vf testing/fulltests/default/T200snmpv2cwalkall_simple
@@ -488,9 +493,8 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %attr(0644,root,root) %{_mandir}/man1/traptoemail*.1*
 %attr(0644,root,root) %{_mandir}/man1/snmp-bridge-mib.1*
 
-%files -n python3-net-snmp
+%files -n python3-net-snmp -f %{pyproject_files}
 %doc README
-%{python3_sitearch}/*
 
 %files gui
 %{_bindir}/tkmib
@@ -514,6 +518,12 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Wed Nov 11 2026 Josef Ridky <jridky@redhat.com> - 1:5.9.5.2-12
+- fix undefined symbols in libnetsnmptrapd
+
+* Thu Nov 05 2026 Miro Hrončok <miro@hroncok.cz> - 1:5.9.5.2-11
+- Convert to pyproject RPM macros (rhbz#2378557)
+
 * Fri Jul 24 2026 Python Maint <python-maint@redhat.com> - 1:5.9.5.2-10
 - Rebuilt for Python 3.15.0b4 ABI change
 

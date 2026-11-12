@@ -79,6 +79,7 @@ install -D --preserve-timestamps --mode 0644 \
 
 
 %check -a
+%pyproject_verify_license
 %pytest --verbose
 
 

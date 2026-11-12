@@ -60,6 +60,7 @@ install -D --mode 0644 --preserve-timestamps \
 
 
 %check -a
+%pyproject_verify_license
 %tox -- -- --numprocesses auto --verbose
 
 

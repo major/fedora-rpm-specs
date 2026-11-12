@@ -1,5 +1,5 @@
 Name:           python-sqlmodel
-Version:        0.0.48
++ Version:        0.0.49
 Release:        %autorelease
 Summary:        SQL databases in Python, designed for simplicity, compatibility, and robustness
 
@@ -40,6 +40,7 @@ BuildRequires:  %{py3_dist fastapi}
 # Starlette, and Starlette has deprecated httpx in favor of httpx2.
 BuildRequires:  %{py3_dist httpx2}
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pyyaml}
 BuildRequires:  %{py3_dist typer}
 
 %global common_description %{expand:

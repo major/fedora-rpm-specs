@@ -6,7 +6,7 @@
 
 Name:           gstreamer1-plugins-ugly-free
 Version:        1.28.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "ugly" plugins
 
 License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND CC0-1.0
@@ -148,6 +148,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %endif
 
 %changelog
+* Wed Nov 11 2026 Adrian Reber <adrian@lisas.de> - 1.28.9-2
+- Rebuilt for libcdio 2.4.0
+
 * Fri Nov 06 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.28.9-1
 - 1.28.9
 

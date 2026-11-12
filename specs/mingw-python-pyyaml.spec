@@ -30,17 +30,17 @@ MinGW Windows Python %{mod_name} library.
 
 
 %package -n mingw32-python3-%{mod_name}
-Summary:       MinGW Windows Python2 %{mod_name} library
+Summary:       MinGW Windows Python %{mod_name} library
 
 %description -n mingw32-python3-%{mod_name}
-MinGW Windows Python2 %{mod_name} library.
+MinGW Windows Python %{mod_name} library.
 
 
 %package -n mingw64-python3-%{mod_name}
-Summary:       MinGW Windows Python2 %{mod_name}
+Summary:       MinGW Windows Python %{mod_name}
 
 %description -n mingw64-python3-%{mod_name}
-MinGW Windows Python2 %{mod_name} library.
+MinGW Windows Python %{mod_name} library.
 
 
 %prep

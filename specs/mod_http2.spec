@@ -2,7 +2,7 @@
 %{!?_httpd_mmn: %global _httpd_mmn %(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}
 
 Name:		mod_http2
-Version:	2.0.39
+Version:	2.0.42
 Release:	%autorelease
 Summary:	module implementing HTTP/2 for Apache 2
 License:	Apache-2.0
@@ -16,6 +16,9 @@ Requires:       httpd-mmn = %{_httpd_mmn}
 Conflicts:      httpd < 2.4.48
 # https://bugzilla.redhat.com/show_bug.cgi?id=2131458
 Conflicts:      libnghttp2 < 1.50.0-1
+
+# http://bugzilla.redhat.com/show_bug.cgi?id=2567318
+Patch1:         mod_http2-2.0.42-CVE-2026-119618.patch
 
 %description
 The mod_h2 Apache httpd module implements the HTTP2 protocol (h2+h2c) on

@@ -14,17 +14,11 @@
 
 Summary: A tool for automatically mounting and unmounting filesystems
 Name: autofs
-Version: 5.1.9
-Release: 15%{?dist}
+Version: 5.2.0
+Release: 1%{?dist}
 Epoch: 1
 License: GPL-2.0-or-later
 Source: https://www.kernel.org/pub/linux/daemons/autofs/v5/autofs-%{version}.tar.gz
-Patch1: autofs-5.1.9-update-configure.patch
-Patch2: autofs-5.1.9-fix-ldap_parse_page_control-check.patch
-Patch3: autofs-5.1.9-fix-crash-in-make_options_string.patch
-Patch4: autofs-5.1.9-Fix-incompatible-function-pointer-types-in-cyrus-sasl-module.patch
-Patch5: autofs-5.1.9-fix-always-recreate-credential-cache.patch
-Patch6: autofs-5.1.9-fix-changelog.patch
 
 %if %{with systemd}
 BuildRequires: systemd-units
@@ -200,6 +194,9 @@ fi
 %dir /etc/auto.master.d
 
 %changelog
+* Wed Nov 11 2026 Ian Kent <ikent@redhat.com> - 1:5.2.0-1
+- Update to upstream release 5.2.0.
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:5.1.9-15
 - Rebuilt for libxml-2.5.4
 

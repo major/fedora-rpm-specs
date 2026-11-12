@@ -15,10 +15,9 @@
 %define qemu 1
 # bats is included in the default repos (No epel/copr etc.)
 %define distro_bats 1
-%endif
-
-%if 0%{?fedora} >= 43 || 0%{?rhel} >= 10
+%if %{?fedora} >= 43
 %define sequoia 1
+%endif
 %endif
 
 %if %{defined copr_username}
@@ -60,7 +59,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 6.2.0~rc1
+Version: 6.2.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -244,7 +243,7 @@ LDFLAGS="-X %{ld_libpod}/define.buildInfo=${SOURCE_DATE_EPOCH:-$(date +%s)} \
 
 # This variable will be set by Packit actions. See .packit.yaml in the root dir
 # of the repo (upstream as well as Fedora dist-git).
-GIT_COMMIT="a0cd0c1748448f9ec2863a4f3108442491800c17"
+GIT_COMMIT="055de046937d29450f310fce0fe3071485d8bed9"
 LDFLAGS="$LDFLAGS -X %{ld_libpod}/define.gitCommit=$GIT_COMMIT"
 
 # build rootlessport first

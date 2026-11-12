@@ -1,4 +1,4 @@
-Version:        0.68.0
+Version:        0.69.0
 Name:           lfortran
 Release:        1%{?dist}
 Summary:        A modern Fortran compiler
@@ -163,6 +163,10 @@ rmdir %{buildroot}/%{_prefix}/libasr
 %endif
 
 %changelog
+* Wed Nov 11 2026 Christoph Junghans <junghans@votca.org> - 0.69.0-1
+- Update to version 0.69.0
+- Resolves: rhbz#2569759
+
 * Sun Oct 25 2026 Christoph Junghans <junghans@votca.org> - 0.68.0-1
 - Update to version 0.68.0
 - Resolves: rhbz#2560369

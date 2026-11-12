@@ -4,7 +4,7 @@
 %global pypi_name jsonpatch
 
 Name:           python-%{pypi_name}
-Version:        1.39
+Version:        1.47
 Release:        %autorelease
 Summary:        Applying JSON Patches in Python
 
@@ -46,7 +46,7 @@ Library to apply JSON Patches according to RFC 6902 - Python 3 build.
 %install
 %pyproject_install
 
-%pyproject_save_files jsonpatch jsonpatch_cli
+%pyproject_save_files jsonpatch jsonpatch_cli jsonpatch-stubs
 
 # remove jsondiff binary conflicting with python-jsondiff
 # https://bugzilla.redhat.com/show_bug.cgi?id=2029805

@@ -5,7 +5,7 @@
 
 Name:           pragha
 Version:        1.3.3
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Lightweight GTK+ music manager
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -105,6 +105,9 @@ find %{buildroot}%{_libdir}/pragha -name \*.ls -exec rm -f {} \;
 %{_libdir}/pragha
 
 %changelog
+* Wed Nov 11 2026 Adrian Reber <adrian@lisas.de> - 1.3.3-37
+- Rebuilt for libcdio 2.4.0
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.3.3-36
 - Rebuilt for libxml-2.5.4
 

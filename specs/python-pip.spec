@@ -6,7 +6,7 @@
 %bcond man 1
 
 %global srcname pip
-%global base_version 26.2.1
+%global base_version 26.3
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -95,13 +95,6 @@ Patch:          dummy-certifi.patch
 # We don't need a layer to check that, as we're by default in an offline environment
 Patch:          downstream-remove-pytest-subket.patch
 
-# Allow flit-core 4 to build pip
-# https://github.com/pypa/pip/commit/09a03f6cfa (non-existing files removed)
-Patch:          09a03f6cfa.patch
-
-# Fix for flaky test_keyring_cli_outdated_version, proposed upstream.
-Patch:          https://github.com/pypa/pip/pull/14301.patch
-
 # Remove -s from Python shebang - ensure that packages installed with pip
 # to user locations are seen by pip itself
 %undefine _py3_shebang_s
@@ -119,23 +112,23 @@ Packages" or "Pip Installs Python".
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
 Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.4
-Provides: bundled(python%{1}dist(certifi)) = 2026.6.17
-Provides: bundled(python%{1}dist(distlib)) = 0.4.2
+Provides: bundled(python%{1}dist(certifi)) = 2026.10.23
+Provides: bundled(python%{1}dist(distlib)) = 0.4.4
 Provides: bundled(python%{1}dist(distro)) = 1.9
-Provides: bundled(python%{1}dist(idna)) = 3.18
-Provides: bundled(python%{1}dist(msgpack)) = 1.1.2
-Provides: bundled(python%{1}dist(packaging)) = 26.2
-Provides: bundled(python%{1}dist(platformdirs)) = 4.10
-Provides: bundled(python%{1}dist(pygments)) = 2.20
-Provides: bundled(python%{1}dist(pyproject-hooks)) = 1.2
+Provides: bundled(python%{1}dist(idna)) = 3.20
+Provides: bundled(python%{1}dist(msgpack)) = 1.2.4
+Provides: bundled(python%{1}dist(packaging)) = 26.3
+Provides: bundled(python%{1}dist(platformdirs)) = 4.12.4
+Provides: bundled(python%{1}dist(pygments)) = 2.21
+Provides: bundled(python%{1}dist(pyproject-hooks)) = 1.3.3
 Provides: bundled(python%{1}dist(requests)) = 2.34.2
 Provides: bundled(python%{1}dist(resolvelib)) = 1.2.1
-Provides: bundled(python%{1}dist(rich)) = 14.2
+Provides: bundled(python%{1}dist(rich)) = 15
 Provides: bundled(python%{1}dist(setuptools)) = 70.3
-Provides: bundled(python%{1}dist(tomli)) = 2.4.1
+Provides: bundled(python%{1}dist(tomli)) = 2.3.2
 Provides: bundled(python%{1}dist(tomli-w)) = 1.2
-Provides: bundled(python%{1}dist(truststore)) = 0.10.4
-Provides: bundled(python%{1}dist(urllib3)) = 2.7
+Provides: bundled(python%{1}dist(truststore)) = 0.10.5
+Provides: bundled(python%{1}dist(urllib3)) = 2.8
 }
 
 # Some manylinux1 wheels need libcrypt.so.1.
@@ -328,6 +321,8 @@ pytest_k="$pytest_k and not test_check_unsupported"
 # these require cmake/keyring wheels not available locally
 pytest_k="$pytest_k and not test_build_env_can_still_access_python_tools_on_system_path"
 pytest_k="$pytest_k and not test_build_dependency_install_uses_same_keyring_as_root"
+# this requires the rich wheel (added to test-common-wheels in 26.3) not available locally
+pytest_k="$pytest_k and not debundled"
 
 %pytest -n auto -m 'not network' -k "$(echo $pytest_k)" \
     --ignore tests/functional/test_proxy.py  # no proxy.py in Fedora

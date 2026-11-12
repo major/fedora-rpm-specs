@@ -5,7 +5,7 @@
 %global crate icu_provider
 
 Name:           rust-icu_provider
-Version:        2.3.1
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Trait and struct definitions for the ICU data provider
 

@@ -25,7 +25,7 @@
 
 Name:           half
 Version:        2.2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A C++ half-precision floating point type
 License:        MIT
 
@@ -66,6 +66,9 @@ sed -i "s|\r||g" include/half.hpp
 sed -i "s|\r||g" LICENSE.txt
 sed -i "s|\r||g" README.txt
 
+%build
+# noop
+
 %install
 cd %{name}-%{version}
 mkdir -p %{buildroot}%{_includedir}
@@ -82,6 +85,9 @@ install -m 644 README.txt %{buildroot}%{_docdir}/%{name}/
 %{_includedir}/half.hpp
 
 %changelog
+* Wed Nov 11 2026 Tom Rix <Tom.Rix@amd.com> - 2.2.0-12
+- Add noop build
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

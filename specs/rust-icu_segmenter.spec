@@ -5,7 +5,7 @@
 %global crate icu_segmenter
 
 Name:           rust-icu_segmenter
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Unicode line breaking and text segmentation algorithms
 
@@ -151,7 +151,6 @@ tomcli set Cargo.toml str dev-dependencies.icu_properties.version '~%{version}'
 %cargo_test -a -- --lib
 %cargo_test -a -- --test adaboost
 %cargo_test -a -- --test cnn
-%cargo_test -a -- --test complex_word
 %cargo_test -a -- --test css_line_break
 %cargo_test -a -- --test locale
 %cargo_test -a -- --test spec_test

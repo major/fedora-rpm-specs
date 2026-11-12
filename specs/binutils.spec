@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -400,15 +400,6 @@ Patch20: binutils-gold-s390-configure.patch
 # Purpose:  Fix ld testsuite failures when enable_textrel is set.
 # Lifetime: Permanent.
 Patch21: binutils-ld-default-z-text.patch
-
-# %%ifarch x86_64 
-# Purpose:  The x86_64 architecture does not allow a shared library to access
-# thread local global variables inside a static library.  This is a problem
-# for the libbfd.so library, since it is really a static library in disguise.
-# Solution: hide the global symbols.
-# Lifetime: Permanent.
-Patch22: binutils-hide-global-symbols.patch
-# %%endif
 
 #----------------------------------------------------------------------------
 
@@ -1315,21 +1306,21 @@ install_binutils()
         # Future: Remove libiberty together with its header file, projects should bundle it.
         %make_build -s -C libiberty clean
         %set_build_flags
-        %make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C libiberty
+        %make_build -s CFLAGS="-g -fPIC -DPIC $RPM_OPT_FLAGS" -C libiberty
 
         # Without the hidden visibility the 3rd party shared libraries would
 	# export the bfd non-stable ABI.
         %make_build -s -C bfd clean
         %set_build_flags
-        %make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS -fvisibility=hidden" -C bfd
+        %make_build -s CFLAGS="-g -fPIC -DPIC $RPM_OPT_FLAGS -fvisibility=hidden" -C bfd
 
         %make_build -s -C opcodes clean
         %set_build_flags
-        %make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C opcodes
+        %make_build -s CFLAGS="-g -fPIC -DPIC $RPM_OPT_FLAGS" -C opcodes
 
         %make_build -s -C libsframe clean
         %set_build_flags
-        %make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C libsframe
+        %make_build -s CFLAGS="-g -fPIC -DPIC $RPM_OPT_FLAGS" -C libsframe
 
         install -m 644 bfd/.libs/libbfd.a           $local_libdir
         install -m 644 libiberty/libiberty.a        $local_libdir
@@ -1351,9 +1342,20 @@ install_binutils()
         chmod +x $local_libdir/lib*.so*
 %endif
 
+%if 1
+        # We used to replace the libbfd.so and libopcodes.so shared libraries with
+        # linker scripts that instead link with the libbfd.a and libopcodes.s static
+        # archives.  This no longer works (for x86_64 at least) because the linker
+        # will refuse to link non-hidden global symbols from a static archive against
+        # a shared object.  Before gcc's -fvisibility=hidden used to resolve this
+        # issue for us, but that no longer makes all globals hidden, only some.
+        # So for now we are back to exporting real shared libraries.  We can only
+        # hope that the possibly changing ABIs will not cause problems.
+%else
         # Prevent programs from linking against libbfd and libopcodes
         # dynamically, as they are changed far too often.
         rm -f $local_libdir/lib{bfd,opcodes}.so
+%endif
 
         # Remove libtool files, which reference the .so libs
         rm -f %local_libdir/lib{bfd,opcodes}.la
@@ -1377,6 +1379,10 @@ install_binutils()
 
         touch -r ../bfd/bfd-in2.h $local_incdir/bfd.h
 
+%if 1
+        # See above.  We are no longer creating linker scripts to replace
+        # the libbfd.so and libopcodes.so shared libraries.
+%else
         # Generate .so linker scripts for dependencies; imported from
 	# glibc/Makerules:
 
@@ -1416,6 +1422,7 @@ $OUTPUT_FORMAT
 
 INPUT ( %{_libdir}/libopcodes.a -lbfd )
 EOH
+%endif
 
         rm -fr $local_root/$target
 
@@ -1842,6 +1849,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Nov 11 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-30
+- Try building exporting the real libbfd.so and libopcodes.so instead.  (#2564442)
+
 * Tue Nov 10 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-29
 - Yet another attempt to remove global static variables from libbfd.so.  (#2564442)
 

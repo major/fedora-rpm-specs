@@ -7,7 +7,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.2.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -35,6 +35,8 @@ Patch007: 0001-ghostscript-serialize-raster-integer-parameters-as-s.patch
 Patch008: 0001-pdftopdf-keep-annotations-without-an-appearance-from.patch
 # https://github.com/OpenPrinting/libcupsfilters/commit/b13e63e80d9c094bc4484dcbc7efd000f21308db
 Patch009: 0001-libcupsfilters.pc-Add-pdfio-as-public-Requires-dep.patch
+# https://github.com/OpenPrinting/libcupsfilters/commit/ce65eb7455b5
+Patch010: 0001-bannertopdf-preserve-indirect-page-resources-when-ad.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -220,6 +222,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Wed Nov 11 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-8
+- fix copying of indirect page resources in PDF (fixes printing test page)
+
 * Mon Nov 09 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:2.2.1-7
 - libcupsfilters-devel requires pdfio-devel
 

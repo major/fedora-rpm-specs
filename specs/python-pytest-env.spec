@@ -48,6 +48,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check -a
+%pyproject_verify_license
 %pytest --verbose
 
 

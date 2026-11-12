@@ -5,18 +5,13 @@ providing a common interface to handle objects of different
 types in an uniform manner, regardless of their underlying implementation.}
 
 Name:		python-itemadapter
-Version:	0.13.1
+Version:	0.14.0
 Release:	%autorelease
 Summary:	The ItemAdapter class is a wrapper for data container object
 
 License:	BSD-3-Clause
 URL:		https://github.com/scrapy/itemadapter
 Source0:	%{pypi_source %pkg_name}
-
-# Upstream commit 7cfd6d6b0cf133d4ba188e3f25b940c50c402b2e:
-# "Support Scrapy 2.17 unsorted fields" (PR #119)
-# https://github.com/scrapy/itemadapter/commit/7cfd6d6b0cf133d4ba188e3f25b940c50c402b2e
-Patch:		7cfd6d6b0cf133d4ba188e3f25b940c50c402b2e.patch
 
 BuildArch:	noarch
 

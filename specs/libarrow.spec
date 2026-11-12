@@ -33,7 +33,7 @@
 
 Name:		libarrow
 Version:	26.0.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -749,6 +749,7 @@ popd >/dev/null
 %build
 pushd cpp
 %cmake \
+  -DARROW_SIMD_LEVEL:STRING=NONE -DARROW_RUNTIME_SIMD_LEVEL:STRING=MAX \
 %if %{with use_flight}
   -DARROW_FLIGHT:BOOL=ON \
 %endif
@@ -767,8 +768,6 @@ pushd cpp
 %endif
   -DARROW_PYTHON:BOOL=ON \
   -DARROW_JEMALLOC:BOOL=OFF \
-  -DARROW_SIMD_LEVEL:STRING='NONE' \
-  -DARROW_RUNTIME_SIMD_LEVEL:STRING='NONE' \
   -Dxsimd_SOURCE="SYSTEM" \
 %if %{with use_s3}
   -DARROW_S3:BOOL=ON \
@@ -881,7 +880,10 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
-* Mon Nov 9 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.1-1
+* Wed Nov 11 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.1-4
+- Rebuild for grpc 1.75.1, f46-build-side-158428, revisit SIMD_LEVEL
+
+* Mon Nov 9 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.1-3
 - Arrow 26.0.1 (f46-build-side-159604) experimental build w/ grpc-1.75.1,
   liborc w/ protobuf3->protobuf, and ceph
 

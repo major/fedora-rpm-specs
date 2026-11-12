@@ -1,5 +1,5 @@
 %global         forgeurl0 https://github.com/carlbyington2/ical
-%global         version0  4.0.2
+%global         version0  4.0.3
 %global         tag       v%{version0}
 %forgemeta
 
@@ -8,7 +8,7 @@ Name:    ical
 Version: %{forgeversion}
 Source:  %{forgesource}
 URL:     %{forgeurl}
-Release: 2%{?dist}
+Release: %autorelease
 License: GPL-2.0-only AND NTP AND CC0-1.0
 
 BuildRequires:  autoconf automake libtool

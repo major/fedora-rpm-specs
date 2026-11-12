@@ -58,7 +58,7 @@ License:        LGPL-2.1-or-later AND MIT AND CC0-1.0
 #   - m4/ax_pthread.m4
 # X11:
 #   - install-sh
-SourceLicense:  %{shrink:%{license}
+SourceLicense:  %{license} %{shrink:
     AND FSFAP-no-warranty-disclaimer
     AND FSFUL
     AND FSFULLR

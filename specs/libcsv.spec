@@ -55,7 +55,7 @@ License:        LGPL-2.1-or-later
 #   - config.sub
 # X11:
 #   - install-sh
-SourceLicense:  %{shrink:%{license}
+SourceLicense:  %{license} %{shrink:
     AND FSFUL
     AND FSFULLR
     AND GPL-2.0-or-later WITH Autoconf-exception-generic

@@ -74,11 +74,10 @@ Summary:        Wayland Conformance Test Suite
 #   C source files and headers, and are not directly included in the binary
 #   RPMs.
 License:        GPL-3.0-only AND (LGPL-2.0-only OR LGPL-3.0-only) AND MIT
-SourceLicense:  %{shrink:
-    %{license} AND
-    (GPL-2.0-only OR GPL-3.0-only) AND
-    GPL-2.0-or-later AND
-    HPND-sell-variant
+SourceLicense:  %{license} %{shrink:
+    AND (GPL-2.0-only OR GPL-3.0-only)
+    AND GPL-2.0-or-later
+    AND HPND-sell-variant
     }
 URL:            https://github.com/MirServer/wlcs
 Source:         %{url}/archive/v%{version}/wlcs-%{version}.tar.gz

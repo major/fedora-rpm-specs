@@ -31,16 +31,15 @@ License:        X11
 # HPND-sell-variant:
 #   - Makefile.am
 #   - configure.ac
-SourceLicense:  %{shrink:
-    %{license} AND
-    FSFAP-no-warranty-disclaimer AND
-    FSFUL AND
-    FSFULLR AND
-    FSFULLRWD AND
-    GPL-2.0-or-later WITH Autoconf-exception-generic AND
-    GPL-3.0-or-later WITH Autoconf-exception-generic AND
-    HPND-sell-variant AND
-    MIT
+SourceLicense:  %{license} %{shrink:
+    AND FSFAP-no-warranty-disclaimer
+    AND FSFUL
+    AND FSFULLR
+    AND FSFULLRWD
+    AND GPL-2.0-or-later WITH Autoconf-exception-generic
+    AND GPL-3.0-or-later WITH Autoconf-exception-generic
+    AND HPND-sell-variant
+    AND MIT
     }
 URL:            https://www.x.org
 Source0:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz

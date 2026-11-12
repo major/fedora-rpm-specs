@@ -1,6 +1,6 @@
 Name:          libfm-qt
-Version:       2.4.0
-Release:       4%{?dist}
+Version:       2.5.0
+Release:       2%{?dist}
 Summary:       Companion library for PCManFM
 License:       GPL-2.0-or-later
 URL:           https://lxqt-project.org
@@ -25,7 +25,8 @@ BuildRequires: perl-interpreter
 
 BuildRequires: qt6-qtbase-private-devel
 
-BuildRequires: menu-cache-devel
+Provides:      %{name}-l10n = %{version}-%{release}
+Obsoletes:     %{name}-l10n < %{version}-%{release}
 
 %description
 Libfm-Qt is a companion library providing components to build
@@ -34,20 +35,12 @@ desktop file managers.
 %package devel
 Summary: Development files for libfm-qt
 Requires: libfm-qt%{?_isa} = %{version}-%{release}
-Requires: menu-cache-devel
 Requires: qt6-qtbase-private-devel
 
 %description devel
 libfm-qt-devel package contains libraries and header files for
 developing applications that use libfm-qt.
 
-
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for libfm-qt
-Requires:       libfm-qt
-%description l10n
-This package provides translations for the libfm-qt package.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
@@ -63,8 +56,8 @@ This package provides translations for the libfm-qt package.
 %files
 %doc AUTHORS CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libfm-qt6.so.17
-%{_libdir}/libfm-qt6.so.17.*
+%{_libdir}/libfm-qt6.so.18
+%{_libdir}/libfm-qt6.so.18.*
 %{_datadir}/libfm-qt6
 
 %files devel
@@ -77,12 +70,13 @@ This package provides translations for the libfm-qt package.
 %{_datadir}/libfm-qt6/terminals.list
 %{_datadir}/mime/packages/libfm-qt6-mimetypes.xml
 
-%files l10n -f libfm-qt.lang
-%doc AUTHORS CHANGELOG README.md
-%license LICENSE
-%dir %{_datadir}/libfm-qt6/translations
-
 %changelog
+* Thu Nov 12 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-2
+- Finish removing l10n subpackage
+
+* Wed Nov 11 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 2.4.0-4
 - Rebuild (qt6)
 

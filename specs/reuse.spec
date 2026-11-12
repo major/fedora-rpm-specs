@@ -1,11 +1,11 @@
 Name:           reuse
-Version:        6.2.0
+Version:        6.3.0
 Release:        %autorelease
 Summary:        A tool for compliance with the REUSE recommendations
 # The CC0-1.0 licence applies to json data files, not code.
 # CC-BY-SA-4.0 is applied to documentation.
 License:        Apache-2.0 AND CC0-1.0 AND CC-BY-SA-4.0 AND GPL-3.0-or-later
-Url:            https://github.com/fsfe/reuse-tool
+Url:            https://codeberg.org/fsfe/reuse-tool
 Source0:        %pypi_source
 
 Patch: 0001-use-python-file-magic-for-filetype-detection.patch
@@ -22,6 +22,7 @@ BuildRequires:  %{py3_dist Sphinx}
 BuildRequires:  %{py3_dist freezegun}
 BuildRequires:  %{py3_dist furo}
 BuildRequires:  %{py3_dist myst-parser}
+BuildRequires:  %{py3_dist pytest-lazy-fixtures}
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist sphinx-autodoc-typehints}
 BuildRequires:  %{py3_dist sphinx_rtd_theme}

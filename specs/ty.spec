@@ -99,12 +99,9 @@ Summary:        Extremely fast Python type checker and language server
 #     https://github.com/microsoft/vscode-icons/; we do not package the
 #     in-browser playground, available at https://play.ruff.rs/, so this file
 #     does not contribute to the licenses of the binary RPMs
-SourceLicense:  %{shrink:
-    MIT AND
-    Apache-2.0 AND
-    (Apache-2.0 OR MIT)
-    }
-
+%global upstream_license MIT
+%global full_license %{upstream_license} AND Apache-2.0 AND (Apache-2.0 OR MIT)
+SourceLicense:  %{full_license}
 # Rust crates compiled into the executable contribute additional license terms.
 # To obtain the following list of licenses, build the package and note the
 # output of %%{cargo_license_summary}. This should automatically include the
@@ -133,26 +130,23 @@ SourceLicense:  %{shrink:
 # WTFPL
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
-License:        %{shrink:
-    MIT AND
-    Apache-2.0 AND
-    (Apache-2.0 OR BSD-2-Clause) AND
-    (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 OR MIT OR Zlib) AND
-    (Apache-2.0 OR MIT-0) AND
-    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
-    BSD-3-Clause AND
-    (BSD-3-Clause OR MIT) AND
-    CC0-1.0 AND
-    ISC AND
-    (MIT OR Unlicense) AND
-    MPL-2.0 AND
-    PSF-2.0 AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    WTFPL AND
-    Zlib
+License:        %{full_license} %{shrink:
+    AND BSD-3-Clause
+    AND CC0-1.0
+    AND ISC
+    AND MPL-2.0
+    AND PSF-2.0
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND WTFPL
+    AND Zlib
+    AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT)
+    AND (Apache-2.0 OR BSD-2-Clause)
+    AND (Apache-2.0 OR BSL-1.0)
+    AND (Apache-2.0 OR MIT OR Zlib)
+    AND (Apache-2.0 OR MIT-0)
+    AND (BSD-3-Clause OR MIT)
+    AND (MIT OR Unlicense)
     }
 
 URL:            https://github.com/astral-sh/ty
@@ -239,6 +233,7 @@ An extremely fast Python type checker and language server, written in Rust.}
 
 %package -n python3-ty
 Summary:        Importable Python module for ty
+License:        %{upstream_license}
 
 BuildArch:      noarch
 
@@ -411,13 +406,7 @@ skip="${skip-} --skip python_environment::ty_environment_and_discovered_venv"
 skip="${skip-} --skip python_environment::ty_environment_is_only_environment"
 # Not confirmed flaky, but the other ty_environment_* ones are, so…
 skip="${skip-} --skip python_environment::ty_environment_is_system_not_virtual"
-
-# TODO: This looks innocuous, but exactly which upstream assumption is violated
-# in the build environment, and can we do anything about it?
-#
-# ---- unix::symlink_inside_project stdout ----
-# thread 'unix::symlink_inside_project' (23715) panicked at crates/ty/tests/file_watching.rs:2036:14:
-# Indexed project files contains '/tmp/.tmpxyayv9/project/bar/baz.py' which was not expected.
+# See https://github.com/astral-sh/ruff/pull/28245
 skip="${skip-} --skip unix::symlink_inside_project"
 
 %ifarch s390x

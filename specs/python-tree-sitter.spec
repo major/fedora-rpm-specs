@@ -41,7 +41,7 @@ sed -i setup.py \
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x tests
 
 
 %build
@@ -54,9 +54,8 @@ sed -i setup.py \
 
 
 %check
-# Full test suite requires unpackaged grammar modules (tree-sitter-html,
-# tree-sitter-javascript, tree-sitter-json, tree-sitter-python, tree-sitter-rust)
 %pyproject_check_import
+%{py3_test_envvars} %{python3} -P -m unittest discover -s tests -v
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

@@ -61,7 +61,6 @@ Summary:        %{summary}
 
 
 %files -n python3-rfc3339-validator -f %{pyproject_files}
-%doc CONTRIBUTING.rst
 %doc HISTORY.rst
 %doc README.md
 

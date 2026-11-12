@@ -1,6 +1,6 @@
 Name:           perl-SNMP-Info
-%global cpan_version 3.985001
-Version:        3.985.1
+%global cpan_version 3.985002
+Version:        3.985.2
 Release:        1%{?dist}
 Summary:        Object Oriented Perl5 Interface to Network devices and MIBs through SNMP
 License:        BSD-3-Clause
@@ -67,6 +67,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/SNMP::Info*
 
 %changelog
+* Wed Nov 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.985.2-1
+- 3.985002 bump (rhbz#2568678)
+
 * Fri Nov 06 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.985.1-1
 - 3.985001 bump (rhbz#2567177)
 

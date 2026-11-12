@@ -21,8 +21,6 @@
 # https://github.com/JuliaLang/julia/pull/31215
 %global gmpversion 6.3.0
 
-%global opensslversion 3.5.8
-
 %global juliasyntaxcommit e8a07f51ed0b7c6b356f75354e0c408b299edef2
 %global juliasyntaxhighlightingcommit 2817dbaba2a4abaad91a5ad754558840d95ccf2e
 
@@ -39,7 +37,7 @@
 
 Name:           julia
 Version:        1.13.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
@@ -58,7 +56,6 @@ Source7:        https://api.github.com/repos/staticfloat/libblastrampoline/tarba
 Source8:        https://github.com/libunwind/libunwind/releases/download/v%{libunwindversion}/libunwind-%{libunwindversion}.tar.gz
 Source9:        https://api.github.com/repos/intel/ittapi/tarball/%{ittapicommit}#/ittapi-%{ittapicommit}.tar.gz
 Source10:       https://api.github.com/repos/JuliaLang/JuliaSyntaxHighlighting.jl/tarball/%{juliasyntaxhighlightingcommit}#/JuliaSyntaxHiglighting-%{juliasyntaxhighlightingcommit}.tar.gz
-Source11:	https://www.openssl.org/source/openssl-%{opensslversion}.tar.gz
 # https://gmplib.org/repo/gmp/rev/8e7bb4ae7a18
 Patch0:         julia-gmp-6.3.0-c23.patch
 Provides:       bundled(libuv) = %{uvversion}
@@ -68,7 +65,6 @@ Provides:       bundled(libwhich) = %{libwhichversion}
 Provides:       bundled(libunwind) = %{libunwindversion}
 Provides:       bundled(ittapi) = %{ittapiversion}
 Provides:       bundled(gmp) = %{gmpversion}
-Provides:       bundled(openssl) = %{opensslversion}
 BuildRequires:  ca-certificates
 BuildRequires:  desktop-file-utils
 BuildRequires:  dSFMT-devel
@@ -86,10 +82,8 @@ BuildRequires:  openblas-devel
 BuildRequires:  openblas-threads
 BuildRequires:  openlibm-devel >= 0.4
 BuildRequires:  (pkgconfig(libgit2) >= 1.9.0 with pkgconfig(libgit2) < 1.10.0~)
-# Needed for libgit2 test
-BuildRequires:  openssl
 BuildRequires:  libssh2-devel
-BuildRequires:  openssl-devel
+BuildRequires:  openssl3-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libcurl-full
 BuildRequires:  libnghttp2-devel
@@ -200,7 +194,6 @@ pushd deps/srccache
     cp -p %SOURCE8 .
     cp -p %SOURCE9 .
     cp -p %SOURCE10 .
-    cp -p %SOURCE11 .
 popd
 
 cp -p %SOURCE6 contrib/julia.svg
@@ -258,7 +251,7 @@ cp -p %SOURCE6 contrib/julia.svg
 %endif
 
 # About build, build_libdir and build_bindir, see https://github.com/JuliaLang/julia/issues/5063#issuecomment-32628111
-%global commonopts USE_SYSTEM_LLVM=0 USE_SYSTEM_LIBUNWIND=0 USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=0 USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBSUITESPARSE=1 USE_SYSTEM_DSFMT=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_UTF8PROC=1 USE_SYSTEM_LIBGIT2=1 USE_SYSTEM_LIBSSH2=1 USE_SYSTEM_OPENSSL=0 USE_SYSTEM_CURL=1 USE_SYSTEM_PATCHELF=1 USE_SYSTEM_LIBM=0 USE_SYSTEM_OPENLIBM=1 USE_SYSTEM_ZLIB=1 USE_SYSTEM_P7ZIP=1 USE_SYSTEM_ZSTD=1 USE_SYSTEM_NGHTTP2=1 USE_SYSTEM_CSL=1 USE_SYSTEM_LIBBLASTRAMPOLINE=0 USE_SYSTEM_LIBWHICH=0 USE_BINARYBUILDER=0 USE_BINARYBUILDER_LLVM=0 WITH_TERMINFO=0 BUNDLE_DEBUG_LIBS=0 JULIA_SPLITDEBUG=1 TAGGED_RELEASE_BANNER="Fedora %{fedora} build" VERBOSE=1 %{march} %{cpu_target} %{blas} %{suitesparse_lib} prefix=%{_prefix} bindir=%{_bindir} libdir=%{_libdir} libexecdir=%{_libexecdir} datarootdir=%{_datarootdir} includedir=%{_includedir} sysconfdir=%{_sysconfdir} build_prefix=%{_builddir}/%{buildsubdir}/build%{_prefix} build_libdir=%{_builddir}/%{buildsubdir}/build%{_libdir} JULIA_CPU_THREADS=$(echo %{?_smp_mflags} | sed s/-j//)
+%global commonopts USE_SYSTEM_LLVM=0 USE_SYSTEM_LIBUNWIND=0 USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=0 USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBSUITESPARSE=1 USE_SYSTEM_DSFMT=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_UTF8PROC=1 USE_SYSTEM_LIBGIT2=1 USE_SYSTEM_LIBSSH2=1 USE_SYSTEM_OPENSSL=1 USE_SYSTEM_CURL=1 USE_SYSTEM_PATCHELF=1 USE_SYSTEM_LIBM=0 USE_SYSTEM_OPENLIBM=1 USE_SYSTEM_ZLIB=1 USE_SYSTEM_P7ZIP=1 USE_SYSTEM_ZSTD=1 USE_SYSTEM_NGHTTP2=1 USE_SYSTEM_CSL=1 USE_SYSTEM_LIBBLASTRAMPOLINE=0 USE_SYSTEM_LIBWHICH=0 USE_BINARYBUILDER=0 USE_BINARYBUILDER_LLVM=0 WITH_TERMINFO=0 BUNDLE_DEBUG_LIBS=0 JULIA_SPLITDEBUG=1 TAGGED_RELEASE_BANNER="Fedora %{fedora} build" VERBOSE=1 %{march} %{cpu_target} %{blas} %{suitesparse_lib} prefix=%{_prefix} bindir=%{_bindir} libdir=%{_libdir} libexecdir=%{_libexecdir} datarootdir=%{_datarootdir} includedir=%{_includedir} sysconfdir=%{_sysconfdir} build_prefix=%{_builddir}/%{buildsubdir}/build%{_prefix} build_libdir=%{_builddir}/%{buildsubdir}/build%{_libdir} JULIA_CPU_THREADS=$(echo %{?_smp_mflags} | sed s/-j//)
 
 make %{commonopts} -C deps extract-gmp
 pushd deps/srccache/gmp-%{gmpversion}
@@ -339,7 +332,8 @@ sed "s/cpu_threads = max(2\*cpu_threads, min(200, 10\*cpu_threads))/cpu_threads 
 ## Disable tests that fail on build machines (but not locally)
 sed -i 's/skip_tests = Set()/skip_tests = Set(["loading", "cmdlineargs"])/' test/choosetests.jl
 
-# Disable test that fails for some CPUs (apparently those who don't have two threads per core)
+# Disable test that fails for some CPUs
+# https://github.com/JuliaLang/julia/pull/63319
 sed -i "s/const AFFINITY_SUPPORTED = .*/const AFFINITY_SUPPORTED = false/" test/threads.jl
 
 # Julia hardcodes the exact SOVERSION it uses when USE_SYSTEM_*=0
@@ -506,6 +500,9 @@ JULIA_TEST_USE_MULTIPLE_WORKERS=true %{buildroot}%{_bindir}/julia -e "Base.runte
 exit 0
 
 %changelog
+* Sun Nov 8 2026 Milan Bouchet-Valat <nalimilan@club.fr> - 1.13.3-2
+- Use openssl3 package instead of bundling it.
+
 * Thu Nov 5 2026 Milan Bouchet-Valat <nalimilan@club.fr> - 1.13.3-1
 - Rebuild for openlibm 0.8.
 

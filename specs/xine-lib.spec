@@ -24,7 +24,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        37%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        38%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -361,6 +361,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Wed Nov 11 2026 Adrian Reber <adrian@lisas.de> - 1.2.13-38
+- Rebuilt for libcdio 2.4.0
+
 * Mon Sep 07 2026 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-37
 - Rebuilt for libnfs 7.0.2
 

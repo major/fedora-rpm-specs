@@ -49,7 +49,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 1%{?dist}.1
 License: Python-2.0.1
 
 
@@ -314,8 +314,9 @@ BuildRequires: libappstream-glib
 BuildRequires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 %if %{with tests}
 BuildRequires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 71
-BuildRequires: ca-certificates
 %endif
+%else
+BuildRequires: ca-certificates
 %endif
 
 %if %{without bootstrap}
@@ -1838,6 +1839,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Wed Nov 11 2026 Miro Hrončok <miro@hroncok.cz> - 3.13.18-1.1
+- EPEL 10.3-only rebuild to fix runtime dependency on expat
+
 * Mon Oct 26 2026 Miro Hrončok <miro@hroncok.cz> - 3.13.18-1
 - Update to Python 3.13.18
 - CVE 2026-114583: tar filter allows writing outside destination via empty-named symlink

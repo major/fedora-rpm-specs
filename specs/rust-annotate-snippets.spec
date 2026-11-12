@@ -5,7 +5,7 @@
 %global crate annotate-snippets
 
 Name:           rust-annotate-snippets
-Version:        0.12.17
+Version:        0.12.18
 Release:        %autorelease
 Summary:        Format diagnostic reports, including highlighting snippets of text
 

@@ -1,5 +1,5 @@
 Name:           perl-Mail-DMARC
-Version:        2.20261030
+Version:        2.20261110
 Release:        1%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -18,7 +18,7 @@ BuildRequires:  perl(File::ShareDir::Install) >= 0.06
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  perl(:VERSION) >= 5.40.2
+BuildRequires:  perl(:VERSION) >= 5.36.0
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config::Tiny)
 # CPAN never used, bin/install_deps.pl not used and not installed.
@@ -232,6 +232,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 11 2026 Petr Pisar <ppisar@redhat.com> - 2.20261110-1
+- 2.20261110 bump
+
 * Mon Nov 02 2026 Petr Pisar <ppisar@redhat.com> - 2.20261030-1
 - 2.20261030 bump
 

@@ -74,10 +74,14 @@ Summary:        Single-file public domain libraries for C/C++
 #
 # See https://forge.fedoraproject.org/legal/fedora-license-data/issues/1593 and
 # https://github.com/nothings/stb/issues/2008.
-License:        %{shrink:
-    (MIT OR Unlicense) AND
-    %{?with_stb_include:LicenseRef-Fedora-Public-Domain AND}
-    (LicenseRef-Fedora-Public-Domain OR LicenseRef-Fedora-UltraPermissive)
+%global main_license MIT OR Unlicense
+%global stb_include_license LicenseRef-Fedora-Public-Domain
+%global stb_herringbone_wang_tile_license %{shrink:
+    LicenseRef-Fedora-Public-Domain OR LicenseRef-Fedora-UltraPermissive
+    }
+License:        (%{main_license}) %{shrink:
+    %{?with_stb_include:AND %{stb_include_license}}
+    AND (%{stb_herringbone_wang_tile_license})
     }
 # Additionally, the following are under different terms, but are not used; to
 # make certain, they are removed in %%prep.
@@ -87,11 +91,10 @@ License:        %{shrink:
 #   LicenseRef-Fedora-Public-Domain:
 #   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/620
 # - tests/caveview/glext.h is MIT (only)
-SourceLicense:  %{shrink:
-    (MIT OR Unlicense) AND
-    LicenseRef-Fedora-Public-Domain AND
-    MIT AND
-    (LicenseRef-Fedora-Public-Domain OR LicenseRef-Fedora-UltraPermissive)
+SourceLicense:  (%{main_license}) %{shrink:
+    AND %{stb_include_license}
+    AND MIT
+    AND (%{stb_herringbone_wang_tile_license})
     }
 URL:            https://github.com/nothings/stb
 Source:         %{url}/archive/%{commit}/stb-%{commit}.tar.gz
@@ -415,7 +418,7 @@ This is a metapackage that requires the -devel packages for all stb libraries.
 %package -n stb_c_lexer-devel
 Summary:        Simplify writing parsers for C-like languages
 Version:        %{stb_c_lexer_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -428,7 +431,7 @@ Lexer for making little C-like languages with recursive-descent parsers.
 %package -n stb_connected_components-devel
 Summary:        Incrementally compute reachability on grids
 Version:        %{stb_connected_components_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -445,7 +448,7 @@ their orthogonal neighbors, not diagonally.
 %package -n stb_divide-devel
 Summary:        More useful 32-bit modulus e.g. “Euclidean divide”
 Version:        %{stb_divide_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -464,7 +467,7 @@ handling of overflow of intermediate calculations:
 %package -n stb_ds-devel
 Summary:        Typesafe dynamic array and hash tables for C, will compile in C++
 Version:        %{stb_ds_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -480,7 +483,7 @@ For a gentle introduction: https://nothings.org/stb_ds
 %package -n stb_dxt-devel
 Summary:        Fabian “ryg” Giesen’s real-time DXT compressor
 Version:        %{stb_dxt_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -493,7 +496,7 @@ DXT1/DXT5 compressor.
 %package -n stb_easy_font-devel
 Summary:        Quick-and-dirty easy-to-deploy bitmap font for printing frame rate, etc
 Version:        %{stb_easy_font_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -516,7 +519,7 @@ Doesn’t use any textures, instead builds characters out of quads.
 %package -n stb_herringbone_wang_tile-devel
 Summary:        Herringbone Wang tile map generator
 Version:        %{stb_herringbone_wang_tile_version}%{snapinfo}
-License:        LicenseRef-Fedora-Public-Domain OR LicenseRef-Fedora-UltraPermissive
+License:        %{stb_herringbone_wang_tile_license}
 
 BuildArch:      noarch
 
@@ -544,7 +547,7 @@ loading the tile set and specifying the constraints explicitly yourself.
 %package -n stb_hexwave-devel
 Summary:        Audio waveform synthesizer
 Version:        %{stb_hexwave_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -563,7 +566,7 @@ multiple voices, etc.
 %package -n stb_image-devel
 Summary:        Image loading/decoding from file/memory: JPG, PNG, TGA, BMP, PSD, GIF, HDR, PIC
 Version:        %{stb_image_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 %if %{without mlpack_arched_dep}
 BuildArch:      noarch
@@ -582,7 +585,7 @@ problematic images and only need the trivial interface.
 %package -n stb_image_resize-devel
 Summary:        Resize images larger/smaller with good quality (original version)
 Version:        %{stb_image_resize_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -604,7 +607,7 @@ deprecated by its developer; consider porting to stb_image_resize2 instead.
 %package -n stb_image_write-devel
 Summary:        Image writing to disk: PNG, TGA, BMP
 Version:        %{stb_image_write_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 %if %{without mlpack_arched_dep}
 BuildArch:      noarch
@@ -626,7 +629,7 @@ run-time performance.
 %package -n stb_include-devel
 Summary:        Implement recursive #include support, particularly for GLSL
 Version:        %{stb_include_version}%{snapinfo}
-License:        LicenseRef-Fedora-Public-Domain
+License:        %{stb_include_license}
 
 BuildArch:      noarch
 
@@ -649,7 +652,7 @@ API.
 %package -n stb_leakcheck-devel
 Summary:        Quick-and-dirty malloc/free leak-checking
 Version:        %{stb_leakcheck_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -662,7 +665,7 @@ Provides:       stb_leakcheck-static = %{stb_leakcheck_version}%{snapinfo}-%{rel
 %package -n stb_perlin-devel
 Summary:        Perlin’s revised simplex noise w/ different seeds
 Version:        %{stb_perlin_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -675,7 +678,7 @@ Provides:       stb_perlin-static = %{stb_perlin_version}%{snapinfo}-%{release}
 %package -n stb_rect_pack-devel
 Summary:        Simple 2D rectangle packer with decent quality
 Version:        %{stb_rect_pack_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -701,7 +704,7 @@ same API, but with a different init function.
 %package -n stb_sprintf-devel
 Summary:        Fast sprintf, snprintf for C/C++
 Version:        %{stb_sprintf_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -736,7 +739,7 @@ when using MSVC static libs, calling sprintf drags in 16K.
 %package -n stb_textedit-devel
 Summary:        Guts of a text editor for games etc., implementing them from scratch
 Version:        %{stb_textedit_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -759,7 +762,7 @@ Non-trivial behaviors are modeled after Windows text controls.
 %package -n stb_tilemap_editor-devel
 Summary:        Embeddable tilemap editor
 Version:        %{stb_tilemap_editor_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -772,7 +775,7 @@ Embeddable tilemap editor for C/C++.
 %package -n stb_truetype-devel
 Summary:        Parse, decode, and rasterize characters from TrueType fonts
 Version:        %{stb_truetype_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -800,7 +803,7 @@ This library processes TrueType files:
 %package -n stb_vorbis-devel
 Summary:        Decode Ogg Vorbis files from file/memory to float/16-bit signed output
 Version:        %{stb_vorbis_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -813,7 +816,7 @@ Ogg Vorbis audio decoder.
 %package -n stb_voxel_render-devel
 Summary:        Helps render large-scale “voxel” worlds for games
 Version:        %{stb_voxel_render_version}%{snapinfo}
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 
@@ -852,7 +855,7 @@ them.
 %package doc
 Summary:        Documentation for stb
 # We may reasonably assume that the LICENSE file covers documentation.
-License:        MIT OR Unlicense
+License:        %{main_license}
 
 BuildArch:      noarch
 

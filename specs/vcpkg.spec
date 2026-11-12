@@ -1,5 +1,5 @@
 %global repo_name vcpkg-tool
-%global repo_tag 2026-09-26
+%global repo_tag 2026-10-29
 
 Name: vcpkg
 Version: %(echo %{repo_tag} | sed 's/-/./g')

@@ -113,7 +113,7 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   5
-Version: 153.6.0
+Version: 153.7.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included

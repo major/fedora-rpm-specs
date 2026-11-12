@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:       elisa-player
 Version:    26.08.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Elisa music player
 
 # Main program LGPLv3+
@@ -16,6 +16,11 @@ License:    LGPL-3.0-or-later AND LicenseRef-Callaway-CC-BY-SA
 URL:        https://community.kde.org/Elisa
 
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/elisa-%{version}.tar.xz
+
+# Fix some m4a files not being able to be openned
+# https://bugs.kde.org/show_bug.cgi?id=512323
+# https://invent.kde.org/multimedia/elisa/-/merge_requests/807.patch
+Patch:   807.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -95,6 +100,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.el
 %{_kf6_libdir}/elisa/
 
 %changelog
+* Thu Nov 12 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-2
+- Bump release
+
+* Tue Nov 10 2026 Cristian Le <fedora@lecris.me> - 26.08.3-2
+- Backport fix for some m4a files not being able to be openned (kde#512323)
+
 * Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
 - 26.08.3
 

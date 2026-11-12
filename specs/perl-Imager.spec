@@ -1,5 +1,5 @@
 Name:           perl-Imager
-Version:        1.038
+Version:        1.041
 Release:        1%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -10,7 +10,6 @@ BuildRequires:  giflib-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libtiff-devel >= 4.0.8
-BuildRequires:  t1lib-devel
 # rgb.txt, c.f. lib/Imager/Color.pm
 BuildRequires:  rgb
 # Build
@@ -124,6 +123,15 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Wed Nov 11 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.041-1
+- 1.041 bump (rhbz#2553374)
+- Fix CVE-2026-124720 (TGA memory leak for images with non-zero idstring)
+- Fix CVE-2026-124721 (PNG file limit checks)
+- Fix CVE-2026-124722 (PNM file limit checks)
+- Fix CVE-2026-112202 (GIF malloc buffer read overflow)
+- Fix CVE-2026-102504 (RAW: out-of-range channel count DoS)
+- Fix CVE-2026-102505 (heap buffer overflow in paletted image getsamples)
+
 * Wed Oct 07 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.038-1
 - 1.038 bump (rhbz#2547402)
 

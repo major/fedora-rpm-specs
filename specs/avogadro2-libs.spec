@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           avogadro2-libs
-Version:        2.0.0
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Avogadro2 libraries
 
@@ -19,6 +19,9 @@ Source5: https://github.com/OpenChemistry/avogadrodata/archive/refs/tags/%{versi
 
 # Do not download "fragments" files
 Patch0: avogadro2-libs-avoid_downloading.patch
+
+# https://github.com/OpenChemistry/avogadrolibs/issues/3287
+Patch1: avogadro2-libs-bug3287.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  python3-devel

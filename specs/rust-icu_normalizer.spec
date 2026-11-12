@@ -5,7 +5,7 @@
 %global crate icu_normalizer
 
 Name:           rust-icu_normalizer
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        API for normalizing text into Unicode Normalization Forms
 
@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Omit benchmark-only dev-dependencies criterion and detone
 # * Do not package benchmarks or benchmark data
+# * Add explicit dev-dep on zerovec/alloc from normalizer:
+#   https://github.com/unicode-org/icu4x/pull/8681
 Patch:          icu_normalizer-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

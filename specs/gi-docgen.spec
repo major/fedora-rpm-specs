@@ -71,7 +71,7 @@ License:        (%{base_license}) AND BSD-2-Clause AND MIT AND CC0-1.0
 #
 # LGPL-2.0-or-later OR MPL-1.1:
 #   - tests/data/gir/cairo-1.0.gir (not installed; test only)
-SourceLicense:  %{shrink:%{license}
+SourceLicense:  %{license} %{shrink:
     AND CC-BY-SA-3.0
     AND GPL-2.0-or-later
     AND LGPL-2.0-or-later

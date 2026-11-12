@@ -1,6 +1,6 @@
 Name:           kaichat
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Chat interface for AI models such as ollama
 
 License:        CC0-1.0 AND LGPL-2.0-or-later AND MIT AND GPL-2.0-or-later AND BSD-3-Clause
@@ -93,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %{_kf6_libdir}/qt6/plugins/plasma/kcms/systemsettings_qwidgets/kcm_autogeneratetext.so
 
 %changelog
+* Wed Nov 11 2026 Steve Cossette <farchord@gmail.com> - 0.8.0-2
+- Rebuild for ktextaddons
+
 * Thu Jul 23 2026 Steve Cossette <farchord@gmail.com> - 0.8.0-1
 - 0.8.0
 

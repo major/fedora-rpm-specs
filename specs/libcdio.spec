@@ -1,5 +1,5 @@
 Name: libcdio
-Version: 2.3.0
+Version: 2.4.0
 Release: %autorelease
 Summary: CD-ROM input and control library
 # include/cdio/ecma_167.h and lib/driver/netbsd.c and lib/udf/udf_fs.c are BSD-2-Clause
@@ -64,9 +64,9 @@ cp %{SOURCE2} .
 %make_install
 
 # multilib header hack; taken from postgresql.spec
-case `uname -i` in
+case %{_arch} in
 	i386 | x86_64 | ppc | ppc64 | s390 | s390x | sparc | sparc64 )
-		mv $RPM_BUILD_ROOT%{_includedir}/cdio/cdio_config.h $RPM_BUILD_ROOT%{_includedir}/cdio/cdio_config_`uname -i`.h
+		mv $RPM_BUILD_ROOT%{_includedir}/cdio/cdio_config.h $RPM_BUILD_ROOT%{_includedir}/cdio/cdio_config_%{_arch}.h
 		install -m 644 %{SOURCE3} $RPM_BUILD_ROOT%{_includedir}/cdio
 		;;
 	*)

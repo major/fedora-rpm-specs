@@ -167,13 +167,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc2.261110gb3dfbde62cf1.20
+%define pkgrelease 0.rc2.261111g067c5c24cef2.21
 %define kversion 7
-%define tarfile_release 7.4-rc2-21-gb3dfbde62cf1
+%define tarfile_release 7.4-rc2-92-g067c5c24cef2
 # This is needed to do merge window version magic
 %define patchlevel 4
 # The Release tag, including the configurable %%{?dist} tag
-%define specrelease 0.rc2.261110gb3dfbde62cf1.20%{?buildid}%{?dist}
+%define specrelease 0.rc2.261111g067c5c24cef2.21%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -4610,9 +4610,12 @@ fi\
 #
 #
 %changelog
-* Tue Nov 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.b3dfbde62cf1.20]
+* Wed Nov 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.067c5c24cef2.21]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Wed Nov 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.067c5c24cef2.20]
+- Linux v7.4.0-0.rc2.067c5c24cef2
 
 * Tue Nov 10 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.b3dfbde62cf1.19]
 - redhat/configs: riscv: Misc fixes for K3 and DP1000 (Jennifer Berringer)

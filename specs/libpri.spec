@@ -8,7 +8,8 @@ Summary:        An implementation of Primary Rate ISDN
 # the binary RPMs.
 #
 # The entire following expression applies to the entire package.
-License:        %{shrink:GPL-2.0-only WITH libpri-OpenH323-exception
+License:        %{shrink:
+    GPL-2.0-only WITH libpri-OpenH323-exception
     AND GPL-2.0-only WITH Asterisk-exception
     }
 SourceLicense:  %{license} AND GPL-2.0-or-later

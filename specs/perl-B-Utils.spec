@@ -1,5 +1,5 @@
 Name:           perl-B-Utils
-Version:        0.28
+Version:        0.29
 Release:        1%{?dist}
 Summary:        Helper functions for op tree manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -13,6 +13,7 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(ExtUtils::Depends) >= 0.302
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(Task::Weaken)
@@ -64,10 +65,14 @@ make test
 %{_mandir}/man3/B::Utils::OP.3*
 
 %changelog
+* Wed Nov 11 2026 Paul Howarth <paul@city-fan.org> - 0.29-1
+- Update to 0.29 (rhbz#2571397)
+  - Adjust tests to handle a change in perl 5.45.5 (GH#3, perl issue #24827)
+
 * Tue Oct 20 2026 Paul Howarth <paul@city-fan.org> - 0.28-1
 - Update to 0.28 (rhbz#2555817)
   - Update ppport.h to the latest version, and keep it updated
-  - Adjust tests to handle a change in perl 5.45.4 (GH#2, Perl issue #24845)
+  - Adjust tests to handle a change in perl 5.45.4 (GH#2, Perl issue #24827)
 
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.27-37
 - Perl 5.44 rebuild

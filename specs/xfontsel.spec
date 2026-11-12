@@ -43,15 +43,14 @@ License:        X11 AND SMLNJ AND MIT
 #   - meson.build
 # X11 AND LicenseRef-LicenseRef-Fedora-Public-Domain:
 #   - install-sh
-SourceLicense:  %{shrink:
-    %{license} AND
-    FSFAP AND
-    FSFUL AND
-    FSFULLR AND
-    FSFULLRWD AND
-    GPL-2.0-or-later WITH Autoconf-exception-generic AND
-    GPL-3.0-or-later WITH Autoconf-exception-generic AND
-    HPND-sell-variant
+SourceLicense:  %{license} %{shrink:
+    AND FSFAP
+    AND FSFUL
+    AND FSFULLR
+    AND FSFULLRWD
+    AND GPL-2.0-or-later WITH Autoconf-exception-generic
+    AND GPL-3.0-or-later WITH Autoconf-exception-generic
+    AND HPND-sell-variant
     }
 URL:            https://www.x.org
 Source0:        %{url}/pub/individual/app/xfontsel-%{version}.tar.xz

@@ -5,7 +5,7 @@
 %global crate zerovec-derive
 
 Name:           rust-zerovec-derive
-Version:        0.11.6
+Version:        0.11.7
 Release:        %autorelease
 Summary:        Custom derive for the zerovec crate
 

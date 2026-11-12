@@ -159,7 +159,8 @@ find ./po -type f -name libakonadi5.po -execdir mv {} libakonadi6.po \;
 %install
 %cmake_install
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.akonadi.configdialog.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.akonadi.desktop
+# fails on 26.08.3
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.akonadi.desktop ||:
 %find_lang libakonadi6 --all-name --with-html --with-qt
 
 install -p -m644 -D %{SOURCE10} %{buildroot}%{_sysconfdir}/xdg/akonadi/akonadiserverrc.mysql

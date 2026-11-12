@@ -5,7 +5,7 @@
 %global crate fixed_decimal
 
 Name:           rust-fixed_decimal
-Version:        0.7.2
+Version:        0.7.3
 Release:        %autorelease
 Summary:        API for representing numbers in a human-readable form
 

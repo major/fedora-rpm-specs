@@ -3,8 +3,8 @@
 %bcond_without tests
 
 Name:           python-cssselect
-Version:        1.4.0
-Release:        2%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Parses CSS3 Selectors and translates them to XPath 1.0
 
 License:        BSD-3-Clause
@@ -51,6 +51,9 @@ Python 3 version.
 %doc README.rst CHANGES AUTHORS
 
 %changelog
+* Wed Nov 11 2026 Eduardo Echeverria <echevemaster@gmail.com> - 1.6.0-1
+- Update to 1.6.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

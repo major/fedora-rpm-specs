@@ -1,7 +1,7 @@
 Summary:     Inotify cron system
 Name:        incron
 Version:     0.5.12
-Release:     30%{?dist}
+Release:     31%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:     GPL-2.0-only
@@ -12,6 +12,8 @@ Patch0:      incron-0.5.10-gcc.patch
 Patch1:      incron-0.5.12-prevent-zombies.patch
 # https://github.com/ar-/incron/pull/56
 Patch2:      56.patch
+# Non root users should not be allowed to pass their own config
+Patch3:      incron-0.5.12-nonroot-config.patch
 
 BuildRequires: systemd
 BuildRequires: gcc-c++
@@ -33,6 +35,7 @@ filesystem events rather than time periods.
 %patch -P0 -p1 -b .gcc
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %build
 make %{?_smp_mflags} CXXFLAGS="%{optflags} -std=c++14" LDFLAGS="%{__global_ldflags}"
@@ -73,6 +76,9 @@ make install-man MANPATH="%{buildroot}%{_mandir}" INSTALL="install -D -p"
 %dir %{_sysconfdir}/%{name}.d
 
 %changelog
+* Tue Nov 10 2026 Kevin Fenzi <kevin@scrye.com> - 0.5.12-31
+- Add Patch to stop non root users using their own config. Fixes rhbz#2568586
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.12-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

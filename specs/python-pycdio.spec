@@ -1,6 +1,6 @@
 Name:		python-pycdio
 Version:	2.1.1
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	A Python interface to the CD Input and Control library
 
 License:	GPL-3.0-or-later
@@ -56,6 +56,9 @@ chmod 755 %{buildroot}/%{python3_sitearch}/*.so
 %{python3_sitearch}/_pyiso9660.cpython-*linux-gnu.so
 
 %changelog
+* Wed Nov 11 2026 Adrian Reber <adrian@lisas.de> - 2.1.1-15
+- Rebuilt for libcdio 2.4.0
+
 * Tue Jul 28 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.1.1-14
 - Replace removed Python 2 C API macros for SWIG 4.5.0 compatibility
 

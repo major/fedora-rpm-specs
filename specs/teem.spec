@@ -250,10 +250,9 @@ Summary:        Examples for developing with for teem
 #   UseTeemCMakeDemo/sanity.c
 # BSD-3-Clause:
 #   Examples/sanity/sanity.c
-License:        %{shrink:
-    LGPL-2.1-or-later WITH Simple-Library-Usage-exception AND
-    Zlib AND
-    BSD-3-Clause
+License:        LGPL-2.1-or-later WITH Simple-Library-Usage-exception %{shrink:
+    AND Zlib
+    AND BSD-3-Clause
     }
 BuildArch:      noarch
 

@@ -13,11 +13,10 @@ Release:        %autorelease
 #   - vapi/linux.vapi, which is LGPL-2.1-or-later
 #   - data/com.github.alecaddd.sequeler.appdata.xml.in.in, which is CC0-1.0
 #     (which is approved for content, which this file is).
-License:        %{shrink:
-    GPL-3.0-or-later AND
-    GPL-2.0-or-later AND
-    LGPL-2.1-or-later AND
-    CC0-1.0
+License:        GPL-3.0-or-later %{shrink:
+    AND GPL-2.0-or-later
+    AND LGPL-2.1-or-later
+    AND CC0-1.0
     }
 URL:            https://github.com/ellie-commons/sequeler
 Source:         %{url}/archive/v%{version}/sequeler-%{version}.tar.gz

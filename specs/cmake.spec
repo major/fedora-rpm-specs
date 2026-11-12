@@ -74,7 +74,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 5
+%global baserelease 7
 
 # Set to RC version if building RC, else comment out.
 #%%global rcsuf rc3
@@ -127,6 +127,9 @@ Patch100:       %{name}-findruby.patch
 %if 0%{?name_suffix:1}
 Patch1:         %{name}-rename.patch
 %endif
+
+# FindPython: Add support for Python 3.16
+Patch2:         https://gitlab.kitware.com/cmake/cmake/-/merge_requests/12738.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -525,14 +528,34 @@ NO_TEST="$NO_TEST|CPackComponentsForAll-RPM-AllInOne"
 %if %{with bootstrap}
 NO_TEST="$NO_TEST|curl"
 %endif
-%ifarch riscv64
-# These three tests timeout on riscv64, skip them.
-NO_TEST="$NO_TEST|Qt5Autogen.ManySources|Qt5Autogen.MocInclude|Qt5Autogen.MocIncludeSymlink|Qt6Autogen.MocIncludeSymlink"
-%endif
 %if 0%{?fedora} == 41
 # Test failing on Fedora 41, only.
 NO_TEST="$NO_TEST|RunCMake.Make|RunCMake.BuildDepends|Qt6Autogen.RerunMocBasic|Qt6Autogen.RerunRccDepends"
 %endif
+
+%ifarch riscv64
+# riscv64 builders are slow compared to other Fedora architectures
+
+# This test timeouts on some riscv64 builders
+NO_TEST="$NO_TEST|Qt6Autogen.MocIncludeSymlink"
+
+# The following tests FAILED:
+#
+# In those tests CMake rebuilds files when nothing should be done.
+#       334 - RunCMake.Make (Failed)
+#       347 - RunCMake.BuildDepends (Failed)                    Fortran
+#
+# In those tests timestamp of file changes so some builds are done again
+#       696 - Qt6Autogen.RerunMocBasic (Failed)                 Qt6
+#       700 - Qt6Autogen.RerunRccDepends (Failed)               Qt6
+#
+# Reported upstream: https://gitlab.kitware.com/cmake/cmake/-/work_items/28174
+# All four tests indicate some kind of filesystem timestamp granularity or time
+# drift resulting in building things again instead of doing nothing.
+#
+NO_TEST="$NO_TEST|RunCMake.Make|RunCMake.BuildDepends|Qt6Autogen.RerunMocBasic|Qt6Autogen.RerunRccDepends"
+%endif
+
 # TODO: check why this fails
 NO_TEST="$NO_TEST|RunCMake.ParseImplicitLinkInfo"
 bin/ctest%{?name_suffix} %{?_smp_mflags} -V -E "$NO_TEST" --output-on-failure
@@ -618,6 +641,12 @@ popd
 
 
 %changelog
+* Thu Oct 29 2026 Miro Hrončok <miro@hroncok.cz> - 4.3.0-7
+- FindPython: Add Python 3.16 to the list of hardcoded Python versions
+
+* Wed Sep 30 2026 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 4.3.0-6
+- Update list of problematic tests on RISC-V
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 %global project_version_prime 5
 %global project_version_major 4
-%global project_version_minor 7
+%global project_version_minor 8
 %global project_version_micro 0
 
 # ========== build options ==========
@@ -159,7 +159,7 @@ BuildRequires:  bash-completion-devel
 %else
 BuildRequires:  bash-completion
 %endif
-BuildRequires:  cmake >= 3.22
+BuildRequires:  cmake >= 3.24
 BuildRequires:  doxygen
 BuildRequires:  gettext
 BuildRequires:  pkgconfig(fmt)
@@ -536,7 +536,7 @@ Package management library.
 %if %{with libdnf_cli}
 %package -n libdnf5-cli
 Summary:        Library for working with a terminal in a command-line package manager
-License:        LGPL-2.1-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 
 %description -n libdnf5-cli
@@ -545,6 +545,7 @@ Library for working with a terminal in a command-line package manager.
 %files -n libdnf5-cli -f libdnf5-cli.lang
 %{_libdir}/libdnf5-cli.so.3*
 %license COPYING.md
+%license gpl-2.0.txt
 %license lgpl-2.1.txt
 %endif
 
@@ -552,7 +553,7 @@ Library for working with a terminal in a command-line package manager.
 
 %package -n dnf5-devel
 Summary:        Development files for dnf5
-License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-devel%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli-devel%{?_isa} = %{version}-%{release}
@@ -563,6 +564,7 @@ Development files for dnf5.
 %files -n dnf5-devel
 %{_includedir}/dnf5/
 %license COPYING.md
+%license gpl-2.0.txt
 %license lgpl-2.1.txt
 %license lgpl-2.0.txt
 
@@ -571,7 +573,7 @@ Development files for dnf5.
 
 %package -n libdnf5-devel
 Summary:        Development files for libdnf
-License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libsolv-devel%{?_isa} >= %{libsolv_version}
 
@@ -584,6 +586,7 @@ Development files for libdnf.
 %{_libdir}/libdnf5.so
 %{_libdir}/pkgconfig/libdnf5.pc
 %license COPYING.md
+%license gpl-2.0.txt
 %license lgpl-2.1.txt
 %license lgpl-2.0.txt
 
@@ -750,7 +753,7 @@ Libdnf5 plugin that allows to run actions (external executables) on hooks.
 
 %package -n libdnf5-plugin-appstream
 Summary:        Libdnf5 plugin to install repository AppStream data
-License:        LGPL-2.1-or-later
+License:        GPL-2.0-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 BuildRequires:  pkgconfig(appstream) >= 0.16
 
@@ -760,6 +763,7 @@ which provide them.
 
 %files -n libdnf5-plugin-appstream
 %{_libdir}/libdnf5/plugins/appstream.so
+%license gpl-2.0.txt
 %config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/appstream.conf
 
 %endif
@@ -875,7 +879,7 @@ installed, removed, or updated.
 %if %{with dnf5daemon_client}
 %package -n dnf5daemon-client
 Summary:        Command-line interface for dnf5daemon-server
-License:        GPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
 Requires:       dnf5daemon-server
@@ -887,6 +891,7 @@ Command-line interface for dnf5daemon-server.
 %{_bindir}/dnf5daemon-client
 %license COPYING.md
 %license gpl-2.0.txt
+%license lgpl-2.1.txt
 %if %{with man}
 %{_mandir}/man8/dnf5daemon-client.8.*
 %endif
@@ -898,7 +903,7 @@ Command-line interface for dnf5daemon-server.
 %if %{with dnf5daemon_server}
 %package -n dnf5daemon-server
 Summary:        Package management service with a DBus interface
-License:        GPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
 Requires:       dbus
@@ -929,6 +934,7 @@ Package management service with a DBus interface.
 %{_datadir}/polkit-1/actions/org.rpm.dnf.v0.policy
 %license COPYING.md
 %license gpl-2.0.txt
+%license lgpl-2.1.txt
 %if %{with man}
 %{_mandir}/man8/dnf5daemon-server.8.*
 %{_mandir}/man8/dnf5daemon-dbus-api.8.*
@@ -1006,7 +1012,7 @@ copr, deptree, needs-restarting, repoclosure, repomanage, and reposync commands.
 
 %package plugin-automatic
 Summary:        Package manager - automated upgrades
-License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1026,6 +1032,7 @@ automatically and regularly from systemd timers, cron jobs or similar.
 %files plugin-automatic -f dnf5-plugin-automatic.lang
 %ghost %attr(0644, root, root) %{_sysconfdir}/motd.d/dnf5-automatic
 %{_libdir}/dnf5/plugins/automatic_cmd_plugin.so
+%license gpl-2.0.txt
 %license lgpl-2.1.txt
 %license lgpl-2.0.txt
 %{_datadir}/dnf5/dnf5-plugins/automatic.conf
@@ -1050,7 +1057,7 @@ automatically and regularly from systemd timers, cron jobs or similar.
 %if %{with plugin_manifest}
 %package plugin-manifest
 Summary:        DNF5 plugin for working with RPM package manifest files
-License:        LGPL-2.1-or-later
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Requires:       dnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1062,6 +1069,8 @@ DNF5 plugin for working with RPM package manifest files.
 
 %files plugin-manifest
 %{_libdir}/dnf5/plugins/manifest_cmd_plugin.so
+%license gpl-2.0.txt
+%license lgpl-2.1.txt
 %if %{with man}
 %{_mandir}/man8/dnf*-manifest.8.*
 %endif
@@ -1226,6 +1235,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Wed Nov 11 2026 Packit <hello@packit.dev> - 5.4.8.0-1
+- Update to version 5.4.8.0
+
 * Tue Nov 03 2026 Packit <hello@packit.dev> - 5.4.7.0-1
 - Update to version 5.4.7.0
 

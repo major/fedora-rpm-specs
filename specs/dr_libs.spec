@@ -1,7 +1,12 @@
-%global commit fa931f3285ced10ace628f7f1ac951e1951e7ea6
-%global snapdate 20260302
+%global commit 35b5c392cc15456736c440a68dbe073178bbffe0
+%global snapdate 20261030
 
 %bcond ctest 1
+
+# While we formerly had a dr_libs-devel metapackage that brought in everything,
+# this isn’t really useful. Upstream treats these as separate libraries, and we
+# should too. We drop the metapackage beginning with F46.
+%bcond devel_metapackage %[ %{defined fc45} || %{defined fc44} || %{defined fc43} ]
 
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall
@@ -15,24 +20,28 @@ Release:        %autorelease
 Summary:        Single-file audio decoding libraries for C/C++
 
 URL:            https://github.com/mackron/dr_libs
-# See LICENSE.
+# See LICENSE. Note also that external/fs/ is a copy of
+# https://github.com/mackron/fs, with the same (Unlicense OR MIT-0) license
+# terms. We don’t treat it as a bundled dependency because it is used only for
+# testing and does not contribute to the contents of the binary RPMs.
 License:        Unlicense OR MIT-0
 
-%global dr_flac_version 0.13.3^%{snapinfo}
-%global dr_mp3_version 0.7.3^%{snapinfo}
-%global dr_wav_version 0.14.5^%{snapinfo}
+%global dr_flac_version 0.13.4^%{snapinfo}
+%global dr_mp3_version 0.7.4^%{snapinfo}
+%global dr_wav_version 0.14.6^%{snapinfo}
 
 Source:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 
 BuildSystem:    cmake
 BuildOption(conf): -DDR_LIBS_BUILD_TESTS:BOOL=%{with ctest}
-BuildOption(check): --exclude-regex "${skips}"
 
 BuildRequires:  gcc-c++
 
 %if %{with ctest}
-BuildRequires:  pkgconfig(flac)
-BuildRequires:  libsndfile-devel
+BuildRequires:  cmake(ogg)
+BuildRequires:  cmake(flac)
+BuildRequires:  pkgconfig(sndfile)
+BuildRequires:  pkgconfig(libmpg123)
 %endif
 
 # No compiled binaries are installed, so this would be empty.
@@ -42,6 +51,7 @@ BuildRequires:  libsndfile-devel
 %{summary}.
 
 
+%if %{with devel_metapackage}
 %package devel
 Summary:        Development files for dr_libs
 
@@ -66,6 +76,7 @@ applications that use dr_libs.
 
 This is a metapackage that requires the -devel packages for all dr_libs
 libraries.
+%endif
 
 
 %package -n dr_flac-devel
@@ -104,16 +115,6 @@ Provides:       dr_wav-static = %{dr_wav_version}-%{release}
 WAV audio loader and writer.
 
 
-%prep -a
-# Omit the "playback" tests. We cannot run these anyway, so we would have to
-# skip them, and by not even compiling them, we can avoid a BuildRequires on
-# miniaudio.
-sed --regexp-extended --in-place \
-    's/^([[:blank:]]*)(.*_playback)/\1# \2/' CMakeLists.txt
-
-mkdir -p tests/testvectors/mp3/tests
-
-
 %install
 # There are no install targets in CMakeLists.txt, so %%cmake_install would do
 # nothing. We install manually instead:
@@ -135,16 +136,11 @@ done <<'EOF'
 %(printf '%s\n' '%{dr_wav_version}' | sed --regexp-extended 's/[~^].*//') dr_wav.h
 EOF
 
-skips='^($.'
-# Fails with “No output file specified.”
-skips="${skips}|wav_encoding"
-# These require files in tests/testvectors/mp3/tests/ that are not distributed:
-skips="${skips}|mp3_(basic|extract)"
-skips="${skips})$"
 
-
+%if %{with devel_metapackage}
 %files devel
 # Empty metapackage
+%endif
 
 
 %files -n dr_flac-devel

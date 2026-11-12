@@ -1,6 +1,6 @@
 Name: libcdio-paranoia
 Version: 10.2+2.0.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: CD paranoia on top of libcdio
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -81,6 +81,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/*.so.*
 
 
 %changelog
+* Wed Nov 11 2026 Adrian Reber <adrian@lisas.de> - 10.2+2.0.2-9
+- Rebuilt for libcdio 2.4.0
+
 * Mon Jul 27 2026 Adrian Reber <adrian@lisas.de> - 10.2+2.0.2-8
 - disable "make check"; not supported from released tar archive (#2504265)
 

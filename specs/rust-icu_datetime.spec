@@ -5,7 +5,7 @@
 %global crate icu_datetime
 
 Name:           rust-icu_datetime
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Human-readable formatting of dates, times, and time zones in hundreds of locales
 
@@ -21,10 +21,6 @@ Source:         %{crates_source}
 Patch:          icu_datetime-fix-metadata.diff
 # * Downstream-only: omit a test that would require icu_provider_blob
 Patch10:        0001-Downstream-only-omit-a-test-that-would-require-icu_p.patch
-# * In icu_datetime, limit use of the icu crate to doctests
-# * https://github.com/unicode-org/icu4x/pull/8430
-# * Exported with git format-patch --relative in order to apply to the crate
-Patch11:        0001-In-icu_datetime-limit-use-of-the-icu-crate-to-doctes.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli
@@ -199,6 +195,7 @@ tomcli set Cargo.toml list dev-dependencies.icu_time.features ixdtf alloc
 #   enough that it would be very tedious to patch them all out.
 %cargo_test -a -- --lib
 %cargo_test -a -- --test datetime
+%cargo_test -a -- --test fieldbag
 %cargo_test -a -- --test pattern_serialization
 %cargo_test -a -- --test resolved_components
 %cargo_test -a -- --test simple_test

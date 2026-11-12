@@ -10,8 +10,8 @@ For example, it allows you to have all your casting and parsing rules in a
 single place.}
 
 Name:		python-itemloaders
-Version:	1.4.0
-Release:	2%{?dist}
+Version:	1.5.0
+Release:	1%{?dist}
 Summary:	Library that helps you collect data from HTML and XML sources.
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ BuildRequires:	python3-w3lib
 %doc README.rst
 
 %changelog
+* Wed Nov 11 2026 Eduardo Echeverria <echevemaster@gmail.com> - 1.5.0-1
+- Update to 1.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

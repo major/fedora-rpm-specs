@@ -2,13 +2,13 @@ Name:           perl-Catalyst-Plugin-PageCache
 Version:        0.32
 Release:        30%{?dist}
 Summary:        Cache the output of entire pages
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Catalyst-Plugin-PageCache
 Source0:        https://cpan.metacpan.org/authors/id/V/VE/VERISSIMO/Catalyst-Plugin-PageCache-%{version}.tar.gz
 # Define POD encoding, CPAN RT#87667
 Patch0:         Catalyst-Plugin-PageCache-0.31-Define-POD-encoding.patch
-Patch1:         Catalyst-Plugin-PageCache-0.32-Fix-building-on-Perl-without-dot-in-INC.patch
+# Fix t/09datetime.t, CPAN RT#174378
+Patch1:         Catalyst-Plugin-PageCache-0.32-Fix-datetime-test.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  perl-interpreter
@@ -27,6 +27,16 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(Module::Install::AutoInstall)
+BuildRequires:  perl(Module::Install::Base)
+BuildRequires:  perl(Module::Install::Can)
+BuildRequires:  perl(Module::Install::Fetch)
+BuildRequires:  perl(Module::Install::Include)
+BuildRequires:  perl(Module::Install::Makefile)
+BuildRequires:  perl(Module::Install::Metadata)
+BuildRequires:  perl(Module::Install::WriteAll)
+
 Requires:       perl(Catalyst::Runtime)
 Requires:       perl(Class::Accessor::Fast)
 
@@ -39,20 +49,22 @@ for withstanding a Slashdotting, for example.
 
 %prep
 %setup -q -n Catalyst-Plugin-PageCache-%{version}
+rm -rf inc
+perl -pi -e '/^inc\//d' MANIFEST
 %patch -P0 -p1
 %patch -P1 -p1
 iconv -f iso-8859-1 -t utf-8 README >README.conv && mv README.conv README
 
 %build
-PERL5_CPANPLUS_IS_RUNNING=1 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+PERL5_CPANPLUS_IS_RUNNING=1 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-TEST_POD=yep make test
+TEST_POD=yep %{make_build} test
 
 %files
 %doc Changes README
@@ -60,6 +72,10 @@ TEST_POD=yep make test
 %{_mandir}/man3/Catalyst*
 
 %changelog
+* Wed Nov 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.32-31
+- Fix t/09datetime.t
+- Modernize spec file
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

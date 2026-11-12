@@ -1,6 +1,6 @@
 Name:           emacs-filesystem
 Epoch:          1
-Version:        31.1
+Version:        31.2
 Release:        %autorelease
 Summary:        Emacs filesystem layout
 URL:            https://www.gnu.org/software/emacs/
@@ -15,6 +15,7 @@ packages that add functionality to Emacs.
 %install
 install -m 0755 -d %{buildroot}%{_datadir}/emacs \
                    %{buildroot}%{_datadir}/emacs/site-lisp \
+                   %{buildroot}%{_datadir}/emacs/site-lisp/default.d \
                    %{buildroot}%{_datadir}/emacs/site-lisp/elpa \
                    %{buildroot}%{_datadir}/emacs/site-lisp/site-start.d \
                    %{buildroot}%{_libdir}/emacs/site-lisp \
@@ -24,6 +25,7 @@ install -m 0755 -d %{buildroot}%{_datadir}/emacs \
 %files
 %dir %{_datadir}/emacs
 %dir %{_datadir}/emacs/site-lisp
+%dir %{_datadir}/emacs/site-lisp/default.d
 %dir %{_datadir}/emacs/site-lisp/elpa
 %dir %{_datadir}/emacs/site-lisp/site-start.d
 %dir %{_libdir}/emacs

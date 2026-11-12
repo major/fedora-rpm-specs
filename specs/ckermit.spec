@@ -7,7 +7,7 @@
 
 Summary:       The quintessential all-purpose communications program
 Name:          ckermit
-Version:       11.1.516
+Version:       11.1.517
 Release:       1%{?dist}
 # Most of the package is under a three-clause BSD license, but the file
 # ckuat2.h appears to be covered by three licenses:
@@ -99,6 +99,9 @@ pytest-3 -n auto
 %{_mandir}/man1/kermit.1*
 
 %changelog
+* Wed Nov 11 2026 Martin Jackson <mhjacks@swbell.net> - 11.1.517-1
+- Update to 11.1.517
+
 * Sat Oct 31 2026 Martin Jackson <mhjacks@swbell.net> - 11.1.516-1
 - Update to 11.1.516
 

@@ -1,7 +1,7 @@
 %global pypi_name jsonpointer
 
 Name:           python-%{pypi_name}
-Version:        3.8
+Version:        3.12
 Release:        %autorelease
 Summary:        Resolve JSON Pointers in Python
 

@@ -1,5 +1,5 @@
 %global _hardened_build 1
-%global _version        2025-09-R1
+%global _version        2026-10-R1
 
 ## {Local macros...
 %global cfgdir          %_sysconfdir/%name
@@ -12,13 +12,15 @@
 Summary:        WLAN detector, sniffer and IDS
 Name:           kismet
 Version:        %_rpmversion
-Release:        6%{?dist}
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kismetwireless.net/
 Source0:        http://www.kismetwireless.net/code/%{name}-%_version.tar.xz
 
 Patch0:         kismet-include.patch
 Patch1:         kismet-install.patch
+Patch2:         ee38d431029e0095efa32e89080b0e23bb75e0c0.patch
+Patch3:         718.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -50,6 +52,8 @@ traffic.
 
 %patch -P 0 -p0
 %patch -P 1 -p0
+%patch -P 2 -p1
+%patch -P 3 -p1
 
 sed -i 's!\$(prefix)/lib/!%{_libdir}/!g' plugin-*/Makefile
 
@@ -76,6 +80,9 @@ export LDFLAGS='-Wl,--as-needed'
            --enable-wifi-coconut \
            --sysconfdir=%cfgdir \
            CXXFLAGS="$RPM_OPT_FLAGS -D__STDC_FORMAT_MACROS" \
+%ifarch s390x
+           --disable-usbwifi \
+%endif
            --disable-python-tools
 
 %make_build
@@ -109,8 +116,24 @@ install -m0644 -D kismet.sysusers.conf %{buildroot}%{_sysusersdir}/kismet.conf
 %{_bindir}/kismet_cap_radiacode_usb
 %{_bindir}/kismet_cap_sdr_rtl433
 %{_bindir}/kismet_cap_sdr_rtladsb
-%{_bindir}/kismet_cap_serial_radview
-
+%{_bindir}//kismet_cap_serial_radview
+%{_bindir}/kismet_cap_catsniffer_zigbee
+%{_bindir}/kismet_cap_cell_at
+%{_bindir}/kismet_cap_cell_diag
+%{_bindir}/kismet_cap_lorapipe
+%{_bindir}/kismet_cap_mm8108_halow
+%{_bindir}/kismet_cap_sdr_rtlais
+%{_bindir}/kismet_cap_sdr_rtlaisadsb
+%{_bindir}/kismet_cap_sniffle_ble
+%ifnarch s390x
+%{_bindir}/kismet_cap_usbwifi
+%endif
+%{_bindir}/kismet_cap_wch_ble_analyzer_pro
+%{_bindir}/kismet_usbserial
+%{_bindir}/kismetdb_to_atlog
+%{_bindir}/kismetdb_to_celllog
+%{_bindir}/kismetdb_to_cellndjson
+%{_bindir}/kismetdb_to_hdlc
 %attr(4755,root,root) %{_bindir}/kismet_cap_hak5_wifi_coconut
 %attr(4755,root,root) %{_bindir}/kismet_cap_linux_bluetooth
 %attr(4755,root,root) %{_bindir}/kismet_cap_linux_wifi
@@ -126,6 +149,9 @@ install -m0644 -D kismet.sysusers.conf %{buildroot}%{_sysusersdir}/kismet.conf
 %{_sysusersdir}/kismet.conf
 
 %changelog
+* Fri Oct 30 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.0.2026.10.R1-1
+- 2026-10-R1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2025.09.R1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -52,7 +52,7 @@ License:        BSD-3-Clause
 # X11:
 #   - install-sh
 #   - config/install-sh
-SourceLicense:  %{shrink:%{license}
+SourceLicense:  %{license} %{shrink:
     AND FSFUL
     AND FSFULLR
     AND GPL-2.0-or-later

@@ -10,7 +10,7 @@ Summary:        Fast iterable JSON parser
 # MIT
 # MIT OR Apache-2.0
 %global upstream_license MIT
-%global full_license %{shrink:%{upstream_license}
+%global built_license %{upstream_license} %{shrink:
     AND (BSD-2-Clause OR Apache-2.0 OR MIT)
     AND (MIT OR Apache-2.0)
     }
@@ -40,7 +40,7 @@ BuildRequires:  %{py3_dist dirty-equals}
 
 %package -n     python3-jiter
 Summary:        %{summary}
-License:        %{full_license}
+License:        %{built_license}
 
 %description -n python3-jiter %{_description}
 

@@ -71,6 +71,7 @@ tomcli set pyproject.toml lists delitem \
 
 
 %check -a
+%pyproject_verify_license
 %pytest
 
 

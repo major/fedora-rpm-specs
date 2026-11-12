@@ -2,7 +2,7 @@
 %define version_underscore %(echo %{version} | tr '.' '_')
 
 Name:     squid
-Version:  7.7
+Version:  7.8
 Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
@@ -68,7 +68,7 @@ BuildRequires: perl-generators
 # For test suite
 BuildRequires: pkgconfig(cppunit)
 # For verifying downloded src tarball
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 # for _unitdir macro
 # see https://docs.fedoraproject.org/en-US/packaging-guidelines/Systemd/#_packaging
 BuildRequires: systemd-rpm-macros
@@ -76,7 +76,6 @@ BuildRequires: systemd-rpm-macros
 BuildRequires: systemd-devel
 
 %{?systemd_requires}
-%{?sysusers_requires_compat}
 
 # Old NetworkManager expects the dispatcher scripts in a different place
 Conflicts: NetworkManager < 1.20
@@ -94,7 +93,7 @@ lookup program (dnsserver), a program for retrieving FTP data
 (ftpget), and some management and client tools.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup -p1
 
@@ -107,7 +106,7 @@ sed -i 's|@SYSCONFDIR@/squid.conf.documented|%{_pkgdocdir}/squid.conf.documented
 # NIS helper has been removed because of the following bug
 # https://bugzilla.redhat.com/show_bug.cgi?id=1531540
 %configure \
-   --libexecdir=%{_libdir}/squid \
+   --libexecdir=%{_libexecdir}/squid \
    --datadir=%{_datadir}/squid \
    --sysconfdir=%{_sysconfdir}/squid \
    --with-logdir='%{_localstatedir}/log/squid' \
@@ -170,7 +169,7 @@ echo "
 # This is %{_sysconfdir}/httpd/conf.d/squid.conf
 #
 
-ScriptAlias /Squid/cgi-bin/cachemgr.cgi %{_libdir}/squid/cachemgr.cgi
+ScriptAlias /Squid/cgi-bin/cachemgr.cgi %{_libexecdir}/squid/cachemgr.cgi
 
 # Only allow access from localhost by default
 <Location /Squid/cgi-bin/cachemgr.cgi>
@@ -224,7 +223,7 @@ install -m 644 -p %{SOURCE10} %{buildroot}%{_tmpfilesdir}/squid.conf
 %attr(755,root,root) %dir %{_libexecdir}/squid
 %attr(755,root,root) %{_libexecdir}/squid/cache_swap.sh
 %attr(755,root,root) %dir %{_sysconfdir}/squid
-%attr(755,root,root) %dir %{_libdir}/squid
+%attr(755,root,root) %dir %{_libexecdir}/squid
 %attr(770,squid,root) %dir %{_localstatedir}/log/squid
 %attr(750,squid,squid) %dir %{_localstatedir}/spool/squid
 
@@ -246,14 +245,12 @@ install -m 644 -p %{SOURCE10} %{buildroot}%{_tmpfilesdir}/squid.conf
 %{_datadir}/squid/icons
 %{_sbindir}/squid
 %{_mandir}/man8/*
-%{_libdir}/squid/*
+%{_libexecdir}/squid/*
 %{_datadir}/snmp/mibs/SQUID-MIB.txt
 %{_sysusersdir}/squid.conf
 %{_tmpfilesdir}/squid.conf
 
 %pre
-%sysusers_create_compat %{SOURCE9}
-
 for i in /var/log/squid /var/spool/squid ; do
         if [ -d $i ] ; then
                 for adir in `find $i -maxdepth 0 \! -user squid`; do
@@ -313,6 +310,12 @@ fi
 
 
 %changelog
+* Wed Nov 11 2026 Luboš Uhliarik <luhliari@redhat.com> - 7:7.8-1
+- new version 7.8
+- Drop call to %sysusers_create_compat
+- Move libexec content to libexecdir (#2430344)
+- Verify upstream source signatures with openpgpverify
+
 * Wed Sep 16 2026 Luboš Uhliarik <luhliari@redhat.com> - 7:7.7-1
 - new version 7.7
 

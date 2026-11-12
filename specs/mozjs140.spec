@@ -25,7 +25,7 @@
 %endif
 
 Name:           mozjs%{major}
-Version:        140.13.0
+Version:        140.17.0
 Release:        %autorelease -b3
 Summary:        SpiderMonkey JavaScript library
 
@@ -58,7 +58,6 @@ Patch16:        D261512.1755672843.diff
 Patch20:        spidermonkey_checks_disable.patch
 
 # Fix target detection with latest rust
-# https://phabricator.services.mozilla.com/D311145
 # https://phabricator.services.mozilla.com/D330023
 Patch21:        rust-configure.patch
 

@@ -38,8 +38,8 @@ Source102:     https://keys.openpgp.org/vks/v1/by-fingerprint/12BB9B400EE3F77282
 Source103:     https://keys.openpgp.org/vks/v1/by-fingerprint/8DC2487E51ABDD90B5C4753F0F56D0553B6D411B
 
 Source4:       dotemacs.el
-Source5:       site-start.el
-Source6:       default.el
+Source5:       site-start.el.in
+Source6:       default.el.in
 Source9:       emacs-desktop.sh.in
 
 Source10:      emacs_lisp.attr
@@ -156,6 +156,7 @@ BuildRequires: util-linux
 
 %define site_lisp %{_datadir}/emacs/site-lisp
 %define site_start_d %{site_lisp}/site-start.d
+%define default_d %{site_lisp}/default.d
 %define pkgconfig %{_datadir}/pkgconfig
 %define emacs_libexecdir %{_libexecdir}/emacs/%{version}/%{_host}
 %define native_lisp %{_libdir}/emacs/%{version}/native-lisp
@@ -292,7 +293,7 @@ License:       GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND BSD-3-Cl
 Requires(preun): /usr/sbin/alternatives
 Requires(posttrans): /usr/sbin/alternatives
 Requires:      /usr/bin/readlink
-Requires:      %{name}-filesystem >= 1:30.2
+Requires:      %{name}-filesystem >= 1:31.2
 Requires:      emacsclient
 Requires:      libgccjit
 Recommends:    emacs = %{epoch}:%{version}-%{release}
@@ -507,6 +508,7 @@ cd ..
 cat > emacs.pc << EOF
 sitepkglispdir=%{site_lisp}
 sitestartdir=%{site_start_d}
+defaultdir=%{default_d}
 
 Name: emacs
 Description: GNU Emacs text editor
@@ -521,6 +523,7 @@ cat > macros.emacs << EOF
 %%_emacs_archsitelispdir %%{_libdir}/emacs/site-lisp
 %%_emacs_sitelispdir %{site_lisp}
 %%_emacs_sitestartdir %{site_start_d}
+%%_emacs_defaultdir %{default_d}
 %%_emacs_bytecompile(W) /usr/bin/emacs --batch --no-site-file --eval '(push nil load-path)' %%{-W:--eval '(setq byte-compile-error-on-warn t)' }-f batch-byte-compile %%*
 %%_emacs_package_install /usr/bin/emacs --batch --eval '(let ((package-user-dir "%%{buildroot}%%{_emacs_sitelispdir}/elpa")) (package-install-file (or (pop argv) default-directory)))'
 EOF
@@ -551,6 +554,8 @@ cat > 10-source-directory.el << 'EOF'
 ;;; 10-source-directory.el ends here
 EOF
 
+sed -e 's|@_emacs_sitestartdir@|%{site_start_d}|' %SOURCE5 > site-start.el
+sed -e 's|@_emacs_defaultdir@|%{default_d}|' %SOURCE6 > default.el
 sed -e 's|@bindir@|%{_bindir}|' %SOURCE9 > emacs-desktop.sh
 
 
@@ -610,11 +615,12 @@ chmod 755 %{buildroot}%{emacs_libexecdir}/movemail
 mkdir -p \
       %{buildroot}%{_datadir}/%{name}/%{version}/site-lisp/elpa \
       %{buildroot}%{site_lisp} \
-      %{buildroot}%{site_start_d}
-install -p -m 0644 %SOURCE5 %{buildroot}%{site_lisp}/site-start.el
-install -p -m 0644 %SOURCE6 %{buildroot}%{site_lisp}
+      %{buildroot}%{site_start_d} \
+      %{buildroot}%{default_d}
+install -p -m 0644 site-start.el %{buildroot}%{site_lisp}/
 install -p -m 0644 00-dynamic-module-dir.el %{buildroot}%{site_start_d}/
 install -p -m 0644 10-source-directory.el %{buildroot}%{site_start_d}/
+install -p -m 0644 default.el %{buildroot}%{site_lisp}/
 
 # Default initialization file
 mkdir -p %{buildroot}%{_sysconfdir}/skel

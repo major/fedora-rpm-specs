@@ -1,14 +1,13 @@
 %global apiversion 0.1
 
 Name: libodfgen
-Version: 0.1.8
+Version: 0.1.9
 Release: %autorelease
 Summary: An ODF generator library
 
 License: LGPL-2.1-or-later OR MPL-2.0
 URL: https://sourceforge.net/p/libwpd/wiki/libodfgen/
 Source: http://downloads.sourceforge.net/libwpd/%{name}-%{version}.tar.xz
-Patch0: includes.patch
 
 BuildRequires: doxygen
 BuildRequires: gcc-c++

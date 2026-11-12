@@ -13,7 +13,7 @@ License:        W3C
 #   - configure is FSFUL, or more likely (W3C AND FSFUL)
 #   - depcomp and missing are GPL-2.0-or-later
 #   - install-sh is X11
-SourceLicense:  %{shrink:%{license}
+SourceLicense:  %{license} %{shrink:
     AND FSFUL
     AND FSFULLR
     AND GPL-2.0-or-later

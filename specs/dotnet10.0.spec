@@ -14,16 +14,17 @@
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
-%global upstream_tag v10.0.114
+%global upstream_tag v10.0.115
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
 %global hostfxr_version %{runtime_version}
-%global runtime_version 10.0.14
-%global aspnetcore_runtime_version 10.0.14
-%global sdk_version 10.0.114
+%global runtime_version 10.0.15
+%global aspnetcore_runtime_version 10.0.15
+%global sdk_version 10.0.115
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{aspnetcore_runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
+%global servicing_version 26529.108
 
 %global runtime_rpm_version %{runtime_version}
 %global aspnetcore_runtime_rpm_version %{aspnetcore_runtime_version}
@@ -90,7 +91,7 @@ License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND APS
 
 URL:            https://github.com/dotnet/
 
-Source0:        https://builds.dotnet.microsoft.com/dotnet/source-build/dotnet-source-10.0.114-servicing.26522.126.tar.gz#/dotnet-%{sdk_version}.tar.gz
+Source0:        https://builds.dotnet.microsoft.com/dotnet/source-build/dotnet-source-%{sdk_version}-servicing.%{servicing_version}.tar.gz#/dotnet-%{sdk_version}.tar.gz
 Source1:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/dotnet-%{sdk_version}.tar.gz.sig
 Source2:        https://dotnet.microsoft.com/download/dotnet/release-key-2023.asc
 Source3:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/release.json
@@ -1035,6 +1036,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Tue Nov 10 2026 Omair Majid <omajid@redhat.com> - 10.0.115-1
+- Update to .NET SDK 10.0.115 and Runtime 10.0.15
+
 * Fri Nov 06 2026 Omair Majid <omajid@redhat.com> - 10.0.114-1
 - Update to .NET SDK 10.0.114 and Runtime 10.0.14
 

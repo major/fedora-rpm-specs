@@ -5,7 +5,7 @@
 %global crate icu_locale_fallback
 
 Name:           rust-icu_locale_fallback
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        API for Locale Fallback algorithms
 

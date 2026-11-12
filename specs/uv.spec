@@ -51,7 +51,13 @@ Summary:        An extremely fast Python package installer and resolver, written
 # same (Apache-2.0 OR MIT) terms as uv itself:
 #   - crates/uv-extract/src/vendor/cloneable_seekable_reader.rs is vendored and
 #     forked from crate(ripunzip)
-#
+%global upstream_license Apache-2.0 OR MIT
+%global full_license (%{upstream_license}) %{shrink:
+    AND Apache-2.0
+    AND BSD-3-Clause
+    AND MIT
+    AND (Apache-2.0 OR BSD-2-Clause)
+    }
 # The following are present in the source but believed not to contribute to the
 # licenses of the binary RPMs. Note that test/ecosystem/ contains only
 # pyproject.toml files used for testing, not complete bundled projects.
@@ -76,7 +82,7 @@ Summary:        An extremely fast Python package installer and resolver, written
 #   - test/ecosystem/black/
 #   - test/ecosystem/poetry/
 #   - test/ecosystem/semantic-kernel/
-#
+SourceLicense:  %{full_license} AND BSD-2-Clause-Patent
 # Rust crates compiled into the executable contribute additional license terms.
 # To obtain the following list of licenses, build the package and note the
 # output of %%{cargo_license_summary}.
@@ -111,30 +117,26 @@ Summary:        An extremely fast Python package installer and resolver, written
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-License:        %{shrink:
-    (0BSD OR Apache-2.0 OR MIT) AND
-    Apache-2.0 AND
-    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
-    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception) AND
-    (Apache-2.0 OR BSD-2-Clause) AND
-    (Apache-2.0 OR BSD-2-Clause OR MIT) AND
-    (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR ISC OR MIT) AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 OR MIT OR Zlib) AND
-    (Apache-2.0 OR MIT-0) AND
-    (Apache-2.0 WITH LLVM-exception) AND
-    BSD-3-Clause AND
-    CC0-1.0 AND
-    CDLA-Permissive-2.0 AND
-    ISC AND
-    (LGPL-3.0-or-later OR MPL-2.0) AND
-    MIT AND
-    (MIT OR Unlicense) AND
-    MPL-2.0 AND
-    Unicode-3.0 AND
-    Unicode-DFS-2016 AND
-    Zlib
+License:        %{full_license} %{shrink:
+    AND Apache-2.0 WITH LLVM-exception
+    AND CC0-1.0
+    AND CDLA-Permissive-2.0
+    AND ISC
+    AND MPL-2.0
+    AND Unicode-3.0
+    AND Unicode-DFS-2016
+    AND Zlib
+    AND (0BSD OR Apache-2.0 OR MIT)
+    AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT)
+    AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception)
+    AND (Apache-2.0 OR BSD-2-Clause OR MIT)
+    AND (Apache-2.0 OR BSL-1.0)
+    AND (Apache-2.0 OR ISC OR MIT)
+    AND (Apache-2.0 OR MIT OR Zlib)
+    AND (Apache-2.0 OR MIT-0)
+    AND (Apache-2.0 WITH LLVM-exception)
+    AND (LGPL-3.0-or-later OR MPL-2.0)
+    AND (MIT OR Unlicense)
     }
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://github.com/astral-sh/uv
@@ -376,6 +378,7 @@ Highlights:
 
 %package -n python3-uv
 Summary:        Importable Python module for uv
+License:        %{upstream_license}
 
 BuildArch:      noarch
 
@@ -574,6 +577,7 @@ tomcli set Cargo.toml str workspace.dependencies.blake2.version 0.10.6
 
 
 %build -a
+%pyproject_verify_license %{upstream_license}
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 

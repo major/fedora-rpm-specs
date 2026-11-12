@@ -10,6 +10,7 @@ URL:            https://github.com/Rafostar/clapper-enhancers
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
+BuildRequires:  libpeas-loader-python%{_isa}
 BuildRequires:  meson
 BuildRequires:  pkgconfig(clapper-0.0) >= 0.9.0
 BuildRequires:  pkgconfig(gio-2.0)
@@ -82,6 +83,8 @@ This package contains the following plugins enhancing Clapper capabilities:
 %dir %{_clapperenhdir}/yt-dlp
 %dir %{_clapperenhdir}/yt-dlp/__pycache__
 %{_clapperenhdir}/yt-dlp/clapper_yt_dlp.plugin
+%{_clapperenhdir}/yt-dlp/clapper_yt_dlp.gschema.xml
+%{_clapperenhdir}/yt-dlp/gschemas.compiled
 %pycached %{_clapperenhdir}/yt-dlp/clapper_yt_dlp.py
 %pycached %{_clapperenhdir}/yt-dlp/clapper_yt_dlp_dash.py
 %pycached %{_clapperenhdir}/yt-dlp/clapper_yt_dlp_debug.py

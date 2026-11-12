@@ -85,14 +85,12 @@
 %define configure_opts %{?python3_copts} %{?lvm_dbus_copts} %{?btrfs_copts} %{?crypto_copts} %{?dm_copts} %{?loop_copts} %{?lvm_copts} %{?lvm_dbus_copts} %{?mdraid_copts} %{?mpath_copts} %{?swap_copts} %{?part_copts} %{?fs_copts} %{?nvdimm_copts} %{?tools_copts} %{?gi_copts} %{?nvme_copts} %{?smart_copts} %{?smartmontools_copts}
 
 Name:        libblockdev
-Version:     3.5.0
-Release:     5%{?dist}
+Version:     3.6.0
+Release:     1%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:      0001-Check-dm_task_run-return-value-in-bd_dm_map_exists.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel
@@ -960,6 +958,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Wed Nov 11 2026 Packit <hello@packit.dev> - 3.6.0-1
+- Update to version 3.6.0
+
 * Thu Oct 15 2026 Vojtech Trefny <vtrefny@redhat.com> - 3.5.0-5
 - dm: Check dm_task_run return value in bd_dm_map_exists (#2549531)
 

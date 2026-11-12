@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.6.2
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 %global tar_ver %{version}
 
@@ -354,6 +354,12 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Wed Nov 11 2026 Adrian Reber <adrian@lisas.de> - 4.6.2-3
+- Rebuilt for libcdio 2.4.0
+
+* Wed Nov 11 2026 Adrian Reber <adrian@lisas.de> - 4.6.2-2
+- Rebuilt for libcdio 2.4.0
+
 * Tue Oct 20 2026 Michael Schwendt <mschwendt@fedoraproject.org> - 4.6.2-1
 - update to 4.6.2 (also make it the minimum BR version to match meson.build)
 

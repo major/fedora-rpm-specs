@@ -55,6 +55,8 @@ install -D --preserve-timestamps --mode 0644 \
 
 
 %check -a
+%pyproject_verify_license
+
 # [self-tests] `test_cli_blueprints` fail with `click` `8.4.0`
 # https://github.com/pallets/quart/issues/465
 k="${k-}${k+ and }not test_cli_blueprints[cli_group2-args2]"

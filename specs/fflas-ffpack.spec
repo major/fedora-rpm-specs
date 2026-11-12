@@ -17,7 +17,7 @@ License:        LGPL-2.1-or-later AND LGPL-2.0-or-later
 #   - macros/instr_set.m4 is CECILL-B
 #   - macros/ltoptions.m4, macros/ltsugar.m4, macros/ltversion.m4, and
 #     macros/lt~obsolete.m4 are FSFULLR
-SourceLicense:  %{shrink:%{license}
+SourceLicense:  %{license} %{shrink:
     AND CECILL-B
     AND FSFAP
     AND FSFUL

@@ -1,7 +1,7 @@
 %global giturl  https://github.com/executablebooks/sphinx-design
 
 Name:           python-sphinx-design
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Sphinx extension for responsive web components
 
@@ -23,7 +23,7 @@ Provides:       bundled(material-icons-fonts) = 4.0.0.116.ge9da21
 
 # Octicons is not available from Fedora
 # The upstream release tarball does not contain JSON glyphs
-Provides:       bundled(octicons) = 19.8.0
+Provides:       bundled(octicons) = 19.42.0
 
 %global _description %{expand:This package contains a Sphinx extension for designing beautiful, view size
 responsive web components.}

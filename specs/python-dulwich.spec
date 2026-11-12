@@ -10,6 +10,8 @@ License:        GPL-2.0-or-later OR Apache-2.0
 URL:            https://www.dulwich.io/
 Source0:        %{pypi_source}
 
+Patch0:         ce4136a3555c5c6e75ec4d94b3945605af4ff580.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros
 
