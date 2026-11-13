@@ -3,12 +3,12 @@
 
 %global github_owner            phpseclib
 %global github_name             phpseclib
-%global github_commit           d73c9e019a895be83b18a2ccccfa7e2b0a648743
+%global github_commit           9717fd7aa3dc8f408f29d4a9815f5fe28a81287c
 %global github_short            %(c=%{github_commit}; echo ${c:0:7})
 %bcond_without                  tests
 
 Name:       php-%{composer_vendor}
-Version:    2.0.55
+Version:    2.0.56
 Release:    1%{?dist}
 Summary:    PHP Secure Communications Library
 License:    MIT

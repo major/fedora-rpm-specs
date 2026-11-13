@@ -3,7 +3,7 @@
 
 Name:       csmock
 Version:    3.8.7
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
 License:    GPL-3.0-or-later
@@ -234,7 +234,9 @@ This package contains the unicontrol plug-in for csmock.
 %dir %{_datadir}/csmock
 %dir %{_datadir}/csmock/scripts
 %dir %{python3_sitelib}/csmock
+%dir %{python3_sitelib}/csmock/__pycache__/
 %dir %{python3_sitelib}/csmock/plugins
+%dir %{python3_sitelib}/csmock/plugins/__pycache__/
 %{_bindir}/csmock
 %{_mandir}/man1/csmock.1*
 %{_datadir}/csmock/cwe-map.csv
@@ -340,6 +342,9 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Thu Nov 12 2026 Jerry James <loganjerry@gmail.com> - 3.8.7-3
+- Own 2 unowned directories
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

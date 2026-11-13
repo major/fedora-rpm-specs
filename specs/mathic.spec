@@ -1,5 +1,5 @@
 Name:           mathic
-Version:        1.5
+Version:        1.6
 Release:        %autorelease
 Summary:        Data structures for Groebner basis computations
 
@@ -57,35 +57,13 @@ Mathic-based tools.  Currently this contains:
 %prep
 %autosetup
 
-# Fix the installation directory
-sed -i 's, lib, ${LIB_INSTALL_DIR},' CMakeLists.txt
-
-# Add an soname
-sed -e '/Threads/iset_target_properties(mathic PROPERTIES VERSION 0.0.4 SOVERSION 0)' \
-    -i src/CMakeLists.txt
-
 %install -a
-# This file is not installed by cmake
-cp -p src/mathic.h %{buildroot}%{_includedir}
-
 # Install the tools
 mkdir -p %{buildroot}%{_bindir}
 cp -p %{_vpath_builddir}/{divsim,pqsim} %{buildroot}%{_bindir}
 
-# Install the pkgconfig file for backwards compatibility
-# Fix the URL in the pkgconfig file
-mkdir -p %{buildroot}%{_libdir}/pkgconfig
-sed -e 's,@prefix@,%{_prefix},' \
-    -e 's,@exec_prefix@,%{_prefix},' \
-    -e 's,@libdir@,%{_libdir},' \
-    -e 's,@includedir@,%{_includedir},' \
-    -e 's,@PACKAGE_VERSION@,%{version},' \
-    -e 's,broune,Macaulay2,' \
-    build/autotools/mathic.pc.in \
-    > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
-
 # We install these files in a different place
-rm -fr %{buildroot}%{_prefix}/licenses
+rm -fr %{buildroot}%{_docdir}/%{name}
 
 %check
 %{_vpath_builddir}/src/mathic-unit-tests
@@ -99,6 +77,7 @@ rm -fr %{buildroot}%{_prefix}/licenses
 %{_includedir}/%{name}.h
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}.so
+%{_libdir}/cmake/%{name}/
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files tools

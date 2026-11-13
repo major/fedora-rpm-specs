@@ -18,7 +18,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        6.0.1
+Version:        6.0.2
 Release:        1%{?dist}
 Summary:        Managing the version number of Git-hosted PHP projects, version %{ver_major}
 
@@ -84,6 +84,9 @@ exit (class_exists("%{ns_vendor}\\%{ns_project}") ? 0 : 1);
 
 
 %changelog
+* Mon Nov  9 2026 Remi Collet <remi@remirepo.net> - 6.0.2-1
+- update to 6.0.2
+
 * Mon Oct  5 2026 Remi Collet <remi@remirepo.net> - 6.0.1-1
 - update to 6.0.1
 

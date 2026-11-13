@@ -18,7 +18,6 @@ Source0:        http://ftp.gnu.org/gnu/gcc/gcc-%{version}/gcc-%{version}.tar.xz
 
 Source1:        README.fedora
 Source2:        bootstrapexplain
-Patch1:         gcc-15.2.0-ftbfs01.patch
 
 #BuildRequires:	autoconf = 2.69
 BuildRequires:  gcc-c++
@@ -57,7 +56,6 @@ pushd gcc-%{gcc_ver}/libiberty
 #autoconf -f
 popd
 pushd gcc-%{gcc_ver}
-%patch -P 1 -p3 -b .ftbfs01
 
 contrib/gcc_update --touch
 popd

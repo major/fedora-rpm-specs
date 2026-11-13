@@ -47,7 +47,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a1
+%global prerel a2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: %autorelease
@@ -123,30 +123,30 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 26.2.1
-%global setuptools_version 79.0.1
+%global pip_version 26.3
+%global setuptools_version 84.2.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
 Provides: bundled(python3dist(cachecontrol)) = 0.14.4
-Provides: bundled(python3dist(certifi)) = 2026.6.17
-Provides: bundled(python3dist(distlib)) = 0.4.2
+Provides: bundled(python3dist(certifi)) = 2026.10.23
+Provides: bundled(python3dist(distlib)) = 0.4.4
 Provides: bundled(python3dist(distro)) = 1.9
-Provides: bundled(python3dist(idna)) = 3.18
-Provides: bundled(python3dist(msgpack)) = 1.1.2
-Provides: bundled(python3dist(packaging)) = 26.2
-Provides: bundled(python3dist(platformdirs)) = 4.10
-Provides: bundled(python3dist(pygments)) = 2.20
-Provides: bundled(python3dist(pyproject-hooks)) = 1.2
+Provides: bundled(python3dist(idna)) = 3.20
+Provides: bundled(python3dist(msgpack)) = 1.2.4
+Provides: bundled(python3dist(packaging)) = 26.3
+Provides: bundled(python3dist(platformdirs)) = 4.12.4
+Provides: bundled(python3dist(pygments)) = 2.21
+Provides: bundled(python3dist(pyproject-hooks)) = 1.3.3
 Provides: bundled(python3dist(requests)) = 2.34.2
 Provides: bundled(python3dist(resolvelib)) = 1.2.1
-Provides: bundled(python3dist(rich)) = 14.2
+Provides: bundled(python3dist(rich)) = 15
 Provides: bundled(python3dist(setuptools)) = 70.3
-Provides: bundled(python3dist(tomli)) = 2.4.1
+Provides: bundled(python3dist(tomli)) = 2.3.2
 Provides: bundled(python3dist(tomli-w)) = 1.2
-Provides: bundled(python3dist(truststore)) = 0.10.4
-Provides: bundled(python3dist(urllib3)) = 2.7
+Provides: bundled(python3dist(truststore)) = 0.10.5
+Provides: bundled(python3dist(urllib3)) = 2.8
 }
 # setuptools
 # vendor.txt not in .whl
@@ -154,20 +154,16 @@ Provides: bundled(python3dist(urllib3)) = 2.7
 %global setuptools_bundled_provides %{expand:
 Provides: bundled(python3dist(autocommand)) = 2.2.2
 Provides: bundled(python3dist(backports-tarfile)) = 1.2
-Provides: bundled(python3dist(importlib-metadata)) = 8
-Provides: bundled(python3dist(inflect)) = 7.3.1
-Provides: bundled(python3dist(jaraco-collections)) = 5.1
-Provides: bundled(python3dist(jaraco-context)) = 5.3
-Provides: bundled(python3dist(jaraco-functools)) = 4.0.1
-Provides: bundled(python3dist(jaraco-text)) = 3.12.1
-Provides: bundled(python3dist(more-itertools)) = 10.3
-Provides: bundled(python3dist(packaging)) = 24.2
-Provides: bundled(python3dist(platformdirs)) = 4.2.2
-Provides: bundled(python3dist(tomli)) = 2.0.1
-Provides: bundled(python3dist(typeguard)) = 4.3
-Provides: bundled(python3dist(typing-extensions)) = 4.12.2
-Provides: bundled(python3dist(wheel)) = 0.45.1
-Provides: bundled(python3dist(zipp)) = 3.19.2
+Provides: bundled(python3dist(importlib-metadata)) = 8.7.1
+Provides: bundled(python3dist(jaraco-context)) = 6.1
+Provides: bundled(python3dist(jaraco-functools)) = 4.4
+Provides: bundled(python3dist(jaraco-text)) = 4
+Provides: bundled(python3dist(more-itertools)) = 10.8
+Provides: bundled(python3dist(packaging)) = 26.3
+Provides: bundled(python3dist(platformdirs)) = 4.4
+Provides: bundled(python3dist(tomli)) = 2.4
+Provides: bundled(python3dist(wheel)) = 0.46.3
+Provides: bundled(python3dist(zipp)) = 3.23
 }
 
 # ABIFLAGS, LDVERSION and SOABI are in the upstream configure.ac
@@ -565,7 +561,7 @@ Summary:        Python runtime libraries
 # Combined manually from https://docs.python.org/3.16/license.html
 # Hash of Doc/license.rst which is compared in %%prep, generated with:
 # $ sha256sum Doc/license.rst | cut -f1 -d" "
-%global license_file_hash 98fc7a7b57de66d782629477d7b94e0c12a1f9b655ada36168b641268fa4152d
+%global license_file_hash 3741d8c611f97b985fa32d4f8ad1757aa059f45cb67ff519e8c9ac6ad8a4debb
 # Licenses of incorporated software:
 # Mersenne Twister in _random C extension contains code under BSD-3-Clause
 # socket.getaddrinfo() and socket.getnameinfo() are BSD-3-Clause
@@ -747,7 +743,7 @@ Requires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 71
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
 # License manually combined from Python + setuptools
-License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause) AND LGPL-3.0-only
 %endif
 
 %unversioned_obsoletes_of_python3_X_if_main test
@@ -921,8 +917,8 @@ Requires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 71
 %else
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
-# License manually combined from Python + setuptools + wheel
-License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+# License manually combined from Python + setuptools
+License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause) AND LGPL-3.0-only
 %endif
 
 %description -n python%{pybasever}-freethreading-test
@@ -1559,12 +1555,8 @@ CheckPython() {
   # see: https://github.com/python/cpython/issues/104280#issuecomment-1669249980
   # test.test_ssl.ThreadedTests.test_sendfile times out on i686:
   # reported in https://github.com/python/cpython/issues/140368
-  # test_array_alignment
-  # https://github.com/python/cpython/issues/144725
   # test_build_details:
   # https://github.com/python/cpython/issues/159420
-  # test_destroy_subinterpreter_does_not_abort:
-  # https://github.com/python/cpython/issues/159462
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
     -wW --slowest %{_smp_mflags} \
     %ifarch riscv64
@@ -1576,8 +1568,6 @@ CheckPython() {
     -i test_build_details \
     %ifarch %{ix86}
     -i test_sendfile \
-    -i test_array_alignment \
-    -i test_destroy_subinterpreter_does_not_abort \
     %endif
 
   echo FINISHED: CHECKING OF PYTHON FOR CONFIGURATION: $ConfName

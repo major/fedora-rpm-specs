@@ -90,6 +90,16 @@ Source0: https://downloads.python.org/pypy/pypy%{pyversion}-v%{version_}-src.tar
 #  __pypy, pypy_sitelib, pypy_sitearch
 Source2: macros.pypy3
 
+# Patches for bundled wheels (declared as Sources, applied manually in %%prep):
+
+# Use the system level root certificate instead of the one bundled in certifi
+# in the pip wheel bundled in ensurepip.
+# https://bugzilla.redhat.com/1655253
+# The same patch is a part of the RPM-packaged python-pip and python-certifi.
+Source41: pip-dummy-certifi.patch
+
+# Patches for PyPy
+
 # By default, if built at a tty, the translation process renders a Mandelbrot
 # set to indicate progress.
 # This obscures useful messages, and may waste CPU cycles, so suppress it, and
@@ -188,6 +198,8 @@ BuildRequires:  %{_bindir}/git
 %if %{with rpmwheels}
 BuildRequires: python-pip-wheel
 BuildRequires: python-setuptools-wheel >= 71
+%else
+BuildRequires: ca-certificates
 %endif
 
 # Metadata for the core package (the JIT build):
@@ -247,6 +259,7 @@ Obsoletes: pypy3.9-libs < 7.3.16-20
 Requires: python-pip-wheel
 %else
 Provides: bundled(python3dist(pip)) = %{pip_version}
+Requires: ca-certificates
 %endif
 
 # Provides for the bundled libmpdec
@@ -318,6 +331,16 @@ Header files for building C extension modules against PyPy%{pyversion}.
 
 %prep
 %autosetup -n pypy%{pyversion}-v%{version_}-src -p1 -S git
+
+# Apply patches to pip
+# This is done unconditionally on rpmwheels
+# so that the applicability against the current pip version is always verified,
+# even though the resulting wheel only matters when rpmwheels are disabled.
+unzip -qq lib-python/3/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
+# -p2 to compensate src/ prefix
+patch -p2 < %{SOURCE41}
+zip -rq lib-python/3/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl pip pip-%{pip_version}.dist-info
+rm -rf pip/ pip-%{pip_version}.dist-info/
 
 %if %{with rpmwheels}
 # Instead of bundled wheels, use our RPM packaged wheels from /usr/share/python-wheels

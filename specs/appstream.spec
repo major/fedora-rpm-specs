@@ -3,7 +3,7 @@
 
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
-Version: 1.2.1
+Version: 1.2.3
 Release: 1%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
@@ -59,7 +59,7 @@ BuildRequires: vala
 BuildRequires: vips-jxl
 BuildRequires: xmlto
 
-Requires: (appstream-data if (PackageKit or libdnf5-plugin-appstream))
+Requires: (appstream-data if libdnf5-plugin-appstream)
 
 %description
 AppStream makes it easy to access application information from the
@@ -215,6 +215,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Thu Nov 12 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.3-1
+- Update to 1.2.3
+
 * Tue Oct 20 2026 Neal Gompa <ngompa@fedoraproject.org> - 1.2.1-1
 - Update to 1.2.1
 

@@ -2,7 +2,7 @@
 %global modname tree_sitter
 
 Name:           python-%{srcname}
-Version:        0.26.0
+Version:        0.26.1
 Release:        %autorelease
 Summary:        Python bindings to the Tree-sitter parsing library
 License:        MIT

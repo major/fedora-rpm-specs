@@ -3,7 +3,7 @@
 #
 # Brandon changes are present in Changelog as well to let people know he worked on this SPEC file.
 
-%global serverbin /usr/lib/
+%global serverbin /usr/lib
 
 %if 0%{?fedora}
 %bcond_without mdns
@@ -12,8 +12,8 @@
 %endif
 
 Name: pappl-retrofit
-Version: 1.0b2
-Release: 13%{?dist}
+Version: 1.0b3
+Release: 1%{?dist}
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
@@ -24,30 +24,10 @@ Source0: %{URL}/releases/download/%{version}/pappl-retrofit-%{version}.tar.gz
 Source1: legacy-printer-app.conf
 
 # Patches
-# FTBFS
-# https://github.com/OpenPrinting/pappl-retrofit/commit/0317fae79ce
-Patch001: 0001-pappl-retrofit-private.h-Add-include-cups-sidechanne.patch
-# add man page
-# https://github.com/OpenPrinting/pappl-retrofit/commit/33be36f28
-Patch002: 0001-Added-man-page-for-the-Legacy-Printer-Application.patch
-# fix use after free
-# part of https://github.com/OpenPrinting/pappl-retrofit/commit/eebb36724a62
-Patch003: pappl-retrofit-use-after-free.patch
-# https://github.com/OpenPrinting/pappl-retrofit/pull/27
-Patch004: 0001-Use-PAPPL-configuration-options-from-file.patch
-# https://github.com/OpenPrinting/pappl-retrofit/pull/28
-Patch005: 0001-Fix-possible-unterminated-string.patch
-Patch006: 0001-cups-backends.c-Ensure-read-string-is-NULL-terminate.patch
-Patch007: 0001-Protect-_prASCII-from-negative-lengths.patch
-Patch008: 0001-Fix-potential-memory-leaks.patch
-# https://github.com/OpenPrinting/pappl-retrofit/pull/31
-Patch009: 0001-Fix-memory-leaks-from-compiled_re_list.patch
-# PAPPL 1.4.x compatibility shims for backported patches using PAPPL 2.x API
-# https://github.com/OpenPrinting/pappl-retrofit/blob/master/pappl-retrofit/pappl1-private.h
-Patch010: 0001-Add-PAPPL-1.4.x-compatibility-shims.patch
-# https://github.com/OpenPrinting/pappl-retrofit/pull/58
-# Implement prPrintFile() for raw printing (INFRASERV-1240)
-Patch011: 0001-Implement-prPrintFile-for-raw-printing.patch
+# https://github.com/OpenPrinting/pappl-retrofit/pull/73
+Patch001: 0001-Fix-buffer-length-comparison.patch
+Patch002: 0002-Fix-assigning-command-code-for-side-channel.patch
+Patch003: 0003-Web-UI-Fix-tags-when-listing-reports-after-adding-PP.patch
 
 
 # for autogen.sh - generating configure scripts
@@ -149,6 +129,7 @@ sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 
 
 %install
+mkdir -p %{buildroot}%{serverbin}
 %make_install
 
 # Remove license files from doc
@@ -156,9 +137,64 @@ rm -f %{buildroot}/%{_docdir}/%{name}/{LICENSE,NOTICE,COPYING}
 
 # remove symlink, we need it in /usr/lib
 rm -f %{buildroot}/%{_libdir}/legacy-printer-app
-ln -sf /usr/lib/cups %{buildroot}/%{serverbin}/legacy-printer-app
+rm -f %{buildroot}/usr/lib/legacy-printer-app
+ln -sf /usr/lib/cups %{buildroot}/usr/lib/legacy-printer-app
 
 install -p -D -m 0644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/legacy-printer-app.conf
+
+mkdir -p %{buildroot}%{_libexecdir}/legacy-printer-app
+
+cat > %{buildroot}%{_libexecdir}/legacy-printer-app/posttrans.sh << EOF
+#!/usr/bin/bash
+
+# upgrade script for adding new options into existing legacy-printer-app.conf
+# runs once on upgrade via legacy-printer-app-conf-upgrade.service
+
+conf=/etc/legacy-printer-app.conf
+
+if test ! -f "$conf"
+then
+  exit 0
+fi
+
+# add listen-hostname if missing
+if ! grep -q "^listen-hostname=" "$conf"
+then
+  echo "" >> "$conf"
+  echo "# listen on localhost by default" >> "$conf"
+  echo "listen-hostname=localhost" >> "$conf"
+fi
+
+# mark as upgraded so legacy-printer-app-conf-upgrade.service won't run again
+echo "" >> "$conf"
+echo "# added in version %{version}-%{release}" >> "$conf"
+
+exit 0
+EOF
+
+mkdir -p %{buildroot}%{_unitdir}
+
+cat > %{buildroot}%{_unitdir}/legacy-printer-app-conf-upgrade.service << EOF
+[Unit]
+Description=Upgrade legacy-printer-app.conf with new default options
+ConditionPathExists=%{_sysconfdir}/legacy-printer-app.conf
+
+[Service]
+Type=oneshot
+ExecCondition=bash -c '! grep -q "^# added in version" %{_sysconfdir}/legacy-printer-app.conf'
+ExecStart=bash -c %{_libexecdir}/legacy-printer-app/posttrans.sh
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+mkdir -p %{buildroot}%{_unitdir}/legacy-printer-app.service.d
+
+cat > %{buildroot}%{_unitdir}/legacy-printer-app.service.d/10-conf-upgrade.conf << EOF
+[Unit]
+After=legacy-printer-app-conf-upgrade.service
+Wants=legacy-printer-app-conf-upgrade.service
+EOF
 
 
 %check
@@ -167,12 +203,23 @@ make check
 
 %post -n legacy-printer-app
 %systemd_post legacy-printer-app.service
+%systemd_post legacy-printer-app-conf-upgrade.service
 
 %preun -n legacy-printer-app
 %systemd_preun legacy-printer-app.service
+%systemd_preun legacy-printer-app-conf-upgrade.service
 
 %postun -n legacy-printer-app
 %systemd_postun_with_restart legacy-printer-app.service
+%systemd_postun legacy-printer-app-conf-upgrade.service
+
+%posttrans -n legacy-printer-app
+%systemd_posttrans_with_reload legacy-printer-app-conf-upgrade.service
+
+if [ $1 -gt 1 ]
+then
+  systemctl start legacy-printer-app-conf-upgrade.service || :
+fi
 
 %files
 %license LICENSE NOTICE COPYING
@@ -188,20 +235,29 @@ make check
 %{_libdir}/pkgconfig/libpappl-retrofit.pc
 
 %files -n legacy-printer-app
-%config(noreplace) %{_sysconfdir}/legacy-printer-app.conf
-%{_sbindir}/legacy-printer-app
-%{_unitdir}/legacy-printer-app.service
 %dir %{_datadir}/legacy-printer-app
-%{_datadir}/legacy-printer-app/testpage.ps
 %{_datadir}/legacy-printer-app/testpage.pdf
+%{_datadir}/legacy-printer-app/testpage.ps
+%dir %{_libexecdir}/legacy-printer-app
+%attr(0744,root,root) %{_libexecdir}/legacy-printer-app/posttrans.sh
 %dir %attr(0755,root,root) %{_localstatedir}/lib/legacy-printer-app
 %dir %attr(0710,root,lp) %{_localstatedir}/spool/legacy-printer-app
+%{_mandir}/man8/legacy-printer-app.8.gz
+%{_sbindir}/legacy-printer-app
 # this symlink is required if the app should use CUPS backends/filters
 # in /usr/lib/cups
 %{serverbin}/legacy-printer-app
-%{_mandir}/man1/legacy-printer-app.1.gz
+%config(noreplace) %{_sysconfdir}/legacy-printer-app.conf
+%dir %{_unitdir}/legacy-printer-app.service.d
+%{_unitdir}/legacy-printer-app.service.d/10-conf-upgrade.conf
+%{_unitdir}/legacy-printer-app-conf-upgrade.service
+%{_unitdir}/legacy-printer-app.service
+
 
 %changelog
+* Thu Nov 12 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.0b3-1
+- 1.0b3 (fedora#2571734)
+
 * Thu Sep 24 2026 Petr Dancak <pdancak@redhat.com> - 1.0b2-13
 - Implement prPrintFile() for raw printing (INFRASERV-1240)
 - Add PAPPL 1.4.x compatibility shims for PAPPL 2.x API

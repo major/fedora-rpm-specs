@@ -29,7 +29,7 @@ BuildRequires:	make
 BuildRequires:	readline-devel
 BuildRequires:	vim-common
 # for gpg verification
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 # for check
 BuildRequires:	dejagnu
 
@@ -79,7 +79,7 @@ Summary:	vim support for %{name}
 vim support for %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

@@ -14,7 +14,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.10.0
-Release:	43%{?dist}
+Release:	44%{?dist}
 
 Summary:	An OpenGL wrapper for Ruby
 # SPDX confirmed
@@ -135,7 +135,7 @@ pushd .%{gem_instdir}
 
 DRI_VERSION=$(pkg-config --modversion dri)
 case $DRI_VERSION in
-	26.[012]* )
+	2[67].* )
 		EXPECTED_TEST_MSG="184 runs, 1740 assertions, 7 failures, 1 errors, 13 skips"
 		;;
 	* )
@@ -184,6 +184,9 @@ popd
 %doc	%{gem_instdir}/utils/
 
 %changelog
+* Thu Nov 12 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-44
+- Fix testsuite handling
+
 * Mon Nov 02 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.0-43
 - Use TypedData API needed for ruby4.1
 

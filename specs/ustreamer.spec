@@ -1,5 +1,5 @@
 Name: ustreamer
-Version: 6.56
+Version: 6.67
 Release: %autorelease
 Summary: Lightweight and fast MJPG-HTTP streamer
 License: GPL-3.0-or-later
@@ -17,6 +17,7 @@ BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(python)
 BuildRequires: python3dist(setuptools)
 BuildRequires: python3dist(build)
+BuildRequires: python3dist(installer)
 BuildRequires: python3dist(wheel)
 BuildRequires: python3dist(pip)
 BuildRequires: janus-devel
@@ -41,7 +42,6 @@ screencast hardware data with the highest resolution and FPS possible.
 %autosetup
 
 %build
-%set_build_flags
 %make_build \
     WITH_SYSTEMD=1 \
     WITH_GPIO=1 \

@@ -1,12 +1,18 @@
+# Set to rawhide that the ELN is derived from
+%global derived_from 46
+
+%global os_version %{?fedora}%{?!fedora:%{?rhel}}
+%global sources_version %{?fedora}%{?!fedora:%{?derived_from}}
+
 Summary:   Fedora AppStream metadata
 Name:      appstream-data
-Version:   %fedora
+Version:   %os_version
 Release:   %autorelease
 BuildArch: noarch
 License:   CC0-1.0 AND CC-BY-1.0 AND CC-BY-SA-1.0 AND GFDL-1.1-or-later
 URL:       https://github.com/hughsie/appstream-glib
-Source1:   https://dl.fedoraproject.org/pub/alt/screenshots/f%{version}/fedora-%{version}.xml.gz
-Source2:   https://dl.fedoraproject.org/pub/alt/screenshots/f%{version}/fedora-%{version}-icons.tar.gz
+Source1:   https://dl.fedoraproject.org/pub/alt/screenshots/f%{sources_version}/fedora-%{sources_version}.xml.gz
+Source2:   https://dl.fedoraproject.org/pub/alt/screenshots/f%{sources_version}/fedora-%{sources_version}-icons.tar.gz
 Source3:   gstreamer-non-free.xml
 Source4:   other-repos.xml
 

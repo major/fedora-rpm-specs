@@ -747,7 +747,7 @@ Requires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 71
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
 # License manually combined from Python + setuptools
-License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause) AND LGPL-3.0-only
 %endif
 
 %unversioned_obsoletes_of_python3_X_if_main test
@@ -921,8 +921,8 @@ Requires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 71
 %else
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
-# License manually combined from Python + setuptools + wheel
-License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+# License manually combined from Python + setuptools
+License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause) AND LGPL-3.0-only
 %endif
 
 %description -n python%{pybasever}-freethreading-test

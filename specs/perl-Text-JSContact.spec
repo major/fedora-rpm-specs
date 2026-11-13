@@ -1,5 +1,5 @@
 Name:           perl-Text-JSContact
-Version:        0.04
+Version:        0.07
 Release:        1%{?dist}
 Summary:        Convert between vCard and JSContact
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -17,15 +17,18 @@ BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(feature)
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Text::VCardFast) >= 0.06
 # Tests:
+BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(JSON::XS)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(LWP::UserAgent)
+BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More)
 Requires:       perl(Text::VCardFast) >= 0.06
 
@@ -83,6 +86,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 12 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.07-1
+- 0.07 bump
+
 * Mon Oct 26 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.04-1
 - 0.04 bump
 

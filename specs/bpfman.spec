@@ -11,9 +11,9 @@ Summary:        EBPF Program Manager
 License:        %{shrink:
     Apache-2.0
     AND BSD-3-Clause
+    AND CDLA-Permissive-2.0
     AND ISC
     AND MIT
-    AND MPL-2.0
     AND OpenSSL
     AND Unicode-3.0
     AND Unicode-DFS-2016
@@ -62,6 +62,7 @@ Patch5:         0006-bump-openssl-to-0.10.78-openssl4-support.patch
 Patch6:         0007-bump-rustls-webpki-to-0.103.16-CVE-2026-93601.patch
 # Refresh the GPLv2 copy from https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
 Patch7:         0008-update-GPLv2-license-text.patch
+Patch8:         0009-bump-webpki-roots-to-1.0.11-CVE-2026-111943.patch
 
 # aya-obj doesn't compile in x86
 ExcludeArch: %{ix86}

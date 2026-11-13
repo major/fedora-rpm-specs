@@ -1,5 +1,5 @@
 Name:		audioreach-conf
-Version:	1.1.1
+Version:	1.1.3
 Release:	%autorelease
 Summary:	AudioReach configuration files
 
@@ -7,12 +7,10 @@ License:	BSD-3-Clause
 URL:		https://github.com/AudioReach/audioreach-conf
 Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# https://github.com/AudioReach/audioreach-conf/pull/91
-Patch0:		91.patch
 # https://github.com/AudioReach/audioreach-conf/pull/92
-Patch1:		92.patch
+Patch0:		92.patch
 # https://github.com/AudioReach/audioreach-conf/pull/93
-Patch2:		93.patch
+Patch1:		93.patch
 
 BuildArch:	noarch
 

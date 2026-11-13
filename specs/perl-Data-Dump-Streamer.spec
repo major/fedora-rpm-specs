@@ -1,5 +1,5 @@
 Name:           perl-Data-Dump-Streamer
-Version:        3.001
+Version:        3.002
 Release:        1%{?dist}
 Summary:        Accurately serialize a data structure as Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -12,7 +12,7 @@ BuildRequires:  gcc
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.18
+BuildRequires:  perl(:VERSION) >= 5.12
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(B)
@@ -87,6 +87,12 @@ make test
 %{_mandir}/man3/DDS.3*
 
 %changelog
+* Thu Nov 12 2026 Paul Howarth <paul@city-fan.org> - 3.002-1
+- Update to 3.002
+  - Fix compilation on Cygwin by declaring private XSUBs with XS_INTERNAL
+  - Remove compiler warnings in the XS helpers and add Cygwin CI coverage
+  - Support Perl 5.12 and newer, with CI coverage for 5.12, 5.14 and 5.16
+
 * Wed Nov 11 2026 Paul Howarth <paul@city-fan.org> - 3.001-1
 - Update to 3.001
   - Fix version assignments so PAUSE can index the distribution

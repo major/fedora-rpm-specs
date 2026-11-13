@@ -1,5 +1,5 @@
 Name:           memtailor
-Version:        1.4
+Version:        1.5
 Release:        %autorelease
 Summary:        C++ library of special-purpose memory allocators
 
@@ -47,31 +47,9 @@ Files for developing applications that use memtailor.
 %prep
 %autosetup
 
-# Fix the installation directory
-sed -i 's,lib,${LIB_INSTALL_DIR},' CMakeLists.txt
-
-# Add an soname
-sed -e '/Threads/iset_target_properties(memtailor PROPERTIES VERSION 0.0.4 SOVERSION 0)' \
-    -i src/CMakeLists.txt
-
 %install -a
-# This file is not installed by cmake
-cp -p src/memtailor.h %{buildroot}%{_includedir}
-
-# Install the pkgconfig file for backwards compatibility
-# Fix the URL in the pkgconfig file
-mkdir -p %{buildroot}%{_libdir}/pkgconfig
-sed -e 's,@prefix@,%{_prefix},' \
-    -e 's,@exec_prefix@,%{_prefix},' \
-    -e 's,@libdir@,%{_libdir},' \
-    -e 's,@includedir@,%{_includedir},' \
-    -e 's,@PACKAGE_VERSION@,%{version},' \
-    -e 's,broune,Macaulay2,' \
-    build/autotools/memtailor.pc.in \
-    > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
-
 # We install these files in a different place
-rm -fr %{buildroot}%{_prefix}/licenses
+rm -fr %{buildroot}%{_docdir}/%{name}
 
 %check
 %{_vpath_builddir}/src/memtailor-unit-tests
@@ -85,6 +63,7 @@ rm -fr %{buildroot}%{_prefix}/licenses
 %{_includedir}/%{name}/
 %{_includedir}/%{name}.h
 %{_libdir}/lib%{name}.so
+%{_libdir}/cmake/%{name}/
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog

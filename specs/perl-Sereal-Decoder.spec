@@ -2,7 +2,7 @@
 %bcond_without perl_Sereal_Decoder_enables_optional_test
 
 Name:           perl-Sereal-Decoder
-Version:        7.001
+Version:        7.002
 Release:        1%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
@@ -122,6 +122,25 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Wed Nov 11 2026 Paul Howarth <paul@city-fan.org> - 7.002-1
+- Update to 7.002 (rhbz#2571890)
+  - Add an opt-in paranoid preset for authenticated input, bounded
+    decompression and container sizes, UTF-8 validation, restricted object
+    blessing and THAW, and a recursion limit of 2048; explicit constructor
+    options can override each default
+  - Add allow_classes for ordinary and frozen objects and track_classes for
+    per-class object counts; permit genuine Regexp objects through
+    refuse_objects unless an allowlist excludes them
+  - Add allow_unsigned as an explicit checksum-policy opt-out; lower the normal
+    recursion limit from 10000 to 8192, or 4096 on Cygwin
+  - Clarify the trust assumptions and limits of paranoid mode
+  - Balance custom-op argument and result references on Perl builds with
+    PERL_RC_STACK
+  - Fix native floating-point declaration tests on older FreeBSD and macOS Perls
+  - Remove hobodecoder's od dependency and make child tests portable on Windows
+  - Bound randomized test runtime and TAP memory use, and adapt deep-recursion
+    tests to Cygwin's stack
+
 * Thu Nov  5 2026 Paul Howarth <paul@city-fan.org> - 7.001-1
 - Update to 7.001 (rhbz#2564204)
   - Read protocol versions 1 through 7; decode portable little-endian v7

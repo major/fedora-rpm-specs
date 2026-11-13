@@ -1,5 +1,5 @@
 Name:           thonny
-Version:        5.0.0
+Version:        5.0.1
 Release:        %autorelease
 Summary:        Python IDE for beginners
 
@@ -30,7 +30,7 @@ Requires:       hicolor-icon-theme
 Requires:       python3-pkg-resources
 
 # Vendored library - not yet packaged in Fedora
-Provides:       bundled(python3dist(pipkin)) = 2.0~b2
+Provides:       bundled(python3dist(pipkin)) = 2.2~b1
 
 Recommends:     python3-asttokens
 Recommends:     python3-distro

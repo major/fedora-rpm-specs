@@ -69,34 +69,34 @@
 # of new tarballs after updating the versions, as well as stripping
 # non-permitted content from some tarballs.
 #
-%global linux_sgx_version 2.29
+%global linux_sgx_version 2.30.1
+# From submodule: sdk
+%global sgx_sdk_version 2.30
 # From submodule: external/dcap_source
-%global dcap_version 1.26
+%global dcap_base_version 1.27
+%global dcap_version 1.27.1
 # From submodule: external/dcap_source/QuoteVerification/QVL
 # NB: follows DCAP versioning, but may skip releases
-%global dcap_qvl_version 1.26
-# From script: external/sgxssl/prepare_sgxssl.sh
+%global dcap_qvl_version 1.27
+# From script: sdk/external/sgxssl/prepare_sgxssl.sh
 # Should match: external/dcap_source/QuoteVerification/prepare_sgxssl.sh
-%global sgx_ssl_version 3.0_Rev5.2
-# From submodule: external/ippcp_internal/ipp-crypto
-%global ipp_crypto_version 2021.12.1
-# From submodule: external/sgx-emm/emm_src
+%global sgx_ssl_version 3.0_Rev5.4
+# From submodule: sdk/external/ippcp_internal/ipp-crypto
+%global ipp_crypto_version 2.2.0
+# From submodule: sdk/external/sgx-emm/emm_src
 %global sgx_emm_version 1.0.3
-# From external/libcxxrt/libcxxrt_code
+# From sdk/external/libcxxrt/libcxxrt_code
 %global libcxxrt_commit a6f71cbc3a1e1b8b9df241e081fa0ffdcde96249
 %global libcxxrt_version 4.0.10^20250225gita6f71cb
-# From script: external/sgxssl/prepare_sgxssl.sh
+# From script: sdk/external/sgxssl/prepare_sgxssl.sh
 # Should match: external/dcap_source/QuoteVerification/prepare_sgxssl.sh
-%global openssl_version 3.0.19
+%global openssl_version 3.0.21
 # From submodule: external/cbor/libcbor
 %global libcbor_version 0.10.2
-# Obsolete: From submodule: external/protobuf/protobuf_code/third_party/abseil-cpp]
-# Override: From submodule: external/protobuf/protobuf_code/abseil-cpp
-%global abseil_cpp_version 20250512.1
 # From submodule: external/dcap_source/external/jwt-cpp
 %global jwt_cpp_version 0.6.0
 # From submodule: external/dcap_source/external/wasm-micro-runtime
-%global wamr_version 1.0.0
+%global wamr_version 2.4.4
 # From code: external/tinyxml2/
 %global tinyxml2_version 10.0.0
 
@@ -107,11 +107,11 @@
 # enclaves from prebuilt_dcap_NNN.tar.gz - DCAP version numbers,
 # except for pce, which is actually an SGX enclave just bundled
 # with the DCAP enclaves.
-%global enclave_pce_version 2.25
-%global enclave_ide_version 1.22
-%global enclave_qe3_version 1.22
-%global enclave_tdqe_version 1.22
-%global enclave_qve_version 1.24
+%global enclave_pce_version 2.30
+%global enclave_ide_version 1.27
+%global enclave_qe3_version 1.27
+%global enclave_tdqe_version 1.27
+%global enclave_qve_version 1.27
 
 # Whether to build & ship unsigned enclaves with latest distro
 # tool-chain, as opposed to a reproducible build done in other
@@ -207,13 +207,13 @@ License: %{shrink:
   LicenseRef-Fedora-Public-Domain
 }
 
-URL:            https://github.com/intel/linux-sgx
+URL:            https://github.com/intel/confidential-computing.sgx
 
 
 ############################################################
 # SGX related projects SourceN for N in (0..9)
 
-Source0: https://github.com/intel/linux-sgx/archive/refs/tags/sgx_%{linux_sgx_version}.tar.gz#/linux-sgx-%{linux_sgx_version}.tar.gz
+Source0: https://github.com/intel/confidential-computing.sgx/archive/refs/tags/sgx_%{linux_sgx_version}.tar.gz#/linux-sgx-%{linux_sgx_version}.tar.gz
 
 # repack.sh purges all the prebuilt AE's that we ship in a different RPM
 # as well as 'prebuilt/' content (openssl / OPA binaries) that we must
@@ -225,15 +225,15 @@ Provides: bundled(dcap) = %{dcap_version}
 
 # Upload tarball is:
 #
-#   https://download.01.org/intel-sgx/sgx-dcap/%{dcap_version}/linux/prebuilt_dcap_%{dcap_version}.tar.gz
+#   https://download.01.org/intel-sgx/sgx-dcap/%{dcap_base_version}/linux/prebuilt_dcap_%{dcap_base_version}.tar.gz
 #
 # but is then post-processed using repack.sh to create this
-Source3: prebuilt_dcap_%{dcap_version}-repacked.tar.gz
+Source3: prebuilt_dcap_%{dcap_base_version}-repacked.tar.gz
 
 Source4: https://github.com/intel/intel-sgx-ssl/archive/refs/tags/%{sgx_ssl_version}.tar.gz#/intel-sgx-ssl-%{sgx_ssl_version}.tar.gz
 Provides: bundled(sgxssl) = %{sgx_ssl_version}
 
-Source5: https://github.com/intel/ipp-crypto/archive/refs/tags/ippcp_%{ipp_crypto_version}.tar.gz
+Source5: https://github.com/intel/cryptography-primitives/archive/refs/tags/v%{ipp_crypto_version}.tar.gz#/ippcp_%{ipp_crypto_version}.tar.gz
 Provides: bundled(ipp-crypto) = %{ipp_crypto_version}
 
 Source6: https://github.com/intel/sgx-emm/archive/refs/tags/sgx-emm-%{sgx_emm_version}.tar.gz
@@ -242,6 +242,8 @@ Provides: bundled(sgx-emm) = %{sgx_emm_version}
 Source7: https://github.com/intel/confidential-computing.tee.dcap.qvl/archive/refs/tags/v%{dcap_qvl_version}.tar.gz#/dcap-qvl-%{dcap_qvl_version}.tar.gz
 Provides: bundled(dcap-qvl) = %{dcap_qvl_version}
 
+Source8: https://github.com/intel/confidential-computing.sgx.sdk/archive/refs/tags/sgx_%{sgx_sdk_version}.tar.gz#/sgx-sdk-%{sgx_sdk_version}.tar.gz
+Provides: bundled(sgx-sdk) = %{sgx_sdk_version}
 
 ############################################################
 # 3rd party projects SourceN for N in (10..19)
@@ -293,68 +295,57 @@ Provides: bundled(vtune) = %{vtune_version}
 ############################################################
 # Distro integration patches
 
-# 0000-0099 -> against confidential-computing.sgx-sgx.git
+# 0000-0099 -> against confidential-computing.sgx.git
 #
-# Maintained in: https://github.com/berrange/linux-sgx/tree/dist-git-%{linux_sgx_version}-hostsw
+# Maintained in: https://github.com/berrange/confidential-computing.sgx/tree/dist-git-%{linux_sgx_version}-hostsw
 #
 Patch0000: 0000-Add-support-for-building-against-host-openssl-crypto.patch
-Patch0001: 0001-Add-support-for-building-against-host-tinyxml2-lib.patch
-Patch0002: 0002-Add-support-for-building-against-host-CppMicroServic.patch
-# https://github.com/intel/linux-sgx/pull/1055
-Patch0003: 0003-Improve-make-debuggability.patch
-Patch0004: 0004-Support-disabling-use-of-git-for-ippcp-code.patch
-Patch0005: 0005-disable-openmp-protobuf-sample_crypto-builds.patch
-# https://github.com/intel/linux-sgx/pull/1064
-Patch0006: 0006-psw-prefer-dev-sgx_provision-dev-sgx_enclave.patch
-Patch0007: 0007-psw-fix-soname-for-libuae_service.so-library.patch
-Patch0008: 0008-sdk-honour-CFLAGS-LDFLAGS-set-from-environment.patch
-Patch0009: 0009-psw-make-aesm_service-build-verbose.patch
-Patch0010: 0010-Fix-modern-C-function-prototype-compliance.patch
-Patch0011: 0011-Add-wrapper-for-nasm-to-fix-cmake-compat.patch
-Patch0012: 0012-linux-installer-drop-PCCS-package-from-BOM.patch
-Patch0013: 0013-sdk-avoid-failure-due-to-attribute-regparam-with-GCC.patch
-Patch0014: 0014-fix-BOM-for-mpa_manage-mpa_registration-files.patch
-Patch0015: 0015-fix-missing-def-of-uncaught_exception.patch
-Patch0016: 0016-sdk-adapt-to-openssl4-API-changes.patch
-# Optional patches
-Patch0050: 0050-Disable-inclusion-of-AESM-in-installer.patch
+Patch0001: 0001-Add-support-for-building-against-host-CppMicroServic.patch
+Patch0002: 0002-psw-fix-soname-for-libuae_service.so-library.patch
+Patch0003: 0003-psw-make-aesm_service-build-verbose.patch
+Patch0004: 0004-linux-installer-drop-PCCS-package-from-BOM.patch
+Patch0005: 0005-disable-packaging-of-poe-gen-tool.patch
+Patch0006: 0006-Disable-packaging-of-prebuilt-enclaves.patch
+Patch0007: 0007-drop-tee_appraisal_tool-from-package.patch
+# If this number changes, alter the autopatch macro later
+Patch0008: 0008-Disable-inclusion-of-AESM-in-installer.patch
+
 
 # 0100-0199 -> against confidential-computing.tee.dcap.git
 #
-# Maintained in https://github.com/berrange/SGXDataCenterAttestationPrimitives/tree/dist-git-%{dcap_version}-hostsw
+# Maintained in: https://github.com/berrange/confidential-computing.tee.dcap/tree/dist-git-%{dcap_version}-hostsw
 #
-Patch0100: 0100-Drop-use-of-bundled-pre-built-openssl.patch
-Patch0101: 0101-Improve-debuggability-of-build-system.patch
+Patch0100: 0100-pcsclient-serialize-qeidentity-and-tdqeidentity-as-J.patch
+Patch0101: 0101-pcsclient-only-import-pypac-module-on-Windows-490.patch
+Patch0102: 0102-Drop-use-of-bundled-pre-built-openssl.patch
+Patch0103: 0103-Improve-debuggability-of-build-system.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/437
-Patch0102: 0102-Support-build-time-setting-of-enclave-load-directory.patch 
+Patch0104: 0104-Support-build-time-setting-of-enclave-load-directory.patch 
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/434
-Patch0103: 0103-Look-for-versioned-sgx_urts-library-in-PCKRetrievalT.patch
+Patch0105: 0105-Look-for-versioned-sgx_urts-library-in-PCKRetrievalT.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/429
-Patch0104: 0104-pcsclient-only-import-pypac-module-on-Windows.patch
-Patch0105: 0105-Look-for-PCKRetrievalTool-config-file-in-etc.patch
-Patch0106: 0106-Honour-CFLAGS-CXXFLAGS-LDFLAGS-for-various-tools-and.patch
+Patch0106: 0106-Look-for-PCKRetrievalTool-config-file-in-etc.patch
+Patch0107: 0107-Honour-CFLAGS-CXXFLAGS-LDFLAGS-for-various-tools-and.patch
 # https://github.com/intel/SGXDataCenterAttestationPrimitives/pull/428
-Patch0107: 0107-pcsclient-remove-leftover-debugging-print-args-state.patch
 Patch0108: 0108-Fix-soname-version-for-libsgx_qe3_logic.so-library.patch
 Patch0109: 0109-Workaround-broken-GCC-15.patch
 Patch0110: 0110-Don-t-disable-cf-protection-for-qgs.patch
 #Patch0111: 0111-Use-distro-provided-rapidjson-package.patch
 Patch0112: 0112-Don-t-stomp-on-VERBOSE-variable.patch
 Patch0113: 0113-qgs-add-m-MODE-parameter-for-UNIX-socket-mode.patch
-Patch0114: 0114-pcsclient-make-keyring-module-optional.patch
-Patch0115: 0115-pcsclient-convert-from-asn1-to-pyasn1-python-module.patch
-Patch0116: 0116-pcsclient-ignore-errors-trying-to-clear-the-keyring.patch
-Patch0117: 0117-use-system-gtest-gmock-libraries.patch
-Patch0118: 0118-Disable-PcsClientTool-package-build.patch
-Patch0119: 0119-disable-building-of-WASM-SIMDE-code.patch
-Patch0120: 0120-ensure-build-terminates-if-prepare_sgxssl.sh-fails.patch
-Patch0121: 0121-qpl-fix-const-correctness-for-ASN1_STRING-X509_NAME_.patch
-Patch0122: 0122-qal-force-compat-with-CMake-3.5.patch
+Patch0114: 0114-pcsclient-convert-from-asn1-to-pyasn1-python-module.patch
+Patch0115: 0115-use-system-gtest-gmock-libraries.patch
+Patch0116: 0116-Disable-PcsClientTool-package-build.patch
+Patch0117: 0117-disable-building-of-WASM-SIMDE-code.patch
+Patch0118: 0118-ensure-build-terminates-if-prepare_sgxssl.sh-fails.patch
+Patch0119: 0119-qpl-fix-const-correctness-for-ASN1_STRING-X509_NAME_.patch
+Patch0120: 0120-qal-force-compat-with-CMake-3.5.patch
+Patch0121: 0121-disable-build-of-PoeTools.patch
 
 
 # 0200-0299 -> against intel-sgx-ssl.git
 #
-# Maintained in https://github.com/berrange/intel-sgx-ssl/tree/dist-git-%{sgx_ssl_version}
+# Maintained in: https://github.com/berrange/intel-sgx-ssl/tree/dist-git-%{sgx_ssl_version}-hostsw
 #
 Patch0200: 0200-Enable-pointing-sgxssl-build-to-alternative-glibc-he.patch
 Patch0201: 0201-Workaround-missing-output-directory.patch
@@ -365,17 +356,36 @@ Patch0204: 0204-Update-patches-for-openssl-3.0.19.patch
 
 # 0300-0399 -> against ipp-crypto.git
 #
-# Maintained in https://github.com/berrange/ipp-crypto/tree/dist-git-%{ipp_crypto_version}
+# Maintained in: https://github.com/berrange/cryptography-primitives/tree/dist-git-%{ipp_crypto_version}-hostsw
 #
-Patch0300: 0300-Drop-min-openssl-from-3.0.8-to-3.0.7.patch
-Patch0301: 0301-Drop-Werror-from-build-flags.patch
+Patch0300: 0300-Drop-Werror-stringop-overflow-from-build-flags.patch
 
 
 # 0400-0499 -> against confidential-computing.tee.dcap.qvl.git
 #
-# Maintained in https://github.com/berrange/confidential-computing.tee.dcap.qvl
+# Maintained in: https://github.com/berrange/confidential-computing.tee.dcap.qvl/tree/dist-git-%{dcap_qvl_version}-hostsw
 #
 Patch0400: 0400-Fix-constness-for-OpenSSL4-X509-ASN1-APIs.patch
+
+
+# 0500-0599 -> against confidential-computing.sgx.sdk.git
+#
+# Maintained in: https://github.com/berrange/confidential-computing.sgx.sdk/tree/dist-git-%{sgx_sdk_version}-hostsw
+#
+Patch0500: 0500-Add-support-for-building-against-host-openssl-crypto.patch
+Patch0501: 0501-Add-support-for-building-against-host-tinyxml2-lib.patch
+Patch0502: 0502-Improve-make-debuggability.patch
+Patch0503: 0503-Support-disabling-use-of-git-for-ippcp-code.patch
+Patch0504: 0504-disable-openmp-protobuf-sample_crypto-builds.patch
+Patch0505: 0505-enclave_runtime-prefer-dev-sgx_provision-dev-sgx_enc.patch
+Patch0506: 0506-sdk-honour-CFLAGS-LDFLAGS-set-from-environment.patch
+Patch0507: 0507-Fix-modern-C-function-prototype-compliance.patch
+Patch0508: 0508-Add-wrapper-for-nasm-to-fix-cmake-compat.patch
+Patch0509: 0509-sdk-avoid-failure-due-to-attribute-regparam-with-GCC.patch
+Patch0510: 0510-fix-missing-def-of-uncaught_exception.patch
+Patch0511: 0511-sdk-adapt-to-openssl4-API-changes.patch
+Patch0512: 0512-sdk-fix-path-to-dcap-openssl-headers.patch
+
 
 BuildRequires: sgx-rpm-macros
 BuildRequires: autoconf
@@ -593,9 +603,9 @@ in applications
 %prep
 %setup -q -n confidential-computing.sgx-sgx_%{linux_sgx_version}
 
-%autopatch -m 0 -M 49 -p1
+%autopatch -m 0 -M 7 -p1
 %if !%{with_aesm}
-%autopatch -m 50 -M 99 -p1
+%autopatch -m 8 -M 8 -p1
 %endif
 
 ############################################################
@@ -610,16 +620,26 @@ in applications
 #
 ############################################################
 
-# Will use system package instead
-rm -rf external/CppMicroServices
-%if %{with_host_tinyxml2}
-rm -rf external/tinyxml2
-%endif
+############################################################
+# SGX SDK
+(
+  cd sdk
 
-# Don't intend to package these optional bits since none of
-# the required enclaves need this, and thus we can cut down
-# on bundling some 3rd party code
-rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
+  tar zxf %{SOURCE8} --strip 1
+
+  # Will use system package instead
+  rm -rf external/CppMicroServices
+  %if %{with_host_tinyxml2}
+  rm -rf external/tinyxml2
+  %endif
+
+  # Don't intend to package these optional bits since none of
+  # the required enclaves need this, and thus we can cut down
+  # on bundling some 3rd party code
+  rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
+
+  %autopatch -m 500 -M 599 -p1
+)
 
 ############################################################
 # dcap
@@ -664,7 +684,7 @@ rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
 ############################################################
 # sgxssl
 (
-  cd external/sgxssl
+  cd sdk/external/sgxssl
   tar zxf %{SOURCE4} --strip 1
   %autopatch -m 200 -M 299 -p1
 
@@ -675,7 +695,7 @@ rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
 # ippcrypto
 (
   # XXX sanity check that all ipp-crypto is permitted by Fedora
-  cd external/ippcp_internal/ipp-crypto
+  cd sdk/external/ippcp_internal/ipp-crypto
   tar zxf %{SOURCE5} --strip 1
   %autopatch -m 300 -M 399 -p1
 )
@@ -683,15 +703,19 @@ rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
 ############################################################
 # sgx-emm
 (
+  cd sdk
+  pushd $PWD
   cd external/sgx-emm/emm_src
   tar zxf %{SOURCE6} --strip 1
+  popd
+
+  ./external/sgx-emm/create_symlink.sh
 )
-./external/sgx-emm/create_symlink.sh
 
 ############################################################
 # libcbor
 (
-  cd external/cbor/libcbor
+  cd sdk/external/cbor/libcbor
   tar zxf %{SOURCE11} --strip 1
   cd ..
   cp -a libcbor sgx_libcbor
@@ -707,7 +731,7 @@ rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
 # tinyxml2
 %if ! %{with_host_tinyxml2}
 (
-  cd external/tinyxml2
+  cd sdk/external/tinyxml2
   tar zxf %{SOURCE14} --strip 1
 )
 %endif
@@ -716,7 +740,7 @@ rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
 ############################################################
 # libcxxrt
 (
-  cd external/libcxxrt/libcxxrt_code
+  cd sdk/external/libcxxrt/libcxxrt_code
 
   tar zxf %{SOURCE15} --strip 1
   patch -p1 < ../sgx_libcxxrt.patch
@@ -788,12 +812,12 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 for mitigation in '' LOAD CF
 do
   %__make %{?_smp_mflags} \
-    -C external/ippcp_internal \
+    -C sdk/external/ippcp_internal \
     IPP_USE_GIT=0 \
     clean
 
   %__make %{?_smp_mflags} \
-    -C external/ippcp_internal \
+    -C sdk/external/ippcp_internal \
     MITIGATION-CVE-2020-0551=$mitigation \
     IPP_USE_GIT=0
 done
@@ -811,7 +835,8 @@ do
     -C sdk/ V=1 \
     MITIGATION-CVE-2020-0551=$mitigation \
     USE_HOST_OPENSSL_CRYPTO=1 \
-    USE_HOST_TINYXML2=%{with_host_tinyxml2}
+    USE_HOST_TINYXML2=%{with_host_tinyxml2} \
+    sdk
 done
 
 NATIVE="sign_tool/SignTool"
@@ -826,18 +851,26 @@ NATIVE="$NATIVE simulation"
 for dir in $NATIVE
 do
   %__make %{?_smp_mflags} \
-    -C sdk/$dir clean
+    -C sdk/sdk/$dir clean
 
   # XXX temp override -j1 due to race conditions that have not yet been diagnosed
   CFLAGS="%{build_cflags}" \
   CXXFLAGS="%{build_cxxflags}" \
   LDFLAGS="%{build_ldflags}" \
   %__make %{?_smp_mflags} -j1 \
-    -C sdk/$dir V=1 \
+    -C sdk/sdk/$dir V=1 \
     MITIGATION-CVE-2020-0551= \
     USE_HOST_OPENSSL_CRYPTO=1 \
     USE_HOST_TINYXML2=%{with_host_tinyxml2}
 done
+
+CFLAGS="%{build_cflags}" \
+CXXFLAGS="%{build_cxxflags}" \
+LDFLAGS="%{build_ldflags}" \
+%__make %{?_smp_mflags} -j1 \
+  -C sdk V=1 VERBOSE=1 \
+  USE_HOST_OPENSSL_CRYPTO=1 \
+  enclave_runtime
 
 ############################################################
 # Second, install the SDK into a temporary tree, since this
@@ -845,8 +878,8 @@ done
 
 %global vroot build/vroot
 
-./linux/installer/bin/build-installpkg.sh sdk cve-2020-0551
-./linux/installer/bin/sgx_linux_x64_sdk_*.bin --prefix=%{vroot}
+./sdk/build_infrastructure/linux/installer/bin/build-installpkg.sh sdk cve-2020-0551
+./sdk/build_infrastructure/linux/installer/bin/sgx_linux_x64_sdk_*.bin --prefix=%{vroot}
 
 
 ############################################################
@@ -1067,8 +1100,11 @@ rm -f %{buildroot}/root/lib/systemd/system/aesmd.service
 # Host PCS client tool
 
 %__install -d %{buildroot}%{_datadir}/pcsclient
-cp external/dcap_source/tools/PcsClientTool/pcsclient.py %{buildroot}%{_datadir}/pcsclient/pcsclient.py
-cp -a external/dcap_source/tools/PcsClientTool/lib %{buildroot}%{_datadir}/pcsclient/lib
+mv %{buildroot}/root/opt/intel/pcs-client-tool/pcsclient.py %{buildroot}%{_datadir}/pcsclient/pcsclient.py
+mv %{buildroot}/root/opt/intel/pcs-client-tool/lib %{buildroot}%{_datadir}/pcsclient/lib
+
+rm -f %{buildroot}/root/opt/intel/pcs-client-tool/{README.txt,requirements.txt,License.txt}
+rmdir %{buildroot}/root/opt/intel/pcs-client-tool
 
 cat > %{buildroot}%{_bindir}/pcsclient <<EOF
 #!/bin/sh
@@ -1192,6 +1228,7 @@ rm -rf %{buildroot}/root/sample
 rm -f %{buildroot}/root/etc/udev/rules.d/93-sgx-provision.rules
 rm -f %{buildroot}/root/etc/udev/rules.d/91-sgx-enclave.rules
 rm -f %{buildroot}/root/License.txt
+
 
 # Intentionally not recursive delete, as we want build to fail
 # to alert us if a future release adds more files that need handling
@@ -1429,11 +1466,13 @@ sed -i -e 's/--debug/-l=debug/' \
 %{_includedir}/MPNetwork.h
 %{_includedir}/MPNetworkDefs.h
 %{_includedir}/MPUefi.h
+%{_includedir}/IUefi.h
 %{_includedir}/MultiPackageDefs.h
 %{_includedir}/mp_network.h
 %{_includedir}/mp_uefi.h
 %{_includedir}/pck_cert_selection.h
 %{_includedir}/sgx_attributes.h
+%{_includedir}/sgx_dcap_qal.h
 %{_includedir}/sgx_dcap_qal_types.h
 %{_includedir}/sgx_dcap_ql_wrapper.h
 %{_includedir}/sgx_dcap_quoteverify.h
@@ -1453,6 +1492,7 @@ sed -i -e 's/--debug/-l=debug/' \
 %{_includedir}/sgx_quote_5.h
 %{_includedir}/sgx_qve_header.h
 %{_includedir}/sgx_report.h
+%{_includedir}/sgx_report2.h
 %{_includedir}/sgx_uae_quote_ex.h
 %{_includedir}/sgx_urts.h
 %{_includedir}/td_ql_wrapper.h
@@ -1522,6 +1562,7 @@ sed -i -e 's/--debug/-l=debug/' \
 
 
 %files -n sgx-pcs-client
+%doc external/dcap_source/tools/PcsClientTool/README.txt
 %{_bindir}/pcsclient
 %{_datadir}/pcsclient
 

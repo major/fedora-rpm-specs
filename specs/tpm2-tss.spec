@@ -4,7 +4,7 @@
 %endif
 
 Name:          tpm2-tss
-Version:       4.2.1
+Version:       4.2.2
 Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       TPM2.0 Software Stack
 
@@ -155,6 +155,9 @@ use tpm2-tss.
 %{_mandir}/man7/tss2*.7.gz
 
 %changelog
+* Thu Nov 12 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.2.2-1
+- Update to 4.2.2
+
 * Fri Oct 30 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 4.2.1-1
 - Update to 4.2.1
 

@@ -115,7 +115,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Compute Language Runtime
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old
@@ -294,6 +294,11 @@ This package contains documentation for the hip package
 sed -i '/INSTALL_RPATH/d' \
     opencl/tools/clinfo/CMakeLists.txt hipamd/CMakeLists.txt
 
+# Fix OpenCL install path.
+# Upstream installs it to %{_libdir}/opencl, but that's not in ldpath without
+# configuration. Just drop this subdir instead of adding an ldconfig file
+sed -i 's/\(AMDOCL_INSTALL_LIBDIR\) ${PROJECT_NAME}/\1 ""/' opencl/CMakeLists.txt
+
 # Upstream doesn't want OpenCL sonames because they don't guarantee API/ABI.
 # For Fedora, SOVERSION can be major.minor (i.e. rocm_release) as rocm patch
 # releases are very unlikely to break anything:
@@ -413,11 +418,11 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %license opencl/LICENSE.md
 %config(noreplace) %{_sysconfdir}/OpenCL/vendors/amdocl64.icd
 %endif
-%{pkg_prefix}/%{pkg_libdir}/opencl/libamdocl64.so.%{rocm_major}{,.*}
+%{pkg_prefix}/%{pkg_libdir}/libamdocl64.so.%{rocm_major}{,.*}
 %{pkg_prefix}/%{pkg_libdir}/libcltrace.so.%{rocm_major}{,.*}
 
 %files -n rocm-opencl%{pkg_suffix}-devel
-%{pkg_prefix}/%{pkg_libdir}/opencl/libamdocl64.so
+%{pkg_prefix}/%{pkg_libdir}/libamdocl64.so
 %{pkg_prefix}/%{pkg_libdir}/libcltrace.so
 %{pkg_prefix}/include/%{name}
 
@@ -453,6 +458,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %endif
 
 %changelog
+* Mon Jan 06 2025 Jeremy Newton <alexjnewt@hotmail.com> - 10.1.0-2
+- Fix install path for OpenCL lib
+
 * Fri Oct 9 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
 - Update to 10.1
 

@@ -57,6 +57,8 @@ Summary:        %{summary}
 
 
 %check -a
+%pyproject_verify_license
+
 # Requires python3dist(opentelemetry-sdk), formerly built from
 # https://src.fedoraproject.org/rpms/python-opentelemetry, now retired and
 # neither simple nor pleasant to bring back.

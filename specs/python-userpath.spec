@@ -46,6 +46,7 @@ install -D --preserve-timestamps --mode=0644 \
 
 
 %check -a
+%pyproject_verify_license
 # We use pytest directly, since the only contribution of the tox configuration
 # is adding coverage analysis—which we do not want.
 %pytest

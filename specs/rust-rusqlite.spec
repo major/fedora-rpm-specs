@@ -5,7 +5,7 @@
 %global crate rusqlite
 
 Name:           rust-rusqlite
-Version:        0.38.0
+Version:        0.42.0
 Release:        %autorelease
 Summary:        Ergonomic wrapper for SQLite
 
@@ -20,8 +20,6 @@ Patch:          rusqlite-fix-metadata-auto.diff
 # * drop unused optional rusqlite_macros dependency
 # * drop unused support for sqlcipher and loadable extensions
 # * drop unused, benchmark-only bencher dev-dependency
-# * allow hashlink 0.12:
-#   https://github.com/rusqlite/rusqlite/commit/6d9764f26920f54db54b0f24f3f026f6a2c24a7c
 Patch:          rusqlite-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -44,6 +42,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %doc %{crate_instdir}/bindings.md
+%doc %{crate_instdir}/types.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -322,6 +321,18 @@ use the "modern_sqlite" feature of the "%{crate}" crate.
 %files       -n %{name}+modern_sqlite-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+pointer-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+pointer-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "pointer" feature of the "%{crate}" crate.
+
+%files       -n %{name}+pointer-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+preupdate_hook-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -452,6 +463,18 @@ This package contains library source intended for building other packages which
 use the "vtab" feature of the "%{crate}" crate.
 
 %files       -n %{name}+vtab-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+wal-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+wal-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "wal" feature of the "%{crate}" crate.
+
+%files       -n %{name}+wal-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+window-devel

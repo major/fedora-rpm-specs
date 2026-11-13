@@ -160,18 +160,18 @@ Release:        %autorelease
 #   - Macaulay2/packages/RationalMaps.m2
 #   - Macaulay2/packages/SectionRing.m2
 License:        %{shrink:
-                  (GPL-2.0-only OR GPL-3.0-only) AND
-                  GPL-1.0-or-later AND
-                  GPL-2.0-only AND
-                  GPL-2.0-or-later AND
-                  GPL-3.0-or-later AND
-                  LGPL-2.0-or-later AND
-                  LGPL-3.0-or-later AND
-                  Apache-2.0 AND
-                  MIT AND
-                  OFL-1.1-RFN AND
-                  LicenseRef-Fedora-Public-Domain
-                 }
+                  (GPL-2.0-only OR GPL-3.0-only)
+                  AND GPL-1.0-or-later
+                  AND GPL-2.0-only
+                  AND GPL-2.0-or-later
+                  AND GPL-3.0-or-later
+                  AND LGPL-2.0-or-later
+                  AND LGPL-3.0-or-later
+                  AND Apache-2.0
+                  AND MIT
+                  AND OFL-1.1-RFN
+                  AND LicenseRef-Fedora-Public-Domain
+                }
 URL:            https://macaulay2.com/
 VCS:            git:%{m2url}.git
 Source0:        %{m2url}/archive/release-%{version}/%{name}-%{version}.tar.gz

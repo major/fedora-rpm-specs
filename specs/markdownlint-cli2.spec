@@ -1,13 +1,11 @@
 %global npm_name markdownlint-cli2
 
 Name:     markdownlint-cli2
-Version:  0.24.0
+Version:  0.24.1
 Release:  %autorelease
 Summary:  A command-line tool for linting Markdown/CommonMark files
 
-License:  BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND Python-2.0.1
-# argparse declare a Python-2.0 license but the LICENSE file is actually a Python-2.0.1 license.
-# A pull request was made to fix it upstream https://github.com/nodeca/argparse/pull/188
+License:  BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND PSF-2.0
 
 URL:      https://github.com/DavidAnson/markdownlint-cli2
 

@@ -1,5 +1,5 @@
 Name:           libmspack
-Version:        0.11
+Version:        0.12
 Release:        0.1.alpha%{?dist}
 Summary:        Library for CAB and related files compression and decompression
 
@@ -8,9 +8,6 @@ License:        LGPL-2.1-only AND LicenseRef-Fedora-UltraPermissive AND MIT
 URL:            http://www.cabextract.org.uk/libmspack/
 Source0:        http://www.cabextract.org.uk/libmspack/%{name}-%{version}alpha.tar.gz
 #Source0:        https://github.com/kyz/libmspack/archive/v%%{version}alpha/%%{name}-v%%{version}alpha.tar.gz
-# https://bugzilla.redhat.com/show_bug.cgi?id=2558186
-# backported from https://github.com/kyz/libmspack/commit/4d868504114346aa767d435fbb89a8b76603493f
-Patch0:         4d868504114346aa767d435fbb89a8b76603493f.patch
 
 BuildRequires:  doxygen
 BuildRequires:  gcc
@@ -84,6 +81,10 @@ make check
 
 
 %changelog
+* Thu Nov 12 2026 Dan Horák <dan[at]danny.cz> - 0.12-0.1.alpha
+- updated to 0.12alpha
+- fix CVE-2026-119602
+
 * Wed Oct 21 2026 Dan Horák <dan[at]danny.cz> - 0.11-0.1.alpha
 - updated to 0.11alpha
 - fix CVE-2026-110602 (rhbz#2558186)

@@ -1,6 +1,6 @@
 Name:          libfm-qt
 Version:       2.5.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Companion library for PCManFM
 License:       GPL-2.0-or-later
 URL:           https://lxqt-project.org
@@ -8,22 +8,21 @@ Source0:       https://github.com/lxqt/libfm-qt/archive/%{version}/libfm-qt-%{ve
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
+
+BuildRequires: cmake(Qt6GuiPrivate)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6LinguistTools)
-BuildRequires: cmake(lxqt)
 BuildRequires: cmake(lxqt-menu-data)
 BuildRequires: cmake(lxqt2-build-tools)
-BuildRequires: pkgconfig(x11)
+
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gio-unix-2.0)
-BuildRequires: pkgconfig(libfm)
-BuildRequires: pkgconfig(libmenu-cache)
+BuildRequires: pkgconfig(gthread-2.0)
 BuildRequires: pkgconfig(libexif)
 BuildRequires: perl-interpreter
 
-BuildRequires: qt6-qtbase-private-devel
 
 Provides:      %{name}-l10n = %{version}-%{release}
 Obsoletes:     %{name}-l10n < %{version}-%{release}
@@ -71,6 +70,9 @@ developing applications that use libfm-qt.
 %{_datadir}/mime/packages/libfm-qt6-mimetypes.xml
 
 %changelog
+* Thu Nov 12 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-3
+- Revise BuildRequires
+
 * Thu Nov 12 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-2
 - Finish removing l10n subpackage
 

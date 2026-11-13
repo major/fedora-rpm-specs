@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 59%{?dist}
+Release: 60%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -314,6 +314,7 @@ BuildRequires: /usr/sbin/ifconfig
 BuildRequires: python-setuptools-wheel
 BuildRequires: python-pip-wheel
 %else
+BuildRequires: ca-certificates
 # For %%python_wheel_inject_sbom
 BuildRequires: python-rpm-macros
 %endif
@@ -338,7 +339,7 @@ Source10: idle3.desktop
 # AppData file for idle3
 Source11: idle3.appdata.xml
 
-# Patches for bundled wheels
+# Patches for bundled wheels (declared as Sources, applied manually in %%prep):
 
 # Patch for the bundled pip wheel for CVE-2007-4559
 Source101: pip-CVE-2007-4559.patch
@@ -350,6 +351,14 @@ Source101: pip-CVE-2007-4559.patch
 # Patch simplified because upstream doesn't support SVN anymore.
 Source102: setuptools-CVE-2024-6345.patch
 
+# Use the system level root certificate instead of the one bundled in certifi
+# in the pip wheel bundled in ensurepip.
+# https://bugzilla.redhat.com/1655253
+# The same patch is a part of the RPM-packaged python-pip and python-certifi.
+Source103: pip-dummy-certifi.patch
+
+# Patches for Python
+#
 # (Patches taken from github.com/fedora-python/cpython)
 
 # 00001 # d06a8853cf4bae9e115f45e1d531d2dc152c5cc8
@@ -963,6 +972,20 @@ Patch489: 00489-openssl-3.5.7.patch
 # - gh-115627: Fix ssl test_pha_required_nocert() (GH-117821)
 Patch493: 00493-fix-test_pha_required_nocert-race-condition.patch
 
+# 00495 # 252a03b2e5c6e8712c4ee13c75bc0f272f7e2039
+# gh-157579: Fix race condition in the cleanup of `tempfile.TemporaryDirectory`
+Patch495: 00495-cve-2026-12345.patch
+
+# 00496 # 456e16823a862c89758897a83293e133ab66dbfe
+# gh-156293: Use-after-free for server-side SSLContext with sni_callback
+Patch496: 00496-cve-2026-19445.patch
+
+# 00497 # e38c660251dbb1088e56876a0d3b2b6b66e4fe89
+# gh-156793: Validate SSLContext.wrap_bio() parameters like wrap_socket()
+#
+# * gh-156793: Start the SSL handshake in the 3.10 hostname validation tests
+Patch497: 00497-cve-2026-19553.patch
+
 # (New patches go here ^^^)
 #
 # When adding new patches to "python" and "python3" in Fedora, EL, etc.,
@@ -1085,6 +1108,8 @@ Provides: bundled(python3dist(packaging)) = 16.8
 Provides: bundled(python3dist(pyparsing)) = 2.2.1
 Provides: bundled(python3dist(six)) = 1.10
 Provides: bundled(python3dist(appdirs)) = 1.4.3
+
+Requires: ca-certificates
 %endif
 
 # Provides for the bundled libmpdec
@@ -1322,6 +1347,8 @@ rm Lib/ensurepip/_bundled/*.whl
 # Patch the bundled pip wheel for CVE-2007-4559
 unzip -qq Lib/ensurepip/_bundled/pip-%{pip_version}-py2.py3-none-any.whl
 patch -p1 < %{SOURCE101}
+# And for using ca-certificates, -p2 to compensate src/ prefix
+patch -p2 < %{SOURCE103}
 zip -rq Lib/ensurepip/_bundled/pip-%{pip_version}-py2.py3-none-any.whl pip pip-%{pip_version}.dist-info
 rm -rf pip/ pip-%{pip_version}.dist-info/
 
@@ -2264,6 +2291,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Tue Oct 27 2026 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-60
+- Security fixes for CVE-2026-12345, CVE-2026-19445, CVE-2026-19553
+Resolves: rhbz#2547342, rhbz#2545939, rhbz#2546325
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

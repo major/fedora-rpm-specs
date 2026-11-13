@@ -6,7 +6,7 @@
 # While we formerly had a dr_libs-devel metapackage that brought in everything,
 # this isn’t really useful. Upstream treats these as separate libraries, and we
 # should too. We drop the metapackage beginning with F46.
-%bcond devel_metapackage %[ %{defined fc45} || %{defined fc44} || %{defined fc43} ]
+%bcond devel_metapackage %{defined fc45}
 
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall

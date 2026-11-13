@@ -5,7 +5,7 @@
 %global github_name             phpseclib
 %bcond_without                  tests
 
-Version:    3.0.57
+Version:    3.0.58
 Release:    1%{?dist}
 %global vmajor %(v="%{version}"; v=(${v//./ }); echo "${v[0]}")
 

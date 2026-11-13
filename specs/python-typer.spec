@@ -130,6 +130,8 @@ export _TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1
 
 
 %check -a
+%pyproject_verify_license
+
 # See scripts/test.sh. We do not run the linters (scripts/lint.sh, i.e.,
 # mypy/black/isort).
 export TERMINAL_WIDTH=3000

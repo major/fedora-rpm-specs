@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.7.6
+%global musescore_ver             4.7.7
 %global musescore_maj             %{gsub %musescore_ver ^(%d*%.%d*)%..*$ %1}
 %global giturl                    https://github.com/musescore/MuseScore
 
@@ -11,23 +11,23 @@
 # - Reset to 1 if the version changed
 # - Increase by 1 otherwise
 %global mscore_font_ver           2.003
-%global mscore_font_rel           47%{?dist}
+%global mscore_font_rel           48%{?dist}
 %global mscoretext_font_ver       1.0
-%global mscoretext_font_rel       47%{?dist}
+%global mscoretext_font_rel       48%{?dist}
 %global musescoreicon_font_ver    1.0
-%global musescoreicon_font_rel    47%{?dist}
+%global musescoreicon_font_rel    48%{?dist}
 %global mscorebc_font_ver         1.0
-%global mscorebc_font_rel         47%{?dist}
+%global mscorebc_font_rel         48%{?dist}
 %global mscoretabulature_font_ver 001.000
-%global mscoretabulature_font_rel 47%{?dist}
+%global mscoretabulature_font_rel 48%{?dist}
 %global musejazz_font_ver         1.0
-%global musejazz_font_rel         47%{?dist}
+%global musejazz_font_rel         48%{?dist}
 %global gootville_font_ver        1.3
-%global gootville_font_rel        47%{?dist}
+%global gootville_font_rel        48%{?dist}
 %global gootville_text_font_ver   1.2
-%global gootville_text_font_rel   47%{?dist}
+%global gootville_text_font_rel   48%{?dist}
 %global soundfont_ver             0.2.0
-%global soundfont_rel             47%{?dist}
+%global soundfont_rel             48%{?dist}
 
 Name:           musescore
 Summary:        Music Composition & Notation Software
@@ -229,9 +229,6 @@ Patch:          %{name}-vst.patch
 # Fix a Qt 6.11 problem with StyledDropdown navigation
 # https://github.com/musescore/MuseScore/pull/34204
 Patch:          %{name}-styleddropdownnavigation.patch
-# Add FFmpeg 9 support
-# https://github.com/musescore/muse_framework/pull/201
-Patch:          %{name}-ffmpeg9.patch
 # Fix a CVE in the bundled fluidsynth
 Patch:          %{name}-CVE-2026-61714.patch
 # Fix build with Qt 6.12
@@ -759,6 +756,9 @@ EOF
 %fontfiles -z 9
 
 %changelog
+* Thu Nov 12 2026 Jerry James  <loganjerry@gmail.com> - 4.7.7-1
+- Version 4.7.7
+
 * Mon Oct 26 2026 Jerry James <loganjerry@gmail.com> - 4.7.6-1
 - Version 4.7.6
 - Fix broken release numbers

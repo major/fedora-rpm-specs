@@ -8,7 +8,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.1.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Rich text framework
 License: MIT
 URL: https://rubyonrails.org
@@ -28,6 +28,10 @@ Source2: %{gem_name}-%{version}%{?prerelease}-js.tar.gz
 # ~~~
 # https://github.com/rails/rails/pull/57283
 Patch0: rubygem-actiontext-8.1.3-Avoid-assert-nil-when-testing-objects-that-override-nil-.patch
+# https://github.com/rails/rails/pull/59550
+# https://github.com/rails/rails/commit/6db23850f4a872b293fdf88e9f34774514293f98
+# Support nokogiri 1.19.5 and above which fixes HTML5 serialization
+Patch1: rubygem-actiontext-pr59550-nokogiri-1_19_5-html5-serialization.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -68,6 +72,7 @@ Documentation for %{name}.
 
 ( cd %{builddir}
 %patch 0 -p2
+%patch 1 -p2
 )
 
 %build
@@ -153,6 +158,9 @@ ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Nov 12 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.1.3.1-2
+- Backport upstream patch to support nokogiri 1.19.5 HTML5 serialization fix
+
 * Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.3.1-1
 - Update to Action Text 8.1.3.1.
   Related: rhzb#2405582

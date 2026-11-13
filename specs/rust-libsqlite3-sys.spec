@@ -5,7 +5,7 @@
 %global crate libsqlite3-sys
 
 Name:           rust-libsqlite3-sys
-Version:        0.36.0
+Version:        0.40.0
 Release:        %autorelease
 Summary:        Native bindings to the libsqlite3 library
 
@@ -13,6 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/libsqlite3-sys
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * relax bindgen dependency to allow both v0.72 and v0.73
 # * remove features for building vendored sqlite3 and sqlcipher sources
 # * drop Windows- and WASM-specific features
 # * exclude files that are only useful for upstream development
@@ -22,7 +23,7 @@ Patch:          libsqlite3-sys-fix-metadata.diff
 Patch1:         0001-unconditionally-enable-building-with-bindgen-and-pkg.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(sqlite3) >= 3.34.1
+BuildRequires:  pkgconfig(sqlite3) >= 3.45.3
 
 %global _description %{expand:
 Native bindings to the libsqlite3 library.}
@@ -32,7 +33,7 @@ Native bindings to the libsqlite3 library.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(sqlite3) >= 3.34.1
+Requires:       pkgconfig(sqlite3) >= 3.45.3
 
 %description    devel %{_description}
 
@@ -92,16 +93,28 @@ use the "column_metadata" feature of the "%{crate}" crate.
 %files       -n %{name}+column_metadata-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+min_sqlite_version_3_34_1-devel
+%package     -n %{name}+in_gecko-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+min_sqlite_version_3_34_1-devel %{_description}
+%description -n %{name}+in_gecko-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "min_sqlite_version_3_34_1" feature of the "%{crate}" crate.
+use the "in_gecko" feature of the "%{crate}" crate.
 
-%files       -n %{name}+min_sqlite_version_3_34_1-devel
+%files       -n %{name}+in_gecko-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+min_sqlite_version_3_45_3-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+min_sqlite_version_3_45_3-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "min_sqlite_version_3_45_3" feature of the "%{crate}" crate.
+
+%files       -n %{name}+min_sqlite_version_3_45_3-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pkg-config-devel

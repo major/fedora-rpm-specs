@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal
-Version:        7.001
+Version:        7.002
 Release:        1%{?dist}
 Summary:        Fast, compact, powerful binary (de-)serialization
 # Makefile.PL defines LICENSE
@@ -101,6 +101,23 @@ make test
 %{_mandir}/man3/Sereal.3*
 
 %changelog
+* Wed Nov 11 2026 Paul Howarth <paul@city-fan.org> - 7.002-1
+- Update to 7.002 (rhbz#2571889)
+  - Add opt-in paranoid presets for Decoder and Encoder with stricter checksum,
+    object and resource defaults; explicit options retain control; lower the
+    normal recursion limit to 8192, or 4096 on Cygwin, and use 2048 under
+    paranoid mode
+  - Add allow_classes and track_classes to both modules, plus refuse_objects to
+    Encoder; clarify security and module policies
+  - Support refcounted Perl stacks in Decoder and Encoder custom ops, and XPerl
+    hash storage in Encoder
+  - Fix native floating-point declaration tests on older FreeBSD and macOS
+    Perls, and adapt deep-recursion tests to Cygwin's stack
+  - Load local builds during release tests and use the canonical maint/vN
+    branches in the Encoder compatibility matrix
+  - Add Windows and macOS Perl CI and remove hobodecoder's od dependency
+  - Bound the Decoder randomized stress test for limited-memory hosts
+
 * Fri Nov  6 2026 Paul Howarth <paul@city-fan.org> - 7.001-1
 - Update to 7.001 (rhbz#2564206)
   - Roll up the v6 features and portability fixes with protocol v7; upgrade

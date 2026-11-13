@@ -14,8 +14,8 @@
 
 Name:           mpd
 Epoch:          1
-Version:        0.24.18
-Release:        2%{?dist}
+Version:        0.24.19
+Release:        1%{?dist}
 Summary:        Music player daemon
 
 License:        GPL-2.0-only AND BSD-2-Clause AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND BSD-2-Clause-Views
@@ -230,6 +230,9 @@ rm %{buildroot}%{_docdir}/mpd/COPYING
 %ghost %{mpd_statefile}
 
 %changelog
+* Thu Nov 12 2026 Leigh Scott <leigh123linux@gmail.com> - 1:0.24.19-1
+- Update to 0.24.19
+
 * Wed Nov 11 2026 Adrian Reber <adrian@lisas.de> - 1:0.24.18-2
 - Rebuilt for libcdio 2.4.0
 

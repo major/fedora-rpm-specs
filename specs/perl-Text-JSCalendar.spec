@@ -1,12 +1,10 @@
 Name:           perl-Text-JSCalendar
-Version:        0.08
+Version:        0.11
 Release:        1%{?dist}
 Summary:        Convert between iCalendar and JSCalendar
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Text-JSCalendar
 Source0:        https://cpan.metacpan.org/authors/id/B/BR/BRONG/Text-JSCalendar-%{version}.tar.gz
-# Trailing XML::Spice Perl module
-Patch0:         Text-JSCalendar-0.05-Remove_XML_Spice.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -70,7 +68,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Text-JSCalendar-%{version}
-%patch -P0 -p1
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -107,6 +104,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 12 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.11-1
+- 0.11 bump
+
+* Mon Nov 09 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.10-1
+- 0.10 bump
+
 * Mon Oct 26 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.08-1
 - 0.08 bump
 

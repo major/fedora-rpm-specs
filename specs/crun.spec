@@ -33,7 +33,7 @@ Epoch: 102
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.30.1
+Version: 1.31
 Release: %autorelease
 URL: https://github.com/containers/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.zst
@@ -53,7 +53,7 @@ BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: gcc
 %if !%{defined copr_build}
-BuildRequires: openpgpverify
+BuildRequires: gnupg2
 %endif
 BuildRequires: git-core
 BuildRequires: gperf
@@ -107,7 +107,7 @@ Recommends: wasmedge
 
 %prep
 %if !%{defined copr_build}
-%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -Sgit -n %{name}-%{version}
 
@@ -126,6 +126,7 @@ rm -rf %{buildroot}%{_prefix}/lib*
 %files
 %license COPYING
 %{_bindir}/%{name}
+%{_includedir}/libcrun.h
 %{_mandir}/man1/%{name}.1.gz
 
 %if %{defined krun_support}

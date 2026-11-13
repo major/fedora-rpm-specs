@@ -1,5 +1,5 @@
 Name:           noctalia
-Version:        5.4.1
+Version:        5.5.0
 Release:        %autorelease
 ExcludeArch:    %{ix86}
 Summary:        A sleek, customizable desktop shell crafted for Wayland
@@ -28,6 +28,9 @@ License:        Apache-2.0 AND MIT AND BSD-3-Clause AND HPND-sell-variant AND LG
 
 URL:            https://github.com/noctalia-dev/noctalia
 Source:         %{url}/archive/v%{version}/noctalia-%{version}.tar.gz
+# needed to make toplevel_thumbnail_capture test pass on s390x
+# https://github.com/noctalia-dev/noctalia/commit/12d96bd9d9c15a5488a9985336ca65d8eaddddf5
+Patch:          0001-test-capture-encode-thumbnail-test-pixels-as-little-endian-wl_shm-words.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -130,7 +133,7 @@ notification daemon, lock screen, wallpaper tool, and settings UI.
 
 
 %prep
-%autosetup
+%autosetup -p 1
 
 # Remove shebangs and execute permissions from template apply scripts to avoid
 # rpmlint errors/warnings.
@@ -139,13 +142,13 @@ find assets/templates -type f -name '*.sh' \
     -exec chmod -x '{}' +
 
 # Move bundled licenses to the top level to make inclusion in %%files easier.
-mv assets/fonts/tabler-icons-license.txt        LICENSE.tabler
+mv lib/assets/fonts/tabler-icons-license.txt    LICENSE.tabler
+mv lib/third_party/wuffs/LICENSE-APACHE         LICENSE-Apache-2.0.wuffs
+mv lib/third_party/wuffs/LICENSE-MIT            LICENSE-MIT.wuffs
 mv third_party/fzy/LICENSE                      LICENSE.fzy
 mv third_party/luau/LICENSE.txt                 LICENSE.luau
 mv third_party/luau/lua_LICENSE.txt             LICENSE.luau_lua
 mv third_party/material_color_utilities/LICENSE LICENSE.material_color_utilities
-mv third_party/wuffs/LICENSE-APACHE             LICENSE-Apache-2.0.wuffs
-mv third_party/wuffs/LICENSE-MIT                LICENSE-MIT.wuffs
 
 
 %conf

@@ -11,14 +11,14 @@
 
 # support for apache / nginx / php-fpm
 %global with_phpfpm          1
-%global upstream_version     1.7.5
+%global upstream_version     1.7.6
 #global upstream_prever      rc6
 
 %global roundcubedir %{_datadir}/roundcubemail
 %global _logdir /var/log  
 Name: roundcubemail
 Version:  %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:  2%{?dist}
+Release:  1%{?dist}
 Summary: Round Cube Webmail is a browser-based multilingual IMAP client
 
 # Since 0.8 beta, the main code has been GPLv3+ with exceptions and
@@ -271,6 +271,9 @@ fi
 
 
 %changelog
+* Mon Nov  9 2026 Remi Collet <remi@remirepo.net> - 1.7.6-1
+- update to 1.7.6
+
 * Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1.7.5-2
 - Verify upstream source signatures with openpgpverify
 

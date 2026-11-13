@@ -54,7 +54,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND MIT AND BSD-2-clause
 #
-Version:  9.21.26
+Version:  9.21.27
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -126,7 +126,9 @@ BuildRequires:  pkgconfig(lmdb)
 BuildRequires:  pkgconfig(jemalloc)
 %endif
 BuildRequires:  pkgconfig(libuv)
+%if ! 0%{?rhel} || 0%{?rhel} > 10
 BuildRequires:  openpgpverify
+%endif
 %if %{with OPENSSL_ENGINE}
 BuildRequires:  openssl-devel-engine
 %endif
@@ -149,6 +151,7 @@ BuildRequires:  perl(English)
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-xdist
 BuildRequires:  python3-dns
+BuildRequires:  python3-h2
 BuildRequires:  python3-hypothesis
 # manual configuration requires this tool
 BuildRequires:  iproute

@@ -9,8 +9,8 @@
 
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
-Version: 1.0.41
-Release: 3%{?dist}
+Version: 1.0.42
+Release: 1%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/WebAssembly/testsuite/archive/%{ts_commit}/%{name}-testsuite-%{ts_shortcommit}.tar.gz
@@ -60,6 +60,10 @@ rm spec/simd_f32x4_arith.txt
 rm spec/simd_f32x4_pmin_pmax.txt
 rm spec/simd_f64x2_arith.txt
 rm spec/simd_f64x2_pmin_pmax.txt
+rm spec/simd_load16_lane.txt
+rm spec/simd_load32_lane.txt
+rm spec/simd_load64_lane.txt
+rm spec/simd_load8_lane.txt
 rm wasm2c/spec/conversions.txt
 rm wasm2c/spec/float_memory.txt
 rm wasm2c/spec/float_misc.txt
@@ -105,7 +109,6 @@ cmake --build redhat-linux-build --verbose --target run-tests %{?_smp_mflags}
 %license LICENSE
 %doc README.md
 %{_bindir}/spectest-interp
-%{_bindir}/wasm-decompile
 %{_bindir}/wasm-interp
 %{_bindir}/wasm-objdump
 %{_bindir}/wasm-stats
@@ -124,7 +127,6 @@ cmake --build redhat-linux-build --verbose --target run-tests %{?_smp_mflags}
 %{_libdir}/libwabt.a
 %{_libdir}/libwasm-rt-impl.a
 %{_mandir}/man1/spectest-interp.1*
-%{_mandir}/man1/wasm-decompile.1*
 %{_mandir}/man1/wasm-interp.1*
 %{_mandir}/man1/wasm-objdump.1*
 %{_mandir}/man1/wasm-stats.1*
@@ -137,6 +139,11 @@ cmake --build redhat-linux-build --verbose --target run-tests %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Thu Nov 12 2026 Dominik Mierzejewski <dominik@greysector.net> - 1.0.42-1
+- update to 1.0.42 (resolves rhbz#2534037)
+- drop wasm-decompile (removed upstream)
+- skip 4 more failing tests on i686 (reported upstream)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.41-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

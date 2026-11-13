@@ -41,6 +41,7 @@ BuildRequires:  ghc-hspec-devel
 %endif
 BuildRequires:  help2man
 # End cabal-rpm deps
+Requires:       podman
 
 %description
 This tool (originally based on the toolbox-constrained project) allows running

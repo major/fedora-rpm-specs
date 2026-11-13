@@ -49,7 +49,7 @@
 Name:           ibus
 Version:        1.5.35
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -58,6 +58,7 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch:          %%{name}-HEAD.patch
+Patch:          %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch:          %{name}-1385349-segv-bus-proxy.patch
 
@@ -465,6 +466,7 @@ dconf update || :
 %{_sysconfdir}/xdg/Xwayland-session.d/10-ibus-x11
 %dir %{_prefix}/lib/systemd/user/gnome-session.target.wants
 %{_prefix}/lib/systemd/user/gnome-session.target.wants/*.service
+%{_prefix}/lib/systemd/user/ibus-portal.service
 %{_prefix}/lib/systemd/user/org.freedesktop.IBus.session.*.service
 %verify(not mtime) %dir %pkgcache
 %verify(not mtime) %dir %pkgcache/bus
@@ -550,6 +552,14 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Nov 12 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35-2
+- Fix gsettings in ibus-desktop-testing in Fedora 45
+- Fix typo in po/Makevars
+- Tie ibus services to the graphical session
+- Delete _process_key_event_hybrid_async()
+- Fix to check if IBusInputContext is available in IBus clients
+- Fix stale rules after connection destruction in ibus-daemon
+
 * Thu Nov 05 2026 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.35-1
 - Bump to 1.5.35
 

@@ -1,6 +1,6 @@
 Name:           deluge
 Version:        2.2.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A GTK+ BitTorrent client with support for DHT, UPnP, and PEX
 License:        LicenseRef-Callaway-GPLv3-with-exceptions
 URL:            http://deluge-torrent.org/
@@ -58,7 +58,7 @@ Requires:   %{name}-daemon = %{version}-%{release}
 ## Required for the proper ownership of icon dirs.
 Requires:   hicolor-icon-theme
 Requires:   gtk3 >= 3.10
-Requires:   libappindicator-gtk3
+Requires:   libayatana-appindicator-gtk3
 Requires:   librsvg2
 Requires:   python3-cairo
 Requires:   python3-gobject
@@ -250,6 +250,9 @@ install -m0644 -D deluge.sysusers.conf %{buildroot}%{_sysusersdir}/deluge.conf
 %systemd_postun_with_restart deluge-web.service
 
 %changelog
+* Thu Nov 12 2026 Eduardo Echeverria <echevemaster@gmail.com> - 2.2.0-14
+- Require libayatana-appindicator instead of the unmaintained libappindicator
+
 * Sun Sep 20 2026 Leigh Scott <leigh123linux@gmail.com> - 2.2.0-13
 - Add requires python3-pkg-resources for f45+
 

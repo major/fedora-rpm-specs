@@ -1,5 +1,5 @@
 Name:           python-loguru
-Version:        0.7.3
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Python logging made (stupidly) simple
 
@@ -7,18 +7,6 @@ License:        MIT
 URL:            https://github.com/Delgan/loguru
 # The GitHub archive contains CHANGELOG.rst, which the PyPI sdist lacks.
 Source:         %{url}/archive/%{version}/loguru-%{version}.tar.gz
-
-# Fix deprecation warning raised by tests with Python 3.14
-# https://github.com/Delgan/loguru/pull/1298
-# Cherry-picked to 0.7.3
-Patch:          0001-Fix-deprecation-warning-raised-by-tests-with-Python-.patch
-# Fix failing "exception_modern" unit test with Python 3.14 (#1331)
-# https://github.com/Delgan/loguru/commit/84023e2bd8339de95250470f422f096edcb8f7b7
-Patch:          %{url}/commit/84023e2bd8339de95250470f422f096edcb8f7b7.patch
-# Fix greedy regex causing quadratic scans and possible reDoS
-# https://github.com/Delgan/loguru/commit/4e7762bcb44862fce877b1f90f19063834509575
-# Fixes CVE-2026-120217. Backported to 0.7.3 without the changelog entry.
-Patch:          CVE-2026-120217.patch
 
 BuildArch:      noarch
 

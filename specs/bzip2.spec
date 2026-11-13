@@ -3,7 +3,7 @@
 Summary: File compression utility
 Name: bzip2
 Version: 1.0.8
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: BSD-4-Clause
 URL: https://sourceware.org/bzip2
 #Source0: http://www.bzip.org/%{version}/%{name}-%{version}.tar.gz
@@ -19,6 +19,7 @@ Patch0: bzip2-saneso.patch
 Patch1: bzip2-cflags.patch
 Patch2: bzip2-ldflags.patch
 Patch3: man_gzipdiff.patch
+Patch4: bzip2-CVE-2026-42250.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -62,6 +63,7 @@ Static libraries for applications using the bzip2 compression format.
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p2
+%patch -P4 -p1
 
 cp -a %{SOURCE1} .
 sed -i "s|^libdir=|libdir=%{_libdir}|" bzip2.pc
@@ -128,6 +130,10 @@ ln -s bzgrep.1 $RPM_BUILD_ROOT%{_mandir}/man1/bzfgrep.1
 %{_libdir}/pkgconfig/bzip2.pc
 
 %changelog
+* Thu Nov 12 2026 Jakub Martisko <jamartis@redhat.com> - 1.0.8-25
+- Fix off by one error in bzip2recover
+Resolves: CVE-2026-42250
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -16,7 +16,7 @@ BuildRequires: accountsservice-devel
 BuildRequires: dconf-devel
 BuildRequires: desktop-file-utils
 BuildRequires: gtk3-devel
-BuildRequires: libappindicator-gtk3-devel
+BuildRequires: libayatana-appindicator-gtk3-devel
 BuildRequires: libcanberra-devel
 BuildRequires: libgtop2-devel
 BuildRequires: libmatekbd-devel
@@ -97,6 +97,8 @@ desktop-file-install                                \
 
 # delete mime cache
 rm %{buildroot}%{_datadir}/applications/mimeinfo.cache
+# desktop-file-utils >= 0.29 also generates an intent cache
+rm -f %{buildroot}%{_datadir}/applications/intent.cache
 
 %find_lang %{name} --with-gnome --all-name
 

@@ -1,7 +1,7 @@
 Summary: A utility for retrieving files using the HTTP or FTP protocols
 Name: wget1
 Version: 1.25.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Generally wget is distributed under GPLv3 or later but there are files in lib/ directory
 # which are under LGPLv2.1 or later and are actually built into the resulting rpm.
 # This version of wget is built with gnutls so I believe that the 'with openssl'
@@ -31,6 +31,8 @@ BuildRequires: pkgconfig
 BuildRequires: texinfo
 BuildRequires: gettext
 BuildRequires: autoconf
+BuildRequires: autoconf-archive
+BuildRequires: automake
 BuildRequires: libidn2-devel
 BuildRequires: libuuid-devel
 BuildRequires: perl-podlators
@@ -66,6 +68,7 @@ the system provider of wget.
 
 %prep
 %autosetup -S git -n wget-%{version}
+autoreconf -fiv
 
 # modify the package string
 sed -i "s|\(PACKAGE_STRING='wget .*\)'|\1 (Red Hat modified)'|" configure
@@ -119,6 +122,9 @@ echo ".so man1/%{name}.1" > %{buildroot}%{_mandir}/man1/wget.1
 %config(noreplace) %{_sysconfdir}/wgetrc
 
 %changelog
+* Thu Nov 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.25.0-7
+- Do not check for nettle when using gnutls
+
 * Mon Sep 14 2026 Michal Ruprich <mruprich@redhat.com> - 1.25.0-6
 - Fix for CVE-2026-16599
 

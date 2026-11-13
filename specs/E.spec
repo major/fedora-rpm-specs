@@ -1,7 +1,7 @@
 %global giturl  https://github.com/eprover/eprover
 
 Name:		E
-Version:	3.5.5
+Version:	3.5.9
 Release:	%autorelease
 Summary:	Equational Theorem Prover
 
@@ -34,6 +34,7 @@ BuildRequires:	tex(makeidx.sty)
 BuildRequires:	tex(supertabular.sty)
 BuildRequires:	tex(theorem.sty)
 BuildRequires:	tex(url.sty)
+BuildRequires:	texlive-bibtex
 BuildRequires:	texlive-ec
 BuildRequires:	texlive-latex
 # You can verify the CASC results here: http://www.cs.miami.edu/~tptp/CASC/J4/
@@ -74,15 +75,18 @@ rm -fr CONTRIB
 
 %build
 # Set up Fedora CFLAGS and paths
-sed -e "s|^EXECPATH = .*|EXECPATH = %{buildroot}%{_bindir}|" \
-    -e "s|^MANPATH = .*|MANPATH = %{buildroot}%{_mandir}/man1|" \
-    -e "s|^CFLAGS.*|CFLAGS     = %{build_cflags} \$(BUILDFLAGS) -I../include -DNDEBUG|" \
-    -e "s|^LDFLAGS.*|LDFLAGS    = %{build_ldflags}|" \
+sed -e 's|^\(OPTFLAGS[[:blank:]]*= \).*|\1%{build_cflags}|' \
+    -e 's|^\(LTOFLAGS[[:blank:]]*= \).*|\1%{build_ldflags}|' \
     -i Makefile.vars
 
-# smp_mflags causes unwelcome races, so we will not use it
-make remake
+# This is not an autoconf-generated script. Do NOT use %%configure
+./configure \
+    --exec-prefix=%{buildroot}%{_prefix} \
+    --man-prefix=%{buildroot}%{_mandir}/man1
+
+%make_build
 make man
+make documentation
 
 # We need one more pdflatex invocation to fix up cross references
 cd DOC

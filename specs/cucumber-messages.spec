@@ -74,7 +74,7 @@ This package contains libraries implementing Cucumber Messages for C++.
 
 
 %package cpp-devel
-Summary:        Development files for using the C++ implementation of Gherkin
+Summary:        Development files for using the C++ implementation of Cucumber Messages
 
 Requires:       %{name}-cpp-libs%{?_isa} = %{version}-%{release}
 # This appears in the public API. Formally, dependent packages should also have
@@ -199,6 +199,8 @@ pushd cpp
 %ctest
 popd
 
+%pyproject_verify_license --directory python
+%pyproject_check_import
 %if %{without network_tests}
 # Requires network access (remote git clone):
 ignore="${ignore-} --ignore=tests/test_model_load.py"

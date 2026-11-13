@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        7.001
+Version:        7.002
 Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
@@ -129,6 +129,24 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Wed Nov 11 2026 Paul Howarth <paul@city-fan.org> - 7.002-1
+- Update to 7.002 (rhbz#2571891)
+  - Add an opt-in paranoid preset that requires a checksum key, uses IEEE
+    double output, refuses objects by default, rejects unknown options, and
+    limits recursion to 2048; explicit constructor options can override each
+    default
+  - Add allow_classes, refuse_objects and track_classes for object policy and
+    per-class counts; permit genuine Regexp objects through refuse_objects;
+    croak_on_bless still rejects them
+  - Add allow_unsigned as an explicit checksum-policy opt-out; lower the normal
+    recursion limit from 10000 to 8192, or 4096 on Cygwin
+  - Document the preset's precision and callback implications
+  - Traverse XPerl hash storage through its entry API
+  - Balance custom-op result references on Perl builds with PERL_RC_STACK
+  - Fix native floating-point declaration tests on older FreeBSD and macOS
+    Perls
+  - Make the magical-array child test portable on Windows
+
 * Fri Nov  6 2026 Paul Howarth <paul@city-fan.org> - 7.001-1
 - Update to 7.001 (rhbz#2564205)
   - Use protocol v7 by default, with portable little-endian IEEE floating-point

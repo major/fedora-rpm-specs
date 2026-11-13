@@ -22,7 +22,7 @@
 }
 
 Name:           sandogasa
-Version:        0.28.0
+Version:        0.28.1
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -63,10 +63,18 @@ License:        %{shrink:
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Only binary tools are shipped, no source-only -devel packages for other
+# packages to build against, so nothing needs them on i686. Since 0.28.1,
+# compiling ebranch's tests also runs LLVM out of 32-bit address space.
+ExcludeArch:    %{ix86}
+
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  git-core
 
 Requires:       koji
+# ebranch check-update reads the licenses of bundled Go and Rust
+# dependencies with askalono
+Recommends:     askalono-cli
 Recommends:     bodhi-client
 Recommends:     createrepo_c
 Recommends:     fedora-packager
@@ -76,9 +84,17 @@ Recommends:     fedrq
 # pre-release content rather than SIG content, so unlike the two SIG
 # configs it carries no Supplements and this is what pulls it in.
 Recommends:     fedrq-config-centos-snapshot
+# ebranch queries the newest EPEL minor, which builds against the
+# moving CentOS Stream, as c10.Ns; fedrq's own epel10.N branch only
+# works for released minors. Not SIG content either, so no Supplements.
+Recommends:     fedrq-config-centos-stream-minor
 # for multimedia packages, ebranch can flag if counterpart packages
 # need to be updated in RPM Fusion as well
 Recommends:     fedrq-config-rpmfusion
+# cbspkg srpm and mockbuild build locally. fedora-packager pulls these
+# in, but a system set up only for CentOS work may not have it
+Recommends:     mock
+Recommends:     rpm-build
 Recommends:     tzdata
 # CentOS work: mock-centos-sig-configs (or centos-packager) marks a
 # system used for CentOS packaging. cbspkg and cpu-sig-tracker use
@@ -147,6 +163,18 @@ Requires:       fedrq
 Repository definitions to allow querying CentOS snapshot (RHEL minor
 pre-release) packages with fedrq.
 
+%package -n fedrq-config-centos-stream-minor
+Summary:        CentOS Stream with its newest EPEL minor for fedrq
+License:        Apache-2.0 OR MIT
+
+BuildArch:      noarch
+
+Requires:       fedrq
+
+%description -n fedrq-config-centos-stream-minor
+Repository definitions to allow querying CentOS Stream together with
+the EPEL minor release that builds against it (e.g. c10.4s) with fedrq.
+
 %package -n fedrq-config-rpmfusion
 Summary:        RPM Fusion repositories for fedrq
 License:        Apache-2.0 OR MIT
@@ -196,7 +224,7 @@ for tool in %{tools}; do
 done
 
 # fedrq repos
-for r in centos-{hyperscale,proposed-updates,snapshot} rpmfusion; do
+for r in centos-{hyperscale,proposed-updates,snapshot,stream-minor} rpmfusion; do
   for f in ${r}.toml repos/${r}.repo; do
     install -Dpm 0644 configs/fedrq/${f} \
       %{buildroot}%{_sysconfdir}/fedrq/${f}
@@ -224,7 +252,7 @@ for tool in %{tools}; do
   if [ -e %{buildroot}%{_sysconfdir}/${tool}/config.toml ]; then
     echo "%%config(noreplace) %{_sysconfdir}/${tool}/config.toml"
   else
-    echo "%%ghost %%config(noreplace) %{_sysconfdir}/${tool}/config.toml"
+    echo "%%ghost %%attr(0644,root,root) %%config(noreplace) %{_sysconfdir}/${tool}/config.toml"
   fi
 done > tools.files
 
@@ -274,6 +302,14 @@ done > tools.files
 %config(noreplace) %{_sysconfdir}/fedrq/centos-snapshot.toml
 %dir %{_sysconfdir}/fedrq/repos
 %config(noreplace) %{_sysconfdir}/fedrq/repos/centos-snapshot.repo
+
+%files -n fedrq-config-centos-stream-minor
+%license LICENSE-APACHE
+%license LICENSE-MIT
+%dir %{_sysconfdir}/fedrq
+%config(noreplace) %{_sysconfdir}/fedrq/centos-stream-minor.toml
+%dir %{_sysconfdir}/fedrq/repos
+%config(noreplace) %{_sysconfdir}/fedrq/repos/centos-stream-minor.repo
 
 %files -n fedrq-config-rpmfusion
 %license LICENSE-APACHE

@@ -375,8 +375,8 @@ BuildRequires: /usr/sbin/ifconfig
 %if %{with rpmwheels}
 BuildRequires: python-setuptools-wheel
 BuildRequires: python-pip-wheel
-BuildRequires: ca-certificates
 %else
+BuildRequires: ca-certificates
 # For %%python_wheel_inject_sbom
 BuildRequires: python-rpm-macros
 %endif

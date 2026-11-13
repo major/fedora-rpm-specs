@@ -55,7 +55,8 @@ Obsoletes:      xorg-x11-apps < 7.7-31
 xmag displays a magnified snapshot of a portion of an X11 screen.
 
 %prep
-# 1024-bit DSA keys are not supoprted by Sequoia
+# 1024-bit DSA keys are not supported by Sequoia
+# <https://gitlab.freedesktop.org/xorg/app/xmag/-/work_items/3>.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 rm aclocal.m4 compile config.guess config.sub configure depcomp install-sh \

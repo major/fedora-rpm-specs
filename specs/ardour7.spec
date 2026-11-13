@@ -19,6 +19,9 @@
 %bcond_with apply_64bit_patches
 %endif
 
+# Disable on legacy major versions
+%bcond appdata 0
+
 # Don't generate provides for internal shared objects and plugins
 %global internal_libs_re (alsa_audiobackend|ardour.*|audiographer|canvas|dummy_audiobackend|evoral|gtkmm2ext|jack_audiobackend|midipp|pan[12]in2out|panbalance|panvbap|pbd|ptformat|pulseaudio_backend.so|qmdsp|temporal|timecode|waveview|widgets)
 %global __provides_exclude_from ^%{_libdir}/(%{name}|lv2)/.*$
@@ -27,6 +30,9 @@
 # This package is named ardour7 to allow parallel installation with older versions of Ardour.
 Name:       ardour7
 Version:    7.5.0
+%global major %{lua:
+    print((string.gsub(macros.version, '^(%d+)%..*$', '%1')))
+}
 
 Release:    %autorelease
 Summary:    Digital Audio Workstation
@@ -77,7 +83,9 @@ BuildRequires:  gettext
 BuildRequires:  graphviz
 BuildRequires:  itstool >= 2.0.0
 BuildRequires:  kernel-headers
+%if %{with appdata}
 BuildRequires:  libappstream-glib
+%endif
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(aubio) >= 0.3.2
 BuildRequires:  pkgconfig(cairo) >= 1.12.0
@@ -226,7 +234,7 @@ install -p -m644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 # tweak and install desktop file
 mkdir -p %{buildroot}%{_datadir}/applications/
 desktop-file-install --dir %{buildroot}%{_datadir}/applications \
-    --set-key=Name --set-value="Ardour %{version}" \
+    --set-key=Name --set-value="Ardour %{major}" \
     --set-generic-name="Digital Audio Workstation" \
     --set-key=X-GNOME-FullName \
     --set-value="Ardour v%{version} (Digital Audio Workstation)" \
@@ -234,6 +242,10 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications \
     --remove-category=AudioEditing \
     --add-category=X-AudioEditing \
     build/gtk2_ardour/%{name}.desktop
+
+%if %{without appdata}
+rm -f %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
+%endif
 
 # Delete zero length file (probably needed to keep empty dir in GIT)
 rm %{buildroot}%{_datadir}/%{name}/templates/.stub
@@ -281,8 +293,10 @@ sh "$WAFTPATH" --targets=libardour-tests && LV2_PATH= ./run-tests.sh
 popd
 %endif
 
+%if %{with appdata}
 # check appdata file
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
+%endif
 
 rm -f %{buildroot}%{_bindir}/run-tests
 
@@ -300,7 +314,9 @@ rm -f %{buildroot}%{_bindir}/run-tests
 %{_datadir}/applications/%{name}.desktop
 # intentionally unversioned
 %{_datadir}/mime/packages/ardour.xml
+%if %{with appdata}
 %{_datadir}/appdata/%{name}.appdata.xml
+%endif
 %{_mandir}/man1/%{name}.1*
 
 %changelog

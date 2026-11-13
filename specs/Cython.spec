@@ -5,7 +5,7 @@
 %bcond cython_compile 1
 
 Name:           Cython
-Version:        3.2.8
+Version:        3.3.1
 Release:        %autorelease
 Summary:        Language for writing Python extension modules
 
@@ -13,9 +13,8 @@ License:        Apache-2.0
 URL:            http://www.cython.org
 Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{version}.tar.gz
 
-# Fix issues with the ipython tests
-# Resolved upstream: https://github.com/cython/cython/pull/7553
-Patch:          fix-ipython-tests.patch
+# Reset echo_file in close_listing_file() to avoid writing to a closed stderr
+Patch:          https://github.com/cython/cython/pull/8128.patch
 
 BuildRequires:  python3-devel
 

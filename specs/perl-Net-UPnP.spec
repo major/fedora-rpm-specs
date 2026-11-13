@@ -1,6 +1,6 @@
 Name:       perl-Net-UPnP
 Epoch:      1
-Version:    1.4.9
+Version:    1.4.10
 Release:    1%{?dist}
 Summary:    Perl extension for UPnP
 License:    BSD-3-Clause
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 12 2026 Petr Pisar <ppisar@redhat.com> - 1:1.4.10-1
+- 1.4.10 bump
+
 * Wed Nov 11 2026 Petr Pisar <ppisar@redhat.com> - 1:1.4.9-1
 - 1.4.9 bump
 

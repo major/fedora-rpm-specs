@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: RSpec for Rails
 License: MIT
 URL: https://github.com/rspec/rspec-rails
@@ -20,6 +20,9 @@ Source1: %{gem_name}-%{version}-tests.tar.gz
 Patch0: rubygem-rspec-rails-8.0.1-Drop-driven-by-selenium.patch
 # https://github.com/rspec/rspec-rails/pull/2866/commits/8e0df8df128121d1e21260dd50de55fb7b068d6e
 Patch1: rubygem-rspec-rails-pr2866-update-specs-for-rails.patch
+# ref: https://github.com/rspec/rspec-rails/pull/2934/
+# "matcher is wrong type fails" test is effectively removed with the above PR
+Patch2: rubygem-rspec-rails-pr2934-skip-matcher-is-wrong-type.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -57,6 +60,7 @@ Documentation for %{name}.
 cd %{builddir}
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
 )
 
 %build
@@ -112,6 +116,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Nov 12 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.0.4-2
+- Skip failing tests which is removed with the upstream PR
+
 * Thu Aug 06 2026 Vít Ondruch <vondruch@redhat.com> - 8.0.4-1
 - Update to rspec-rails 8.0.4.
   Resolves: rhbz#2387797

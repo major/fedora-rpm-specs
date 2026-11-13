@@ -73,6 +73,8 @@ install -D --preserve-timestamps --mode=0644 \
 
 
 %check -a
+%pyproject_verify_license
+
 %if %{with tests}
 # These require the no_version package; see notes in %%prep.
 k="${k-}${k+ and }not test_get_version"

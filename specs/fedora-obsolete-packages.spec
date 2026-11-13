@@ -1605,6 +1605,10 @@ Source0:    README
 %obsolete_ticket https://src.fedoraproject.org/rpms/libgit2_1.8/c/5246077f76c50fc872348ec623df885b0fad1b7d?branch=rawhide
 %obsolete libgit2_1.8 1.8.5-2
 %obsolete libgit2_1.8-devel 1.8.5-2
+%obsolete_ticket https://src.fedoraproject.org/rpms/stb/c/da9c8924a1c181cd9f97fa8c3046f7a433b62b77?branch=rawhide
+%obsolete stb-devel 0^20260802.2c980bb-3
+%obsolete_ticket https://src.fedoraproject.org/rpms/dr_libs/c/4cf48a574d21195ea2f8555da32fe79f5a5c4697?branch=rawhide
+%obsolete dr_libs-devel 0^20260302.fa931f3-11
 
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()

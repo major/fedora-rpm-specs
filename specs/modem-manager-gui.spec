@@ -4,7 +4,7 @@ Summary(de):   Grafische Oberfläche für ModemManager
 Summary(ru):   Графический интерфейс для демона ModemManager
 
 Version:       0.0.20
-Release:       21%{?dist}
+Release:       22%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:       GPL-3.0-only
 
@@ -42,7 +42,7 @@ BuildRequires: glib2-devel >= 2.32.1
 BuildRequires: gtk3-devel >= 3.4.0
 BuildRequires: gtkspell3-devel >= 3.0.3
 BuildRequires: itstool >= 1.2.0
-BuildRequires: libappindicator-gtk3-devel >= 0.4.92
+BuildRequires: libayatana-appindicator-gtk3-devel >= 0.4.92
 BuildRequires: libappstream-glib
 BuildRequires: libnotify-devel >= 0.7.5
 BuildRequires: pkgconfig
@@ -243,6 +243,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Nov 12 2026 Eduardo Echeverria <echevemaster@gmail.com> - 0.0.20-22
+- Build against libayatana-appindicator instead of the unmaintained libappindicator; the meson build only detects Ayatana, so this re-enables the tray indicator
+
 * Mon Nov 02 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 0.0.20-21
 - Rebuilt for new ppp
 

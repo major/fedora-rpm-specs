@@ -53,6 +53,8 @@ Obsoletes:      python-socketio-doc < 5.11.2-4
 
 
 %check -a
+%pyproject_verify_license
+
 %if %{without uvicorn}
 ignore="${ignore-} --ignore=tests/async/test_admin.py"
 %endif

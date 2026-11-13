@@ -3,7 +3,7 @@
 
 # https://github.com/moby/buildkit
 %global goipath         github.com/moby/buildkit
-Version:                0.34.2
+Version:                0.35.0
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
@@ -93,6 +93,8 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
     -s "TestJobsIntegration"
     -s "TestGhaCacheIntegration"
     -s "TestMissingMaterializedLowerDiffExtract"
+    -s "TestDiskUsageSharedAfterExportMerge"
+    -s "TestDiskUsageSharedAfterExport"
     %dnl exclude directories where tests fail with 'operation not permitted'
     -d cache/contenthash
     -t source

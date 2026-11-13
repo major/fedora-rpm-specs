@@ -1,5 +1,5 @@
 Name:           python-esp-pylib
-Version:        1.1.4
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Library for logging, utils and constants for Espressif Systems' projects
 License:        Apache-2.0

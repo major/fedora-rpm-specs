@@ -1,8 +1,7 @@
 Name:           perl-Alien-ProtoBuf
-Version:        0.09
-Release:        30%{?dist}
+Version:        0.10
+Release:        1%{?dist}
 Summary:        Find Protocol Buffers library
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-ProtoBuf
 Source0:        https://cpan.metacpan.org/authors/id/M/MB/MBARBON/Alien-ProtoBuf-%{version}.tar.gz
@@ -23,16 +22,20 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  pkgconfig(protobuf)
 # Run-time:
-BuildRequires:  perl(Alien::Base)
+BuildRequires:  perl(Alien::Base) >= 1.54
 # Tests:
 BuildRequires:  perl(Test::More)
 # Test::Pod not used
+Requires:       perl(Alien::Base) >= 1.54
 Requires:       perl(Data::Dumper)
 Requires:       perl(Module::Build) >= 0.28
 # A purpose of this package is to ensure a user can develop against protobuf.
 # We require exact version because the version is stored into generated
 # Alien/ProtoBuf/Install/Files.pm file.
 Requires:       pkgconfig(protobuf) = %(type -p pkgconf >/dev/null && pkgconf --exists protobuf && pkg-config --modversion protobuf || echo 0)
+
+# Remove under-specified dependencies
+%global __requires_exclude %{?__requires_exclude:{__requires_exclude}|}^perl\\(Alien::Base\\)$
 
 %description
 Depending on Alien::ProtoBuf Perl module ensures the Protocol Buffers library
@@ -78,13 +81,23 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Alien
+%{perl_vendorlib}/Alien/ProtoBuf
+%{perl_vendorlib}/Alien/ProtoBuf.pm
+%dir %{perl_vendorlib}/auto
+%dir %{perl_vendorlib}/auto/share
+%dir %{perl_vendorlib}/auto/share/dist
+%{perl_vendorlib}/auto/share/dist/Alien-ProtoBuf
+%{_mandir}/man3/Alien::ProtoBuf.*
+%{_mandir}/man3/Alien::ProtoBuf::*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 12 2026 Petr Pisar <ppisar@redhat.com> - 0.10-1
+- 0.10 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

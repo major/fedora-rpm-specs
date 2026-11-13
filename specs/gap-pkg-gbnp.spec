@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/gbnp
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Computing Gröbner bases of noncommutative polynomials
 
@@ -16,11 +16,11 @@ BuildSystem:    gap
 BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
-BuildRequires:  gap(autodoc) >= 2019.04.10
-BuildRequires:  gap-devel >= 4.8
+BuildRequires:  gap(autodoc) >= 2022.07.10
+BuildRequires:  gap-devel >= 4.12
 BuildRequires:  make
 
-Requires:       gap-core >= 4.8
+Requires:       gap-core >= 4.12
 
 Provides:       gap(GBNP) = %{version}-%{release}
 Provides:       gap(gbnp) = %{version}-%{release}
@@ -65,11 +65,9 @@ sed -i "s,-r,-l '%{_builddir}/%{gap_upname}-%{version}/build;' &,;s/eval //" \
 %install -a
 # We install test files for use by GAP's internal test suite runner.
 cp -a doc/{articles,examples} %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/doc
-rm %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/lib/{gbnp-uses.sed,OPTIONS,STRUCTURE,TODO}
-rm %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst/{.depend,GNUmakefile,txt2xml.sed}
 
 %files
-%doc Changelog README.md
+%doc CHANGES.md README.md
 %license COPYRIGHT doc/LGPL
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g

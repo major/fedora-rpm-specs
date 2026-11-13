@@ -1,6 +1,6 @@
 Name:           spacebar
 Epoch:          1
-Version:        6.8.2
+Version:        6.8.3
 Release:        1%{?dist}
 License:        GPLv2+ and GPLv3 and GPLv2
 Summary:        Messaging app for Plasma Mobile
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_sysconfdir}/xdg/autostart/org.kde.%{name}.daemon.desktop
 
 %changelog
+* Thu Nov 12 2026 Steve Cossette <farchord@gmail.com> - 1:6.8.3-1
+- 6.8.3
+
 * Tue Oct 27 2026 Steve Cossette <steve@ninjasinpajamas.com> - 1:6.8.2-1
 - 6.8.2
 

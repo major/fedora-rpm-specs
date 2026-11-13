@@ -6,8 +6,8 @@
 
 Name: corosync-qdevice
 Summary: The Corosync Cluster Engine Qdevice
-Version: 3.0.4
-Release: 4%{?dist}
+Version: 3.0.5
+Release: 1%{?dist}
 License: BSD-3-Clause
 URL: https://github.com/corosync/corosync-qdevice
 Source0: https://github.com/corosync/corosync-qdevice/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -149,6 +149,9 @@ script for creating NSS certificates and an init script.
 %{_sysusersdir}/corosync-qnetd.conf
 
 %changelog
+* Thu Nov 12 2026 Jan Friesse <jfriesse@redhat.com> - 3.0.5-1
+- New upstream release
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

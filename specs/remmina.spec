@@ -1,8 +1,8 @@
-%global commit 7be0cf2348d149c6bf5bd882fe91d3bec7d6aebb
+%global commit 03bb026b5fa1646115d1775367ccbfa27ae598cf
 
 Name: remmina
-Version: 1.4.43
-Release: 6%{?dist}
+Version: 1.4.44
+Release: 2%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org
@@ -14,9 +14,6 @@ Source0: https://gitlab.com/Remmina/Remmina/-/archive/v%{version}/Remmina-%{vers
 # use http://www.muflone.com/remmina-plugin-builder/ with remmina bundled source.
 # So we can't use it directly only as instructions.
 Source1: pluginBuild-CMakeLists.txt
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2568607
-Patch0: https://gitlab.com/Remmina/Remmina/-/commit/7dcee6851dbb7d2df487d576a87dd479f8d3e107.patch
 
 BuildRequires: cmake >= 3.2
 BuildRequires: cups-devel
@@ -67,6 +64,10 @@ BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(xkbfile)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(fuse3)
+
+%if 0%{?fedora}
+BuildRequires: pkgconfig(sso-mib)
+%endif
 
 # We don't ship these remmina plugins any longer.
 Obsoletes: %{name}-plugins-nx < %{version}-%{release}
@@ -255,6 +256,10 @@ that shows up under the display manager session menu.
     -DWITH_LIBSSH=ON \
     -DWITH_NEWS=OFF \
     -DWITH_PYTHONLIBS=ON \
+    -DWITH_RDP_AUTH_AAD=ON \
+%if 0%{?fedora}
+    -DWITH_SSO_MIB=ON \
+%endif
 %if 0%{?fedora} || 0%{?rhel} == 8
     -DWITH_SPICE=ON \
 %else
@@ -356,6 +361,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Thu Nov 12 2026 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.44-2
+- Release bump to link rhbz#2572645
+
+* Thu Nov 12 2026 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.44-1
+- Update to 1.4.44 and enable AAD features rhbz#2572645
+
 * Sun Nov 08 2026 Daniel Milnes <daniel@daniel-milnes.uk> - 1.4.43-6
 - Apply patch to fix pre-commands rhbz#2568607
 
