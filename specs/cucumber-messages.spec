@@ -11,17 +11,14 @@
 %bcond network_tests 0
 
 Name:           cucumber-messages
-Version:        34.2.1
-%global cpp_soversion 34
+Version:        35.0.0
+%global cpp_soversion 35
 Release:        %autorelease
 Summary:        A message protocol for representing results and other information from Cucumber
 
 License:        MIT
 URL:            https://github.com/cucumber/messages
 Source:         %{url}/archive/v%{version}/messages-%{version}.tar.gz
-# Reported: https://github.com/cucumber/messages/issues/528
-# Support ruby-json 3 change
-Patch0:         cucumber-messages-34.2.1-ruby-support-json3.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -145,9 +142,7 @@ BuildArch: noarch
 
 %conf
 pushd cpp
-%cmake \
-    -DCUCUMBER_MESSAGES_BUILD_TESTS:BOOL=ON \
-    -DCUCUMBER_MESSAGES_FETCH_DEPS:BOOL=OFF
+%cmake -DCUCUMBER_MESSAGES_BUILD_TESTS:BOOL=ON
 popd
 
 
@@ -194,8 +189,6 @@ popd
 
 %check
 pushd cpp
-# We think this is the intended way to run tests, but there don’t appear to be
-# any usable tests yet.
 %ctest
 popd
 
@@ -226,12 +219,9 @@ popd
 # https://github.com/cucumber/messages/issues/267#issuecomment-2478224301
 # Co-owned with packages for other cucumber projects:
 %dir %{_includedir}/cucumber/
-# Co-owned with packages for other cucumber projects in the cucumber C++
-# namespace:
-%dir %{_includedir}/cucumber/cucumber/
 # Unique to this package:
-%dir %{_includedir}/cucumber/cucumber/messages/
-%{_includedir}/cucumber/cucumber/messages/*.hpp
+%dir %{_includedir}/cucumber/messages/
+%{_includedir}/cucumber/messages/*.hpp
 
 %{_libdir}/libcucumber_messages.so
 %{_libdir}/cmake/cucumber_messages/
@@ -244,7 +234,6 @@ popd
 %files -n rubygem-cucumber-messages
 %dir %{gem_instdir}
 %license %{gem_instdir}/LICENSE
-%{gem_instdir}/VERSION
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}

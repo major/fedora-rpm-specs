@@ -102,7 +102,6 @@ License:        %{shrink:
 %license LICENSE.dependencies
 %doc ARCHITECTURE.md
 %doc CHANGELOG.md
-%doc CONTRIBUTING.md
 %doc README.md
 %{_bindir}/onefetch
 %{_mandir}/man1/onefetch.1*

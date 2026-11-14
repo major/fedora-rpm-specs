@@ -2,12 +2,14 @@
 
 Name:           mingw-SDL2_image
 Version:        2.8.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows port of the Image loading library for SDL2
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/libsdl-org/SDL_image
 Source0:        https://github.com/libsdl-org/SDL_image/releases/download/release-%{version}/SDL2_image-%{version}.tar.gz
+# Backport fix for CVE-2026-117557
+Patch0:         https://github.com/libsdl-org/SDL_image/commit/5cfbe85f3a783417eec4d5aa0660b40c2cff5292.patch
 
 BuildArch:      noarch
 
@@ -106,6 +108,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Fri Nov 13 2026 Sandro Mani <manisandro@gmail.com> - 2.8.12-3
+- Backport fix for CVE-2026-117557
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

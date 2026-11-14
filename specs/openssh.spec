@@ -34,12 +34,12 @@
 # rpm -ba|--rebuild --define 'no_gtk3 1'
 %{?no_gtk3:%global gtk3 0}
 
-%global openssh_ver 10.6p1
+%global openssh_ver 10.6p2
 
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 2%{?dist}
+Release: 1%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -116,6 +116,7 @@ Patch0052: 0052-openssh-10.2p1-pkcs11-uri.patch
 Patch0053: 0053-gssapi-tests.patch
 Patch0054: 0054-Implement-ML-DSA-signature-algorithms-per-draft-sflu.patch
 Patch0055: 0055-Use-golang.org-suffix-for-certificates.patch
+Patch0056: 0056-Fix-max_pk_ok-default-not-being-set-when-PubkeyAuthO.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: openssl-libs >= 1:3.5.0
@@ -524,6 +525,11 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Fri Nov 13 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.6p2-1
+- Rebasing OpenSSH to 10.6p2
+- Improve pure ML-DSA keys on ssh-keygen -A
+  Resolves: rhbz#2572623
+
 * Wed Nov 04 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.6p1-2
 - Providing IdentityFile support for PKCS#11 URI
 - Getting rid of some Kerberos/GSS related memory leaks

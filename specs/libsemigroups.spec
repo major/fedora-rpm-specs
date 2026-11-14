@@ -6,7 +6,7 @@
 %global giturl  https://github.com/libsemigroups/libsemigroups
 
 Name:           libsemigroups
-Version:        3.6.1
+Version:        3.6.2
 Release:        %autorelease
 Summary:        C++ library for semigroups and monoids
 

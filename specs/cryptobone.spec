@@ -3,20 +3,20 @@
 
 Name:       cryptobone
 Version:    2.2
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD-3-Clause and Sleepycat and OpenSSL
 URL:        https://crypto-bone.com
 Source0:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz
-Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.asc
-Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
+Source1:    https://crypto-bone.com/release/source/cryptobone-%{version}.tar.gz.sig
+Source2:    Senderek-Web-Security-codesigning-key.asc
 
 ExclusiveArch: x86_64 ppc64le aarch64 riscv64
 
 BuildRequires: libbsd-devel
 BuildRequires: gcc
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: desktop-file-utils
 BuildRequires: systemd
 BuildRequires: make
@@ -41,24 +41,21 @@ Requires: polkit
 Requires: tar
 
 %description
-The Crypto Bone is a secure messaging system that makes sure a user's
-email is always encrypted without burdening the user with the message
-key management. Based on a GUI and a separate daemon, both ease-of-use
-and security are assured by a novel approach to encryption key management.
+The Crypto Bone is a secure messaging system that ensures that messages, being
+exchanged between two users via a SafeWebdrop server, are always AES encrypted
+without burdening the user with the message key management.
+Based on a GUI and a separate daemon, both ease-of-use and security are 
+assured by a novel approach to encryption key management.
 
 While the message keys are secured by a daemon running on the Linux machine,
 additional protection can be achieved by using an external device for storing
-encryption keys. This external device can be another Linux computer dedicated
-to this task or a Beagle Bone or a Raspberry Pi.  (https://crypto-bone.com)
+encryption keys. This external device can be another Linux computer, dedicated
+to this task, or a Beagle Bone or a Raspberry Pi.  (https://crypto-bone.com)
+
 
 %prep
-KEYRING=$(echo %{SOURCE2})
-KEYRING=${KEYRING%%.asc}.gpg
-mkdir -p .gnupg
-gpg2 --homedir .gnupg --no-default-keyring --quiet --yes --output $KEYRING --dearmor  %{SOURCE2}
-gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE1} %{SOURCE0}
-
-
+# source code signature check with sqv 
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %setup 
 
@@ -201,6 +198,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Fri Nov 13 2026 Ralf Senderek <innovation@senderek.ie> 2.2-4 
+- Update Codesigning key self signature with SHA256, use openpgpverify
+
 * Fri Aug 14 2026 Ralf Senderek <innovation@senderek.ie> - 2.2-3
 - Resolve selinux issue 
 

@@ -16,7 +16,7 @@ Source2:        https://keybase.io/grim/pgp_keys.asc
 # This is too strict for downstream packaging.
 Patch:          gplugin-0.43.1-gi-docgen-no-fatal-warnings.patch
 
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  meson >= 0.61.0
 BuildRequires:  gcc
 BuildRequires:  gi-docgen
@@ -117,7 +117,7 @@ Requires:       %{name}-vala%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{summary}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 # We install docs ourselves
 sed -i -e '/install_data/,+1 d' meson.build

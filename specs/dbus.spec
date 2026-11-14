@@ -21,7 +21,7 @@
 
 Name:    dbus
 Epoch:   1
-Version: 1.16.2
+Version: 1.16.4
 Release: %autorelease
 Summary: D-BUS message bus
 

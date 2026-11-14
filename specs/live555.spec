@@ -10,7 +10,7 @@ RTSP or SIP clients and servers, and have been used to add streaming support to
 existing media player applications.}
 
 Name:           live555
-Version:        2026.10.24
+Version:        2026.11.08
 Release:        %autorelease
 Summary:        RTP/RTCP/RTSP/SIP multimedia streaming libraries
 

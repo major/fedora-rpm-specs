@@ -11,13 +11,20 @@
 %bcond acceptance_python 1
 %bcond acceptance_ruby 1
 
+# The re2 regex engine is an optional, upstream-preferred alternative to
+# std::regex. It offers modestly better performance and guaranteed linear-time
+# matching. See cpp/README.md, which notes, “Both backends support the parser’s
+# patterns. Custom regex patterns must be compatible with the selected backend:
+# RE2 does not support backreferences or lookaround.”
+%bcond re2 1
+
 Name:           gherkin
-Version:        42.0.1
+Version:        43.0.0
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.
-%global cpp_soversion 42
-%global c_soversion 42
+%global cpp_soversion 43
+%global c_soversion 43
 Release:        %autorelease
 Summary:        A parser and compiler for the Gherkin language
 
@@ -51,8 +58,16 @@ BuildRequires:  jq
 
 # For C++ only:
 BuildRequires:  gcc-c++
-BuildRequires:  cmake(nlohmann_json)
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
+BuildRequires:  cmake(nlohmann_json) json-static
 BuildRequires:  cmake(cucumber_messages) >= 34.2
+%if %{with re2}
+BuildRequires:  cmake(re2)
+%endif
+
+# C++ test dependencies
+BuildRequires:  cmake(GTest)
+BuildRequires:  gmock-devel
 
 # For Python only:
 # The “dev” dependency group contains test dependencies intermixed with
@@ -215,7 +230,7 @@ popd
 
 echo '==== Configuring C++ implementation ===='
 pushd cpp
-%cmake -DCUCUMBER_GHERKIN_FETCH_DEPS:BOOL=OFF
+%cmake -DCUCUMBER_GHERKIN_BUILD_TESTS:BOOL=ON
 popd
 
 
@@ -300,6 +315,10 @@ pushd c
 %if %{with acceptance_c}
 # Keep make from trying to rebuild the C implementation.
 touch .built
+# The above stopped working in version 43.0.0, and we haven’t figured out why,
+# so we rely on the following hack instead:
+cp --preserve Makefile Makefile.bak
+sed --regexp-extended '/\$\(MAKE\) --directory=src/d' Makefile.bak > Makefile
 # The executables need to load libgherkin, so we also set LD_LIBRARY_PATH. We
 # could omit this since copies of the libraries are in %%{_vpath_builddir}
 # alongside the executables, but we might as well use the copies in the
@@ -307,13 +326,12 @@ touch .built
 LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %make_build acceptance \
     GHERKIN='%{_vpath_builddir}/gherkinexe' \
     GHERKIN_GENERATE_TOKENS='%{_vpath_builddir}/gherkin_generate_tokens'
+mv Makefile.bak Makefile
 %endif
 popd
 
 echo '==== Testing C++ implementation ===='
 pushd cpp
-# We think this is the intended way to run tests, but there don’t appear to be
-# any usable tests yet.
 %ctest
 %if %{with acceptance_cpp}
 # Keep make from trying to rebuild or reinstall the C++ implementation.

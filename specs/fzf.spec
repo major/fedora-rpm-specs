@@ -2,7 +2,7 @@
 
 # https://github.com/junegunn/fzf
 %global goipath         github.com/junegunn/fzf
-Version:                0.74.5
+Version:                0.75.0
 
 %gometa
 
@@ -55,7 +55,7 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/nvim/site/plugin plugin/fzf.vim
 # fzf is special, bash completion must be in /etc/bash_completion.d
 # https://bugzilla.redhat.com/show_bug.cgi?id=1789958#c7
 install -Dpm0644 shell/completion.bash %{buildroot}%{_sysconfdir}/bash_completion.d/fzf
-install -Dpm0644 shell/completion.zsh %{buildroot}%{zsh_completions_dir}/_fzf
+install -Dpm0644 -t %{buildroot}%{_datadir}/fzf/shell shell/completion.zsh
 
 # Install shell key bindings (not enabled)
 install -Dpm0644 -t %{buildroot}%{_datadir}/fzf/shell shell/key-bindings.*
@@ -80,7 +80,6 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/fzf/shell shell/key-bindings.*
 %dir %{_datadir}/nvim/site/plugin
 %{_datadir}/nvim/site/plugin/fzf.vim
 %{_sysconfdir}/bash_completion.d/fzf
-%{zsh_completions_dir}/_fzf
 
 
 %changelog

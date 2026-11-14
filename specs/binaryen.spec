@@ -4,14 +4,13 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       132
+Version:       133
 Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
 Source1:       https://github.com/WebAssembly/testsuite/archive/%{wats_commit}/testsuite-%{wats_shortcommit}.tar.gz
 Patch0:        %{name}-use-system-gtest.patch
-Patch2:        %{name}-fix-filecheck-empty.patch
 # third_party/llvm-project/MD5.cpp: bcrypt-Solar-Designer
 # third_party/llvm-project/include/llvm/Support/MD5.h: bcrypt-Solar-Designer
 License:       Apache-2.0 AND bcrypt-Solar-Designer
@@ -67,13 +66,10 @@ tar xzf %{S:1} -C test/spec
 mv test/spec/testsuite{-%{wats_commit},}
 # v8 tests cannot be executed because we don't have v8 in Fedora
 rm -rv test/lit/d8
-# lit/help tests fail with python-filecheck-1.0.3
-rm -rv test/lit/help
 %ifarch i686
 # https://github.com/WebAssembly/binaryen/issues/9006
 rm test/lit/ctor-eval/flatten_overflow.wast
 %endif
-%patch -P2 -p1 -b .empty
 rm -rv third_party/FP16
 %endif
 
@@ -89,7 +85,6 @@ rm -rv third_party/FP16
 %install
 %cmake_install
 rm -v %{buildroot}%{_bindir}/binaryen-unittests
-mv %{buildroot}%{_bindir}/{,binaryen-}wasm2c
 
 %if %{with check}
 %check
@@ -102,8 +97,6 @@ mv %{buildroot}%{_bindir}/{,binaryen-}wasm2c
 %files
 %license LICENSE
 %doc README.md
-# https://github.com/WebAssembly/binaryen/issues/9002
-%{_bindir}/binaryen-wasm2c
 %{_bindir}/wasm-as
 %{_bindir}/wasm-ctor-eval
 %{_bindir}/wasm-dis
@@ -122,6 +115,11 @@ mv %{buildroot}%{_bindir}/{,binaryen-}wasm2c
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Thu Nov 12 2026 Dominik Mierzejewski <dominik@greysector.net> - 133-1
+- update to 133 (resolves rhbz#2537686)
+- drop merged patch
+- drop wasm2c work-around (removed upstream)
+
 * Thu Aug 13 2026 Dominik Mierzejewski <dominik@greysector.net> - 132-1
 - update to 132 (resolves rhbz#2501187)
 - rename the new wasm2c due to conflict with wabt (upstream issue 9002)

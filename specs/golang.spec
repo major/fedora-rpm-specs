@@ -105,7 +105,7 @@
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.27
 #global go_prerelease rc2
-%global go_patch 3
+%global go_patch 4
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
@@ -148,7 +148,7 @@ Provides: bundled(golang(golang.org/x/telemetry)) = 0.0.0.20260519152614.eab6ae5
 Provides: bundled(golang(golang.org/x/term)) = 0.43.0
 Provides: bundled(golang(golang.org/x/text)) = 0.37.0
 Provides: bundled(golang(golang.org/x/tools)) = 0.27.0
-Provides: bundled(golang(golang.org/x/tools)) = 0.45.1.0.20260826175739.e1f45aa8aed5
+Provides: bundled(golang(golang.org/x/tools)) = 0.45.1.0.20260917185718.3dd9077b8066
 Provides: bundled(golang(rsc.io/markdown)) = 0.0.0.20240306144322.0bf8f97ee8ef
 
 Requires:       %{name}-bin = %{version}-%{release}

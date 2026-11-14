@@ -1,5 +1,5 @@
 Name:           python-dtoc
-Version:        0.3.0
+Version:        0.5.4
 Release:        %autorelease
 Summary:        Devicetree-to-C generator
 
@@ -9,8 +9,6 @@ Source:         %{pypi_source dtoc}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-libfdt
-BuildRequires:  python3-u-boot-pylib
 BuildRequires:  sed
 
 %global _description %{expand:
@@ -23,16 +21,17 @@ modification of the devicetree files.}
 
 %package -n     python3-dtoc
 Summary:        %{summary}
-Requires:       python3-libfdt
-Requires:       python3-u-boot-pylib
 
 %description -n python3-dtoc %_description
 
 %prep
 %autosetup -p1 -n dtoc-%{version}
 
-# Remove dependencies handled by BuildRequires/Requires
-sed -i -e '/"pylibfdt/d' -e '/"u-boot-pylib/d' pyproject.toml
+# Rename PEP 508 dep name to match the Fedora-provided virtual name
+sed -i 's/"pylibfdt >= 1.7"/"libfdt >= 1.7"/' pyproject.toml
+
+# Drop test assets not needed at runtime
+rm -rf dtoc/test
 
 # Remove unnecessary shebangs
 sed -i dtoc/*.py \

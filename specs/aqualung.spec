@@ -2,7 +2,7 @@
 
 Name:           aqualung
 Version:        2.0
-Release:        13%{?dist}
+Release:        15%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPL-2.0-or-later
 URL:            https://aqualung.jeremyevans.net
@@ -16,6 +16,8 @@ Patch:          %{name}-add-opus.patch
 Patch:          %{name}-configure-typo.patch
 # https://github.com/jeremyevans/aqualung/pull/43
 Patch:          %{name}-reject-corrupt-ID3v2.patch
+# support mac >= 13.40
+Patch:          https://github.com/jeremyevans/aqualung/commit/668285ea523a4adecbae78ec0e6bedc3640ca6b3.patch#/%{name}-mac-13.40.patch
 
 # autogen.sh
 BuildRequires:  autoconf
@@ -194,6 +196,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Fri Nov 13 2026 Adrian Reber <adrian@lisas.de> - 2.0-15
+- Rebuilt for libcdio 2.4.0
+
+* Fri Nov 13 2026 Dominik Mierzejewski <dominik@greysector.net> - 2.0-14
+- Rebuilt for mac-13.46
+- Fixed build with mac-13.40 or later
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0-13
 - Rebuilt for libxml-2.5.4
 

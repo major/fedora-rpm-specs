@@ -9,8 +9,6 @@
 
 %bcond_without       tests
 
-%global gh_commit    d4fe3e6fd9bb9e72557a19674f44d8ac7db4c6ca
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   deprecations
 # packagist
@@ -21,17 +19,17 @@
 %global ns_project   Deprecations
 
 Name:           php-%{pk_vendor}-%{pk_project}
-Version:        1.1.6
-Release:        2%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        A small layer on top of triggeFr_error or PSR-3 logging
 
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 7.1
+BuildRequires:  php(language) >= 7.4
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # From composer.json
@@ -48,11 +46,11 @@ BuildRequires:  phpunit12
 
 # From composer.json
 #    "require": {
-#        "php": "^7.1 || ^8.0",
+#        "php": "^7.4 || ^8.0",
 #    "suggest": {
 #        "psr/log": "Allows logging deprecations via PSR-3 logger implementation"
 
-Requires:       php(language) >= 7.1
+Requires:       php(language) >= 7.4
 Requires:      (php-composer(psr/log) >= 1.0   with php-composer(psr/log) < 4)
 # From phpcompatinfo report for version 0.5.3
 # Only core and standard
@@ -81,7 +79,7 @@ Autoloader: %{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
@@ -125,7 +123,7 @@ cat << 'EOF' | tee -a vendor/autoload.php
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" "php82 %{_bindir}/phpunit11" "php83 %{_bindir}/phpunit12" "php84 %{_bindir}/phpunit12" "php85 %{_bindir}/phpunit13"; do
+for cmd in "php %{phpunit}" "php82 %{_bindir}/phpunit11" "php83 %{_bindir}/phpunit12" "php84 %{_bindir}/phpunit12" "php85 %{_bindir}/phpunit13" "php86 %{_bindir}/phpunit13"; do
   if which $cmd; then
     set $cmd
     $1 -d auto_prepend_file=vendor/autoload.php \
@@ -149,6 +147,9 @@ exit $ret
 
 
 %changelog
+* Fri Nov 13 2026 Remi Collet <remi@remirepo.net> - 1.2.0-1
+- update to 1.2.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -305,7 +305,6 @@ popd
 %files doc
 %license LICENSE
 %doc CHANGELOG.md
-%doc SECURITY.md
 %doc README.md
 
 %doc examples/

@@ -46,6 +46,8 @@ sed --regexp-extended --in-place \
 
 
 %check -a
+%pyproject_verify_license
+
 # This file contains mypy typechecking tests:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 ignore="${ignore-} --ignore=tests/conftest.py"

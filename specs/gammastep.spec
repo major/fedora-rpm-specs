@@ -48,7 +48,7 @@ Summary:        GTK indicator applet for %{name}
 
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       gtk3
-Requires:       libappindicator-gtk3
+Requires:       libayatana-appindicator-gtk3
 Requires:       python3dist(pygobject)
 Requires:       python3dist(pyxdg)
 

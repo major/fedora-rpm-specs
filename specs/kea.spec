@@ -81,7 +81,6 @@ BuildRequires: flex
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 BuildRequires: python3-sphinx
-BuildRequires: python3-sphinx_rtd_theme
 BuildRequires: openpgpverify
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -146,6 +145,9 @@ ISC DHCP configurations to Kea.
 
 %autosetup -T -b2 -N -n %{keama_dir}
 %autosetup -p1 -n kea-%{version}
+
+# Don't set a theme, let Sphinx use its default instead of sphinx_rtd_theme
+sed -i "/^html_theme = 'sphinx_rtd_theme'/d" doc/sphinx/conf.py
 
 %build
 # This removes RPATH from binaries

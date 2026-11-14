@@ -2,7 +2,7 @@
 %global _lto_cflags %nil
 
 Name:           oneapi-%{srcname}
-Version:        1.33.1
+Version:        1.34.0
 Release:        %{autorelease}
 Summary:        OneAPI Level Zero Specification Headers and Loader
 

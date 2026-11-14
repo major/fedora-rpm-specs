@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 %global pypi_name oslo.utils
 %global pkg_name oslo-utils
 %global with_doc 1
@@ -12,7 +12,7 @@ The OpenStack Oslo Utility library.
 
 
 Name:           python-oslo-utils
-Version:        10.2.0
+Version:        10.3.0
 Release:        %autorelease
 Summary:        OpenStack Oslo Utility library
 

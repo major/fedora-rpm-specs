@@ -1,8 +1,8 @@
 %global srcname Chameleon
 
 Name:           python-chameleon
-Version:        4.6.0
-Release:        10%{?dist}
+Version:        4.6.1
+Release:        1%{?dist}
 Summary:        XML-based template compiler
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,16 +49,19 @@ Requires:   python3-lxml
 %pyproject_save_files chameleon
 
 %check
-%pyproject_check_import -e 'chameleon.tests*'
 %tox
 
 
 %files -n python3-chameleon -f %{pyproject_files}
-%doc README.rst
+%doc README.rst CHANGES.rst
+%license LICENSE.txt COPYRIGHT.txt
 %exclude %{python3_sitelib}/chameleon/tests
 
 
 %changelog
+* Fri Nov 13 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.6.1-1
+- Update to upstream.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

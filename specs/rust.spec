@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.99.1
+Version:        1.100.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -15,9 +15,9 @@ URL:            https://www.rust-lang.org
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.98.0
-%global bootstrap_channel 1.98.0
-%global bootstrap_date 2026-08-20
+%global bootstrap_version 1.99.0
+%global bootstrap_channel 1.99.0
+%global bootstrap_date 2026-10-01
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -47,7 +47,7 @@ URL:            https://www.rust-lang.org
 # See src/bootstrap/src/core/build_steps/llvm.rs, fn check_llvm_version
 # See src/llvm-project/cmake/Modules/LLVMVersion.cmake for bundled version.
 %global min_llvm_version 21.0.0
-%global bundled_llvm_version 23.1.1
+%global bundled_llvm_version 23.1.4
 #global llvm_compat_version 21
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
@@ -161,11 +161,6 @@ Patch8:         0001-Enable-SHSTK-by-default-on-x86_64-unknown-linux-gnu.patch
 # Ensure llvm worker threads have sufficient stack space. Backport of #163289.
 Patch9:         0001-Ensure-llvm-worker-threads-have-sufficient-stack-spa.patch
 
-# Add a `-static-pie` fallback when `rcrt1.o` is missing
-# https://github.com/rust-lang/rust/issues/164448
-# https://github.com/rust-lang/rust/pull/164451
-Patch10:        0001-Add-a-fallback-for-static-pie-missing-CRT-objects.patch
-
 ### RHEL-specific patches below ###
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
@@ -175,7 +170,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.99.0-disable-libssh2.patch
+Patch100:       rustc-1.100.0-disable-libssh2.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -749,7 +744,6 @@ test "$(cut -d' ' -f1 ./version)" = "%{lua: print((rpm.expand('%version'):gsub('
 %patch -P7 -p1
 %patch -P8 -p1
 %patch -P9 -p1
-%patch -P10 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -971,7 +965,7 @@ fi
   --set rust.verify-llvm-ir=true \
   --set rust.remap-debuginfo=false \
   --enable-extended \
-  --tools=cargo,clippy,rust-analyzer,rustdoc,rustfmt,src \
+  --tools=cargo,clippy,rust-analyzer,rustdoc,rustfmt,rust-src \
   --enable-vendor \
   --enable-verbose-tests \
   --release-channel=%{channel} \
@@ -984,7 +978,7 @@ fi
 %define profraw $PWD/build/profiles
 %define profdata $PWD/build/rustc.profdata
 mkdir -p "%{profraw}"
-%{__x} build sysroot --rust-profile-generate="%{profraw}"
+%{__x} build sysroot --set pgo.rustc.generate="%{profraw}"
 # Build cargo as a workload to generate compiler profiles
 # We normally use `x.py`, but in this case we invoke the stage 2 compiler and libs
 # directly to ensure we use the instrumented compiler.
@@ -996,7 +990,7 @@ env LLVM_PROFILE_FILE="%{profraw}/default_%%m_%%p.profraw" \
 llvm-profdata merge -o "%{profdata}" "%{profraw}"
 rm -r "%{profraw}" build/%{rust_triple}/stage2*/
 # Redefine the macro to use that profile data from now on
-%global __x %{__x} --rust-profile-use="%{profdata}"
+%global __x %{__x} --set pgo.rustc.use="%{profdata}"
 %endif
 
 # Build the compiler normally (with or without PGO)

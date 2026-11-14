@@ -5,7 +5,7 @@
 %global crate libloading
 
 Name:           rust-libloading
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Bindings for native dynamic library loading primitives
 
@@ -64,8 +64,6 @@ use the "std" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# scrub precompiled Windows DLLs that act as test input on Windows
-rm -v tests/*.dll
 
 %generate_buildrequires
 %cargo_generate_buildrequires

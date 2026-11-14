@@ -5,7 +5,7 @@
 %global crate asn1_derive
 
 Name:           rust-asn1_derive
-Version:        0.24.1
+Version:        0.24.2
 Release:        %autorelease
 Summary:        #[derive] support for asn1
 

@@ -5,7 +5,7 @@
 %global crate tar-codec
 
 Name:           rust-tar-codec
-Version:        0.0.15
+Version:        0.0.16
 Release:        %autorelease
 Summary:        Tar-codec is a small, fast, constrained tar encoder and decoder for Rust
 
@@ -18,6 +18,8 @@ Source10:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{versi
 Source11:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{version}/LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
 # * Remove unused, benchmark-only dev-dependency on codspeed-divan-compat
+# * Omit dev-dependency on the unmaintained astral-tokio-tar, and omit the
+#   “comparison” test that would require it.
 Patch:          tar-codec-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

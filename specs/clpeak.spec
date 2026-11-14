@@ -28,6 +28,11 @@ BuildRequires: pkgconfig(gl)
 BuildRequires: pkgconfig(OpenCL)
 BuildRequires: pkgconfig(vulkan)
 BuildRequires: vulkan-headers
+# third_party/litert https://github.com/google-ai-edge/LiteRT
+Provides:      bundled(litert) = 2.3.0
+# third_party/onnxruntime https://github.com/microsoft/onnxruntime
+Provides:      bundled(onnxruntime) = 1.31.0
+Recommends:    onnxruntime
 
 
 %description

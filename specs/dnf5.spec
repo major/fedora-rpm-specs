@@ -72,11 +72,12 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
+Patch1:         0001-dnfdaemon-authorize-command-line-specs.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1235,6 +1236,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Thu Nov 12 2026 Marek Blaha <mblaha@redhat.com> - 5.4.8.0-2
+- dnf5daemon-server: Authorize command line specs (CVE-2026-123177)
+
 * Wed Nov 11 2026 Packit <hello@packit.dev> - 5.4.8.0-1
 - Update to version 5.4.8.0
 

@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.13.7
+Version:        0.13.8
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -27,6 +27,8 @@ Summary:        An extremely fast Python package installer and resolver, written
 #     option.
 #   - crates/uv-build-frontend/src/pipreqs/mapping is a data file taken from
 #     https://pypi.org/project/pipreqs, https://github.com/bndr/pipreqs
+#   - crates/uv-distribution/src/variant/tpu.rs contains a vendored
+#     implementation from https://github.com/wheelnext/tpu-variant-provider
 #
 # Apache-2.0 OR BSD-2-Clause:
 #   - crates/uv-pep440/ is vendored and forked from crate(pep440_rs)
@@ -227,26 +229,16 @@ Requires:       ca-certificates
 # use a system copy.”
 #
 # crates/uv-pep440/
-# Version number from crates/uv-pep440/CHANGELOG.md; it was also in
-# crates/uv-pep440/Cargo.toml until uv 0.9.11, when internal crates started
-# being versioned and published on crates.io.
+# Version number from crates/uv-pep440/CHANGELOG.md.
 Provides:       bundled(crate(pep440_rs)) = 0.7.0
 # crates/uv-pep508/
-# Version number from crates/uv-pep508/Changelog.md; it was also in
-# crates/uv-pep508/Cargo.toml until uv 0.9.11, when internal crates started
-# being versioned and published on crates.io, but the version in Cargo.toml was
-# 0.6.0. The source reflects upstream changes in 0.7.0.
+# Version number from crates/uv-pep508/Changelog.md.
 Provides:       bundled(crate(pep508_rs)) = 0.7.0
 # crates/uv-virtualenv/
-# As a whole, this crate is derived from https://github.com/konstin/gourgeist
-# 0.0.4, which was published as https://crates.io/crates/gourgeist. It looks
-# like the project was subsumed into `uv`, and the link to `uv` at
-# https://konstin.github.io/gourgeist/ (“See
-# https://github.com/astral-sh/uv/tree/main/crates/uv-virtualenv for the up to
-# date version”) supports this. We therefore consider this not to be a real
-# case of bundling, since the source in uv is now the canonical one, and we do
-# not add:
-#   Provides:       bundled(crate(gourgeist)) = 0.0.4
+# This crate was previously known as gourgeist, but then it was subsumed into
+# uv, and uv-virtualenv is now the canonical source. We therefore don’t treat
+# this as a case of bundling. See https://github.com/astral-sh/uv/pull/2118 for
+# the renaming; see also the uv link at https://konstin.github.io/gourgeist.
 
 # crates/uv-extract/src/vendor/cloneable_seekable_reader.rs
 # Version number is an educated guess based on comparison of file contents,
@@ -355,6 +347,14 @@ Provides:       bundled(python3dist(packaging)) = 24.1~dev0^20240310gitcc938f9
 # The version number is just that of the latest pipreqs release at the time the
 # data file was vendored.
 Provides:       bundled(python3dist(pipreqs)) = 0.5.0
+
+# In crates/uv-distribution/src/variant/tpu.rs, an implementation from
+# https://github.com/wheelnext/tpu-variant-provider is vendored, with a comment
+# documenting the version number like:
+#   /// The vendored implementation of `tpu-variant-provider` 0.1.0.
+# From https://github.com/astral-sh/uv/pull/23066, this is vendored because the
+# portion actually used “is ~30 lines of simple file reading.”
+Provides:       bundled(tpu-variant-provider) = 0.1.0
 
 %global common_description %{expand:
 An extremely fast Python package and project manager, written in Rust.

@@ -4,7 +4,7 @@
 
 Name:       cryptlib
 Version:    3.4.9.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -14,7 +14,7 @@ Source1:    https://senderek.ie/fedora/cl3496_fedora.zip.sig
 # for security reasons a public signing key should always be stored in distgit
 # and never be used with a URL to make impersonation attacks harder
 # (verified: https://senderek.ie/keys/codesigningkey)
-Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
+Source2:    Senderek-Web-Security-codesigning-key.asc
 Source3:    https://senderek.ie/fedora/README-details
 Source4:    https://senderek.ie/fedora/cryptlib-tests.tar.gz
 Source5:    https://senderek.ie/fedora/cryptlib-perlfiles.tar.gz
@@ -27,7 +27,7 @@ ExclusiveArch: x86_64 aarch64 ppc64le riscv64
 
 BuildRequires: gcc 
 BuildRequires: libbsd-devel   
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: coreutils
 BuildRequires: python3-devel
 BuildRequires: java-25-devel
@@ -120,12 +120,8 @@ Collection of stand-alone programs that use Cryptlib
 
 
 %prep
-# source code signature check with GnuPG
-KEYRING=$(echo %{SOURCE2})
-KEYRING=${KEYRING%%.asc}.gpg
-mkdir -p .gnupg
-gpg2 --homedir .gnupg --no-default-keyring --quiet --yes --output $KEYRING --dearmor  %{SOURCE2}
-gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE1} %{SOURCE0}
+# source code signature check with sqv 
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 rm -rf %{name}-%{version}
 mkdir %{name}-%{version}
@@ -350,6 +346,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/cltls.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Nov 13 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.6-2
+- Update Codesigning key self signature with SHA256, use openpgpverify
+
 * Sat Oct 10 2026 Ralf Senderek <innovation@senderek.ie> 3.4.9.6-1
 - Update Cryptlib to version 3.4.9.6
 

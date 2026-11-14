@@ -5,7 +5,7 @@
 %global crate archive-trait
 
 Name:           rust-archive-trait
-Version:        0.0.15
+Version:        0.0.16
 Release:        %autorelease
 Summary:        Format-neutral, asynchronous archive construction and extraction
 
@@ -18,13 +18,6 @@ Source10:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{versi
 Source11:       https://github.com/astral-sh/astral-codec/raw/refs/tags/v%{version}/LICENSE-MIT
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          archive-trait-fix-metadata-auto.diff
-# * Remove the deep extraction fixture from the bottom up:
-#   https://github.com/astral-sh/astral-codec/pull/283
-# * Cherry-picked on v0.0.15
-# * Fixes “Test extracts_through_deep_ambient_and_created_path in archive-trait
-#   reaches file descriptor limits”:
-#   https://github.com/astral-sh/astral-codec/issues/114
-Patch10:        0001-Remove-the-deep-extraction-fixture-from-the-bottom-u.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

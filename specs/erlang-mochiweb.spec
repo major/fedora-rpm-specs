@@ -1,14 +1,14 @@
 %global realname mochiweb
 
 Name:		erlang-%{realname}
-Version:	3.5.0
+Version:	3.6.1
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	An Erlang library for building lightweight HTTP servers
 License:	MIT
 URL:		https://github.com/mochi/%{realname}
 VCS:		git:%{url}.git
-Source0:	%{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
+Source:		%{url}/archive/v%{version}/%{realname}-%{version}.tar.gz
 BuildRequires:	erlang-rebar3
 BuildRequires:	erlang-xmerl
 Provides:	%{realname} = %{version}-%{release}

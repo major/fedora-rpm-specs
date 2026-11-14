@@ -9,7 +9,7 @@
 %global use_system_headers 0
 %global clang_commit b953eceebb0abc6ea954a14545420e3f97540a77
 %global clang_shortcommit %(c=%{clang_commit}; echo ${c:0:7})
-%global translator_commit 27afcfe385cf542197dfde8c658e1f5ff53fc2fc
+%global translator_commit 0e67244861402a51b071414d7cb231a052b1ce03
 %global translator_shortcommit %(c=%{translator_commit}; echo ${c:0:7})
 %global spirv_headers_commit 575b6512579ebde466ed3dfc04e413439d14d95d
 %global spirv_headers_shortcommit %(c=%{spirv_headers_commit}; echo ${c:0:7})
@@ -33,10 +33,10 @@
 %global optflags %{optflags} -w
 
 # This patch level is reused in cflags
-%global igc_patch 16
+%global igc_patch 14
 
 Name: intel-igc
-Version: 2.41.%{igc_patch}
+Version: 2.42.%{igc_patch}
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 

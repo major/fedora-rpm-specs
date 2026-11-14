@@ -14,12 +14,12 @@
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
-# hiredis: BSD-3-Clause
-# hdrhistogram, jemalloc, lzf, linenoise: BSD-2-Clause
-# lua: MIT
+# libvalkey: BSD-3-Clause
+# hdrhistogram, jemalloc, lz4, linenoise: BSD-2-Clause
+# lua, fast_float: MIT
 # fpconv: BSL-1.0
 License:           BSD-3-Clause AND BSD-2-Clause AND MIT AND BSL-1.0
 URL:               https://valkey.io
@@ -61,19 +61,22 @@ BuildRequires:     python3-pyyaml
 
 Recommends:        logrotate
 # from deps/libvalkey/include/valkey/valkey.h
-Provides:          bundled(libvalkey) = 0.2.1
+Provides:          bundled(libvalkey) = 0.5.0
 # from deps/jemalloc/VERSION
 Provides:          bundled(jemalloc) = 5.3.0
 # from deps/lua/src/lua.h
-Provides:          bundled(lua-libs) = 5.1.5
+Provides:          bundled(lua-static) = 5.1.5
 # from deps/linenoise/linenoise.h
 Provides:          bundled(linenoise) = 1.0
-Provides:          bundled(lzf)
 # from deps/README.md
 # e4448cf6d1cd08fff519812d3b1e58bd5a94ac42
 Provides:          bundled(hdr_histogram) = 0.11.9
 # no version
 Provides:          bundled(fpconv)
+# from deps/lz4/lz4.h
+Provides:          bundled(lz4) = 1.10.0
+# from deps/fast_float/ffc.h
+Provides:          bundled(fast_float) = 1704706
 
 # sub-package was dropped
 Obsoletes:         valkey-tls  < %{version}-%{release}
@@ -200,6 +203,10 @@ mv deps/libvalkey/COPYING         COPYING-libvalkey
 mv deps/hdr_histogram/LICENSE.txt LICENSE-hdrhistogram
 mv deps/hdr_histogram/COPYING.txt COPYING-hdrhistogram
 mv deps/fpconv/LICENSE.txt        LICENSE-fpconv
+mv deps/lz4/LICENSE               LICENSE-lz4
+
+# remove gtest-parallel which we don't use
+rm -rf deps/gtest-parallel
 
 # See https://bugzilla.redhat.com/2240293
 # See https://src.fedoraproject.org/rpms/jemalloc/blob/rawhide/f/jemalloc.spec#_34
@@ -402,6 +409,7 @@ fi
 %license COPYING-hdrhistogram
 %license LICENSE-fpconv
 %license COPYING-libvalkey
+%license LICENSE-lz4
 %dir %{_sysconfdir}/logrotate.d
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(0750, valkey, root) %dir %{_sysconfdir}/%{name}
@@ -453,6 +461,9 @@ fi
 
 
 %changelog
+* Mon Nov  9 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 9.2.0~rc2-3
+- update bundled dependencies and license information
+
 * Thu Nov  5 2026 Remi Collet <remi@remirepo.net> - 9.2.0~rc2-2
 - enable zstd compression
 

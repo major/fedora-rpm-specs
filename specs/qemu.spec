@@ -7,7 +7,7 @@
 %global libfdt_version 1.6.0
 %global libseccomp_version 2.4.0
 %global libusbx_version 1.0.23
-%global meson_version 0.61.3
+%global meson_version 1.6.0
 %global usbredir_version 0.7.1
 %global ipxe_version 20200823-5.git4bd064de
 
@@ -391,10 +391,10 @@ Obsoletes: sgabios-bin <= 1:0.20180715git-10.fc38
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
-Version: 11.1.3
+Version: 11.2.0
 
 # Set for release candidate builds
-#global rcver rc3
+%global rcver rc0
 %if 0%{?rcver:1}
 %global rcstr -%{rcver}
 Release: %autorelease -p -e %{rcver}
@@ -459,7 +459,7 @@ BuildRequires: gnutls-devel
 BuildRequires: libselinux-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: libaio-devel
-BuildRequires: python3-devel
+BuildRequires: python3-devel >= 3.12
 BuildRequires: python3-setuptools
 BuildRequires: python3-pip
 %if %{defined fedora}
@@ -1603,6 +1603,7 @@ export MESON_RSP_THRESHOLD=126976
   --disable-cloop                  \\\
   --disable-cocoa                  \\\
   --disable-colo-proxy             \\\
+  --disable-containers             \\\
   --disable-coreaudio              \\\
   --disable-coroutine-pool         \\\
   --disable-crypto-afalg           \\\
@@ -1628,6 +1629,7 @@ export MESON_RSP_THRESHOLD=126976
   --disable-gtk                    \\\
   --disable-guest-agent            \\\
   --disable-guest-agent-msi        \\\
+  --disable-hmp                    \\\
   --disable-hv-balloon             \\\
   --disable-hvf                    \\\
   --disable-iconv                  \\\
@@ -1702,6 +1704,7 @@ export MESON_RSP_THRESHOLD=126976
   --disable-strip                  \\\
   --disable-system                 \\\
   --disable-tcg                    \\\
+  --disable-tests                  \\\
   --disable-tools                  \\\
   --disable-tpm                    \\\
   --disable-tsan                   \\\
@@ -1859,6 +1862,7 @@ run_configure \
   --enable-snappy \
   --enable-system \
   --enable-tcg \
+  --enable-tests \
   --enable-tools \
   --enable-tpm \
 %if %{have_usbredir}
@@ -1893,6 +1897,7 @@ run_configure \
   --enable-fuse \
   --enable-gio \
   --enable-gtk \
+  --enable-hmp \
   --enable-hv-balloon \
 %if %{have_daxctl}
   --enable-libdaxctl \
@@ -3076,6 +3081,9 @@ popd
 %files system-hexagon
 %files system-hexagon-core
 %{_bindir}/qemu-system-hexagon
+%license %{_datadir}/%{name}/hexagon-hypervisor-license.txt
+%{_datadir}/%{name}/hexagon_booter_*
+%{_datadir}/%{name}/hexagon_loadlinux_*
 %{_datadir}/systemtap/tapset/qemu-system-hexagon.stp
 %{_datadir}/systemtap/tapset/qemu-system-hexagon-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-hexagon-simpletrace.stp

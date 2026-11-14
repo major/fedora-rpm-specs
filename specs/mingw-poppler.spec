@@ -3,17 +3,22 @@
 %global pkgname poppler
 
 Name:          mingw-%{pkgname}
-Version:       26.01.0
-Release:       2%{?dist}
+Version:       26.08.0
+Release:       1%{?dist}
 Summary:       MinGW Windows Poppler library
 
 License:       (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 BuildArch:     noarch
 URL:           http://poppler.freedesktop.org/
 Source0:       http://poppler.freedesktop.org/%{pkgname}-%{version}.tar.xz
-
-# Downstream fix for CVE-2017-9083 (#1453200)
-Patch1:        poppler_CVE-2017-9083.patch
+# Backport fix for CVE-2026-102621
+Patch0:        https://src.fedoraproject.org/rpms/poppler/raw/rawhide/f/poppler-26.08.0-clipToPath-integer-overflow.patch
+# Backport fix for CVE-2026-102620
+Patch1:        https://src.fedoraproject.org/rpms/poppler/raw/rawhide/f/poppler-26.08.0-cvtSfnts-integer-overflow.patch
+# Backport fix for CVE-2026-107705
+Patch2:        https://src.fedoraproject.org/rpms/poppler/raw/rawhide/f/poppler-26.08.0-decrypt-password-length.patch
+# Apply fix for CVE-2026-93653
+Patch3:        https://src.fedoraproject.org/rpms/poppler/raw/rawhide/f/poppler-26.08.0-splash-infinite-loop.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -21,7 +26,7 @@ BuildRequires: gettext-devel
 BuildRequires: perl(File::Temp)
 
 BuildRequires: mingw32-filesystem
-BuildRequires: mingw32-boost
+# BuildRequires: mingw32-boost
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-libjpeg-turbo
 BuildRequires: mingw32-libtiff
@@ -35,7 +40,7 @@ BuildRequires: mingw32-qt6-qtbase
 BuildRequires: mingw32-curl
 
 BuildRequires: mingw64-filesystem
-BuildRequires: mingw64-boost
+# BuildRequires: mingw64-boost
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-libjpeg-turbo
 BuildRequires: mingw64-libtiff
@@ -152,10 +157,8 @@ MinGW Windows C++ Poppler library.
 %build
 export MINGW32_CXXFLAGS="%{mingw32_cflags} -msse2"
 export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
-# FIXME: gcc-16 does not properly export std::__get_once_callable
-export MINGW32_LDFLAGS="%{mingw32_ldflags} -static-libstdc++"
-export MINGW64_LDFLAGS="%{mingw64_ldflags} -static-libstdc++"
 
+# FIXME: mingw-boost too old
 %mingw_cmake \
   -DENABLE_CMS=lcms2 \
   -DENABLE_DCTDECODER=libjpeg \
@@ -164,6 +167,7 @@ export MINGW64_LDFLAGS="%{mingw64_ldflags} -static-libstdc++"
   -DENABLE_NSS3=OFF \
   -DENABLE_GPGME=OFF \
   -DENABLE_ZLIB=OFF \
+  -DENABLE_BOOST=OFF
 
 %mingw_make_build
 
@@ -183,7 +187,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw32-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw32_bindir}/libpoppler-156.dll
+%{mingw32_bindir}/libpoppler-163.dll
 %{mingw32_includedir}/poppler/
 %exclude %{mingw32_includedir}/poppler/cpp/
 %exclude %{mingw32_includedir}/poppler/glib/
@@ -218,7 +222,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw64-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw64_bindir}/libpoppler-156.dll
+%{mingw64_bindir}/libpoppler-163.dll
 %{mingw64_includedir}/poppler/
 %exclude %{mingw64_includedir}/poppler/cpp/
 %exclude %{mingw64_includedir}/poppler/glib/
@@ -252,6 +256,10 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Sun Aug 16 2026 Sandro Mani <manisandro@gmail.com> - 26.08.0-1
+- Update to 26.08.0
+- Apply fixes for CVE-2026-102621, CVE-2026-102620, CVE-2026-107705, CVE-2026-93653
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.01.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

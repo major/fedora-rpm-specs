@@ -4,7 +4,7 @@
 %global crate siguldry
 
 Name:           rust-siguldry
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Signing server and client
 

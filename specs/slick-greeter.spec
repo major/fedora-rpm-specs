@@ -1,12 +1,16 @@
 %global build_type_safety_c 0
 
+%global forgeurl https://github.com/linuxmint/slick-greeter
+%global tag      %{version}
+
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
-Version:	2.2.7
+Version:	2.2.8
 Release:	%autorelease
+%forgemeta
 License:	GPL-3.0-or-later
-URL:		https://github.com/linuxmint/%{name}
-Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:        %{forgeurl}
+Source0:    %{forgesource}
 Source1:	10_%{name}-cinnamon.gschema.override.in
 Source2:	%{name}.conf
 
@@ -57,7 +61,7 @@ Recommends: paper-icon-theme
 Slick-greeter customisation for the CINNAMON desktop.
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 
 install -pm 0644 %{SOURCE2} %{name}.conf.example
 

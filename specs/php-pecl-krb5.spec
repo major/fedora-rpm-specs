@@ -8,6 +8,8 @@
 #
 
 %global pecl_name   krb5
+%global pie_vend    pecl
+%global pie_proj    %{pecl_name}
 %global ini_name    40-%{pecl_name}.ini
 
 # Github forge
@@ -19,8 +21,8 @@
 Name:           php-pecl-%{pecl_name}
 Summary:        Kerberos authentification extension
 License:        MIT
-Version:        1.2.4
-Release:        4%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
 Source0:        %{forgesource}
@@ -42,7 +44,8 @@ Provides:       php-%{pecl_name}%{?_isa} = %{version}
 # PECL
 Provides:       php-pecl(%{pecl_name}) = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
-# No PIE for now
+# PIE
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 
 %description
@@ -113,6 +116,7 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 %files
 %license LICENSE
+%doc composer.json
 %doc CREDITS
 %doc README
 %doc examples
@@ -128,6 +132,10 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %changelog
+* Wed Nov 11 2026 Remi Collet <remi@remirepo.net> - 1.3.0-1
+- update to 1.3.0
+- add pie virtual provides
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate cfg-expr
 
 Name:           rust-cfg-expr
-Version:        0.20.10
+Version:        0.20.11
 Release:        %autorelease
 Summary:        Parser and evaluator for Rust cfg() expressions
 

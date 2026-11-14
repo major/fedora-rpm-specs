@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.17.4
+Version:        0.17.5
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -11,6 +11,13 @@ Version:        0.17.4
 # https://pagure.io/epel/issue/350.
 Release:        %autorelease
 Summary:        Extremely fast Python linter and code formatter
+
+# Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
+%global typeshed_rev 2e4d4dcf657f82305709bbe3e86bca4d27d4dd46
+# The typeshed project as a whole has never been versioned.
+%global typeshed_baseversion 0
+# Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
+%global typeshed_snapdate 20261030
 
 # The license of the ruff project is MIT, except:
 #
@@ -142,13 +149,6 @@ License:        %{full_license} %{shrink:
 
 URL:            https://github.com/astral-sh/ruff
 Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
-
-# Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 2e4d4dcf657f82305709bbe3e86bca4d27d4dd46
-# The typeshed project as a whole has never been versioned.
-%global typeshed_baseversion 0
-# Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20261030
 
 # Downstream patch: always find the system-wide ruff executable
 #

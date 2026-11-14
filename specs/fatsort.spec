@@ -1,6 +1,6 @@
 %define _legacy_common_support 1
 Name:           fatsort
-Version:        1.6.5.640
+Version:        1.7.1.683
 Release:        %autorelease
 Summary:        FAT sorter for FAT16 and FAT32 filesystems
 
@@ -24,7 +24,7 @@ their name but by the order they appear in the file allocation table (FAT).
 %autosetup
 
 %build
-%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_OPT_FLAGS"
+%make_build CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
 
 %install

@@ -5,7 +5,7 @@
 %global crate const-oid
 
 Name:           rust-const-oid
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Const-friendly implementation of the ISO/IEC Object Identifier (OID) standard
 
@@ -18,7 +18,7 @@ BuildRequires:  cargo-rpm-macros >= 24
 %global _description %{expand:
 Const-friendly implementation of the ISO/IEC Object Identifier (OID)
 standard as defined in ITU X.660, with support for BER/DER
-encoding/decoding as well as heapless no_std (i.e. embedded) support.}
+encoding/decoding as well as no_std + no_alloc (i.e. embedded) support.}
 
 %description %{_description}
 

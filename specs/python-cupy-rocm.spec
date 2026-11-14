@@ -131,7 +131,7 @@ Requires:       rocthrust-devel
 %autosetup -p1 -n cupy-%{version}
 
 # Do not be specific on cython version
-sed -i -e 's@Cython>=3.1,<3.2@Cython@' pyproject.toml
+sed -i -e 's@Cython>=3.2,<3.3@Cython@' pyproject.toml
 
 # Rename license files so they can be referenced in files
 # BSD-3-Clause

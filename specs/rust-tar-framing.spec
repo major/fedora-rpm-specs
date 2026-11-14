@@ -5,7 +5,7 @@
 %global crate tar-framing
 
 Name:           rust-tar-framing
-Version:        0.0.15
+Version:        0.0.16
 Release:        %autorelease
 Summary:        Framing layer for tar archives
 

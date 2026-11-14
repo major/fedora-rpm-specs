@@ -34,10 +34,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-Apache-2.0_WITH_LLVM-exception
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CODE_OF_CONDUCT.md
-%doc %{crate_instdir}/ORG_CODE_OF_CONDUCT.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

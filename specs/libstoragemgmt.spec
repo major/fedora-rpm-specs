@@ -4,8 +4,8 @@
 %bcond test 0
 
 Name:           libstoragemgmt
-Version:        1.10.3
-Release:        5%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 Summary:        Storage array management library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/libstorage/libstoragemgmt
@@ -461,6 +461,9 @@ fi
 %{_mandir}/man1/local_lsmplugin.1*
 
 %changelog
+* Fri Nov 13 2026 Tony Asleson <tasleson@redhat.com> - 1.12.0-1
+- Upgrade to 1.12.0
+
 * Thu Aug 20 2026 Dan Horák <dan@danny.cz> - 1.10.3-5
 - rebuilt for sg3_utils 1.49
 
@@ -829,7 +832,7 @@ fi
     * libstoragemgmt-hpsa-plugin
         New plugin in 1.2.0 release.
 - Add bash-completion script for lsmcli.
-- New rpmbuild switch: 
+- New rpmbuild switch:
     * '--without test'
         Use to skip 'make check' test to save debug time.
     * '--without megaraid'

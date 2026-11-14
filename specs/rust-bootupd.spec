@@ -3,7 +3,7 @@
 %global crate bootupd
 
 Name:           rust-%{crate}
-Version:        0.3.2
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Bootloader updater
 
@@ -52,7 +52,10 @@ License:        Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND BSD-3-Clause
 %{_bindir}/bootupctl
 %{_libexecdir}/bootupd
 %{_prefix}/lib/bootupd/grub2-static/
+%{_prefix}/lib/bootupd/packagesystem/
 %{_unitdir}/bootloader-update.service
+%{_unitdir}/bootupd-varlink.service
+%{_unitdir}/bootupd-varlink.socket
 
 %prep
 %autosetup -n %{crate}-%{version} -p1 -a1
@@ -65,7 +68,7 @@ License:        Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND BSD-3-Clause
 %{cargo_license} > LICENSE.dependencies
 
 %install
-%make_install INSTALL="install -p -c"
+%make_install PACKAGESYSTEM=rpm INSTALL="install -p -c"
 %{__make} install-grub-static DESTDIR=%{?buildroot} INSTALL="%{__install} -p"
 %{__make} install-systemd-unit DESTDIR=%{?buildroot} INSTALL="%{__install} -p"
 

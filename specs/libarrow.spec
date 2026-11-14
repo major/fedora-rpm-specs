@@ -33,7 +33,7 @@
 
 Name:		libarrow
 Version:	26.0.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -749,7 +749,6 @@ popd >/dev/null
 %build
 pushd cpp
 %cmake \
-  -DARROW_SIMD_LEVEL:STRING=NONE -DARROW_RUNTIME_SIMD_LEVEL:STRING=MAX \
 %if %{with use_flight}
   -DARROW_FLIGHT:BOOL=ON \
 %endif
@@ -825,8 +824,12 @@ export \
   PYARROW_PARALLEL=%{_smp_build_ncpus} \
   PYARROW_INSTALL_TESTS=0 \
   SETUPTOOLS_SCM_VERSION_WRITE_TO_PREFIX="python"
-%pyproject_wheel
+%ifarch x86_64
+%pyproject_wheel --config-settings cmake.define.ARROW_SIMD_LEVEL=NONE --config-settings cmake.build-type=RelWithDebInfo --config-settings logging.level=INFO --config-settings build.verbose=true
+%else
+%pyproject_wheel --config-settings cmake.build-type=RelWithDebInfo --config-settings logging.level=INFO --config-settings build.verbose=true
 popd
+%endif
 rm -rf /tmp%{_prefix}
 
 #--------------------------------------------------------------------
@@ -880,8 +883,11 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Fri Nov 13 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.1-5
+- revisit ARROW_SIMD_LEVEL
+
 * Wed Nov 11 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.1-4
-- Rebuild for grpc 1.75.1, f46-build-side-158428, revisit SIMD_LEVEL
+- Rebuild for grpc 1.75.1, f46-build-side-158428, revisit ARROW_SIMD_LEVEL
 
 * Mon Nov 9 2026  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 26.0.1-3
 - Arrow 26.0.1 (f46-build-side-159604) experimental build w/ grpc-1.75.1,

@@ -25,7 +25,7 @@
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
 Version: 26.08.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://apps.kde.org/cantor/
@@ -267,6 +267,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Nov 13 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-3
+- Bump for julia fix
+
 * Wed Nov 11 2026 Milan Bouchet-Valat <nalimilan@club.fr> - 26.08.3-2
 - Patch for Julia API 1.13
 

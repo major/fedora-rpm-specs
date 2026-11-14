@@ -29,6 +29,16 @@ Source0:        https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{v
 # output and on the docstring of trimesh.__main__.main
 Source1:        trimesh.1
 
+# Downstream-only: allow embreex dependency on aarch64
+#
+# The embreex project, https://github.com/trimesh/embreex, builds binary wheels
+# for PyPI using binary releases of https://github.com/RenderKit/embree. Since
+# embree doesn’t make aarch64 releases (except for MacOS), embreex doesn’t
+# build aarch64 wheels, and therefore trimesh excludes the embreex dependency
+# on aarch64. Since embree does support aarch64 at the source level, and all of
+# our dependencies are built from source, we have no such limitations.
+Patch:          0001-Downstream-only-allow-embreex-dependency-on-aarch64.patch
+
 # trimesh.interfaces.blender
 # Since 5.0.0, Blender doesn’t support big-endian architectures.
 %ifnarch s390x

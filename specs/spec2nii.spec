@@ -152,6 +152,8 @@ install -D --preserve-timestamps --mode=0644 \
 
 
 %check -a
+%pyproject_verify_license
+
 %if %{with test_data}
 # Only a few tests can be executed without the test data archive, and those
 # that pass without it generally do so tautologically – e.g. they run a test

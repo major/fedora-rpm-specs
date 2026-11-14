@@ -75,6 +75,7 @@ export PYTHON_ZLIB_NG_LINK_DYNAMIC='1'
 
 
 %check -a
+%pyproject_verify_license
 # Note that it is *not* safe to run tests in parallel (pytest-xdist, -n auto)
 # due to filesystem race conditions.
 %pytest --verbose tests/

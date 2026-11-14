@@ -1,5 +1,5 @@
 Name:           cloc
-Version:        2.10
+Version:        2.12
 Release:        1%{?dist}
 Summary:        Count lines of code
 License:        GPL-2.0-or-later
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Nov 13 2026 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.12-1
+- Update to 2.12 - Closes rhbz#2572939
+
 * Mon Jul 20 2026 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 2.10-1
 - Update to 2.10 - Closes rhbz#2497088
 

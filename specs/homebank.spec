@@ -1,10 +1,12 @@
 Name:           homebank
-Version:        5.10.3
+Version:        5.10.4
 Release:        %{autorelease}
 Summary:        Free easy personal accounting for all
 License:        GPL-2.0-or-later
 URL:            https://gethomebank.org/
 Source:         https://gethomebank.org/public/sources/%{name}-%{version}.tar.gz
+
+Patch:          %{name}-%{version}-format-security.patch
 ExcludeArch:    %{ix86}
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

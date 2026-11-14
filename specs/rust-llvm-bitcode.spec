@@ -5,7 +5,7 @@
 %global crate llvm-bitcode
 
 Name:           rust-llvm-bitcode
-Version:        0.4.1
+Version:        0.4.2
 Release:        %autorelease
 Summary:        LLVM Bitcode parser in Rust
 

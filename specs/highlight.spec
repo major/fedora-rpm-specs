@@ -9,13 +9,17 @@ License:        GPL-3.0-only
 URL:            http://www.andre-simon.de/
 Source0:        %{forgesource}
 
+# https://gitlab.com/saalen/highlight/-/merge_requests/177
+Patch0:         meson-gui-lspconf.patch
+
+# The meson GUI is built with Qt; disable it on RHEL < 10 (no Qt6).
 %bcond qt %[%{undefined rhel} || 0%{?rhel} < 10]
 
 BuildRequires:  boost-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  lua-devel
-BuildRequires:  make
+BuildRequires:  meson
 %if %{with qt}
 BuildRequires:  qt6-qtbase-devel
 %endif
@@ -41,7 +45,7 @@ A Qt-based GUI for the highlight source code formatter source.
 %endif
 
 %prep
-%forgeautosetup
+%forgeautosetup -p1
 # Fix line endings of extra batch files to avoid rpmlint warnings
 find extras/ -type f -name "*.bat" -exec sed -i 's/\r$//' {} +
 find extras/ -type f -name "*.pb" -exec sed -i 's/\r$//' {} +
@@ -51,27 +55,12 @@ rm -f extras/themes-resources/css-themes/UNLICENCE
 ln -s ../../langDefs-resources/UNLICENCE extras/themes-resources/css-themes/UNLICENCE
 
 %build
-%set_build_flags
-# The makefile compiles C++ files using CFLAGS, so we add CXXFLAGS to CFLAGS in the environment
-export CFLAGS="$CFLAGS $CXXFLAGS -fPIC"
-
-%make_build all \
-    PREFIX="%{_prefix}" \
-    conf_dir="%{_sysconfdir}/"
-
-%if %{with qt}
-cd src/gui-qt
-%qmake_qt6
-%make_build
-cd ../..
-%endif
+# The GUI build is gated on Qt6 availability (see meson-gui-lspconf.patch)
+%meson
+%meson_build
 
 %install
-%make_install PREFIX="%{_prefix}" conf_dir="%{_sysconfdir}/"
-
-%if %{with qt}
-make install-gui DESTDIR=%{buildroot} PREFIX="%{_prefix}" conf_dir="%{_sysconfdir}/"
-%endif
+%meson_install
 
 mkdir -p %{buildroot}%{_licensedir}/%{name}
 mv %{buildroot}%{_docdir}/%{name}/COPYING %{buildroot}%{_licensedir}/%{name}/
@@ -79,7 +68,7 @@ mv %{buildroot}%{_docdir}/%{name}/COPYING %{buildroot}%{_licensedir}/%{name}/
 %check
 # Upstream test suite (src/ci_test.sh) requires network (git clone), so run a
 # basic smoke test of the built binary instead
-printf 'print(\"hello\")' > test.py
+printf 'print("hello")' > test.py
 %{buildroot}%{_bindir}/highlight --version
 grep -q 'hello' <(%{buildroot}%{_bindir}/highlight test.py)
 
@@ -106,7 +95,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/highlight.desktop
 %{_datadir}/applications/highlight.desktop
 %{_datadir}/icons/hicolor/256x256/apps/highlight.png
 %endif
-
 
 %changelog
 %autochangelog

@@ -1,5 +1,5 @@
 Name:           python-google-genai
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Google GenAI Python SDK
 
@@ -16,6 +16,8 @@ BuildOption(install):  --assert-license google
 BuildOption(generate_buildrequires): --extras aiohttp,httpx,httpx2,local-tokenizer,local-tokenizer-transformers,pyopenssl
 
 BuildArch:      noarch
+# local-tokenizer depends in build time on torch that is x86_64 aarch64 only
+ExclusiveArch:  x86_64 aarch64 noarch
 BuildRequires:  python3-devel
 # not stated in pyproject
 Requires:       python3-mcp

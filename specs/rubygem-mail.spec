@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.8.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Mail provides a nice Ruby DSL for making, sending and reading emails
 License: MIT
 URL: https://github.com/mikel/mail
@@ -17,6 +17,7 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(mini_mime)
+BuildRequires: rubygem(net-pop)
 BuildRequires: rubygem(rspec)
 BuildArch: noarch
 
@@ -69,6 +70,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Nov 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.1-9
+- Explicitly add BR: rubygem(net-pop)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

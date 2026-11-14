@@ -1,5 +1,5 @@
 Name:           gpscorrelate
-Version:        2.1
+Version:        2.4
 Release:        %autorelease
 Summary:        A GPS photo correlation / geotagging tool
 
@@ -10,6 +10,7 @@ Source:         %{vcs}/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl
+BuildRequires:  exiv2
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  libxslt
@@ -31,7 +32,6 @@ with the timestamp of the gps coordinates.
 
 
 %build
-%set_build_flags
 %make_build prefix=%{_prefix} CFLAGS="%{optflags}" OFLAGS="%{optflags}" docdir="%{_pkgdocdir}"
 
 
@@ -39,8 +39,11 @@ with the timestamp of the gps coordinates.
 %make_install prefix=%{_prefix}
 make install-desktop-file DESTDIR=%{buildroot} prefix=%{_prefix}
 
+
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+make check
+
 
 %files
 %doc %{_pkgdocdir}

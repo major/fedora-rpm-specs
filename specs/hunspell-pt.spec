@@ -8,7 +8,7 @@ Name: hunspell-pt
 Summary: Portuguese hunspell dictionaries
 %global upstreamid 20251001
 Version: 0.%{upstreamid}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://natura.di.uminho.pt/download/sources/Dictionaries/hunspell/hunspell-pt_PT-20251001.tar.gz
 Source1: https://downloads.sourceforge.net/project/aoo-extensions/18650/0/veroptbrv320aoc.oxt
 # URL: https://pt-br.libreoffice.org/projetos/vero
@@ -33,7 +33,11 @@ Brazilian Portuguese hunspell dictionaries
 %prep
 %autosetup -n hunspell-pt_PT-%{upstreamid}
 unzip -q -o %{SOURCE1}
-for i in pt_BR.dic README_pt_PT.txt; do
+
+# Ensure .aff file also using UTF-8 encoding
+sed -i '1c\SET UTF-8\nFLAG UTF-8' pt_BR.aff
+
+for i in pt_BR.aff pt_BR.dic README_pt_PT.txt; do
   if ! iconv -f utf-8 -t utf-8 -o /dev/null $i > /dev/null 2>&1; then
     iconv -f ISO-8859-1 -t UTF-8 $i > $i.new
     touch -r $i $i.new
@@ -70,6 +74,9 @@ popd
 %{_datadir}/%{dict_dirname}/pt_BR.*
 
 %changelog
+* Thu Nov 12 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20251001-2
+- Resolves: rhbz#2571722 Fix encoding of .aff file to UTF-8
+
 * Fri Jul 17 2026 Parag Nemade <panemade AT redhat DOT com> - 0.20251001-1
 - Update pt_PT to new upstream release (rh#2501709)
 

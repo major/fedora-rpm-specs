@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.1.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
@@ -15,6 +15,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/actionview
 # git archive -v -o actionview-8.1.3.1-tests.tar.gz v8.1.3.1 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
+# https://github.com/rails/rails/pull/59034
+# Use Ruby::Prism for ruby4.1
+Patch0:  %{gem_name}-pr59034-prism-ruby41-compat.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 %if %{without bootstrap}
@@ -42,7 +45,8 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
+%setup -q -n %{gem_name}-%{version}%{?prerelease} -a 1
+%patch 0 -p2
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -59,8 +63,9 @@ cp -a .%{gem_dir}/* \
 # This requires activerecord in rails git structure
 ln -s %{gem_dir}/gems/activerecord-%{version}%{?prerelease}/ .%{gem_dir}/gems/activerecord
 
-( cd .%{gem_instdir}
-cp -a %{builddir}/test .
+( 
+cp -a test .%{gem_instdir}
+cd .%{gem_instdir}
 
 mkdir ../tools
 # Fake test_common.rb. It does not provide any functionality besides
@@ -96,6 +101,9 @@ find test -type f -name '*_test.rb' -print0 | \
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Nov 13 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.1.3.1-2
+- Backport upstream patch to make testsuite compatible with ruby4.1 Prism change
+
 * Mon Aug 03 2026 Vít Ondruch <vondruch@redhat.com> - 8.1.3.1-1
 - Update to Action View 8.1.3.1.
   Related: rhzb#2405582

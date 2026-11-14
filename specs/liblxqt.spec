@@ -1,27 +1,26 @@
 Name:		liblxqt
-Version:	2.4.0
-Release:	3%{?dist}
+Version:	2.5.0
+Release:	1%{?dist}
 License:  LGPL-2.1-only AND LGPL-2.1-or-later
 Summary:	Core shared library for LXQt desktop suite
 Url:      https://lxqt-project.org/
 Source0:  https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:	macros.lxqt
 
-# PATCH-UPSTREAM https://github.com/lxqt/liblxqt/pull/378
-# Fixes issue with brightness adjustments on amdgpu systems
-Patch0:   378.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: libXScrnSaver-devel
+
 BuildRequires: cmake(lxqt2-build-tools)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(PolkitQt6-1)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(qt6xdg)
+
 BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(PolkitQt6-1)
 Requires: xdg-utils >= 1.1.0
 
 Obsoletes:    %{name}-l10n < %{version}
@@ -33,7 +32,7 @@ Core utility library for all LXQT components
 %package devel
 Summary:	Devel files for liblxqt
 Requires:	%{name}%{?_isa} = %{version}-%{release}
-Requires:       lxqt-build-tools >= 0.13.0
+Requires: lxqt-build-tools >= 0.13.0
 Requires: cmake >= 3.3
 
 %description devel
@@ -71,6 +70,9 @@ touch -r %{SOURCE1} %{buildroot}%{_rpmmacrodir}/macros.lxqt
 %{_rpmmacrodir}/macros.lxqt
 
 %changelog
+* Fri Nov 13 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

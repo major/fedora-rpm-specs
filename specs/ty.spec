@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.101
+Version:        0.0.103
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -16,6 +16,19 @@ Version:        0.0.101
 # https://pagure.io/fesco/issue/3564.
 Release:        %autorelease
 Summary:        Extremely fast Python type checker and language server
+
+# Regarding bundling ruff, see the comments at the beginning of the spec file.
+%global ruff_git https://github.com/astral-sh/ruff
+%global ruff_rev ab1a1265b8a54d9212373eb221c6540f854e1f84
+%global ruff_baseversion 0.17.5
+%global ruff_snapdate 20261113
+
+# Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
+%global typeshed_rev 2e4d4dcf657f82305709bbe3e86bca4d27d4dd46
+# The typeshed project as a whole has never been versioned.
+%global typeshed_baseversion 0
+# Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
+%global typeshed_snapdate 20261030
 
 # The license of the ty project is MIT. Other source licenses come from ruff.
 # The comments below will generally be synchronized with those in the ruff spec
@@ -151,20 +164,7 @@ License:        %{full_license} %{shrink:
 
 URL:            https://github.com/astral-sh/ty
 Source:         %{url}/archive/%{version}/ty-%{version}.tar.gz
-
-# Regarding bundling ruff, see the comments at the beginning of the spec file.
-%global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev fc07a38a6eeb9f39679ed8f6163b54b07da22056
-%global ruff_baseversion 0.17.4
-%global ruff_snapdate 20261111
 Source100:        %{ruff_git}/archive/%{ruff_rev}/ruff-%{ruff_rev}.tar.gz
-
-# Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 2e4d4dcf657f82305709bbe3e86bca4d27d4dd46
-# The typeshed project as a whole has never been versioned.
-%global typeshed_baseversion 0
-# Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20261030
 
 # Downstream patch: always find the system-wide ty executable
 #

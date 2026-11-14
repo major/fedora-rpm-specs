@@ -5,23 +5,20 @@
 
 Name:           thunar-vcs-plugin
 Version:        0.4.0
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Version Contol System plugin for the Thunar filemanager
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://goodies.xfce.org/projects/thunar-plugins/%{name}
-Source0:        http://archive.xfce.org/src/thunar-plugins/%{name}/%{minor_version}/%{name}-%{version}.tar.xz
+URL:            https://goodies.xfce.org/projects/thunar-plugins/%{name}
+Source0:        https://archive.xfce.org/src/thunar-plugins/%{name}/%{minor_version}/%{name}-%{version}.tar.xz
 
-BuildRequires:  make
-BuildRequires:  gcc-c++
-BuildRequires:  Thunar-devel >= %{thunar_version}
-BuildRequires:  subversion-devel >= 1.5
-BuildRequires:  apr-devel >= 0.9.7
-BuildRequires:  e2fsprogs-devel
-BuildRequires:  uuid-devel
-BuildRequires:  libuuid-devel
+BuildRequires:  gcc
 BuildRequires:  meson
+BuildRequires:  Thunar-devel >= %{thunar_version}
+BuildRequires:  subversion-devel
+BuildRequires:  apr-devel
+BuildRequires:  apr-util-devel
 BuildRequires:  libxfce4ui-devel
 
 Requires:       Thunar >= %{thunar_version}
@@ -53,10 +50,15 @@ This project was formerly known as Thunar SVN Plugin.
 %install
 %meson_install
 
+%check
+# Upstream has no test suite
+
 %find_lang %{name}
 
-
-%ldconfig_scriptlets
+# Drop invalid locale codes shipped in upstream po/ (hye and hye_RU are not
+# valid locale codes; the valid Armenian variant hy_AM is kept)
+sed -i '/hye/d' %{name}.lang
+rm -rf %{buildroot}%{_datadir}/locale/hye*
 
 %files -f %{name}.lang
 %license COPYING
@@ -69,6 +71,12 @@ This project was formerly known as Thunar SVN Plugin.
 
 
 %changelog
+* Mon Nov 09 2026 Filipe Rosset <rosset.filipe@gmail.com> - 0.4.0-39
+- Spec cleanup: drop unused BRs (make, gcc-c++, e2fsprogs-devel,
+  uuid-devel, libuuid-devel); use gcc for C build; add apr-util-devel;
+  drop obsolete %%ldconfig_scriptlets; https URLs;
+  drop invalid hye/hye_RU locales shipped in upstream po/
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

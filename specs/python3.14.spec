@@ -49,7 +49,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -221,6 +221,15 @@ Provides: bundled(python3dist(zipp)) = 3.19.2
 %global optflags_debug -O0 -Wno-cpp
 # Remove the default -O2 flag, our flags are applied in %%build/%%install
 %global __global_compiler_flags %(echo '%{__global_compiler_flags}' | sed 's/-O[[:digit:]]//')
+
+# Timeout for tests in seconds, passed as --timeout argument, used for each test separately
+%ifarch riscv64
+# slow arch, 135 minutes
+%global test_timeout 8100
+%else
+# normal arches, 45 minutes
+%global test_timeout 2700
+%endif
 
 # Changing the shebangs of the test files confuses the tests which count with a specific data offset
 # We can't remove the executable bit, the files are run directly in other tests
@@ -446,6 +455,10 @@ Patch477: 00477-raise-an-error-when-importing-stdlib-modules-compiled-for-a-diff
 # 00486 # 5ae0b81b3135319f8d75a886fb7a11fa40ac11f4
 # gh-148646: Add --enable-prebuilt-jit-stencils configure flag
 Patch486: 00486-gh-148646-add---enable-prebuilt-jit-stencils-configure-flag.patch
+
+# 00500 # 71a00312c96802a29a8b4b8ebee04ceddedcc4c5
+# gh-160923: Fix fetching with `-fips` property for `usedforsecurity=True`
+Patch500: 00500-gh-160923-fix-fetching-with--fips-property-for-usedforsecurity-true.patch
 
 # (New patches go here ^^^)
 #
@@ -1513,18 +1526,18 @@ CheckPython() {
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.pythoninfo
 
   # Run the upstream test suite
-  # --timeout=2700: kill test running for longer than 45 minutes
   # test_check_probes is failing since it was introduced in 3.12.0rc1,
   # the test is skipped until it is fixed in upstream.
   # see: https://github.com/python/cpython/issues/104280#issuecomment-1669249980
   LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
-    -wW --slowest %{_smp_mflags} \
-    %ifarch riscv64
-    --timeout=8100 \
-    %else
-    --timeout=2700 \
-    %endif
+    -wW --slowest %{_smp_mflags} --timeout=%{test_timeout} \
     -i test_check_probes \
+
+  # Re-run the hashlib/hmac/ssl related tests with FIPS mode forced on.
+  OPENSSL_FORCE_FIPS_MODE=1 LD_LIBRARY_PATH=$ConfDir $ConfDir/python -m test.regrtest \
+    -wW --slowest %{_smp_mflags} --timeout=%{test_timeout} \
+    test_hashlib test_hmac test_ssl \
+    -i test_case_md5_0 -i test_case_md5_1 -i test_case_md5_2
 
   echo FINISHED: CHECKING OF PYTHON FOR CONFIGURATION: $ConfName
 
@@ -2014,6 +2027,10 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon Nov 09 2026 Miro Hrončok <miro@hroncok.cz> - 3.14.10-2
+- Security fix for CVE-2026-119170
+- Fixes a regression in FIPS enforcement of hash algorithms
+
 * Mon Oct 26 2026 Karolina Surma <ksurma@redhat.com> - 3.14.10-1
 - Update to Python 3.14.10
 - CVE-2026-114583: tar filter allows writing outside destination via empty-named symlink

@@ -2,7 +2,7 @@
 %global srcname_ sphinx_autoapi
 
 Name:           python-%{srcname}
-Version:        3.8.1
+Version:        3.9.0
 Release:        %autorelease
 Summary:        Sphinx API documentation generator
 
@@ -34,10 +34,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{srcname_}-%{version} -p1
-# These symlinks are lost from the sdist.
-# https://github.com/readthedocs/sphinx-autoapi/issues/565
-ln -s ../pyexample/example tests/python/pymovedconfpy/example
-ln -s ../example_2 tests/toctreeexample/example/example_2
 
 %generate_buildrequires
 %pyproject_buildrequires

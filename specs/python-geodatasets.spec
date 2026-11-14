@@ -1,7 +1,7 @@
 %global srcname geodatasets
 
 Name:           python-%{srcname}
-Version:        2026.5.1
+Version:        2026.11.0
 Release:        %autorelease
 Summary:        Spatial data examples
 

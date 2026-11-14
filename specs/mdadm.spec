@@ -1,8 +1,9 @@
 %bcond abrt %{undefined rhel}
+%global enable_testsuite 1
 
 Name:        mdadm
 Version:     4.6
-Release:     2%{?dist}
+Release:     3%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
 License:     GPL-2.0-or-later
@@ -22,6 +23,8 @@ Source11:    https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/9
 # Fedora customization patches
 Patch:       mdadm-udev.patch
 Patch:       mdadm-2.5.2-static.patch
+Patch:       0001-Makefile-add-install-testsuite-target.patch
+Patch:       0002-tests-don-t-stop-running-arrays-when-check_env-refus.patch
 
 BuildRequires:    make
 BuildRequires:    systemd-rpm-macros
@@ -56,10 +59,16 @@ file can be used to help with some common tasks.
 %build
 # CXFLAGS is NOT a typo, it's baked into the makefile, not to be confused with CXXFLAGS
 %make_build CXFLAGS="%{optflags} -std=gnu17 -Wno-error=unterminated-string-initialization" LDFLAGS="$RPM_LD_FLAGS" SYSCONFDIR="%{_sysconfdir}" mdadm mdmon raid6check raid6check.man
+%if %{enable_testsuite}
+%make_build CXFLAGS="%{optflags} -std=gnu17 -Wno-error=unterminated-string-initialization" LDFLAGS="$RPM_LD_FLAGS" SYSCONFDIR="%{_sysconfdir}" swap_super
+%endif
 
 
 %install
 %make_install MANDIR=%{_mandir} BINDIR=%{_sbindir} SYSTEMD_DIR=%{_unitdir} UDEVDIR=%{_prefix}/lib/udev/ install install-systemd
+%if %{enable_testsuite}
+%{__make} install-testsuite DESTDIR=%{buildroot} INSTALL="/usr/bin/install -p" BINDIR=%{_sbindir} TESTSEXECDIR=%{_sbindir} TESTSDIR=%{_datadir}/%{name}-testsuite
+%endif
 install -Dp -m 755 %{SOURCE1} %{buildroot}%{_sbindir}/raid-check
 install -Dp -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/raid-check
 mkdir -p -m 710 %{buildroot}/run/%{name}
@@ -123,7 +132,28 @@ install -Dm644 raid6check.man %{buildroot}/%{_mandir}/man8/raid6check.man
 %{_datadir}/%{name}/
 
 
+%if %{enable_testsuite}
+%package testsuite
+Summary:        Functional testsuite for mdadm
+License:        GPL-2.0-or-later
+Requires:       %{name} = %{version}-%{release}
+
+%description testsuite
+An extensive functional testsuite for mdadm. Run it with mdadm-testsuite
+as root on a machine where md arrays can be created.
+
+%files testsuite
+%license COPYING
+%{_sbindir}/mdadm-testsuite
+%{_sbindir}/swap_super
+%{_datadir}/%{name}-testsuite/
+%endif
+
+
 %changelog
+* Fri Nov 13 2026 Peter Rajnoha <prajnoha@redhat.com> - 4.6-3
+- Add mdadm-testsuite subpackage.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate target-lexicon
 
 Name:           rust-target-lexicon
-Version:        0.13.5
+Version:        0.13.6
 Release:        %autorelease
 Summary:        LLVM target triple types
 

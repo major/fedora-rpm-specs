@@ -1,5 +1,5 @@
 Name:           python-super-collections
-Version:        0.5.3
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Python SuperDictionaries (with attributes) and SuperLists
 
