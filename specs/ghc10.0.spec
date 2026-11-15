@@ -37,7 +37,7 @@
 
 %global ghc_major 10.0
 %global ghc_patchlevel 0
-%global ghc_snapshot 20260917
+%global ghc_snapshot 20261109
 %global ghc_name ghc%{ghc_major}
 
 %global Cabal_ver 3.18.1.0
@@ -53,9 +53,6 @@
 %global hpc_ver 0.7.0.2
 %global rts_ver 1.0.3
 %global xhtml_ver 3000.4.1.0
-
-# 10.0 alpha can't build with bundled 3.18
-%global hadrian_Cabal_ver 3.16.1.0
 
 # bootstrap needs 9.10+
 %if 0%{?fedora} < 44
@@ -93,7 +90,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}%{?ghc_snapshot:.%{ghc_snapshot}}
 # Since library subpackages are versioned:
 # - release can only be reset if *all* subpackage versions get bumped simultaneously
-Release: 0.1%{?dist}
+Release: 0.2%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -105,8 +102,6 @@ Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.t
 Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
-Source10: https://hackage.haskell.org/package/Cabal-syntax-%{hadrian_Cabal_ver}/Cabal-syntax-%{hadrian_Cabal_ver}.tar.gz
-Source11: https://hackage.haskell.org/package/Cabal-%{hadrian_Cabal_ver}/Cabal-%{hadrian_Cabal_ver}.tar.gz
 
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
@@ -382,7 +377,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa},numactl-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause binary-0.8.9.3
 %ghc_lib_subpackage -d -l BSD-3-Clause bytestring-0.12.2.0
-%ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.8
+%ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.8.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.5.2.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-%{directory_ver}
 %ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.12
@@ -452,7 +447,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 
 %prep
-%setup -q -n ghc-%{version} %{?with_testsuite:-b1} -a10 -a11
+%setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 ( cd libraries/Cabal/Cabal
   cabal-tweak-dep-ver process '>= 1.6.26.2' '>= 1.6.26.1'
 )
@@ -530,11 +525,9 @@ ln -s ../libraries/file-io file-io-%{file_io_ver}
 ln -s ../libraries/directory directory-%{directory_ver}
 ln -s ../libraries/ghc-platform ghc-platform-%{ghc_platform_ver}
 ln -s ../utils/ghc-toolchain ghc-toolchain-%{ghc_toolchain_ver}
-# ln -s ../libraries/Cabal/Cabal-syntax Cabal-syntax-%%{Cabal_ver}
-# ln -s ../libraries/Cabal/Cabal Cabal-%%{Cabal_ver}
-ln -sf ../Cabal-syntax-%{hadrian_Cabal_ver} Cabal-syntax-%{hadrian_Cabal_ver}
-ln -sf ../Cabal-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
-%ghc_libs_build -H -P -W file-io-%{file_io_ver} directory-%{directory_ver} ghc-platform-%{ghc_platform_ver} ghc-toolchain-%{ghc_toolchain_ver} Cabal-syntax-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
+ln -s ../libraries/Cabal/Cabal-syntax Cabal-syntax-%{Cabal_ver}
+ln -s ../libraries/Cabal/Cabal Cabal-%{Cabal_ver}
+%ghc_libs_build -H -P -W file-io-%{file_io_ver} directory-%{directory_ver} ghc-platform-%{ghc_platform_ver} ghc-toolchain-%{ghc_toolchain_ver} Cabal-syntax-%{Cabal_ver} Cabal-%{Cabal_ver}
 %ghc_bin_build -W
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian
@@ -902,7 +895,11 @@ make test
 
 
 %changelog
-* Sat Sep 19 2026 Jens Petersen <petersen@redhat.com> - 10.0.020260917-0.1
+* Sat Nov 14 2026 Jens Petersen <petersen@redhat.com> - 10.0.0.20261109-0.2
+- 10.0 alpha2
+- https://downloads.haskell.org/ghc/10.0.1-alpha2/docs/users_guide/10.0.1-notes.html
+
+* Sat Sep 19 2026 Jens Petersen <petersen@redhat.com> - 10.0.0.20260917-0.1
 - 10.0 alpha1
 - https://downloads.haskell.org/ghc/10.0.1-alpha1/docs/users_guide/10.0.1-notes.html
 - packaging derived from ghc9.14-9.14.120260916-6.2

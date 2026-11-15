@@ -18,7 +18,11 @@ Source4:        openbgpd.tmpfilesd
 Source5:        openbgpd.sysusersd
 # Adjust path of Validated ROA Payloads (VRP) for rpki-client
 Patch0:         openbgpd-6.7p0-rpki-client.patch
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gnupg2
+%endif
 BuildRequires:  gcc
 BuildRequires:  libmnl-devel >= 1.0.4
 BuildRequires:  make
@@ -33,7 +37,7 @@ Version 4. It allows ordinary machines to be used as routers exchanging
 routes with other systems speaking the BGP protocol.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{?openpgpverify}%{!?openpgpverify:%{gpgverify}} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %patch -P0 -p1 -b .rpki-client
 touch -c -r bgpd.conf{.rpki-client,}

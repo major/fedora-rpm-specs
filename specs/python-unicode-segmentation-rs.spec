@@ -2,12 +2,12 @@
 %global srcname unicode_segmentation_rs
 
 %global common_description %{expand:
-Python bindings for the Rust unicode-segmentation and unicode-width crates.
-It provides functions to correctly split strings by words, sentences, or
-grapheme clusters according to Unicode Standard Annex #29.}
+Python bindings for the Rust unicode-segmentation, unicode-linebreak
+and unicode-width crates. It provides functions to correctly split strings by
+words, sentences, or grapheme clusters according to Unicode Standard Annex #29.}
 
 Name:           python-%{pypi_name}
-Version:        0.3.3
+Version:        1.0.0
 Release:        1%{?dist}
 Summary:        Unicode segmentation and width for Python using Rust
 
@@ -64,6 +64,10 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Wed Nov 11 2026 Manish Tiwari <matiwari@redhat.com> - 1.0.0-1
+- Update to version 1.0.0
+- https://github.com/WeblateOrg/unicode-segmentation-rs/releases#release-v1.0.0
+
 * Tue Sep 29 2026 Manish Tiwari <matiwari@redhat.com> - 0.3.3-1
 - Update to version 0.3.3 (close RHBZ#2500824)
 

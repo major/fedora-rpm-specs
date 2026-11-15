@@ -11,7 +11,11 @@ URL:            https://www.kernel.org/pub/software/network/%{name}/
 Source0:        https://www.kernel.org/pub/software/network/%{name}/%{name}-%{version}.tar.xz
 Source1:        https://www.kernel.org/pub/software/network/%{name}/%{name}-%{version}.tar.sign
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/D2CB120AB45957B721CD9596F4554567B91DE934
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openpgpverify, xz
+%else
 BuildRequires:  gnupg2, xz
+%endif
 BuildRequires:  gcc
 BuildRequires:  libappstream-glib
 BuildRequires:  libmnl-devel
@@ -24,7 +28,7 @@ port, auto-negotiation, PCI locations and checksum offload on many
 network devices, especially of Ethernet devices.
 
 %prep
-xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
+xzcat '%{SOURCE0}' | %{?openpgpverify}%{!?openpgpverify:%{gpgverify}} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup
 
 %build

@@ -1,7 +1,7 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
-Version:       2.4.1
-Release:       4%{?dist}
+Version:       2.5.1
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -61,6 +61,7 @@ Recommends: xscreensaver-base
 
 Obsoletes:      %{name}-l10n < %{version}-%{release}
 Provides:       %{name}-l10n = %{version}-%{release}
+
 %description
 %{summary}.
 
@@ -74,8 +75,10 @@ Requires: %{name} = %{version}-%{release}
 %prep
 %autosetup -S git_am
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -89,7 +92,8 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 %files -f %{name}.lang
 %{_bindir}/lxqt-panel
 %{_libdir}/lxqt-panel/
-%{_datadir}/lxqt
+%{_datadir}/lxqt/%{name}
+%{_datadir}/lxqt/panel
 %{_mandir}/man1/lxqt-panel*
 %config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-panel.desktop
 %{_datadir}/applications/lxqt-panel.desktop
@@ -101,6 +105,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 
 %changelog
+* Sat Nov 14 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.1-1
+- Update to 2.5.1
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 2.4.1-4
 - Rebuild (qt6)
 

@@ -13,6 +13,8 @@ URL:            https://crates.io/crates/ripgrep
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          ripgrep-fix-metadata-auto.diff
+# https://github.com/BurntSushi/ripgrep/pull/3501
+Patch:          0001-ci-fix-binary-discovery.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

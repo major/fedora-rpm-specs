@@ -56,7 +56,7 @@ BuildRequires:  go-rpm-macros
 BuildRequires:  go-vendor-tools
 %endif
 
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  lcms2-devel
@@ -209,7 +209,7 @@ This package contains the documentation for %{name}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -a3
 
 mkdir fonts

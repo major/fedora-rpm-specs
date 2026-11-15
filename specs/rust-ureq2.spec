@@ -41,10 +41,8 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/src/chunked/LICENSE-APACHE
 %license %{crate_instdir}/src/chunked/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/FUTURE.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/RELEASE.txt
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

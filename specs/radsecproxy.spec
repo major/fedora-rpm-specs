@@ -1,6 +1,6 @@
 Summary:        Generic RADIUS proxy with RadSec support
 Name:           radsecproxy
-Version:        1.11.4
+Version:        1.11.5
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://radsecproxy.github.io/
@@ -12,7 +12,11 @@ Source4:        %{name}.service
 Source5:        %{name}.logrotate
 Source6:        %{name}.tmpfilesd
 Source7:        %{name}.sysusersd
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gnupg2
+%endif
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  nettle-devel
@@ -29,7 +33,7 @@ The aim is for the proxy to have sufficient features to be flexible, while
 at the same time to be small, efficient and easy to configure.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{?openpgpverify}%{!?openpgpverify:%{gpgverify}} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -82,6 +86,9 @@ make check
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
 
 %changelog
+* Sat Nov 14 2026 Robert Scheck <robert@fedoraproject.org> 1.11.5-1
+- Upgrade to 1.11.5
+
 * Mon Aug 10 2026 Robert Scheck <robert@fedoraproject.org> 1.11.4-1
 - Upgrade to 1.11.4 (#2513031)
 

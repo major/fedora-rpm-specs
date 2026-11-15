@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-dbus
-Version:        1.16.2
-Release:        4%{?dist}
+Version:        1.16.4
+Release:        1%{?dist}
 Summary:        MinGW Windows port of D-Bus
 
 # The effective license of the majority of the package, including the shared
@@ -13,8 +13,6 @@ Source0:        http://dbus.freedesktop.org/releases/dbus/dbus-%{version}.tar.xz
 
 # Restore support for static libs
 Patch0:         dbus-static-libs.patch
-# Backport fix for CVE-2026-120749
-Patch1:         https://gitlab.freedesktop.org/dbus/dbus/-/commit/d1f69343c67077b85c6cf5c91f1c3b15389760c1.patch
 
 BuildArch:      noarch
 
@@ -158,6 +156,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/xml
 
 
 %changelog
+* Sat Nov 14 2026 Sandro Mani <manisandro@gmail.com> - 1.16.4-1
+- Update to 1.16.4
+
 * Fri Nov 13 2026 Sandro Mani <manisandro@gmail.com> - 1.16.2-4
 - Backport fix for CVE-2026-120749
 

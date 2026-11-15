@@ -9,8 +9,8 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 %bcond check 1
 
 Name:           kiwi
-Version:        11.1.1
-Release:        2%{?dist}
+Version:        11.1.16
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -45,6 +45,7 @@ BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 %if %{with check}
 # for tests
+BuildRequires:  python3dist(click)
 BuildRequires:  python3dist(pytest) >= 7
 %if 0%{?fedora}
 BuildRequires:  python3dist(pytest-xdist)
@@ -721,6 +722,9 @@ popd
 
 
 %changelog
+* Sat Nov 14 2026 Neal Gompa <ngompa@fedoraproject.org> - 11.1.16-1
+- Update to 11.1.16
+
 * Tue Oct 06 2026 Neal Gompa <ngompa@fedoraproject.org> - 11.1.1-2
 - Fix dep on systemdeps-stackbuild subpackage
 

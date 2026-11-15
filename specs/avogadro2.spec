@@ -174,6 +174,8 @@ chrpath -d %{buildroot}%{_bindir}/%{name}
 
 desktop-file-edit --set-key=Exec --set-value='env LD_LIBRARY_PATH=%{_libdir}/avogadro2 %{name} %f' \
  %{buildroot}%{_datadir}/applications/%{app_id}.desktop
+ 
+cp -p %{buildroot}%{_datadir}/applications/%{app_id}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 mkdir -p %{buildroot}%{_datadir}/icons/%{name}
 cp -a avogadro/icons/* %{buildroot}%{_datadir}/icons/%{name}/
@@ -206,6 +208,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 %license LICENSE
 %{_bindir}/%{name}
 %{_datadir}/applications/%{app_id}.desktop
+%{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/%{app_id}.metainfo.xml
 %{_datadir}/icons/%{name}/
 %{_datadir}/icons/hicolor/*x*/apps/%{app_id}.png

@@ -1,6 +1,6 @@
-%global gittag 1.10.2
+%global gittag 1.11.0
 Name:           tlp
-Version:        1.10.2
+Version:        1.11.0
 Release:        1%{?dist}
 Summary:        Optimize laptop battery life
 License:        GPL-2.0-or-later
@@ -62,6 +62,7 @@ Requires:       python3
 Requires:       python3-gobject
 Requires:       %{name} = %{version}-%{release}
 Provides:       power-profiles-daemon
+Conflicts:      power-profiles-daemon
 Conflicts:      tuned-ppd
 
 %description pd
@@ -171,6 +172,10 @@ fi
 
 
 %changelog
+* Sat Nov 14 2026 Sergi Jimenez <tripledes@fedoraproject.org> 1.11.0-1
+- Update to version 1.11.0
+- Declare tlp-pd conflict with power-profiles-daemon
+
 * Tue Sep 08 2026 Sergi Jimenez <tripledes@fedoraproject.org> 1.10.2-1
 - Update to version 1.10.2
 

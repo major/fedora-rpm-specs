@@ -100,7 +100,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        9.0.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -984,6 +984,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Sat Nov 14 2026 Nicolas Chauvet <kwizart@gmail.com> - 9.0.2-5
+- Rebuilt for libplacebo 7.387
+
 * Tue Nov 03 2026 Dominik Mierzejewski <dominik@greysector.net> - 9.0.2-4
 - fix build with openapv >= 1.1
 

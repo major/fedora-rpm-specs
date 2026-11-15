@@ -1,7 +1,7 @@
 Name:           lxqt-admin
 Summary:        LXQt system administration tool
-Version:        2.4.0
-Release:        2%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 License:        LGPL-2.1-only
 URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -18,6 +18,9 @@ BuildRequires:  perl-interpreter
 
 Requires:       polkit
 
+Obsoletes:      %{name}-l10n < %{version}-%{release}
+Provides:       %{name}-l10n = %{version}-%{release}
+
 %description
 This package provides tools to adjust settings of the operating system
 LXQt is running on. Both can be launched from GUI "Configuration Center".
@@ -25,18 +28,13 @@ LXQt is running on. Both can be launched from GUI "Configuration Center".
 GUI "Time and date configuration", binary lxqt-admin-time, can be used
 to adjust the system time of the operating system as well as the timezone.
 
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-admin
-Requires:       lxqt-admin
-%description l10n
-This package provides translations for the lxqt-admin package.
-
 %prep
 %autosetup -p1
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -50,24 +48,17 @@ for i in %{buildroot}%{_datadir}/applications/*.desktop; do
   desktop-file-validate "$i"
 done
 
-%files
+%files -f %{name}-user.lang -f %{name}-time.lang
 %license COPYING
 %doc AUTHORS README.md
 %{_bindir}/%{name}*
 %{_datadir}/applications/%{name}*.desktop
 %{_datadir}/polkit-1/actions/*.policy
 
-%files l10n -f lxqt-admin-user.lang -f lxqt-admin-time.lang
-%license COPYING
-%doc AUTHORS README.md
-%dir %{_datadir}/lxqt/translations/lxqt-admin-user
-%dir %{_datadir}/lxqt/translations/lxqt-admin-time
-%{_datadir}/lxqt/translations/lxqt-admin-user/lxqt-admin-user_arn.qm
-%{_datadir}/lxqt/translations/lxqt-admin-user/lxqt-admin-user_ast.qm
-%{_datadir}/lxqt/translations/lxqt-admin-time/lxqt-admin-time_arn.qm
-%{_datadir}/lxqt/translations/lxqt-admin-time/lxqt-admin-time_ast.qm
-
 %changelog
+* Sat Nov 14 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -42,6 +42,10 @@ encryption.
 # security fix for GHSA-rhx6-37mm-5q9r in F44.
 %pyproject_patch_dependency rich:set_lower:14
 
+# Update python-dateutil dependency; allow 3.x and 4.x, and lock 4.0.0
+# https://github.com/jrnl-org/jrnl/pull/2146
+%pyproject_patch_dependency python-dateutil:set_upper:5
+
 dos2unix --keepdate \
     SECURITY.md \
     docs/external-editors.md \

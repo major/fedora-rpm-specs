@@ -8,7 +8,11 @@ Source0:        https://code.zash.se/dl/luaunbound/luaunbound-%{version}.tar.gz
 Source1:        https://code.zash.se/dl/luaunbound/luaunbound-%{version}.tar.gz.asc
 Source2:        gpgkey-3E52119EF853C59678DBBF6BADED9A77B67AD329.gpg
 Requires:       lua(abi) = %{lua_version}
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gnupg2
+%endif
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  lua >= %{lua_version}
@@ -19,7 +23,7 @@ BuildRequires:  unbound-devel
 Lua bindings for the Unbound APIs.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{?openpgpverify}%{!?openpgpverify:%{gpgverify}} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n luaunbound-%{version}
 
 %build

@@ -37,9 +37,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSES/Apache-2.0.txt
 %license %{crate_instdir}/LICENSES/MIT.txt
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CLAUDE.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

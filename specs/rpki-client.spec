@@ -31,7 +31,11 @@ Source4:        %{name}.service
 Source5:        %{name}.timer
 Source6:        %{name}.service.el8
 %if !0%{?with_snapshot}
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gnupg2
+%endif
 %else
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -62,7 +66,7 @@ also as CSV or JSON objects for consumption by other routing stacks.
 
 %prep
 %if !0%{?with_snapshot}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{?openpgpverify}%{!?openpgpverify:%{gpgverify}} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %else
 %setup -q -n %{name}-portable-%{portable_commit}

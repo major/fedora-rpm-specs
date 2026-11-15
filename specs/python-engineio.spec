@@ -57,14 +57,12 @@ find examples -type f -name 'engine.io.js' -print -delete
 
 %check -a
 %pyproject_verify_license
-
 %pytest
 
 
 %files -n python3-engineio -f %{pyproject_files}
 %doc CHANGES.md
 %doc README.md
-%doc SECURITY.md
 
 
 %changelog

@@ -1,7 +1,7 @@
 Name:          lxqt-powermanagement
 Summary:       Powermanagement daemon for LXQt desktop suite
-Version:       2.4.0
-Release:       2%{?dist}
+Version:       2.5.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -9,6 +9,8 @@ Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{vers
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: desktop-file-utils
+BuildRequires: perl-interpreter
+
 BuildRequires: cmake(lxqt2-build-tools)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6LinguistTools)
@@ -19,24 +21,23 @@ BuildRequires: cmake(KF6Solid)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(lxqt)
 BuildRequires: cmake(lxqt-globalkeys)
+
 BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: perl-interpreter
+
+Obsoletes:     %{name}-l10n < %{version}-%{release}
+Provides:      %{name}-l10n = %{version}-%{release}
 
 %description
 %{summary}.
 
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-powermanagement
-Requires:       lxqt-powermanagement
-%description l10n
-This package provides translations for the lxqt-powermanagement package.
 
 %prep
 %autosetup
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -49,20 +50,17 @@ This package provides translations for the lxqt-powermanagement package.
 desktop-file-validate %{buildroot}%{_datadir}/applications/lxqt-config-powermanagement.desktop
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
-%files
+%files -f %{name}.lang -f lxqt-config-powermanagement.lang
 %{_bindir}/lxqt-powermanagement
 %{_bindir}/lxqt-config-powermanagement
 %{_datadir}/applications/lxqt-config-powermanagement.desktop
 %{_datadir}/icons/hicolor/*
 %config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-powermanagement.desktop
 
-%files l10n -f lxqt-powermanagement.lang -f lxqt-config-powermanagement.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/lxqt/translations/lxqt-powermanagement
-%dir %{_datadir}/lxqt/translations/lxqt-config-powermanagement
-
 %changelog
+* Sat Nov 14 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

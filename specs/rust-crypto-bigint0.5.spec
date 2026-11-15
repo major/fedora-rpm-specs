@@ -43,7 +43,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

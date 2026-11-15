@@ -1,21 +1,23 @@
-Summary:          Library to support IDNA2008 internationalized domain names
-Name:             libidn2
-Version:          2.3.8
-Release:          4%{?dist}
-License:          (GPL-2.0-or-later OR LGPL-3.0-or-later) AND GPL-3.0-or-later
-URL:              https://www.gnu.org/software/libidn/#libidn2
-
-Source0:          https://ftp.gnu.org/gnu/libidn/%{name}-%{version}.tar.gz
-Source1:          https://ftp.gnu.org/gnu/libidn/%{name}-%{version}.tar.gz.sig
-Source2:          https://keys.openpgp.org/vks/v1/by-fingerprint/B1D2BD1375BECB784CF4F8C4D73CF638C53C06BE
-
-BuildRequires:    gnupg2
-BuildRequires:    gcc
-BuildRequires:    make
-BuildRequires:    gettext
-BuildRequires:    libunistring-devel
-BuildRequires:    texinfo
-Provides:         bundled(gnulib)
+Summary:        Library to support IDNA2008 internationalized domain names
+Name:           libidn2
+Version:        2.3.8
+Release:        4%{?dist}
+License:        (GPL-2.0-or-later OR LGPL-3.0-or-later) AND GPL-3.0-or-later
+URL:            https://www.gnu.org/software/libidn/#libidn2
+Source0:        https://ftp.gnu.org/gnu/libidn/%{name}-%{version}.tar.gz
+Source1:        https://ftp.gnu.org/gnu/libidn/%{name}-%{version}.tar.gz.sig
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/B1D2BD1375BECB784CF4F8C4D73CF638C53C06BE
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openpgpverify
+%else
+BuildRequires:  gnupg2
+%endif
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  gettext
+BuildRequires:  libunistring-devel
+BuildRequires:  texinfo
+Provides:       bundled(gnulib)
 
 %description
 Libidn2 is an implementation of the IDNA2008 specifications in RFC
@@ -23,24 +25,24 @@ Libidn2 is an implementation of the IDNA2008 specifications in RFC
 (IDN). It is a standalone library, without any dependency on libidn.
 
 %package devel
-Summary:          Development files for libidn2
-Requires:         %{name}%{?_isa} = %{version}-%{release}, pkgconfig
+Summary:        Development files for libidn2
+Requires:       %{name}%{?_isa} = %{version}-%{release}, pkgconfig
 
 %description devel
 The libidn2-devel package contains libraries and header files for
 developing applications that use libidn2.
 
 %package -n idn2
-Summary:          IDNA2008 internationalized domain names conversion tool
-License:          GPL-3.0-or-later
-Requires:         %{name}%{?_isa} = %{version}-%{release}
+Summary:        IDNA2008 internationalized domain names conversion tool
+License:        GPL-3.0-or-later
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n idn2
 The idn2 package contains the idn2 command line tool for testing
 IDNA2008 conversions.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{?openpgpverify}%{!?openpgpverify:%{gpgverify}} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 %build

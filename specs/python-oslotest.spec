@@ -3,7 +3,7 @@
 %bcond_with bootstrap
 
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 %global pypi_name oslotest
 
 
@@ -16,7 +16,7 @@
 %global common_desc OpenStack test framework and test fixtures.
 
 Name:           python-%{pypi_name}
-Version:        6.1.1
+Version:        6.2.0
 Release:        %autorelease
 Summary:        OpenStack test framework
 

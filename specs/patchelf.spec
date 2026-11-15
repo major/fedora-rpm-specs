@@ -3,7 +3,7 @@
 
 Name:           patchelf
 Version:        0.19.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A utility for patching ELF binaries
 
 License:        GPL-3.0-or-later
@@ -18,11 +18,21 @@ BuildRequires:  automake
 BuildRequires:  coreutils
 BuildRequires:  libacl-devel
 BuildRequires:  libattr-devel
+BuildRequires:  python3-devel
 
 %description
 PatchELF is a simple utility for modifying an existing ELF executable
 or library.  It can change the dynamic loader ("ELF interpreter")
 of an executable and change the RPATH of an executable or library.
+
+%package -n python3-%{name}
+Summary:   Python package metadata for patchelf
+Requires:  %{name} = %{version}-%{release}
+BuildArch: noarch
+
+%description -n python3-patchelf
+This package registers patchelf as installed Python package for the purpose
+of using "patchelf" as a build dependency in a pyproject.toml file.
 
 %prep
 %autosetup -p1
@@ -44,6 +54,15 @@ make check || (cat tests/*.log; exit 1)
 # standard way in the docs section below
 rm -rf %{buildroot}/usr/share/doc/%{name}
 
+# Create python package metadata
+mkdir -p %{buildroot}%{python3_sitelib}/%{name}-%{version}.dist-info
+echo "rpm" > %{buildroot}%{python3_sitelib}/%{name}-%{version}.dist-info/INSTALLER
+cat > %{buildroot}%{python3_sitelib}/%{name}-%{version}.dist-info/METADATA <<_EOF
+Metadata-Version: 2.1
+Name: %{name}
+Version: %{version}
+_EOF
+
 %files
 %license COPYING
 %doc README.md
@@ -53,7 +72,13 @@ rm -rf %{buildroot}/usr/share/doc/%{name}
 %dir %{_datadir}/zsh/site-functions
 %{_datadir}/zsh/site-functions/_patchelf
 
+%files -n python3-%{name}
+%{python3_sitelib}/%{name}-%{version}.dist-info/
+
 %changelog
+* Mon Nov 09 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.19.3-2
+- Add Python package metadata
+
 * Sat Oct 31 2026 Jeremy Sanders <jeremy@jeremysanders.net> - 0.19.3-1
 - Update to v0.19.3
 - Fixes rhbz#2564374

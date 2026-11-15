@@ -1,24 +1,28 @@
 Name:          lxqt-globalkeys
 Summary:       Global keys utility for LXQt desktop suite
-Version:       2.4.0
-Release:       2%{?dist}
+Version:       2.5.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: cmake
+BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
+BuildRequires: perl-interpreter
+
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(lxqt2-build-tools)
 BuildRequires: cmake(lxqt)
-BuildRequires: desktop-file-utils
 BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: perl-interpreter
 
 Requires: dbus-x11
+
+Obsoletes:     %{name}-l10n < %{version}-%{release}
+Provides:      %{name}-l10n = %{version}-%{release}
 
 %description
 %{summary}.
@@ -30,18 +34,13 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %{summary}.
 
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-globalkeys
-Requires:       lxqt-globalkeys
-%description l10n
-This package provides translations for the lxqt-globalkeys package.
-
 %prep
 %setup -q
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -52,7 +51,7 @@ This package provides translations for the lxqt-globalkeys package.
 desktop-file-validate %{buildroot}%{_datadir}/applications/lxqt-config-globalkeyshortcuts.desktop
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}hortcuts.desktop
 
-%files
+%files -f lxqt-config-globalkeyshortcuts.lang
 %license LICENSE
 %doc AUTHORS CHANGELOG README.md
 %{_bindir}/lxqt-globalkeysd
@@ -78,14 +77,10 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}hortcuts.d
 %{_datadir}/cmake/lxqt-globalkeys/*
 %{_datadir}/cmake/lxqt-globalkeys-ui/*
 
-%files l10n -f lxqt-config-globalkeyshortcuts.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/lxqt/translations/lxqt-config-globalkeyshortcuts
-%{_datadir}/lxqt/translations/lxqt-config-globalkeyshortcuts/lxqt-config-globalkeyshortcuts_ast.qm
-%{_datadir}/lxqt/translations/lxqt-config-globalkeyshortcuts/lxqt-config-globalkeyshortcuts_arn.qm
-
 %changelog
+* Sat Nov 14 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

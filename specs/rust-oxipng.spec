@@ -64,7 +64,6 @@ License:        %{shrink:
 %doc CHANGELOG.md
 %doc MANUAL.txt
 %doc README.md
-%doc SECURITY.md
 %{_bindir}/oxipng
 %{_mandir}/man1/oxipng.1*
 
@@ -82,7 +81,6 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/MANUAL.txt
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/SECURITY.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

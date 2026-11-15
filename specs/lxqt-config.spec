@@ -1,7 +1,7 @@
 Name:          lxqt-config
 Summary:       Config tools for LXQt desktop suite
-Version:       2.4.0
-Release:       2%{?dist}
+Version:       2.5.1
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -17,6 +17,7 @@ BuildRequires: cmake(KF6Screen)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(lxqt)
 BuildRequires: cmake(lxqt-menu-data)
+BuildRequires: cmake(Qt6GuiPrivate)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(zlib)
 
@@ -28,16 +29,12 @@ BuildRequires: pkgconfig(xi)
 BuildRequires: pkgconfig(xorg-libinput)
 BuildRequires: pkgconfig(x11)
 
+Obsoletes:     %{name}-l10n < %{version}-%{release}
+Provides:      %{name}-l10n = %{version}-%{release}
 
 %description
 %{summary}.
 
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-config
-Requires:       lxqt-config
-%description l10n
-This package provides translations for the lxqt-config package.
 
 %prep
 %autosetup -S git_am
@@ -76,7 +73,7 @@ fi
 done
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-%files
+%files -f %{name}.lang -f %{name}-appearance.lang -f %{name}-brightness.lang -f %{name}-cursor.lang -f %{name}-file-associations.lang -f %{name}-input.lang -f %{name}-locale.lang -f %{name}-monitor.lang
 %license LICENSE
 %doc AUTHORS CHANGELOG README.md
 %{_bindir}/lxqt-config
@@ -100,18 +97,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/lxqt/icons/*
 %{_mandir}/man1/lxqt-config*
 
-%files l10n -f lxqt-config.lang -f lxqt-config-appearance.lang -f lxqt-config-brightness.lang -f lxqt-config-cursor.lang -f lxqt-config-file-associations.lang -f lxqt-config-input.lang -f lxqt-config-locale.lang -f lxqt-config-monitor.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/lxqt/translations/lxqt-config
-%dir %{_datadir}/lxqt/translations/lxqt-config-appearance
-%dir %{_datadir}/lxqt/translations/lxqt-config-brightness
-%dir %{_datadir}/lxqt/translations/lxqt-config-cursor
-%dir %{_datadir}/lxqt/translations/lxqt-config-file-associations
-%dir %{_datadir}/lxqt/translations/lxqt-config-input
-%dir %{_datadir}/lxqt/translations/lxqt-config-locale
-
 %changelog
+* Sat Nov 14 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.1-1
+- Update to 2.5.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

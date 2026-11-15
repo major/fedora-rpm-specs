@@ -1,7 +1,7 @@
 Name:          lxqt-policykit
 Summary:       PolicyKit agent for LXQt desktop suite
-Version:       2.4.0
-Release:       2%{?dist}
+Version:       2.5.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -9,34 +9,35 @@ Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{vers
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
+BuildRequires: perl-interpreter
+
 BuildRequires: cmake(PolkitQt6-1)
-BuildRequires: pkgconfig(polkit-agent-1)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(lxqt2-build-tools)
 BuildRequires: cmake(lxqt)
-BuildRequires: desktop-file-utils
-BuildRequires: perl-interpreter
+
+BuildRequires: pkgconfig(polkit-agent-1)
+
+Obsoletes:     %{name}-l10n < %{version}-%{release}
+Provides:      %{name}-l10n = %{version}-%{release}
+
 
 Provides: PolicyKit-authentication-agent = %{version}
 
 %description
 %{summary}.
 
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-policykit
-Requires:       lxqt-policykit
-%description l10n
-This package provides translations for the lxqt-policykit package.
 
 %prep
-%setup -q
+%autosetup -p1
 sed -i 's|=lxqt-policykit-agent|=/usr/libexec/lxqt-policykit-agent|g' autostart/lxqt-policykit-agent.desktop.in
 
-%build
+%conf
 %cmake \
     -DPOLKIT_AGENT_BINARY_DIR=%{_libexecdir}
+
+%build
 %cmake_build
 
 %install
@@ -47,20 +48,18 @@ install -d %{buildroot}/%{_sysconfdir}/xdg/autostart
 %check
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}-agent.desktop
 
-%files
+%files -f %{name}-agent.lang
 %license LICENSE
 %doc AUTHORS CHANGELOG README.md
 %{_libexecdir}/lxqt-policykit-agent
 %config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-policykit-agent.desktop
-%{_datadir}/lxqt/translations/%{name}-agent
 %{_mandir}/man1/lxqt-policykit*
 
-%files l10n -f lxqt-policykit-agent.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/lxqt/translations/lxqt-policykit-agent
 
 %changelog
+* Sat Nov 14 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

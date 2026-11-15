@@ -1,7 +1,7 @@
 Name:          lxqt-about
 Summary:       About application for LXQt desktop suite
-Version:       2.4.0
-Release:       2%{?dist}
+Version:       2.5.0
+Release:       1%{?dist}
 License:       Apache-2.0 and GPL-2.0-only and GPL-3.0-only and LGPL-2.0-or-later and LGPL-2.1-only and LGPL-2.1-or-later and LGPL-3.0-only and MIT
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -18,15 +18,11 @@ BuildRequires: cmake(Qt6LinguistTools)
 
 BuildRequires: pkgconfig(glib-2.0)
 
+Obsoletes:     %{name}-l10n < %{version}-%{release}
+Provides:      %{name}-l10n = %{version}-%{release}
+
 %description
 %{summary}.
-
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-about
-Requires:       lxqt-about
-%description l10n
-This package provides translations for the lxqt-about package.
 
 %prep
 %autosetup
@@ -39,24 +35,23 @@ This package provides translations for the lxqt-about package.
 
 %install
 %cmake_install
+
 %find_lang %{name} --with-qt
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-%files
+%files -f %{name}.lang
 %doc COPYING
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/lxqt-about.svg
 
 
-%files l10n -f %{name}.lang
-%license COPYING
-%doc AUTHORS README.md
-%dir %{_datadir}/lxqt/translations/%{name}
-
 %changelog
+* Sat Nov 14 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-3
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

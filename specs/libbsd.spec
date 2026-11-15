@@ -14,7 +14,11 @@ Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/4F3E74F436050C10F
 Source3:        libbsd-cdefs.h
 
 BuildRequires:  gcc
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gnupg2
+%endif
 BuildRequires:  libmd-devel
 BuildRequires:  make
 
@@ -45,7 +49,7 @@ configured using "pkg-config --libs libbsd-ctor".
 
 %prep
 %setup -q
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{?openpgpverify}%{!?openpgpverify:%{gpgverify}} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %build
 %configure

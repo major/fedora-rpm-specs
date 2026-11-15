@@ -5,7 +5,7 @@
 %global crate smol_str
 
 Name:           rust-smol_str
-Version:        0.3.6
+Version:        0.3.7
 Release:        %autorelease
 Summary:        Small-string optimized string type with O(1) clone
 

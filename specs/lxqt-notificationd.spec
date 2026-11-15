@@ -1,39 +1,39 @@
 Name:          lxqt-notificationd
 Summary:       Notification daemon for LXQt desktop suite
-Version:       2.4.0
-Release:       2%{?dist}
+Version:       2.5.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:       notifications.conf
 
 BuildRequires: cmake
+BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
+BuildRequires: perl-interpreter
+
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(lxqt2-build-tools)
 BuildRequires: cmake(LayerShellQt)
 BuildRequires: cmake(lxqt)
-BuildRequires: desktop-file-utils
+
 BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: perl-interpreter
+
+Obsoletes:     %{name}-l10n < %{version}-%{release}
+Provides:      %{name}-l10n = %{version}-%{release}
 
 %description
 %{summary}.
 
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-notificationd
-Requires:       lxqt-notificationd
-%description l10n
-This package provides translations for the lxqt-notificationd package.
-
 %prep
 %autosetup
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -49,24 +49,17 @@ install -m644 %{SOURCE1} %{buildroot}%{_sysconfdir}/lxqt/
 desktop-file-validate %{buildroot}%{_datadir}/applications/lxqt-config-notificationd.desktop
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/lxqt-notifications.desktop
 
-%files
+%files -f %{name}.lang -f lxqt-config-notificationd.lang
 %{_bindir}/lxqt-notificationd
 %{_bindir}/lxqt-config-notificationd
 %{_datadir}/applications/lxqt-config-notificationd.desktop
 %config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-notifications.desktop
 %config(noreplace) %{_sysconfdir}/lxqt/notifications.conf
 
-%files l10n -f lxqt-notificationd.lang -f lxqt-config-notificationd.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/lxqt/translations/lxqt-notificationd
-%{_datadir}/lxqt/translations/lxqt-notificationd/lxqt-notificationd_arn.qm
-%{_datadir}/lxqt/translations/lxqt-notificationd/lxqt-notificationd_ast.qm
-%dir %{_datadir}/lxqt/translations/lxqt-config-notificationd
-%{_datadir}/lxqt/translations/lxqt-config-notificationd/lxqt-config-notificationd_arn.qm
-%{_datadir}/lxqt/translations/lxqt-config-notificationd/lxqt-config-notificationd_ast.qm
-
 %changelog
+* Sat Nov 14 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

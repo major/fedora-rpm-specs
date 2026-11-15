@@ -8,7 +8,11 @@ URL:            https://www.hadrons.org/software/libmd/
 Source0:        https://libbsd.freedesktop.org/releases/%{name}-%{version}.tar.xz
 Source1:        https://libbsd.freedesktop.org/releases/%{name}-%{version}.tar.xz.asc
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/4F3E74F436050C10F5696574B972BF3EA4AE57A3
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gnupg2
+%endif
 BuildRequires:  gcc
 BuildRequires:  make
 
@@ -27,7 +31,7 @@ The libmd-devel package includes header files and libraries necessary
 for developing programs which use the message digest library.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{?openpgpverify}%{!?openpgpverify:%{gpgverify}} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 %build

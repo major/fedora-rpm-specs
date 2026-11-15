@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           python-humanize
-Version:        4.16.0
+Version:        4.17.0
 Release:        %autorelease
 Summary:        Turns dates in to human readable format, e.g '3 minutes ago'
 
@@ -11,6 +11,7 @@ Source0:        %{pypi_source humanize}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  babel
 
 
 %global _description %{expand:
@@ -37,8 +38,8 @@ for lib in src/humanize/filesize.py; do
  touch -r $lib $lib.new && mv $lib.new $lib
 done
 
-# Remove .po files
-find -name '*.po' -delete
+# Remove prebuilt translations, regenerated in %%build
+find -name '*.mo' -delete
 
 %pyproject_patch_dependency pytest-codspeed:ignore
 %pyproject_patch_dependency pytest-cov:ignore
@@ -52,6 +53,9 @@ sed -Ei 's/ ?--cov(-[^ ]+)? +[^ ]+//g' tox.ini
 
 
 %build
+pybabel --quiet compile --directory src/humanize/locale --domain humanize
+# Ship only the compiled catalogs
+find -name '*.po' -delete
 %pyproject_wheel
 
 
@@ -62,7 +66,7 @@ sed -Ei 's/ ?--cov(-[^ ]+)? +[^ ]+//g' tox.ini
 
 %if %{with check}
 %check
-%tox
+%pytest
 %endif
 
 

@@ -2,8 +2,8 @@
 %global summary Coded METAR and SPECI weather reports parser for Python
 
 Name: python-%{srcname}
-Version: 2.0.1
-Release: 4%{?dist}
+Version: 2.0.2
+Release: 1%{?dist}
 Summary: %{summary}
 
 # This software uses the BSD-Source-Code license
@@ -49,6 +49,8 @@ BuildRequires: python3-devel python3-pytest
 
 %package -n python3-%{srcname}
 Summary: %{summary}
+%{?python_provide:%python_provide python-%{srcname}}
+
 # This was briefly wrongly packaged as such:
 Obsoletes: python-%{srcname} < 2.0.1-3
 
@@ -87,6 +89,9 @@ chmod 644 sample.py
 
 
 %changelog
+* Sat Nov 14 2026 Jos de Kloe <josdekloe@gmail.com> 2.0.2-1
+- update to new upstream version 2.0.2
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

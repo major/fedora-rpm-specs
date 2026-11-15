@@ -1,23 +1,26 @@
-%global blender_api 5.2
-%global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
+%global blender_api 5.3
+%global macrosdir %{_rpmconfigdir}/macros.d
 %global _without_bundled_deps 1
 # current dies in debuginfo exceed the distro wide 50000000 and the x86_64 110000000
 %global _dwz_max_die_limit             200000000
 %global _dwz_max_die_limit_x86_64      200000000
-
 
 # Build conditionals
 %bcond clang      0   # Enable Blender's Clang library integration
 %bcond draco      1   # Draco mesh compression support
 %bcond fribidi    1   # Fribidi support
 %bcond harfbuzz   1   # Harfbuzz support
+%bcond jolt       0   # Jolt Physics support
+%bcond ktx        0   # KTX Software support
 %bcond llvm       0   # Enable Blender's optional LLVM integration
 %bcond manifold   1   # Manifold support
 %bcond manpage    1   # Generate manpage
 %bcond materialx  1   # MaterialX support
 %bcond meshoptimizer 1 # Meshoptimizer support
-%bcond nanovdb    1   # NanoVDB support
 %bcond openvdb    1   # OpenVDB support
+%bcond nanovdb    %{with openvdb} # NanoVDB support
+# OpenTimelineIO 0.17 lacks the API required by Blender 5.3.
+%bcond otio       0   # OpenTimelineIO import/export support
 %bcond vulkan     1   # Vulkan rendering support
 
 %if %{with clang} && %{without llvm}
@@ -46,7 +49,7 @@
 # GPU kernel generation and OSL/path-guiding support are currently x86_64-only.
 %ifarch x86_64
 %bcond hip 1
-%bcond hiprt 1
+%bcond hiprt %{with hip}
 %bcond oidn 1
 # Blender requires a SYCL compiler in addition to Level Zero. The Fedora
 # buildroot currently lacks the required SYCL toolchain.
@@ -67,9 +70,13 @@
 %{error:HIPRT requires HIP; use --without hiprt together with --without hip}
 %endif
 
+%if %{with nanovdb} && %{without openvdb}
+%{error:NanoVDB requires OpenVDB; use --without nanovdb together with --without openvdb}
+%endif
+
 Name:           blender
 Epoch:          1
-Version:        5.2.3
+Version:        5.3.0
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production
@@ -92,24 +99,29 @@ Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 # Custom RPM macros
 Source1:        %{name}-macros-source
 
-# Backport support for FFmpeg 9
-Patch0:         https://github.com/blender/blender/commit/e3c92c22817dc0310a460c22f6b1e8e397517e3b.patch#/blender-ffmpeg9.patch
-
 # Adapt Cycles logging to the system HIPRT API
-Patch1:         blender-hiprt-log-level-upstream.patch
+Patch1:         %{name}-hiprt-log-level-upstream.patch
 
-# Temporary workaround for the SPIRV-Tools shader optimization crash.
-Patch2:         blender-vulkan-disable-shaderc-optimization.patch
+%if 0%{?fedora} < 45
+# Keep the bundled configuration compatible with OpenColorIO 2.4.x.
+Patch2:         %{name}-ocio24-config.patch
+%endif
 
 # versions.cmake pins the libraries used for Blender's official precompiled
 # dependency bundle. Those pins are tested versions, not general minimums for
 # system libraries. Version constraints below are limited to requirements that
-# Blender 5.2's CMake files enforce directly, plus its embedded-Python ABI
+# Blender 5.3's CMake files enforce directly, plus its embedded-Python ABI
 # baseline.
-# https://projects.blender.org/blender/blender/src/branch/blender-v5.2-release/build_files/build_environment/cmake/versions.cmake
-# https://projects.blender.org/blender/blender/src/branch/blender-v5.2-release/CMakeLists.txt
+# https://projects.blender.org/blender/blender/src/branch/blender-v5.3-release/build_files/build_environment/cmake/versions.cmake
+# https://projects.blender.org/blender/blender/src/branch/blender-v5.3-release/CMakeLists.txt
 
 # Build requirements
+%if %{with jolt}
+BuildRequires:  cmake(Jolt)
+%endif
+%if %{with ktx}
+BuildRequires:  cmake(Ktx) >= 4.4.2
+%endif
 BuildRequires:  cmake >= 3.21
 BuildRequires:  desktop-file-utils
 BuildRequires:  fdupes
@@ -148,6 +160,7 @@ BuildRequires:  pkgconfig(python3) >= 3.13
 %if %{with vulkan}
 BuildRequires:  pkgconfig(shaderc)
 BuildRequires:  pkgconfig(vulkan)
+BuildRequires:  pkgconfig(SPIRV-Headers)
 %endif
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(wayland-client)
@@ -288,7 +301,10 @@ BuildRequires:  openshadinglanguage-common-headers >= 1.13.4
 BuildRequires:  pkgconfig(oslcomp) >= 1.13.4
 %endif
 %if %{with oidn}
-BuildRequires:  cmake(OpenImageDenoise)
+BuildRequires:  cmake(OpenImageDenoise) >= 2.5.1
+%if %{with hip}
+BuildRequires:  oidn-libs-hip
+%endif
 %endif
 %if %{with opgl}
 BuildRequires:  openpgl-devel
@@ -330,11 +346,15 @@ BuildRequires:  pkgconfig(openjph)
 BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(thorvg-1)
 BuildRequires:  pkgconfig(vpx)
-# Blender 5.2 explicitly requires OpenColorIO 2.0 or newer.
-BuildRequires:  cmake(OpenColorIO) >= 2.0.0
 BuildRequires:  cmake(Imath)
+# Blender 5.3 requires OpenColorIO 2.3 or newer.
+BuildRequires:  cmake(OpenColorIO) >= 2.3.0
 BuildRequires:  cmake(OpenEXR)
 BuildRequires:  cmake(OpenImageIO) > 3.0
+%if %{with otio}
+# Requires an OTIO revision compatible with Blender 5.3, not Fedora 0.17.
+BuildRequires:  cmake(OpenTimelineIO)
+%endif
 BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:  potrace-devel
@@ -387,6 +407,10 @@ BuildRequires:  pkgconfig(vpl)
 %endif
 
 Requires:       hicolor-icon-theme
+# HIP backend of OIDN
+%if %{with oidn} && %{with hip}
+Requires:       oidn-libs-hip%{?_isa}
+%endif
 %if %{with hip} && %{with hiprt}
 # Cycles' Linux HIPRT availability check loads libamdhip64.so.
 Requires:       rocm-hip-devel%{?_isa}
@@ -420,19 +444,11 @@ rm -f build_files/cmake/Modules/FindOpenJPEG.cmake
 sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
         build_files/cmake/platform/platform_unix.cmake
 
-# Fix clog format
-# Incorrect format from upstream 5.1 branch
-# https://projects.blender.org/blender/blender/src/commit/b70da489d7f4eae7760cc0a50cc6c60cd5464205/source/blender/gpu/vulkan/vk_texture_pool.cc#L559
-#
-# Correct format from upstream main branch
-# https://projects.blender.org/blender/blender/src/commit/402799c1d9706b1bced1008680ceace9a8434c68/source/blender/gpu/vulkan/vk_texture_pool.cc#L558
-sed -i 's/CLOG_TRACE(&LOG, log_message\.c_str());/CLOG_TRACE(\&LOG, "%s", log_message.c_str());/' \
-        source/blender/gpu/vulkan/vk_texture_pool.cc
-
 %build
 %if %{with hip}
-export HIP_PATH=$(hipconfig -p)
-export HIP_CLANG_PATH=$(hipconfig -l)
+HIP_PATH=$(hipconfig -p)
+HIP_CLANG_PATH=$(hipconfig -l)
+export HIP_PATH HIP_CLANG_PATH
 %endif
 
 # Non-portable installs do not install Blender's CPU-check helper. Blender's
@@ -448,6 +464,7 @@ export HIP_CLANG_PATH=$(hipconfig -l)
     -DWITH_COMPILER_CCACHE=OFF \
     -DWITH_CLANG=%{with clang} \
     -DWITH_CYCLES=%{cyclesflag} \
+    -DWITH_EMBREE=%{with embree} \
     -DWITH_CYCLES_EMBREE=%{with embree} \
     -DWITH_CYCLES_DEVICE_CUDA=OFF \
     -DWITH_CYCLES_DEVICE_OPTIX=OFF \
@@ -462,11 +479,14 @@ export HIP_CLANG_PATH=$(hipconfig -l)
     -DWITH_DRACO=%{with draco} \
     -DWITH_CPU_CHECK=OFF \
     -DWITH_INSTALL_PORTABLE=OFF \
+    -DWITH_JOLT=%{with jolt} \
+    -DWITH_KTX=%{with ktx} \
     -DWITH_LLVM=%{with llvm} \
     -DWITH_MANIFOLD=%{with manifold} \
     -DWITH_MESHOPTIMIZER=%{with meshoptimizer} \
     -DWITH_NANOVDB=%{with nanovdb} \
     -DWITH_OPENIMAGEDENOISE=%{with oidn} \
+    -DWITH_OPENTIMELINEIO=%{with otio} \
     -DWITH_OPENVDB=%{with openvdb} \
     -DWITH_OPENVDB_BLOSC=%{with openvdb} \
     -DWITH_PYTHON_INSTALL=OFF \

@@ -6,16 +6,20 @@
 #
 # Historically, this package “built like” a NodeJS package, with a
 # dev-dependency bundle from NPM that we used to transpile the original
-# TypeScript sources to C downstream. Since 9.3.0, it is no longer practical to
-# re-generate the C sources from Typescript without using pre-compiled esbuild
-# executables from NPM, so we use the upstream “release” tarball with
-# pre-generated C source and header files included.
-#
-# That allows this package to be built without running the NodeJS/Typescript
-# machinery in the build (via a large “dev” dependency bundle. However, this
-# release archive lacks the original TypeScript source code for the generated C
-# code, so we need to include this in an additional source. For details, see:
+# TypeScript sources to C downstream. We stopped doing this with release 9.3.0
+# since this would have required using a pre-compiled esbuild executable from
+# NPM, which would not have been acceptable. Instead, we use the upstream
+# “release” tarball with pre-generated C source and header files included.
+# This release archive lacks the original TypeScript source code for the
+# generated C code, so we need to include it in an additional source. For
+# details, see:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/what-can-be-packaged/#pregenerated-code
+#
+# Now that nodejs-esbuild is packaged, we could consider using it, but the
+# complexity of switching back to this approach and properly auditing and
+# handling the dev-dependency bundle is unpleasant enough that we plan to keep
+# using the upstream “release” tarball with pre-generated C source and header
+# files included.
 
 # This package is a dependency of libgit2 which in turn is one of rpmautospec.
 # When upgrading to a version with a new soname, this package needs to provide
@@ -24,7 +28,7 @@
 %bcond bootstrap 0
 
 Name:           llhttp
-Version:        9.4.2
+Version:        9.4.4
 %global so_version 9.4
 %global previous_so_version 9.3
 Release:        %autorelease

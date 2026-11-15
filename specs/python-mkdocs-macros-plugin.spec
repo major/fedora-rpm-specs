@@ -1,8 +1,10 @@
-%bcond tests 1
+# Tests hit the network (PyPI) and depend on d2/material rendering;
+# unreliable in a build root. Enable with --with tests.
+%bcond_with tests
 %global forgeurl https://github.com/fralau/mkdocs-macros-plugin
 
 Name:           python-mkdocs-macros-plugin
-Version:        1.3.7
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Unleash the power of MkDocs with macros and variables
 
@@ -10,15 +12,25 @@ License:        MIT
 URL:            https://mkdocs-macros-plugin.readthedocs.io
 # PyPI tarball is missing test artifacts
 Source:         %{forgeurl}/archive/v%{version}/mkdocs-macros-plugin-%{version}.tar.gz
-# Assume D2 is installed instead of shelling out to brew
-Patch:          mkdocs-macros-plugin-assume-d2-installed.patch
+# Drop shebang from library module (fixes rpmlint non-executable-script).
+Patch:          mkdocs-macros-plugin-no-shebang-util.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-hjson
+BuildRequires:  python3-jinja2
+BuildRequires:  python3-requests
+BuildRequires:  python3-termcolor
+BuildRequires:  mkdocs
 %if %{with tests}
 BuildRequires:  d2
-BuildRequires:  python3dist(rich)
-BuildRequires:  python3dist(pytest)
+BuildRequires:  mkdocs
+BuildRequires:  mkdocs-material
+BuildRequires:  python3-mkdocs-d2-plugin
+BuildRequires:  python3-mkdocs-include-markdown-plugin
+BuildRequires:  python3-mkdocs-macros-test
+BuildRequires:  python3-mkdocs-test
+BuildRequires:  python3-pytest
 %endif
 
 %global _description %{expand:
@@ -68,7 +80,7 @@ rm -r %{buildroot}%{python3_sitelib}/test/
 %endif
 
 %files -n python3-mkdocs-macros-plugin -f %{pyproject_files}
-%doc README.md CHANGELOG.md logo.png macros_info.png
+%doc README.md CHANGELOG.md
 
 %changelog
 %autochangelog

@@ -21,7 +21,11 @@ BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-binutils
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gnupg2
+%endif
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  pkgconfig
@@ -73,7 +77,7 @@ Static version of the MinGW Windows IDN 2008 library.
 %?mingw_debug_package
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{?openpgpverify}%{!?openpgpverify:%{gpgverify}} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n libidn2-%{version}
 
 %build

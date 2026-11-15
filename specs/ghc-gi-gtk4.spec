@@ -10,10 +10,29 @@
 
 %global subpkgs %{gigraphene} %{gigsk}
 
+%{lua:
+local f = io.open(rpm.expand("%{_libdir}/pkgconfig/gtk4.pc"), "r")
+if f then
+  local content = f:read("*a")
+  f:close()
+  local ver = content:match("\nVersion:%s*([%d%.]+)")
+  local maj, min = (ver or ""):match("^(%d+)%.(%d+)")
+  if maj and min then
+    local min_n = tonumber(min)
+    -- for even stable release: only allow 4.X
+    -- for odd devel release: also allow 4.(X+1)
+    local upper_min = (min_n % 2 == 1) and (min_n + 2) or (min_n + 1)
+    local lower_ver = (min_n % 2 == 1) and ver or (maj .. "." .. min)
+    rpm.define("gtk4_lower " .. lower_ver)
+    rpm.define("gtk4_upper " .. maj .. "." .. upper_min)
+  end
+end
+}
+
 Name:           ghc-%{pkg_name}
 Version:        4.0.12
 # can only be reset when all subpkgs bumped
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Gtk 4.x bindings
 
 License:        LGPL-2.1-only
@@ -80,6 +99,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 # Begin cabal-rpm deps:
 Requires:       pkgconfig(gtk4)
 # End cabal-rpm deps
+%if %{defined gtk4_lower}
+Requires:       (gtk4-devel >= %{gtk4_lower} with gtk4-devel < %{gtk4_upper})
+%endif
 
 %description devel
 This package provides the Haskell %{pkg_name} library development files.
@@ -159,6 +181,9 @@ This package provides the Haskell %{pkg_name} profiling library.
 
 
 %changelog
+* Sat Nov 14 2026 Jens Petersen <petersen@redhat.com> - 4.0.12-6
+- add gtk4 dependency bounds for current version series with LUA (#2503913)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

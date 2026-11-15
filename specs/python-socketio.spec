@@ -65,7 +65,6 @@ ignore="${ignore-} --ignore=tests/async/test_admin.py"
 %files -n python3-socketio -f %{pyproject_files}
 %doc CHANGES.md
 %doc README.md
-%doc SECURITY.md
 
 
 %changelog

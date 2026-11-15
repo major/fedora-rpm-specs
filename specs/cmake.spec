@@ -70,11 +70,11 @@
 %{!?_vpath_builddir:%global _vpath_builddir %{_target_platform}}
 
 %global major_version 4
-%global minor_version 3
-%global patch_version 0
+%global minor_version 4
+%global patch_version 3
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 7
+%global baserelease 1
 
 # Set to RC version if building RC, else comment out.
 #%%global rcsuf rc3
@@ -115,12 +115,6 @@ Source6:        %{name}.req
 # Always start regular patches with numbers >= 100.
 # We need lower numbers for patches in compat package.
 # And this enables us to use %%autosetup
-#
-# Patch to fix RindRuby vendor settings
-# http://public.kitware.com/Bug/view.php?id=12965
-# https://bugzilla.redhat.com/show_bug.cgi?id=822796
-# TODO: Find better wat to handle this
-Patch100:       %{name}-findruby.patch
 
 # TODO: Remove this patch
 # Patch for renaming on EPEL
@@ -520,10 +514,6 @@ pushd %{_vpath_builddir}
 NO_TEST="CTestTestUpload"
 # Likely failing for hardening flags from system.
 NO_TEST="$NO_TEST|CustomCommand|RunCMake.PositionIndependentCode"
-# Failing for rpm 4.19
-NO_TEST="$NO_TEST|CPackComponentsForAll-RPM-default"
-NO_TEST="$NO_TEST|CPackComponentsForAll-RPM-OnePackPerGroup"
-NO_TEST="$NO_TEST|CPackComponentsForAll-RPM-AllInOne"
 # curl test may fail during bootstrap
 %if %{with bootstrap}
 NO_TEST="$NO_TEST|curl"
@@ -641,6 +631,9 @@ popd
 
 
 %changelog
+* Wed Nov 11 2026 Cristian Le <fedora@lecris.me> - 4.4.3-1
+- Update to 4.4.3 (rhbz#2452239)
+
 * Thu Oct 29 2026 Miro Hrončok <miro@hroncok.cz> - 4.3.0-7
 - FindPython: Add Python 3.16 to the list of hardcoded Python versions
 

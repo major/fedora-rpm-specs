@@ -4,10 +4,10 @@ Release:        %autorelease
 Summary:        OMEMO Double Ratchet
 
 License:        GPL-3.0-or-later AND BSD-3-Clause
-URL:            https://pypi.org/project/omemo-dr/
+URL:            https://gitlab.com/gajim/omemo-dr
 # Need sources with protobuf source files which are
 # not included in the PyPI archive
-Source:         https://dev.gajim.org/gajim/omemo-dr/-/archive/v%{version}/omemo-dr-v%{version}.tar.gz
+Source:         https://gitlab.com/gajim/omemo-dr/-/archive/v%{version}/omemo-dr-v%{version}.tar.gz
 
 # Regenerate protoc files
 BuildRequires:  protobuf-compiler
@@ -35,19 +35,17 @@ receiving messages.}
 %package -n     python3-omemo-dr
 Summary:        %{summary}
 
-
 %description -n python3-omemo-dr %_description
-
-
 
 %prep
 %autosetup -p1 -n omemo-dr-v%{version}
+%if 0%{?fedora} && 0%{?fedora} <= 44
 # Relax protobuf version dependency
 sed -i "s/protobuf>=4.21.0/protobuf/g" pyproject.toml
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires
-
 
 %build
 # Regenerate protobuf files
@@ -56,11 +54,9 @@ protoc -I=src/omemo_dr/protobuf --python_out=src/omemo_dr/state storage.proto
 
 %pyproject_wheel
 
-
 %install
 %pyproject_install
 %pyproject_save_files -l omemo_dr
-
 
 %check
 %pyproject_check_import

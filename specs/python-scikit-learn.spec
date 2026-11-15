@@ -64,8 +64,8 @@ sed -i -e 's|scipy>=1.10.0,<1.17.0|scipy|' pyproject.toml
 # EPEL 10 has Cython 3.0.9, and the only reason Cython 3.0.10
 # is required upstream is for Windows, see
 # https://github.com/scikit-learn/scikit-learn/pull/28743
-sed -i -e 's|cython>=3.1.2|cython>=3.0.9|' pyproject.toml
-sed -i -e 's|CYTHON_MIN_VERSION = "3.1.2"|CYTHON_MIN_VERSION = "3.0.9"|' sklearn/_min_dependencies.py
+sed -i -e 's|cython>=3\.[0-9.]*,<3\.[0-9.]*|cython>=3.0.9|g' pyproject.toml
+sed -i -e 's|CYTHON_MIN_VERSION = "3\.[0-9.]*"|CYTHON_MIN_VERSION = "3.0.9"|' sklearn/_min_dependencies.py
 find sklearn/metrics/_dist_metrics.pyx.tp -type f | xargs sed -i 's/cdef inline {{INPUT_DTYPE_t}} rdist/cdef {{INPUT_DTYPE_t}} rdist/g'
 # Remove upper bound on meson-python version; weirdly, this is in the PyPI
 # sdist but not in git.
