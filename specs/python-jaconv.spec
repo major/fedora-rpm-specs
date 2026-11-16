@@ -41,7 +41,7 @@ Summary:        %{summary}
 %install
 %pyproject_install
 
-rm -f %{buildroot}/usr/CHANGES.rst %{buildroot}/usr/README.rst
+rm -f %{buildroot}%{_prefix}/CHANGES.rst %{buildroot}%{_prefix}/README.rst
 %pyproject_save_files -l jaconv -l
 
 %check

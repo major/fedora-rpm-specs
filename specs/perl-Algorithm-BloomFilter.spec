@@ -8,7 +8,11 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Algorithm-BloomFilter
 Source0:        https://cpan.metacpan.org/authors/id/S/SM/SMUELLER/Algorithm-BloomFilter-%{version}.tar.gz
 
+# Starting with version 0.03, t/02_security.t fails on i686
+# See CPAN-RT #182181 and BRC #2548912
+ExcludeArch:    %{ix86}
 # build requirements
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  perl-devel
@@ -46,8 +50,9 @@ This module implements a simple bloom filter in C/XS.
 %{_mandir}/man3/Algorithm*
 
 %changelog
-* Sun Oct 11 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.03-1
+* Sun Nov 15 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 0.03-1
 - Update to 0.03
+- Exclude ix86 arch due to build failures
 
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.02-24
 - Perl 5.44 rebuild

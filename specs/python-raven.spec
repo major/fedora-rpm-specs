@@ -1,18 +1,16 @@
 Name:           python-raven
 
 Version:        6.10.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Python client for Sentry
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/raven/
 Source0:        https://files.pythonhosted.org/packages/source/r/raven/raven-%{version}.tar.gz
 Patch0:         raven-use-system-cacert.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 #needed for check:
 #BuildRequires:  python3-contextlib2
 #BuildRequires:  python3-flask-login
@@ -33,7 +31,6 @@ application.
 
 %package -n python3-raven
 Summary:        Python client for Sentry
-%{?python_provide:%python_provide python3-raven}
 
 %description -n python3-raven
 Raven is a Python client for Sentry <http://getsentry.com>. It provides full
@@ -41,7 +38,7 @@ out-of-the-box support for many of the popular frameworks, including Django,
 and Flask. Raven also includes drop-in support for any WSGI-compatible web
 application.
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-raven -i %{python3_sitelib}/*.egg-info flask}
+%pyproject_extras_subpkg -n python3-raven flask
 
 %prep
 %setup -q -n raven-%{version}
@@ -50,11 +47,14 @@ application.
 rm raven/data/cacert.pem
 rmdir raven/data
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 %install
-%{__python3} setup.py install --skip-build --root=%{buildroot}
+%pyproject_install
 
 %check
 #Disable check for now because of missing dependency pytest-timeout
@@ -67,6 +67,9 @@ rmdir raven/data
 %{python3_sitelib}/*
 
 %changelog
+* Sun Nov 15 2026 Filipe Rosset <rosset.filipe@gmail.com> - 6.10.0-32
+- Use pyproject build macros, fix license tag to BSD-3-Clause (rhbz#2378587)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

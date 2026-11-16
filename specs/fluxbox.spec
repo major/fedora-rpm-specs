@@ -1,10 +1,10 @@
-%global commit  9aeb2a8eaba249deaa8c13e8b108dfdfc9c457fa
+%global commit  a4dcc45cee6b4195800994989bd97458e9e1fee0
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
-%global snapdate 20261104
+%global snapdate 20261111
 
 Name:           fluxbox
 Version:        1.3.7
-Release:        31.%{snapdate}git%{shortcommit}%{?dist}
+Release:        32.%{snapdate}git%{shortcommit}%{?dist}
 
 Summary:        Window Manager based on Blackbox
 
@@ -81,7 +81,7 @@ Enable vim syntax highlighting support for fluxbox configuration files (menu,
 keys, apps).
 
 %prep
-%autosetup -p0 -n %{name}-%{version}
+%autosetup -p0 -n %{name}-%{commit}
 autoreconf -fi
 
 # Convert non-UTF-8 files to UTF-8
@@ -158,6 +158,10 @@ install -m 0644 -p 3rd/vim/syntax/fluxmenu.vim %{buildroot}%{_datadir}/vim/vimfi
 %{_datadir}/vim/vimfiles/syntax/flux*.vim
 
 %changelog
+* Mon Nov 16 2026 Ding-Yi Chen <dchen@fedoraproject.com> - 1.3.7-32.20261111gita4dcc45c
+- Update to upstream git snapshot a4dcc45c
+- Fixes denial of service via infinite loops (CVE-2026-123785, CWE-835, rhbz#2569359)
+
 * Mon Nov 09 2026 Ding-Yi Chen <dchen@fedoraproject.com> - 1.3.7-31.20261104git9aeb2a8e
 - Update to upstream git snapshot 9aeb2a8e
 - Fixes CVE-2026-123784: OS command injection via style backgrounds (CWE-78)

@@ -12,7 +12,7 @@ Summary:        An extremely fast CSS parser, transformer, bundler, and minifier
 # LICENSE.dependencies (crates, generated at build time).
 License:        MPL-2.0 AND ((MIT OR Apache-2.0) AND Unicode-3.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND ISC AND (MIT OR Apache-2.0 OR LGPL-2.1-or-later) AND (MIT OR Apache-2.0) AND MIT AND MPL-2.0 AND (Unlicense OR MIT)
 URL:            https://lightningcss.dev/
-Source0:        https://github.com/parcel-bundler/%{npm_name}/archive/refs/tags/v%{version}.tar.gz
+Source0:        %{npm_name}-%{version}-stripped.tar.gz
 Source1:        %{npm_name}-%{version}-nm-prod.tgz
 Source2:        %{npm_name}-%{version}-nm-dev.tgz
 Source3:        %{npm_name}-%{version}-bundled-licenses.txt
@@ -22,6 +22,7 @@ Source3:        %{npm_name}-%{version}-bundled-licenses.txt
 Source4:        %{npm_name}-%{version}-vendor.tar.xz
 
 ExclusiveArch:  %{nodejs_arches}
+ExcludeArch:    %{ix86}
 
 Requires:       nodejs24
 BuildRequires:  nodejs24-npm
@@ -66,6 +67,10 @@ export npm_config_offline=true
 export npm_config_audit=false
 export npm_config_fund=false
 export PATH="${PWD}/node_modules/.bin:${PATH}"
+# The napi module will attempt to use a linker that is not available
+# on some architectures.
+export CARGO_TARGET_S390X_UNKNOWN_LINUX_GNU_LINKER=gcc
+export CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_LINKER=gcc
 
 # Compile the native (napi) addon. This mirrors upstream's scripts/build.js
 # ("napi build --platform --cargo-cwd node --release") but is invoked directly
@@ -94,10 +99,19 @@ mkdir -p %{buildroot}%{nodejs_sitelib}/%{npm_name}/node
 cp -pr node/*.js node/*.mjs node/*.d.ts \
     %{buildroot}%{nodejs_sitelib}/%{npm_name}/node/
 
+# napi-rs uses the Rust CPU name "powerpc64le", but Node reports its
+# architecture as "ppc64", which is what node/index.js uses for loading.
+# This is fixed in napi-rs v3. For now, rename the binary to the path
+# that node will load if the wrong one exists.
+test -f lightningcss.linux-powerpc64le-gnu.node && \
+  mv lightningcss.linux-powerpc64le-gnu.node \
+     lightningcss.linux-ppc64-gnu.node
 # The native addon built in %%build (loaded by node/index.js).
 cp -pr lightningcss.*.node %{buildroot}%{nodejs_sitelib}/%{npm_name}/
 
 cp -pr package.json %{buildroot}%{nodejs_sitelib}/%{npm_name}/
+
+%cargo_vendor_manifest
 
 
 %check
@@ -110,7 +124,7 @@ cp -pr package.json %{buildroot}%{nodejs_sitelib}/%{npm_name}/
 
 %files
 %doc README.md
-%license LICENSE %{npm_name}-%{version}-bundled-licenses.txt LICENSE.dependencies
+%license LICENSE %{npm_name}-%{version}-bundled-licenses.txt LICENSE.dependencies cargo-vendor.txt
 %{nodejs_sitelib}/%{npm_name}
 
 

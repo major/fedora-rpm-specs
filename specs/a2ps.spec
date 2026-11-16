@@ -1,15 +1,15 @@
 Summary: Converts text and other types of files to PostScript
 Name: a2ps
 Version: 4.15.8
-Release: 5%{?dist}
+Release: 6%{?dist}
 # several files in afm/, lib/, liba2ps/, src/ - GPL3+
 # gnulib files in lib/ - LGPL-2.1+
 # several files in lib/ - LGPL-3+
 # Bison related files in src/ and liba2ps/ - GPL-3.0-or-later WITH Bison-exception-2.2
 # another gnulib files in /lib - LGPL2+
 License: GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LGPL-2.0-or-later
-Url: http://www.gnu.org/software/a2ps/
-Source0: http://ftp.gnu.org/gnu/a2ps/%{name}-%{version}.tar.gz
+URL: https://www.gnu.org/software/a2ps/
+Source0: https://ftp.gnu.org/gnu/a2ps/%{name}-%{version}.tar.gz
 Source1: ftp://ftp.enst.fr/pub/unix/a2ps/i18n-fonts-0.1.tar.gz
 # the latest upstream version does not have COPYING file...
 # reported as https://savannah.gnu.org/bugs/index.php?64470
@@ -37,6 +37,9 @@ Patch17: a2ps-forward-null.patch
 Patch18: a2ps-overrun-dynamic.patch
 Patch19: a2ps-overrun-static.patch
 Patch20: a2ps-resource-leak.patch
+# regenerate the stale includeres.ps reference files for the testsuite
+# (output format of the perl delegation changed since 2022)
+Patch21: a2ps-update-test-refs.patch
 
 
 # most conversion rules are guarded by configure macros, so they
@@ -184,6 +187,7 @@ and medias.
 %patch -P 19 -p1 -b .overrun-static
 # Coverity fix (resource-leak).
 %patch -P 20 -p1 -b .resource-leak
+%patch -P 21 -p1
 
 for file in AUTHORS ChangeLog; do
   iconv -f latin1 -t UTF-8 < $file > $file.utf8
@@ -191,7 +195,15 @@ for file in AUTHORS ChangeLog; do
   mv $file.utf8 $file
 done
 
-autoreconf -fi
+# convert the latin1 documentation sources to UTF-8 (fixes rpmlint file-not-utf8 on the generated info files)
+for file in doc/a2ps.texi doc/sheets.texi; do
+  iconv -f latin1 -t UTF-8 < $file > $file.utf8
+  touch -c -r $file $file.utf8
+  mv $file.utf8 $file
+done
+sed -i -e 's/@documentencoding ISO-8859-1/@documentencoding UTF-8/' doc/a2ps.texi
+
+autoreconf -fi -I m4
 
 mv doc/encoding.texi doc/encoding.texi.utf8
 iconv -f KOI-8 -t UTF-8 doc/encoding.texi.utf8 -o doc/encoding.texi
@@ -227,11 +239,16 @@ find src lib -name '*.l' -exec touch {} \;
 #    /bin/sh ../auxdir/ylwrap "flex" lexppd.l lex.yy.c lexppd.c --
 #)
 
-make %{?_smp_mflags}
+%make_build
 
+%check
+# mock builds with umask 077, which breaks the backup test (the backup
+# file gets 077 permissions and a2ps refuses to write to it)
+umask 022
+make check
 
 %install
-make DESTDIR=%{buildroot} install INSTALL='install -p'
+%make_install
 
 # reset the timestamp for the generated etc/README file
 touch -r etc/README.in %{buildroot}%{_datadir}/a2ps/README
@@ -276,7 +293,7 @@ exit 0
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README TODO THANKS
 %dir %{_sysconfdir}/a2ps
-%config %{_sysconfdir}/a2ps.cfg
+%config(noreplace) %{_sysconfdir}/a2ps.cfg
 %config(noreplace) %{_sysconfdir}/a2ps-site.cfg
 %{_bindir}/a2ps
 %{_bindir}/a2ps-lpr-wrapper
@@ -312,6 +329,12 @@ exit 0
 %{_mandir}/man1/pdiff.1.gz
 
 %changelog
+* Sun Nov 15 2026 Filipe Rosset <rosset.filipe@gmail.com> - 4.15.8-6
+- run the upstream testsuite in %%check (umask 022, updated
+  includeres reference files - a2ps-update-test-refs.patch)
+- mark /etc/a2ps.cfg as %%config(noreplace)
+- convert the latin1 texinfo sources to UTF-8
+
 * Tue Jul 21 2026 Zdenek Dohnal <zdohnal@redhat.com> - 4.15.8-5
 - drop the dependency on psutils-perl (fedora#2502827)
 

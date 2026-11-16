@@ -1,15 +1,15 @@
 Name:          archivemount
-Version:       0.9.1
-Release:       17%{?dist}
+%define new_upstream_name archivemount-ng
+Version:       1c
+Release:       1%{?dist}
 Summary:       FUSE based filesystem for mounting compressed archives
 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+
-URL:           http://www.cybernoia.de/software/archivemount/
-Source0:       http://www.cybernoia.de/software/archivemount/%{name}-%{version}.tar.gz
+License:       LGPL-2.0-or-later AND 0BSD
+URL:           https://git.sr.ht/~nabijaczleweli/archivemount-ng
+Source0:       https://git.sr.ht/~nabijaczleweli/%{new_upstream_name}/archive/%{version}.tar.gz
 
 Requires:      fuse
-BuildRequires: gcc
+BuildRequires: g++
 BuildRequires: fuse-devel
 BuildRequires: libarchive-devel
 BuildRequires: automake
@@ -21,24 +21,28 @@ used to mount a (possibly compressed) archive (as in .tar.gz or .tar.bz2)
 and use it like an ordinary filesystem.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{new_upstream_name}-%{version}
 
 %build
-%configure --enable-debug
+export VERSION=%{version}
+export SOURCE_DATE_EPOCH=$(stat --format=%%Y archivemount.1.in)
 %make_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 rm -f archivemount.1
-%make_install
+%make_install PREFIX=%{_usr}
 
 %files
-%doc CHANGELOG README
-%license COPYING
+%doc README
+%license LICENSES/*
 %{_mandir}/*/*
 %{_bindir}/archivemount
 
 %changelog
+* Sun Nov 15 2026 Niels de Vos <devos@fedoraproject.org> - 1c.1
+- Build using the new upstream location
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

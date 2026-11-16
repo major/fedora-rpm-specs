@@ -11,13 +11,16 @@ misspelled words.
 
 Name:           python-%{pypi_name}
 Version:        7.3.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/sphinx-contrib/spelling
 Source0:        %{pypi_source}
+# Trap SystemExit when searching for importable modules
+# Backport of https://github.com/sphinx-contrib/spelling/commit/36e365848a3a
+Patch:          trap-systemexit-in-importable-module-filter.patch
 BuildArch:      noarch
 
 %if 0%{?with_python3}
@@ -122,6 +125,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Thu Nov 05 2026 Karolina Surma <ksurma@redhat.com> - 7.3.3-20
+- Fix test failure with newer pbr
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

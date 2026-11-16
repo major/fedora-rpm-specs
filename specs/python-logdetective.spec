@@ -37,6 +37,7 @@ Provides:       logdetective
 %prep
 %autosetup -p1 -n logdetective-%{version}
 %pyproject_patch_dependency huggingface-hub:drop_upper
+%pyproject_patch_dependency openai:drop_upper
 
 
 %generate_buildrequires

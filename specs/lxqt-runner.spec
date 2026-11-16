@@ -1,7 +1,7 @@
 Name:          lxqt-runner
 Summary:       Application runner agent for LXQt desktop suite
-Version:       2.4.0
-Release:       3%{?dist}
+Version:       2.5.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -9,6 +9,8 @@ Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{vers
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
+BuildRequires: perl-interpreter
+
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6Xml)
 BuildRequires: cmake(Qt6LinguistTools)
@@ -18,9 +20,9 @@ BuildRequires: cmake(lxqt)
 BuildRequires: cmake(lxqt-globalkeys)
 BuildRequires: cmake(lxqt-globalkeys-ui)
 BuildRequires: cmake(LayerShellQt)
-BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: cmake(muparser)
-BuildRequires: perl-interpreter
+
+BuildRequires: pkgconfig(glib-2.0)
 
 Obsoletes:     %{name}-l10n < %{version}-%{release}
 Provides:      %{name}-l10n = %{version}-%{release}
@@ -31,8 +33,10 @@ Provides:      %{name}-l10n = %{version}-%{release}
 %prep
 %autosetup
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -52,6 +56,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Sun Nov 15 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Mon Oct 12 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.0-3
 - Drop l10n subpackage and unused BuildRequires
 

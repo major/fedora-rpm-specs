@@ -32,6 +32,9 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n vpc-python-sdk-%{version}
 
+# Drop upper dateutil restriction to allow dateutil update
+%pyproject_patch_dependency dateutil:drop_upper
+
 
 %generate_buildrequires
 %pyproject_buildrequires -r

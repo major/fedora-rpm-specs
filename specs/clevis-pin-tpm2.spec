@@ -7,7 +7,7 @@
 
 Name:           clevis-pin-tpm2
 Version:        0.5.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Clevis PIN for unlocking with TPM2 supporting Authorized Policies
 
 SourceLicense:  MIT
@@ -85,6 +85,9 @@ ln -s /usr/bin/clevis-pin-tpm2 %{buildroot}/usr/bin/clevis-decrypt-tpm2plus
 %{_bindir}/clevis-*-tpm2plus
 
 %changelog
+* Sun Nov 15 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.5-2
+- Rebuild for tpm2-policy fix
+
 * Fri Aug 07 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.5-1
 - Update to 0.5.5
 

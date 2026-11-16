@@ -1,6 +1,6 @@
 Name:          lxqt-sudo
-Version:       2.4.0
-Release:       2%{?dist}
+Version:       2.5.0
+Release:       1%{?dist}
 Summary:       GUI frontend for sudo/su
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
@@ -8,31 +8,31 @@ Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{vers
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
-BuildRequires: cmake(Qt6Widgets)
-BuildRequires: cmake(lxqt)
-BuildRequires: cmake(KF6WindowSystem)
-BuildRequires: cmake(Qt6Linguist)
-BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: cmake(lxqt2-build-tools)
 BuildRequires: perl-interpreter
 
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(lxqt)
+BuildRequires: cmake(lxqt2-build-tools)
+BuildRequires: cmake(KF6WindowSystem)
+BuildRequires: cmake(Qt6Linguist)
+
+BuildRequires: pkgconfig(glib-2.0)
+
 Requires: sudo
+
+Obsoletes:     %{name}-l10n < %{version}-%{release}
+Provides:      %{name}-l10n = %{version}-%{release}
 
 %description
 %{summary}.
 
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for lxqt-sudo
-Requires:       lxqt-sudo
-%description l10n
-This package provides translations for the lxqt-sudo package.
-
 %prep
 %autosetup -p1
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -40,20 +40,16 @@ This package provides translations for the lxqt-sudo package.
 
 %find_lang lxqt-sudo --with-qt
 
-%files
+%files -f %{name}.lang
 %license LICENSE
 %doc AUTHORS CHANGELOG README.md
 %{_bindir}/lx*
 %{_mandir}/man1/lx*.1*
 
-%files l10n -f lxqt-sudo.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/lxqt/translations/%{name}
-%{_datadir}/lxqt/translations/%{name}/%{name}_ast.qm
-%{_datadir}/lxqt/translations/%{name}/%{name}_arn.qm
-
 %changelog
+* Sun Nov 15 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

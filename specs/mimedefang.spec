@@ -1,12 +1,12 @@
 Summary:        E-mail filtering framework using Sendmail's Milter interface
 Name:           mimedefang
-Version:        3.7.1
-Release:        2%{?dist}
+Version:        3.7.3
+Release:        1%{?dist}
 # {event{,_tcp}.{c,h},eventpriv.h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://mimedefang.org/
 Source0:        https://mimedefang.org/releases/Mail-MIMEDefang-%{version}.tar.gz
-Source1:        https://mimedefang.org/releases/Mail-MIMEDefang-%{version}.tar.gz.sig
+Source1:        https://mimedefang.org/releases/Mail-MIMEDefang-%{version}.tar.gz.asc
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/9F9B564003DFF9E4D904301E3B6DDB11E78FEBD2
 Source3:        README.FEDORA
 Source4:        mimedefang.service
@@ -14,7 +14,11 @@ Source5:        mimedefang-multiplexor.service
 Source6:        mimedefang-wrapper
 Source7:        mimedefang.tmpfilesd
 Source8:        mimedefang.sysusersd
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires:  openpgpverify
+%else
 BuildRequires:  gnupg2
+%endif
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -66,15 +70,11 @@ agreement" that mail transfer agents do not modify message bodies. This
 could cause problems, for example, with encrypted or signed messages.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{?openpgpverify}%{!?openpgpverify:%{gpgverify}} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n Mail-MIMEDefang-%{version} -p1
 cp -pf %{SOURCE3} .
 
 %build
-%if 0%{?fedora} > 41 || 0%{?rhel} > 10
-export CFLAGS="$CFLAGS -std=gnu17"  # RHBZ#2336394, comment #4
-%endif
-
 %configure --with-milterlib=%{_libdir} --with-user=defang --disable-anti-virus
 %make_build
 
@@ -165,6 +165,9 @@ fi
 %dir %attr(0750,defang,defang) %{_localstatedir}/spool/MD-Quarantine/
 
 %changelog
+* Sun Nov 15 2026 Robert Scheck <robert@fedoraproject.org> 3.7.3-1
+- Upgrade to 3.7.3 (#2566644)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.7.1-2
 - Perl 5.44 rebuild
 

@@ -40,6 +40,7 @@ Source4:        %{npm_name}-%{version}-bundled-licenses.txt
 Source5:        %{npm_name}-%{version}-vendor.tar.xz
 
 ExclusiveArch:  %{nodejs_arches}
+ExcludeArch:    %{ix86}
 
 Requires:       nodejs24
 BuildRequires:  nodejs24-npm
@@ -98,6 +99,10 @@ export npm_config_offline=true
 export npm_config_audit=false
 export npm_config_fund=false
 export PATH="${PWD}/node_modules/.bin:${PATH}"
+# The napi module will attempt to use a linker that is not available
+# on some architectures.
+export CARGO_TARGET_S390X_UNKNOWN_LINUX_GNU_LINKER=gcc
+export CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_LINKER=gcc
 
 # Compile the native napi addon from napi/parser.  This mirrors upstream's
 # release build script ("napi build --esm --platform ... --features allocator
@@ -140,6 +145,8 @@ cp -pr node_modules_prod/* %{buildroot}%{nodejs_sitelib}/%{npm_name}/node_module
 node_file=$(ls napi/parser/.napi-out/parser.*.node)
 cp -p "${node_file}" %{buildroot}%{nodejs_sitelib}/%{npm_name}/src-js/
 
+%cargo_vendor_manifest
+
 
 %check
 # Load the *installed* ESM entry point.  Importing it evaluates oxc-parser's
@@ -150,7 +157,7 @@ cp -p "${node_file}" %{buildroot}%{nodejs_sitelib}/%{npm_name}/src-js/
 
 %files
 %doc npmpkg/README.md
-%license LICENSE %{npm_name}-%{version}-bundled-licenses.txt LICENSE.dependencies
+%license LICENSE %{npm_name}-%{version}-bundled-licenses.txt LICENSE.dependencies cargo-vendor.txt
 %{nodejs_sitelib}/%{npm_name}
 
 

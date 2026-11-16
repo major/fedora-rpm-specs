@@ -3,7 +3,7 @@
 
 Summary:        Utility to clone and restore a partition
 Name:           partclone
-Version:        0.3.52
+Version:        0.3.54
 Release:        1%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
@@ -18,8 +18,7 @@ Release:        1%{?dist}
 License:        BSD-2-Clause AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-only AND LGPL-2.0-or-later AND LGPL-3.0-or-later
 URL:            https://partclone.org/
 Source0:        https://github.com/Thomas-Tsai/partclone/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:         https://github.com/Thomas-Tsai/partclone/pull/322.patch#/partclone-0.3.52-pthread.patch
-Patch1:         https://github.com/Thomas-Tsai/partclone/pull/323.patch#/partclone-0.3.52-s390x.patch
+Patch0:         https://github.com/Thomas-Tsai/partclone/pull/327.patch#/partclone-0.3.54-s390x.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libuuid-devel
@@ -134,6 +133,12 @@ make check || { cat tests/test-suite.log; exit 1; }
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Mon Nov 16 2026 Robert Scheck <robert@fedoraproject.org> 0.3.54-1
+- Upgrade to 0.3.54 (#2571474)
+
+* Sat Nov 14 2026 Robert Scheck <robert@fedoraproject.org> 0.3.53-1
+- Upgrade to 0.3.53 (#2571474)
+
 * Sat Oct 31 2026 Robert Scheck <robert@fedoraproject.org> 0.3.52-1
 - Upgrade to 0.3.52 (#2561536)
 

@@ -39,6 +39,7 @@ Source4:        %{npm_name}-%{version}-bundled-licenses.txt
 Source5:        %{npm_name}-%{version}-vendor.tar.xz
 
 ExclusiveArch:  %{nodejs_arches}
+ExcludeArch:    %{ix86}
 
 Requires:       nodejs24
 BuildRequires:  nodejs24-npm
@@ -108,6 +109,10 @@ export npm_config_offline=true
 export npm_config_audit=false
 export npm_config_fund=false
 export PATH="${PWD}/node_modules/.bin:${PATH}"
+# The napi module will attempt to use a linker that is not available
+# on some architectures.
+export CARGO_TARGET_S390X_UNKNOWN_LINUX_GNU_LINKER=gcc
+export CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_LINKER=gcc
 
 # Compile the native napi addon from crates/rolldown_binding.  This mirrors
 # packages/rolldown/build-binding.ts (which calls "napi build --platform ...")
@@ -165,6 +170,8 @@ EOF
 install -dp %{buildroot}%{_bindir}
 ln -s %{nodejs_sitelib}/%{npm_name}/bin/cli.mjs %{buildroot}%{_bindir}/rolldown
 
+%cargo_vendor_manifest
+
 
 %check
 # Load the *installed* ESM entry point.  Importing it evaluates rolldown's native
@@ -175,7 +182,7 @@ ln -s %{nodejs_sitelib}/%{npm_name}/bin/cli.mjs %{buildroot}%{_bindir}/rolldown
 
 %files
 %doc npmpkg/README.md
-%license LICENSE %{npm_name}-%{version}-bundled-licenses.txt LICENSE.dependencies
+%license LICENSE %{npm_name}-%{version}-bundled-licenses.txt LICENSE.dependencies cargo-vendor.txt
 %{nodejs_sitelib}/%{npm_name}
 %{_bindir}/rolldown
 

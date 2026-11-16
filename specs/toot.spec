@@ -29,6 +29,9 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 # Relax urwid dependency to allow urwid >= 3.0 (including 4.x)
 sed -i 's/"urwid\~=3.0"/"urwid>=3.0"/' pyproject.toml
 
+# Increase dateutil dependency upper bound
+sed -i 's/"python-dateutil>=2\.8\.1,<3\.0"/"python-dateutil>=2.8.2,<5"/g' pyproject.toml
+
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires

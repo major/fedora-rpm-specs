@@ -2,12 +2,8 @@
 # retired for Fedora 44.
 %bcond plotly 0
 
-# Add a BuildRequires on vtk merely for smoke-testing imports of VTK
-# integration modules? This does not enable additional tests.
-%bcond vtk_dep 0
-
 Name:           python-geomdl
-Version:        5.4.0
+Version:        5.5.1
 Release:        %autorelease
 Summary:        Object-oriented pure Python B-Spline and NURBS library
 
@@ -33,10 +29,6 @@ ExcludeArch:    %{ix86}
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): --extras test,vis
 BuildOption(install): --assert-license geomdl
-%if %{without vtk_dep}
-BuildOption(check): --exclude geomdl.visualization.vtk_helpers
-BuildOption(check): --exclude geomdl.visualization.VisVTK
-%endif
 %if %{without plotly}
 BuildOption(check): --exclude geomdl.visualization.VisPlotly
 %endif
@@ -51,10 +43,6 @@ BuildRequires:  gcc
 # It also measures coverage.
 # Instead, we BuildRequire the only remaining tests dependency manually:
 BuildRequires:  %{py3_dist pytest}
-%if %{with vtk_dep}
-# Allow smoke-testing importability of VTK integration modules.
-BuildRequires:  %{py3_dist vtk}
-%endif
 
 %global common_description %{expand:
 NURBS-Python (geomdl) is a pure Python, self-contained, object-oriented

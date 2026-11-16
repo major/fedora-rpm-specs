@@ -5,16 +5,13 @@
 %global crate tree-sitter-r
 
 Name:           rust-tree-sitter-r
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        R grammar for tree-sitter
 
 License:        MIT
 URL:            https://crates.io/crates/tree-sitter-r
 Source:         %{crates_source}
-# * LICENSE file not shipped, see
-#   https://github.com/r-lib/tree-sitter-r/pull/192
-Source1:        https://raw.githubusercontent.com/r-lib/tree-sitter-r/refs/tags/v%{version}/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -51,7 +48,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires
@@ -62,7 +58,6 @@ cp -p %{SOURCE1} .
 
 %install
 %cargo_install
-cp -p LICENSE %{buildroot}%{crate_instdir}/
 
 %if %{with check}
 %check

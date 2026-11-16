@@ -1,6 +1,6 @@
 Name:          marknote
 Version:       1.6.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       BSD-3-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 Summary:       A simple markdown note management app for KDE
 URL:           https://apps.kde.org/%{name}/
@@ -33,8 +33,7 @@ BuildRequires: cmake(KF6IconThemes)
 BuildRequires: cmake(KF6Notifications)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(KF6ItemModels)
-
-BuildRequires: cmake(KPim6Mime)
+BuildRequires: cmake(KF6Mime)
 
 BuildRequires: cmake(md4c)
 
@@ -82,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_datadir}/krunner/dbusplugins/plasma-runner-marknote.desktop
 
 %changelog
+* Sun Nov 15 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.6.0-4
+- Migrate from KPim6Mime to KF6Mime
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 1.6.0-3
 - Rebuild (qt6)
 

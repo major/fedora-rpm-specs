@@ -1,22 +1,26 @@
 Name:          lxqt-qtplugin
 Summary:       Qt plugin framework for LXQt Desktop Suite
-Version:       2.4.0
-Release:       5%{?dist}
+Version:       2.5.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/lxqt-qtplugin/archive/%{version}/lxqt-qtplugin-%{version}.tar.gz
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
+
 BuildRequires: cmake(lxqt)
 BuildRequires: cmake(fm-qt6)
 BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6GuiPrivate)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(qt6xdgiconloader)
 BuildRequires: cmake(lxqt2-build-tools)
 BuildRequires: cmake(dbusmenu-lxqt)
-BuildRequires: qt6-qtbase-private-devel
+
+BuildRequires: pkgconfig(libexif)
+
 
 %description
 %{summary}.
@@ -24,8 +28,10 @@ BuildRequires: qt6-qtbase-private-devel
 %prep
 %autosetup -p1 -n lxqt-qtplugin-%{version}
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -36,6 +42,9 @@ BuildRequires: qt6-qtbase-private-devel
 %{_libdir}/qt6/plugins/platformthemes/libqtlxqt.so
 
 %changelog
+* Sun Nov 15 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 2.4.0-5
 - Rebuild (qt6)
 

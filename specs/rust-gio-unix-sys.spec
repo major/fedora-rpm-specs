@@ -5,7 +5,7 @@
 %global crate gio-unix-sys
 
 Name:           rust-gio-unix-sys
-Version:        0.22.9
+Version:        0.22.11
 Release:        %autorelease
 Summary:        FFI bindings to libgio-2.0 Unix APIs
 

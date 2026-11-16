@@ -7,6 +7,10 @@ License:        MIT
 URL:            https://github.com/Sonic0/cron-converter
 Source:         %{url}/archive/v%{version}/cron-converter-%{version}.tar.gz
 
+# Test test_timezone_offset_matches fails on Python 3.15.1+
+# https://github.com/Sonic0/cron-converter/issues/46
+Patch:          0001-Skip-test_timezone_offset_matches.patch
+
 BuildSystem:    pyproject
 BuildOption(install): --assert-license cron_converter
 

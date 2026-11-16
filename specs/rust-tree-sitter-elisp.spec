@@ -5,9 +5,9 @@
 %global crate tree-sitter-elisp
 
 Name:           rust-tree-sitter-elisp
-Version:        1.6.1
+Version:        1.7.2
 Release:        %autorelease
-Summary:        Elisp grammar for the tree-sitter parsing library
+Summary:        Emacs Lisp tree-sitter grammar
 
 License:        MIT
 URL:            https://crates.io/crates/tree-sitter-elisp
@@ -16,7 +16,7 @@ Source:         %{crates_source}
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Elisp grammar for the tree-sitter parsing library.}
+Emacs Lisp tree-sitter grammar.}
 
 %description %{_description}
 

@@ -5,7 +5,7 @@
 %global crate bpaf_derive
 
 Name:           rust-bpaf_derive
-Version:        0.5.23
+Version:        0.5.26
 Release:        %autorelease
 Summary:        Derive macros for bpaf Command Line Argument Parser
 

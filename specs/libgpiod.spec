@@ -1,9 +1,8 @@
 #global candidate rc0
-%global with_python 1
 
 Name:          libgpiod
 Version:       2.3.2
-Release:       1%{?candidate:.%{candidate}}%{?dist}
+Release:       2%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -23,12 +22,10 @@ BuildRequires: libedit-devel
 BuildRequires: libgudev-devel
 BuildRequires: libstdc++-devel
 BuildRequires: pkgconf
-%if 0%{?with_python}
 BuildRequires: python3-devel
 BuildRequires: python3-packaging
 BuildRequires: python3-pip
 BuildRequires: python3-setuptools
-%endif
 BuildRequires: systemd
 
 %description
@@ -69,23 +66,18 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description glib
 GLib2 bindings for use with %{name}.
 
-%if 0%{?with_python}
 %package -n python3-%{name}
 Summary: Python 3 bindings for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
-%{?python_provide:%python_provide python3-%{name}}
 
 %description -n python3-%{name}
 Python 3 bindings for development with %{name}.
-%endif
 
 %package devel
 Summary: Development package for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-c++ = %{version}-%{release}
-%if 0%{?with_python}
 Requires: python3-%{name} = %{version}-%{release}
-%endif
 
 %description devel
 Files for development with %{name}.
@@ -97,19 +89,26 @@ Files for development with %{name}.
 %meson  -Dtools=enabled \
 	-Dbindings-cxx=enabled \
 	-Dbindings-glib=enabled \
-%if 0%{?with_python}
-	-Dbindings-python=enabled \
-%endif
+	-Dbindings-python=disabled \
 	-Ddbus=enabled \
 	-Dsystemd=enabled \
 	-Dtests=disabled \
 	%{nil}
 
 %meson_build
+pushd bindings/python/
+export CPPFLAGS="-I$(realpath ../../include)"
+export LIBRARY_PATH="$(realpath ../../%{_vpath_builddir}/lib)"
+%pyproject_wheel
+popd
 
 
 %install
 %meson_install
+pushd bindings/python/
+%pyproject_install
+%pyproject_save_files gpiod
+popd
 
 # Install sysusers file
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/gpiod.conf
@@ -119,8 +118,8 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/gpiod.conf
 mkdir -p %{buildroot}/%{_udevrulesdir}/
 mv -f %{buildroot}/%{_libdir}/udev/rules.d/90-gpio.rules %{buildroot}/%{_udevrulesdir}/90-gpio.rules
 %endif
-# Remove static libs/libtool archives.
-find %{buildroot} -name '*.la' -delete
+
+# Remove static libs
 find %{buildroot} -name '*.a' -delete
 
 %check
@@ -177,11 +176,7 @@ find %{buildroot} -name '*.a' -delete
 %{_libdir}/libgpiod-glib.so.1*
 %{_libdir}/girepository-1.0/Gpiodglib-1.0.typelib
 
-%if 0%{?with_python}
-%files -n python3-%{name}
-%{python3_sitelib}/gpiod/
-%{python3_sitearch}/gpiod/
-%endif
+%files -n python3-%{name} -f %{pyproject_files}
 
 %files devel
 %{_libdir}/%{name}*.so
@@ -198,6 +193,9 @@ find %{buildroot} -name '*.a' -delete
 
 
 %changelog
+* Sun Nov 15 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.2-2
+- Fix python bindings by not using the meson build process (rhbz#2559419)
+
 * Tue Nov 03 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.2-1
 - Update to 2.3.2
 

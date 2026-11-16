@@ -1,6 +1,6 @@
 Name:     primesieve
-Version:  12.17
-Release:  2%{?dist}
+Version:  12.18
+Release:  1%{?dist}
 Summary:  Fast prime number generator
 License:  BSD-2-Clause
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,11 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Sun Nov 15 2026 Kim Walisch <walki@fedoraproject.org> - 12.18-1
+- multiarch_arm_sve.cmake: Disable ARM SVE runtime dispatching for GCC < 14 due to miscompilation
+- RiemannR.cpp: Use max() instead of infinity() for -ffast-math compatibility
+- actions.lock: Lock GitHub Actions to exact commits to prevent supply chain attacks
+
 * Sat Nov 07 2026 Kim Walisch <walki@fedoraproject.org> - 12.17-2
 - Fix rpminspect license check: Convert License LicenseRef-Callaway-BSD to SPDX BSD-2-Clause
 

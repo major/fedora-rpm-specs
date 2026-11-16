@@ -1,11 +1,13 @@
 Name:           perl-Dancer2-Plugin-REST
 Version:        1.03
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plugin for writing RESTful apps with Dancer2
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:            https://metacpan.org/release/Dancer2-Plugin-REST
 Source0:        https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Dancer2-Plugin-REST-%{version}.tar.gz
+# Disable the Dumper Serializer test since it is no longer part of Dancer2 core
+Patch0:         Dancer2-Plugin-REST-1.03-disable-dumper-serializer.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -25,7 +27,6 @@ BuildRequires:  perl(Moo)
 # test requirements
 BuildRequires:  perl(Dancer2) >= 0.202000
 BuildRequires:  perl(Dancer2::Core::Request)
-BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(IO::Handle)
@@ -46,6 +47,7 @@ This plugin helps you write a RESTful web-service with Dancer2.
 
 %prep
 %setup -q -n Dancer2-Plugin-REST-%{version}
+%patch -P 0 -p 1
 
 %build
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -65,6 +67,9 @@ This plugin helps you write a RESTful web-service with Dancer2.
 %{_mandir}/man3/Dancer2*
 
 %changelog
+* Sun Nov 15 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.03-3
+- Disable the Dumper Serializer test (#2540984)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

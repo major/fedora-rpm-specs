@@ -79,6 +79,9 @@ repositories.
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
+%pyproject_patch_dependency pyramid:set_upper:3
+%pyproject_patch_dependency pymdown-extensions:drop_upper
+
 %generate_buildrequires
 %pyproject_buildrequires
 

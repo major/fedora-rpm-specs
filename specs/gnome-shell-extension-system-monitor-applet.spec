@@ -8,15 +8,15 @@
 
 %if 0%{?git_post_release_enabled}
   # Git commit is needed for post-release version.
-  %global gitcommit b9edf519f21a19160fe0cd2f91d58bce64296f50
+  %global gitcommit 5995fcf512a3aadb5f8e9744ec157a8060b63099
   %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-  %global gitsnapinfo .20260916git%{gitshortcommit}
+  %global gitsnapinfo .20261115git%{gitshortcommit}
 %endif
 
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        45%{?gitsnapinfo}%{?dist}
+Release:        46%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
@@ -45,8 +45,6 @@ CPU usage, and network rate...
 
 %prep
 %autosetup -n %{gitname}-%{?gitcommit}%{!?gitcommit:%{version}} -p 1
-# Manual patching for newer gnome-shell version
-%{__sed} -i -e 's%, "50"%, "50", "51"%g' %{extuuid}/metadata.json
 
 %build
 # Not needed as build target is a dependency of install target in
@@ -87,6 +85,23 @@ fi
 
 
 %changelog
+* Sun Nov 15 2026 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-46.20261115git5995fcf
+- Updated to last upstream commits
+- Improve network physical-interface detection
+- base,widgets: Floor the network graph scale at 64 KiB/s
+- prefs: Show the extension version on the About page
+- Add GNOME Shell 51 support
+- Remove manual patching in spec file to add gnome-shell 51 compatibility
+- common: Latch sensor enumeration completion callback
+- common,prefs: Split colliding hwmon chips without breaking labels
+- Graph average digit
+- Fix sensor labels broken with dual nvmes
+- Widgets: Load the saved CPU average asynchronously
+- Keep sysfs sensor labels matching at runtime
+- Widgets: Persist the CPU average across logout and reboot
+- Corrected resume spike for cooldown
+- Fix panel freezing permanently when the GC sweep kills update timers
+
 * Sun Sep 20 2026 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-45.20260916gitb9edf51
 - Manual patching in spec file to add gnome-shell 51 compatibility release 09/16/2026
 

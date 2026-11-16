@@ -1,7 +1,7 @@
 Summary:        Python bindings for wc(s)width
 Name:           python-cwcwidth
-Version:        0.1.12
-Release:        5%{?dist}
+Version:        0.1.13
+Release:        1%{?dist}
 License:        MIT
 URL:            https://github.com/sebastinas/cwcwidth
 Source0:        %{pypi_source cwcwidth}
@@ -41,6 +41,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Sun Nov 15 2026 Terje Røsten <terjeros@gmail.com> - 0.1.13-1
+- 0.1.13
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.1.12-5
 - Rebuilt for Python 3.15.0b4 ABI change
 

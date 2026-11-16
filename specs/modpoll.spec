@@ -1,7 +1,7 @@
 %global with_tests 0
 
 Name:          modpoll
-Version:       1.6.1
+Version:       1.6.2
 Release:       %autorelease
 Summary:       A command line tool for Modbus and MQTT
 License:       MIT

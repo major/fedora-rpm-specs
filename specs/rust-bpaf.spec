@@ -5,14 +5,13 @@
 %global crate bpaf
 
 Name:           rust-bpaf
-Version:        0.9.24
+Version:        0.9.29
 Release:        %autorelease
 Summary:        Simple Command Line Argument Parser with parser combinators
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/bpaf
 Source:         %{crates_source}
-Patch:          0001-use-correct-import-statement-to-fix-compilation-of-t.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

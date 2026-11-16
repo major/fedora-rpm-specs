@@ -7,13 +7,15 @@
 %global crate dtor
 
 Name:           rust-dtor
-Version:        1.0.6
+Version:        1.0.7
 Release:        %autorelease
 Summary:        Global, no_std-compatible destructors for all platforms that run after main
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/dtor
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          dtor-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

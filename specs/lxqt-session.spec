@@ -1,7 +1,7 @@
 Name:         lxqt-session
 Summary:      Main session for LXQt desktop suite
-Version:      2.4.0
-Release:      3%{?dist}
+Version:      2.5.0
+Release:      1%{?dist}
 License:      LGPL-2.1-only
 URL:          https://lxqt-project.org/
 Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -19,8 +19,11 @@ Patch1001:    1001-Drop-Hyprland-entry-for-Wayland-window-managers.patch
 
 
 BuildRequires:  cmake
+BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
+BuildRequires:  perl-interpreter
+
 BuildRequires:  cmake(lxqt)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6LinguistTools)
@@ -28,14 +31,17 @@ BuildRequires:  cmake(Qt6GuiPrivate)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(LayerShellQt)
 BuildRequires:  cmake(lxqt2-build-tools)
+BuildRequires:  cmake(qtxdg-tools)
+
+BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(libproc2)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(libudev)
-BuildRequires:  desktop-file-utils
-BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(libproc2)
-BuildRequires:  cmake(qtxdg-tools)
-BuildRequires:  perl-interpreter
+
+Obsoletes:      %{name}-l10n < %{version}-%{release}
+Provides:       %{name}-l10n = %{version}-%{release}
+
 
 #Needs Updated
 #Requires:      lxqt-themes-fedora
@@ -68,18 +74,14 @@ Obsoletes:    %{name} < 2.1.1-5
 %description -n lxqt-x11-session
 This package provides the LXQt X11 session files.
 
-%package l10n
-BuildArch:    noarch
-Summary:      Translations for lxqt-session
-Requires:     lxqt-session
-%description l10n
-This package provides translations for the lxqt-session package.
 
 %prep
 %autosetup -S git_am
 
-%build
+%conf
 %cmake
+
+%build
 %cmake_build
 
 %install
@@ -102,7 +104,7 @@ for i in %{buildroot}%{_datadir}/applications/*.desktop; do
 done
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/lxqt-xscreensaver-autostart.desktop
 
-%files
+%files -f %{name}.lang -f lxqt-leave.lang -f lxqt-config-session.lang
 %dir %{_sysconfdir}/lxqt
 %{_bindir}/lxqt-session
 %{_bindir}/lxqt-config-session
@@ -124,21 +126,10 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/lxqt-xscreensaver
 %{_datadir}/xsessions/lxqt.desktop
 %{_mandir}/man1/startlxqt.1*
 
-%files l10n -f lxqt-session.lang -f lxqt-leave.lang -f lxqt-config-session.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/lxqt/translations/%{name}
-%dir %{_datadir}/lxqt/translations/lxqt-config-session
-%dir %{_datadir}/lxqt/translations/lxqt-leave
-%dir %{_datadir}/lxqt/translations/lxqt-session
-%{_datadir}/lxqt/translations/lxqt-config-session/lxqt-config-session_ast.qm
-%{_datadir}/lxqt/translations/lxqt-config-session/lxqt-config-session_arn.qm
-%{_datadir}/lxqt/translations/lxqt-leave/lxqt-leave_ast.qm
-%{_datadir}/lxqt/translations/lxqt-leave/lxqt-leave_arn.qm
-%{_datadir}/lxqt/translations/lxqt-session/lxqt-session_ast.qm
-%{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
-
 %changelog
+* Sun Nov 15 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

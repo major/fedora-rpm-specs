@@ -1,17 +1,13 @@
 Name:		adns
-Version:	1.6.1
-Release:	7%{?dist}
-
+Version:	1.7.0
+Release:	%autorelease
 Summary:	Advanced, easy to use, asynchronous-capable DNS client library
+License:	GPL-3.0-or-later
+URL:		https://www.chiark.greenend.org.uk/~ian/adns/
+Source0:	https://www.chiark.greenend.org.uk/~ian/adns/ftp/%{name}-%{version}.tar.gz
 
-License:	GPL-1.0-or-later
-URL:		http://www.chiark.greenend.org.uk/~ian/adns/
-Source0:	http://www.chiark.greenend.org.uk/~ian/adns/ftp/%{name}-%{version}.tar.gz
-
-BuildRequires:	autoconf
-BuildRequires:  gcc
-BuildRequires: make
-
+BuildRequires:	gcc
+BuildRequires:	m4
 
 %description
 adns is a resolver library for C (and C++) programs. In contrast with
@@ -44,14 +40,12 @@ following features:
 
 %package devel
 Summary:	Asynchronous-capable DNS client library - development files
-Requires:	%{name} = %{version}
 
 %description devel
 Asynchronous-capable DNS client library - development files.
 
 %package progs
 Summary:	Asynchronous-capable DNS client library - utility programs
-Requires:	%{name} = %{version}
 
 %description progs
 DNS utility programs: adns also comes with a number of utility
@@ -68,235 +62,42 @@ programs for use from the command line and in scripts:
    communicate with subprocesses.
 
 %prep
-%setup -q
+%autosetup
 
 %build
-%ifarch sparcv9 sparc64 s390 s390x
-export CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE -fPIC"
-%else
-export CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE -fpic"
-%endif
-autoreconf -fiv
+%set_build_flags
 %configure --enable-dynamic
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make \
-    prefix=$RPM_BUILD_ROOT%{_prefix} \
-    bindir=$RPM_BUILD_ROOT%{_bindir} \
-    includedir=$RPM_BUILD_ROOT%{_includedir} \
-    libdir=$RPM_BUILD_ROOT%{_libdir} \
+    prefix=%{buildroot}%{_prefix} \
+    bindir=%{buildroot}%{_bindir} \
+    includedir=%{buildroot}%{_includedir} \
+    libdir=%{buildroot}%{_libdir} \
     install
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/libadns.a
+rm -f %{buildroot}%{_libdir}/libadns.a
 
 %ldconfig_scriptlets
 
+%check
+%make_build check
+
 %files
-%doc README TODO changelog
-%attr(755,root,root) %{_libdir}/lib*.so.*
+%license COPYING
+%doc GPL-vs-LGPL NEWS README README.html TODO changelog
+%{_libdir}/libadns.so.1*
 
 %files devel
-%{_includedir}/*
-%{_libdir}/lib*.so
+%{_includedir}/adns.h
+%{_libdir}/libadns.so
 
 %files progs
-%attr(755,root,root) %{_bindir}/*
+%{_bindir}/adnshost
+%{_bindir}/adnslogres
+%{_bindir}/adnsresfilter
+%{_bindir}/adnsheloex
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun May 05 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.6.1-1
-- Update to 1.6.1 (#2279207)
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jun 24 2023 Sérgio Basto <sergio@serjux.com> - 1.6.0-9
-- Migrate to SPDX license format
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jul 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Jun 21 2020 Sérgio Basto <sergio@serjux.com> - 1.6.0-1
-- Update adns to 1.6.0 (#1846479)
-- Drop patch0, upstream fixed patch0 in another way
-
-* Tue Feb 18 2020 Than Ngo <than@redhat.com> - 1.5.1-10
-- Fixed FTBFS
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Apr 26 2018 Tomas Hozza <thozza@redhat.com> - 1.5.1-5
-- Added Build dependency on gcc and explicit dependency on main package in -progs
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Thu Feb 16 2017 Tomas Hozza <thozza@redhat.com> - 1.5.1-1
-- New upstream version 1.5.1 (#1369297)
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Jun 16 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Fri Aug 15 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
-* Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
-
-* Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
-
-* Tue May 22 2012 Adam Tkac <atkac redhat com> - 1.4-12
-- adnsresfilter: fix segfault when --brackets option is used (#761513)
-
-* Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
-
-* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
-
-* Fri Jun 04 2010 Adam Tkac <atkac redhat com> 1.4-9
-- update source URL
-
-* Thu Aug 06 2009 Adam Tkac <atkac redhat com> 1.4-8
-- rebuild
-
-* Thu Aug 06 2009 Adam Tkac <atkac redhat com> 1.4-7
-- don't crash in adns_strerror if parameter is unknown error code (#514838)
-
-* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
-
-* Mon Feb 23 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
-
-* Thu May 29 2008 Dennis Gilmore <dennis@ausil.us> - 1.4-4
-- some arches need -fPIC 
-
-* Mon Feb 18 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 1.4-3
-- Autorebuild for GCC 4.3
-
-* Wed Dec 19 2007 Adam Tkac <atkac redhat com> 1.4-2
-- don't ship static libadns.a
-
-* Wed Dec 19 2007 Adam Tkac <atkac redhat com> 1.4-1
-- updated to 1.4
-- CVS cleanup
-- use autoreconf
-- build with -fpic instead -fPIC
-
-* Fri Aug 31 2007 Radek Vokál <rvokal@redhat.com> 1.2-6
-- rebuilt
-
-* Thu Oct 05 2006 Christian Iseli <Christian.Iseli@licr.org> 1.2-5
- - rebuilt for unwind info generation, broken in gcc-4.1.1-21
-
-* Tue Sep 26 2006 Radek Vokal <rvokal@redhat.com> 1.2-4
-- rebuilt
-
-* Mon May 15 2006 Mihai Ibanescu <misa[AT]redhat.com> 1.2-3
-- Rebuilt in the devel branch
-
-* Tue May  9 2006 Mihai Ibanescu <misa[AT]redhat.com> 1.2-2
-- Dropped the DESTDIR patch since it was not accepted upstream.
-- Added -fPIC in the compiled flags, otherwise we won't be able to link
-  against this library.
-
-* Mon May  8 2006 Mihai Ibanescu <misa[AT]redhat.com> 1.2-1
-- Updated to 1.2, some of the patches were already upstream
-- Removed dependency on autoconf/automake since it builds just fine without
-  that
-
-* Thu Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
-- rebuilt
-
-* Tue Jul 13 2004 Michael Schwendt <mschwendt[AT]users.sf.net> 0:1.1-0.fdr.4
-- Add patch2 to make adns recognize ';' in /etc/resolv.conf
-  (#1626, Noa Resare).
-- Add patch3 to fix bug and fix build on PPC (#1812, Colin Charles).
-
-* Fri Apr 16 2004 Michel Salim <salimma[AT]users.sf.net> 1.1-0.fdr.3
-- Builds using automake 1.5, autoconf 2.13; latest automake/autoconf combination fails on FC2
-
-* Fri Dec 05 2003 Michel Salim <salimma[AT]users.sourceforge.net> 1.1-0.fdr.2
-- adns-devel: Added epoch to Requires
-- adns-progs: Removed superfluous dependency on adns
-- adns-progs: Changed group to Applications/System
-
-* Mon Oct 27 2003 Michel Salim <salimma[AT]users.sourceforge.net> 1.1-0.fdr.1
-- Updated to 1.1.
-
-* Sat Jun 07 2003 Michel Salim <salimma[AT]users.sourceforge.net> 1.0-4
-- Based on PLD spec.
+%autochangelog

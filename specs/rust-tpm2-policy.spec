@@ -5,18 +5,16 @@
 
 Name:           rust-%{crate}
 Version:        0.6.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Specify and send TPM2 policies to satisfy object authorization
 
-# Upstream license specification: EUPL-1.2
 License:        EUPL-1.2
 URL:            https://crates.io/crates/tpm2-policy
 Source:         %{crates_source}
 Patch0:         tpm2-policy-fix-metadata.diff
+Patch1:         tpm2-policy-fix-do-not-set-decrypt-encrypt-session-attributes.patch
 
-ExclusiveArch:  %{rust_arches}
-
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
 Specify and send TPM2 policies to satisfy object authorization.}
@@ -49,7 +47,7 @@ use the "default" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
@@ -67,6 +65,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sun Nov 15 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.6.0-14
+- Upstream fix clevis TPM2 unlock
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

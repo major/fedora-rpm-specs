@@ -85,7 +85,7 @@ cp -p include/fp16/*.py %{buildroot}%{python3_sitelib}/fp16
 %doc README.md
 %{_includedir}/fp16.h
 %{_includedir}/fp16/
-%{python3_sitelib}/fp16/*
+%{python3_sitelib}/fp16/
 
 %changelog
 %autochangelog

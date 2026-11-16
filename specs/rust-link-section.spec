@@ -5,7 +5,7 @@
 %global crate link-section
 
 Name:           rust-link-section
-Version:        0.19.3
+Version:        0.19.4
 Release:        %autorelease
 Summary:        Link-time initialized slices for Rust
 

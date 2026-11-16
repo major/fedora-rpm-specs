@@ -7,13 +7,15 @@
 %global crate ctor
 
 Name:           rust-ctor
-Version:        1.0.13
+Version:        1.0.14
 Release:        %autorelease
 Summary:        Global, no_std-compatible constructors for all platforms that run before main
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/ctor
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          ctor-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
