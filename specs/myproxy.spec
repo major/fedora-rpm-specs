@@ -7,8 +7,8 @@
 %bcond_without checks
 
 Name:           myproxy
-Version:        6.2.20
-Release:        5%{?dist}
+Version:        6.2.21
+Release:        1%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
@@ -16,9 +16,6 @@ URL:            http://grid.ncsa.illinois.edu/myproxy/
 Source:         https://repo.gridcf.org/gct6/sources/%{name}-%{version}.tar.gz
 Source1:        myproxy-server-systemd-sysusers.conf
 Source8:        README
-Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
-Patch1:		0002-Build-with-OpenSSL-4.patch
-Patch2:		0003-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -159,9 +156,6 @@ Package %{name}-doc contains the MyProxy documentation.
 
 %prep
 %setup -q
-%patch -P0 -p3
-%patch -P1 -p3
-%patch -P2 -p3
 
 %build
 # Reduce overlinking
@@ -323,6 +317,10 @@ rm %{buildroot}%{_sbindir}/myproxy-server-setup
 %license LICENSE*
 
 %changelog
+* Mon Nov 16 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.21-1
+- New GCT release v6.2.20261111
+- Drop patches included in the release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.20-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

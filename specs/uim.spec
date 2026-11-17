@@ -1,11 +1,11 @@
 %global inst_xinput %{_sbindir}/update-alternatives --install %{_sysconfdir}/X11/xinit/xinputrc xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf 50
 %global uninst_xinput %{_sbindir}/update-alternatives --remove xinputrc %{_sysconfdir}/X11/xinit/xinput.d/uim.conf
-%global srcver	1.9.9
+%global srcver	2.0.0
 
 %bcond_with	canna
 
 Name:		uim
-Version:	1.9.9
+Version:	2.0.0
 Release:	%autorelease
 # uim itself is licensed under BSD
 # scm/py.scm, helper/eggtrayicon.[ch], qt/pref-kseparator.{cpp,h}
@@ -397,11 +397,11 @@ popd
 touch $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit/xinputrc
 %find_lang %{name}
 
-find $RPM_BUILD_ROOT -name "*.scm" -type f | egrep -v ".*/(anthy|canna|m17n|skk|wnn|installed-modules|loader)" > scm.list
+find $RPM_BUILD_ROOT -name "*.scm" -type f | egrep -v ".*/(anthy|canna|m17n|skk|installed-modules|loader)" > scm.list
 cat scm.list | sed -e s,$RPM_BUILD_ROOT,,g >> %{name}.lang
-find $RPM_BUILD_ROOT -name "*.png" -type f | egrep -v ".*/(anthy|canna|m17n|skk|wnn)" > png.list
+find $RPM_BUILD_ROOT -name "*.png" -type f | egrep -v ".*/(anthy|canna|m17n|skk)" > png.list
 cat png.list | sed -e s,$RPM_BUILD_ROOT,,g >> %{name}.lang
-find $RPM_BUILD_ROOT -name "*.svg" -type f | egrep -v ".*/(anthy|canna|m17n|skk|wnn)" > svg.list
+find $RPM_BUILD_ROOT -name "*.svg" -type f | egrep -v ".*/(anthy|canna|m17n|skk)" > svg.list
 cat svg.list | sed -e s,$RPM_BUILD_ROOT,,g >> %{name}.lang
 
 
@@ -425,14 +425,13 @@ if [ "$1" = "0" ]; then
 fi
 
 %post anthy
-# since F-13
-## get rid of anthy for inconvenience, because anthy-utf8 is default now.
-/usr/bin/uim-module-manager --path %{_localstatedir}/lib/uim --unregister anthy > /dev/null 2>&1 || :
-/usr/bin/uim-module-manager --path %{_localstatedir}/lib/uim --register anthy-utf8 > /dev/null 2>&1 || :
+# anthy-utf8 is merged to anthy
+/usr/bin/uim-module-manager --path %{_localstatedir}/lib/uim --unregister anthy-utf8 > /dev/null 2>&1 || :
+/usr/bin/uim-module-manager --path %{_localstatedir}/lib/uim --register anthy > /dev/null 2>&1 || :
 
 %postun anthy
 if [ "$1" = "0" ]; then
-	/usr/bin/uim-module-manager --path %{_localstatedir}/lib/uim --unregister anthy-utf8 > /dev/null 2>&1 || :
+	/usr/bin/uim-module-manager --path %{_localstatedir}/lib/uim --unregister anthy > /dev/null 2>&1 || :
 fi
 
 %if %{with canna}
@@ -538,15 +537,12 @@ fi
 %exclude %{_datadir}/uim/m17nlib.scm
 %exclude %{_datadir}/uim/mozc*.scm
 %exclude %{_datadir}/uim/skk*.scm
-%exclude %{_datadir}/uim/wnn*.scm
 ## pixmaps are licensed under BSD or LGPLv2
 %exclude %{_datadir}/uim/pixmaps/anthy*.png
 %exclude %{_datadir}/uim/pixmaps/canna.png
 %exclude %{_datadir}/uim/pixmaps/m17n*png
 %exclude %{_datadir}/uim/pixmaps/skk.png
 %exclude %{_datadir}/uim/pixmaps/skk.svg
-%exclude %{_datadir}/uim/pixmaps/wnn.png
-%exclude %{_datadir}/uim/pixmaps/wnn.svg
 %doc emacs/README.emacs
 %lang(ja) %doc emacs/README.ja
 %license emacs/COPYING.emacs
@@ -627,7 +623,7 @@ fi
 %files	anthy
 %doc AUTHORS NEWS README
 %license COPYING
-%{_libdir}/uim/plugin/libuim-anthy-utf8.so
+%{_libdir}/uim/plugin/libuim-anthy.so
 %{_datadir}/uim/anthy*.scm
 # BSD or LGPLv2
 %{_datadir}/uim/pixmaps/anthy*.png
@@ -655,7 +651,6 @@ fi
 %files m17n
 %doc AUTHORS NEWS README
 %license COPYING
-%{_bindir}/uim-m17nlib-relink-icons
 %{_libdir}/uim/plugin/libuim-m17nlib.so
 %{_datadir}/uim/m17nlib.scm
 %{_datadir}/uim/m17nlib-custom.scm

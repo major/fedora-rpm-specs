@@ -5,7 +5,7 @@
 %global crate emojis
 
 Name:           rust-emojis
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Efficient emoji lookup with support for GitHub shortcodes
 

@@ -25,7 +25,7 @@
 %define		strtag		cvs%{codate}T%{cotime_JST}
 %define		repoid		36733
 
-%define		baserelease	25
+%define		baserelease	26
 %define		pre_release	1
 
 %if %{pre_release}
@@ -112,6 +112,9 @@ images that helps users to interact with BBSs.
 	-e 's@2.6\[0-9\]@2.[67][0-9]@' \
 	autogen.sh
 %endif
+
+# Support automake 1.20
+sed -i autogen.sh -e 's|1\.1\[0-9]|1.[1-9]*|'
 
 %if %{pre_release}
 sh autogen.sh
@@ -238,6 +241,9 @@ change_encoding \
 %{_datadir}/icons/hicolor/48x48/apps/*.png
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.0.1-0.26.cvs20100817T0000
+- Support automake 1.20
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.6.0.1-0.25.cvs20100817T0000
 - Rebuilt for libxml-2.5.4
 

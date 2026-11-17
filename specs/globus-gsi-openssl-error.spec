@@ -91,8 +91,6 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %check
 %make_build check
 
-%ldconfig_scriptlets
-
 %files
 %{_libdir}/libglobus_openssl_error.so.*
 %dir %{_pkgdocdir}

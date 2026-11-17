@@ -5,13 +5,16 @@
 %global crate futures-time
 
 Name:           rust-futures-time
-Version:        3.0.1
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Async time combinators
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/futures-time
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused support for WASM environments
+Patch:          futures-time-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

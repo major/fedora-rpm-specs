@@ -1,5 +1,5 @@
 Name:           python-binary-manager
-Version:        0.2.1
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Binman firmware-packaging tool
 
@@ -30,7 +30,7 @@ needed.}
 
 %package -n     python3-binary-manager
 Summary:        %{summary}
-Requires:       python3-libfdt
+Requires:       python3dist(libfdt)
 Requires:       python3dist(jsonschema)
 Requires:       python3dist(pycryptodomex)
 Requires:       python3dist(pyelftools)
@@ -69,12 +69,6 @@ find binman -name '*.py' -exec sed -i '1{/^#!/d}' {} +
 
 %files -n python3-binary-manager -f %{pyproject_files}
 %doc README.rst
-# .c and .h files are runtime test data compiled by binman's test suite, not devel files
-%doc %{python3_sitelib}/binman/test/*.c
-%doc %{python3_sitelib}/binman/test/fit/*.c
-%doc %{python3_sitelib}/binman/test/generated/*.h
-%doc %{python3_sitelib}/binman/test/include/*.h
-%doc %{python3_sitelib}/binman/test/include/linux/*.h
 %{_bindir}/binman
 
 %changelog

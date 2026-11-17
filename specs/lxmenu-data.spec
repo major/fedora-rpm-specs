@@ -2,7 +2,7 @@
 
 Name:           lxmenu-data
 Version:        0.1.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Data files for the LXDE menu
 
 # SPDX confirmed
@@ -31,6 +31,7 @@ the freedesktop-org menu spec. Currently it's used by LXPanel and LXLauncher.
 %prep
 %setup -q
 #%%patch -P0 -p1 -b .orig
+sed -i autogen.sh -e 's|1\.1\[0-9\]|1.[1-9]*|'
 sh autogen.sh
 
 
@@ -55,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.7-4
+- Support automake 1.20
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

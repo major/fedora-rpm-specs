@@ -4,7 +4,7 @@
 %global _trans_version 2018.12.11
 
 Name:           cinnamon-translations
-Version:        6.8.0
+Version:        6.8.1
 Release:        %{autorelease}
 %{forgemeta}
 Summary:        Translations for Cinnamon and Nemo

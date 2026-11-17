@@ -1,11 +1,13 @@
 %define		mainver		0.996
+%define		minorver		15
+%define		minordot		.%{minorver}
 #%%define		betaver		pre3
-%define		baserelease	16
+%define		baserelease	1
 %define		srcname		mecab-ruby
 
 
 Name:		ruby-mecab
-Version:	%{mainver}
+Version:	%{mainver}%{?minorver:^%minorver}
 Release:	%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}%{?dist}
 Summary:	Ruby binding for MeCab
 
@@ -13,19 +15,20 @@ Summary:	Ruby binding for MeCab
 # SPDX confirmed
 License:	BSD-3-Clause OR LGPL-2.1-or-later OR GPL-2.0-or-later
 URL:		http://mecab.sourceforge.net/
-Source0:	http://mecab.googlecode.com/files/%{srcname}-%{mainver}%{?betaver}.tar.gz
+%dnl Source0:	http://mecab.googlecode.com/files/%{srcname}-%{mainver}%{?minordot}%{?betaver}.tar.gz
+Source0:	https://github.com/shogo82148/mecab/releases/download/v%{mainver}%{?minordot}/%{srcname}-%{mainver}%{?minordot}%{?betaver}.tar.gz
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
 # This is not release number specific
-BuildRequires:	mecab-devel = %{version}
+BuildRequires:	mecab-devel >= %{mainver}
 # ruby-devel requires ruby-libs and not require ruby
 BuildRequires:	ruby
 BuildRequires:	ruby-devel
 # %%check
 BuildRequires:	mecab-jumandic
 
-Requires:	mecab = %{version}
+Requires:	mecab >= %{mainver}
 Requires:	ruby
 
 Provides:	ruby(mecab) = %{version}-%{release}
@@ -34,7 +37,7 @@ Provides:	ruby(mecab) = %{version}-%{release}
 %{summary}.
 
 %prep
-%setup -q -n %{srcname}-%{version}%{?betaver}
+%setup -q -n %{srcname}-%{mainver}%{?minordot}%{?betaver}
 
 %build
 ruby extconf.rb
@@ -62,6 +65,9 @@ ruby -I. test.rb
 %{ruby_vendorarchdir}/*MeCab*
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.996^15-1
+- Use 0.996.15 fork tarball to support ruby4.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

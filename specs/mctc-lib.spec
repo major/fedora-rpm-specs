@@ -1,7 +1,7 @@
 %global soversion 0
 
 Name:           mctc-lib
-Version:        0.6.1
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Modular computation tool chain library
 License:        Apache-2.0
@@ -34,7 +34,9 @@ developing applications that use %{name}.
 
 
 %conf
-# TODO: Account for absolute path CMAKE_INSTALL_INCLUDEDIR so we can use %%{_fmoddir}
+# TODO
+# - Account for absolute path CMAKE_INSTALL_INCLUDEDIR so we can use %%{_fmoddir}
+# - Remove WITH_JSON workaround (there should be only MCTCLIB_WITH_JSON)
 %cmake \
   -DCMAKE_INSTALL_INCLUDEDIR:PATH=%{_lib}/gfortran/modules \
   -Dmctc-lib-module-dir:STRING=mctc-lib \

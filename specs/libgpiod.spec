@@ -23,9 +23,6 @@ BuildRequires: libgudev-devel
 BuildRequires: libstdc++-devel
 BuildRequires: pkgconf
 BuildRequires: python3-devel
-BuildRequires: python3-packaging
-BuildRequires: python3-pip
-BuildRequires: python3-setuptools
 BuildRequires: systemd
 
 %description
@@ -85,6 +82,9 @@ Files for development with %{name}.
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires -d bindings/python
+
 %build
 %meson  -Dtools=enabled \
 	-Dbindings-cxx=enabled \
@@ -96,19 +96,15 @@ Files for development with %{name}.
 	%{nil}
 
 %meson_build
-pushd bindings/python/
-export CPPFLAGS="-I$(realpath ../../include)"
-export LIBRARY_PATH="$(realpath ../../%{_vpath_builddir}/lib)"
-%pyproject_wheel
-popd
+export CPPFLAGS="-I$(realpath include)"
+export LIBRARY_PATH="$(realpath %{_vpath_builddir}/lib)"
+%pyproject_wheel -d bindings/python
 
 
 %install
 %meson_install
-pushd bindings/python/
 %pyproject_install
 %pyproject_save_files gpiod
-popd
 
 # Install sysusers file
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/gpiod.conf

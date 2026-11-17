@@ -1,5 +1,5 @@
 Name:           python-holidays
-Version:        0.103
+Version:        0.108
 Release:        %autorelease
 Summary:        Generate and work with holidays in Python
 
@@ -24,6 +24,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n holidays-%{version}
+
+# Drop upper dateutil restriction to allow dateutil update
+%pyproject_patch_dependency dateutil:drop_upper
 
 %if %{fedora} <= 42
 # correct license declaration: errors on F42

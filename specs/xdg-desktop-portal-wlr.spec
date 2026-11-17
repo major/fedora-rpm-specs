@@ -1,5 +1,5 @@
 Name:           xdg-desktop-portal-wlr
-Version:        0.8.5
+Version:        0.9.0
 Release:        1%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
@@ -83,6 +83,9 @@ install -D -pv -m644 %{SOURCE3} \
 
 
 %changelog
+* Sun Nov 15 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.0-1
+- Update to 0.9.0 (#2572527)
+
 * Sun Nov 01 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.8.5-1
 - Update to 0.8.5 (#2563703)
 

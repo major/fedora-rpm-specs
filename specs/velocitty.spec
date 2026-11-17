@@ -2,7 +2,7 @@
 %global tag      %{version}
 
 Name:           velocitty
-Version:        1.0.6
+Version:        1.0.9
 Release:        %autorelease
 %forgemeta
 Summary:        Terminal emulator for Linux desktops
@@ -38,10 +38,13 @@ identify, organise and restore tabs.
 %prep
 %forgeautosetup -p1
 
+%install -a
+%find_lang %{name} --with-gnome
+
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.x.velocitty.desktop
 
-%files
+%files -f %{name}.lang
 %license LICENSES/*
 %doc README.md
 %{_bindir}/velocitty

@@ -65,6 +65,7 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: shared-mime-info
 Requires: systemd
+Requires: polkit
 
 # functionality moved to udev itself
 Obsoletes: PackageKit-udev-helper < %{version}-%{release}

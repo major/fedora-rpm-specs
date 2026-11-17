@@ -1,5 +1,5 @@
 Name:		sigscheme
-Version:	0.9.6
+Version:	1.0.0
 Release:	%autorelease
 License:	BSD-3-Clause
 URL:		https://github.com/uim/sigscheme
@@ -52,7 +52,7 @@ make check
 %doc AUTHORS NEWS QALog README RELNOTE TODO
 %doc doc/*.html doc/*.txt
 %{_bindir}/sscm
-%{_libdir}/libsscm.so.3*
+%{_libdir}/libsscm.so.4*
 %{_datadir}/sigscheme
 
 %files devel

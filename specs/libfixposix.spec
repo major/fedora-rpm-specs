@@ -4,8 +4,8 @@ whose behavior is inconsistent across *NIX flavors.}
 
 Name:           libfixposix
 Summary:        Thin wrapper over POSIX syscalls
-Version:        0.4.3
-Release:        18%{?dist}
+Version:        0.5.1
+Release:        1%{?dist}
 # Automatically converted from old format: Boost - review is highly recommended.
 License:        BSL-1.0
 
@@ -52,7 +52,7 @@ find %{buildroot} -name "*.la" -print -delete
 %license LICENCE
 %doc README.md
 
-%{_libdir}/%{name}.so.3*
+%{_libdir}/%{name}.so.4*
 
 
 %files devel
@@ -65,6 +65,9 @@ find %{buildroot} -name "*.la" -print -delete
 
 
 %changelog
+* Thu Aug 27 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.1-1
+- Update to v0.5.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

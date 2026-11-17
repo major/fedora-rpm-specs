@@ -2,7 +2,7 @@
 %global tag      %{version}
 
 Name:           xdg-desktop-portal-xapp
-Version:        1.2.0
+Version:        1.2.2
 Release:        %{autorelease}
 %{forgemeta}
 Summary:        Backend implementation for xdg-desktop-portal using Xapp
@@ -37,6 +37,7 @@ outside the sandbox in the MATE, XFCE and Cinnamon environments.
 
 %install -a
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+%find_lang %{name} --with-gnome
 
 %post
 %systemd_user_post %{name}.service
@@ -44,7 +45,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %preun
 %systemd_user_preun %{name}.service
 
-%files
+%files -f %{name}.lang
 %license COPYING
 %doc README.md
 %{_libexecdir}/%{name}

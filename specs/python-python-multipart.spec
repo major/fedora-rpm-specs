@@ -1,5 +1,5 @@
 Name:           python-python-multipart
-Version:        0.0.33
+Version:        0.0.34
 Release:        %autorelease
 Summary:        A streaming multipart parser for Python
 
@@ -76,6 +76,7 @@ tomcli set pyproject.toml lists delitem \
 
 
 %files -n python3-python-multipart -f %{pyproject_files}
+%doc CHANGELOG.md
 %doc README.md
 
 

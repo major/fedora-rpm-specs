@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/genss
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6.10
+Version:        1.7.0
 Release:        %autorelease
 Summary:        Randomized Schreier-Sims algorithm
 
@@ -13,7 +13,7 @@ Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}
 
 BuildArch:      noarch
 BuildSystem:    gap
-BuildOption(install): examples gap test tst
+BuildOption(install): examples gap tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap(autodoc) >= 2016.01.21
@@ -53,21 +53,12 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %prep
 %autosetup -n %{gap_upname}-%{version}
 
-%conf
-# Fix encodings
-for fil in init.g read.g; do
-  iconv -f iso8859-1 -t utf-8 $fil > $fil.utf8
-  touch -r $fil $fil.utf8
-  mv -f $fil.utf8 $fil
-done
-
 %files
-%doc CHANGES README.md
+%doc CHANGES.md README.md
 %license LICENSE
 %dir %{gap_libdir}/pkg/%{gap_upname}/
 %{gap_libdir}/pkg/%{gap_upname}/*.g
 %{gap_libdir}/pkg/%{gap_upname}/gap/
-%{gap_libdir}/pkg/%{gap_upname}/test/
 %{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc

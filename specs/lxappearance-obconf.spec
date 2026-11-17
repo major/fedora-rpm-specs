@@ -34,7 +34,7 @@
 
 Name:			lxappearance-obconf
 Version:		%{main_version}%{git_ver_rpm}
-Release:		5%{?dist}
+Release:		6%{?dist}
 Summary:		Plugin to configure Openbox inside LXAppearance
 
 # SPDX confirmed
@@ -95,6 +95,7 @@ git add .
 git commit -m "base" -q
 %endif
 
+sed -i autogen.sh -e 's|1\.1\[1-9\]|1.[1-9]*|'
 sh autogen.sh
 
 %build
@@ -133,6 +134,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.4-6
+- Support automake 1.20
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.2.4-5
 - Rebuilt for libxml-2.5.4
 

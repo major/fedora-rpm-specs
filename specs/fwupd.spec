@@ -1,5 +1,5 @@
 %global glib2_version 2.68.0
-%global libxmlb_version 0.3.24
+%global libxmlb_version 0.3.30
 %global libusb_version 1.0.27
 %global libcurl_version 7.62.0
 %global systemd_version 249
@@ -12,8 +12,6 @@
 %ifnarch ppc64le
 %global enable_tests 1
 %endif
-
-%global enable_dummy 1
 
 # fwupd.efi is only available on these arches
 %ifarch x86_64 aarch64 riscv64 loongarch64
@@ -35,7 +33,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.1.9
+Version:   2.1.10
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -299,7 +297,6 @@ systemctl --no-reload preset fwupd-refresh.timer &>/dev/null || :
 %endif
 %{_libdir}/libfwupd.so.3*
 %{_libdir}/girepository-1.0/Fwupd-2.0.typelib
-/usr/lib/systemd/system-shutdown/fwupd.shutdown
 %dir %{_libdir}/fwupd-%{version}
 %{_libdir}/fwupd-%{version}/libfwupd*.so
 

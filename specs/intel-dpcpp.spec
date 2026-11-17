@@ -48,8 +48,8 @@ Release:        %autorelease
 Summary:        Intel oneAPI DPC++/SYCL LLVM-based compiler
 
 # LLVM: Apache-2.0 WITH LLVM-exception; vendored bits: MIT (vc-intrinsics,
-# emhash), Apache-2.0 WITH LLVM-exception (UMF)
-License:        Apache-2.0 WITH LLVM-exception AND MIT AND NCSA
+# emhash), Apache-2.0 WITH LLVM-exception (UMF), BSD-1-Clause (UMF's uthash)
+License:        Apache-2.0 WITH LLVM-exception AND MIT AND NCSA AND BSD-1-Clause
 URL:            https://github.com/intel/llvm
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/llvm-%{version}.tar.gz
 Source10:       https://github.com/intel/vc-intrinsics/archive/%{vc_intrinsics_commit}/vc-intrinsics-%{vc_intrinsics_commit}.tar.gz
@@ -205,6 +205,12 @@ mkdir -p vendor/{vc-intrinsics,emhash,unified-memory-framework}
 tar -xzf %{SOURCE10} -C vendor/vc-intrinsics --strip-components=1
 tar -xzf %{SOURCE11} -C vendor/emhash --strip-components=1
 tar -xzf %{SOURCE12} -C vendor/unified-memory-framework --strip-components=1
+
+# Keep bundled notices distinct from LLVM's LICENSE.TXT in the RPM license dir.
+cp -p vendor/vc-intrinsics/LICENSE.md LICENSE.vc-intrinsics
+cp -p vendor/emhash/LICENSE LICENSE.emhash
+cp -p vendor/unified-memory-framework/LICENSE.TXT LICENSE.umf
+cp -p vendor/unified-memory-framework/licensing/third-party-programs.txt NOTICE.umf
 
 %build
 %ifarch x86_64
@@ -408,6 +414,7 @@ LIT_FILTER_OUT+='|esimd|invoke_simd|basic_tests/(interop-level-zero-2020|generic
 
 %files libs
 %license llvm/LICENSE.TXT
+%license LICENSE.vc-intrinsics
 %{dpcpp_libdir}/libLLVM*.so.%{llvm_major}.*
 %{dpcpp_libdir}/libclang*.so.%{llvm_major}.*
 %{dpcpp_libdir}/libSYCLJITPasses.so.%{llvm_major}.*
@@ -418,14 +425,17 @@ LIT_FILTER_OUT+='|esimd|invoke_simd|basic_tests/(interop-level-zero-2020|generic
 
 %files runtime
 %license llvm/LICENSE.TXT
+%license LICENSE.emhash LICENSE.umf NOTICE.umf
 %{_libdir}/libsycl.so.%{sycl_major}
 %{dpcpp_libdir}/libsycl.so.%{sycl_major}*
 %{dpcpp_libdir}/libsycl-preview.so.%{sycl_major}*
 %{dpcpp_libdir}/libsycl-jit.so
 %{dpcpp_libdir}/libsycl-jit.so.*
 %{dpcpp_libdir}/SYCLJITPassesPlugin.so
-%ifnarch aarch64
-%{dpcpp_libdir}/libur_adapter_*.so.*
+# OpenCL is embedded in libsycl through the static UR loader on both arches.
+%ifarch x86_64
+%{dpcpp_libdir}/libur_adapter_level_zero.so.*
+%{dpcpp_libdir}/libur_adapter_level_zero_v2.so.*
 %endif
 %{dpcpp_libdir}/libur_sanitizer_layer.so.*
 
@@ -433,8 +443,9 @@ LIT_FILTER_OUT+='|esimd|invoke_simd|basic_tests/(interop-level-zero-2020|generic
 %{_libdir}/libsycl.so
 %{dpcpp_libdir}/libsycl.so
 %{dpcpp_libdir}/libsycl-preview.so
-%ifnarch aarch64
-%{dpcpp_libdir}/libur_adapter_*.so
+%ifarch x86_64
+%{dpcpp_libdir}/libur_adapter_level_zero.so
+%{dpcpp_libdir}/libur_adapter_level_zero_v2.so
 %endif
 %{dpcpp_libdir}/libur_sanitizer_layer.so
 %{dpcpp_libdir}/libsycl-devicelib-host.a

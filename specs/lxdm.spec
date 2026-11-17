@@ -26,7 +26,7 @@
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -140,6 +140,7 @@ EOF
 %build
 # Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
 export ACLOCAL_PATH=%{_datadir}/gettext/m4/
+sed -i autogen.sh -e 's|1\.1\[1-9\]|1.[1-9]*|'
 %{?git_version:sh autogen.sh}
 %configure \
 	--enable-gtk3 \
@@ -247,6 +248,9 @@ exit 0
 
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-18
+- Support automake 1.20
+
 * Thu Sep 03 2026 Neal Gompa <ngompa@fedoraproject.org> - 0.5.3^20220831git2d4ba970-17
 - Add support for unlocking oo7 wallets with login
 

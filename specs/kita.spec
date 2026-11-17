@@ -4,7 +4,7 @@
 Summary:    2ch client for KDE
 Name:       kita
 Version:    %{version}
-Release:    45%{?dist}
+Release:    46%{?dist}
 Source:     http://downloads.sourceforge.jp/kita/%{repoid}/kita-%{version}.tar.gz
 #Patch0:     kita-0.177.3-nonweak-symbol.patch
 Patch10:    kita-0.177.5-g++44.patch
@@ -44,7 +44,7 @@ Kita is a 2ch client for KDE.
 
 # Support automake 1.11
 %{__sed} -i.automake \
-	-e 's|automake\*1\.10*|automake*1.1*|' \
+	-e 's|automake\*1\.10*|automake*1.[1-9]*|' \
 	admin/cvs.sh
 
 # Support autoconf 2.71
@@ -151,6 +151,9 @@ done
 %{_datadir}/doc/HTML/en/kita/
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.177.5-46
+- Support automake 1.20
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.177.5-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

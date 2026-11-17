@@ -8,7 +8,7 @@
 Name:          cjs
 # Epoch needed: version dropped from 1.34.0 to 1.9.1 during package revival
 Epoch:         1
-Version:       140.2
+Version:       140.3
 Release:       %autorelease
 %{forgemeta}
 Summary:       Javascript Bindings for Cinnamon

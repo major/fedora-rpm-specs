@@ -190,7 +190,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        160.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -1053,9 +1053,6 @@ cp failures-* %{buildroot}/%{version}-%{release}/ || true
 # Default
 cp %{SOURCE12} %{buildroot}%{mozappdir}/browser/defaults/preferences
 
-# Disabled session restore due to mzbz#2059617.
-echo 'pref("widget.wayland.session-management.enabled", false);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
-
 %if %{?use_pipewire_camera}
 echo 'pref("media.webrtc.camera.allow-pipewire", true);' >> %{buildroot}%{mozappdir}/browser/defaults/preferences/firefox-redhat-default-prefs.js
 %endif
@@ -1188,6 +1185,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Nov 11 2026 Dave Vasilevsky <dave@vasilevsky.ca> - 160.0-2
+- Re-enable session management after fixes in Firefox 158
+
 * Fri Nov 06 2026 Martin Stransky <stransky@redhat.com> - 160.0-1
 - Update to latest upstream (160.0)
 

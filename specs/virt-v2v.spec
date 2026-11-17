@@ -44,8 +44,8 @@ ExclusiveArch: x86_64
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.13.9
-Release:       2%{?dist}
+Version:       2.13.10
+Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -70,7 +70,7 @@ BuildRequires: perl(IPC::Run3)
 BuildRequires: gcc
 BuildRequires: ocaml >= 4.08
 
-BuildRequires: libguestfs-devel >= 1:1.61.1-1
+BuildRequires: libguestfs-devel >= 1:1.61.6-1
 BuildRequires: augeas-devel
 BuildRequires: bash-completion
 %if 0%{?fedora} || 0%{?rhel} >= 11
@@ -117,7 +117,7 @@ BuildRequires: glibc-static
 BuildRequires: openpgpverify
 %endif
 
-Requires:      libguestfs%{?_isa} >= 1:1.61.1-1
+Requires:      libguestfs%{?_isa} >= 1:1.61.6-1
 Requires:      guestfs-tools >= 1.54
 
 # XFS is the default filesystem in Fedora and RHEL.
@@ -370,6 +370,10 @@ done
 
 
 %changelog
+* Mon Nov 16 2026 Richard W.M. Jones <rich@annexia.org> - 1:2.13.10-1
+- New upstream development version 2.13.10
+- Requires libguestfs 1.61.6
+
 * Mon Nov 02 2026 Jakub Jelen <jjelen@redhat.com> - 1:2.13.9-2
 - Verify upstream source signatures with openpgpverify
 

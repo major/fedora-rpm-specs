@@ -2,7 +2,7 @@
 
 Name:           lxinput
 Version:        0.3.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Keyboard and mouse settings dialog for LXDE
 
 # SPDX confirmed
@@ -31,6 +31,7 @@ Lightweight X11 Desktop Environment.
 %setup -q
 
 %build
+sed -i autogen.sh -e 's|1\.1\[1-9\]|1.[1-9]*|'
 sh autogen.sh
 %configure \
 	--enable-man \
@@ -67,6 +68,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.6-5
+- Support automake 1.20
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

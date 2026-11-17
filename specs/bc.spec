@@ -1,7 +1,7 @@
 Summary: GNU's bc (a numeric processing language) and dc (a calculator)
 Name: bc
 Version: 1.08.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/bc/
 Source0: https://ftp.gnu.org/gnu/bc/bc-%{version}.tar.gz
@@ -18,7 +18,7 @@ BuildRequires: make
 BuildRequires: readline-devel
 BuildRequires: texinfo
 # for gpg verification
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 %description
 The bc package includes bc and dc. Bc is an arbitrary precision
@@ -30,7 +30,7 @@ Install the bc package if you need its number handling capabilities or
 if you would like to use its text mode calculator.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -52,6 +52,9 @@ rm -f %{buildroot}/%{_infodir}/dir
 %{_infodir}/dc.info*
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 1.08.2-6
+- Verify upstream source signatures with openpgpverify
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.08.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

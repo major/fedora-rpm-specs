@@ -2,8 +2,8 @@
 
 Name:		globus-gridftp-server
 %global _name %(tr - _ <<< %{name})
-Version:	13.28
-Release:	4%{?dist}
+Version:	13.29
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus GridFTP Server
 
 License:	Apache-2.0
@@ -12,8 +12,6 @@ Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source1:	%{name}.service
 Source2:	globus-gridftp-sshftp.service
 Source8:	README
-Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
-Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -90,8 +88,6 @@ Globus GridFTP Server Development Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p4
-%patch -P1 -p4
 
 %build
 # Reduce overlinking
@@ -143,8 +139,6 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %check
 %make_build check
 
-%ldconfig_scriptlets
-
 %post progs
 %systemd_post %{name}.service globus-gridftp-sshftp.service
 
@@ -182,6 +176,10 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Nov 16 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 13.29-1
+- New GCT release v6.2.20261111
+- Drop patches included in the release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 13.28-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

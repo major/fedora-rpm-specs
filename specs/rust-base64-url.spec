@@ -5,7 +5,7 @@
 %global crate base64-url
 
 Name:           rust-base64-url
-Version:        3.0.4
+Version:        3.0.5
 Release:        %autorelease
 Summary:        Base64 encode, decode, escape and unescape for URL applications
 

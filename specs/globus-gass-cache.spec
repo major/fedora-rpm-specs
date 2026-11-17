@@ -1,15 +1,13 @@
 Name:		globus-gass-cache
 %global _name %(tr - _ <<< %{name})
-Version:	10.3
-Release:	14%{?dist}
+Version:	10.4
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus Gass Cache
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
-Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -57,8 +55,6 @@ Globus Gass Cache Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p4
-%patch -P1 -p4
 
 %build
 # Reduce overlinking
@@ -86,8 +82,6 @@ install -m 644 -p %{SOURCE8} %{buildroot}%{_pkgdocdir}/README
 # Remove license file from pkgdocdir
 rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 
-%ldconfig_scriptlets
-
 %files
 %{_libdir}/libglobus_gass_cache.so.*
 %dir %{_pkgdocdir}
@@ -107,6 +101,10 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Mon Nov 16 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 10.4-1
+- New GCT release v6.2.20261111
+- Drop patches included in the release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 10.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

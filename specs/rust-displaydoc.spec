@@ -5,7 +5,7 @@
 %global crate displaydoc
 
 Name:           rust-displaydoc
-Version:        0.2.6
+Version:        0.2.7
 Release:        %autorelease
 Summary:        Derive macro for implementing the display Trait
 

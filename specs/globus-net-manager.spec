@@ -139,10 +139,6 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %check
 GLOBUS_HOSTNAME=localhost PYTHONDONTWRITEBYTECODE=1 %make_build check
 
-%ldconfig_scriptlets
-
-%ldconfig_scriptlets -n globus-xio-net-manager-driver
-
 %files
 %{_libdir}/libglobus_net_manager.so.*
 %dir %{_pkgdocdir}

@@ -1,9 +1,12 @@
 # Disable t/ucd.t, it consumes a lot of memory, CPAN RT#108739
 %bcond_with ucdtest
 
+# No noarch BuildArch because urxvt subpackage needs to be fullarch.
+%define debug_package %{nil}
+
 Name:           perl-Text-Bidi
-Version:        2.18
-Release:        19%{?dist}
+Version:        3.01
+Release:        1%{?dist}
 Summary:        Unicode bidirectional algorithm using libfribidi
 # LICENSE:          GPL-1.0-or-later OR Artistic-1.0-Perl
 # t/MirrorTest.txt: Unicode-DFS-2016 (a copy of
@@ -17,54 +20,57 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 SourceLicense:  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unicode-DFS-2016 AND Unicode-DFS-2015
 URL:            https://metacpan.org/release/Text-Bidi
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAMENSKY/Text-Bidi-%{version}.tar.gz
+# This is a patch to make the installed tests working out of a build tree on
+# system-wide installed modules.
+Source1:        Text-Bidi-3.01-Remove-a-check-for-not-loading-from-Perl-system-path.patch
 # bidi is a plugin, CPAN RT#108737
 Patch0:         Text-Bidi-2.12-Remove-script-attributes-from-bidi.patch
-# Respect swig failures, proposed to the upstream,
-# <https://github.com/mkamensky/Text-Bidi/pull/13>
-Patch1:         Text-Bidi-2.18-Do-not-ignore-Swig-failures.patch
 # Adjust a test for an out-tree testing, not suitable for upstream
-Patch2:         Text-Bidi-2.16-Skip-nonexisting-scripts.patch
+Patch1:         Text-Bidi-2.16-Skip-nonexisting-scripts.patch
 BuildRequires:  coreutils
-BuildRequires:  findutils
-BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-devel
+BuildRequires:  patch
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.10.0
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-# Prefer pkgconfig for locating fribidi
-BuildRequires:  perl(ExtUtils::PkgConfig)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(version) >= 0.77
 BuildRequires:  perl(warnings)
-BuildRequires:  pkgconfig(fribidi) >= 1.0.0
-BuildRequires:  swig
 # Run-time:
+BuildRequires:  fribidi >= 1.0.0
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Config)
-BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(FFI::CheckLib) >= 0.28
+BuildRequires:  perl(FFI::Platypus) >= 2.00
+BuildRequires:  perl(FFI::Platypus::Buffer)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(integer)
 BuildRequires:  perl(open)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Tie::Array)
+BuildRequires:  perl(version) >= 0.77
 # Tests:
 BuildRequires:  perl(blib)
 BuildRequires:  perl(charnames)
+BuildRequires:  perl(Cwd)
 %if %{with ucdtest}
 BuildRequires:  perl(Data::Dumper)
 %endif
+BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(utf8)
 # Optional tests:
 # CPAN::Meta 2.120900 not useful
+Requires:       fribidi >= 1.0.0
 
 %description
 This Perl module provides basic support for the Unicode bidirectional (Bidi)
@@ -74,8 +80,9 @@ a SWIG interface file to the libfribidi library.
 
 %package urxvt
 Summary:        Unicode bidirectional text support for urxvt
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+# No noarch BuildArch because of pluin installed into
+# rxvt-unicode's architecture specific path.
 Requires:       perl(Encode)
 Requires:       perl(Text::Bidi)
 Requires:       perl(Text::Bidi::Constants)
@@ -88,8 +95,9 @@ text (e.g., Hebrew or Arabic mixed with English) is displayed correctly.
 %package tests
 Summary:        Tests for %{name}
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unicode-DFS-2016%[%{with ucdtest}?" AND Unicode-DFS-2015":""]
-BuildArch:      noarch
+# FullArch because of _libdir stored into t/urxvt_selection.t.
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       %{name}-urxvt = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 
 %description tests
@@ -98,10 +106,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n Text-Bidi-%{version}
-# Delete SWIG-generated files to regenerate them
-rm private.c lib/Text/Bidi/private.pm
-perl -i -ne 'print $_ unless m{^private\.c}' MANIFEST
-perl -i -ne 'print $_ unless m{^lib/Text/Bidi/private\.pm}' MANIFEST
 # Remove a large unsed test file,
 # Disable t/ucd.t, it consumes a lot of memory, CPAN RT#108739
 for F in \
@@ -125,25 +129,30 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_
 
 %install
 %{make_install}
-find %{buildroot} -type f -name '*.bs' -size 0 -delete
-find %{buildroot} -type f -name '*.3pm' -size 0 -delete
 %{_fixperms} %{buildroot}/*
-install -d -m 0755 %{buildroot}%{_libdir}/urxvt/perl
-install -m 0644 -t %{buildroot}%{_libdir}/urxvt/perl misc/bidi
+%define urxvt_plugin_path %{_libdir}/urxvt/perl
+install -d -m 0755 %{buildroot}%{urxvt_plugin_path}
+install -m 0644 -t %{buildroot}%{urxvt_plugin_path} misc/bidi
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Fix tests not to test that they run from a local build tree
+patch -p1 --no-backup-if-mismatch -d %{buildroot}%{_libexecdir}/%{name} <%{SOURCE1}
+rm %{buildroot}%{_libexecdir}/%{name}/t/ffi_search_path.t
+# Test urxvt plugin from a system location
+perl -i -pe 's{\Q./misc/\E}{%{urxvt_plugin_path}/}' \
+    %{buildroot}%{_libexecdir}/%{name}/t/urxvt_selection.t
 # Packaged with %%license
 rm %{buildroot}%{_libexecdir}/%{name}/t/license.txt
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-unset PERL_COMPILE_TEST_DEBUG
+unset PERL_COMPILE_TEST_DEBUG TEXT_BIDI_FRIBIDI_LIB
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
-unset PERL_COMPILE_TEST_DEBUG
+unset PERL_COMPILE_TEST_DEBUG TEXT_BIDI_FRIBIDI_LIB
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
@@ -151,11 +160,9 @@ make test
 %license LICENSE
 %doc Changes README
 %{_bindir}/fribidi.pl
-%dir %{perl_vendorarch}/auto/Text
-%{perl_vendorarch}/auto/Text/Bidi
-%dir %{perl_vendorarch}/Text
-%{perl_vendorarch}/Text/Bidi
-%{perl_vendorarch}/Text/Bidi.pm
+%dir %{perl_vendorlib}/Text
+%{perl_vendorlib}/Text/Bidi
+%{perl_vendorlib}/Text/Bidi.pm
 %{_mandir}/man1/fribidi.pl.1*
 %{_mandir}/man3/Text::Bidi.*
 %{_mandir}/man3/Text::Bidi::*
@@ -169,6 +176,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 16 2026 Petr Pisar <ppisar@redhat.com> - 3.01-1
+- 3.01 bump
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.18-19
 - Perl 5.44 rebuild
 

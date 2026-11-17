@@ -1,6 +1,6 @@
 Name:           hidapi
-Version:        0.15.0
-Release:        4%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        Library for communicating with USB and Bluetooth HID devices
 
 License:        GPL-3.0-only OR BSD-3-Clause
@@ -80,6 +80,7 @@ Obsoletes:      mingw64-hidapi-static < 0.11.2-6
 %{_libdir}/cmake/hidapi
 %{_libdir}/libhidapi-hidraw.so
 %{_libdir}/libhidapi-libusb.so
+%{_libdir}/pkgconfig/hidapi.pc
 %{_libdir}/pkgconfig/hidapi-hidraw.pc
 %{_libdir}/pkgconfig/hidapi-libusb.pc
 
@@ -89,6 +90,7 @@ Obsoletes:      mingw64-hidapi-static < 0.11.2-6
 %{mingw32_bindir}/libhidapi.dll
 %{mingw32_libdir}/libhidapi.dll.a
 %{mingw32_libdir}/pkgconfig/hidapi.pc
+%{mingw32_libdir}/pkgconfig/hidapi-winapi.pc
 %{mingw32_includedir}/hidapi
 
 %files -n mingw64-hidapi
@@ -97,9 +99,13 @@ Obsoletes:      mingw64-hidapi-static < 0.11.2-6
 %{mingw64_bindir}/libhidapi.dll
 %{mingw64_libdir}/libhidapi.dll.a
 %{mingw64_libdir}/pkgconfig/hidapi.pc
+%{mingw64_libdir}/pkgconfig/hidapi-winapi.pc
 %{mingw64_includedir}/hidapi
 
 %changelog
+* Tue Nov 17 2026 Scott Talbert <swt@techie.net> - 0.16.0-1
+- Update to new upstream release 0.16.0 (#2573676)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -22,7 +22,7 @@
 }
 
 Name:           sandogasa
-Version:        0.28.1
+Version:        0.28.2
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -91,10 +91,14 @@ Recommends:     fedrq-config-centos-stream-minor
 # for multimedia packages, ebranch can flag if counterpart packages
 # need to be updated in RPM Fusion as well
 Recommends:     fedrq-config-rpmfusion
-# cbspkg srpm and mockbuild build locally. fedora-packager pulls these
-# in, but a system set up only for CentOS work may not have it
+# cbspkg srpm and mockbuild build locally, and cbspkg build, verrel,
+# srpm and mockbuild read the spec's version and release with rpmspec
+# (rpm-build), filling in %%autorelease and %%autochangelog with
+# rpmautospec first. fedora-packager and centos-packager pull these in,
+# but a system set up only for CentOS work may have neither
 Recommends:     mock
 Recommends:     rpm-build
+Recommends:     rpmautospec
 Recommends:     tzdata
 # CentOS work: mock-centos-sig-configs (or centos-packager) marks a
 # system used for CentOS packaging. cbspkg and cpu-sig-tracker use

@@ -123,6 +123,9 @@ sslflags=enable-ec_nistp_64_gcc_128
 sslarch="linux-ppc64le"
 sslflags=enable-ec_nistp_64_gcc_128
 %endif
+%ifarch riscv64
+sslarch="linux64-riscv64"
+%endif
 %ifarch %ix86
 sslarch=linux-elf
 %endif

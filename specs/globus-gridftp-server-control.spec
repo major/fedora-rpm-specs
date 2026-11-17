@@ -1,15 +1,13 @@
 Name:		globus-gridftp-server-control
 %global _name %(tr - _ <<< %{name})
-Version:	9.5
-Release:	4%{?dist}
+Version:	9.6
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus GridFTP Server Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
-Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -51,8 +49,6 @@ Globus GridFTP Server Library Development Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p4
-%patch -P1 -p4
 
 %build
 # Reduce overlinking
@@ -80,8 +76,6 @@ install -m 644 -p %{SOURCE8} %{buildroot}%{_pkgdocdir}/README
 # Remove license file from pkgdocdir
 rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 
-%ldconfig_scriptlets
-
 %files
 %{_libdir}/libglobus_gridftp_server_control.so.*
 %dir %{_pkgdocdir}
@@ -94,6 +88,10 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Nov 16 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.6-1
+- New GCT release v6.2.20261111
+- Drop patches included in the release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

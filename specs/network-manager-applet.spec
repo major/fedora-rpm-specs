@@ -25,7 +25,7 @@ Patch1:  0001-nm-applet-no-notifications.patch
 BuildSystem: meson
 BuildOption(conf): -Dselinux=true
 %if %{with appindicator}
-BuildOption(conf): -Dappindicator=auto
+BuildOption(conf): -Dappindicator=ayatana
 %else
 BuildOption(conf): -Dappindicator=no
 %endif
@@ -50,7 +50,7 @@ BuildRequires: gcr-devel
 BuildRequires: libselinux-devel
 BuildRequires: mobile-broadband-provider-info-devel
 %if %{with appindicator}
-BuildRequires: libappindicator-gtk3-devel
+BuildRequires: libayatana-appindicator-gtk3-devel
 %endif
 %if %{with dbusmenu}
 BuildRequires: libdbusmenu-gtk3-devel

@@ -1,15 +1,13 @@
 Name:		globus-gsi-proxy-core
 %global _name %(tr - _ <<< %{name})
-Version:	9.9
-Release:	3%{?dist}
+Version:	9.11
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus GSI Proxy Core Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
-Patch1:		0002-Build-with-OpenSSL-4.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -63,8 +61,6 @@ Globus GSI Proxy Core Library Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p5
-%patch -P1 -p5
 
 %build
 # Reduce overlinking
@@ -96,8 +92,6 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %check
 %make_build check
 
-%ldconfig_scriptlets
-
 %files
 %{_libdir}/libglobus_gsi_proxy_core.so.*
 %dir %{_pkgdocdir}
@@ -117,6 +111,11 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Mon Nov 16 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.11-1
+- New GCT release v6.2.20261111
+- Drop patches included in the release
+- Fix ECDSA issuer digest initialization and improve algorithm handling
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 9.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

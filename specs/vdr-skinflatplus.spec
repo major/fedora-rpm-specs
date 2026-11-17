@@ -4,7 +4,7 @@
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-skinflatplus
-Version:        1.3.2
+Version:        1.3.3
 Release:        1%{?dist}
 Summary:        A fast, modern and up-to-date skin for the Video Disk Recorder
 License:        GPL-2.0-or-later
@@ -74,6 +74,9 @@ test -d %{buildroot}%{vdr_libdir}/%{pname}/widgets/temperatures
 %config(noreplace) %{vdr_configdir}/themes/flatPlus-*.theme
 
 %changelog
+* Mon Nov 16 2026 Dirk Nehring <dnehring@gmx.net> - 1.3.3-1
+- Update to 1.3.3
+
 * Mon Sep 28 2026 Dirk Nehring <dnehring@gmx.net> - 1.3.2-1
 - Update to 1.3.2
 - Drop all four patches, upstream took them for this release: the FSF address

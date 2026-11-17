@@ -49,6 +49,10 @@ Summary:        %{summary}
 %forgeautosetup -p1
 
 
+# Drop upper dateutil restriction to allow dateutil update
+%pyproject_patch_dependency dateutil:drop_upper
+
+
 %generate_buildrequires
 %pyproject_buildrequires
 

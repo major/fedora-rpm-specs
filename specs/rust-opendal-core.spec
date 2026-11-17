@@ -15,7 +15,8 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          opendal-core-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Use asyncband 0.7 or newer
+# * chore(deps)!: update asyncband to 0.8.0 (#8523):
+#   https://github.com/apache/opendal/commit/74c0dc94a3458e4eefc1644210550b7320cadf9f
 Patch:          opendal-core-fix-metadata.diff
 # * Remove logforth setup
 Patch2:         opendal-core-disable-logforth-in-test.patch

@@ -126,10 +126,7 @@ if [ $1 -eq 0 ]; then
     globus-scheduler-event-generator-admin -d pbs > /dev/null 2>&1 || :
 fi
 
-%ldconfig_post setup-seg
-
 %postun setup-seg
-%{?ldconfig}
 if [ $1 -ge 1 ]; then
     systemctl try-restart globus-scheduler-event-generator@pbs > /dev/null 2>&1 || :
 fi

@@ -10,7 +10,7 @@
 %global muffin_version 6.8.1
 
 Name:    cinnamon
-Version: 6.8.0
+Version: 6.8.1
 Release: %{autorelease}
 %{forgemeta}
 Summary: Window management and application launching for Cinnamon
@@ -245,10 +245,6 @@ ln -s %{_datadir}/gnome-background-properties %{buildroot}%{_datadir}/%{name}-ba
 # Delete useless gir files
 rm -rf %{buildroot}%{_datadir}/%{name}/*.gir
 
-# Delete cinnamon2d files
-rm -rf %{buildroot}%{_bindir}/cinnamon2d
-rm -rf %{buildroot}%{_mandir}/man1/cinnamon2d*
-
 # fix pam config dir
 mkdir -p %{buildroot}%{_prefix}/lib
 mv %{buildroot}%{_sysconfdir}/pam.d %{buildroot}%{_prefix}/lib
@@ -263,6 +259,7 @@ mv %{buildroot}%{_sysconfdir}/pam.d %{buildroot}%{_prefix}/lib
 %license COPYING
 %{_prefix}/lib/pam.d/cinnamon
 %{_bindir}/cinnamon
+%{_bindir}/cinnamon2d
 %{_bindir}/cinnamon-dbus-command
 %{_bindir}/cinnamon-desktop-editor
 %{_bindir}/cinnamon-file-dialog

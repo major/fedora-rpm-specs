@@ -1,6 +1,6 @@
 Name:           aboot-deploy
-Version:        0.9.14
-Release:        3%{?dist}
+Version:        0.9.15
+Release:        1%{?dist}
 Summary:        Deploy aboot
 
 License:        GPL-2.0-or-later
@@ -70,6 +70,9 @@ to aboot.
 
 
 %changelog
+* Mon Nov 02 2026 Packit <hello@packit.dev> - 0.9.15-1
+- Update to version 0.9.15
+
 * Mon Oct 05 2026 Ian Mullins <imullins@redhat.com> - 0.9.14-3
 - Restrict build architectures to x86_64 and aarch64
 

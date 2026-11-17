@@ -36,7 +36,7 @@
 
 %undefine		_changelog_trimtime
 
-%global		baserelease	4
+%global		baserelease	5
 
 Name:			lxterminal
 Version:		%{main_version}%{git_ver_rpm}
@@ -128,6 +128,7 @@ git add .
 git commit -m "base" -q
 %endif
 
+sed -i autogen.sh -e 's|1\.1\[1-9\]|1.[1-9]*|'
 sh autogen.sh
 
 %build
@@ -185,6 +186,9 @@ cd ..
 
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.1^20250415gitac5e36f4-5
+- Support automake 1.20
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1^20250415gitac5e36f4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

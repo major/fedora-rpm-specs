@@ -2,8 +2,8 @@
 %bcond docs 0
 
 Name:           pcmanfm-qt
-Version:        2.4.1
-Release:        2%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 Summary:        LXQt file manager PCManFM
 
 License:        GPL-2.0-or-later
@@ -119,6 +119,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/lxqt-desktop.desk
 %endif
 
 %changelog
+* Mon Nov 16 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Mon Oct 12 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.4.1-2
 - Revisions to remove un-needed BuildRequires
 

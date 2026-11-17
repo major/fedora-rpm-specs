@@ -31,7 +31,7 @@
 
 Name:			lxmusic
 Version:		%{main_version}%{git_ver_rpm}
-Release:		4%{?dist}
+Release:		5%{?dist}
 Summary:		Lightweight XMMS2 client with simple user interface
 
 License:		GPL-2.0-or-later
@@ -114,6 +114,7 @@ git commit -m "base" -q
 cd %{name}
 %endif
 
+sed -i autogen.sh -e 's|1\.1\[0-9\]|1.[1-9]*|'
 bash autogen.sh
 
 %configure
@@ -175,6 +176,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.8-5
+- Support automake 1.20
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -35,7 +35,7 @@
 
 Name:			lxsession
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Lightweight X11 session manager
 Summary(de):	Leichtgewichtiger X11 Sitzungsverwalter
 
@@ -208,6 +208,7 @@ git commit -m "Apply Fedora specific configulation 2" -a
 
 
 mkdir m4 || :
+sed -i autogen.sh -e 's|1\.1\[0-9\]|1.[1-9]*|'
 sh autogen.sh
 
 %build
@@ -309,6 +310,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.7-2
+- Support automake 1.20
+
 * Mon Sep 21 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.7-1
 - 0.5.7
 

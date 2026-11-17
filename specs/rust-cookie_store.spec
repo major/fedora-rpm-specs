@@ -5,7 +5,7 @@
 %global crate cookie_store
 
 Name:           rust-cookie_store
-Version:        0.22.0
+Version:        0.22.1
 Release:        %autorelease
 Summary:        Implementation of Cookie storage and retrieval
 

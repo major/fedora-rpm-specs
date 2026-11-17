@@ -5,11 +5,10 @@
 %global crate fs-err
 
 Name:           rust-fs-err
-Version:        3.2.2
+Version:        3.3.2
 Release:        %autorelease
 Summary:        Drop-in replacement for std::fs with more helpful error messages
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/fs-err
 Source:         %{crates_source}

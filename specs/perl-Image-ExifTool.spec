@@ -1,7 +1,7 @@
 Name:		perl-Image-ExifTool
 # Look for stable version at https://metacpan.org/pod/Image::ExifTool (not at the project website)
 Version:	13.55
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Utility for reading and writing image meta info
 URL:		http://www.sno.phy.queensu.ca/%7Ephil/exiftool/
@@ -49,6 +49,7 @@ BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(Time::Piece)
 BuildRequires:  perl(Unicode::GCString)
 Requires:       perl(FileHandle)
+Recommends:     perl(Archive::Zip)
 
 %description
 ExifTool is a Perl module with an included command-line application for
@@ -89,6 +90,9 @@ make test
 %{_mandir}/man3/Image::ExifTool*.3pm*
 
 %changelog
+* Mon Nov 16 2026 Tom Callaway <spot@fedoraproject.org> - 13.55-2
+- add Recommends: perl(Archive::Zip) (bz#2573715)
+
 * Wed Sep 23 2026 Xavier Bachelot <xavier@bachelot.org> - 13.55-1
 - Update to 13.55 (RHBZ#2539447)
 

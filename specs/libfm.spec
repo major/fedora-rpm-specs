@@ -45,7 +45,7 @@
 
 Name:           libfm
 Version:        %{main_version}%{git_ver_rpm}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GIO-based library for file manager-like programs
 
 # src/actions/	GPL-2.0-or-later
@@ -294,6 +294,7 @@ git commit -m "Remove files entry to be regenerated" -a || true
 
 # Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
 export ACLOCAL_PATH=%{_datadir}/gettext/m4/
+sed -i autogen.sh -e 's|1\.1\[1-9]|1.[1-9]*|'
 sh autogen.sh
 git commit -m "save modified files" -a || true
 
@@ -520,6 +521,9 @@ fi
 %endif
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-10
+- Support automake 1.20
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,15 +1,13 @@
 Name:		globus-common
 %global _name %(tr - _ <<< %{name})
-Version:	18.15
-Release:	4%{?dist}
+Version:	18.16
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Common Library
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
-Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -17,9 +15,6 @@ BuildRequires:	libtool-ltdl-devel
 BuildRequires:	doxygen
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
-
-#		Obsolete dropped packages from GCT
-Obsoletes:	globus-usage < 6
 
 %package progs
 Summary:	Grid Community Toolkit - Common Library Programs
@@ -29,8 +24,6 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 Summary:	Grid Community Toolkit - Common Library Development Files
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	libtool-ltdl-devel
-#		Obsolete dropped packages from GCT
-Obsoletes:	globus-usage-devel < 6
 
 %package doc
 Summary:	Grid Community Toolkit - Common Library Documentation Files
@@ -78,8 +71,6 @@ Common Library Documentation Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p3
-%patch -P1 -p3
 
 %build
 # Reduce overlinking
@@ -117,8 +108,6 @@ rm %{buildroot}%{_datadir}/globus-user-env.sh
 
 %check
 %make_build check NO_EXTERNAL_NET=1
-
-%ldconfig_scriptlets
 
 %files
 %{_libdir}/libglobus_common.so.*
@@ -167,6 +156,10 @@ rm %{buildroot}%{_datadir}/globus-user-env.sh
 %license GLOBUS_LICENSE
 
 %changelog
+* Mon Nov 16 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 18.16-1
+- New GCT release v6.2.20261111
+- Drop patches included in the release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 18.15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

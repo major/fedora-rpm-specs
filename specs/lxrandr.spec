@@ -32,7 +32,7 @@
 
 Name:			lxrandr
 Version:		%{main_version}%{git_ver_rpm}
-Release:		4%{?dist}
+Release:		5%{?dist}
 Summary:		Simple monitor configuration tool
 
 # SPDX confirmed
@@ -108,6 +108,7 @@ git add .
 git commit -m "base" -q
 %endif
 
+sed -i autogen.sh -e 's|1\.1\[1-9\]|1.[1-9]*|'
 sh autogen.sh
 
 %build
@@ -149,6 +150,9 @@ cd ..
 
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.3-5
+- Support automake 1.20
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

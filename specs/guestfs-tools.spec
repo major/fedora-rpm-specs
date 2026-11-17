@@ -15,8 +15,8 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.57.5
-Release:       2%{?dist}
+Version:       1.57.6
+Release:       1%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -43,7 +43,7 @@ BuildRequires: autoconf, automake, libtool, gettext-devel
 BuildRequires: gcc, gcc-c++
 BuildRequires: make
 BuildRequires: glibc-utils
-BuildRequires: libguestfs-devel >= 1:1.61.1-1
+BuildRequires: libguestfs-devel >= 1:1.61.6-1
 BuildRequires: libguestfs-xfs
 BuildRequires: perl(Pod::Simple)
 BuildRequires: perl(Pod::Man)
@@ -90,7 +90,7 @@ BuildRequires: openpgpverify
 %endif
 
 # Ensure a minimum version of libguestfs is installed.
-Requires:      libguestfs%{?_isa} >= 1:1.61.1-1
+Requires:      libguestfs%{?_isa} >= 1:1.61.6-1
 
 # For virt-builder:
 Requires:      curl
@@ -388,6 +388,10 @@ end
 
 
 %changelog
+* Mon Nov 16 2026 Richard W.M. Jones <rich@annexia.org> - 1.57.6-1
+- New upstream development version 1.57.6
+- Requires libguestfs 1.61.6
+
 * Mon Nov 02 2026 Jakub Jelen <jjelen@redhat.com> - 1.57.5-2
 - Verify upstream source signatures with openpgpverify
 

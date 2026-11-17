@@ -12,7 +12,7 @@
 %global giturl         https://github.com/gap-packages/AutoDoc
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2026.09.09
+Version:        2026.11.15
 Release:        %autorelease
 Summary:        Generate documentation from GAP source code
 

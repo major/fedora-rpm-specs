@@ -9,8 +9,8 @@ License:        LGPL-2.1-or-later AND BSD-2-Clause AND OpenSSL
 URL:            https://github.com/OpenSC/libp11
 Source0:        https://github.com/OpenSC/libp11/releases/download/libp11-%{version}/libp11-%{version}.tar.gz
 Source1:        https://github.com/OpenSC/libp11/releases/download/libp11-%{version}/libp11-%{version}.tar.gz.asc
-# sq network search 2BC7E4E67E3CC0C1BEA72F8C2EFC7FF0D416E014
-# sq cert export --cert=AC915EA30645D9D3D4DAE4FEB1048932DD3AAAA3 --output libp11.keyring
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search AC915EA30645D9D3D4DAE4FEB1048932DD3AAAA3 --output libp11.keyring --overwrite
 Source2:        libp11.keyring
 
 BuildRequires: make
@@ -22,7 +22,7 @@ BuildRequires:  pkgconfig(p11-kit-1)
 # Needed for testsuite
 BuildRequires:  softhsm opensc procps-ng
 BuildRequires:  doxygen
-BuildRequires:  gpgverify
+BuildRequires:  openpgpverify
 
 Requires:       p11-kit-trust
 Requires:       openssl-libs >= 3.0.0
@@ -55,7 +55,7 @@ The libp11-devel package contains libraries and header files for
 developing applications that use libp11.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p 1 -n libp11-%{version}
 
 %build

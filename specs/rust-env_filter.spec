@@ -5,16 +5,13 @@
 %global crate env_filter
 
 Name:           rust-env_filter
-Version:        1.0.1
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Filter log events using environment variables
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/env_filter
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * temporarily relax regex dependency version range
-Patch:          env_filter-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -60,6 +57,18 @@ This package contains library source intended for building other packages which
 use the "regex" feature of the "%{crate}" crate.
 
 %files       -n %{name}+regex-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

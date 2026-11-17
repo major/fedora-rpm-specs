@@ -5,7 +5,7 @@
 %global crate asyncband
 
 Name:           rust-asyncband
-Version:        0.7.4
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Composable, runtime-agnostic concurrency building blocks for async Rust
 

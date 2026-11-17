@@ -1,14 +1,13 @@
 Name:		globus-gridmap-eppn-callout
 %global _name %(tr - _ <<< %{name})
-Version:	2.2
-Release:	20%{?dist}
+Version:	2.3
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus gridmap ePPN callout
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-Patch0:		0001-Build-with-OpenSSL-4.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -35,7 +34,6 @@ Globus gridmap eduPersonPrincipalName (ePPN) callout
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p3
 
 %build
 # Reduce overlinking
@@ -63,8 +61,6 @@ install -m 644 -p %{SOURCE8} %{buildroot}%{_pkgdocdir}/README
 # Remove license file from pkgdocdir
 rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 
-%ldconfig_scriptlets
-
 %files
 # This is a loadable module (plugin)
 %{_libdir}/libglobus_gridmap_eppn_callout.so
@@ -74,6 +70,10 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %license GLOBUS_LICENSE
 
 %changelog
+* Mon Nov 16 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.3-1
+- New GCT release v6.2.20261111
+- Drop patches included in the release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

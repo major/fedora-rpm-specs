@@ -1,7 +1,7 @@
 Name:		globus-gram-job-manager-sge
 %global _name %(tr - _ <<< %{name})
-Version:	3.3
-Release:	14%{?dist}
+Version:	3.4
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Grid Engine Job Manager Support
 
 #		The sge.pm file is LGPL-2.1, the rest is Apache-2.0
@@ -9,8 +9,6 @@ License:	Apache-2.0 AND LGPL-2.1-only
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
-Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -78,8 +76,6 @@ job state
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p6
-%patch -P1 -p6
 
 %build
 # Reduce overlinking
@@ -137,10 +133,7 @@ if [ $1 -eq 0 ]; then
     globus-scheduler-event-generator-admin -d sge > /dev/null 2>&1 || :
 fi
 
-%ldconfig_post setup-seg
-
 %postun setup-seg
-%{?ldconfig}
 if [ $1 -ge 1 ]; then
     systemctl try-restart globus-scheduler-event-generator@sge > /dev/null 2>&1 || :
 fi
@@ -168,6 +161,10 @@ fi
 %config(noreplace) %{_sysconfdir}/globus/scheduler-event-generator/available/sge
 
 %changelog
+* Mon Nov 16 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.4-1
+- New GCT release v6.2.20261111
+- Drop patches included in the release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

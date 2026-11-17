@@ -68,8 +68,6 @@ install -m 644 -p %{SOURCE8} %{buildroot}%{_pkgdocdir}/README
 # Remove license file from pkgdocdir
 rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 
-%ldconfig_scriptlets
-
 %files
 # This is a loadable module (plugin)
 %{_libdir}/libglobus_xio_popen_driver.so

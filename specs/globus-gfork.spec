@@ -1,15 +1,13 @@
 Name:		globus-gfork
 %global _name %(tr - _ <<< %{name})
-Version:	5.0
-Release:	21%{?dist}
+Version:	5.1
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - GFork
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
-Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -59,8 +57,6 @@ GFork Development Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p4
-%patch -P1 -p4
 
 %build
 # Reduce overlinking
@@ -93,8 +89,6 @@ mkdir -p %{buildroot}%{_sysconfdir}
 echo "# This is the default gfork configuration file" > \
   %{buildroot}%{_sysconfdir}/gfork.conf
 
-%ldconfig_scriptlets
-
 %files
 %{_libdir}/libglobus_gfork.so.*
 %dir %{_pkgdocdir}
@@ -112,6 +106,10 @@ echo "# This is the default gfork configuration file" > \
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Nov 16 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.1-1
+- New GCT release v6.2.20261111
+- Drop patches included in the release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

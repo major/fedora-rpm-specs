@@ -125,6 +125,8 @@ Provides:       bundled(material-color-utilities) = 1a34bd2
 # https://github.com/google/wuffs/blob/main/release/c/wuffs-v0.4.c
 Provides:       bundled(wuffs) = 0.4.0.alpha.9
 
+# Some packages may require their DE/environment to provide a polkit agent
+Provides:     PolicyKit-authentication-agent
 
 %description
 Noctalia is a native Wayland desktop shell for people who want a polished,

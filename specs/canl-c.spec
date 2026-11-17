@@ -1,9 +1,9 @@
-%global commit 233ebaca4b6d63b642e00f93030cb1bff8432855
+%global commit 830598ffdcf1e78ac13f3537d16a27b81de13dd4
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           canl-c
 Version:        3.0.0
-Release:        27.20250222git%{shortcommit}%{?dist}
+Release:        28.20261116git%{shortcommit}%{?dist}
 Summary:        Common Authentication library - bindings for C
 
 License:        Apache-2.0
@@ -94,6 +94,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Mon Nov 16 2026 František Dvořák <valtri@civ.zcu.cz> - 3.0.0-28.20261116git830598f
+- New upstream snapshot (FTBFS #2503810)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-27.20250222git233ebac
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

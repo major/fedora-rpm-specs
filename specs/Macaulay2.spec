@@ -487,7 +487,7 @@ module load lrslib-%{_arch}
 ## configure macro currently broken, due to some odd prefix-checks.  probably fixable -- Rex
 mkdir -p BUILD/%{_target_platform}
 cd BUILD/%{_target_platform}
-CPPFLAGS="$CPPFLAGS -I%{_includedir}/cddlib -I%{_includedir}/frobby" \
+CPPFLAGS="$CPPFLAGS -I%{_includedir}/cddlib" \
 LIBS="-lflexiblas" \
 ../../configure \
   --build=%{_build} \

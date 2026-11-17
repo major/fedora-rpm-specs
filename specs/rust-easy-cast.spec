@@ -5,7 +5,7 @@
 %global crate easy-cast
 
 Name:           rust-easy-cast
-Version:        0.5.4
+Version:        0.5.5
 Release:        %autorelease
 Summary:        Type conversions which are expected to succeed
 

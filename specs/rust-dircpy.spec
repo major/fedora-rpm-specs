@@ -5,7 +5,7 @@
 %global crate dircpy
 
 Name:           rust-dircpy
-Version:        0.3.20
+Version:        0.3.21
 Release:        %autorelease
 Summary:        Copy directories recursively with flexible options
 

@@ -1,5 +1,5 @@
 Name:           bash-preexec
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        preexec and precmd functions for Bash just like Zsh
 
@@ -59,7 +59,8 @@ EOF
 
 
 %check
-bats test
+# Skip test that requires git
+find test -name '*.bats' \! -name release-script.bats | xargs bats
 
 %files
 %license LICENSE.md

@@ -1,6 +1,6 @@
 Name:           frobby
 Summary:        Computations with monomial ideals
-Version:        0.9.9
+Version:        0.10.0
 Release:        %autorelease
 
 # GPL-2.0-or-later: the frobby code
@@ -10,15 +10,14 @@ License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN
 URL:            https://github.com/Macaulay2/frobby
 VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Build a shared library instead of a static library
-Patch:          %{name}-sharedlib.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-BuildSystem:    cmake
-BuildOption(conf): -DBUILD_TESTING:BOOL=ON
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc-c++
+BuildRequires:  libtool
 BuildRequires:  pkgconfig(gmp)
 # docs
 BuildRequires:  doxygen-latex
@@ -61,36 +60,33 @@ Frobby internals as a library (libfrobby).
 %prep
 %autosetup -p1
 
-%build -p
-export STRIP=true
+%conf
+./autogen.sh
 
-%build -a
+%build
+%configure --disable-static
+%make_build
+
 # generate docs
-cd doc
-pdflatex -interaction=nonstopmode manual.tex
-pdflatex -interaction=nonstopmode manual.tex
-cd -
+make docPdf
 
 %install -a
-# We install these later
-rm -fr %{buildroot}%{_prefix}/licenses %{buildroot}%{_defaultlicensedir}
+%make_install
 
 %check
-export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
-mkdir bin
-ln -s ../%{_vpath_builddir}/frobby-tests bin/frobby
-test/runTests
+make check
 
 %files
 %doc doc/manual.pdf
 %{_bindir}/frobby
+%{_mandir}/man1/frobby.1*
 
 %files -n libfrobby
 %license COPYING
-%{_libdir}/libfrobby.so.0{,.*}
+%{_libdir}/libfrobby.so.1{,.*}
 
 %files -n libfrobby-devel
-%{_includedir}/frobby/
+%{_includedir}/frobby.h
 %{_libdir}/libfrobby.so
 
 %changelog

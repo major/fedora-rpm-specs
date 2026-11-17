@@ -10,7 +10,7 @@
 
 Name:           kio-fuse
 Version:        5.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        KIO FUSE
 
 License:        GPL-3.0-or-later
@@ -22,7 +22,7 @@ Source2:        gpgkey-21EC3FD75D26B39E820BE6FBD27C2C1AF21D8BAD.gpg
 ## upstream fixes
 
 BuildRequires:  cmake
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  gcc-c++
 BuildRequires:  systemd
 BuildRequires:  kf6-rpm-macros
@@ -51,7 +51,7 @@ FUSE.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 
@@ -84,6 +84,9 @@ dbus-launch --exit-with-session \
 
 
 %changelog
+* Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 5.1.1-5
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

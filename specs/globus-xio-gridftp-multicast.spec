@@ -1,15 +1,13 @@
 Name:		globus-xio-gridftp-multicast
 %global _name %(tr - _ <<< %{name})
-Version:	2.2
-Release:	12%{?dist}
+Version:	2.3
+Release:	1%{?dist}
 Summary:	Grid Community Toolkit - Globus XIO GridFTP Multicast Driver
 
 License:	Apache-2.0
 URL:		https://github.com/gridcf/gct/
 Source:		https://repo.gridcf.org/gct6/sources/%{_name}-%{version}.tar.gz
 Source8:	README
-Patch0:		0001-Untabify-and-remove-trailing-white-space.patch
-Patch1:		0002-Fix-compiler-and-doxygen-warnings.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -43,8 +41,6 @@ Globus XIO GridFTP Multicast Driver Development Files
 
 %prep
 %setup -q -n %{_name}-%{version}
-%patch -P0 -p5
-%patch -P1 -p5
 
 %build
 # Reduce overlinking
@@ -72,8 +68,6 @@ install -m 644 -p %{SOURCE8} %{buildroot}%{_pkgdocdir}/README
 # Remove license file from pkgdocdir
 rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 
-%ldconfig_scriptlets
-
 %files
 # This is a loadable module (plugin)
 %{_libdir}/libglobus_xio_gridftp_multicast_driver.so
@@ -86,6 +80,10 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Nov 16 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.3-1
+- New GCT release v6.2.20261111
+- Drop patches included in the release
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

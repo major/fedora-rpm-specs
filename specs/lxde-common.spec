@@ -38,7 +38,7 @@
 
 Name:			lxde-common
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Default configuration files for LXDE
 
 # SPDX confirmed
@@ -239,6 +239,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.4-2
+- Support automake 1.20
+
 * Sun Aug 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.4-1
 - 0.99.4
 

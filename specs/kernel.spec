@@ -167,13 +167,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc2.261111g067c5c24cef2.21
+%define pkgrelease 0.rc3.26
 %define kversion 7
-%define tarfile_release 7.4-rc2-92-g067c5c24cef2
+%define tarfile_release 7.4-rc3
 # This is needed to do merge window version magic
 %define patchlevel 4
 # The Release tag, including the configurable %%{?dist} tag
-%define specrelease 0.rc2.261111g067c5c24cef2.21%{?buildid}%{?dist}
+%define specrelease 0.rc3.26%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -1030,6 +1030,8 @@ Source85: kernel.sbat.template
 Source86: dracut-virt.conf
 
 Source87: flavors
+
+Source88: uki.cmdline
 
 Source151: uki_create_addons.py
 Source152: uki_addons.json
@@ -2843,7 +2845,7 @@ BuildKernel() {
 
 	ukify build --linux $(realpath $KernelImage) --initrd $KernelUnifiedInitrd \
 	   --sbat @uki.sbat --os-release @/etc/os-release --uname $KernelVer \
-	   --cmdline 'console=tty0 console=ttyS0' --output $KernelUnifiedImage
+	   --cmdline @%{SOURCE88} --output $KernelUnifiedImage
 
 	rm -f $KernelUnifiedInitrd
 
@@ -4610,9 +4612,30 @@ fi\
 #
 #
 %changelog
-* Wed Nov 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.067c5c24cef2.21]
+* Mon Nov 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.26]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Mon Nov 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.25]
+- Linux v7.4.0-0.rc3
+
+* Sun Nov 15 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.23c62304dde2.24]
+- Linux v7.4.0-0.rc2.23c62304dde2
+
+* Sat Nov 14 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.97d73c825122.23]
+- Linux v7.4.0-0.rc2.97d73c825122
+
+* Fri Nov 13 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.7e1392a42ea2.22]
+- redhat: Bump SBAT generation on the UKI (Vitaly Kuznetsov) {CVE-2026-121876}
+- redhat: Tighten the default image policy in the UKI (Vitaly Kuznetsov) {CVE-2026-121876}
+- redhat: Disable emergency console by default in the UKI (Vitaly Kuznetsov) {CVE-2026-121876}
+- redhat: Move UKI cmdline to a separate file (Vitaly Kuznetsov) {CVE-2026-121876}
+- redhat/configs: Enable CONFIG_SPI_SPIDEV for arm/aarch64 (Nirmala Dalvi)
+- redhat/configs: automotive: basic enablement for Toradex Verdin iMX8M Plus (Jared Kangas)
+- Linux v7.4.0-0.rc2.7e1392a42ea2
+
+* Thu Nov 12 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.9d66f26fefac.21]
+- Linux v7.4.0-0.rc2.9d66f26fefac
 
 * Wed Nov 11 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc2.067c5c24cef2.20]
 - Linux v7.4.0-0.rc2.067c5c24cef2

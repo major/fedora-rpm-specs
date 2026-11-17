@@ -3,7 +3,7 @@
 %bcond network_tests 0
 
 Name:           fastapi-new
-Version:        0.0.7
+Version:        0.0.10
 Release:        %autorelease
 Summary:        Create a new FastAPI project in one command
 
@@ -69,6 +69,7 @@ k="${k-}${k+ and }not test_initializes_in_current_directory"
 k="${k-}${k+ and }not test_passes_single_digit_python_version_to_uv"
 k="${k-}${k+ and }not test_creates_project_without_python_flag"
 k="${k-}${k+ and }not test_file_write_failure"
+k="${k-}${k+ and }not test_runs_project_with_current_python"
 %endif
 
 %pytest -k "${k-}" --verbose

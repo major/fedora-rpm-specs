@@ -1,6 +1,6 @@
 Name:     qterminal
-Version:  2.4.0
-Release:  2%{?dist}
+Version:  2.5.0
+Release:  1%{?dist}
 License:	GPL-2.0-only
 URL:      https://github.com/qterminal/qterminal
 Source0:	https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -33,23 +33,18 @@ Requires:       qtermwidget >= %{version}
 
 Provides:       %{name}-common = %{version}-%{release}
 Provides:       %{name}-qt5 = %{version}-%{release}
+Provides:       %{name}-l10n = %{version}-%{release}
 Obsoletes:      %{name}-common < %{version}-%{release}
 Obsoletes:      %{name}-qt5 < %{version}-%{release}
+Obsoletes:      %{name}-l10n < %{version}-%{release}
+
 
 %description
 Advanced Qt6-based terminal emulator with many useful bells and whistles.
 
 
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for qterminal
-Requires:       qterminal
-%description l10n
-This package provides translations for the qterminal package.
-
 %prep
 %setup -q
-
 
 %build
 %if 0%{?el7}
@@ -72,7 +67,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}-drop.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
-%files
+%files -f %{name}.lang
 %license LICENSE
 %doc AUTHORS CHANGELOG CONTRIBUTING.md README.md
 %{_bindir}/%{name}
@@ -80,14 +75,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/%{name}-drop.desktop
 %{_datadir}/icons/*/*
-%{_datadir}/%{name}
+%{_datadir}/%{name}/%{name}_bookmarks_example.xml
 
-%files l10n -f qterminal.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/qterminal/translations
 
 %changelog
+* Mon Nov 16 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

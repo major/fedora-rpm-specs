@@ -8,8 +8,8 @@
 
 Name:          php-smarty4
 Summary:       Smarty - the compiling PHP template engine
-Version:       4.5.6
-Release:       4%{?dist}
+Version:       4.6.0
+Release:       1%{?dist}
 License:       LGPL-3.0-only
 URL:           http://www.smarty.net
 # Github tarball doesn't include tests
@@ -108,6 +108,11 @@ phpunit8 \
 
 
 %changelog
+* Mon Nov 16 2026 Xavier Bachelot <xavier@bachelot.org> - 4.6.0-1
+- Update to 4.6.0
+  - Add php 8.5+ support
+  - Fixes CVE-2026-62992 and CVE-2026-62993
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

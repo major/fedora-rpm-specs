@@ -4,7 +4,7 @@
 %global with_docs 0
 
 Name:           python-%{pypi_name}
-Version:        3.2.0
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Yet Another Query Language
 
@@ -58,22 +58,12 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %install
 %pyproject_install
 %pyproject_save_files -l %{pypi_name}
-mv %{buildroot}/%{_bindir}/%{pypi_name} %{buildroot}/%{_bindir}/python3-%{pypi_name}
-
-pushd %{buildroot}%{_bindir}
-for i in %{pypi_name}-{3,%{?python3_version}}; do
-    ln -sf  python3-%{pypi_name} $i
-    ln -sf  python3-%{pypi_name} %{pypi_name}
-done
-popd
 
 %check
 %tox
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc doc/source/readme.rst README.rst
-%{_bindir}/python3-%{pypi_name}
-%{_bindir}/%{pypi_name}-3*
 %{_bindir}/%{pypi_name}
 
 %if 0%{?with_docs}

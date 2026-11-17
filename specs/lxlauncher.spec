@@ -33,7 +33,7 @@
 
 Name:           lxlauncher
 Version:        0.2.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Open source replacement for Launcher on the EeePC
 
 # src/exo-wrap-table.c	LGPL-2.0-or-later
@@ -102,6 +102,7 @@ git add .
 git commit -m "base" -q
 %endif
 
+sed -i autogen.sh -e 's|1\.1\[1-9\]|1.[1-9]*|'
 sh autogen.sh
 
 
@@ -149,6 +150,9 @@ cd ..
 
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.8-5
+- Support automake 1.20
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

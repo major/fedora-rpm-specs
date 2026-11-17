@@ -81,8 +81,6 @@ install -m 644 -p %{SOURCE8} %{buildroot}%{_pkgdocdir}/README
 # Remove license file from pkgdocdir
 rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 
-%ldconfig_scriptlets
-
 %files
 %{_libdir}/libglobus_gram_job_manager_callout_error.so.*
 %dir %{_pkgdocdir}

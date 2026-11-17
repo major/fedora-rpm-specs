@@ -1,6 +1,6 @@
 Name:		qtermwidget
-Version:	2.4.0
-Release:	2%{?dist}
+Version:	2.5.0
+Release:	1%{?dist}
 License:	GPL-2.0-or-later
 Summary:	Qt6 terminal widget
 URL:      https://github.com/lxqt/%{name}/
@@ -20,6 +20,8 @@ BuildRequires:  devtoolset-7-gcc-c++
 Provides:       qtermwidget-qt5 = %{version}-%{release}
 Obsoletes:      qtermwidget-qt5 < %{version}-%{release}
 
+Obsoletes:      %{name}-l10n < %{version}-%{release}
+Provides:       %{name}-l10n = %{version}-%{release}
 
 %description
 QTermWidget is an open-source project originally based on KDE4 Konsole
@@ -36,14 +38,6 @@ Obsoletes:	qtermwidget-qt5-devel < %{version}-%{release}
 
 %description	devel
 Development files for qtermwidget-qt6 library.
-
-
-%package l10n
-BuildArch:      noarch
-Summary:        Translations for qtermwidget
-Requires:       qtermwidget
-%description l10n
-This package provides translations for the qtermwidget package.
 
 %prep
 %autosetup -p1
@@ -63,12 +57,14 @@ EOF
 %cmake_install
 %find_lang qtermwidget --with-qt
 
-%files
+%files -f %{name}.lang
 %license LICENSE
 %doc AUTHORS CHANGELOG README.md
 %{_libdir}/lib%{name}6.so.2
 %{_libdir}/lib%{name}6.so.%{version}
-%{_datadir}/%{name}6
+%{_datadir}/%{name}6/color-schemes
+%{_datadir}/%{name}6/kb-layouts
+
 
 %files devel
 %{_includedir}/%{name}6
@@ -77,12 +73,10 @@ EOF
 %{_libdir}/cmake/%{name}6
 
 
-%files l10n -f qtermwidget.lang
-%license LICENSE
-%doc AUTHORS CHANGELOG README.md
-%dir %{_datadir}/qtermwidget6/translations
-
 %changelog
+* Mon Nov 16 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.5.0-1
+- Update to 2.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

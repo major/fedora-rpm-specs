@@ -5,7 +5,7 @@
 %global crate handlebars
 
 Name:           rust-handlebars
-Version:        6.4.3
+Version:        6.4.4
 Release:        %autorelease
 Summary:        Handlebars templating implemented in Rust
 
@@ -111,6 +111,18 @@ use the "string_helpers" feature of the "%{crate}" crate.
 %files       -n %{name}+string_helpers-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+testing-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+testing-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "testing" feature of the "%{crate}" crate.
+
+%files       -n %{name}+testing-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+walkdir-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -132,17 +144,17 @@ rm examples/dev_mode.rs
 rm -rv wasm
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f testing
 
 %build
-%cargo_build
+%cargo_build -f testing
 
 %install
-%cargo_install
+%cargo_install -f testing
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f testing
 %endif
 
 %changelog

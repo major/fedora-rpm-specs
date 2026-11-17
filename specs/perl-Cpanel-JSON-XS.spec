@@ -7,7 +7,7 @@
 
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
-Version:	4.81
+Version:	4.82
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
@@ -165,6 +165,28 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Mon Nov 16 2026 Paul Howarth <paul@city-fan.org> - 4.82-1
+- Update to 4.82
+  - Security fixes:
+    - encode: JSON_TYPE_BOOL of a reference to a scalar other than 0 or 1
+      crashed (NULL stash) instead of croaking
+    - encode: JSON_TYPE_FLOAT with allow_bignum and an integer value overflowed
+      the buffer by the appended ".0"
+    - encode: convert_blessed no longer expands Math::BigFloat objects with a
+      huge exponent into digits (memory exhaustion)
+    - decode: Free the partial string on errors (leak of ~16KB per document
+      with strings > 16KB)
+    - decode: Free enclosing arrays and hashes when a filter_json_object or
+      filter_json_single_key_object callback dies (leak)
+    - decode: -9223372036854775808 negated IV_MIN (undefined behaviour)
+    - incr_parse: A NUL byte between values is now an error and no longer
+      stalls the parser while the buffer grows forever
+    - incr_parse: Keep incr_pos consistent when the downgrade fails with wide
+      characters, and never underflow it when the incremental scanner and the
+      decoder disagree (allow_barekey); fixes out-of-bounds writes in
+      incr_parse after incr_skip
+  - t/10_pc_keysort fix for perls older then 5.20, introduced with 4.81 (GH#262)
+
 * Mon Nov  9 2026 Paul Howarth <paul@city-fan.org> - 4.81-1
 - Update to 4.81
   - Fix memory leak when croak is called while encoding a tied hash in

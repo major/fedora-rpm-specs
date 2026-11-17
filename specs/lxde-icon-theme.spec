@@ -1,6 +1,6 @@
 Name:           lxde-icon-theme
 Version:        0.5.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Default icon theme for LXDE
 
 # SPDX confirmed
@@ -22,6 +22,7 @@ also the default icon-theme of LXDE, the Lightweight X11 Desktop Environment.
 
 %prep
 %setup -q
+sed -i autogen.sh -e 's|1\.1\[0-9\]|1.[1-9]*|'
 sh autogen.sh
 
 %build
@@ -42,6 +43,9 @@ touch $RPM_BUILD_ROOT%{_datadir}/icons/nuoveXT2/icon-theme.cache
 
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.2-5
+- Support automake 1.20
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

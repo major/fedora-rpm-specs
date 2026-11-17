@@ -1,6 +1,6 @@
 Name:      python-sphinxcontrib-doxylink
 Version:   1.13.0
-Release:   9%{?dist}
+Release:   10%{?dist}
 Summary:   A Sphinx extension to link to external Doxygen API documentation
 License:   BSD-2-Clause
 URL:       https://github.com/sphinx-contrib/doxylink
@@ -29,6 +29,9 @@ Summary: %{summary}
 %prep
 %autosetup -n doxylink-%{version} -p1
 
+# Drop upper dateutil restriction to allow dateutil update
+%pyproject_patch_dependency dateutil:drop_upper
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -48,6 +51,9 @@ Summary: %{summary}
 %doc README.rst
 
 %changelog
+* Mon Nov 16 2026 Milan Zamazal <mzamazal@redhat.com> - 1.13.0-10
+- Remove dateutil upper version dependency
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

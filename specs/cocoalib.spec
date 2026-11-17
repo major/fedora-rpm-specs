@@ -92,7 +92,7 @@ sed -i 's|@RPM_LD_FLAGS@|%{build_ldflags}|' src/AlgebraicCore/Makefile
 
 # This is NOT an autoconf-generated configure script!
 ./configure --prefix=%{_prefix} --only-cocoalib --threadsafe-hack \
-  --with-cxxflags='%{build_cxxflags} -std=c++17 -fPIC -I%{_includedir}/frobby -I%{_includedir}/gfanlib %{build_ldflags}' \
+  --with-cxxflags='%{build_cxxflags} -std=c++17 -fPIC -I%{_includedir}/gfanlib %{build_ldflags}' \
   --with-libcddgmp=%{_libdir}/libcddgmp.so \
   --with-libfrobby=%{_libdir}/libfrobby.so \
   --with-libgfan=%{_libdir}/libgfan.so \

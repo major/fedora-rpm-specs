@@ -90,8 +90,6 @@ rm %{buildroot}%{_pkgdocdir}/GLOBUS_LICENSE
 %check
 %make_build check
 
-%ldconfig_scriptlets
-
 %files
 %{_libdir}/libglobus_authz.so.*
 %dir %{_pkgdocdir}

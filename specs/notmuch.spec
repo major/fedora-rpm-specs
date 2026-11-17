@@ -246,7 +246,7 @@ rm -f %{buildroot}%{_infodir}/nmbug.info*
 rm -f %{buildroot}%{_infodir}/notmuch-git.info*
 %endif
 
-rm -f %{buildroot}/%{_datadir}/applications/mimeinfo.cache
+rm -f %{buildroot}/%{_datadir}/applications/*.cache
 rm -f %{buildroot}%{_infodir}/dir
 
 %if %{with tests}

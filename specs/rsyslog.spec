@@ -38,7 +38,7 @@
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
-Version: 8.2608.0
+Version: 8.2610.0
 Release: %autorelease
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
@@ -52,6 +52,8 @@ Source4: rsyslog.service
 Source5: https://archive.apache.org/dist/qpid/proton/%{qpid_proton_v}/qpid-proton-%{qpid_proton_v}.tar.gz
 
 Patch1: 0001-Use-OpenSSL-accessors-for-opaque-structs.patch
+# omfile: apply symlink policy to legacy selector actions (upstream c179bd99a)
+Patch2: 0002-omfile-apply-symlink-policy-to-legacy-selector-actio.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -385,6 +387,7 @@ This module allows rsyslog to send messages to a RabbitMQ server.
 %prep
 # set up rsyslog sources
 %setup -q -D
+%patch 2 -p1
 
 %if %{with omamqp1}
 # Unpack qpid-proton
@@ -511,6 +514,7 @@ autoreconf -if
 %endif
 	--enable-omhttp \
 	--enable-omjournal \
+	--disable-omkinesis \
 	--enable-omprog \
 	--enable-omstdout \
 %if %{with udpspoof}

@@ -1,16 +1,15 @@
 Name:           rfcdiff
-Version:        1.48
-Release:        15%{?dist}
+Version:        1.49
+Release:        1%{?dist}
 Summary:        Compares two internet draft files and outputs the difference
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
-URL:            http://tools.ietf.org/tools/rfcdiff/
-Source0:        http://tools.ietf.org/tools/rfcdiff/%{name}-%{version}.tgz
+License:        GPL-2.0
+URL:            https://github.com/ietf-tools/rfcdiff
+Source0:        https://github.com/ietf-tools/rfcdiff/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  txt2man
+
+BuildRequires:  make
 
 %description
 The purpose of this program is to compare two versions of an
@@ -26,28 +25,28 @@ generating the diff, to produce a cleaner diff.
 
 
 %prep
-%setup -q
-sed -i 's|include ../Makefile.common|include Makefile.common|g' Makefile
+%autosetup
+
 
 %build
-make manpage
+# Nothing to build
 
 
 %install
-mkdir -p %{buildroot}%{_bindir} \
-         %{buildroot}%{_mandir}/man1
-
+mkdir -p %{buildroot}%{_bindir} 
 install -pm 0755 %{name} %{buildroot}%{_bindir}/
-install -pm 0644 %{name}.1.gz %{buildroot}%{_mandir}/man1/
 
 
 %files
-%doc changelog copyright todo
+%doc README.md
+%license LICENSE
 %{_bindir}/%{name}
-%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Mon Nov 16 2026 Richard Shaw <hobbes1069@gmail.com> - 1.49-1
+- Update to 1.49.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.48-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

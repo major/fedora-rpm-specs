@@ -5,7 +5,7 @@
 %global crate fearless_simd
 
 Name:           rust-fearless_simd
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Safer and easier SIMD
 

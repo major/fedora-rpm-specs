@@ -12,6 +12,10 @@ Summary:        Google Cloud Platform signing implementation for reqsign
 License:        Apache-2.0
 URL:            https://crates.io/crates/reqsign-google
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * chore(deps): update asyncband to 0.8.0 (#938):
+#   https://github.com/apache/reqsign/commit/d935dbdb822bc2a525e49cca3e8dd13618669f93
+Patch:          reqsign-google-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

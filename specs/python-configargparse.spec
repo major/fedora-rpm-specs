@@ -7,7 +7,7 @@
 %bcond toml 0
 
 Name:           python-configargparse
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Replacement for argparse that allows options to be set via config files
 
@@ -25,8 +25,7 @@ BuildOption(generate_buildrequires): --extras yaml
 
 BuildArch:      noarch
 
-# See tests_require in setup.py; it also contains unwanted linters, coverage
-# analysis tools, etc.:
+# The test extra also contains unwanted linters, coverage analysis tools, etc.:
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 BuildRequires:  %{py3_dist pytest}
 

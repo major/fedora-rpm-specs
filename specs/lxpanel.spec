@@ -31,7 +31,7 @@
 %dnl	%global		use_gcc_strict_sanitize	1
 
 %global		main_version	0.11.1
-%global		baserelease	3
+%global		baserelease	4
 
 Name:			lxpanel
 Version:		%{main_version}%{git_ver_rpm}
@@ -178,6 +178,7 @@ cd %{name}
 %endif
 
 %if 0%{?use_gitbare}
+sed -i autogen.sh -e 's|1\.1\[1-9\]|1.[1-9]*|'
 bash autogen.sh
 %endif
 
@@ -225,6 +226,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Mon Nov 16 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.1^20260313git4dec3d0d-4
+- Support automake 1.20
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.11.1^20260313git4dec3d0d-3
 - Rebuilt for libxml-2.5.4
 

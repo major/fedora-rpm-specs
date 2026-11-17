@@ -14,6 +14,10 @@ URL:            https://crates.io/crates/reqsign-core
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          reqsign-core-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * chore(deps): update asyncband to 0.8.0 (#938):
+#   https://github.com/apache/reqsign/commit/d935dbdb822bc2a525e49cca3e8dd13618669f93
+Patch:          reqsign-core-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
