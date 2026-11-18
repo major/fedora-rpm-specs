@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 46.6
+Version: 46.7
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -532,6 +532,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 17 2026 Packit <hello@packit.dev> - 46.7-1
+- Include legacy single-word timezones in DBus catalog (kkoukiou)
+- scripts: Configure remote Web UI access in ISO helpers (adamkankovsky)
+
 * Tue Nov 10 2026 Packit <hello@packit.dev> - 46.6-1
 - fix: Log checkisomd5 media check pass result to the journal (kkoukiou)
 - anaconda: `pipewire` dropin for `allowroot` (cmdr)

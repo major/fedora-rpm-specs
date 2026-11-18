@@ -7,13 +7,16 @@
 %global crate gstreamer-audio-sys
 
 Name:           rust-gstreamer-audio-sys
-Version:        0.25.3
+Version:        0.25.4
 Release:        %autorelease
 Summary:        FFI bindings to libgstaudio-1.0
 
 License:        MIT
 URL:            https://crates.io/crates/gstreamer-audio-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gstreamer-audio-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gstreamer-audio-1.0) >= 1.14

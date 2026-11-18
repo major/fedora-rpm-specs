@@ -67,13 +67,13 @@
 %endif
 
 # set nodejs_version
-%global nodejs_version v22.22.0
+%global nodejs_version v24.22.2
 
 ## ELECTRON
 # Electron version
-%global electron_version 43.2.0
+%global electron_version 44.11.3
 # https://github.com/nodejs/node/blob/main/doc/abi_version_registry.json
-%define abi_version 148
+%define abi_version 149
 %global electron_path %{_libdir}/electron
 ## END ELECTRON
 
@@ -308,7 +308,7 @@ Summary: Build cross-platform desktop apps with JavaScript, HTML, and CSS
 Url: https://github.com/electron/electron
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
 # Chromium version pinned by Electron DEPS
-%global chromium_version 150.0.7871.129
+%global chromium_version 152.0.7977.169
 ## END ELECTRON
 
 # Use /etc/chromium for initial_prefs
@@ -329,7 +329,10 @@ Patch22: chromium-131-fix-qt-ui.pach
 # Workaround for build error: ERROR Unresolved dependencies.
 #//chrome/test:captured_sites_interactive_tests(//build/toolchain/linux/unbundle:default)
 #  needs //third_party/libpng:libpng_for_testonly(//build/toolchain/linux/unbundle:default)
-Patch23: chromium-143-revert-libpng_for_testonly.patch
+Patch23: chromium-152-build-error-libpng_for_testonly.patch
+
+# patch from Melvin - melvin@pixilab.se
+Patch24: glibc-2.42-baud-rate-fix.patch
 
 # disable enterprise_companion_integration_tests due to Unresolved dependencies
 Patch31: chromium-145-disable-enterprise_companion_integration_tests.patch
@@ -351,7 +354,8 @@ Patch93: chromium-141-csss_style_sheet.patch
 
 # revert the patch to fix the build error: "ld.lld: error: undefined symbol: __sanitizer_set_death_callback"
 Patch94: chromium-148-v8-sanitize-build-error.patch
-
+# Fix rust build error
+Patch95: chromium-152-build-error-rust-cbor.patch
 # FTBFS - error: cannot find attribute `sanitize` in this scope
 #    --> ../../third_party/crabbyavif/src/src/capi/io.rs:210:41
 #     |
@@ -368,7 +372,8 @@ Patch131: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch132: chromium-118-sigtrap_system_ffmpeg.patch
 # need for old ffmpeg 6.0/5.x on epel9 and fedora < 40
-Patch133: chromium-142-el9-ffmpeg-5.1.x.patch
+Patch133: chromium-151-el9-ffmpeg-5.1.x.patch
+Patch134: chromium-151-el9-build-error-system-ffmpeg5.patch
 # revert, it causes build error: use of undeclared identifier 'AVFMT_FLAG_NOH264PARSE'
 Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
 # Workaround for youtube stop working
@@ -434,10 +439,8 @@ Patch315: chromium-145-rustc-ftbfs.patch
 
 # llvm <= 22
 # clang++: error: unknown argument: '-fno-lifetime-dse'
-Patch316: chromium-149-clang++-unknown-argument.patch
-
 # unknown warning option -Wno-nontrivial-memcall
-Patch317: chromium-142-clang++-unknown-argument.patch
+Patch316: chromium-152-clang++-unknown-argument.patch
 
 Patch318: memory-allocator-dcheck-assert-fix.patch
 
@@ -446,6 +449,12 @@ Patch319: chromium-143-swiftshader-llvm-16.0.patch
 
 # Fix build error on fedora aarch64
 Patch320: chromium-149-aarch64-log-error.patch
+
+# Replace with system golang
+Patch321: chromium-151-system-golang.patch
+
+# Fix build error caused by Unresolved dependencies
+Patch322: chromium-151-histograms_xml-build-error.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -515,7 +524,6 @@ Patch399: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
 Patch401: fix-rustc.patch
 Patch402: fix-rust-linking.patch
 Patch403: fix-breakpad-compile.patch
-Patch404: fix-partition-alloc-compile.patch
 Patch405: fix-study-crash.patch
 Patch407: fix-different-data-layouts.patch
 Patch408: 0002-Add-ppc64-trap-instructions.patch
@@ -556,20 +564,12 @@ Patch520: build-with-wasm-rollup.patch
 Patch521: disable-ai.patch
 
 # Upstream patches
-Patch600: chromium-150-sysroot.patch
-Patch601: chromium-150-Omit-ar-from-inputs-when-resolved-via-PATH.patch
-Patch602: chromium-150-Fix-get_path_info-on-empty-ar-in-unbundle-toolchain.patch
-# Darkmode
-Patch603: chromium-150-Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode.patch
-Patch604: chromium-150-Make-dark-mode-apply-filter-to-images-irrespective-of-layout-zoom.patch
-Patch605: chromium-150-Use-64px-css-pixels-absolute-threshold-for-dark-image-classification.patch
-Patch606: chromium-150-Add-size-threshold-for-classifying-SVG-documents-for-auto-dark-mode.patch
-Patch607: chromium-150-Add-AutoDarkModeSVGSizeThreshold-kill-switch-flag.patch
 
 ## ELECTRON: patches
 Patch700: system-zstd-in-node.patch
 Patch701: system-ffmpeg.patch
 Patch702: reduce-gn-tree.patch
+Patch703: electron-lite-excludes.patch
 ## END ELECTRON
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
@@ -613,6 +613,7 @@ Source21: electron-sources.sh
 Source22: macros.electron
 ## END ELECTRON
 
+BuildRequires: golang
 BuildRequires: clang
 BuildRequires: clang-tools-extra
 BuildRequires: llvm
@@ -959,8 +960,9 @@ Requires: u2f-hidraw-policy
 Provides: electron = %{version}
 Provides: electron%{_isa} = %{version}
 Provides: electron%{_isa}(abi) = %{abi_version}
+Provides: bundled(chromium) = %{chromium_version}
 
-ExclusiveArch: x86_64 aarch64
+ExclusiveArch: x86_64 aarch64 ppc64le
 ## END ELECTRON
 
 # Bundled bits (I'm sure I've missed some)
@@ -1135,11 +1137,21 @@ ln -s . src
 # apply_all_patches.py uses git am, so each target needs a git repo.
 export GIT_COMMITTER_NAME="RPM Build" GIT_COMMITTER_EMAIL="rpm@build"
 export GIT_AUTHOR_NAME="RPM Build" GIT_AUTHOR_EMAIL="rpm@build"
-for repo in . third_party/boringssl/src third_party/devtools-frontend/src \
-            third_party/ffmpeg v8 third_party/electron_node third_party/nan \
-            third_party/perfetto third_party/webrtc third_party/sqlite/src; do
+
+# Patch apply_all_patches.py to support lite tarball excludes
+%patch -P703 -p1 -b .electron-lite-excludes
+
+# Enable lite tarball excludes to skip hunks for files removed from lite tarballs
+export ELECTRON_USE_LITE_EXCLUDES=1
+
+python3 -c '
+import json
+for e in json.load(open("electron/patches/config.json")):
+    r = e["repo"]
+    print("." if r == "src" else r[4:] if r.startswith("src/") else r)
+' | while read -r repo; do
     if [ -d "$repo" ]; then
-        git init "$repo"
+        git init -q "$repo"
         git -C "$repo" add -A
         git -C "$repo" commit -q -m "init" --allow-empty
     fi
@@ -1160,8 +1172,10 @@ rm -f src
 %if ! %{use_custom_libcxx}
 %patch -P22 -p1 -b .fix-qt-ui
 %endif
-
-%patch -P23 -p1 -R -b .revert-libpng_for_testonly
+%patch -P23 -p1 -b .build-error-libpng_for_testonly
+%if 0%{?fedora} || 0%{?rhel} && 0%{?rhel} > 10
+%patch -P24 -p1 -b .glibc-2.42-baud-rate-fix
+%endif
 %patch -P31 -p1 -b .disable-enterprise_companion_integration_tests
 
 %if ! %{bundlebrotli}
@@ -1181,6 +1195,7 @@ rm -f src
 %patch -P92 -p1 -b .nodejs-checkversion
 %patch -P93 -p1 -b .ftbfs-csss_style_sheet
 %patch -P94 -p1 -R -b .v8-sanitize-build-error
+%patch -P95 -p1 -b .build-error-rust-cbor
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
 
 %if ! %{bundleffmpegfree}
@@ -1190,6 +1205,7 @@ rm -f src
 %patch -P130 -p1 -b .el9-ffmpeg-build-error
 %patch -P133 -p1 -b .el9-ffmpeg-5.1.x
 %endif
+%patch -P134 -p1 -b .el9-ffmpeg-5.1.x
 %patch -P131 -p1 -b .prop-codecs
 %patch -P132 -p1 -b .sigtrap_system_ffmpeg
 %patch -P135 -p1 -b .disable-H.264-video-parser-during-demuxing
@@ -1243,16 +1259,15 @@ rm -f src
 
 %patch -P316 -p1 -b .clang++-unknown-argument
 
-%if 0%{?fedora} && 0%{?fedora} < 42 || 0%{?rhel} && 0%{?rhel} < 10
-%patch -P317 -p1 -b .clang++-unsupported-argument
-%endif
-
 %patch -P318 -p1 -b .memory-allocator-dcheck-assert-fix
 %patch -P319 -p1 -b .swiftshader-llvm-16.0
 
 %ifarch aarch64 && 0%{?fedora}
 %patch -P320 -p1 -b .aarch64-log-error
 %endif
+
+%patch -P321 -p1 -b .system-golang
+%patch -P322 -p1 -b .histograms_xml-build-error
 
 %if %{disable_bti}
 %patch -P352 -p1 -b .workaround_for_crash_on_BTI_capable_system
@@ -1302,7 +1317,6 @@ rm -f src
 %patch -P401 -p1 -b .fix-rustc
 %patch -P402 -p1 -b .fix-rust-linking
 %patch -P403 -p1 -b .fix-breakpad-compile
-%patch -P404 -p1 -b .fix-partition-alloc-compile
 %patch -P405 -p1 -b .fix-study-crash
 %patch -P407 -p1 -b .fix-different-data-layouts
 %patch -P408 -p1 -b .0002-Add-ppc64-trap-instructions
@@ -1329,20 +1343,21 @@ rm -f src
 %patch -P521 -p1 -b .disable-ai
 
 # Upstream patches
-%patch -P600 -p1 -b .sysroot
-%patch -P601 -p1 -b .Omit-ar-from-inputs-when-resolved-via-PATH
-%patch -P602 -p1 -b .Fix-get_path_info-on-empty-ar-in-unbundle-toolchain
-# Darkmode
-%patch -P603 -p1 -b .Add-AutoDarkModeSkipImages-flag-to-bypass-image-dark-mode
-%patch -P604 -p1 -b .Make-dark-mode-apply-filter-to-images-irrespective-of-layout-zoom
-%patch -P605 -p1 -b .Use-64px-css-pixels-absolute-threshold-for-dark-image-classification
-%patch -P606 -p1 -b .Add-size-threshold-for-classifying-SVG-documents-for-auto-dark-mode
-%patch -P607 -p1 -b .Add-AutoDarkModeSVGSizeThreshold-kill-switch-flag
 
 ## ELECTRON: patches
 %patch -P700 -p1 -b .system-zstd-in-node
 %patch -P701 -p1 -b .system-ffmpeg
 %patch -P702 -p1 -b .reduce-gn-tree
+
+# Work around gn >= 2598 (Rawhide, 2026-10) dropping order-only ninja deps on
+# generated headers reached through private deps: gn enabled
+# check_includes_strict by default and stopped forwarding private hard_deps,
+# which breaks clean builds with "generated header not found" (e.g.
+# descriptor.pbzero.h, cxx-bridge lib.rs.h). Disabling the new default for all
+# target types restores the ordering edges.
+# Revert this change when the bundled chromium supports the gn update.
+sed -i '/^set_defaults(".*") {$/a\  check_includes_strict = false' \
+    build/config/BUILDCONFIG.gn
 ## END ELECTRON
 
 # Change shebang in all relevant files in this directory and all subdirectories
@@ -1450,6 +1465,9 @@ export READELF=llvm-readelf
 export CFLAGS
 export CXXFLAGS
 export LDFLAGS
+
+# Suppress linker_messages Warnings in Rust
+export RUSTFLAGS="-A linker_messages"
 
 # need for error: the option `Z` is only accepted on the nightly compiler
 export RUSTC_BOOTSTRAP=1

@@ -5,7 +5,7 @@
 %global crate gstreamer-utils
 
 Name:           rust-gstreamer-utils
-Version:        0.25.0
+Version:        0.25.4
 Release:        %autorelease
 Summary:        GStreamer Rust APIs for linking producers and consumers
 

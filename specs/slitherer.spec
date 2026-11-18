@@ -1,14 +1,14 @@
 %global qt_minver 6.8
 
-%global commit d230dbaa42d652419d2b7299bd0e650f63e5dbea
+%global commit 3ff2c1bd56c11368c43451b5e9cedbcbde4ecb5d
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20251108
+%global commitdate 20261117
 
 
 Name:           slitherer
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        6%{?dist}
-Summary:        Simple QtWebView based runner for Anaconda installer Web UI
+Release:        1%{?dist}
+Summary:        Simple QtWebView based runner for web applications
 
 License:        MPL-2.0 and BSD-3-Clause
 URL:            https://gitlab.com/VelocityLimitless/Projects/slitherer
@@ -30,9 +30,6 @@ BuildRequires:  cmake(Qt6Qml) >= %{qt_minver}
 BuildRequires:  cmake(Qt6Quick) >= %{qt_minver}
 BuildRequires:  cmake(Qt6WebView) >= %{qt_minver}
 
-Requires:       anaconda-webui
-# Only Fedora Workstation doesn't want this by default
-Supplements:    (anaconda-webui unless fedora-release-workstation)
 # Ensure that QtWebEngine has the fix for QTBUG-142823
 Requires:      qt6-qtwebengine%{?_isa} >= 6.10.1-5
 
@@ -40,6 +37,23 @@ Requires:      qt6-qtwebengine%{?_isa} >= 6.10.1-5
 
 %description
 %{summary}.
+
+%package -n anaconda-webui-opener-slitherer
+Summary:        Simple QtWebView based runner for Anaconda installer Web UI
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       anaconda-webui
+# Only Fedora Workstation doesn't want this by default
+Supplements:    (anaconda-webui unless fedora-release-workstation)
+# Cf. https://fedoraproject.org/wiki/Changes/Anaconda_WebUI_Opener
+Provides:       anaconda-webui-opener
+Conflicts:      anaconda-webui-opener
+# Provide alternate name
+Provides:       %{name}-anaconda-webui-opener = %{version}-%{release}
+Provides:       %{name}-anaconda-webui-opener%{?_isa} = %{version}-%{release}
+
+%description -n anaconda-webui-opener-slitherer
+%{summary}.
+
 
 %prep
 %autosetup -n %{name}-%{commit} -S git_am
@@ -57,18 +71,33 @@ Requires:      qt6-qtwebengine%{?_isa} >= 6.10.1-5
 %cmake_install
 
 
-# Anaconda launcher executable
+# Anaconda launcher executables
 ln -sr %{buildroot}%{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-anaconda
+cat > %{buildroot}%{_bindir}/anaconda-webui-opener <<ANACONDA_EOF
+#!/bin/sh
 
+export SLITHERER_DESKTOP_ID="liveinst"
+export SLITHERER_WINDOW_ICON_NAME="org.fedoraproject.AnacondaInstaller"
+
+exec slitherer-anaconda $@
+ANACONDA_EOF
 
 
 %files
 %license LICENSES/*
 %doc README.md
-%{_bindir}/%{name}*
+%{_bindir}/%{name}
+
+%files -n anaconda-webui-opener-slitherer
+%{_bindir}/%{name}-anaconda
+%{_bindir}/anaconda-webui-opener
 
 
 %changelog
+* Tue Nov 17 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git20261117.4f45c18-1
+- Bump to new git snapshot
+- Add anaconda-webui-opener subpackage
+
 * Wed Sep 02 2026 Adam Williamson <adamwill@fedoraproject.org> - 0~git20251108.d230dba-6
 - Force xcb platform to work around dropdown bugs (#2483236)
 

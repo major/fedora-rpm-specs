@@ -1,8 +1,8 @@
 %global projectname       scheherazade
 BuildArch: noarch
 
-Version:    4.400
-Release:    2%{?dist}
+Version:    4.500
+Release:    1%{?dist}
 URL:        https://software.sil.org/%{projectname}/
 
 %global foundry           SIL
@@ -54,6 +54,9 @@ rm -rf documentation/source documentation/pdf
 %fontfiles -a
 
 %changelog
+* Mon Nov 16 2026 Tarik ROKHSANE <trkrksn@proton.me> - 4.500-1
+- Update to new upstream release 4.500 (rhbz#2458742)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.400-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

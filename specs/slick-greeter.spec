@@ -5,7 +5,7 @@
 
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
-Version:	2.2.8
+Version:	2.2.10
 Release:	%autorelease
 %forgemeta
 License:	GPL-3.0-or-later

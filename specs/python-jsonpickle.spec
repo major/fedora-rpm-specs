@@ -2,7 +2,7 @@ Name:           python-jsonpickle
 # version is inserted into setup.cfg manually (see %%prep). Please be careful
 # to use a Python-compatible version number if you need to set an "uncommon"
 # version for this RPM.
-Version:        4.1.2
+Version:        4.1.4
 Release:        %autorelease
 Summary:        A module that allows any object to be serialized into JSON
 

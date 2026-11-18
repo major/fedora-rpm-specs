@@ -5,7 +5,7 @@
 %global crate gstreamer-base
 
 Name:           rust-gstreamer-base
-Version:        0.25.3
+Version:        0.25.4
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Base library
 
@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/gstreamer-base
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
+%if %{with check}
+BuildRequires:  gstreamer1-plugins-base
+%endif
 
 %global _description %{expand:
 Rust bindings for GStreamer Base library.}

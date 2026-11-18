@@ -1,6 +1,6 @@
 Name:           perl-SQL-Abstract
-Version:        2.000001
-Release:        20%{?dist}
+Version:        2.000003
+Release:        1%{?dist}
 Summary:        Generate SQL from Perl data structures
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -121,6 +121,10 @@ make test
 %{_mandir}/man3/DBIx::Class::SQLMaker::Role::SQLA2Passthrough.3pm*
 
 %changelog
+* Tue Nov 17 2026 Tom Callaway <spot@fedoraproject.org> - 2.000003-1
+- update to 2.000003
+- fixes CVE-2026-121009 CVE-2026-121008 CVE-2026-121007 CVE-2026-121265
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.000001-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

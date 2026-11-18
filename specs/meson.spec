@@ -105,6 +105,8 @@ BuildRequires:  /usr/bin/wx-config
 BuildRequires:  /usr/bin/sdl2-config
 %endif
 
+Patch0001: 0001-fix-gcc16-response-file.patch
+
 %generate_buildrequires
 %pyproject_buildrequires
 

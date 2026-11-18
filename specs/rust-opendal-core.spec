@@ -7,7 +7,7 @@
 Name:           rust-opendal-core
 Version:        0.59.1
 Release:        %autorelease
-Summary:        Apache OpenDAL™: One Layer, All Storage
+Summary:        Apache OpenDAL: One Layer, All Storage
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/opendal-core
@@ -26,7 +26,7 @@ Patch3:         opendal-core-fix-tests-on-i686.patch
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Apache OpenDAL™: One Layer, All Storage.}
+Apache OpenDAL: One Layer, All Storage.}
 
 %description %{_description}
 

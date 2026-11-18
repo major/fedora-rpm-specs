@@ -1,6 +1,6 @@
 Name:           asymptote
-Version:        3.13
-Release:        2%{?dist}
+Version:        3.16
+Release:        1%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -44,9 +44,11 @@ Patch1:         asymptote-2.73-info-path-fix.patch
 # Link with flexiblas instead of gslcblas
 Patch2:         asymptote-3.13-flexiblas.patch
 # Unbundle glew
-Patch3:         asymptote-3.13-unbundle-glew.patch
+Patch3:         asymptote-3.16-unbundle-glew.patch
 # Fix gc linking
-Patch4:		asymptote-3.13-gc-link-fix.patch
+Patch4:		asymptote-3.16-gc-link-fix.patch
+# Fix 32bit architectures (why???)
+Patch5:		asymptote-3.16-vulkan-32bit-handles.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  bison, flex
@@ -86,7 +88,7 @@ BuildRequires:  ghostscript-tools-dvipdf
 BuildRequires:  glm-devel, glslang-devel
 BuildRequires:  boost-devel, rapidjson-devel
 BuildRequires:  cmake, make, python3-qt5
-BuildRequires:  vulkan-headers, glfw-devel
+BuildRequires:  vulkan-headers, glfw-devel, vulkan-devel
 
 Requires:       emacs-filesystem >= %{?_emacs_version}%{!?_emacs_version:0}
 Requires:       hicolor-icon-theme
@@ -118,12 +120,13 @@ that LaTeX does for scientific text.
 %patch -P2 -p1 -b .flexiblas
 %patch -P3 -p1 -b .glew
 %patch -P4 -p1 -b .gcfix
+%patch -P5 -p1 -b .32bit
 sed -i 's/\r//' doc/CAD1.asy
 
 # Make sure the bundled glew cannot be used
 rm -rf GL
 
-autoreconf -i
+autoreconf -ifv
 
 # Remove useless shebangs
 for f in GUI/*.py; do
@@ -218,6 +221,9 @@ fi
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Mon Nov 16 2026 Tom Callaway <spot@fedoraproject.org> - 3.16-1
+- update to 3.16
+
 * Fri Sep 25 2026 Tom Callaway <spot@fedoraproject.org> - 3.13-2
 - address issue where asy-faq.html changed from directory to file
 - fix missing BR (glslang-devel)

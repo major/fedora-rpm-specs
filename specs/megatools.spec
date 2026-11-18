@@ -1,7 +1,7 @@
-%global snapshot 20250706
+%global snapshot 20261116
 
 Name:           megatools
-Version:        1.11.5
+Version:        1.12.2
 Release:        %autorelease
 Summary:        Command line client for MEGA
 License:        GPL-3.0-or-later
@@ -52,6 +52,7 @@ allow. Memory requirements and CPU utilization are kept at minimum.
 %files
 %license LICENSE
 %doc NEWS README TODO LICENSE
+%{_datadir}/bash-completion/completions/megatools
 %{_bindir}/mega*
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*

@@ -1,6 +1,6 @@
 Name:    libcamera-apps
 Version: 1.15.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A small suite of libcamera-based apps
 License: BSD
 URL:     https://github.com/raspberrypi/rpicam-apps
@@ -56,8 +56,9 @@ Headers for developing against libcamera-apps.
     -Denable_hailo=disabled \
 %ifarch aarch64
     -Dneon_flags=arm64 \
-%endif
+%else
     -Ddisable_rpi_features=true \
+%endif
     %{nil}
 
 %meson_build
@@ -81,6 +82,9 @@ Headers for developing against libcamera-apps.
 %{_includedir}/rpicam-apps/
 
 %changelog
+* Tue Nov 17 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.15.0-2
+- Enable RPi5 options
+
 * Thu Nov 05 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1.15.0-1
 - Update to 1.15.0
 

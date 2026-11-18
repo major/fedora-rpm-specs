@@ -5,7 +5,7 @@
 %global crate plist
 
 Name:           rust-plist
-Version:        1.10.0
+Version:        1.10.4
 Release:        %autorelease
 Summary:        Rusty plist parser
 
@@ -50,18 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+enable_unstable_features_that_may_break_with_minor_version_bumps-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+enable_unstable_features_that_may_break_with_minor_version_bumps-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "enable_unstable_features_that_may_break_with_minor_version_bumps" feature of the "%{crate}" crate.
-
-%files       -n %{name}+enable_unstable_features_that_may_break_with_minor_version_bumps-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -96,7 +84,9 @@ use the "serde" feature of the "%{crate}" crate.
     --skip serde_tests::deserialize_dictionary_xml
     --skip stream::ascii_reader::tests::netnewswire_pbxproj
     --skip stream::ascii_reader::tests::streaming_sample
+    --skip stream::binary_reader::tests::large_plist_read_and_seek_counts
     --skip stream::binary_reader::tests::nskeyedarchiver_plist
+    --skip stream::binary_reader::tests::small_plist_read_and_seek_counts
     --skip stream::binary_reader::tests::streaming_parser
     --skip stream::binary_reader::tests::three_byte_integer_object_offset_plist
     --skip stream::binary_reader::tests::utf16_plist

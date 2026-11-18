@@ -5,8 +5,8 @@
 
 Name:           perl-HTTP-Body
 Summary:        HTTP Body Parser
-Version:        1.23
-Release:        3%{?dist}
+Version:        1.25
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/G/GE/GETTY/HTTP-Body-%{version}.tar.gz
 URL:            https://metacpan.org/dist/HTTP-Body
@@ -85,6 +85,10 @@ make test
 
 
 %changelog
+* Tue Nov 17 2026 Tom Callaway <spot@fedoraproject.org> - 1.25-1
+- update to 1.25
+- fixes CVE-2026-116131 CVE-2026-116132 CVE-2026-116133 CVE-2026-116134 CVE-2026-116135 CVE-2026-116285 CVE-2026-116531 CVE-2026-117500 CVE-2026-117501 CVE-2026-121006
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

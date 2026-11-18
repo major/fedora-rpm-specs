@@ -59,6 +59,9 @@ Patch21: man-pages-3.42-close.patch
 # Add rtas.2, swapcontext.2 and cons.saver.8 man pages
 Patch28: additional-man-pages.patch
 
+# Restore missing individual author copyright headers
+Patch29: man-pages-add-copyright-notices.patch
+
 %description
 A large collection of manual pages from the Linux Documentation Project (LDP).
 
@@ -67,6 +70,7 @@ A large collection of manual pages from the Linux Documentation Project (LDP).
 
 %patch -P 21 -p1
 %patch -P 28 -p1
+%patch -P 29 -p1
 
 ## Remove man pages we are not going to use ##
 

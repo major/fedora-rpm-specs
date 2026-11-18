@@ -1,6 +1,6 @@
 Name:           kirigami-app-components
-Version:        1.0.2
-Release:        2%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        Kirigami extra addons and modules
 
 License:        BSD-3-Clause AND CC0-1.0 AND FSFAP AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -42,9 +42,9 @@ developing applications that use %{name}.
 
 %install
 %cmake_install
+%find_lang %{name}
 
-
-%files
+%files -f %{name}.lang
 %license LICENSES/*
 %doc README.md
 %{_kf6_libdir}/libKirigamiActionCollection.so.%{version}
@@ -57,6 +57,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/cmake/KF6KirigamiAppComponents/
 
 %changelog
+* Tue Nov 17 2026 Steve Cossette <farchord@gmail.com> - 1.1.1-1
+- 1.1.1
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 1.0.2-2
 - Rebuild (qt6)
 

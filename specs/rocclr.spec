@@ -218,7 +218,7 @@ Requires:    opencl-filesystem
 Recommends:  LibOpenCL1
 %endif
 Requires:    rocm-filesystem%{pkg_suffix}
-Requires:    rocm-runtime%{pkg_suffix}
+Requires:    rocm-runtime%{pkg_suffix} >= %{rocm_release}
 
 %description -n rocm-opencl%{pkg_suffix}
 ROCm OpenCL language runtime.
@@ -250,7 +250,7 @@ Summary:        ROCm HIP platform and device tool
 Requires:       comgr%{pkg_suffix}(major) = %{comgr_maj_api_ver}
 Requires:       hipcc%{pkg_suffix}
 Requires:       rocm-filesystem%{pkg_suffix}
-Requires:       rocm-runtime%{pkg_suffix}
+Requires:       rocm-runtime%{pkg_suffix} >= %{rocm_release}
 
 %description -n rocm-hip%{pkg_suffix}
 HIP is a C++ Runtime API and Kernel Language that allows developers to create

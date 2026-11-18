@@ -5,7 +5,7 @@
 %endif
 
 Name:		oidc-agent
-Version:	5.3.8
+Version:	5.3.9
 Release:	1%{?dist}
 Summary:	Managing OpenID Connect tokens on the command line
 
@@ -188,6 +188,9 @@ ln -s liboidc-agent.so.%{version} %{buildroot}%{_libdir}/liboidc-agent.so
 %{_libdir}/liboidc-agent.so
 
 %changelog
+* Tue Nov 17 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.3.9-1
+- Update to version 5.3.9
+
 * Wed Sep 02 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.3.8-1
 - Update to version 5.3.8
 

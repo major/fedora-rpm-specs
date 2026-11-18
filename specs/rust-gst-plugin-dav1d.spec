@@ -4,7 +4,7 @@
 %global crate gst-plugin-dav1d
 
 Name:           rust-gst-plugin-dav1d
-Version:        0.15.0
+Version:        0.15.4
 Release:        %autorelease
 Summary:        GStreamer dav1d AV1 decoder Plugin
 

@@ -4,13 +4,16 @@
 %global crate gst-plugin-reqwest
 
 Name:           rust-gst-plugin-reqwest
-Version:        0.15.0
+Version:        0.15.4
 Release:        %autorelease
 Summary:        GStreamer reqwest HTTP Source Plugin
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gst-plugin-reqwest
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * default to rustls/ring backend until rustls/aws-lc-rs is available
+Patch:          gst-plugin-reqwest-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  cargo-c >= 0.9.21
@@ -26,11 +29,9 @@ Summary:        %{summary}
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
-# Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # BSD-3-Clause
-# CDLA-Permissive-2.0
 # ISC
 # MIT
 # MIT OR Apache-2.0
@@ -38,18 +39,16 @@ Summary:        %{summary}
 # Unicode-3.0
 # Unlicense OR MIT
 License:        %{shrink:
-    Apache-2.0 AND
-    BSD-3-Clause AND
-    CDLA-Permissive-2.0 AND
-    ISC AND
-    MIT AND
-    Unicode-3.0 AND
-    (0BSD OR MIT OR Apache-2.0) AND
-    (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR ISC OR MIT) AND
-    (Apache-2.0 OR MIT) AND
-    (MIT OR Zlib OR Apache-2.0) AND
-    (Unlicense OR MIT)
+    (MIT OR Apache-2.0)
+    AND Apache-2.0
+    AND BSD-3-Clause
+    AND ISC
+    AND MIT
+    AND Unicode-3.0
+    AND (0BSD OR MIT OR Apache-2.0)
+    AND (Apache-2.0 OR ISC OR MIT)
+    AND (MIT OR Zlib OR Apache-2.0)
+    AND (Unlicense OR MIT)
 }
 # LICENSE.dependencies contains a full license breakdown
 
@@ -112,6 +111,18 @@ This package contains library source intended for building other packages which
 use the "doc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+doc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-ring-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-ring-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-ring" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-ring-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+static-devel

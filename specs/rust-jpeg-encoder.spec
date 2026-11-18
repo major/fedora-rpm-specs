@@ -5,7 +5,7 @@
 %global crate jpeg-encoder
 
 Name:           rust-jpeg-encoder
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        JPEG encoder
 
@@ -31,6 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-IJG
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/

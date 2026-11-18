@@ -1,6 +1,6 @@
 Name: fzssh
 Version: 1.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://fzssh.filezilla-project.org/
 Summary: SSH/SFTP library based on libfilezilla
 License: AGPL-3.0-or-later WITH AdditionRef-fzssh AND MIT
@@ -58,6 +58,9 @@ This package contains files needed to compile code using libfilezilla.
 %{_libdir}/pkgconfig/libfzssh-client.pc
 
 %changelog
+* Tue Nov 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.4.0-3
+- libfilezilla rebuild
+
 * Tue Oct 27 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.4.0-2
 - libfilezilla rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Config-General
-Version:        2.67
-Release:        5%{?dist}
+Version:        2.68
+Release:        1%{?dist}
 Summary:        Generic configuration module for Perl
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Config-General
@@ -20,6 +20,7 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Carp::Heavy)
 BuildRequires:  perl(constant)
+BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(English)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Glob)
@@ -84,6 +85,12 @@ make test
 
 
 %changelog
+* Tue Nov 17 2026 Paul Howarth <paul@city-fan.org> - 2.68-1
+- Update to 2.68 (rhbz#2574364)
+  - Validate incoming config hashes, forbid include and comments
+    (https://codeberg.org/scip/Config-General/issues/9, CVE-2026-129820,
+    CVE-2026-129821)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.67-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

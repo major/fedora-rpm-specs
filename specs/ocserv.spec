@@ -63,6 +63,10 @@ Recommends:		gnutls-utils
 Recommends:		iproute
 Recommends:		nftables
 Recommends:		pam
+
+# For occtl country resolution
+Recommends:		libmaxminddb, dbip-lite-city, dbip-lite-country
+
 %if %{use_systemd}
 Requires(post):		systemd
 Requires(preun):	systemd

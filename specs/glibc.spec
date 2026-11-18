@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.44.9000-351-g7510a659b8
+%global glibcsrcdir glibc-2.44.9000-369-gfcd0fc872f
 %global glibcversion 2.44.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 7
+%global baserelease 8
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2479,6 +2479,28 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Tue Nov 17 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-8
+- Auto-sync with upstream branch master,
+  commit fcd0fc872fbbfaf6d0048957d037e28681af83a3:
+- manual: Document --enable-kernel=5.1 for CONFIG_COMPAT_32BIT_TIME=n (Adhemerval Zanella)
+- linux: remove time64 redirects for __TIMESIZE=64 architectures (Arnd Bergmann)
+- linux: consistently use time64 syscalls if available (Arnd Bergmann)
+- support: test futex_time64 syscall instead of time32 one (Arnd Bergmann)
+- nptl: use futex_time64 for lll_futex_syscall() if possible (Arnd Bergmann)
+- Regenerate configure with autoconf 2.73 (Florian Weimer)
+- Makefile: Add update-configure target (Florian Weimer)
+- Autoconf updates for autoconf 2.73 and earlier versions (Florian Weimer)
+- stdio-common: Fix double null terminator in wide scanf %%s and %%[ (BZ 34989, CVE-2026-115819) (Adhemerval Zanella)
+- AArch64: Fix libmvec archive member collisions [BZ #34946] (Pierre Blanchard)
+- posix: Fix double free after allocation failure in regcomp and regexec (BZ 34991, CVE-2026-100290) (Adhemerval Zanella)
+- posix: Fix check_matching return value on allocation failure (bug 34949) (Yuvraj Opawat)
+- iconvdata: sort Makefile variable (Andreas Schwab)
+- malloc: Fix mremap_chunk statistics [BZ #34706] (Wilco Dijkstra)
+- advisories: Publish CVE-2026-100290 advisory (Adhemerval Zanella)
+- advisories: Publish CVE-2026-115819 advisory (Adhemerval Zanella)
+- LoongArch: Fix tst-gnu2-tls2 register checks (Deng Jianbo)
+- LoongArch: Fix LSX compiler capability check (Deng Jianbo)
+
 * Tue Nov 10 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-7
 - Auto-sync with upstream branch master,
   commit 7510a659b83bedc45560d4405054f2709a8bdf95:

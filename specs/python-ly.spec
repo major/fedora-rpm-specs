@@ -3,7 +3,7 @@ Version:        0.9.10
 Release:        3%{?dist}
 Summary:        Tool and library for manipulating LilyPond files
 
-License:        GPL-2.0-or-later
+License:        GPL-3.0-or-later
 URL:            https://pypi.python.org/pypi/python-ly
 Source0:        https://pypi.python.org/packages/source/p/python-ly/python_ly-%{version}.tar.gz
 

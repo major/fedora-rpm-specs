@@ -1,10 +1,11 @@
 %global use_wayland 1
 
 Name:		enlightenment
-Version:	0.27.1
-Release:	4%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+Version:	0.28.0
+Release:	1%{?dist}
+# Most of it is BSD-2-Clause
+# There are some fonts which are OFL-1.1 and one font that is GPL+ with font-exception
+License:	BSD-2-Clause AND OFL-1.1 AND GPL-2.0-or-later WITH Font-exception-2.0
 Summary:	Enlightenment window manager
 Url:		http://enlightenment.org
 Source0:	http://download.enlightenment.org/rel/apps/enlightenment/%{name}-%{version}.tar.xz
@@ -15,7 +16,7 @@ BuildRequires:	bluez-libs-devel
 BuildRequires:	dbus-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	doxygen
-BuildRequires:	efl-devel >= 1.28.0
+BuildRequires:	efl-devel >= 1.29.0
 %if %{use_wayland}
 BuildRequires:	wayland-protocols-devel
 BuildRequires:	wayland-devel
@@ -127,6 +128,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/enlightenment
 
 %changelog
+* Tue Nov 17 2026 Tom Callaway <spot@fedoraproject.org> - 0.28.0-1
+- Update to 0.28.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

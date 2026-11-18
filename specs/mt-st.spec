@@ -1,7 +1,7 @@
 Summary: Tool for controlling tape drives
 Name: mt-st
-Version: 1.8
-Release: 4%{?dist}
+Version: 1.9
+Release: 1%{?dist}
 License: GPL-1.0-or-later
 URL: https://github.com/iustin/mt-st
 Source0: https://github.com/iustin/mt-st/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -58,6 +58,9 @@ mv mt-st mt
 
 
 %changelog
+* Tue Nov 17 2026 Dan Horák <dan[at]danny.cz> - 1.9-1
+- rebased to 1.9 (rhbz#2573602)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

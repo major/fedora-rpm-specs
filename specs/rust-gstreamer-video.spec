@@ -5,7 +5,7 @@
 %global crate gstreamer-video
 
 Name:           rust-gstreamer-video
-Version:        0.25.3
+Version:        0.25.4
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Video library
 

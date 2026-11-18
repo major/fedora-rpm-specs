@@ -1,14 +1,14 @@
 # If the soname gets bumped we need to ship a compat library to be able
 # to bootstrap and rebuild rpm else we end up with chicken and egg problem.
-%global bootstrap 0
+%global bootstrap 1
 
 %if 0%{bootstrap}
-%global compat_soversion 4
+%global compat_soversion 5
 %endif
 
 Name:    ima-evm-utils
-Version: 1.6.2
-Release: 12%{?dist}
+Version: 1.7
+Release: 1%{?dist}
 Summary: IMA/EVM support utilities
 License: GPL-2.0-or-later
 Url:     https://github.com/linux-integrity/
@@ -24,8 +24,7 @@ Source200: policy_list
 
 %if 0%{bootstrap}
 # compat source and patches
-Source10: ima-evm-utils-1.5.tar.gz
-BuildRequires: openssl-devel-engine
+Source10: ima-evm-utils-1.6.2.tar.gz
 %endif
 
 BuildRequires: asciidoc
@@ -134,7 +133,7 @@ install -D %{SOURCE4} $RPM_BUILD_ROOT%{_bindir}/ima-setup
 %files libs
 %license LICENSES.txt COPYING.LGPL
 # if you need to bump the soname version, coordinate with dependent packages
-%{_libdir}/libimaevm.so.5*
+%{_libdir}/libimaevm.so.6*
 %if 0%{bootstrap}
 %{_libdir}/libimaevm.so.%{compat_soversion}*
 %endif
@@ -145,6 +144,10 @@ install -D %{SOURCE4} $RPM_BUILD_ROOT%{_bindir}/ima-setup
 %{_libdir}/libimaevm.so
 
 %changelog
+* Mon Oct 26 2026 Packit <hello@packit.dev> - 1.7-1
+- Update to version 1.7
+- Resolves: rhbz#2560955
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

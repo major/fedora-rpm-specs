@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc2
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -9,8 +9,8 @@
 %global opensbi opensbi
 
 Name:     uboot-tools
-Version:  2026.10
-Release:  1%{?candidate:.%{candidate}}%{?dist}
+Version:  2027.01
+Release:  0.1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -314,6 +314,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Nov 17 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2027.01-0.1.rc2
+- Update to 2027.01 RC2
+
 * Tue Oct 06 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2026.10-1
 - Update to 2026.10
 

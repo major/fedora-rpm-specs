@@ -19,7 +19,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 # SPDX confirmed
@@ -33,6 +33,7 @@ Patch4:         ruby-libart-arglength-fix.patch
 Patch6:         ruby-gnome2-rb_secure.patch
 Patch14:        ruby-gnome2-implicit-int-7.patch
 Patch15:        ruby-gnome2-c99.patch
+Patch16:        ruby-gnome2-all-0.90.4-TypedData_API.patch
 
 
 BuildRequires:  make
@@ -354,6 +355,8 @@ grep -rl rb_cData . | xargs sed -i.ruby32 -e 's|rb_cData|rb_cObject|'
 sed -i gnomevfs/src/gnomevfs-file.c \
 	-e 's|rb_tainted_str_new|rb_str_new|'
 
+%patch -P16 -p1
+
 %build
 export CFLAGS="$RPM_OPT_FLAGS -Werror=implicit-function-declaration"
 ruby extconf.rb --vendor
@@ -456,6 +459,9 @@ rm -rf $RPM_BUILD_ROOT/bin
 
 
 %changelog
+* Tue Nov 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-29
+- Use TypedData API needed for ruby4.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

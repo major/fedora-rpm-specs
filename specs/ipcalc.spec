@@ -14,7 +14,7 @@ BuildRequires: gcc, libmaxminddb-devel, meson, rubygem-ronn-ng
 BuildRequires: openpgpverify
 # for the test suite (JsonEscapeHostname)
 BuildRequires: jq
-Recommends:    libmaxminddb, geolite2-city, geolite2-country, geolite2-asn
+Recommends:    libmaxminddb, dbip-lite-city, dbip-lite-country, dbip-lite-asn
 
 # Explicitly conflict with older initscript packages that ship ipcalc
 Conflicts: initscripts < 9.63
@@ -34,7 +34,13 @@ or check the validity of an address.
 %autosetup
 
 %build
-%meson -Duse_maxminddb=enabled -Duse_runtime_linking=enabled
+# Default to the DB-IP Lite databases (dbip-lite-*) instead of GeoLite2.
+# -Dc_args replaces $CFLAGS, so the distro flags are passed explicitly.
+%meson -Duse_maxminddb=enabled -Duse_runtime_linking=enabled \
+  -Dc_args="%{build_cflags} \
+    -DMAXMINDDB_LOCATION_COUNTRY='\"%{_datadir}/GeoIP/dbip-country-lite.mmdb\"' \
+    -DMAXMINDDB_LOCATION_CITY='\"%{_datadir}/GeoIP/dbip-city-lite.mmdb\"' \
+    -DMAXMINDDB_LOCATION_ASN='\"%{_datadir}/GeoIP/dbip-asn-lite.mmdb\"'"
 %meson_build
 
 %install

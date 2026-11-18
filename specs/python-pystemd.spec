@@ -12,12 +12,12 @@ Summary:        A thin Cython-based wrapper on top of libsystemd
 License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/pystemd
 Source:         %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-Patch:          pystemd-revert-license-change.diff
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+BuildRequires:  sed
 
 %global _description %{expand:
 This library allows you to talk to systemd over D-Bus from Python,
@@ -38,6 +38,12 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 
+%if 0%{?el10}
+# setuptools in el10 still expects the deprecated PEP 639 license format
+sed -i pyproject.toml \
+  -e 's/^license = .*$/license = { text = "LGPL-2.1+"}/' \
+  -e '/^license-files = .*$/d'
+%endif
 
 %generate_buildrequires
 # with -x t this pulls in too many optional deps like cstq and pytest-cov

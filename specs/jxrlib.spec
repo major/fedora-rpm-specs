@@ -1,6 +1,6 @@
 Name:           jxrlib
 Version:        1.4.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open source implementation of jpegxr
 
 License:        BSD-2-Clause
@@ -129,6 +129,9 @@ rm -f %{buildroot}%{mingw64_includedir}/jxrlib/guiddef.h
 
 
 %changelog
+* Tue Nov 17 2026 Sandro Mani <manisandro@gmail.com> - 1.4.7-2
+- Also install JXRVersion.h
+
 * Mon Nov 16 2026 Sandro Mani <manisandro@gmail.com> - 1.4.7-1
 - Update to 1.4.7
 

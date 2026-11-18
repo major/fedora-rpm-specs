@@ -13,8 +13,8 @@
 
 Name:           ImageMagick
 Epoch:          1
-Version:        7.1.2.35
-Release:        2%{?dist}
+Version:        7.1.2.36
+Release:        1%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -146,6 +146,15 @@ Provides:  %{name}7-djvu       = %{epoch}:%{version}-%{release}
 
 %description djvu
 This package provides a plugin for reading and writing DjVu images with
+ImageMagick and applications using its core library.
+
+
+%package dot
+Summary: GraphViz DOT plugin for ImageMagick
+Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
+
+%description dot
+This package provides a plugin for reading and writing GraphViz DOT images with
 ImageMagick and applications using its core library.
 
 
@@ -289,6 +298,7 @@ find %{buildroot}%{_libdir}/%{name}-%{VER} -type d -print \
     | sed 's|%{buildroot}||; s|^|%%dir |' > libs-modules.list
 find %{buildroot}%{_libdir}/%{name}-%{VER} ! -type d \
     ! -path '*/coders/djvu.*' \
+    ! -path '*/coders/dot.*' \
 %if %{with libheif}
     ! -path '*/coders/heic.*' \
 %endif
@@ -416,6 +426,9 @@ rm PerlMagick/demo/Generic.ttf
 %license LICENSE
 %{_libdir}/%{name}-%{VER}/modules-Q16HDRI/coders/djvu.*
 
+%files dot
+%{_libdir}/%{name}-%{VER}/modules-Q16HDRI/coders/dot.*
+
 %if %{with libheif}
 %files heic
 %doc NOTICE AUTHORS.txt
@@ -448,6 +461,13 @@ rm PerlMagick/demo/Generic.ttf
 %endif
 
 %changelog
+* Tue Nov 17 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.36-1
+- Update to version 7.1.2.36
+- Resolves: rhbz#2573739
+
+* Mon Nov 16 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1:7.1.2.35-3
+- Separate DOT coders subpackage
+
 * Sun Nov 01 2026 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.2.35-2
 - Correct package descriptions and include plugin documentation and licenses
 - List core modules separately to avoid duplicate plugin build-ID links

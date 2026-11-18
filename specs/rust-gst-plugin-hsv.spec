@@ -4,7 +4,7 @@
 %global crate gst-plugin-hsv
 
 Name:           rust-gst-plugin-hsv
-Version:        0.15.0
+Version:        0.15.4
 Release:        %autorelease
 Summary:        GStreamer plugin with HSV manipulation elements
 

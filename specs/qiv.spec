@@ -1,5 +1,5 @@
 Name:           qiv
-Version:        2.3.3
+Version:        3.0.4
 Release:        %autorelease
 
 Summary:        Quick Image Viewer
@@ -7,15 +7,11 @@ Summary:        Quick Image Viewer
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://spiegl.de/qiv/
-Source0:        http://spiegl.de/qiv/download/%{name}-%{version}.tgz
-
-Patch0:         2.3.3-makefile-destdir.patch
-Patch1:         2.3.3-fix-prototypes.patch
+Source0:        https://codeberg.org/ciberandy/qiv/archive/v%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  gtk2-devel
-BuildRequires:  imlib2-devel
+BuildRequires:  gtk3-devel
 BuildRequires:  file-devel
 BuildRequires:  lcms2-devel
 BuildRequires:  libjpeg-devel
@@ -23,16 +19,16 @@ BuildRequires:  libexif-devel
 BuildRequires:  libtiff-devel
 
 %description
-qiv is a very small and pretty fast gdk2/Imlib2 image viewer.
+qiv is a very small and pretty fast gdk3 image viewer.
 
 %prep
-%autosetup
+%autosetup -n %{name}
 
 %build
-%make_build CFLAGS="%{optflags}"
+%make_build
 
 %install
-%make_install PREFIX="%{_prefix}"
+%make_install PREFIX="%{buildroot}%{_prefix}" STRIP_FLAG=""
 chmod 644 contrib/qiv-command.example
 
 %files

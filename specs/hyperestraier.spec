@@ -15,7 +15,7 @@ BuildRequires:	javapackages-local-openjdk%2 \
 
 Name:		hyperestraier
 Version:	1.4.13
-Release:	76%{?dist}
+Release:	77%{?dist}
 Summary:	A full-text search system
 
 # Overall	LGPL-2.1-or-later
@@ -34,6 +34,8 @@ Patch0:		huperestraier-1.4.13-ruby-19-compat.patch
 Patch1:		hyperestraier-1.4.13-javanative-configure-c99-compat.patch
 # rubynative: fix function prototype passed to rb_rescue
 Patch2:		hyperestraier-1.4.13-rubyext-functype.patch
+# Use TypedData API needed for ruby4.1
+Patch3:		hyperestraier-1.4.13-TypedData-api.patch
 
 BuildRequires:	gcc
 BuildRequires:	bzip2-devel zlib-devel
@@ -46,6 +48,7 @@ BuildRequires:	perl-generators
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # java related macros
 %ifarch %java_arches
+%set_javaver	47	25
 %set_javaver	46	25
 %set_javaver	45	25
 %set_javaver	44	25
@@ -101,6 +104,7 @@ This package contains a Ruby interface for Hyper Estraier.
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %build
 ## 0. First:
@@ -286,6 +290,9 @@ popd
 
 
 %changelog
+* Tue Nov 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-77
+- Use TypedData API needed for ruby4.1
+
 * Fri Aug 14 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.13-76
 - Rebuild for Fedora 46
 

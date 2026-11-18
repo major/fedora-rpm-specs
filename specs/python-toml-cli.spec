@@ -10,8 +10,6 @@ License:        Apache-2.0
 URL:            %{forgeurl}
 Source:         %{forgesource}
 
-# Lower tomlkit dependency to match Fedora Rawhide (0.13.2)
-Patch0:         0002-lower-tomlkit-dependency.patch
 # Skip test_set_in_out_of_order_table on tomlkit < 0.13.3 due to lack of upstream fix
 Patch1:         0003-skip-out-of-order-table-test-on-older-tomlkit.patch
 
@@ -39,6 +37,7 @@ Conflicts:      libtoml
 
 %prep
 %autosetup -p1 -n toml-cli-%{version}
+%pyproject_patch_dependency tomlkit:drop_lower
 
 %generate_buildrequires
 %pyproject_buildrequires

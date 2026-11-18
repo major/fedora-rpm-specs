@@ -13,8 +13,8 @@
 %bcond avif 1
 
 Name:		efl
-Version:	1.28.1
-Release:	8%{?dist}
+Version:	1.29.0
+Release:	1%{?dist}
 Summary:	Collection of Enlightenment libraries
 # Automatically converted from old format: BSD and LGPLv2+ and GPLv2 and zlib - review is highly recommended.
 License:	LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+ AND GPL-2.0-only AND Zlib
@@ -53,6 +53,7 @@ BuildRequires:	pkgconfig(poppler-cpp) >= 0.12
 BuildRequires:	pkgconfig(libspectre) pkgconfig(libraw)
 BuildRequires:	pkgconfig(librsvg-2.0) >= 2.14.0
 BuildRequires:	pkgconfig(cairo) >= 1.0.0
+BuildRequires:	pkgconfig(libpipewire-0.3)
 %if %{with avif}
 BuildRequires:	pkgconfig(libavif)
 %endif
@@ -548,6 +549,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/libexactness*.so
 
 %changelog
+* Tue Nov 17 2026 Tom Callaway <spot@fedoraproject.org> - 1.29.0-1
+- update to 1.29.0
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

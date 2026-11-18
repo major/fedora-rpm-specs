@@ -7,13 +7,16 @@
 %global crate gstreamer-video-sys
 
 Name:           rust-gstreamer-video-sys
-Version:        0.25.3
+Version:        0.25.4
 Release:        %autorelease
 Summary:        FFI bindings to libgstvideo-1.0
 
 License:        MIT
 URL:            https://crates.io/crates/gstreamer-video-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gstreamer-video-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gstreamer-video-1.0) >= 1.14

@@ -45,7 +45,7 @@ Patch5:   stunnel-5.72-default-tls-version.patch
 # util-linux is needed for rename
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: openssl-devel, pkgconfig, util-linux
 BuildRequires: autoconf automake libtool
 %if %{with libwrap}
@@ -67,7 +67,7 @@ to ordinary applications. For example, it can be used in
 conjunction with imapd to create a TLS secure IMAP server.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE99}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE99}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -S gendiff -p1
 
 %build

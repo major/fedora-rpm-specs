@@ -7,13 +7,16 @@
 %global crate gstreamer-sys
 
 Name:           rust-gstreamer-sys
-Version:        0.25.2
+Version:        0.25.4
 Release:        %autorelease
 Summary:        FFI bindings to libgstreamer-1.0
 
 License:        MIT
 URL:            https://crates.io/crates/gstreamer-sys
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * relax system-deps build-dependency
+Patch:          gstreamer-sys-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.14

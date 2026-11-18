@@ -1,13 +1,15 @@
 %global pypi_name cmd2
 
 Name:             python-%{pypi_name}
-Version:          4.4.2
+Version:          4.4.3
 Release:          %{autorelease}
 Summary:          Extra features for standard library's cmd module
 
 License:          MIT
 URL:              https://pypi.python.org/pypi/cmd2
 Source0:          https://files.pythonhosted.org/packages/source/c/cmd2/cmd2-%{version}.tar.gz
+Patch0:           https://github.com/python-cmd2/cmd2/pull/1826.patch
+Patch1:           0001-test-size-job-control-output-from-page-size.patch
 
 BuildArch:        noarch
 
@@ -58,6 +60,8 @@ Requires:         /usr/bin/which
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
+
+# Increase timeout in tests
 
 # Disable coverage checks
 sed -i '/"\-\-cov/d' pyproject.toml

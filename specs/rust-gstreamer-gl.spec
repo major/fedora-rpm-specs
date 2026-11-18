@@ -5,7 +5,7 @@
 %global crate gstreamer-gl
 
 Name:           rust-gstreamer-gl
-Version:        0.25.2
+Version:        0.25.4
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer GL library
 

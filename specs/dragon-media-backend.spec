@@ -1,5 +1,5 @@
 Name:           dragon-media-backend
-Version:        0.82.1
+Version:        0.90.0
 Release:        1%{?dist}
 Summary:        Qt C++ library intended for desktop music players
 
@@ -10,6 +10,7 @@ Source0:        https://invent.kde.org/libraries/dragon-media-backend/-/archive/
 BuildRequires:  extra-cmake-modules
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  libappstream-glib
 
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Network)
@@ -70,6 +71,7 @@ developing applications that use %{name}.
 
 %install
 %cmake_install
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.dragonmediabackend.metainfo.xml
 
 %check
 %ctest
@@ -81,6 +83,7 @@ developing applications that use %{name}.
 %{_kf6_qmldir}/org/kde/dragonmediabackend/
 %{_kf6_datadir}/qlogging-categories6/dragonmediabackend.categories
 %{_kf6_libdir}/libDragonMediaBackend.so.{0,%{version}}
+%{_kf6_metainfodir}/org.kde.dragonmediabackend.metainfo.xml
 
 %files devel
 %{_includedir}/DragonMediaBackend/
@@ -88,5 +91,8 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libDragonMediaBackend.so
 
 %changelog
+* Tue Nov 17 2026 Steve Cossette <farchord@gmail.com> - 0.90.0-1
+- 0.90.0
+
 * Thu Oct 15 2026 Steve Cossette <steve@ninjasinpajamas.com> - 0.82.1-1
 - Initial Release

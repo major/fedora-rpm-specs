@@ -40,8 +40,6 @@ BuildRequires:  python3dist(typing-extensions)
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 sed -i -e '/^#!\//d' src/tmuxp/log.py
-# Relax libtmux pin: 0.62 not in rawhide yet, 0.61 works.
-sed -i 's/libtmux~=0.62.0/libtmux>=0.61/' pyproject.toml
 
 
 %generate_buildrequires

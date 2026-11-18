@@ -10,7 +10,7 @@ BuildRequires:	%1 \
 %define		rubyabi		1.9.1
 %endif
 
-%define		baserelease	30
+%define		baserelease	31
 
 
 %define		fullrel		%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}
@@ -50,6 +50,10 @@ Patch18:	fantasdic-1.0-beta7-ruby32-file_exist.patch
 Patch19:	fantasdic-1.0-beta7-ruby32-misc-fix.patch
 # Dict server configuration update
 Patch20:	fantasdic-1.0-beta7-dict-server-update.patch
+# Remove deprecated constant usage
+Patch21:	fantasdic-1.0-beta7-remove-deprecation-const.patch
+# Fix up lambda definition for ObjectSpace.define_finalizer
+Patch22:	fantasdic-1.0-beta7-finalizer-argument.patch
 
 BuildArch:	noarch
 
@@ -95,6 +99,8 @@ unlink vendor_ruby
 %patch -P18 -p1
 %patch -P19 -p1
 %patch -P20 -p1
+%patch -P21 -p1
+%patch -P22 -p1
 
 %{__chmod} 0644 tools/*.rb
 %{__sed} -i.path -e 's|%{_bindir}/||' fantasdic.desktop
@@ -214,6 +220,9 @@ exit $STATUS
 %{ruby_vendorlibdir}/%{name}/
 
 %changelog
+* Tue Nov 17 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.31.beta7
+- Fix up some deprecation warnings and crash on settings dialog
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.30.beta7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -12,7 +12,7 @@ BuildArch:     noarch
 # https://github.com/apache/buildstream/blob/master/src/buildstream/_testing/_sourcetests/project/elements/base/base-alpine.bst
 ExclusiveArch: x86_64 aarch64
 
-Version:       2.4.0
+Version:       2.5.0
 Release:       %autorelease
 Source0:       %{pypi_source}
 

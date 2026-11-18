@@ -167,13 +167,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc3.26
+%define pkgrelease 0.rc3.261117g666539eecdf4.27
 %define kversion 7
-%define tarfile_release 7.4-rc3
+%define tarfile_release 7.4-rc3-149-g666539eecdf4
 # This is needed to do merge window version magic
 %define patchlevel 4
 # The Release tag, including the configurable %%{?dist} tag
-%define specrelease 0.rc3.26%{?buildid}%{?dist}
+%define specrelease 0.rc3.261117g666539eecdf4.27%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -4612,9 +4612,17 @@ fi\
 #
 #
 %changelog
-* Mon Nov 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.26]
+* Tue Nov 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.666539eecdf4.27]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Tue Nov 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.666539eecdf4.26]
+- redhat/self-test: update data for exported RHTEST and ARCH_MACH (Jan Stancek)
+- redhat/Makefile: export AUTOMOTIVE_BUILD for automotive sub-makes (Jan Stancek)
+- redhat/Makefile: export DIST for the dist-brew sub-make (Jan Stancek)
+- redhat/Makefile: export RHTEST and ARCH_MACH again (Jan Stancek)
+- redhat/Makefile: fix distg-koji target name (Jan Stancek)
+- Linux v7.4.0-0.rc3.666539eecdf4
 
 * Mon Nov 16 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.25]
 - Linux v7.4.0-0.rc3

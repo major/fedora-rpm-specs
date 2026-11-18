@@ -1,6 +1,6 @@
 # Plain package name for cases, where %%{name} differs (e.g. for versioned packages)
 %global majorname mariadb
-%global package_version 12.3.2
+%global package_version 12.3.4
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
@@ -15,7 +15,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 12.3.2
+%global last_tested_version 12.3.4
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -211,7 +211,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          101%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          Fast and robust SQL database server
@@ -1072,9 +1072,7 @@ cmake -B %{_vpath_builddir} -N -LAH
 
 %if %{undefined rhel}
 # multilib header support #1625157
-for header in mysql/server/my_config.h mysql/server/private/config.h; do
-%multilib_fix_c_header --file %{_includedir}/$header
-done
+%multilib_fix_c_header --file %{_includedir}/mysql/server/my_config.h
 %endif
 
 ln -s mysql_config.1.gz %{buildroot}%{_mandir}/man1/mariadb_config.1.gz
@@ -1343,6 +1341,8 @@ rm %{buildroot}%{_libdir}/%{majorname}/plugin/test_sql_service.so
 rm %{buildroot}%{_libdir}/%{majorname}/plugin/test_versioning.so
 rm %{buildroot}%{_libdir}/%{majorname}/plugin/type_mysql_timestamp.so
 rm %{buildroot}%{_libdir}/%{majorname}/plugin/type_test.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/plugin_name_ascii.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/plugin_name_non_ascii.so
 rm %{buildroot}%{_libdir}/%{majorname}/plugin/daemon_example.ini
 %endif
 
@@ -1794,6 +1794,7 @@ fi
 %files -n %{pkgname}-devel
 %{_includedir}/*
 %{_datadir}/aclocal/mysql.m4
+%{_datadir}/cmake/mariadb-plugin/
 %{_libdir}/pkgconfig/*mariadb.pc
 %if %{with clibrary}
 %{_mandir}/man3/*
@@ -1850,6 +1851,8 @@ fi
 %{_libdir}/%{majorname}/plugin/test_versioning.so
 %{_libdir}/%{majorname}/plugin/type_mysql_timestamp.so
 %{_libdir}/%{majorname}/plugin/type_test.so
+%{_libdir}/%{majorname}/plugin/plugin_name_ascii.so
+%{_libdir}/%{majorname}/plugin/plugin_name_non_ascii.so
 %if %{with pam}
 %{_libdir}/%{majorname}/plugin/test_pam_modules/pam_mariadb_mtr.so
 %endif
@@ -1862,6 +1865,9 @@ fi
 %endif
 
 %changelog
+* Wed Nov 18 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.4-1
+- Rebase to 12.3.4
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3:12.3.2-101
 - Rebuilt for libxml-2.5.4
 

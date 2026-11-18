@@ -79,7 +79,7 @@
 # Chromium/Ninja embeds the build directory in response-file names.
 %global _vpath_builddir build
 
-%global unstable 1
+# global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -88,7 +88,7 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.140.0%{?unstable:~rc}
+Version: 6.140.0
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -101,7 +101,7 @@ URL:     http://www.qt.io
 
 # cleaned tarball with patent-encumbered codecs removed from the bundled FFmpeg
 # ./qtwebengine-release.sh
-# ./clean_qtwebengine.sh 6.140.0-rc
+# ./clean_qtwebengine.sh 6.140.0
 %if 0%{?unstable}
 Source0: %{qt_module}-everywhere-src-%{qt_version}.%{chromium_version}-%{prerelease}-clean.tar.xz
 %else
@@ -862,8 +862,11 @@ done
 %endif
 
 %changelog
-* Thu Oct 22 2026 Jan Grulich <jgrulich@redhat.com>
+* Mon Nov 16 2026 Jan Grulich <jgrulich@redhat.com> - 6.140.0-1
 - 6.140.0
+
+* Thu Oct 22 2026 Jan Grulich <jgrulich@redhat.com> - 6.140.0~rc-1
+- 6.140.0-rc
 
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 6.11.2-4
 - Rebuilt for libxml-2.5.4
