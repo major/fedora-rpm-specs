@@ -1,9 +1,5 @@
-# https://fedoraproject.org/wiki/Packaging:SourceURL#Github
-#%global commit 1333ea9395a381b38535bc1fa05733a32b21f138
-#%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           mysqltuner
-Version:        2.9.2
+Version:        2.9.4
 Release:        1%{?dist}
 Summary:        MySQL configuration assistant
 
@@ -49,6 +45,10 @@ install -Dpm 644 vulnerabilities.csv $RPM_BUILD_ROOT%{_datadir}/mysqltuner/vulne
 %{_datadir}/mysqltuner/vulnerabilities.csv
 
 %changelog
+* Wed Nov 18 2026 josef radinger <cheese@nosuchhost.net> - 2.9.4-1
+- bump version
+- a little spec-file-cleanup
+
 * Thu Aug 20 2026 josef radinger <cheese@nosuchhost.net> - 2.9.2-1
 - bump version
 - fix date in changelog

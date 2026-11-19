@@ -2,7 +2,7 @@
 
 Summary:        Reliable, high-performance TCP/HTTP load-balancing reverse proxy
 Name:           haproxy
-Version:        3.4.7
+Version:        3.4.8
 Release:        1%{?dist}
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://www.haproxy.org/
@@ -111,6 +111,9 @@ rm -f doc/{gpl,lgpl}.txt doc/%{name}.1 examples/%{name}.init
 %dir %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Thu Nov 19 2026 Robert Scheck <robert@fedoraproject.org> - 3.4.8-1
+- Upgrade to 3.4.8 (#2576040)
+
 * Thu Oct 15 2026 Robert Scheck <robert@fedoraproject.org> - 3.4.7-1
 - Upgrade to 3.4.7 (#2552350)
 

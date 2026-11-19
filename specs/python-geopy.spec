@@ -19,6 +19,9 @@ Patch:          0001-Downstream-only-drop-coverage-from-test-extra.patch
 # Applies on top of the coverage patch.
 Patch:          0002-Downstream-only-allow-newer-Sphinx-for-testing.patch
 
+# Fix pytest >= 9.1 error: marks cannot be applied to fixtures
+Patch:          https://github.com/geopy/geopy/pull/609.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

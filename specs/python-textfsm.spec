@@ -8,7 +8,7 @@ devices.}
 
 
 Name:           python-%{pypi_name}
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Python module for parsing semi-structured text into python tables
 
@@ -57,6 +57,7 @@ Summary:        %{summary}
 %license COPYING
 %{_bindir}/textfsm
 %exclude %{python3_sitelib}/testdata
+%exclude %{python3_sitelib}/tests
 
 
 %changelog

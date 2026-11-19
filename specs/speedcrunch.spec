@@ -1,7 +1,7 @@
 %global appname org.speedcrunch.SpeedCrunch
 
 Name:           speedcrunch
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 
 License:        GPL-2.0-or-later

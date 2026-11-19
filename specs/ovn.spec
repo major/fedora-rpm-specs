@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 26.09.0
-Release: 33%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 61%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -457,6 +457,10 @@ fi
 %{_unitdir}/ovn-br-db.service
 
 %changelog
+* Wed Nov 18 2026 Dumitru Ceara <dceara@redhat.com> - 26.09.0-61
+- Updated the OVN sources to pick up the commits from v26.09.0 till
+  the tip of branch-26.09 (67b71ad8d2d40ee905a706f4687fa576e325fdc1).
+
 * Thu Oct 8 2026 Dumitru Ceara <dceara@redhat.com> - 26.09.0-33
 - Updated the OVN sources to upstream release v26.09.0 with the
   commit da7afdb1bffa5ff752f2e8ae50ffd7aecd2907f3 and picked up

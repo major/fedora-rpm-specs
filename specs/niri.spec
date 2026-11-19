@@ -58,6 +58,9 @@ Source1:        niri-%{version}-vendor.tar.xz
 Source2:        vendor.toml
 Source3:        vendor.sh
 
+# https://github.com/niri-wm/niri/commit/02fdd8e7586110d6aa79d94f388756a3479091b6
+Patch:          0001-portals-add-oo7-as-secret-portal.patch
+
 ExcludeArch:    %{ix86}
 
 BuildRequires:  cargo-rpm-macros
@@ -96,9 +99,10 @@ Requires:       xwayland-satellite >= 0.7
 Requires:       libwayland-server
 
 # required for portal support 
-Recommends:     gnome-keyring
 Recommends:     xdg-desktop-portal-gnome
 Recommends:     xdg-desktop-portal-gtk
+Recommends:     (oo7-portal or gnome-keyring)
+Suggests:       oo7-portal
 
 # applications bound by keyboard shortcuts in default configuration 
 Recommends:     alacritty

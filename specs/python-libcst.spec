@@ -35,6 +35,9 @@ Source:         %{pypi_source libcst}
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  tomcli
+# Forcibly unbundled, so we must depend on these manually.
+BuildRequires:  crate(libcst_derive/default) = %{version}
+BuildRequires:  crate(libcst/default) = %{version}
 
 %if %{with tests}
 # test dependencies are intermingled with dev dependencies
@@ -71,11 +74,15 @@ Obsoletes:      python-libcst-doc < 1.1.0-1
 # remove version locks
 find . -name Cargo.lock -print -delete
 
-# drop unused, benchmark-only dev-dependencies
-tomcli set native/libcst/Cargo.toml del dev-dependencies.criterion
-tomcli set native/libcst/Cargo.toml del dev-dependencies.rayon
+# Unbundle crate libraries
+for crate in libcst_derive libcst
+do
+  rm --recursive --verbose "native/${crate}"
+  ln --symbolic "%{cargo_registry}/${crate}-%{version}" "native/${crate}"
+done
 
 %cargo_prep
+
 
 %generate_buildrequires
 for p in libcst_derive libcst; do
@@ -137,7 +144,10 @@ LIBCST_PARSER_TYPE=pure %pytest --import-mode=append ${ignore-} -v "${mod}"
 %dnl Python C API. It’s not obvious what’s going wrong here.
 %ifnarch %{power64}
 cd native
-%cargo_test
+# This test in native/libcst_derive doesn’t work (forms the paths to
+# native/libcst_derive/tests/pass/*.rs improperly) when run this way.
+s="${s-} --skip cstnode::trybuild"
+%cargo_test -- -- --exact ${s-}
 %endif
 %endif
 

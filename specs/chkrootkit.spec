@@ -1,10 +1,11 @@
 Name:           chkrootkit
-Version:        0.58
-Release:        4b%{?dist}
+Version:        0.60
+Release:        1%{?dist}
 Summary:        Tool to locally check for signs of a rootkit
 License:        BSD-2-Clause AND GPL-2.0-or-later
 URL:            http://www.chkrootkit.org
-Source0:        ftp://ftp.chkrootkit.org/pub/seg/pac/chkrootkit-%{version}b.tar.gz
+# Must manually download
+Source0:        ftp://ftp.chkrootkit.org/pub/seg/pac/chkrootkit-%{version}.tar.gz
 Source2:        chkrootkit.png
 Source3:        chkrootkit.desktop
 Source4:        chkrootkit.console
@@ -13,13 +14,7 @@ Source6:        README.false_positives
 Patch1:         chkrootkit-0.44-getCMD.patch
 Patch2:         chkrootkit-0.44-inetd.patch
 Patch3:         chkrootkit-0.47-chklastlog.patch
-Patch4:         chkrootkit-0.49-chkproc-psver.patch
-Patch5:         chkrootkit-0.49-CVE-2014-0476.patch
-Patch6:         chkrootkit-0.53-netstat-l2cap.patch
-# Fix a build failure caused by a signal handler function having the
-# wrong signature
-# Mailed to upstream authors jessen and nelsonmurilo 2025-01-17
-Patch7:         chkrootkit-0.57-sighandler-type.patch
+Patch4:         chkrootkit-0.49-CVE-2014-0476.patch
 
 BuildRequires:  desktop-file-utils perl-interpreter
 BuildRequires:  glibc-static gcc
@@ -44,14 +39,11 @@ It contains:
 
 
 %prep
-%setup -q -n %{name}-%{version}b
+%setup -q -n %{name}-%{version}
 %patch -P 1 -p1 -b .getCMD
 %patch -P 2 -p1 -b .inetd
 %patch -P 3 -p1 -b .chklastlog
-%patch -P 4 -p0 -b .chkproc-psver
-%patch -P 5 -p1
-%patch -P 6 -p0
-%patch -P 7 -p1
+%patch -P 4 -p1
 sed -i -e 's!\s\+@strip.*!!g' Makefile
 
 
@@ -102,6 +94,9 @@ install -p -m0644 %{SOURCE6} .
 
 
 %changelog
+* Wed Nov 18 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.60-1
+- 0.60
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.58-4b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

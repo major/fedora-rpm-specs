@@ -1,7 +1,7 @@
 Name:           libfido2
 
 Version:        1.17.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -108,6 +108,9 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Wed Nov 18 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.17.0-8
+- Rebuilt for libcbor 0.15.0
+
 * Mon Oct 12 2026 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.17.0-7
 - Remove conditionals as all recent Fedora now support openpgpverify
 

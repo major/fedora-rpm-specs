@@ -37,7 +37,7 @@ fi                                               \
 %global newname   AusweisApp
 
 Name:             AusweisApp2
-Version:          2.6.2
+Version:          2.6.3
 Release:          %autorelease
 Summary:          %{pkg_sum}
 
@@ -178,7 +178,7 @@ install -pm 0644 %{SOURCE4} LICENSE.en.txt
 
 # Generate application specific OpenSSL configuration.
 # See the comments in the resulting file for further information.
-%{__python3} %{SOURCE1000} resources/config.json.in \
+%{__python3} %{SOURCE1000} resources/config.json \
   > fedora_%{name}_openssl.cnf
 
 # Create the shell wrapper.

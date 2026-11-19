@@ -1,14 +1,12 @@
 Name:           vdr-epg-daemon
-Version:        1.3.29
-Release:        20%{?dist}
+Version:        1.4.2
+Release:        1%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 License:        GPL-1.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-BSD
 URL:            https://github.com/horchi/vdr-epg-daemon
 Source0:        https://github.com/horchi/vdr-epg-daemon/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # fix: Optimization flags are not honored.
 Patch0:         %{name}-makefile.patch
-# https://github.com/horchi/vdr-epg-daemon/commit/27a7034e7c7819ab8103fc8f8af66834d61577f9.patch
-Patch1:         27a7034e7c7819ab8103fc8f8af66834d61577f9.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -116,7 +114,7 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 
 %files
 %doc HISTORY* README* epglv/README* contrib/README.fedora
-%license COPYING http/www/font/LICENSE.txt
+%license COPYING
 %{_bindir}/epg*
 %dir %{_sysconfdir}/epgd
 %config(noreplace) %{_sysconfdir}/epgd/*
@@ -127,6 +125,9 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Wed Nov 18 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.4.2-1
+- Update to 1.4.2
+
 * Wed Oct 07 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.3.29-20
 - Rebuilt for new VDR 2.8.3 API version 14
 

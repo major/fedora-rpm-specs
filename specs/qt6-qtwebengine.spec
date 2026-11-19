@@ -153,6 +153,8 @@ Patch204: qtwebengine-chromium-ppc64-crashpad.patch
 Patch205: qtwebengine-chromium-ppc64-libvpx.patch
 # update for libaom from chromium 150
 Patch206: qtwebengine-chromium-ppc64-libaom.patch
+# https://chromium-review.googlesource.com/c/v8/v8/+/7658728
+Patch207: qtwebengine-chromium-ppc64-v8.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 ExclusiveArch: %{qt6_qtwebengine_arches}
@@ -511,6 +513,7 @@ popd
 pushd src/3rdparty/chromium
 %patch -P205 -p1
 %patch -P206 -p1
+%patch -P207 -p1
 popd
 
 

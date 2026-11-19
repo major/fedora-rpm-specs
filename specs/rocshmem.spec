@@ -21,7 +21,13 @@
 #
 %global upstreamname rocshmem
 
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 10.2
+%else
 %global rocm_release 10.1
+%endif
+
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -32,7 +38,11 @@
 
 Name:       rocshmem
 Version:    %{rocm_version}
+%if %{with preview}
+Release:    0%{?dist}
+%else
 Release:    1%{?dist}
+%endif
 Summary:    ROCm OpenSHMEM runtime
 
 License:    MIT AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only OR Linux-OpenIB)
@@ -139,7 +149,9 @@ rm -f %{buildroot}%{_docdir}/rocshmem/LICENSE.md
 
 %files devel
 %{_includedir}/rocshmem/
+%if %{without preview}
 %{_includedir}/gin_anvil/
+%endif
 %{_libdir}/cmake/rocshmem/
 %{_libdir}/librocshmem.so
 

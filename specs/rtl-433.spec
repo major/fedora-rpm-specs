@@ -1,10 +1,10 @@
-%global commit_date     20260907
-%global commit_long     3792adf1075acb7c6447f7c27df9920fd4f2d41a
+%global commit_date     20261112
+%global commit_long     3962dd97f9181f0dcd0e5bedd96ffd74060c19c3
 %global commit_short    %(c=%{commit_long}; echo ${c:0:7})
 
 Name: rtl-433
-Version: 25.02
-Release: 5.%{commit_date}git%{commit_short}%{dist}
+Version: 25.12
+Release: 6.%{commit_date}git%{commit_short}%{dist}
 
 Summary: Generic radio data receiver
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -92,6 +92,10 @@ done
 %{_includedir}/rtl_433*.h
 
 %changelog
+* Mon Sep 07 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 25.12-6.20261112git3962dd9
+- bump to latest git commit
+- fix typo in release numbering 25.02 -> 25.12
+
 * Thu Oct 15 2026 Richard Shaw <hobbes1069@gmail.com> - 25.02-5.20260907git3792adf
 - Rebuild for SoapySDR.
 

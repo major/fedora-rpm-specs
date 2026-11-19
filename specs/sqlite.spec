@@ -13,7 +13,7 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: blessing
 URL: http://www.sqlite.org/
 
@@ -24,6 +24,8 @@ Patch1: sqlite-3.6.23-lemon-system-template.patch
 Patch2: sqlite-3.49.0-fix-lemon-missing-cflags.patch
 Patch3: sqlite-3.53.3-fix-fts3corrupt4-test.patch
 Patch4: sqlite-3.54.1-fix-ppc64le-waliter-test.patch
+# https://sqlite.org/src/info/d684ccc9ec4e41d8 and https://sqlite.org/src/info/f2be7c2a98f2dc65
+Patch5: sqlite-3.54.1-CVE-2026-119586.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -176,6 +178,7 @@ This package contains the analysis program for %{name}.
 %patch -P 2 -p1
 %patch -P 3 -p1
 %patch -P 4 -p1
+%patch -P 5 -p1
 
 # The atof test is failing on the i686 architecture, when binary configured with
 # --enable-rtree option. Failing part is text->real conversion and
@@ -354,6 +357,9 @@ make test || (echo "Tests failed, printing full log..." && cat testrunner.log &&
 %endif
 
 %changelog
+* Wed Nov 18 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 3.54.1-2
+- Fix CVE-2026-119586
+
 * Fri Oct 16 2026 Packit <hello@packit.dev> - 3.54.1-1
 - Update to version 3.54.1
 - Resolves: rhbz#2548711

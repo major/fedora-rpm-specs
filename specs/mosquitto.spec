@@ -1,8 +1,8 @@
 %global with_tests 0
 
 Name:           mosquitto
-Version:        2.1.2
-Release:        4%{?dist}
+Version:        2.1.4
+Release:        1%{?dist}
 Summary:        Open Source MQTT v5/v3.1.x Broker
 
 License:        EPL-2.0
@@ -126,6 +126,9 @@ make test
 %{_mandir}/man3/libmosquitto.3.*
 
 %changelog
+* Wed Nov 18 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 2.1.4-1
+- Update to 2.1.4
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

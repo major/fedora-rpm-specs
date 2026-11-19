@@ -5,7 +5,7 @@
 %global crate opener
 
 Name:           rust-opener
-Version:        0.8.5
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Open a file or link using the system default program
 
@@ -28,6 +28,9 @@ Open a file or link using the system default program.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+
+# bundles xdg-open bash script from xdg-utils
+Provides:       bundled(xdg-utils) = 1.2.1
 
 %description    devel %{_description}
 

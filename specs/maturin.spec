@@ -98,9 +98,6 @@ Patch:          0002-drop-incompatible-cargo-flags-from-setuptools_rust.patch
 Patch:          0003-revert-to-using-setuptools-for-non-maturin-bootstrap.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-%if %{with patchelf}
-BuildRequires:  tomcli
-%endif
 
 # Some sdist tests expect to see .gitignore files in the sdist, which only
 # happens when they are run from inside a git repository, which we create via
@@ -126,34 +123,17 @@ well as rust binaries as python packages.
 #   a hack for installing the zig toolchain via PyPI, but we could work around
 #   that. More importantly, we have patched out support for cross-compiling
 #   with cargo-zigbuild, so there is no point in exposing this extra.
+# patchelf:
+#   We do have patchelf in Fedora, and python3dist(patchelf) is provided by
+#   the python3-patchelf subpackage which requires patchelf and includes the
+#   necessary metadata to register it as a Python package.
 %if %{with patchelf}
-# Based on %%pyproject_extras_subpkg -n maturin patchelf, but we have added
-# a dependency on the patchelf command-line tool.
-%package -n maturin+patchelf
-Summary:        Metapackage for maturin: patchelf extras
-
-Requires:       maturin%{?_isa} = %{version}-%{release}
-Requires:       /usr/bin/patchelf
-
-%description -n maturin+patchelf
-This is a metapackage bringing in patchelf extras requires for maturin.
-It makes sure the dependencies are installed.
-
-%files -n maturin+patchelf -f %{_pyproject_ghost_distinfo}
+%pyproject_extras_subpkg -n maturin patchelf
 %endif
 
 %prep
 %autosetup -n maturin-%{version} -p1 -S git
 %cargo_prep
-
-%if %{with patchelf}
-# We don’t have python3dist(patchelf), corresponding to
-# https://pypi.org/project/patchelf/, which is just a hack for installing the
-# patchelf tool via PyPI. We can still provide the extra by ensuring the
-# system-wide patchelf command-line tool is installed.
-tomcli set pyproject.toml lists delitem \
-    project.optional-dependencies.patchelf patchelf
-%endif
 
 # Ensure we don’t use Cargo.lock files from any of the test crates.
 find test-crates -type f -name Cargo.lock -print -delete
@@ -163,7 +143,7 @@ find test-crates -type f -name Cargo.lock -print -delete
 rm test-data/py.exe
 
 %generate_buildrequires
-%pyproject_buildrequires -x patchelf
+%pyproject_buildrequires %{?with_patchelf:-x patchelf}
 %cargo_generate_buildrequires -f schemars
 
 %if %{with check}

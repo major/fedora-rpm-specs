@@ -38,6 +38,11 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 
+%if 0%{?rhel} && 0%{?rhel} < 11
+# Partial revert of upstream setuptools upgrade to support older releases
+sed -i 's/"setuptools>=70.1"/"setuptools>=53", "wheel"/' pyproject.toml
+%endif
+
 %if 0%{?el10}
 # setuptools in el10 still expects the deprecated PEP 639 license format
 sed -i pyproject.toml \

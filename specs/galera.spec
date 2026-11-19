@@ -2,8 +2,8 @@
 ExcludeArch: %{ix86}
 
 Name:           galera
-Version:        26.4.27
-Release:        3%{?dist}
+Version:        26.4.29
+Release:        1%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
 License:        GPL-2.0-only
@@ -14,8 +14,6 @@ URL:            https://mariadb.com/docs/galera-cluster
 # So it can only be accessed through the 'https://archive.mariadb.org/mariadb-.../...' path which contains the major version of the MariaDB server.
 # Furthermore there is a lag (can be days, weeks) between when a new tag is done on GitHub and when MariaDB upstream releases the new version on their web with the new MariaDB server release.
 Source0:        https://archive.mariadb.org/mariadb-11.8/%{name}-%{version}/src/%{name}-%{version}.tar.gz
-
-Patch3:         asio-1.33-compat.patch
 
 BuildRequires:  boost-devel check-devel openssl-devel cmake systemd gcc-c++ asio-devel
 Requires:       nmap-ncat
@@ -33,7 +31,6 @@ description of Galera replication engine see https://www.galeracluster.com web.
 
 %prep
 %setup -q
-%patch -P3 -p1
 
 # Create a sysusers.d config file
 cat >galera.sysusers.conf <<EOF
@@ -124,8 +121,7 @@ unlink /etc/systemd/system/garb.service || :
 
 %{_bindir}/garbd
 
-# PATCH 3:
-#   Make sure the wrapper script is executable
+# Upstream installs without execute bit
 %attr(755, -, -) %{_bindir}/garb-systemd
 
 %{_mandir}/man8/garbd.8*
@@ -141,10 +137,4 @@ unlink /etc/systemd/system/garb.service || :
 
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 26.4.27-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jun 12 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.4.27-2
-- Rebuilt for openssl 4.0
-
 %autochangelog

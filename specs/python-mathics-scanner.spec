@@ -7,7 +7,7 @@ Name:           python-mathics-scanner
 Release:        %autorelease
 Summary:        Character Tables and Tokenizer for Mathics and the Wolfram Language
 
-License:        GPL-3.0-only
+License:        GPL-3.0-or-later
 URL:            %{forgeurl}
 Source:         %{forgesource}
 

@@ -1,5 +1,7 @@
+%global sheenbidi_version 3.0.0
+
 Name:           SFML
-Version:        2.6.2
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Simple and Fast Multimedia Library
 
@@ -46,21 +48,26 @@ URL:            http://www.sfml-dev.org/
 # And here's the PR that changed (most) of the things: https://github.com/SFML/SFML/pull/1718
 
 Source0:        https://www.sfml-dev.org/files/%{name}-%{version}-sources.zip
+Source1:        https://github.com/Tehreer/SheenBidi/archive/refs/tags/v%{sheenbidi_version}.zip#/SheenBidi-%{sheenbidi_version}-sources.zip
+
+# Fedora doesn't have this yet, and upstream appears to assume bundling:
+Provides:       bundled(SheenBidi) = %{sheenbidi_version}
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freetype2)
-BuildRequires:  pkgconfig(glew)
-BuildRequires:  pkgconfig(libjpeg)
+BuildRequires:  pkgconfig(libssh2)
 BuildRequires:  pkgconfig(libsystemd)
-BuildRequires:  pkgconfig(openal)
-BuildRequires:  pkgconfig(sndfile)
+BuildRequires:  pkgconfig(mbedtls)
+BuildRequires:  pkgconfig(opengl)
 BuildRequires:  pkgconfig(vorbis)
 BuildRequires:  pkgconfig(xcb-image)
 BuildRequires:  pkgconfig(xcursor)
+BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(xrandr)
+BuildRequires:  qoi-static
 BuildRequires:  stb_image-devel >= 2.30^20251025gitf1c79c0-2
 BuildRequires:  stb_image_write-devel
 # BuildRequires:  vulkan-headers
@@ -83,22 +90,25 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -a 1
 # fixup non needed executable permission on regular files
 find -type f -print0 | xargs -0 chmod -x
+#
+sed -i "s/add_custom_target(doc/add_custom_target(doc ALL/" doc/CMakeLists.txt
+sed -i "s/Doxygen::doxygen/\${DOXYGEN_EXECUTABLE}/" doc/CMakeLists.txt
 
-# use system-wide extlibs; so, delete everything except glad, minimp3 and vulkan header files
+# use system-wide extlibs; so, delete everything except cpp-unicodelib, glad, dr_mp3, miniaudio, and vulkan header files
 pushd extlibs
 shopt -s extglob
-rm -r !(headers)
 cd headers/
-rm -r !(glad|minimp3|vulkan)
+rm -r !(cpp-unicodelib|dr_mp3|glad|miniaudio|vulkan)
 shopt -u extglob
 popd
 
 
 %build
-%cmake -DSFML_BUILD_DOC=TRUE
+%cmake -DSFML_BUILD_DOC=TRUE \
+	-DFETCHCONTENT_SOURCE_DIR_SHEENBIDI:PATH=$(pwd)/SheenBidi-%{sheenbidi_version}
 %cmake_build
 
 
@@ -108,7 +118,7 @@ popd
 %files
 %doc %{_datadir}/doc/%{name}/readme.md
 %license %{_datadir}/doc/%{name}/license.md
-%{_libdir}/libsfml-*.so.2*
+%{_libdir}/libsfml-*.so.3*
 
 %files devel
 %doc %{_datadir}/doc/%{name}/html/*
@@ -117,6 +127,11 @@ popd
 %{_includedir}/%{name}/
 %{_libdir}/pkgconfig/sfml-*.pc
 %{_libdir}/libsfml-*.so
+#exclude bundled devel files:
+%exclude %{_includedir}/SheenBidi/
+%exclude %{_libdir}/cmake/SheenBidi/*.cmake
+%exclude %{_libdir}/libSheenBidi.a
+%exclude %{_libdir}/pkgconfig/sheenbidi.pc
 
 
 %changelog

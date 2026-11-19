@@ -25,7 +25,7 @@ This package is a zope.interface extension for defining data schemas.
 %prep
 %autosetup -p1 -n zope_schema-%{version}
 # we don't have specific versions of setuptools available
-sed -i -r 's/("| )setuptools == /\1setuptools >= /' pyproject.toml tox.ini
+%pyproject_patch_dependency setuptools:drop_constraints
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -43,7 +43,7 @@ rm -fr html/{.buildinfo,.doctrees}
 %pyproject_save_files -l zope
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} zope-testrunner --test-path=src
+%{py3_test_envvars} %{python3} -m zope.testrunner --test-path src --verbose
 
 %files -n python3-zope-schema -f %{pyproject_files}
 %doc CHANGES.rst COPYRIGHT.txt README.rst

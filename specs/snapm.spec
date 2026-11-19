@@ -1,23 +1,15 @@
 %global summary A set of tools for managing snapshots
 
 Name:		snapm
-Version:	0.7.0
+Version:	0.8.0
 Release:	%autorelease
 Summary:	%{summary}
 
 License:	Apache-2.0
 URL:		https://github.com/snapshotmanager/%{name}
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:		0001-tests-skip-a-handful-of-tests-in-RH-CI-environments-.patch
-Patch1:		0002-fsdiff-warn-user-when-no-s-start-path-Options.from_p.patch
-Patch2:		0003-doc-clarify-default-diff-start-path-behaviour-in-sna.patch
-Patch3:		0004-doc-add-discussion-of-s-start-path-to-user_guide.rst.patch
-Patch4:		0005-stratis-fix-pool-limit-accounting-in-create-delete-_.patch
-Patch5:		0006-lvm2-fix-pool-origin-limit-accounting.patch
-Patch6:		0007-stratis-handle-DbusClientMissingPropertyError-on-D-B.patch
-Patch7:		0008-tests-bump-stratisd-test-dependency-to-stratisd-v3.8.patch
-Patch8:		0009-stratis-refactor-filter_stratis_snapshot-to-allow-lo.patch
-Patch9:		0010-stratis-handle-DbusClientMissingPropertyError-on-.se.patch
+
+Patch0: 0001-tests-update-test-exclusions-for-CentOS-and-ELN.patch
 
 BuildArch:	noarch
 
@@ -74,7 +66,7 @@ This package provides the python3 snapm module documentation in HTML format.
 %{make_build} -C doc html
 rm doc/_build/html/.buildinfo
 mv doc/_build/html doc/html
-rm -rf doc/html/_sources doc/_build
+rm -rf doc/html/_sources doc/_build doc/_static
 rm -f doc/*.rst doc/Makefile doc/conf.py
 
 %install
@@ -82,6 +74,7 @@ rm -f doc/*.rst doc/Makefile doc/conf.py
 
 mkdir -p ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}/plugins.d
 mkdir -p ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}/schedule.d
+mkdir -p ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}/services.d
 %{__install} -p -m 644 etc/%{name}/snapm.conf ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}
 %{__install} -p -m 644 etc/%{name}/plugins.d/lvm2-cow.conf ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}/plugins.d
 %{__install} -p -m 644 etc/%{name}/plugins.d/lvm2-thin.conf ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}/plugins.d
@@ -93,6 +86,7 @@ mkdir -p ${RPM_BUILD_ROOT}/%{_mandir}/man5
 %{__install} -p -m 644 man/man5/snapm.conf.5 ${RPM_BUILD_ROOT}/%{_mandir}/man5
 %{__install} -p -m 644 man/man5/snapm-plugins.d.5 ${RPM_BUILD_ROOT}/%{_mandir}/man5
 %{__install} -p -m 644 man/man5/snapm-schedule.d.5 ${RPM_BUILD_ROOT}/%{_mandir}/man5
+%{__install} -p -m 644 man/man5/snapm-services.d.5 ${RPM_BUILD_ROOT}/%{_mandir}/man5
 
 mkdir -p ${RPM_BUILD_ROOT}/%{_unitdir}
 %{__install} -p -m 644 systemd/snapm-create@.service ${RPM_BUILD_ROOT}/%{_unitdir}
@@ -105,6 +99,7 @@ mkdir -p ${RPM_BUILD_ROOT}/%{_tmpfilesdir}
 
 %{__install} -d -m 0700 ${RPM_BUILD_ROOT}/%{_rundir}/%{name}
 %{__install} -d -m 0700 ${RPM_BUILD_ROOT}/%{_rundir}/%{name}/mounts
+%{__install} -d -m 0700 ${RPM_BUILD_ROOT}/%{_rundir}/%{name}/mount-state
 %{__install} -d -m 0700 ${RPM_BUILD_ROOT}/%{_rundir}/%{name}/lock
 
 %check
@@ -119,6 +114,7 @@ mkdir -p ${RPM_BUILD_ROOT}/%{_tmpfilesdir}
 %attr(644, -, -) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/snapm.conf
 %attr(644, -, -) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/plugins.d/*
 %dir %attr(755, -, -) %{_sysconfdir}/%{name}/schedule.d
+%dir %attr(755, -, -) %{_sysconfdir}/%{name}/services.d
 %attr(644, -, -) %{_unitdir}/snapm-create@.service
 %attr(644, -, -) %{_unitdir}/snapm-create@.timer
 %attr(644, -, -) %{_unitdir}/snapm-gc@.service
@@ -126,7 +122,12 @@ mkdir -p ${RPM_BUILD_ROOT}/%{_tmpfilesdir}
 %attr(644, -, -) %{_tmpfilesdir}/%{name}.conf
 %dir %{_rundir}/%{name}/
 %dir %{_rundir}/%{name}/mounts
+%dir %{_rundir}/%{name}/mount-state
 %dir %{_rundir}/%{name}/lock
+%ghost %dir %attr(0700, root, root) /var/cache/%{name}
+
+%post
+%tmpfiles_create %{_tmpfilesdir}/%{name}.conf
 
 %files -n python3-snapm
 # license for snapm (Apache-2.0)

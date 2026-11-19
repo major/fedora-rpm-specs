@@ -42,6 +42,15 @@ Patch:          0001-Downstream-only-make-tests-backward-compatible-with-.patch
 # https://github.com/pydantic/httpx2/pull/1325
 Patch:          %{url}/pull/1325.patch
 
+# Accept `ReadError` from a read pending during ASGI WebSocket close
+# https://github.com/pydantic/httpx2/pull/1354
+#
+# Fixes:
+#
+# Updating to anyio 4.16.0 will produce two test regressions
+# https://github.com/pydantic/httpx2/discussions/1309
+Patch:          %{url}/pull/1354.patch
+
 BuildArch:      noarch
 
 BuildRequires:  help2man

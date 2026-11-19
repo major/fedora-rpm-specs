@@ -6,7 +6,7 @@ access data centers and seismological signal processing routines which allow
 the manipulation of seismological time series.}
 
 Name:          python-%{pypi_name}
-Version:       1.5.1
+Version:       1.5.2
 Release:       %autorelease
 Summary:       A Python Toolbox for seismology/seismological observatories
 License:       LGPL-3.0-only

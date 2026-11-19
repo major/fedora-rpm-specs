@@ -300,9 +300,10 @@ popd
 %changelog
 * Tue Nov 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.19.7-1
 - 1.19.7
-- Fixes GHSA-3w22-6jfg-527w
-- Fixes GHSA-v995-44v6-5fqm
-- Fixes GHSA-4p39-36wj-23h4
+- Fixes GHSA-3w22-6jfg-527w (CVE-2026-126064)
+- Fixes GHSA-v995-44v6-5fqm (CVE-2026-126062)
+  (Actually this is for jruby: nokogiri in Fedora is not affected)
+- Fixes GHSA-4p39-36wj-23h4 (CVE-2026-126063)
 
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.19.4-5
 - Rebuilt for libxml-2.5.4

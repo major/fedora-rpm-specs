@@ -5,7 +5,7 @@
 %define _gcc_lto_cflags -fno-lto
 
 #See provides(bundled) below for more info:
-%global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround imgui implot mbedtls rangeset soundtouch tinygltf SFML cpp-ipc watcher
+%global bundled_libs Bochs_disasm cpp-optparse expr FatFs FreeSurround imgui implot mbedtls rangeset soundtouch tinygltf cpp-ipc watcher
 #My best guess is that bochs is 2.6.6, as dolphin does not specify
 %global bochs_version 2.6.6
 %global FatFs_version 0.14b
@@ -16,7 +16,6 @@
 %global tinygltf_version 2.9.7
 %global cppipc_version 1.4.1
 %global watcher_version 0.14.5
-%global sfml_version 3.0.2
 
 #JIT is only supported on x86_64 and aarch64:
 %ifarch x86_64 aarch64
@@ -58,7 +57,6 @@ Source6:        https://github.com/mutouyun/cpp-ipc/archive/refs/tags/v%{cppipc_
 Source7:        https://github.com/weisslj/cpp-optparse/archive/2265d647232249a53a03b411099863ceca35f0d3.tar.gz#/cpp-optparse-2265d64.tar.gz
 Source8:        https://github.com/ocornut/imgui/archive/refs/tags/v%{imgui_version}.tar.gz#/imgui-%{imgui_version}.tar.gz
 Source9:        https://github.com/e-dant/watcher/archive/refs/tags/%{watcher_version}.tar.gz#/watcher-%{watcher_version}.tar.gz
-Source10:       https://github.com/SFML/SFML/archive/refs/tags/%{sfml_version}.tar.gz#/SFML-%{sfml_version}.tar.gz
 
 # Update bundled mbedtls:
 # https://github.com/dolphin-emu/dolphin/pull/13443
@@ -100,8 +98,6 @@ Provides:       bundled(bochs) = %{bochs_version}
 # mbedtls has dropped TLS v1.1, which dolphin-emu needs:
 # https://github.com/dolphin-emu/dolphin/pull/12246
 Provides:       bundled(mbedtls) = %{mbedtls_version}
-# Waiting for fedora's SFML to update to SFML 3:
-Provides:       bundled(SFML) = %{sfml_version}
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -136,7 +132,7 @@ BuildRequires:  pugixml-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  portaudio-devel
 BuildRequires:  SDL3-devel
-#BuildRequires:  SFML-devel >= 3.0.0
+BuildRequires:  SFML-devel >= 3.0.0
 BuildRequires:  spirv-headers-devel
 BuildRequires:  spirv-tools
 BuildRequires:  spirv-tools-devel
@@ -198,7 +194,6 @@ gzip -dc %{SOURCE6} | tar -C Externals/cpp-ipc/cpp-ipc --strip-components=1 -xof
 gzip -dc %{SOURCE7} | tar -C Externals/cpp-optparse/cpp-optparse --strip-components=1 -xof -
 gzip -dc %{SOURCE8} | tar -C Externals/imgui/imgui --strip-components=1 -xof -
 gzip -dc %{SOURCE9} | tar -C Externals/watcher/watcher --strip-components=1 -xof -
-gzip -dc %{SOURCE10} | tar -C Externals/SFML/SFML --strip-components=1 -xof -
 
 #Allow building with cmake macro
 sed -i '/CMAKE_C.*_FLAGS/d' CMakeLists.txt
@@ -234,7 +229,6 @@ export CMAKE_POLICY_VERSION_MINIMUM=3.5
 #Set USE_SYSTEM_LIBS to safe guard against bundling, but it's not fool proof
 %cmake \
        -DUSE_SYSTEM_LIBS=ON \
-       -DUSE_SYSTEM_SFML=OFF \
        -DXXHASH_FOUND=ON \
        -DUSE_MGBA=OFF \
        -DUSE_SYSTEM_MBEDTLS=OFF \

@@ -4,7 +4,7 @@
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
 Version:        1.44.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
 License:        Apache-2.0
@@ -44,6 +44,9 @@ rm -vr tests/integration
 # just exclude this one test and run all the other functional tests.
 rm -vr tests/functional/leak
 
+# Drop upper dateutil restriction to allow dateutil update
+%pyproject_patch_dependency dateutil:drop_upper
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -68,6 +71,9 @@ rm -vr tests/functional/leak
 %license LICENSE.txt
 
 %changelog
+* Wed Nov 18 2026 Mattia Verga <mattia.verga@protonmail.com> - 1.44.4-2
+- Drop dateutil upper bound
+
 * Tue Nov 17 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.44.4-1
 - 1.44.4
 

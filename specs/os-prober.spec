@@ -1,6 +1,6 @@
 Name:           os-prober
 Version:        1.81
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Probes disks on the system for installed operating systems
 
 # For more information about licensing, see copyright file.
@@ -25,6 +25,7 @@ Patch12:        os-prober-efi-shell.patch
 Patch13:        os-prober-trap_unmount.patch
 Patch14:        os-prober-90fallback-include-possible-kernel-parameters-from-g.patch
 Patch15:        os-prober-common.sh-do-not-resolve-symbolic-link-on-mapped-dev.patch
+Patch16:        os-prober-arm64-efi-fd-result-fix.patch
 
 Requires:       udev coreutils util-linux
 Requires:       grep /bin/sed /sbin/modprobe
@@ -40,6 +41,9 @@ distributions can be added easily.
 
 %prep
 %autosetup -n %{name}-%{version} -S git
+
+mkdir -p os-probes/mounted/riscv64/
+cp -p os-probes/mounted/arm64/05efi os-probes/mounted/riscv64/05efi
 
 find -type f -exec sed -i -e 's|usr/lib|usr/libexec|g' {} \;
 sed -i -e 's|grub-probe|grub2-probe|g' os-probes/common/50mounted-tests \
@@ -71,6 +75,12 @@ ARCH=sparc
 %ifarch %{ix86} x86_64
 ARCH=x86
 %endif
+%ifarch aarch64
+ARCH=arm64
+%endif
+%ifarch riscv64
+ARCH=riscv64
+%endif
 
 for probes in os-probes os-probes/mounted os-probes/init \
               linux-boot-probes linux-boot-probes/mounted; do
@@ -94,6 +104,11 @@ fi
 %{_var}/lib/%{name}
 
 %changelog
+* Sat Nov 14 2026 Dennis Gilmore <dennis@ausil.us> - 1.81-13
+- set ARCH=arm64 on aarch64 builds
+- Add patch to apply the same logic on Arm as x86 for 05efi
+- add riscv efi probes
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.81-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

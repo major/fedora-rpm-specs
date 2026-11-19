@@ -4,7 +4,7 @@
 
 Summary:	Font configuration and customization library
 Name:		fontconfig
-Version:	2.18.3
+Version:	2.18.4
 Release:	%autorelease
 # src/ftglue.[ch] is in Public Domain
 # src/fccache.c contains Public Domain code

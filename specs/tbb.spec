@@ -5,7 +5,7 @@
 
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
-Version: 2023.1.0
+Version: 2023.2.0
 Release: 1%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     https://uxlfoundation.github.io/oneTBB/
@@ -17,7 +17,7 @@ Source7: tbbmalloc.pc
 Source8: tbbmalloc_proxy.pc
 
 # Fix failure to link with GCC 15
-Patch:   tbb-c++-linkage.patch
+Patch:   %{giturl}/pull/2239.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -85,9 +85,10 @@ Python 3 TBB module.
 export TBBROOT=$PWD
 export PYTHONPATH=$(sed "s,%{_prefix},$PWD/%{_vpath_builddir}/python/build," <<< %{python3_sitearch})
 %cmake \
-    -DCMAKE_CXX_STANDARD=17 \
+    -DCMAKE_CXX_STANDARD=20 \
     -DTBB4PY_BUILD:BOOL=ON \
-    -DTBB_STRICT:BOOL=OFF
+    -DTBB_STRICT:BOOL=OFF \
+    -DTCM_BUILD:BOOL=OFF
 %cmake_build
 
 # The python package is not built the Fedora way.  Do it over.
@@ -150,6 +151,11 @@ ctest --output-on-failure --force-new-ctest-process
 %doc python/README.md
 
 %changelog
+* Fri Oct 30 2026 Jerry James <loganjerry@gmail.com> - 2023.2.0-1
+- Version 2023.2.0
+- Increase C++ standard from 17 to 20
+- Use upstream patch for tbbmalloc linking issue
+
 * Thu Aug 06 2026 Jerry James <loganjerry@gmail.com> - 2023.1.0-1
 - Version 2023.1.0
 

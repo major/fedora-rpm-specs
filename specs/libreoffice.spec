@@ -142,6 +142,7 @@ BuildRequires: flex
 BuildRequires: gcc-c++
 BuildRequires: gettext
 BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: gperf
 BuildRequires: hunspell-en-US
 BuildRequires: icu
@@ -1132,10 +1133,9 @@ done \
 
 %prep
 # verify tarballs
-gpg2 --dearmor < %{SOURCE6} > keyring.gpg
-gpgv2 --keyring ./keyring.gpg %{SOURCE1} %{SOURCE0}
-gpgv2 --keyring ./keyring.gpg %{SOURCE3} %{SOURCE2}
-gpgv2 --keyring ./keyring.gpg %{SOURCE5} %{SOURCE4}
+%{openpgpverify} --keyring='%{SOURCE6}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE6}' --signature='%{SOURCE3}' --data='%{SOURCE2}'
+%{openpgpverify} --keyring='%{SOURCE6}' --signature='%{SOURCE5}' --data='%{SOURCE4}'
 
 %setup -q -n %{name}-%{version} -b 2 -b 4
 rm -rf git-hooks */git-hooks

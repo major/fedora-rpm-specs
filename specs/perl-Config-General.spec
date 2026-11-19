@@ -1,5 +1,5 @@
 Name:           perl-Config-General
-Version:        2.68
+Version:        2.69
 Release:        1%{?dist}
 Summary:        Generic configuration module for Perl
 License:        Artistic-2.0
@@ -85,9 +85,13 @@ make test
 
 
 %changelog
+* Wed Nov 18 2026 Paul Howarth <paul@city-fan.org> - 2.69-1
+- Update to 2.69 (rhbz#2575766)
+  - Fix changelog
+
 * Tue Nov 17 2026 Paul Howarth <paul@city-fan.org> - 2.68-1
 - Update to 2.68 (rhbz#2574364)
-  - Validate incoming config hashes, forbid include and comments
+  - Validate incoming config hashes, forbid include, here-doc and comments
     (https://codeberg.org/scip/Config-General/issues/9, CVE-2026-129820,
     CVE-2026-129821)
 

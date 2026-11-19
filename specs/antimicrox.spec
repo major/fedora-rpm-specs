@@ -4,8 +4,8 @@
 %global appname io.github.antimicrox.antimicrox
 
 Name:         antimicrox
-Version:      3.6.0
-Release:      2%{?dist}
+Version:      3.6.2
+Release:      1%{?dist}
 Summary:      Graphical program used to map keyboard buttons and mouse controls to a gamepad
 
 License:  GPL-3.0-or-later AND Zlib AND LGPL-3.0-or-later AND LGPL-2.1-or-later
@@ -79,6 +79,10 @@ AntiMicro which was inspired by QJoyPad but has additional features.
 %{_bindir}/appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{appname}.appdata.xml
 
 %changelog
+* Fri Nov 13 2026 Packit <hello@packit.dev> - 3.6.2-1
+- Update to version 3.6.2
+- Resolves: rhbz#2249917
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

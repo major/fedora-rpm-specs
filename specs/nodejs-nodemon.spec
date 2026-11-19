@@ -13,14 +13,13 @@ URL:           https://www.npmjs.com/package/nodemon
 Source0:       %{npm_name}-v%{version}-bundled.tar.gz
 
 
-BuildRequires: nodejs-devel
+BuildRequires: /usr/bin/node
+BuildRequires: /usr/bin/npm
 BuildRequires: nodejs-packaging
-BuildRequires: npm
 
 # Let the nodemon work with any nodejs version available
 %global __requires_exclude ^\/usr\/bin\/node
 Requires:      nodejs(engine)
-Suggests:      nodejs
 
 ExclusiveArch: %{nodejs_arches} noarch
 BuildArch:     noarch

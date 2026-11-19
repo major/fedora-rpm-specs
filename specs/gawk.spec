@@ -46,7 +46,7 @@
 
 Name:             gawk
 Summary:          The GNU version of the AWK text processing utility
-Version:          5.4.1
+Version:          5.4.2
 Release:          1%{?dist}
 
 License:          GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-3-Clause
@@ -292,6 +292,9 @@ install -m 0644 -p awklib/eg/data/* %{buildroot}%{_docdir}/%{name}/eg/data/
 # =============================================================================
 
 %changelog
+* Wed Nov 18 2026 Jakub Martisko <jamartis@redhat.com> - 5.4.2-1
+- New upstream release - 5.4.2
+
 * Wed Jul 29 2026 Jakub Martisko <jamartis@redhat.com> - 5.4.1-1
 - New upstream release - 5.4.1
 

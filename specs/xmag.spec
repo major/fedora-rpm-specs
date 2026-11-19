@@ -1,6 +1,6 @@
 Name:       xmag
-Version:    1.0.8
-Release:    6%{?dist}
+Version:    1.0.9
+Release:    1%{?dist}
 Summary:    Display a magnified snapshot of an X11 screen
 # COPYING:      MIT-open-group AND X11 texts
 # CutPaste.c:   MIT-open-group
@@ -17,32 +17,34 @@ Summary:    Display a magnified snapshot of an X11 screen
 # aclocal.m4:   FSFULLR AND FSFULLRWD AND
 #               GPL-2.0-or-later WITH Autoconf-exception-generic AND MIT AND
 #               GPL-3.0-or-later WITH Autoconf-exception-macro AND MIT-open-group
-# compile:      GPL-2.0-or-later WITH Autoconf-exception-generic
+# compile:      GPL-3.0-or-later WITH Autoconf-exception-generic
 # config.guess: GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
 # config.sub:   GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
 # configure:    FSFUL
 # configure.ac: MIT-CMU
-# depcomp:      GPL-2.0-or-later WITH Autoconf-exception-generic
+# depcomp:      GPL-3.0-or-later WITH Autoconf-exception-generic
 # INSTALL:      FSFAP
 # install-sh:   X11
 # Makefile.am:  MIT-CMU
 # Makefile.in:  FSFULLRWD
 # man/Makefile.in:  FSFULLRWD
-# missing:      GPL-2.0-or-later WITH Autoconf-exception-generic
+# missing:      GPL-3.0-or-later WITH Autoconf-exception-generic
+## Unused
+# meson.build:  MIT
 License:    MIT-open-group AND X11
-SourceLicense:  FSFAP AND FSFUL AND FSFULLR AND FSFULLRWD AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Autoconf-exception-macro AND MIT AND MIT-CMU AND MIT-open-group AND X11
+SourceLicense:  FSFAP AND FSFUL AND FSFULLR AND FSFULLRWD AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Autoconf-exception-macro AND MIT AND MIT-CMU AND MIT-open-group AND X11
 URL:        https://gitlab.freedesktop.org/xorg/app/xmag
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 Source1:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz.sig
 # Retrieved from http://keyserver.ubuntu.com:11371 key server.
-Source2:    gpgkey-4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E.gpg
+Source2:    keyring-3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2.pgp
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
 BuildRequires:  gcc
-BuildRequires:  gnupg2
 BuildRequires:  libtool
 BuildRequires:  make
+BuildRequires:  openpgpverify
 BuildRequires:  pkgconfig(xaw7)
 BuildRequires:  pkgconfig(xmu)
 BuildRequires:  pkgconfig(xorg-macros) >= 1.8
@@ -55,9 +57,7 @@ Obsoletes:      xorg-x11-apps < 7.7-31
 xmag displays a magnified snapshot of a portion of an X11 screen.
 
 %prep
-# 1024-bit DSA keys are not supported by Sequoia
-# <https://gitlab.freedesktop.org/xorg/app/xmag/-/work_items/3>.
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 rm aclocal.m4 compile config.guess config.sub configure depcomp install-sh \
     Makefile.in man/Makefile.in missing
@@ -78,6 +78,9 @@ autoreconf --force --install
 %{_datadir}/X11/app-defaults/Xmag
 
 %changelog
+* Wed Nov 18 2026 Petr Pisar <ppisar@redhat.com> - 1.0.9-1
+- 1.0.9 bump
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

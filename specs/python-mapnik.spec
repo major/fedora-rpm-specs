@@ -10,7 +10,7 @@ Version:        4.3.2
 Release:        %autorelease
 Summary:        Python bindings for Mapnik
 
-License:        LGPL-2.1-only
+License:        LGPL-2.1-or-later
 URL:            https://github.com/mapnik/python-mapnik
 Source0:        https://github.com/mapnik/python-mapnik/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/mapnik/test-data/archive/%{testcommit}/test-data-%{testcommit}.tar.gz

@@ -1,5 +1,5 @@
 Name:           repo
-Version:        2.73
+Version:        2.74
 Release:        %autorelease
 Summary:        Repository management tool built on top of git
 
@@ -11,6 +11,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-xdist
 BuildRequires:  git
 BuildRequires:  gnupg2
 BuildRequires:  tree

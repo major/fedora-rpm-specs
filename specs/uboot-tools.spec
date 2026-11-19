@@ -81,6 +81,8 @@ BuildRequires:  optee-os-firmware-armv8
 BuildRequires:  crust-firmware
 BuildRequires:  python3-pyelftools
 BuildRequires:  xxd
+# For QCom boards
+BuildRequires:  python3-cryptography
 %endif
 %ifarch riscv64
 BuildRequires:  %{opensbi}

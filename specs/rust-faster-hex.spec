@@ -5,23 +5,22 @@
 %global crate faster-hex
 
 Name:           rust-faster-hex
-Version:        0.10.1
+Version:        1.0.0
 Release:        %autorelease
-Summary:        Fast hex encoding
+Summary:        Fast, checked hex encoding and decoding with SIMD and no_std support
 
 License:        MIT
 URL:            https://crates.io/crates/faster-hex
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop benchmark dependencies (criterion, rustc-hex)
-# * drop optional support for defmt
-# * update hex dependency to version 0.4.x
+# * drop benchmark-specific dev-dependencies
+# * drop optional support for defmt and heapless
 Patch:          faster-hex-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Fast hex encoding.}
+Fast, checked hex encoding and decoding with SIMD and no_std support.}
 
 %description %{_description}
 
@@ -37,7 +36,12 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %license "%{crate_instdir}/LICENSE-THIRD-PARTY/Rust Project Developers"
+%license %{crate_instdir}/LICENSE-THIRD-PARTY/const-hex
 %license %{crate_instdir}/LICENSE-THIRD-PARTY/fast-hex
+%license %{crate_instdir}/LICENSE-THIRD-PARTY/vsimd
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/MIGRATION.md
+%doc %{crate_instdir}/OPTIMIZATION.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

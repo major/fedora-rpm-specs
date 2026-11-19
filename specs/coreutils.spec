@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -67,7 +67,7 @@ BuildRequires: systemd-devel
 BuildRequires: texinfo
 
 # For gpg verification of source tarball
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 
 # test-only dependencies
 BuildRequires: acl
@@ -132,7 +132,7 @@ Optional though recommended components,
 including documentation and translations.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -N
 
 # will be regenerated in the build directories
@@ -282,6 +282,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Wed Nov 18 2026 Jakub Jelen <jjelen@redhat.com> - 9.12-2
+- Verify upstream source signatures with openpgpverify
+
 * Mon Sep 21 2026 Lukáš Zaoral <lzaoral@redhat.com> - 9.12-1
 - rebase to the latest upstream release (rhbz#2533195)
 

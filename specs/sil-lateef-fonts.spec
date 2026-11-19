@@ -1,4 +1,4 @@
-Version: 2.000
+Version: 4.400
 Release: %autorelease
 URL:     https://software.sil.org/lateef/
 
@@ -10,7 +10,7 @@ URL:     https://software.sil.org/lateef/
 %global fontdocsex        %{fontlicenses}
 
 %global fontfamily        lateef
-%global fontsummary       An Arabic script unicode font
+%global fontsummary       An Arabic script Unicode font
 %global fontpkgheader     %{expand:
 }
 
@@ -37,6 +37,7 @@ This package provides optional documentation files shipped with
 %prep
 %setup -q -n Lateef-%{version}
 %linuxtext *.txt
+find documentation -type f \( -name '*.md' -o -name '*.txt' -o -name '*.py' -o -name '*.css' -o -name '*.lua' \) -exec sed -i 's/\r$//' {} +
 
 %build
 %fontbuild

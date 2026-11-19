@@ -1,12 +1,12 @@
 %global aprversion 1
 %{!?_httpd_mmn: %{expand: %%global _httpd_mmn %%(cat %{_includedir}/httpd/.mmn || echo 0-0)}}
 
-%global commit 7a7b7646b2a36d16c18591bc5b27c91b4dd26161
+%global commit 413d4d4b51fc7767996074613ae20e40a4fd1c8e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gridsite
 Version:        3.0.0
-Release:        0.40.20260121git%{shortcommit}%{?dist}
+Release:        0.41.20261118git%{shortcommit}%{?dist}
 Summary:        Grid Security for the Web, Web platforms for Grids
 
 #  - src/gsexec.c ASL 2.0 (not used)
@@ -22,9 +22,6 @@ Source2:        gridsitehead.txt
 Source3:        gridsitefoot.txt
 Source4:        root-level.gacl
 Source5:        gridsitelogo.png
-
-# Fixes for building with openssl 4.0
-Patch0:         https://github.com/CESNET/gridsite/pull/48.patch
 
 BuildRequires:  make
 BuildRequires:  libcurl-devel
@@ -51,7 +48,7 @@ the content of the http://www.gridpp.ac.uk/ website. Over the past years it
 has grown into a set of extensions to the Apache web server and a toolkit for
 Grid credentials, GACL access control lists and HTTP(S) protocol operations.
 
-This package gridsite contains apache httpd modules for enabling
+This package gridsite contains Apache httpd modules for enabling
 mod_gridsite.
 
 
@@ -110,7 +107,6 @@ This package gridsite-doc, contains developer documentation for gridsite.
 
 %prep
 %setup -q -n %{name}-%{commit}
-%patch -P0 -p1
 # Copy in apache configuration.
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} .
@@ -250,6 +246,10 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-security/vomsdir
 
 
 %changelog
+* Wed Nov 18 2026 František Dvořák <valtri@civ.zcu.cz> - 3.0.0-0.41.20261118git413d4d4
+- New upstream snapshot (OpenSSL 4)
+- Tune description
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.0.0-0.40.20260121git7a7b764
 - Rebuilt for libxml-2.5.4
 

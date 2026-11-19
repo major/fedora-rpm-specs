@@ -24,6 +24,8 @@ Patch:          cargo-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop features for statically linking cURL, libgit2, OpenSSL, and SQLite
 # * relax rusqlite dependency to '>=0.38,<0.42'
+# * bump opener dependency from v0.8.4 to v0.9:
+#   https://github.com/rust-lang/cargo/commit/83a3d2d
 Patch:          cargo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26

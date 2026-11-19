@@ -1,6 +1,6 @@
 Name:           imhex
 Version:        1.38.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -11,6 +11,12 @@ URL:            https://imhex.werwolv.net/
 Source0:        https://github.com/WerWolv/%{name}/releases/download/v%{version}/Full.Sources.tar.gz#/%{name}-%{version}.tar.gz
 # default to including the same-version patterns as a suggested package
 Source1:        https://github.com/WerWolv/ImHex-Patterns/archive/refs/tags/ImHex-v%{version}.tar.gz#/%{name}-patterns-%{version}.tar.gz
+
+# Backports with modifications of the following patches:
+#  - https://github.com/WerWolv/ImHex/pull/2831.patch
+#  - https://github.com/WerWolv/ImHex/pull/2849.patch
+Patch0: 0001-fix-Broken-AES-Modes-in-data-processor-2831.patch
+Patch1: 0002-feat-Add-Nettle-support-as-an-alternative-to-MbedTLS.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -30,7 +36,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  xz-devel
 BuildRequires:  llvm-devel
-BuildRequires:  mbedtls-devel
+BuildRequires:  nettle-devel
 BuildRequires:  yara-devel
 BuildRequires:  nativefiledialog-extended-devel
 BuildRequires:  lz4-devel
@@ -137,6 +143,7 @@ CXXFLAGS+=" -std=gnu++2b"
  -D USE_SYSTEM_NFD=ON                    \
  -D IMHEX_ENABLE_UNIT_TESTS=ON           \
  -D IMHEX_STRICT_WARNINGS=OFF            \
+ -D CRYPTO_BACKEND=nettle                \
 %if 0%{?rhel}
  -D IMHEX_BUILD_HARDENING=OFF
 %endif
@@ -205,6 +212,9 @@ done
 
 
 %changelog
+* Wed Oct 14 2026 Bill Roberts <bill.roberts@arm.com> - 1.38.1-2
+- Use Nettle instead of mbedtls for the crypto backend
+
 * Fri Jul 17 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.38.1-1
 - Update to 1.38.1
 

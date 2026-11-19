@@ -1,20 +1,20 @@
 # Build conditionals
 %bcond          ispc    1
+# Snapshot build coniguration (disabled by default)
+%global		with_snapshot 0
 
 Name:           embree
-Version:        4.4.1
+Version:        4.5.0
 Release:        %autorelease
 Summary:        High-performance ray tracing kernels
 
 License:        Apache-2.0
 URL:            https://embree.github.io
-# Snapshot build configuration (disabled by default)
-%global         with_snapshot   0
 %if %{with_snapshot}
 # Example snapshot variables (uncomment and modify as needed)
-#%%global       prerelease      beta
-#%%global       commit          40b9aca2668f443cae6bfbfa7cc5a354f1087011
-#%%global       shortcommit     %%(c=%%{commit}; echo ${c:0:7})
+%global         prerelease      beta
+%global         commit          40b9aca2668f443cae6bfbfa7cc5a354f1087011
+%global		shortcommit     %%(c=%%{commit}; echo ${c:0:7})
 Source:         https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz#/%{name}-%{version}-%{shortcommit}.tar.gz
 %else
 Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -23,7 +23,7 @@ Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  giflib-devel
-%if %{with ispc} 
+%if %{with ispc}
 BuildRequires:  ispc
 %endif
 BuildRequires:  pkgconfig(glut)

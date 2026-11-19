@@ -4,6 +4,10 @@ The ItemAdapter class is a wrapper for data container objects,
 providing a common interface to handle objects of different
 types in an uniform manner, regardless of their underlying implementation.}
 
+# break the loop: scrapy pulls in itemloaders which requires itemadapter
+%bcond bootstrap 0
+%bcond scrapy %{without bootstrap}
+
 Name:		python-itemadapter
 Version:	0.14.0
 Release:	%autorelease
@@ -33,7 +37,7 @@ BuildRequires:	python3-devel
 %autosetup -p1 -n %{pkg_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -t -x attrs,pydantic,scrapy
+%pyproject_buildrequires -t -x attrs,pydantic%{?with_scrapy:,scrapy}
 
 %build
 %pyproject_wheel

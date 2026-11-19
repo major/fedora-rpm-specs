@@ -4,8 +4,8 @@
 Name: gravity-beams-and-evaporating-stars
 %global shortname %(echo "%{name}" | sed -e 's:\\([a-z]\\)[a-z]*:\\1:g' -e 's:-::g')
 
-Version: 1.0
-Release: 24%{?dist}
+Version: 1.1
+Release: 1%{?dist}
 Summary: A game about hurling asteroids into the sun
 License: MIT
 
@@ -20,7 +20,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
 BuildRequires: libappstream-glib
 BuildRequires: make
-BuildRequires: SFML-devel
+BuildRequires: SFML-devel >= 3.0.0
 
 Requires: hicolor-icon-theme
 
@@ -44,8 +44,6 @@ sed -e 's|__DATA_DIR__|"%{_datadir}/%{name}"|' -i src/main.cpp
 
 
 %build
-# TODO: Please submit an issue to upstream (rhbz#2380630)
-export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -100,6 +98,9 @@ appstream-util validate-relax --nonet packaging/%{name}.appdata.xml
 
 
 %changelog
+* Tue Nov 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1-1
+- Update to v1.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

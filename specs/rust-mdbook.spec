@@ -13,6 +13,8 @@ URL:            https://crates.io/crates/mdbook
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop missing select dev-dependency and tests that depend on it
+# * bump opener dependency from v0.8.4 to v0.9:
+#   https://github.com/rust-lang/mdBook/commit/6402f48
 Patch:          mdbook-fix-metadata.diff
 # * remove references to TOC tests that depend on the "select" crate
 Patch2:         0001-Remove-references-to-TOC-tests-that-depend-on-the-se.patch

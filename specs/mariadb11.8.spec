@@ -1,6 +1,6 @@
 # Plain package name for cases, where %%{name} differs (e.g. for versioned packages)
 %global majorname mariadb
-%global package_version 11.8.8
+%global package_version 11.8.10
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
@@ -15,7 +15,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 11.8.8
+%global last_tested_version 11.8.10
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -191,7 +191,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          101%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -258,8 +258,6 @@ Patch13:          %{majorname}-libfmt.patch
 #   Patch14: make MTR port calculation reasonably predictable
 Patch14:          %{majorname}-mtr.patch
 Patch16:          %{majorname}-federated.patch
-#   Patch17: fix default Galera configuation file
-Patch17:          upstream_0a66c466f1772945d46b12bd340e1bd9adff4e9b.patch
 
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
@@ -877,7 +875,6 @@ rm -r storage/rocksdb/
 
 %patch -P14 -p1
 %patch -P16 -p1
-%patch -P17 -p1
 
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests
@@ -1049,9 +1046,7 @@ cmake -B %{_vpath_builddir} -N -LAH
 %cmake_install
 
 # multilib header support #1625157
-for header in mysql/server/my_config.h mysql/server/private/config.h; do
-%multilib_fix_c_header --file %{_includedir}/$header
-done
+%multilib_fix_c_header --file %{_includedir}/mysql/server/my_config.h
 
 ln -s mysql_config.1.gz %{buildroot}%{_mandir}/man1/mariadb_config.1.gz
 
@@ -1319,6 +1314,8 @@ rm %{buildroot}%{_libdir}/%{majorname}/plugin/test_sql_service.so
 rm %{buildroot}%{_libdir}/%{majorname}/plugin/test_versioning.so
 rm %{buildroot}%{_libdir}/%{majorname}/plugin/type_mysql_timestamp.so
 rm %{buildroot}%{_libdir}/%{majorname}/plugin/type_test.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/plugin_name_ascii.so
+rm %{buildroot}%{_libdir}/%{majorname}/plugin/plugin_name_non_ascii.so
 rm %{buildroot}%{_libdir}/%{majorname}/plugin/daemon_example.ini
 %endif
 
@@ -1769,6 +1766,7 @@ fi
 %files -n %{pkgname}-devel
 %{_includedir}/*
 %{_datadir}/aclocal/mysql.m4
+%{_datadir}/cmake/mariadb-plugin/
 %{_libdir}/pkgconfig/*mariadb.pc
 %if %{with clibrary}
 %{_mandir}/man3/*
@@ -1825,6 +1823,8 @@ fi
 %{_libdir}/%{majorname}/plugin/test_versioning.so
 %{_libdir}/%{majorname}/plugin/type_mysql_timestamp.so
 %{_libdir}/%{majorname}/plugin/type_test.so
+%{_libdir}/%{majorname}/plugin/plugin_name_ascii.so
+%{_libdir}/%{majorname}/plugin/plugin_name_non_ascii.so
 %{_libdir}/%{majorname}/plugin/daemon_example.ini
 %dir %{_libdir}/%{majorname}/plugin/test_pam_modules
 %{_libdir}/%{majorname}/plugin/test_pam_modules/pam_mariadb_mtr.so
@@ -1836,6 +1836,9 @@ fi
 %endif
 
 %changelog
+* Wed Nov 18 2026 Michal Schorm <mschorm@redhat.com> - 3:11.8.10-1
+- Rebase to 11.8.10
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3:11.8.8-101
 - Rebuilt for libxml-2.5.4
 

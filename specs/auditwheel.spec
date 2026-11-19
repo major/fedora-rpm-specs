@@ -10,8 +10,6 @@ Source:         %{pypi_source}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 
-# For tests and runtime
-BuildRequires:  patchelf >= 0.14
 Requires:       patchelf >= 0.14
 
 # From src/auditwheel/_vendor/wheel/__init__.py
@@ -43,9 +41,6 @@ like static linking, may implicate copyright concerns.
 
 %prep
 %autosetup -p1
-# This project uses patchelf, packaged for pip -- we'll use the native one instead
-sed -E -i 's/(, ?)?\"patchelf\"//' pyproject.toml
-
 # docker is only used for integration testing we don't run
 sed -E -i 's/(, ?)?\"docker\"//' pyproject.toml
 

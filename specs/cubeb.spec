@@ -1,11 +1,11 @@
-%global commit 48689ae7a73caeb747953f9ed664dc71d2f918d8
+%global commit 54217bca3f3e0cd53c073690a23dd25d83557909
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20230517
+%global gitdate 20231121
 %global fgittag %{gitdate}.git%{shortcommit}
 
 Name:           cubeb
 Version:        0.2
-Release:        21%{?fgittag:.%{fgittag}}%{?dist}
+Release:        22%{?fgittag:.%{fgittag}}%{?dist}
 Summary:        A cross platform audio library
 
 #cubeb is ISC, sanitizers-cmake is MIT
@@ -79,6 +79,9 @@ sed -i -e "/^\[!/d" -e "/INSTALL.md/d" README.md
 %{_docdir}/%{name}
 
 %changelog
+* Wed Nov 18 2026 Jeremy Newton <alexjnewt AT hotmail DOT com> - 0.2-22.20231121.git54217bc
+- Update to newer git
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-21.20230517.git48689ae
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

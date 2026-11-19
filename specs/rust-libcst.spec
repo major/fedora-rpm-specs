@@ -17,7 +17,7 @@ URL:            https://crates.io/crates/libcst
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
-# * drop unused support for building the crate as a Python extension module
+# * omit parser_roundtrip test not shipped in the crate
 Patch:          libcst-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
@@ -55,6 +55,30 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+py-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+py-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "py" feature of the "%{crate}" crate.
+
+%files       -n %{name}+py-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+pyo3-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+pyo3-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "pyo3" feature of the "%{crate}" crate.
+
+%files       -n %{name}+pyo3-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+trace-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -78,14 +102,17 @@ dos2unix --keepdate tests/fixtures/type_parameters.py
 %cargo_generate_buildrequires
 
 %build
-%cargo_build
+# We only build the library here because the binaries have unresolved Python
+# symbols and fail to link on ppc64le. This is due to the "py" feature enabling
+# pyo3/extension-module, which does not link libpython.
+%cargo_build -- --lib
 
 %install
 %cargo_install
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -n
 %endif
 
 %changelog

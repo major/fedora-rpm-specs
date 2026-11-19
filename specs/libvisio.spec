@@ -1,7 +1,7 @@
 %global apiversion 0.1
 
 Name: libvisio
-Version: 0.1.11
+Version: 0.1.12
 Release: %autorelease
 Summary: A library for import of Microsoft Visio diagrams
 

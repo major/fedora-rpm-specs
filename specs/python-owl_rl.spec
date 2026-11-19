@@ -2,7 +2,7 @@ Name:           python-owl_rl
 Version:        7.6.2
 Release:        %autorelease
 Summary:        A simple implementation of the OWL2 RL Profile
-License:        W3C
+License:        W3C-20150513
 URL:            https://github.com/RDFLib/OWL-RL
 # tarball on pypi does not have scripts
 # we have to use github tarball
