@@ -2,6 +2,9 @@
 %global musescore_ver             4.7.7
 %global musescore_maj             %{gsub %musescore_ver ^(%d*%.%d*)%..*$ %1}
 %global giturl                    https://github.com/musescore/MuseScore
+# current dies in debuginfo exceed the distro wide 50000000 and the x86_64 110000000
+%global _dwz_max_die_limit             200000000
+%global _dwz_max_die_limit_x86_64      200000000
 
 # Font versions.  Use otfinfo -v to extract these values.
 # Most are in the fonts directory.  Exceptions:

@@ -5,7 +5,7 @@
 %define debug_package %{nil}
 
 Name:           perl-Text-Bidi
-Version:        3.01
+Version:        3.02
 Release:        1%{?dist}
 Summary:        Unicode bidirectional algorithm using libfribidi
 # LICENSE:          GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -28,6 +28,7 @@ Patch0:         Text-Bidi-2.12-Remove-script-attributes-from-bidi.patch
 # Adjust a test for an out-tree testing, not suitable for upstream
 Patch1:         Text-Bidi-2.16-Skip-nonexisting-scripts.patch
 BuildRequires:  coreutils
+BuildRequires:  fribidi >= 1.0.0
 BuildRequires:  make
 BuildRequires:  patch
 BuildRequires:  perl-generators
@@ -35,15 +36,14 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10.0
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(FFI::CheckLib) >= 0.28
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  fribidi >= 1.0.0
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(FFI::CheckLib) >= 0.28
 BuildRequires:  perl(FFI::Platypus) >= 2.00
 BuildRequires:  perl(FFI::Platypus::Buffer)
 BuildRequires:  perl(Getopt::Long)
@@ -124,6 +124,7 @@ for F in t/*.t; do
 done
 
 %build
+unset TEXT_BIDI_FRIBIDI_LIB
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
 %{make_build}
 
@@ -176,6 +177,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 19 2026 Petr Pisar <ppisar@redhat.com> - 3.02-1
+- 3.02 bump
+
 * Mon Nov 16 2026 Petr Pisar <ppisar@redhat.com> - 3.01-1
 - 3.01 bump
 

@@ -1,7 +1,7 @@
 %global min_osbuild_version 183
 %global goipath         github.com/osbuild/image-builder
 
-Version:        89.0.0
+Version:        90.0.0
 
 %gometa
 
@@ -272,6 +272,20 @@ cd $PWD/_build/src/%{goipath}
 %ghost %attr(0755, root, root) %dir /var/cache/image-builder
 
 %changelog
+* Mon Nov 09 2026 Packit <hello@packit.dev> - 90.0.0-1
+Changes with 90.0.0
+----------------
+  - Add default target boot test (HMS-11516) (#2813)
+    - Author: matej-lohnicky, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - Add new ostree-iso image type (HMS-10627) (#2799)
+    - Author: Brian C. Lane, Reviewers: Achilleas Koutsou, Anna Vítová
+  - add support for boot-oci cmd (HMS-11559)  (#2756)
+    - Author: src-up, Reviewers: Achilleas Koutsou
+  - distro/rhel-8: configure time sync and Oracle datasource for OCI (#2812)
+    - Author: Aditya Nair, Reviewers: Achilleas Koutsou
+
+— Somewhere on the Internet, 2026-11-09
+
 * Mon Nov 02 2026 Packit <hello@packit.dev> - 89.0.0-1
 Changes with 89.0.0
 ----------------

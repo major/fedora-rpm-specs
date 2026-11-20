@@ -61,11 +61,12 @@
 %endif
 %endif
 
-# Build the POWER10 multilib.
-%ifarch ppc64le
-%define buildpower10 1
-%else
+# Build the POWER10 multilib, except where the baseline is already POWER10
 %define buildpower10 0
+%ifarch ppc64le
+%if ! (0%{?rhel} >= 11)
+%define buildpower10 1
+%endif
 %endif
 
 %if %{with bootstrap}

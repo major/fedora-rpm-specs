@@ -1,5 +1,5 @@
 Name:           python-flexmock
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Testing library that makes it easy to create mocks, stubs and fakes
 
@@ -36,10 +36,10 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n flexmock-%{version}
-# teamcity-messages package not yet available in Fedora
-sed -i "/teamcity-messages$/d" tox.ini
-sed -i "/test_teamcity.py$/d" tox.ini
-# Upstream manipulates PYTHONPATH which breaks testing
+# Upstream sets PYTHONPATH to the source tree in tox.ini. Since 0.14.0 the
+# package lives in src/, so that path no longer makes flexmock importable and
+# breaks testing. Drop it and rely on the PYTHONPATH set in %%check, which
+# points at the package installed into the buildroot.
 sed -i "/setenv = PYTHONPATH/d" tox.ini
 
 

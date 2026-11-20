@@ -8,7 +8,7 @@
 %define min_libdnf5_version 5.2.0
 
 Name:           fedrq
-Version:        1.8.0
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        A tool to query the Fedora and EPEL repositories
 
@@ -120,6 +120,12 @@ FEDRQ_BACKEND=libdnf5 %{py3_test_envvars} \
 
 
 %changelog
+* Thu Nov 19 2026 Maxwell G <maxwell@gtmx.me> - 1.9.1-1
+- Update to 1.9.1.
+
+* Thu Nov 19 2026 Maxwell G <maxwell@gtmx.me> - 1.9.0-1
+- Update to 1.9.0.
+
 * Sat Aug 15 2026 Maxwell G <maxwell@gtmx.me> - 1.8.0-1
 - Update to 1.8.0.
 

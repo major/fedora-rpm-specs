@@ -77,7 +77,8 @@ build time, especially in rapid debug-edit-rebuild cycles.
 # Set `MOLD_LIBDIR` in the build, check and install steps so `mold-wrapper.so`
 # is installed to (and searched in) the correct directory. This can be dropped
 # when packaging the next release.
-MOLD_LIBDIR="%{_libdir}" %cargo_build
+export MOLD_LIBDIR="%{_libdir}"
+%cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
@@ -90,7 +91,8 @@ touch %{buildroot}%{_bindir}/ld
 
 %if %{with check}
 %check
-MOLD_LIBDIR="%{_libdir}" %cargo_test
+export MOLD_LIBDIR="%{_libdir}"
+%cargo_test
 # Print skipped tests
 (cd target/rpm/mold-test/out/test/results &&
   grep --files-with-matches --line-regexp skip */*.status) || :

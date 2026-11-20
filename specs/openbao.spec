@@ -2,12 +2,12 @@
 
 # This macro can be slightly different than %%{version}.
 # For example, it should have a dash instead of tilde for release candidates.
-%global package_version 2.6.5
+%global package_version 2.6.6
 
 %global oldname vault
 
 Name: openbao
-Version: 2.6.5
+Version: 2.6.6
 Release: %autorelease
 Summary: A tool for securely accessing secrets
 # See LICENSE for primary license
@@ -224,7 +224,7 @@ Provides: bundled(golang(github.com/jmespath/go-jmespath)) = v0.4.0
 Provides: bundled(golang(github.com/josharian/intern)) = v1.0.0
 Provides: bundled(golang(github.com/json-iterator/go)) = v1.1.12
 Provides: bundled(golang(github.com/kelseyhightower/envconfig)) = v1.4.0
-Provides: bundled(golang(github.com/klauspost/compress)) = v1.19.2
+Provides: bundled(golang(github.com/klauspost/compress)) = v1.20.4
 Provides: bundled(golang(github.com/klauspost/cpuid/v2)) = v2.3.0
 Provides: bundled(golang(github.com/kr/pretty)) = v0.3.1
 Provides: bundled(golang(github.com/kr/text)) = v0.2.0
@@ -345,17 +345,17 @@ Provides: bundled(golang(go.uber.org/zap)) = v1.28.0
 Provides: bundled(golang(go.uber.org/zap/exp)) = v0.3.0
 Provides: bundled(golang(go.yaml.in/yaml/v2)) = v2.4.4
 Provides: bundled(golang(go.yaml.in/yaml/v3)) = v3.0.5
-Provides: bundled(golang(golang.org/x/crypto)) = v0.58.0
+Provides: bundled(golang(golang.org/x/crypto)) = v0.59.0
 Provides: bundled(golang(golang.org/x/exp)) = v0.0.0~20260112195511~716be5621a96
-Provides: bundled(golang(golang.org/x/mod)) = v0.41.0
-Provides: bundled(golang(golang.org/x/net)) = v0.61.0
+Provides: bundled(golang(golang.org/x/mod)) = v0.42.0
+Provides: bundled(golang(golang.org/x/net)) = v0.62.0
 Provides: bundled(golang(golang.org/x/oauth2)) = v0.36.0
-Provides: bundled(golang(golang.org/x/sync)) = v0.24.0
-Provides: bundled(golang(golang.org/x/sys)) = v0.49.0
-Provides: bundled(golang(golang.org/x/term)) = v0.47.0
-Provides: bundled(golang(golang.org/x/text)) = v0.43.0
+Provides: bundled(golang(golang.org/x/sync)) = v0.25.0
+Provides: bundled(golang(golang.org/x/sys)) = v0.50.0
+Provides: bundled(golang(golang.org/x/term)) = v0.48.0
+Provides: bundled(golang(golang.org/x/text)) = v0.44.0
 Provides: bundled(golang(golang.org/x/time)) = v0.15.0
-Provides: bundled(golang(golang.org/x/tools)) = v0.51.0
+Provides: bundled(golang(golang.org/x/tools)) = v0.52.0
 Provides: bundled(golang(google.golang.org/api)) = v0.283.0
 Provides: bundled(golang(google.golang.org/genproto)) = v0.0.0~20260319201613~d00831a3d3e7
 Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = v0.0.0~20260526163538~3dc84a4a5aaa

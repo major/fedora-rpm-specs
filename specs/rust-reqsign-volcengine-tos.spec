@@ -5,7 +5,7 @@
 %global crate reqsign-volcengine-tos
 
 Name:           rust-reqsign-volcengine-tos
-Version:        3.1.3
+Version:        3.1.4
 Release:        %autorelease
 Summary:        Volcengine TOS signing implementation for reqsign
 

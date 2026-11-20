@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/python-quantities/python-quantities/
 Name:           python-quantities
-Version:        0.16.4
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Support for physical quantities with units, based on numpy
 

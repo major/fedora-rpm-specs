@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.13.8
+Version:        0.13.9
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -151,15 +151,10 @@ Source1:        uv.toml
 # See discussion in “Should uv.find_uv_bin() be able to find /usr/bin/uv?”
 # https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-Always-find-the-system-wide-uv-executable.patch
-# Downstream: Revert source-code changes for pre-release blake2
-# Revert source changes from “Upgrade BLAKE2 to unify hashing digest versions”,
-# https://github.com/astral-sh/uv/pull/20834. We do not wish to upgrade
-# rust-blake2 to a pre-release.
-Patch:          0002-Downstream-Revert-source-code-changes-for-pre-releas.patch
 # Downstream: Avoid embed-manifest dependency in uv crate build script
 # The embed-manifest dependency only does something useful when (cross-?)
 # compiling for Windows.
-Patch:          0003-Downstream-Avoid-embed-manifest-dependency-in-uv-cra.patch
+Patch:          0002-Downstream-Avoid-embed-manifest-dependency-in-uv-cra.patch
 
 # Add license texts for new contents of test/ecosystem/ from PR#20068
 # https://github.com/astral-sh/uv/pull/20174
@@ -551,14 +546,6 @@ tomcli set Cargo.toml append workspace.dependencies.rustls.features ring
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
 
-# blake2
-#   wanted: 0.11.0-rc.6
-#   currently packaged: 0.10.6
-# Downstream-only: revert “Upgrade BLAKE2 to unify hashing digest versions”,
-# https://github.com/astral-sh/uv/pull/20834. We do not wish to upgrade
-# rust-blake2 to a pre-release. There is an anccompanying source-code patch.
-tomcli set Cargo.toml str workspace.dependencies.blake2.version 0.10.6
-
 %cargo_prep
 
 
@@ -708,6 +695,12 @@ skip="${skip-} --skip network::retry_read_timeout_index"
 #     9       │-  Caused by: error decoding response body for url (http://[LOCALHOST]/)
 #           9 │+  Caused by: error decoding response body
 skip="${skip-} --skip network::retry_read_timeout_python_downloads_json"
+#     5       │-warning: Failed to write the environment path: failed to rename
+#               file from [TEMP_DIR]/[TMP] to [VENV]/: Is a directory (os error 21)
+#           5 │+warning: Failed to write the environment path: failed to rename
+#               file from `[TEMP_DIR]/[TMP]` to `[VENV]/`: Is a directory (os
+#               error 21)
+skip="${skip-} --skip venv::create_centralized_project_environment_link_failure"
 
 # These fail flakily: most frequently on ppc64le, but this seems to be just a
 # matter of luck, since we suspect a race condition. We have also seen failures

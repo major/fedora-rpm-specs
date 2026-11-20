@@ -1,5 +1,5 @@
 Name:             umockdev
-Version:          0.19.9
+Version:          0.20.0
 Release:          1%{?dist}
 Summary:          Mock hardware devices
 
@@ -75,6 +75,15 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Thu Nov 19 2026 Packit <hello@packit.dev> - 0.20.0-1
+- preload: Keep emulating devices on dup()ed fds (Thanks Matthew Kosarek)
+- preload: Emulate devices opened with openat() and an absolute path
+- preload: Let host devices with their own ioctl handler reach it again
+- preload: Keep the ioctl emulation usable in forked children
+- preload: Only export the wrapped libc functions
+- preload: Lots of race condition fixes
+- umockdev-record: Fix recording attributes in nested subdirectories
+
 * Sun Sep 20 2026 Packit <hello@packit.dev> - 0.19.9-1
 - Adjust to libpcap 1.11 USB header API change (#284)
 

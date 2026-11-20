@@ -19,10 +19,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 10.2
+%global upstreamname rocdbgapi
+%global pkg_src therock-%{rocm_release}
+%else
 %global rocm_release 7.2
+%global upstreamname ROCdbgapi
+%endif
+
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
-%global upstreamname ROCdbgapi
 
 %bcond_with compat
 %if %{with compat}
@@ -42,12 +50,21 @@
 
 Name:       rocdbgapi%{pkg_suffix}
 Version:    %{rocm_version}
+%if %{with preview}
+Release:    0%{?dist}
+%else
 Release:    5%{?dist}
+%endif
 Summary:    AMD Debugger API
 
 License:    MIT
+%if %{with preview}
+URL:        https://github.com/ROCm/rocm-systems
+Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%else
 URL:        https://github.com/ROCm/%{upstreamname}
 Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 ExclusiveArch: x86_64
 
@@ -72,7 +89,11 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 
 %prep
+%if %{with preview}
+%autosetup -p3 -n %{upstreamname}
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 %build
 %cmake \

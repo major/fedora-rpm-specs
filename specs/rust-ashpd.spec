@@ -2,10 +2,13 @@
 %bcond check 1
 %global debug_package %{nil}
 
+# WARNING: keep version in sync with oo7:
+# oo7 depends on unstable ashpd features that can change in patch releases
+
 %global crate ashpd
 
 Name:           rust-ashpd
-Version:        0.13.13
+Version:        0.14.1
 Release:        %autorelease
 Summary:        XDG portals wrapper in Rust using zbus
 
@@ -13,11 +16,9 @@ License:        MIT
 URL:            https://crates.io/crates/ashpd
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * temporarily drop pipewire support until pipewire v0.10 is available
 # * drop example program that pulls in gstreamer bindings
 # * drop reis dev-dependency that is only used in one doctest
-# * allow quick-xml 0.40 and 0.41:
-#   https://github.com/bilelmoussaoui/ashpd/commit/052cf051257411c0fbaed3af1b32acb1238f5ec7,
-#   https://github.com/bilelmoussaoui/ashpd/pull/460
 Patch:          ashpd-fix-metadata.diff
 # * Ignore one doctest that pulls in reis as an additional dev-dependency
 Patch10:        0001-Ignore-one-doctest-that-pulls-in-reis-as-an-addition.patch
@@ -381,18 +382,6 @@ This package contains library source intended for building other packages which
 use the "open_uri" feature of the "%{crate}" crate.
 
 %files       -n %{name}+open_uri-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+pipewire-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pipewire-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pipewire" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pipewire-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+power_profile_monitor-devel

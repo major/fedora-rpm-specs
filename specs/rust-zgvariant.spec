@@ -5,7 +5,7 @@
 %global crate zgvariant
 
 Name:           rust-zgvariant
-Version:        1.2.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Serde-based GVariant encoding & decoding
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only codspeed-criterion-compat dev-dependency
 Patch:          zgvariant-fix-metadata.diff
-# * https://github.com/z-galaxy/zgvariant/commit/624879e
-Patch:          0001-backport-Don-t-assume-little-endian-host-in-dict_val.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

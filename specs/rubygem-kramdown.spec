@@ -2,20 +2,14 @@
 %global gem_name kramdown
 
 Name: rubygem-%{gem_name}
-Version: 2.5.2
-Release: 5%{?dist}
+Version: 2.6.1
+Release: 1%{?dist}
 Summary: Fast, pure-Ruby Markdown-superset converter
 
 # SPDX confirmed
 License:	MIT
 URL:		http://kramdown.gettalong.org
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/gettalong/kramdown/commit/ad36bb92474232832af484b3751bde90912b580b
-# Suppress Rouge formatter deprecation warning
-Patch0:	kramdown-ad36bb9-suppress-rouge-formatter-deprecation-warning.patch
-# https://github.com/gettalong/kramdown/commit/9ebfac62754434c7472dd8d0255bd8564f629e37
-# Utils::StringScanner#current_line_number implementation change, needed for ruby41
-Patch1:	kramdown-9ebfac6-ruby41-stringscanner-impl-change.patch
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
 BuildRequires:	rubygem(minitest) >= 5
@@ -66,9 +60,6 @@ Documentation for %{name}
 %prep
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
-
-%patch -P0 -p1
-%patch -P1 -p1
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -139,6 +130,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Thu Nov 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.1-1
+- 2.6.1
+
 * Sun Nov 15 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.2-5
 - Backport upstream change for StringScanner implementation needed for ruby4.1
 - Backport upstream change to suppress warnings for new Rouge

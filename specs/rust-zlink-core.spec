@@ -5,7 +5,7 @@
 %global crate zlink-core
 
 Name:           rust-zlink-core
-Version:        0.7.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Core crate of the zlink project
 
@@ -13,8 +13,13 @@ License:        MIT
 URL:            https://crates.io/crates/zlink-core
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * criterion is only a dev dependency and we don't package
-#   codspeed-criterion-compat
+# * Drop the criterion dev-dependency: it is only used by benchmarks and we
+#   don't package codspeed-criterion-compat
+# * Drop the optional zoter dependency and the handover feature that needs it:
+#   zoter is not packaged
+# * Declare the dropped features as expected cfg values
+#   (lints.rust.unexpected_cfgs), so rustc does not warn about the code that
+#   still tests them
 Patch:          zlink-core-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -36,7 +41,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -49,6 +53,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+base64-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+base64-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "base64" feature of the "%{crate}" crate.
+
+%files       -n %{name}+base64-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bytes-devel

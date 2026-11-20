@@ -5,7 +5,7 @@
 %global crate reqsign-aws-v4a
 
 Name:           rust-reqsign-aws-v4a
-Version:        3.0.6
+Version:        3.1.0
 Release:        %autorelease
 Summary:        AWS SigV4a signing implementation for reqsign
 

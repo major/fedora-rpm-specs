@@ -2,8 +2,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        7.1
-Release:        4%{?dist}
+Version:        7.3
+Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -169,6 +169,10 @@ popd >/dev/null
 
 
 %changelog
+* Thu Nov 19 2026 Igor Raits <igor.raits@gmail.com> - 7.3-1
+- Update to 7.3
+- Resolves: rhbz#2560079
+
 * Thu Nov 05 2026 Jakub Jelen <jjelen@redhat.com> - 7.1-4
 - Verify upstream source signatures with openpgpverify
 

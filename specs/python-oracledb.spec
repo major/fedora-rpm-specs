@@ -1,5 +1,5 @@
 Name:           python-oracledb
-Version:        26.0.1
+Version:        26.1.0
 Release:        %{autorelease}
 Summary:        OracleDB Driver
 
@@ -11,15 +11,15 @@ BuildRequires:  python3-devel
 BuildRequires:  gcc
 
 %global _description %{expand:
-The python-oracledb driver is a Python programming language extension module
-allowing Python programs to connect to Oracle Database. Python-oracledb 
-is the new name for Oracle's popular cx_Oracle driver.}
+The oracledb driver is a Python programming language extension module
+allowing Python programs to connect to Oracle Database. The oracledb
+module is the new name for Oracle's popular cx_Oracle driver.}
 
 %description %_description
 
 
 # optional gcp_config needs pypi - google-cloud-secret-manager
-%pyproject_extras_subpkg -n python3-oracledb oci_config oci_auth azure_config azure_auth aws_config
+%pyproject_extras_subpkg -n python3-oracledb oci_config oci_auth azure_config azure_auth aws_config opentelemetry
 
 
 %package -n python3-oracledb
@@ -33,7 +33,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x oci_config,oci_auth,azure_config,azure_auth,aws_config
+%pyproject_buildrequires -x oci_config,oci_auth,azure_config,azure_auth,aws_config,opentelemetry
 
 
 %build

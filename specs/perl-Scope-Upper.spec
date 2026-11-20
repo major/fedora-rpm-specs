@@ -1,9 +1,9 @@
 Name:           perl-Scope-Upper
 Summary:        Act on upper scopes
-Version:        0.34
-Release:        13%{?dist}
+Version:        0.35
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-Source0:        https://cpan.metacpan.org/authors/id/V/VP/VPIT/Scope-Upper-%{version}.tar.gz 
+Source0:        https://cpan.metacpan.org/authors/id/V/VP/VPIT/Scope-Upper-%{version}.tar.gz
 URL:            https://metacpan.org/release/Scope-Upper
 # Build
 BuildRequires:  coreutils
@@ -42,7 +42,6 @@ Requires:       perl(XSLoader)
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Scope::Upper::TestGenerator\\)
 %global __requires_exclude %{__requires_exclude}|^perl\\(Test::Leaner\\)
 %global __requires_exclude %{__requires_exclude}|^perl\\(VPIT::TestHelpers\\)
-
 
 %description
 This module lets you defer actions that will take place when the control
@@ -95,14 +94,19 @@ make test
 
 %files
 %doc README Changes CONTRIBUTING samples
-%{perl_vendorarch}/*
-%exclude %dir %{perl_vendorarch}/auto
-%{_mandir}/man3/*.3*
+%dir %{perl_vendorarch}/Scope
+%{perl_vendorarch}/Scope/Upper.pm
+%dir %{perl_vendorarch}/auto/Scope
+%{perl_vendorarch}/auto/Scope/Upper
+%{_mandir}/man3/Scope::Upper.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 19 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.35-1
+- 0.35 bump (rhbz#2573699)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 0.34-13
 - Perl 5.44 rebuild
 

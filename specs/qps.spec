@@ -1,6 +1,6 @@
 Name:           qps
-Version:        2.13.0
-Release:        2%{?dist}
+Version:        2.14.0
+Release:        1%{?dist}
 Summary:        Qt process viewer and manager
 
 License:        GPL-2.0-or-later
@@ -74,9 +74,50 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.lxqt.Qps.a
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Thu Nov 19 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.14.0-1
+- Update to 2.14.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
+* Wed Apr 22 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 2.13.0-1
+- Update to 2.13.0
 
-%autochangelog
+* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
+* Tue Jan 6 2026 Basil Crow <me@basilcrow.com> - 2.12.0-1
+- Revive packaging
+
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.10.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
+* Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.10.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
+* Fri May  8 2009 Ville Skyttä <ville.skytta at iki.fi> - 1.10.2-4
+- Don't strip binaries before -debuginfo is created (#499744).
+
+* Wed Mar 04 2009 Caolán McNamara <caolanm@redhat.com> - 1.10.2-3
+- include stdio.h for printf
+
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.10.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
+* Sat Sep 6 2008 Arindam Ghosh <makghosh@fedoraproject.org> - 1.10.2-1
+- new upstream release
+- fix gcc4.3 mass-rebuild failure
+- updated license tag
+
+* Wed Sep 3 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 1.9.19-0.4.b
+- fix license tag
+
+* Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 1.9.19-0.3.b
+- Autorebuild for GCC 4.3
+
+* Mon Mar 19 2007 Dawid Gajownik <gajownik[AT]gmail.com> - 1.9.19-0.2.b
+- Update to 1.9.9b
+
+* Mon Mar  5 2007 Dawid Gajownik <gajownik[AT]gmail.com> - 1.9.19-0.1.a
+- Update to 1.9.19a
 

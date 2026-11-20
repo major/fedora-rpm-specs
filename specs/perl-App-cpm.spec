@@ -1,5 +1,5 @@
 Name:           perl-App-cpm
-Version:        1.1.6
+Version:        1.1.7
 %global cpan_version v%{version}
 Release:        1%{?dist}
 Summary:        Fast CPAN module installer
@@ -70,7 +70,6 @@ BuildRequires:  perl(warnings)
 # BuildRequires:  perl(TAP::Harness::Env)
 # BuildRequires:  perl(Time::HiRes)
 # BuildRequires:  perl(version)
-# BuildRequires:  perl(YAML::PP) >= 0.026
 # Tests only
 BuildRequires:  perl(Test::More)
 Requires:       perl(Archive::Tar)
@@ -87,7 +86,6 @@ Requires:       perl(Parallel::Pipes::App) >= 1.0.0
 Requires:       perl(Pod::Man)
 Requires:       perl(Proc::ForkSafe) >= 1.0.0
 Requires:       perl(TAP::Harness::Env)
-Requires:       perl(YAML::PP) >= 0.026
 Suggests:       perl(Carton::Snapshot)
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Command::Runner\\)$
@@ -98,7 +96,6 @@ Suggests:       perl(Carton::Snapshot)
 %global __requires_exclude %__requires_exclude|^perl\\(Module::cpmfile\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Parallel::Pipes::App\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Proc::ForkSafe\\)$
-%global __requires_exclude %__requires_exclude|^perl\\(YAML::PP\\)$
 
 %description
 cpm is a fast CPAN module installer.
@@ -164,6 +161,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 19 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.7-1
+- 1.1.7 bump (rhbz#2573651)
+
 * Mon Oct 26 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.1.6-1
 - 1.1.6 bump (rhbz#2559050)
 

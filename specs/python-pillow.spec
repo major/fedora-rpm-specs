@@ -22,7 +22,7 @@ Release:        1%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
-License:        MIT
+License:        MIT-CMU
 URL:            http://python-pillow.github.io/
 Source0:        https://github.com/python-pillow/Pillow/archive/%{version}/Pillow-%{version}.tar.gz
 
@@ -195,6 +195,8 @@ MinGW Windows Python2 %{srcname} library.
 
 
 %build
+# compare the upstream license metadata with Fedora's declaration
+%pyproject_verify_license
 # Native build
 %pyproject_wheel
 

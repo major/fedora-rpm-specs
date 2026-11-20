@@ -1,11 +1,11 @@
 Summary: A multi-platform helper library for other libraries
 Name: gwenhywfar
-Version: 5.14.3
+Version: 5.14.4
 Release: 1%{?dist}
 
 URL: https://www.aquamaniac.de/rdm/projects/gwenhywfar
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
-Source: https://www.aquamaniac.de/rdm/attachments/download/662/%{name}-%{version}.tar.gz
+Source: https://www.aquamaniac.de/rdm/attachments/download/664/%{name}-%{version}.tar.gz
 License: LGPL-2.1-or-later
 
 BuildRequires: cmake gcc gcc-c++
@@ -163,6 +163,9 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %{_includedir}/gwenhywfar5/gwen-gui-qt5/
 
 %changelog
+* Thu Nov 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.14.4-1
+- 5.14.4
+
 * Tue Nov 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.14.3-1
 - 5.14.3
 

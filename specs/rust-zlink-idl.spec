@@ -5,14 +5,15 @@
 %global crate zlink-idl
 
 Name:           rust-zlink-idl
-Version:        0.7.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Varlink IDL types and parser
 
 License:        MIT
 URL:            https://crates.io/crates/zlink-idl
 Source:         %{crates_source}
-# * TODO: Create a MR for linkining the LICENSE from root dir
+# * The published crate ships no LICENSE file; it lives in the workspace root.
+#   Upstream should include it in the crate.
 Source2:        https://raw.githubusercontent.com/z-galaxy/zlink/refs/tags/%{crate}-%{version}/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -34,7 +35,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

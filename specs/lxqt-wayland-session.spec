@@ -2,8 +2,8 @@
 %bcond hyprland_session 0
 
 Name:           lxqt-wayland-session
-Version:        0.4.1
-Release:        2%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -57,6 +57,7 @@ actually supported compositors.
 %{_datadir}/lxqt/wallpapers/origami-dark-labwc.png
 %{_mandir}/man1/%{name}.1.gz
 %{_mandir}/man1/startlxqtwayland.1.gz
+%{_mandir}/man1/lxqt-qdbus.1.gz
 
 
 %dnl ------------------------------------------------------------------
@@ -93,6 +94,7 @@ compositor with LXQt.
 %files -n lxqt-hyprland-session
 %license LICENSE.BSD
 %{_datadir}/lxqt/wayland/lxqt-hyprland.lua
+%{_datadir}/lxqt/wayland/firstrun/hypr.lua
 %endif
 
 %dnl ------------------------------------------------------------------
@@ -137,6 +139,7 @@ for LXQt.
 %{_datadir}/lxqt/wayland/niri/outputs.kdl
 %{_datadir}/lxqt/wayland/niri/visual.kdl
 %{_datadir}/lxqt/wayland/niri/window-rules.kdl
+%{_datadir}/lxqt/wayland/firstrun/niri.kdl
 
 %dnl ------------------------------------------------------------------
 
@@ -175,6 +178,7 @@ with LXQt.
 %files -n lxqt-sway-session
 %license LICENSE.MIT
 %{_datadir}/lxqt/wayland/lxqt-sway.config
+%{_datadir}/lxqt/wayland/firstrun/sway.config
 
 %dnl ------------------------------------------------------------------
 
@@ -194,6 +198,7 @@ compositor with LXQt.
 %files -n lxqt-wayfire-session
 %license LICENSE.MIT
 %{_datadir}/lxqt/wayland/lxqt-wayfire.ini
+%{_datadir}/lxqt/wayland/firstrun/wayfire.ini
 
 %dnl ------------------------------------------------------------------
 
@@ -247,11 +252,15 @@ install -m0644 default-compositor-miriway %{buildroot}%{_datadir}/lxqt/wayland/d
 %if ! %{with hyprland_session}
 # Drop hyprland session files
 rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.lua
+rm -v %{buildroot}%{_datadir}/lxqt/wayland/firstrun/hypr.lua
 %endif
 
 %fdupes %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Thu Nov 19 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 0.5.0-1
+- Update to 0.5.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

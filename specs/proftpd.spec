@@ -17,7 +17,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 3
+%global baserelease 4
 %global mod_procfs_version 0.3
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
@@ -48,6 +48,8 @@ Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
 Patch6:			https://github.com/proftpd/proftpd/commit/933abc9a.patch
 Patch7:			proftpd-1.3.9e-gh2095.patch
 Patch8:			proftpd-1.3.9e-gh2374.patch
+Patch9:			https://github.com/proftpd/proftpd/commit/549f8174.patch
+Patch10:		https://github.com/proftpd/proftpd/commit/58c9a9cb.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -244,6 +246,13 @@ mv contrib/README contrib/README.contrib
 # Fix write restriction bypass via symlink following in mod_copy (CVE-2026-119364)
 # https://github.com/proftpd/proftpd/issues/2374
 %patch -P8 -p1 -b .gh2374
+
+# Backport a fix from glibc glob(3) for handling unbalanced brace expansions
+# https://github.com/proftpd/proftpd/issues/2473
+%patch -P9 -p1 -b .gh2473
+
+# Further fixes from glibc glob(3)
+%patch -P10 -p1 -b .glob
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -484,6 +493,10 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Thu Nov 19 2026 Paul Howarth <paul@city-fan.org> - 1.3.9e-4
+- Backport a fix from glibc glob(3) for handling unbalanced brace expansions,
+  which could have lead to a stack overflow (GH#2473)
+
 * Thu Nov  5 2026 Paul Howarth <paul@city-fan.org> - 1.3.9e-3
 - Fix some issues in mod_copy (not enabled by default)
   - <Limit READ> configurations were not honored by SITE COPY as they should be

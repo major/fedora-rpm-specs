@@ -5,7 +5,7 @@
 %global crate reqsign-aws-v4
 
 Name:           rust-reqsign-aws-v4
-Version:        3.3.1
+Version:        3.4.0
 Release:        %autorelease
 Summary:        AWS SigV4 signing implementation for reqsign
 
@@ -17,13 +17,6 @@ Source:         %{crates_source}
 # * Patch out dev-dependencies on aws-sig4 and aws-credential-types since we do
 #   not want to package them; these are used only for benchmarks and for one
 #   group of tests.
-# * Allow older quick-xml 0.41 for now,
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2521541; upstream wants 0.42
-#   since
-#   https://github.com/apache/reqsign/commit/f66cecc9b8fa35063e32018f17dff3fbe34cc2a7,
-#   but (despite a long list of breaking changes,
-#   https://github.com/tafia/quick-xml/releases/tag/v0.42.0) there were no
-#   source-code changes.
 Patch:          reqsign-aws-v4-fix-metadata.diff
 # * Downstream-only: avoid dev-dependencies on aws-sigv4 and
 #   aws-credential-types

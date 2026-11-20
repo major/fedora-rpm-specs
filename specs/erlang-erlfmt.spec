@@ -1,7 +1,7 @@
 %global realname erlfmt
 
 Name:		erlang-%{realname}
-Version:	1.8.0
+Version:	1.9.0
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	An automated code formatter for Erlang

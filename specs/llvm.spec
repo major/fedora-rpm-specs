@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 23
 %global min_ver 1
-%global patch_ver 5
+%global patch_ver 6
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -639,10 +639,6 @@ Patch2307: 227851.patch
 
 # Fix bolt rpminspect failure.
 Patch2308: 80ef20addc82619c07b6deaec5f9995000b5dd16.patch
-
-# Temporary backport of https://github.com/llvm/llvm-project/pull/238649 for
-# 23.1.5.
-Patch2309: 238649.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12

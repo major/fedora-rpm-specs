@@ -1,6 +1,10 @@
+%ifarch %{arm64}
+%bcond pisp %{undefined rhel}
+%endif
+
 Name:    libcamera
 Version: 0.8.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -10,6 +14,8 @@ Source0: https://gitlab.freedesktop.org/camera/libcamera/-/archive/v%{version}/%
 Source1: qcam.desktop
 Source2: qcam.metainfo.xml
 Source3: 70-libcamera.rules
+
+Patch0:  0001-optional-rpi-pisp.patch
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -44,7 +50,7 @@ BuildRequires: python3-ply
 BuildRequires: python3-pyyaml
 BuildRequires: SDL2-devel
 BuildRequires: systemd-devel
-%ifarch %{arm64}
+%if %{with pisp}
 BuildRequires: libpisp-devel
 %endif
 # libcamera is not really usable without its IPA plugins
@@ -196,6 +202,9 @@ install -D -m 644 %SOURCE3 %{buildroot}/%{_udevrulesdir}/
 %{python3_sitearch}/*
 
 %changelog
+* Thu Nov 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.0-3
+- Disable RPi5 support on RHEL
+
 * Tue Nov 17 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 0.8.0-2
 - Enable RPi5 ISP support
 

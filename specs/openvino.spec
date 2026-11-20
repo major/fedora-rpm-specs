@@ -3,7 +3,20 @@
 #
 # Please submit issues or comments https://github.com/openvinotoolkit/openvino/issues
 
-%global so_ver 2600
+%global so_ver 2641
+
+# GCC LTO fails to link the NPU compiler against its bundled LLVM/MLIR static libraries
+%global _lto_cflags %{nil}
+
+%global onednn_commit 1289c3b65dd6a119a5ed12a816517d9c3a21d81b
+%global mlas_commit d1bc25ec4660cddd87804fcf03b2411b5dfb2e94
+%global onednn_gpu_commit a3d459721b72c3a9d2685b46c03dafee7af0f25c
+%global l0_npu_ext_commit b11dc98b48f9f0dbb8c3b44f73b42f295a32097f
+%global npu_compiler_commit 37a2ec119255903a3a6066dbe02c91b563dfc44c
+%global npu_llvm_commit 980c1ca33aad7bda278934cbb1e03268b92cf64e
+%global npu_llvm_shortcommit %{sub %{npu_llvm_commit} 1 7}
+%global npu_costmodel_commit 6b89f4285cf17c9bcc763e5b320c996612cf7a87
+%global npu_elf_commit edbd3b0dbb6f51f4f6c18aba3b26d4c20b1a5964
 
 %global desc %{expand:OpenVINO is an open-source toolkit for optimizing and deploying deep learning
 models from cloud to edge. It accelerates deep learning inference across
@@ -11,7 +24,7 @@ various use cases, such as generative AI, video, audio, and language with
 models from popular frameworks like PyTorch, TensorFlow, ONNX, and more.}
 
 Name:           openvino
-Version:        2026.0.0
+Version:        2026.4.1
 Release:        %autorelease
 Summary:        Toolkit for optimizing and deploying AI inference
 
@@ -21,28 +34,38 @@ Summary:        Toolkit for optimizing and deploying AI inference
 # src/plugins/intel_cpu/src/hash_builder.hpp : BSL-1.0
 # src/core/reference/include/openvino/reference/interpolate_pil.hpp : HPND
 # oneDNN: BSL-1.0, BSD-3-Clause, (GPL-2.0-only OR BSD-3-Clause), MIT
-License:        Apache-2.0 AND MIT AND BSL-1.0 AND HPND AND BSD-3-Clause AND (GPL-2.0-only OR BSD-3-Clause)
+# level-zero-npu-extensions: MIT
+# npu-compiler-llvm: Apache-2.0 WITH LLVM-exception OR NCSA
+License:        Apache-2.0 AND MIT AND BSL-1.0 AND HPND AND BSD-3-Clause AND (GPL-2.0-only OR BSD-3-Clause) AND (Apache-2.0 WITH LLVM-exception OR NCSA)
 URL:            https://github.com/openvinotoolkit/openvino
 
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Source1:        https://github.com/openvinotoolkit/oneDNN/archive/c6b79c1207bd5f20b9395536dab1d71a47cfcb1d/onednn-c6b79c1.tar.gz
-Source2:        https://github.com/openvinotoolkit/mlas/archive/d1bc25ec4660cddd87804fcf03b2411b5dfb2e94/mlas-d1bc25e.tar.gz
-Source3:        https://github.com/oneapi-src/oneDNN/archive/929fe4e5629be2a5e89f1ba13b13458b965ffe57/onednn-gpu-929fe4e.tar.gz
+Source1:        https://github.com/openvinotoolkit/oneDNN/archive/%{onednn_commit}/onednn-%{sub %{onednn_commit} 1 7}.tar.gz
+Source2:        https://github.com/openvinotoolkit/mlas/archive/%{mlas_commit}/mlas-%{sub %{mlas_commit} 1 7}.tar.gz
+Source3:        https://github.com/oneapi-src/oneDNN/archive/%{onednn_gpu_commit}/onednn-gpu-%{sub %{onednn_gpu_commit} 1 7}.tar.gz
+Source4:        https://github.com/intel/level-zero-npu-extensions/archive/%{l0_npu_ext_commit}/level-zero-npu-extensions-%{sub %{l0_npu_ext_commit} 1 7}.tar.gz
+Source5:        https://github.com/openvinotoolkit/npu_compiler/archive/%{npu_compiler_commit}/npu_compiler-%{sub %{npu_compiler_commit} 1 7}.tar.gz
+Source6:        https://github.com/intel-staging/npu-compiler-llvm/archive/%{npu_llvm_commit}/npu-compiler-llvm-%{npu_llvm_shortcommit}.tar.gz
+Source7:        https://github.com/intel/npu-nn-cost-model/archive/%{npu_costmodel_commit}/npu-nn-cost-model-%{sub %{npu_costmodel_commit} 1 7}.tar.gz
+Source8:        https://github.com/openvinotoolkit/npu_compiler_elf/archive/%{npu_elf_commit}/npu_compiler_elf-%{sub %{npu_elf_commit} 1 7}.tar.gz
 
-Patch0: protobuf_version.patch
-Patch1: xbyak-gflags-system-modules.patch
-Patch2: samples-system-gflags-json.patch
-# pybind11 3.x (Fedora > 44) forbids py::call_guard<> on the def_property
-# family; older pybind11 needs the original variant.
-%if 0%{?fedora} > 44
-Patch3: pybind11-call_guard-compat-3x.patch
-%else
-Patch3: pybind11-call_guard-compat.patch
-%endif
-# Fedora's opencl-headers package now snapshots a newer OpenCL-CLHPP release
-# that dropped the CL_HPP_PARAM_NAME_INFO_1_1_DEPRECATED_IN_2_0_ macro 
-# OpenVINO's GPU plugin relied on.
-Patch4: opencl-clhpp-deprecated-macro.patch
+Patch0:         protobuf_version.patch
+Patch1:         xbyak-gflags-system-modules.patch
+Patch2:         samples-system-gflags-json.patch
+# Fedora ships ONNX 1.21
+Patch3:         onnx_version.patch
+# Use the system flatbuffers found by OpenVINO for the NPU compiler as well
+Patch4:         npu-compiler-system-flatbuffers.patch
+# Take the NPU compiler commit hash from the spec instead of git
+Patch5:         npu-compiler-commit-hash.patch
+# Do not configure the NPU driver compiler tests when ENABLE_TESTS is OFF
+Patch6:         npu-compiler-driver-tests.patch
+# Build the NPU plugin and compiler against system Level Zero
+Patch7:         npu-system-level-zero.patch
+# Keep the NPU compiler CiD/CiP components out of the CPack RPM settings
+Patch8:         npu-compiler-cpack-components.patch
+# Only add -Werror to the NPU compiler when CMAKE_COMPILE_WARNING_AS_ERROR is set
+Patch9:         npu-compiler-no-werror.patch
 
 ExclusiveArch:  x86_64
 
@@ -52,16 +75,14 @@ BuildRequires:  flatbuffers-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gflags-devel
+BuildRequires:  git-core
 BuildRequires:  glibc-devel
 BuildRequires:  nlohmann-json-devel
+BuildRequires:  oneapi-level-zero-devel
 BuildRequires:  onnx-devel
 BuildRequires:  opencl-headers
 BuildRequires:  pkgconfig(OpenCL)
-%if 0%{?fedora} > 44
-BuildRequires:  protobuf-devel >= 4
-%else
 BuildRequires:  protobuf-devel
-%endif
 BuildRequires:  pugixml-devel
 BuildRequires:  pybind11-devel
 BuildRequires:  python3-devel
@@ -79,11 +100,13 @@ Requires:       lib%{name}-onnx-frontend = %{version}-%{release}
 Requires:       lib%{name}-paddle-frontend = %{version}-%{release}
 Requires:       lib%{name}-tensorflow-frontend = %{version}-%{release}
 Requires:       lib%{name}-tensorflow-lite-frontend = %{version}-%{release}
+Requires:       lib%{name}-gguf-frontend = %{version}-%{release}
 Recommends:     lib%{name}-auto-plugin = %{version}-%{release}
 Recommends:     lib%{name}-auto-batch-plugin = %{version}-%{release}
 Recommends:     lib%{name}-hetero-plugin = %{version}-%{release}
 Recommends:     lib%{name}-intel-cpu-plugin = %{version}-%{release}
 Recommends:     lib%{name}-intel-gpu-plugin = %{version}-%{release}
+Recommends:     lib%{name}-intel-npu-plugin = %{version}-%{release}
 
 %description
 %{desc}
@@ -151,6 +174,42 @@ Provides:       bundled(onednn-gpu)
 This package provides the Intel GPU plugin for OpenVINO.
 
 
+%package -n lib%{name}-intel-npu-plugin
+Summary:        Intel NPU plugin for OpenVINO
+License:        Apache-2.0 AND MIT
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+# NPU graph extension headers, not packaged separately in Fedora
+Provides:       bundled(level-zero-npu-extensions)
+Recommends:     intel-npu-compiler%{?_isa} = %{version}-%{release}
+Recommends:     intel-npu-driver%{?_isa}
+
+%description -n lib%{name}-intel-npu-plugin
+%{desc}
+.
+This package provides the Intel NPU plugin for OpenVINO.
+
+
+## NPU Compiler ##
+
+%package -n intel-npu-compiler
+Summary:        Intel NPU compiler for OpenVINO and the NPU driver
+License:        Apache-2.0 AND MIT AND (Apache-2.0 WITH LLVM-exception OR NCSA)
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+# Intel fork of LLVM/MLIR that tracks LLVM main
+Provides:       bundled(llvm) = 23.0.0~git%{npu_llvm_shortcommit}
+Provides:       bundled(npu-nn-cost-model)
+Provides:       bundled(npu_compiler_elf)
+
+%description -n intel-npu-compiler
+Intel NPU device is an AI inference accelerator integrated with Intel client
+CPUs, starting from Intel Core Ultra generation of CPUs (formerly known as
+Meteor Lake). It enables energy-efficient execution of artificial neural
+network tasks.
+.
+This package provides the Intel NPU compiler used by the OpenVINO NPU plugin
+and by the Intel NPU user mode driver.
+
+
 ## Frontend shared libraries ##
 
 %package -n lib%{name}-ir-frontend
@@ -207,6 +266,15 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package provides the TensorFlow Lite frontend for OpenVINO.
 
 
+%package -n lib%{name}-gguf-frontend
+Summary:        OpenVINO GGUF Frontend
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+%description -n lib%{name}-gguf-frontend
+%{desc}
+.
+This package provides the GGUF frontend for OpenVINO.
+
+
 ## Samples ##
 
 %package -n %{name}-samples
@@ -240,21 +308,40 @@ runtime.
 
 
 %prep
-%autosetup -p1
+%autosetup -N
 
 # Fedora provides newer NumPy versions
-sed -i 's/numpy>=1\.16\.6,<2\.5\.0/numpy>=1.16.6/' pyproject.toml
+sed -i -E 's/(numpy>=[0-9.]+),<[0-9.]+/\1/' pyproject.toml src/bindings/python/requirements.txt
 
 # Intel CPU plugin thirdparty deps
-tar xf %{SOURCE1}
-cp -r oneDNN-c6b79c1207bd5f20b9395536dab1d71a47cfcb1d/* src/plugins/intel_cpu/thirdparty/onednn
-
-tar xf %{SOURCE2}
-cp -r mlas-d1bc25ec4660cddd87804fcf03b2411b5dfb2e94/* src/plugins/intel_cpu/thirdparty/mlas
+tar -xf %{SOURCE1} -C src/plugins/intel_cpu/thirdparty/onednn --strip-components=1
+tar -xf %{SOURCE2} -C src/plugins/intel_cpu/thirdparty/mlas --strip-components=1
 
 # Intel GPU plugin thirdparty deps
-tar xf %{SOURCE3}
-cp -r oneDNN-929fe4e5629be2a5e89f1ba13b13458b965ffe57/* src/plugins/intel_gpu/thirdparty/onednn_gpu
+tar -xf %{SOURCE3} -C src/plugins/intel_gpu/thirdparty/onednn_gpu --strip-components=1
+
+# Intel NPU plugin thirdparty deps
+tar -xf %{SOURCE4} -C src/plugins/intel_npu/thirdparty/level-zero-ext --strip-components=1
+cp -p src/plugins/intel_npu/thirdparty/level-zero-ext/LICENSE.txt LICENSE.level-zero-npu-extensions
+
+# Intel NPU compiler, built as an OpenVINO extra module
+mkdir -p thirdparty/npu_compiler
+tar -xf %{SOURCE5} -C thirdparty/npu_compiler --strip-components=1
+pushd thirdparty/npu_compiler/thirdparty
+tar -xf %{SOURCE6} -C llvm-project --strip-components=1 \
+    npu-compiler-llvm-%{npu_llvm_commit}/cmake \
+    npu-compiler-llvm-%{npu_llvm_commit}/llvm \
+    npu-compiler-llvm-%{npu_llvm_commit}/mlir \
+    npu-compiler-llvm-%{npu_llvm_commit}/third-party
+tar -xf %{SOURCE7} -C vpucostmodel --strip-components=1
+tar -xf %{SOURCE8} -C elf --strip-components=1
+popd
+cp -p thirdparty/npu_compiler/LICENSE LICENSE.npu_compiler
+cp -p thirdparty/npu_compiler/thirdparty/llvm-project/llvm/LICENSE.TXT LICENSE.npu-compiler-llvm
+cp -p thirdparty/npu_compiler/thirdparty/vpucostmodel/LICENSE LICENSE.npu-nn-cost-model
+cp -p thirdparty/npu_compiler/thirdparty/elf/LICENCE LICENSE.npu_compiler_elf
+
+%autopatch -p1
 
 # Python bindings: remove openvino-telemetry (not in Fedora)
 # It is present in both pyproject.toml (root) and src/bindings/python/requirements.txt
@@ -280,7 +367,15 @@ sed -i '/openvino-telemetry/d' src/bindings/python/requirements.txt
       -DENABLE_OV_TF_FRONTEND=ON \
       -DENABLE_OV_TF_LITE_FRONTEND=ON \
       -DENABLE_OV_JAX_FRONTEND=OFF \
-      -DENABLE_INTEL_NPU=OFF \
+      -DENABLE_INTEL_NPU=ON \
+      %dnl This does not turn OFF the compiler, but
+      %dnl this flag turns OFF the compiler download during build
+      -DENABLE_INTEL_NPU_COMPILER=OFF \
+      -DENABLE_INTEL_NPU_INTERNAL=OFF \
+      -DOPENVINO_EXTRA_MODULES="$(pwd)/thirdparty/npu_compiler" \
+      %dnl This flag does not download the compiler, it only sets the commit hash from the sources above
+      -DNPU_COMPILER_COMMIT_HASH=%{npu_compiler_commit} \
+      -DENABLE_PLUGINS_XML=ON \
       -DENABLE_TEMPLATE=OFF \
       -DENABLE_PROXY=OFF \
       -DENABLE_PYTHON=ON \
@@ -298,6 +393,7 @@ sed -i '/openvino-telemetry/d' src/bindings/python/requirements.txt
       -DENABLE_SYSTEM_PROTOBUF=ON \
       -DProtobuf_USE_STATIC_LIBS=OFF \
       -DENABLE_SYSTEM_FLATBUFFERS=ON \
+      -DENABLE_SYSTEM_LEVEL_ZERO=ON \
       -DTHREADING=TBB
 %cmake_build
 
@@ -329,6 +425,15 @@ rm -rf %{buildroot}%{python3_sitearch}/openvino_telemetry*
 rm -vf %{buildroot}%{python3_sitearch}/requirements.txt
 rm -vf %{buildroot}%{python3_sitearch}/%{name}/preprocess/torchvision/requirements.txt
 
+rm -rf %{buildroot}%{_prefix}/cid %{buildroot}%{_prefix}/cip
+
+for lib in compiler compiler_loader mlir_runtime level_zero_wrapper vm_runtime; do
+    mv %{buildroot}%{_libdir}/lib%{name}_intel_npu_${lib}.so %{buildroot}%{_libdir}/%{name}-%{version}/
+done
+for lib in compiler compiler_loader; do
+    ln -s %{name}-%{version}/lib%{name}_intel_npu_${lib}.so %{buildroot}%{_libdir}/lib%{name}_intel_npu_${lib}.so
+done
+
 
 %check
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} PYTHONPATH=%{buildroot}%{python3_sitearch} \
@@ -345,6 +450,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} PYTHONPATH=%{buildroot}%{python3_sitearch
 %ldconfig_scriptlets -n lib%{name}-pytorch-frontend
 %ldconfig_scriptlets -n lib%{name}-tensorflow-frontend
 %ldconfig_scriptlets -n lib%{name}-tensorflow-lite-frontend
+%ldconfig_scriptlets -n lib%{name}-gguf-frontend
 
 
 %files
@@ -354,35 +460,48 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} PYTHONPATH=%{buildroot}%{python3_sitearch
 %{_libdir}/lib%{name}.so.%{so_ver}
 %{_libdir}/lib%{name}_c.so.%{version}
 %{_libdir}/lib%{name}_c.so.%{so_ver}
+%dir %{_libdir}/%{name}-%{version}
+%{_libdir}/%{name}-%{version}/plugins.xml
 
 %files -n lib%{name}-devel
 %{_includedir}/%{name}/
 %{_libdir}/cmake/%{name}%{version}/
-%{_libdir}/*.so
+%{_libdir}/lib%{name}.so
+%{_libdir}/lib%{name}_c.so
+%{_libdir}/lib%{name}_*_frontend.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 ## Plugins
 
 %files -n lib%{name}-auto-plugin
-%dir %{_libdir}/%{name}-%{version}
 %{_libdir}/%{name}-%{version}/lib%{name}_auto_plugin.so
 
 %files -n lib%{name}-auto-batch-plugin
-%dir %{_libdir}/%{name}-%{version}
 %{_libdir}/%{name}-%{version}/lib%{name}_auto_batch_plugin.so
 
 %files -n lib%{name}-hetero-plugin
-%dir %{_libdir}/%{name}-%{version}
 %{_libdir}/%{name}-%{version}/lib%{name}_hetero_plugin.so
 
 %files -n lib%{name}-intel-cpu-plugin
-%dir %{_libdir}/%{name}-%{version}
 %{_libdir}/%{name}-%{version}/lib%{name}_intel_cpu_plugin.so
 
 %files -n lib%{name}-intel-gpu-plugin
-%dir %{_libdir}/%{name}-%{version}
 %{_libdir}/%{name}-%{version}/lib%{name}_intel_gpu_plugin.so
 %{_libdir}/%{name}-%{version}/cache.json
+
+%files -n lib%{name}-intel-npu-plugin
+%license LICENSE.level-zero-npu-extensions
+%{_libdir}/%{name}-%{version}/lib%{name}_intel_npu_plugin.so
+
+%files -n intel-npu-compiler
+%license LICENSE.npu_compiler LICENSE.npu-compiler-llvm LICENSE.npu-nn-cost-model LICENSE.npu_compiler_elf
+%{_libdir}/%{name}-%{version}/lib%{name}_intel_npu_compiler.so
+%{_libdir}/%{name}-%{version}/lib%{name}_intel_npu_compiler_loader.so
+%{_libdir}/%{name}-%{version}/lib%{name}_intel_npu_level_zero_wrapper.so
+%{_libdir}/%{name}-%{version}/lib%{name}_intel_npu_mlir_runtime.so
+%{_libdir}/%{name}-%{version}/lib%{name}_intel_npu_vm_runtime.so
+%{_libdir}/lib%{name}_intel_npu_compiler.so
+%{_libdir}/lib%{name}_intel_npu_compiler_loader.so
 
 ## Frontends
 
@@ -403,6 +522,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} PYTHONPATH=%{buildroot}%{python3_sitearch
 
 %files -n lib%{name}-tensorflow-lite-frontend
 %{_libdir}/lib%{name}_tensorflow_lite_frontend.so.*
+
+%files -n lib%{name}-gguf-frontend
+%{_libdir}/lib%{name}_gguf_frontend.so.*
 
 ## Samples
 

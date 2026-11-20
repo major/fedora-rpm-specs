@@ -167,13 +167,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc3.261117g666539eecdf4.27
+%define pkgrelease 0.rc3.261119g4405c18c95d2.29
 %define kversion 7
-%define tarfile_release 7.4-rc3-149-g666539eecdf4
+%define tarfile_release 7.4-rc3-230-g4405c18c95d2
 # This is needed to do merge window version magic
 %define patchlevel 4
 # The Release tag, including the configurable %%{?dist} tag
-%define specrelease 0.rc3.261117g666539eecdf4.27%{?buildid}%{?dist}
+%define specrelease 0.rc3.261119g4405c18c95d2.29%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -4612,9 +4612,16 @@ fi\
 #
 #
 %changelog
-* Tue Nov 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.666539eecdf4.27]
+* Thu Nov 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.4405c18c95d2.29]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Thu Nov 19 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.4405c18c95d2.28]
+- redhat/configs: automotive: enable TOUCHSCREEN_ILITEK (Jared Kangas)
+- Linux v7.4.0-0.rc3.4405c18c95d2
+
+* Wed Nov 18 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.20eef29b7c84.27]
+- Linux v7.4.0-0.rc3.20eef29b7c84
 
 * Tue Nov 17 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.666539eecdf4.26]
 - redhat/self-test: update data for exported RHTEST and ARCH_MACH (Jan Stancek)

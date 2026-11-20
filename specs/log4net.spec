@@ -10,7 +10,7 @@
 Name:	 	log4net
 URL:		http://logging.apache.org/log4net/
 License:	Apache-2.0
-Version:	3.5.0
+Version:	3.6.0
 Release:	1%{?dist}
 Summary:	A .NET framework for logging
 Source:		https://downloads.apache.org/logging/log4net/%{version}/apache-log4net-source-%{version}.zip
@@ -119,6 +119,10 @@ gacutil -i build/Release/net462/log4net.dll -f -package log4net -root ${RPM_BUIL
 %{_libdir}/pkgconfig/log4net.pc
 
 %changelog
+* Thu Nov 19 2026 Tom Callaway <spot@fedoraproject.org> - 3.6.0-1
+- update to 3.6.0
+- fixes CVE-2026-129510 CVE-2026-129511 CVE-2026-129512
+
 * Wed Oct  7 2026 Tom Callaway <spot@fedoraproject.org> 3.5.0-1
 - update to 3.5.0
 

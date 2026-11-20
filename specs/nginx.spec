@@ -510,7 +510,7 @@ install -m 644 -p %{SOURCE20} %{buildroot}%{_tmpfilesdir}/nginx.conf
 # Request zero-downtime upgrade upon installation of a new nginx binary or modules
 # A reload is not sufficient here: https://blog.nginx.org/blog/nginx-dynamic-modules-how-they-work#upgradeMod
 %transfiletriggerin -- %{_sbindir}/nginx %{nginx_moduleconfdir} %{nginx_moduledir}
-if [ $1 -ge 1 ]; then
+if [ "${1:-0}" -ge 1 ]; then
     test -f %{_sysconfdir}/nginx/rpm-disable-upgrade || /usr/bin/nginx-upgrade >/dev/null 2>&1 || :
 fi
 

@@ -16,7 +16,7 @@
 # For rc, beta, alpha releases substitute tilde (~) for dash (-)
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
-%global version0        29.9.3
+%global version0        29.10.0
 %{lua:
     local version0 = rpm.expand("%{version0}"):gsub("~", "-")
     rpm.define("tag0 " .. "docker-v" .. version0)
@@ -72,9 +72,6 @@ Patch0:         0001-systemd-adjust-docker.service-for-downstream.patch
 
 # Patches 1000-1999 are for docker/cli
 Patch1000:      1000-fix-bash-completions.patch
-
-# Temporary patch for ppc64le golang-x-sys
-Patch2000:       golang-x-sys-ppc64.patch
 
 BuildRequires:  fdupes
 BuildRequires:  git-core
@@ -208,11 +205,6 @@ tar -xf %{S:1}
 %autopatch -M999 -p1
 cp -p %{S:100} %{S:101} %{S:102} .
 
-# temporary ppc64le patch golang/x/sys v0.49.0
-pushd vendor/golang.org/x/sys
-%patch -p1 2000
-popd
-
 # docker-cli
 cd %{cli_dir}
 # Unpack vendor archive
@@ -220,11 +212,6 @@ tar -xf %{S:3}
 # Apply patches 1000+.
 # Leave this here despite warnings so we can easily add and remove patches.
 %autopatch -m1000 -M1999 -p1
-
-# temporary ppc64le patch golang/x/sys v0.49.0
-pushd vendor/golang.org/x/sys
-%patch -p1 2000
-popd
 
 # See comment in go-vendor-tools.toml
 rm -f man/go.mod
@@ -262,13 +249,13 @@ popd
 
 # docker-cli
 cd %{cli_dir}
-%make_build dynbinary \
+%make_build \
     DISABLE_WARN_OUTSIDE_CONTAINER=1 \
     GITCOMMIT=%{release} \
     GO_BUILDTAGS="rpm_crashback" \
-    GO_LDFLAGS=%{gobuild_ldflags_shescaped} \
+    GO_LDFLAGS="-w=0 %{gobuild_ldflags}" \
     VERSION=%{version} \
-dynbinary manpages
+    dynbinary manpages
 
 %install
 # moby-filesystem
@@ -351,9 +338,24 @@ cd %{engine_dir}
     -s "TestJoinCloseInvalidates"
     %dnl Test timeout
     -s "TestImageLoad"
+    -s "TestConfigureNetworkingRestart"
     %dnl doesn't provide the requested platform
     -s "TestContentStoreForPull"
     -s "TestManifestStore"
+    %dnl trying configured driver: vfs
+    %dnl container ID 1000 cannot be mapped to a host ID
+    -s "TestMountAndRegister"
+    -s "TestLayerRelease"
+    -s "TestStoreRestore"
+    -s "TestTarStreamStability"
+    -s "TestRegisterExistingLayer"
+    -s "TestTarStreamVerification"
+    -s "TestLayerSize"
+    -s "TestLayerMigrationNoTarsplit"
+    -s "TestMountInit"
+    -s "TestMountSize"
+    -s "TestMountChanges"
+    -s "TestMountApply"
     %dnl permission denied
     -s "TestCreateSpecPreservesCDIAdditionalGIDs"
     %dnl no ipv4 forwarding

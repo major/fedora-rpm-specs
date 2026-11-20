@@ -2,21 +2,23 @@ Name:           CSFML
 Summary:        C Interface for the Simple and Fast Multimedia Library
 License:        Zlib
 
-Version:        2.6.1
-Release:        8%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 
 URL:            https://www.sfml-dev.org/download/csfml/
 Source0:        https://github.com/SFML/CSFML/archive/%{version}/CSFML-%{version}.tar.gz
 
-# Use install paths from GNUInstallDirs
-# Cherr-picked from: https://github.com/SFML/CSFML/pull/398.patch
-Patch0:         CSFML-2.6.1-Use_GNUInstallDirs.patch
+# test/CMakeLists.txt try to fetch Catch2 testing library from the internet.
+# Use the system-provided version instead.
+Patch0:         0000-unbundle-Catch2.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  SFML-devel
+
+BuildRequires:  cmake(Catch2) >= 3.7.0
+BuildRequires:  cmake(SFML) >= 3.0.0
 
 %description
 CSFML is the official C interface for the SFML library (written in C++),
@@ -45,7 +47,7 @@ This package contains developer documentation (in HTML format) for %{name}.
 
 
 %build
-%cmake -DCSFML_BUILD_DOC=TRUE
+%cmake -DCSFML_BUILD_DOC=ON -DCSFML_BUILD_TEST_SUITE=ON
 %cmake_build
 
 
@@ -63,16 +65,20 @@ rm %{buildroot}%{_datadir}/%{name}/license.md
 rm %{buildroot}%{_datadir}/%{name}/readme.md
 
 
+%check
+%ctest
+
+
 %ldconfig_scriptlets
 
 
 %files
 %license license.md
 %doc readme.md
-%{_libdir}/libcsfml-*.so.2*
+%{_libdir}/libcsfml-*.so.3*
 
 %files devel
-%{_includedir}/SFML/
+%{_includedir}/CSFML/
 %{_libdir}/libcsfml-*.so
 %{_libdir}/pkgconfig/csfml*.pc
 

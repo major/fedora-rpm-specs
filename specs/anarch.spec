@@ -9,7 +9,7 @@ Summary: %{summ_text}
 %global git_commit_short %(c='%{git_commit}'; echo "${c:0:8}")
 
 Version: 1.1^%{git_date}git%{git_commit_short}
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 URL: https://drummyfish.gitlab.io/anarch/
 Source0: https://gitlab.com/drummyfish/%{name}/-/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -25,7 +25,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: gcc
-BuildRequires: CSFML-devel
+BuildRequires: CSFML2-devel
 BuildRequires: SDL2-devel
 
 
@@ -139,6 +139,9 @@ done
 
 
 %changelog
+* Thu Nov 19 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1^20230123giteeb04a07-8
+- Switch BuildRequires to CSFML2-devel (CSFML-devel now provides CSFML 3.0.0)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1^20230123giteeb04a07-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

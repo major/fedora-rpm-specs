@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.8
-Release: 2%{?dist}
+Release: 3%{?dist}.bcl.1
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -9,6 +9,11 @@ Source0: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
 Source2: pubkey.phillip.susi
 Source3: pubkey.brian.lane
+
+Patch0001: 0001-Add-command-disk_uuid-to-set-UUID-of-disk-on-GPT.patch
+Patch0002: 0002-Add-command-uuid-to-set-UUID-of-partition-on-GPT.patch
+Patch0003: 0003-tests-Added-tests-for-setting-disk-and-partition-uui.patch
+Patch0004: 0004-tests-t3000-resize-fs.sh-mount-fails.patch
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -114,6 +119,12 @@ make check
 
 
 %changelog
+* Thu Nov 19 2026 Brian C. Lane <bcl@redhat.com> - 3.8-3.bcl.1
+- tests: t3000-resize-fs.sh mount fails (bcl)
+- tests: Added tests for setting disk and partition uuid (aschnell)
+- Add command uuid to set UUID of partition on GPT. (aschnell)
+- Add command disk_uuid to set UUID of disk on GPT. (aschnell)
+
 * Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 3.8-2
 - Verify upstream source signatures with openpgpverify
 

@@ -2,17 +2,13 @@
 
 Summary:	Ruby library to help write robots.txt compliant web robots
 Name:		rubygem-%{gem_name}
-Version:	0.1.2
-Release:	24%{?dist}
+Version:	0.1.3
+Release:	1%{?dist}
 
 # SPDX confirmed
 License:	BSD-2-Clause
 URL:		https://github.com/knu/webrobots
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Replace shoulda with shoulda-context, which is enough to execute the test
-# suite.
-# https://github.com/knu/webrobots/pull/8
-Patch0:	rubygem-webrobots-0.1.2-shoulda-context-is-enough-to-execute-the-test-suite.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel 
@@ -48,10 +44,6 @@ Documentation for %{name}
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-%patch -P0 -p1
-%gemspec_remove_dep -s %{gem_name}-%{version}.gemspec -g shoulda -d ">= 0"
-%gemspec_add_dep -s %{gem_name}-%{version}.gemspec -g shoulda-context -d
-
 %build
 gem build ./%{gem_name}-%{version}.gemspec
 %gem_install
@@ -67,7 +59,7 @@ pushd %{buildroot}%{gem_instdir}
 rm -rf \
 	.document \
 	.gitignore \
-	.travis.yml \
+	.github \
 	Gemfile \
 	Rakefile \
 	test/ \
@@ -97,6 +89,9 @@ popd
 %doc	%{gem_docdir}/
 
 %changelog
+* Thu Nov 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.3-1
+- 0.1.3
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

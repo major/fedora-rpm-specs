@@ -7,7 +7,7 @@
 Summary:        M.A.R.S. - A Ridiculous Shooter
 Name:           marsshooter
 Version:        0.7.6
-Release:        38%{?dist}
+Release:        39%{?dist}
 # Engine is GPLv3+, the libs under ext_libs_for_windows are LGPLv2+ / MPLv1.1
 # but those are unused, so the resulting binary is pure GPLv3+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -27,7 +27,7 @@ BuildRequires:  cmake
 BuildRequires:  dos2unix
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  SFML-devel
+BuildRequires:  SFML2-devel
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(fribidi)
 BuildRequires:  pkgconfig(taglib)
@@ -115,6 +115,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/%{name}/
 
 %changelog
+* Tue Nov 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.6-39
+- Switch BuildRequires to SFML2-devel (SFML-devel now provides SFML 3.1.0)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

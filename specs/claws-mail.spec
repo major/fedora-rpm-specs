@@ -273,7 +273,7 @@ UIDL, Sylpheeds account name, POP server, user ID and retrieval time.
 
 %package plugins-keyword_warner
 Summary:        Keyword warner plugin for Claws Mail
-Requires:	claws-mail(plugin-api)%{?_isa} = %pluginapi
+Requires:       claws-mail(plugin-api)%{?_isa} = %pluginapi
 
 %description plugins-keyword_warner
 This plugin shows a warning when sending or queueing a message and a
@@ -282,7 +282,7 @@ reference to one or more keywords is found in the message text.
 
 %package plugins-libravatar
 Summary:        Libravatar plugin for Claws Mail
-Requires:	claws-mail(plugin-api)%{?_isa} = %pluginapi
+Requires:       claws-mail(plugin-api)%{?_isa} = %pluginapi
 
 %description plugins-libravatar
 This plugin allows showing the profile picture associated to email
@@ -292,7 +292,7 @@ more about what is this at http://wiki.libravatar.org/description/.
 
 %package plugins-litehtml-viewer
 Summary:        LiteHTML plugin for Claws Mail
-Requires:	claws-mail(plugin-api)%{?_isa} = %pluginapi
+Requires:       claws-mail(plugin-api)%{?_isa} = %pluginapi
 
 %description plugins-litehtml-viewer
 This is an HTML viewer plugin that uses the litehtml to render the
@@ -538,9 +538,6 @@ done;
 # don't think we need icon-theme.cache
 rm -f %{buildroot}%{_datadir}/icons/hicolor/icon-theme.cache
 
-# set same date on config.h across builds for multilib (#340871)
-touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
-
 
 %files -f claws-mail.lang
 %license COPYING
@@ -548,7 +545,7 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 %if 0%{?build_manual}
 %doc _tmp_manual/manual
 %endif
-%{_bindir}/*
+%{_bindir}/%{name}
 %dir %{_libdir}/claws-mail
 %dir %{_libdir}/claws-mail/plugins
 %dir %{_libdir}/claws-mail/web_extensions

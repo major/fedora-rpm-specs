@@ -52,6 +52,10 @@ Patch1002:      0002-Set-FreeType-version-to-%{ftver}-and-update-tolerances.patc
 # libraqm is still 0.10.1
 # https://src.fedoraproject.org/rpms/libraqm/pull-request/8
 Patch1003:      0002-Reduce-required-libraqm-version.patch
+# riscv64: fix RuntimeWarning from np.floor on NaN/inf in AsinhLocator
+Patch1004:      0003-Fix-AsinhLocator-invalid-value-warning-in-np.floor-o.patch
+# riscv64: increase default subprocess test timeout (60s too short)
+Patch1005:      0004-Increase-subprocess-test-timeout-for-slow-architectu.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -364,6 +368,10 @@ mktexfmt xelatex.fmt
 # Also prime the font cache.
 %{py3_test_envvars} %{python3} -c 'import matplotlib.font_manager'
 
+# Activate matplotlib's CI timeout multiplier (6x) for slow architectures.
+# We need it on riscv64.
+export CI=1
+
 export http_proxy=http://127.0.0.1/
 
 # This test checks for "slowness" that often fails on a heavily-loaded builder.
@@ -386,6 +394,11 @@ k="${k-}${k+ and }not test_interactive_timers"
 # These two segfault, resp. timeout in Python 3.14 Copr test environment
 k="${k-}${k+ and }not test_interactive_thread_safety"
 k="${k-}${k+ and }not test_figuremanager_cleans_own_mainloop"
+%ifarch riscv64
+# wxagg: show() changes figure size; qtcairo: SIGINT race condition
+k="${k-}${k+ and }not (test_interactive_backend and wxagg)"
+k="${k-}${k+ and }not (test_sigint and qtcairo)"
+%endif
 # Run backend tests with Wayland.
 wlheadless-run -- env MPLCONFIGDIR=$PWD GDK_BACKEND=wayland QT_QPA_PLATFORM=wayland \
     %{pytest} -vra -n auto \

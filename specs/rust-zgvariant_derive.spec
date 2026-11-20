@@ -6,7 +6,7 @@
 %global crate zgvariant_derive
 
 Name:           rust-zgvariant_derive
-Version:        1.2.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Derive macros for the zgvariant crate
 

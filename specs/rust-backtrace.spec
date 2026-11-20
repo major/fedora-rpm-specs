@@ -5,7 +5,7 @@
 %global crate backtrace
 
 Name:           rust-backtrace
-Version:        0.3.76
+Version:        0.3.77
 Release:        %autorelease
 Summary:        Library to acquire a stack trace (backtrace) at runtime in a Rust program
 
@@ -15,7 +15,6 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          backtrace-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * bump ruzstd dependency from v0.8 to v0.9
 # * drop "accuracy" test (requires crates to be built in dylib mode)
 # * drop "current-exe-mismatch" test (fails on i686 for unknown reasons)
 Patch:          backtrace-fix-metadata.diff

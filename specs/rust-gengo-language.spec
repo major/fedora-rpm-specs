@@ -5,7 +5,7 @@
 %global crate gengo-language
 
 Name:           rust-gengo-language
-Version:        0.15.0
+Version:        0.15.1
 Release:        %autorelease
 Summary:        Get the language distribution stats of your repository
 
@@ -13,8 +13,8 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gengo-language
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * For EPEL9, loosen the Rust version 1.97.1 (bumped from 1.86 in
-#   https://github.com/spenserblack/gengo/commit/fe06a46b): allow 1.91.
+# * Allow older rstest 0.26–0.27 for now:
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2529211
 Patch:          gengo-language-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

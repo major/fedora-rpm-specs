@@ -620,12 +620,14 @@ Requires: tzdata
 # This breaks many things, including python -m venv.
 # We avoid this problem by requiring at least the same version of expat that
 # was used during the build time.
-# We also include release, in case pyxpat uses ABI that was backported
-# (e.g. XML_SetReparseDeferralEnabled was added in c9s expat 2.5.0-2).
 # Other subpackages (like -debug) also need this, but they all depend on -libs.
 # Since expat 2.7.4, the library has versioned symbols and this is no longer needed,
 # as the generated requirement will be in the form of libexpat.so.1(LIBEXPAT_2.7.2) etc.
-%global expat_version %(LANG=C rpm -q --qf '%%{version}-%%{release}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
+%global expat_version %(LANG=C rpm -q --qf '%%{version}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
+# XML_SetReparseDeferralEnabled was added in c9s expat 2.5.0-2
+%if v"%{expat_version}" == v"2.5.0"
+%global expat_version 2.5.0-2
+%endif
 %if v"%{expat_version}" < v"2.7.4"
 Requires: expat%{?_isa} >= %{expat_version}
 %endif
@@ -731,7 +733,7 @@ Requires: %{python_wheel_pkg_prefix}-setuptools-wheel >= 71
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
 # License manually combined from Python + setuptools
-License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause) AND LGPL-3.0-only
 %endif
 
 %unversioned_obsoletes_of_python3_X_if_main test
@@ -797,7 +799,7 @@ Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
 Requires: ca-certificates
 # License combined from Python libs + pip + setuptools
-License: %{libs_license} AND Apache-2.0 AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+License: %{libs_license} AND Apache-2.0 AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause) AND LGPL-3.0-only
 %endif
 
 # This package doesn't depend on python3-libs, so we need to explicitly

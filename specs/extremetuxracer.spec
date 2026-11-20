@@ -9,7 +9,7 @@
 Summary: High speed arctic racing game
 Name: extremetuxracer
 Version: 0.8.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 URL: http://extremetuxracer.sourceforge.net
 # This is really
@@ -32,7 +32,7 @@ Source7: etr.de.6
 BuildRequires:  gcc-c++
 BuildRequires: libGL-devel
 BuildRequires: libGLU-devel
-BuildRequires: SFML-devel
+BuildRequires: SFML2-devel
 BuildRequires: freetype-devel
 BuildRequires: libtool
 BuildRequires: pkgconfig
@@ -172,6 +172,9 @@ install -Dm 0644 -p %{SOURCE7} %{buildroot}%{_mandir}/de/man6/etr.6
 
 
 %changelog
+* Tue Nov 17 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.8.4-5
+- Switch BuildRequires to SFML2-devel (SFML-devel now provides SFML 3.1.0)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

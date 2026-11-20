@@ -6,9 +6,9 @@
 %global crate zbus
 
 Name:           rust-zbus
-Version:        5.19.0
+Version:        6.3.0
 Release:        %autorelease
-Summary:        API for D-Bus communication
+Summary:        API for D-Bus communication and its wire format
 
 License:        MIT
 URL:            https://crates.io/crates/zbus
@@ -17,13 +17,12 @@ Source:         %{crates_source}
 Patch:          zbus-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unstable-only tracing feature from tokio
-# * remove features and dependencies for unused vsock support
 Patch:          zbus-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-API for D-Bus communication.}
+API for D-Bus communication and its wire format.}
 
 %description %{_description}
 
@@ -54,100 +53,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+async-executor-devel
+%package     -n %{name}+arrayvec-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+async-executor-devel %{_description}
+%description -n %{name}+arrayvec-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "async-executor" feature of the "%{crate}" crate.
+use the "arrayvec" feature of the "%{crate}" crate.
 
-%files       -n %{name}+async-executor-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+async-fs-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+async-fs-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "async-fs" feature of the "%{crate}" crate.
-
-%files       -n %{name}+async-fs-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+async-io-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+async-io-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "async-io" feature of the "%{crate}" crate.
-
-%files       -n %{name}+async-io-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+async-lock-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+async-lock-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "async-lock" feature of the "%{crate}" crate.
-
-%files       -n %{name}+async-lock-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+async-process-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+async-process-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "async-process" feature of the "%{crate}" crate.
-
-%files       -n %{name}+async-process-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+async-task-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+async-task-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "async-task" feature of the "%{crate}" crate.
-
-%files       -n %{name}+async-task-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+blocking-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+blocking-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "blocking" feature of the "%{crate}" crate.
-
-%files       -n %{name}+blocking-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+blocking-api-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+blocking-api-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "blocking-api" feature of the "%{crate}" crate.
-
-%files       -n %{name}+blocking-api-devel
+%files       -n %{name}+arrayvec-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bus-impl-devel
@@ -186,6 +101,66 @@ use the "chrono" feature of the "%{crate}" crate.
 %files       -n %{name}+chrono-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+comms-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+comms-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "comms" feature of the "%{crate}" crate.
+
+%files       -n %{name}+comms-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+default-rt-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+default-rt-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "default-rt" feature of the "%{crate}" crate.
+
+%files       -n %{name}+default-rt-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+ibus-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ibus-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ibus" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ibus-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+jiff-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+jiff-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "jiff" feature of the "%{crate}" crate.
+
+%files       -n %{name}+jiff-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+object-manager-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+object-manager-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "object-manager" feature of the "%{crate}" crate.
+
+%files       -n %{name}+object-manager-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+option-as-array-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -210,6 +185,18 @@ use the "p2p" feature of the "%{crate}" crate.
 %files       -n %{name}+p2p-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+proxy-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+proxy-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "proxy" feature of the "%{crate}" crate.
+
+%files       -n %{name}+proxy-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde_bytes-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -220,6 +207,18 @@ This package contains library source intended for building other packages which
 use the "serde_bytes" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde_bytes-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+service-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+service-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "service" feature of the "%{crate}" crate.
+
+%files       -n %{name}+service-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+time-devel
@@ -244,6 +243,42 @@ This package contains library source intended for building other packages which
 use the "tokio" feature of the "%{crate}" crate.
 
 %files       -n %{name}+tokio-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tokio-multithread-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-multithread-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio-multithread" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-multithread-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tracing-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tracing-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tracing" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tracing-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+unixexec-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unixexec-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unixexec" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unixexec-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+url-devel

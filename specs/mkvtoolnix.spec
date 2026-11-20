@@ -6,6 +6,10 @@ License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
 Source1: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz.sig
 Source2: https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt
+# Support ruby 4.1.0dev
+# https://codeberg.org/mbunkus/mkvtoolnix/issues/6334
+# https://codeberg.org/mbunkus/mkvtoolnix/commit/1eddab5d8fb7f91446199d73916297aceb3eb35e
+Patch0:  mkvtoolnix-103.0-support-ruby4_1.patch
 URL: https://mkvtoolnix.download/
 BuildRequires: boost-devel
 BuildRequires: cmake(Qt6Concurrent)
@@ -68,6 +72,7 @@ This package contains the QT graphical interface for these utilities.
 %prep
 %{openpgpverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %setup -q
+%patch -P0 -p1
 rm -rf lib/{fmt,libebml,libmatroska,nlohmann-json,pugixml,utf8-cpp}
 rm -rf rake.d/vendor drake
 

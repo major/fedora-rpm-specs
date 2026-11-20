@@ -1,5 +1,5 @@
 Name:           python-rnc2rng
-Version:        2.7.0
+Version:        2.8.0
 Release:        %autorelease
 Summary:        RELAX NG Compact to regular syntax conversion library
 
@@ -14,10 +14,6 @@ Source0:        %{pypi_source rnc2rng}
 # Man page hand-written for Fedora in groff_man(7) syntax, based on the
 # contents of README.rst and rnc2rng/__main__.py.
 Source1:        rnc2rng.1
-
-# Remove useless shebangs, execute bits
-# https://github.com/djc/rnc2rng/pull/54
-Patch:          %{url}/pull/54.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license rnc2rng
@@ -43,7 +39,7 @@ install -D --preserve-timestamps --mode=0644 \
 
 
 %check -a
-%{py3_test_envvars} %{python3} test.py
+%{py3_test_envvars} %{python3} -m tests.test_golden
 
 
 %files -n python3-rnc2rng -f %{pyproject_files}

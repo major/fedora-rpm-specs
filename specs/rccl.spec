@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 10.1
+%global rocm_release 10.2
 %else
 %global rocm_release 10.1
 %endif
@@ -307,7 +307,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rccl/LICENSE.txt
 %{pkg_prefix}/bin/rcclras
 
 %files data
+%if %{without preview}
 %{pkg_prefix}/share/rccl/
+%endif
 
 %files devel
 %doc README.md

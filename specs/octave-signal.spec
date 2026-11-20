@@ -1,8 +1,8 @@
 %global octpkg signal
 
 Name:           octave-%{octpkg}
-Version:        1.4.7
-Release:        3%{?dist}
+Version:        1.4.8
+Release:        1%{?dist}
 Summary:        Signal processing tools for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -69,6 +69,9 @@ done;
 %{octpkgdir}/compatibility/pre-11.0.0
 
 %changelog
+* Wed Nov 18 2026 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1.4.8-1
+- Update to 1.4.8 (rhbz#2576003)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

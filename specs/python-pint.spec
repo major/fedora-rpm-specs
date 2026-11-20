@@ -108,9 +108,10 @@ sed -r -i '1{/^#!/d}' pint/pint_convert.py
 
 %check
 # -rs: print reasons for skipped tests
-%pytest -rs
+%pytest -rs --benchmark-skip
 
 %files -n python3-pint -f %{pyproject_files}
+%doc README.rst
 %{_bindir}/pint-convert
 
 %changelog

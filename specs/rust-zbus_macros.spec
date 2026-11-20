@@ -6,7 +6,7 @@
 %global crate zbus_macros
 
 Name:           rust-zbus_macros
-Version:        5.19.0
+Version:        6.3.0
 Release:        %autorelease
 Summary:        Proc-macros for zbus
 
@@ -48,28 +48,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+blocking-api-devel
+%package     -n %{name}+comms-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+blocking-api-devel %{_description}
+%description -n %{name}+comms-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "blocking-api" feature of the "%{crate}" crate.
+use the "comms" feature of the "%{crate}" crate.
 
-%files       -n %{name}+blocking-api-devel
+%files       -n %{name}+comms-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+gvariant-devel
+%package     -n %{name}+proxy-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+gvariant-devel %{_description}
+%description -n %{name}+proxy-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "gvariant" feature of the "%{crate}" crate.
+use the "proxy" feature of the "%{crate}" crate.
 
-%files       -n %{name}+gvariant-devel
+%files       -n %{name}+proxy-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+service-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+service-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "service" feature of the "%{crate}" crate.
+
+%files       -n %{name}+service-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

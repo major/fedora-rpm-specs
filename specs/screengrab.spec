@@ -1,7 +1,7 @@
 Name:           screengrab
 Summary:        Crossplatform tool for fast making screenshots
-Version:        3.2.0
-Release:        4%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screengrab.desktop
 %{_datadir}/screengrab/screengrab.conf
 
 %changelog
+* Thu Nov 19 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 3.3.0-1
+- Update to 3.3.0
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 3.2.0-4
 - Rebuild (qt6)
 

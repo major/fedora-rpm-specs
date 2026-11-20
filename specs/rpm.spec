@@ -24,11 +24,22 @@
 # Upstream defaults to enforcing in >= 6.0, this is backwards compat switch
 %bcond legacy_verify 0
 
+# https://fedoraproject.org/wiki/Changes/RPMv6_package_format
+# Upstream defaults to v6 format in >= 6.0, this is a backwards compat switch
+%bcond legacy_v4format 1
+
+# Avoid double-rebuilds of rpm when switching
+%if %{with legacy_v4format}
+%define _rpmformat 4
+%else
+%define _rpmformat 6
+%endif
+
 %define rpmhome /usr/lib/rpm
 
 %global rpmver 6.1.0
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -117,8 +128,6 @@ rpm-4.9.90-no-man-dirs.patch
 
 # Use systemd-sysusers due to https://github.com/shadow-maint/shadow/issues/940
 rpm-4.20-sysusers.patch
-# Back out to v4 package format by default until the infra is updated
-rpm-6.0-rpmformat.patch
 
 # Temporarily disable the deprecation warning for
 # %%clamp_mtime_to_source_date_epoch, details here:
@@ -352,6 +361,10 @@ change.
 
 %if %{with legacy_verify}
 sed -i -e "s:%%_pkgverify_level all:%%_pkgverify_level digest:g" macros.in
+%endif
+
+%if %{with legacy_v4format}
+sed -i -e "s:%%_rpmformat 6:%%_rpmformat 4:g" macros.in
 %endif
 
 %build
@@ -638,6 +651,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu Nov 19 2026 Panu Matilainen <pmatilai@redhat.com> - 6.1.0-2
+- Make default package format switchable with a bcond
+
 * Thu Aug 20 2026 Michal Domonkos <mdomonko@redhat.com - 6.1.0-1
 - Rebase to 6.1.0 (https://rpm.org/releases/6.1.0)
 

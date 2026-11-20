@@ -1,6 +1,6 @@
 Name:       libfaketime
-Version:    0.9.13
-Release:    5%{?dist}
+Version:    0.9.14
+Release:    1%{?dist}
 Summary:    Manipulate system time per process for testing purposes
 # COPYING:                  GPLv2 text
 # man/faketime.1:           "GNU General Public License, see COPYING"
@@ -22,12 +22,6 @@ Source:     %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Make the libraries executable, needed for stripping them. Not suitable for
 # upstream, e.g. Debian does not like it.
 Patch0:     libfaketime-0.9.12-Dynamic-libraries-are-expected-to-be-executable-on-F.patch
-# Remove tests which pass NULL to syscalls and are surprised with a segfault,
-# in upstream after 0.9.13, <https://github.com/wolfcw/libfaketime/issues/554>
-Patch1:     libfaketime-0.9.13-Remove-tests-passing-NULL-to-sem_timedwait-and-clock.patch
-# Enable LTO, in upstream after 0.9.13,
-# <https://github.com/wolfcw/libfaketime/pull/557>
-Patch2:     libfaketime-0.9.13-Adapt-symbol-versioning-to-LTO.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -82,6 +76,9 @@ rm -fr %{buildroot}/%{_docdir}/faketime
 %{_mandir}/man1/faketime.1*
 
 %changelog
+* Thu Nov 19 2026 Petr Pisar <ppisar@redhat.com> - 0.9.14-1
+- 0.9.14 bump
+
 * Fri Sep 11 2026 Petr Pisar <ppisar@redhat.com> - 0.9.13-5
 - Move from automatic release numbering to manual one
 

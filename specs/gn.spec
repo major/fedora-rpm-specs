@@ -1,9 +1,6 @@
-# We ought to be able to re-generate source files that come from cxxbridge, but
-# this currently fails with an “unsupported attribute” error for
-# #[cxx_return_type = "…"] in src/gn/starlark/crates/ffi/src/bridge.rs.
-%bcond regenerate_bridge 0
-
-Name:           gn
+%global commit f126a26ef94d5c4620d0e7d06e2390bc621d846a
+%global access 20261119
+%global position 2637
 # Upstream uses the number of commits in the git history as the version number.
 # See gn --version, which outputs something like “1874 (2b683eff)”. The commit
 # position and short commit hash in this string come from “git describe HEAD
@@ -18,18 +15,19 @@ Name:           gn
 #  1. Clone the git repository from the Internet (a substantial download)
 #  2. Run build/gen.py to generate last_commit_position.h, the header with
 #     version information, and copy it into the same directory as the script
-#  3. Modify the commit and access macros and the Version field in this spec
-#     file.
+#  3. Modify the commit, access, and position macros in this spec file, above.
 #  4. Download the source tarball (spectool -g)
 #  5. Update the sources (fedpkg new-sources %%{commit}.tar.gz)
 #  6. Stage all changes in git
 #  7. Commit the changes
-#
-# See https://gn.googlesource.com/gn/+log for the latest changes.
-%global commit 4df39f484f1f49f5c7f6264adc88d27811cb7b00
-%global access 20261110
+
+# We ought to be able to re-generate source files that come from cxxbridge, but
+# this currently fails with an “unsupported attribute” error for
+# #[cxx_return_type = "…"] in src/gn/starlark/crates/ffi/src/bridge.rs.
+%bcond regenerate_bridge 0
+
+Name:           gn
 %global shortcommit %{sub %{commit} 1 12}
-%global position 2616
 Version:        %{position}^%{access}.%{shortcommit}
 Release:        %autorelease
 Summary:        Meta-build system that generates build files for Ninja

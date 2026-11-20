@@ -1,8 +1,5 @@
-%global commit e91b98a7235a4971c6cbb7f0533034afc8a8f618
-%global shortcommit %{sub %{commit} 1 7}
-
 Name:           oo7
-Version:        0.7.0~beta^1.%{shortcommit}
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Secret Service provider
 
@@ -31,7 +28,7 @@ License:        %{shrink:
 %global tag %{gsub %{version} ~ .}
 
 URL:            https://github.com/linux-credentials/oo7
-Source:         %{url}/archive/%{commit}/oo7-%{shortcommit}.tar.gz
+Source:         %{url}/archive/%{version}/oo7-%{version}.tar.gz
 
 # fix invalid manifest at cli/Cargo.toml:
 # features cannot depend on features of dev-only dependencies
@@ -46,6 +43,10 @@ Patch:          0003-meson-pass-through-rpm-profile-to-cargo-build.patch
 # drop yet unused Python bindings from cargo workspace:
 # this avoids pulling in unused dependencies
 Patch:          0004-drop-yet-unused-Python-bindings-from-cargo-workspace.patch
+
+# pin exact ashpd version since oo7 relies on unstable features:
+# https://github.com/bilelmoussaoui/ashpd/issues/509
+Patch:          0005-pin-exact-ashpd-version-since-oo7-relies-on-unstable.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  systemd-rpm-macros
@@ -252,7 +253,15 @@ install -Dpm 0755 target/rpm/git-credential-oo7 -t %{buildroot}%{_bindir}/
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/oo7-portal.desktop
-%cargo_test
+# run tests for all workspace members except oo7-pam (tests require root)
+%{cargo_test -- --package oo7 --features oo7-daemon/default}
+%{cargo_test -- --package oo7-cli}
+%{cargo_test -- --package oo7-daemon}
+%{cargo_test -- --package oo7-portal}
+%{cargo_test -- --package cargo-credential-oo7}
+%{cargo_test -- --package git-credential-oo7}
+%{cargo_test -- --package kwallet-cli}
+%{cargo_test -- --package kwallet-parser}
 
 %changelog
 %autochangelog

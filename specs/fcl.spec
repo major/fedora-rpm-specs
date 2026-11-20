@@ -3,12 +3,12 @@
 
 Name:           fcl
 Version:        0.7.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Flexible Collision Library
 
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+# Converted from LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/flexible-collision-library/fcl
 Source0:        https://github.com/flexible-collision-library/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

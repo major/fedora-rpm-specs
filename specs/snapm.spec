@@ -10,6 +10,8 @@ URL:		https://github.com/snapshotmanager/%{name}
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 Patch0: 0001-tests-update-test-exclusions-for-CentOS-and-ELN.patch
+# https://github.com/snapshotmanager/snapm/pull/1063
+Patch1: 0001-dist-drop-dependency-on-python3-dateutil.patch
 
 BuildArch:	noarch
 

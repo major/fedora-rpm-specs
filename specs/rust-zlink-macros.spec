@@ -5,7 +5,7 @@
 %global crate zlink-macros
 
 Name:           rust-zlink-macros
-Version:        0.7.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Macros providing the high-level zlink API
 
@@ -32,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

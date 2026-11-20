@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 10.1
+%global rocm_release 10.2
 %else
 %global rocm_release 10.1
 %endif
@@ -98,8 +98,10 @@ License:        MIT AND BSD-3-Clause
 URL:            https://github.com/ROCm/rocm-libraries
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+%if %{without preview}
 # https://github.com/ROCm/rocm-libraries/pull/12713/changes/0e4902a9ea0c0d5ee3c90aa029f57a121a908568
 Patch1:         0001-fix-cast-unsigned-return-to-ptrdiff_t-in-get_random_.patch
+%endif
 
 # Only x86_64 works right now
 ExclusiveArch:  x86_64

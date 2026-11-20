@@ -1,5 +1,5 @@
 Name:           python-google-genai
-Version:        3.5.0
+Version:        3.6.1
 Release:        %autorelease
 Summary:        Google GenAI Python SDK
 

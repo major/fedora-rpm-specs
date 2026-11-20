@@ -18,7 +18,7 @@ BuildRequires:  rust-std-static-x86_64-unknown-uefi
 %endif
 
 Name:           virt-firmware-rs
-Version:        26.10.2
+Version:        26.11
 Release:        %autorelease
 Summary:        Tools for EFI and virtual machine firmware
 
@@ -112,6 +112,7 @@ for dir in efi-apps efi-tools igvm-tools; do
 done
 # man pages
 mkdir -p %{buildroot}%{_mandir}/man1
+mkdir -p %{buildroot}/etc/bash_completion.d
 for app in virt-fw-vars-setup; do
     %{buildroot}%{_bindir}/${app} --manpage > %{buildroot}%{_mandir}/man1/${app}.1
 done
@@ -121,6 +122,7 @@ for app in \
     igvm-elfis igvm-inspect igvm-update igvm-wrap \
 ; do
     target/rpm/virtfw-clapgen --manpage ${app} > %{buildroot}%{_mandir}/man1/${app}.1
+    target/rpm/virtfw-clapgen --complete ${app} >> %{buildroot}/etc/bash_completion.d/virt-firmware-rs.bash
 done
 mv %{buildroot}%{_mandir}/man1/uefi-boot-menu.1 \
    %{buildroot}%{_mandir}/man1/uefi-boot-menu-rs.1
@@ -149,6 +151,7 @@ mv %{buildroot}%{_mandir}/man1/uefi-boot-menu.1 \
 %{_bindir}/igvm-wrap
 %{_bindir}/igvm-update
 %{_mandir}/man1/*
+/etc/bash_completion.d/virt-firmware-rs.bash
 
 %if %{with efi_apps}
 %files -n %{name}-%{efiarch}

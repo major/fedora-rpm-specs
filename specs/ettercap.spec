@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 %define _hardened_build 1
 Name: ettercap
-Version: 0.8.5.1
+Version: 0.8.5.2
 Release: 1%{?dist}
 Summary: Network traffic sniffer/analyser, NCURSES interface version
 License: GPL-2.0-or-later
@@ -114,6 +114,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/ettercap.metainfo.xml
 
 %changelog
+* Thu Nov 19 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.8.5.2-1
+- 0.8.5.2
+
 * Tue Nov 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 0.8.5.1-1
 - 0.8.5.1
 

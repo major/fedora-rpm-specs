@@ -1,6 +1,6 @@
 Name:           python-zope-sqlalchemy
-Version:        4.1
-Release:        4%{?dist}
+Version:        4.2
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        ZPL-2.1
@@ -63,6 +63,9 @@ configure engines.
 
 
 %changelog
+* Thu Nov 19 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.2-1
+- Update to upstream.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

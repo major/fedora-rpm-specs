@@ -5,17 +5,13 @@
 %global crate pkcs1
 
 Name:           rust-pkcs1
-Version:        0.7.5
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Pure Rust implementation of PKCS#1 (RFC 8017)
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/pkcs1
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * allow hex-literal 1.0:
-#   https://github.com/RustCrypto/formats/commit/ed08fc043e7abb38a86fca10f114d15a86f4cb25
-Patch:          pkcs1-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -75,18 +71,6 @@ This package contains library source intended for building other packages which
 use the "pem" feature of the "%{crate}" crate.
 
 %files       -n %{name}+pem-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+pkcs8-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+pkcs8-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "pkcs8" feature of the "%{crate}" crate.
-
-%files       -n %{name}+pkcs8-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel
