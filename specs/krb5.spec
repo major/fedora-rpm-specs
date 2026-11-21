@@ -19,7 +19,7 @@
 %global krb5_version_major 1
 %global krb5_version_minor 22
 # For a release without a patch number set to %%nil
-%global krb5_version_patch 2
+%global krb5_version_patch 3
 
 %global krb5_version_major_minor %{krb5_version_major}.%{krb5_version_minor}
 %global krb5_version %{krb5_version_major_minor}
@@ -58,8 +58,8 @@ Source15: %{name}-tests
 # This will give us CI and makes it easy to generate patchsets.
 #
 # Generate the patchset using:
-#   git format-patch -l1 --stdout fedora-1.22.2-base > krb5-1.22-redhat.patch
-Patch0:        krb5-1.22-redhat.patch
+#   git format-patch -l1 --stdout fedora-1.22.3-base > krb5-1.22.3-fedora.patch
+Patch0:        krb5-1.22.3-fedora.patch
 
 License: Brian-Gladman-2-Clause AND BSD-2-Clause AND (BSD-2-Clause OR GPL-2.0-or-later) AND BSD-2-Clause-first-lines AND BSD-3-Clause AND BSD-4-Clause AND CMU-Mach-nodoc AND FSFULLRWD AND HPND AND HPND-export2-US AND HPND-export-US AND HPND-export-US-acknowledgement AND HPND-export-US-modify AND ISC AND MIT AND MIT-CMU AND OLDAP-2.8 AND OpenVision
 URL: https://web.mit.edu/kerberos/www/
@@ -208,7 +208,7 @@ Kerberos is a network authentication system. The libkadm5 package
 contains only the libkadm5clnt and libkadm5serv shared objects. This
 interface is not considered stable.
 
-%package tests
+%package tests-devel
 Summary: Test sources for krb5 build
 
 # Build dependencies
@@ -253,7 +253,11 @@ Recommends: python3-pyrad
 #Recommends: openldap-servers
 #Recommends: openldap-clients
 
-%description tests
+# krb5-tests-devel was initially called krb5-tests
+Provides:  %{name}-tests = %{version}-%{release}
+Obsoletes: %{name}-tests < %{version}-%{release}
+
+%description tests-devel
 FOR TESTING PURPOSE ONLY
 Test sources for krb5 build, with pre-defined compilation parameters
 
@@ -715,7 +719,7 @@ exit 0
 %{_libdir}/libkadm5clnt_mit.so.*
 %{_libdir}/libkadm5srv_mit.so.*
 
-%files tests
+%files tests-devel
 %{_libexecdir}/%{name}-tests-%{_arch}
 %{_datarootdir}/%{name}-tests/%{_arch}
 

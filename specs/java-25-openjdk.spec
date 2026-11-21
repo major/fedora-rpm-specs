@@ -2,15 +2,15 @@
 %global featurever 25
 %global interimver 0
 %global updatever 5
-%global patchver 0
-%global buildver 8
-%global portablerelease 3
+%global patchver 1
+%global buildver 2
+%global portablerelease 1
 %global rpmrelease 1
 
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver 57722aab802
+%global fipsver 9082dbb596c
 # Define nssadapter variables
 %global nssadapter_version 0.1.1
 %global nssadapter_name nssadapter-%{nssadapter_version}
@@ -222,9 +222,9 @@ URL:      http://openjdk.java.net/
 # Set of architectures which support multiple ABIs
 %global multilib_arches %{power64} sparc64 x86_64
 # Set of architectures for which we build slowdebug builds
-%global debug_arches    %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{power64} s390x
+%global debug_arches    %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{power64} s390x riscv64
 # Set of architectures for which we build fastdebug builds
-%global fastdebug_arches x86_64 ppc64le aarch64
+%global fastdebug_arches x86_64 ppc64le aarch64 riscv64
 # Set of architectures with a Just-In-Time (JIT) compiler
 %global jit_arches      %{arm} %{aarch64} %{ix86} %{power64} s390x sparcv9 sparc64 x86_64 riscv64
 # Set of architectures which use the Zero assembler port (!jit_arches)
@@ -234,7 +234,7 @@ URL:      http://openjdk.java.net/
 # Set of architectures which support SystemTap tapsets
 %global systemtap_arches %{jit_arches}
 # Set of architectures with a Ahead-Of-Time (AOT) compiler
-%global aot_arches      x86_64 %{aarch64}
+%global aot_arches      x86_64 %{aarch64} riscv64
 # Set of architectures which support the serviceability agent
 %global sa_arches       %{ix86} x86_64 sparcv9 sparc64 %{aarch64} %{power64} %{arm} riscv64
 # Set of architectures which support class data sharing
@@ -1381,7 +1381,7 @@ BuildRequires: libpng-devel
 BuildRequires: zlib-devel
 %else
 # Version in src/java.desktop/share/legal/freetype.md
-Provides: bundled(freetype) = 2.14.3
+Provides: bundled(freetype) = 2.15.0
 # Version in src/java.desktop/share/native/libsplashscreen/giflib/gif_lib.h
 Provides: bundled(giflib) = 6.1.3
 # Version in src/java.desktop/share/native/libharfbuzz/hb-version.h
@@ -1391,7 +1391,7 @@ Provides: bundled(lcms2) = 2.19.1
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.58
+Provides: bundled(libpng) = 1.6.59
 # Version in src/java.base/share/native/libzip/zlib/zlib.h
 Provides: bundled(zlib) = 1.3.2
 %endif

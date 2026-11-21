@@ -1,18 +1,16 @@
+%global level_zero_npu_ext_commit ddbf8d65e2e22150e23efd383839aa80f84d4dac
+%global npu_compiler_elf_commit 5f0cf383811c2481fac8799b31bbe88d83e1562d
 
 Name:		intel-npu-driver
-Version:	1.35.0
+Version:	1.39.1
 Release:	%autorelease
 Summary:	Intel Neural Processing Unit Driver
 
 License:	MIT AND Apache-2.0
 URL:		https://github.com/intel/linux-npu-driver
 Source0:	%url/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:	https://github.com/intel/level-zero-npu-extensions/archive/f9ad3bf89c2418d714aef2e6b96a5aafb12a1971/level-zero-npu-extensions-f9ad3bf.tar.gz
-Source2:	https://github.com/openvinotoolkit/npu_compiler_elf/archive/a301d97e0717fb797c79ec51f8cdc13152878700/npu_compiler_elf-a301d97.tar.gz
-
-%if 0%{?fedora} > 44 || 0%{?rhel} >= 11
-Patch0:         add-initializer-umd-level_zero_driver-ze_device.patch
-%endif
+Source1:	https://github.com/intel/level-zero-npu-extensions/archive/%{level_zero_npu_ext_commit}/level-zero-npu-extensions-%{sub %{level_zero_npu_ext_commit} 1 7}.tar.gz
+Source2:	https://github.com/openvinotoolkit/npu_compiler_elf/archive/%{npu_compiler_elf_commit}/npu_compiler_elf-%{sub %{npu_compiler_elf_commit} 1 7}.tar.gz
 
 ExclusiveArch:	x86_64
 
@@ -24,6 +22,7 @@ BuildRequires:	gtest-devel
 BuildRequires:	libudev-devel
 BuildRequires:	oneapi-level-zero-devel
 BuildRequires:	openssl-devel
+BuildRequires:	openvino-devel
 BuildRequires:	yaml-cpp-devel
 # openvino-npu_compiler_elf
 Provides:	bundled(openvino-npu_compiler_elf)
@@ -42,17 +41,18 @@ Summary:	Test files for %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description test
-The %{name}-test package contains kernel-mode (kmd) and user-mode (umd)
+The %{name}-test package contains kernel-mode and user-mode
 parts of the %{name}.
 
 %package -n intel-npu-smi
-Summary:        Utility tool to track NPU telemetry data
+Summary:	Utility tool to track NPU telemetry data
 
 %description -n intel-npu-smi
-The intel-npu-smi package utility tool for tracking NPU telemetry power reporting
+The intel-npu-smi package utility tool for tracking NPU telemetry power
+reporting
 
 %prep
-%autosetup -N -n linux-npu-driver-%{version}
+%autosetup -n linux-npu-driver-%{version}
 
 # thirdparty deps
 rm -rf third_party/googletest \
@@ -64,15 +64,19 @@ mv level-zero-npu-extensions-* third_party/level-zero-npu-extensions
 tar xf %{SOURCE2}
 mv npu_compiler_elf-* third_party/npu_compiler_elf
 
-%autopatch -p1
-
 %build
+export CXXFLAGS="%{build_cxxflags} -Wno-error=missing-field-initializers"
+#-DENABLE_NPU_COMPILER_BUILD if ON syncs/builds and compiles the compiler
+# which right now is done in openvino
+# -DCMAKE_EXE_LINKER_FLAGS_RELEASE takes affect for npu tests only
 %cmake \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DUSE_SYSTEM_LIBRARIES=ON \
 	-DENABLE_NPU_PERFETTO_BUILD=ON \
 	-DENABLE_TOOLS_BUILD=ON \
-	-DENABLE_NPU_COMPILER_BUILD=OFF
+	-DENABLE_NPU_COMPILER_BUILD=OFF \
+	-DCMAKE_SKIP_INSTALL_RPATH=ON \
+	-DCMAKE_EXE_LINKER_FLAGS_RELEASE="-Wl,-z,ibt,-z,shstk"
 %cmake_build
 
 %install
@@ -90,11 +94,11 @@ install -m 0755 redhat-linux-build/bin/*npu_*tests %{buildroot}%{_bindir}/
 # but the real sources live at "<sub>/..." in the unpacked tarball.
 mkdir -p redhat-linux-build/third_party/npu_compiler_elf
 cp -a third_party/npu_compiler_elf/. redhat-linux-build/third_party/npu_compiler_elf/
-cp -a umd/.                          redhat-linux-build/umd/
-cp -a validation/.                   redhat-linux-build/validation/
+cp -a umd/.			redhat-linux-build/umd/
+cp -a validation/.		redhat-linux-build/validation/
 mkdir -p redhat-linux-build/third_party/perfetto/sdk
 cp -a third_party/perfetto/sdk/.     redhat-linux-build/third_party/perfetto/sdk/
-cp -a tools/intel-npu-smi/.          redhat-linux-build/tools/intel-npu-smi/
+cp -a tools/intel-npu-smi/.	redhat-linux-build/tools/intel-npu-smi/
 
 %files
 %license LICENSE.md

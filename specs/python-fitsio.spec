@@ -7,7 +7,7 @@ Version:        1.4.2
 Release:        %autorelease
 Summary:        %{sum}
 
-License:        GPL-2.0-only
+License:        GPL-2.0-or-later
 URL:            https://github.com/esheldon/fitsio
 Source0:        %{pypi_source}
 #Patch: https://github.com/esheldon/fitsio/commit/492f938efe60615287b677020c63c10291920648.patch

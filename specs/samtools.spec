@@ -1,6 +1,6 @@
 Name:		samtools
-Version:	1.24
-Release:	2%{?dist}
+Version:	1.25
+Release:	1%{?dist}
 Summary:	Tools for nucleotide sequence alignments in the SAM format
 
 License:	MIT
@@ -93,6 +93,9 @@ make test
 
 
 %changelog
+* Fri Nov 20 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.25-1
+- Update to 1.25 (rhbz#2561932)
+
 * Sat Jul 18 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.24-2
 - Added missing Perl requirement
 

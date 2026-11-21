@@ -63,7 +63,9 @@ notification services. It supports sending alerts to platforms such as: \
 \
 `46elks`, `800.com`, `AfricasTalking`, `AMQP`, \
 `Apprise API`, `APRS`, \
-`AWS SES`, `AWS SNS`, `Bark`, `Better Stack`, `Blink(1)`, `BlueSky`, \
+`AWS End User Messaging Social`, `AWS SES`, `AWS SNS`, `Bale`, \
+`Azure Communication Services`, `Bark`, \
+`Better Stack`, `Blink(1)`, `BlueSky`, \
 `Brevo`, `Burst SMS`, `BulkSMS`, `BulkVS`, \
 `Chanify`, `Clickatell`, `ClickSend`, `CM.com`, `DAPNET`, `Delta Chat`, \
 `DingTalk`, `Discord`, \
@@ -72,7 +74,7 @@ notification services. It supports sending alerts to platforms such as: \
 `Free Mobile`, `GitHub`, `GoAlert`, `Google Chat`, `Gorush`, `Gotify`, \
 `Groundmail`, `GroupMe`, \
 `Growl`, `Guilded`, `Gupshup`, `Home Assistant`, `httpSMS`, \
-`HumHub`, `IFTTT`, `ilert`, `incident.io`, `Infobip`, \
+`HumHub`, `IFTTT`, `ilert`, `incident.io`, `Infobip`, `Instagram`, \
 `IRC`, `Jellyfin`, `Jira`, `Join`, `KakaoTalk`, `Kaleyra`, `Kavenegar`, \
 `KODI`, `Kook`, `Kudosity`, `Kumulos`, `LaMetric`, `Lark`, `Lauther`, \
 `LFG Alarm`, `Line`, `MacOSX`, `Mailgun`, \
@@ -82,9 +84,9 @@ notification services. It supports sending alerts to platforms such as: \
 `Microsoft Teams`, `Misskey`, `Mobile Message`, \
 `MQTT`, `MSG91`, `MyAndroid`, `Nexmo`, `Nextcloud`, \
 `NextcloudTalk`, `Nostr`, `Notica`, `Notifiarr`, `Notifico`, \
-`Notifyre`, \
+`Notify!`, `Notifyre`, \
 `ntfy`, `Octopush`, `Office365`, `OneBot`, `OneSignal`, \
-`Opsgenie`, `PagerDuty`, \
+`Opsgenie`, `OpsiMate`, `PagerDuty`, \
 `PagerTree`, `ParsePlatform`, `Pinglet`, `Pingram`, `Plivo`, `Prowl`, \
 `Postmark`, `Pushalot`, `PushBullet`, \
 `Pushjet`, `PushMe`, `Pushover`, `Pushplus`, `PushSafer`, `PushWard`, \
@@ -108,7 +110,7 @@ notification services. It supports sending alerts to platforms such as: \
 `xMatters`, `XMPP`, `YouLMK`, `Zalo`, `Zoho Cliq`, `Zoom`, and `Zulip`.}
 
 Name:           python-%{pypi_name}
-Version:        2.2.0
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
@@ -307,6 +309,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %{python3_sitelib}/%{pypi_name}/__pycache__/cli*.py?
 
 %changelog
+* Fri Nov 20 2026 Chris Caron <lead2gold@gmail.com> - 2.3.0-1
+- Updated to v2.3.0
+
 * Sat Nov  7 2026 Chris Caron <lead2gold@gmail.com> - 2.2.0-1
 - Updated to v2.2.0
 

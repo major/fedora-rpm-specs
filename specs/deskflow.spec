@@ -5,32 +5,33 @@
 %global qt6ver 6.7.0
 
 Name:		deskflow
-Version:	1.26.0
-Release:	3%{?dist}
+Version:	1.27.0
+Release:	1%{?dist}
 Summary:	Share mouse and keyboard between multiple computers over the network
 
 License:	GPL-2.0-only
 URL:		https://github.com/%{name}/%{name}
 Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Backported from upstream patch, our downstream patch is slightly different
-# https://github.com/deskflow/deskflow/commit/fdb100649b44af1ac7f0a9ec83dc7805430aada8.patch
-Patch:		deskflow-1.26.0-openssl4-compat.patch
+Source1:	deskflow-client.1
+Source2:	deskflow-server.1
 ExcludeArch:	%{ix86}
 
 BuildRequires:	cmake >= 3.24
 BuildRequires:	desktop-file-utils
 BuildRequires:	gcc-c++
-BuildRequires:	gmock-devel
-BuildRequires:	gtest-devel
+BuildRequires:	help2man
 BuildRequires:	openssl-devel >= 3.0
 BuildRequires:	cmake(Qt6Core) >= %{qt6ver}
 BuildRequires:	cmake(Qt6LinguistTools) >= %{qt6ver}
+BuildRequires:	cmake(Qt6Test) >= %{qt6ver}
 BuildRequires:	pkgconfig(gdk-pixbuf-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gio-2.0)
 BuildRequires:	pkgconfig(libei-1.0) >= 1.3
 BuildRequires:	pkgconfig(libnotify)
-BuildRequires:	pkgconfig(libportal) >= 0.8.0
+BuildRequires:	pkgconfig(libportal) >= 0.9.1
+BuildRequires:	pkgconfig(xkbcommon)
+BuildRequires:	pkgconfig(xkbregistry)
 %if %{with x11}
 BuildRequires:	pkgconfig(ice)
 BuildRequires:	pkgconfig(sm)
@@ -38,7 +39,6 @@ BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xi)
 BuildRequires:	pkgconfig(xinerama)
-BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(xkbfile)
 BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	pkgconfig(xtst)
@@ -61,7 +61,7 @@ key press to switch focus to a different system.
 
 
 %conf
-%cmake -DSKIP_BUILD_TESTS=1 %{!?with_x11:-DBUILD_X11_SUPPORT=OFF}
+%cmake -DSKIP_BUILD_TESTS=1 -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name} %{!?with_x11:-DBUILD_X11_SUPPORT=OFF}
 
 
 %build
@@ -75,12 +75,11 @@ key press to switch focus to a different system.
 echo -e "#!/bin/sh\n%{_bindir}/%{name}-core server \$@" > %{buildroot}/%{_bindir}/%{name}-server
 echo -e "#!/bin/sh\n%{_bindir}/%{name}-core client \$@" > %{buildroot}/%{_bindir}/%{name}-client
 chmod 755 %{buildroot}/%{_bindir}/%{name}-server  %{buildroot}/%{_bindir}/%{name}-client
+install -pm 0644 %{SOURCE1} %{SOURCE2} %{buildroot}%{_mandir}/man1/
 
 # For some reason, LICENSE_EXCEPTION is not in tarball, but generated
 cp %{buildroot}%{_datadir}/licenses/deskflow/LICENSE_EXCEPTION .
 
-# remove the html because koji does not build it
-rm -fr %{buildroot}%{_docdir}/%{name}/html
 
 %check
 export QT_QPA_PLATFORM=minimal
@@ -88,21 +87,23 @@ export QT_QPA_PLATFORM=minimal
 # XXX: Allow it to fail for now
 # Cf. https://github.com/deskflow/deskflow/issues/8203
 %{__ctest} --test-dir  "%{_vpath_builddir}/src/unittests" --output-on-failure --force-new-ctest-process %{?_smp_mflags} || :
-%{_vpath_builddir}/bin/legacytests || :
 %else
 %{__ctest} --test-dir  "%{_vpath_builddir}/src/unittests" --output-on-failure --force-new-ctest-process %{?_smp_mflags}
-%{_vpath_builddir}/bin/legacytests
 %endif
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 
 
 %files
 %license LICENSE LICENSE_EXCEPTION
-%doc README.md
+%doc %{_docdir}/%{name}/
 %{_bindir}/%{name}
 %{_bindir}/%{name}-core
 %{_bindir}/%{name}-client
 %{_bindir}/%{name}-server
+%{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/%{name}-client.1*
+%{_mandir}/man1/%{name}-core.1*
+%{_mandir}/man1/%{name}-server.1*
 %{_datadir}/applications/%{rdnn_name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{rdnn_name}.png
 %{_datadir}/icons/hicolor/*/apps/%{rdnn_name}*.svg
@@ -111,6 +112,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 
 
 %changelog
+* Wed Nov 18 2026 Mahendri Dwicahyo <mahendri.md@gmail.com> - 1.27.0-1
+- Update to 1.27.0
+- Drop the OpenSSL 4 compatibility patch included upstream
+- Update build dependencies and remove the legacy test invocation
+- Package upstream documentation and man pages for all four commands
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

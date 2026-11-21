@@ -1,6 +1,6 @@
 Name:           perl-Text-JSCalendar
 Version:        0.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert between iCalendar and JSCalendar
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Text-JSCalendar
@@ -16,6 +16,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Data::ICal)
 BuildRequires:  perl(Data::ICal::Entry::Alarm::Display)
@@ -24,6 +25,7 @@ BuildRequires:  perl(Data::ICal::Entry::Event)
 BuildRequires:  perl(Data::ICal::Entry::TimeZone)
 BuildRequires:  perl(Data::ICal::Entry::TimeZone::Daylight)
 BuildRequires:  perl(Data::ICal::Entry::TimeZone::Standard)
+BuildRequires:  perl(Data::ICal::Entry::Todo)
 BuildRequires:  perl(Data::ICal::TimeZone) >= 1.23
 BuildRequires:  perl(DateTime::Format::ICal) >= 0.09
 BuildRequires:  perl(DateTime::Format::ISO8601) >= 0.08
@@ -35,12 +37,15 @@ BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(MIME::Types)
 BuildRequires:  perl(Text::LevenshteinXS) >= 0.03
 BuildRequires:  perl(Text::VCardFast) >= 0.06
-BuildRequires:  perl(URI::Escape)
 # Tests:
+BuildRequires:  perl(Encode)
 BuildRequires:  perl(HTTP::Request)
+BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Time::HiRes)
+Requires:       perl(Data::ICal::Entry::Todo)
 Requires:       perl(Data::ICal::TimeZone) >= 1.23
 Requires:       perl(DateTime::Format::ICal) >= 0.09
 Requires:       perl(DateTime::Format::ISO8601) >= 0.08
@@ -104,6 +109,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 20 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.11-2
+- Fix dependencies
+
 * Thu Nov 12 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.11-1
 - 0.11 bump
 

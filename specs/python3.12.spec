@@ -140,6 +140,13 @@ Provides: bundled(python3dist(zipp)) = 3.19.2
 # The nis module (NIS/YP client), needs libnsl2 and libtirpc
 %bcond_without nis
 
+# Use the system libb2 for the blake2 module, CPython's bundled copy otherwise
+%if %{undefined rhel}
+%bcond_without libb2
+%else
+%bcond_with libb2
+%endif
+
 # Support for the Valgrind debugger/profiler
 %ifarch %{valgrind_arches}
 %bcond_without valgrind
@@ -249,7 +256,7 @@ BuildRequires: glibc-all-langpacks
 BuildRequires: glibc-devel
 BuildRequires: gmp-devel
 BuildRequires: libappstream-glib
-%if %{undefined rhel}
+%if %{with libb2}
 BuildRequires: libb2-devel
 %endif
 BuildRequires: libffi-devel

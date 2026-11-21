@@ -10,7 +10,7 @@
 %bcond inline_snapshot_tests 1
 
 Name:           python-pydantic-core
-Version:        2.50.4
+Version:        2.50.5
 Release:        %autorelease
 Summary:        Core functionality for Pydantic validation and serialization
 
@@ -38,10 +38,6 @@ Summary:        Core functionality for Pydantic validation and serialization
 License:        %{upstream_license}
 URL:            https://github.com/pydantic/pydantic
 Source:         %{pypi_source pydantic_core}
-
-# Manually created patch for downstream crate metadata changes
-# * Bump jiter to v0.19, https://github.com/pydantic/pydantic/pull/14247
-Patch:          pydantic-core-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  tomcli
@@ -152,6 +148,10 @@ ignore="${ignore-} --ignore=tests/test_docstrings.py"
 
 # Due to patching out the pytest-timeout dependency:
 warningsfilter="${warningsfilter-} -W ignore::pytest.PytestUnknownMarkWarning"
+
+# Test test_exceptions_and_markers_report_python_references may pass unexpectedly
+# https://github.com/pydantic/pydantic/issues/14345
+k="${k-}${k+ and }not test_exceptions_and_markers_report_python_references"
 
 %pytest ${warningsfilter-} ${ignore-} -k "${k-}" -rs
 %endif

@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 
 %global pypi_name oslo.context
 %global pkg_name oslo-context
@@ -12,7 +12,7 @@ The request context is usually populated in the
 WSGI pipeline and used by various modules such as logging.}
 
 Name:           python-%{pkg_name}
-Version:        6.5.0
+Version:        6.6.0
 Release:        %autorelease
 Summary:        OpenStack Oslo Context library
 

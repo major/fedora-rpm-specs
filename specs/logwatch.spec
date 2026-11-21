@@ -2,10 +2,13 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.15
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
+# Updates already in upstream repo
+Patch1: systemd.patch
+Patch2: puppet.patch
 BuildRequires: perl-generators
 Requires: grep
 Requires: dnf5
@@ -130,6 +133,10 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Fri Nov 20 2026 Frank Crawford <frank@crawford.emu.id.au> - 7.15-2
+- Fix for puppet errors (bz2572332)
+- Match changed outputs in systemd
+
 * Fri Jul 24 2026 Frank Crawford <frank@crawford.emu.id.au> - 7.15-1
 - Update to 7.15 (bz2506024)
 

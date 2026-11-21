@@ -1,5 +1,5 @@
 Name:           virtiofsd
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        Virtio-fs vhost-user device daemon (Rust version)
 
@@ -47,7 +47,7 @@ Provides:       qemu-virtiofsd = 2:7.2.1-1
 rm -f Cargo.lock
 
 %build
-%cargo_build
+%cargo_build -- --no-default-features --features seccomp,postcopy
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
 %cargo_vendor_manifest

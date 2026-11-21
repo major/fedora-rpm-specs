@@ -13,7 +13,9 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tokio-serde
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow educe version 0.6; https://github.com/carllerche/tokio-serde/pull/37
+# * Allow educe versions up to 0.8;
+#   https://github.com/carllerche/tokio-serde/pull/37
+# * Allow rmp-serde 1, which is what Fedora ships (upstream requires 0.15)
 Patch:          tokio-serde-fix-metadata.diff
 # * Fix possible issues with educe and newer rust editions
 # * https://github.com/carllerche/tokio-serde/commit/a699aa4fa306c276644a5fe877128340a5d9b458

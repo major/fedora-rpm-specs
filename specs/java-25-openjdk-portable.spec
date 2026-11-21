@@ -2,15 +2,15 @@
 %global featurever 25
 %global interimver 0
 %global updatever 5
-%global patchver 0
-%global buildver 8
-%global portablerelease 3
+%global patchver 1
+%global buildver 2
+%global portablerelease 1
 %global rpmrelease 1
 
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver 57722aab802
+%global fipsver 9082dbb596c
 # Define JDK versions
 %global newjavaver %{featurever}.%{interimver}.%{updatever}.%{patchver}
 %global javaver         %{featurever}
@@ -705,10 +705,6 @@ Patch1001: fips-%{featurever}u-%{fipsver}.patch
 #
 #############################################
 
-# JDK-8395142: CA Enhancements
-Patch2001: 0001-8395142-CA-Enhancements.patch
-Patch2002: jdk8395690-CA-certificate-improvements.patch
-
 #############################################
 #
 # Portable build specific patches
@@ -779,7 +775,7 @@ BuildRequires: libpng-devel
 BuildRequires: zlib-devel
 %else
 # Version in src/java.desktop/share/legal/freetype.md
-Provides: bundled(freetype) = 2.14.3
+Provides: bundled(freetype) = 2.15.0
 # Version in src/java.desktop/share/native/libsplashscreen/giflib/gif_lib.h
 Provides: bundled(giflib) = 6.1.3
 # Version in src/java.desktop/share/native/libharfbuzz/hb-version.h
@@ -789,7 +785,7 @@ Provides: bundled(lcms2) = 2.19.1
 # Version in src/java.desktop/share/native/libjavajpeg/jpeglib.h
 Provides: bundled(libjpeg) = 6b
 # Version in src/java.desktop/share/native/libsplashscreen/libpng/png.h
-Provides: bundled(libpng) = 1.6.58
+Provides: bundled(libpng) = 1.6.59
 # Version in src/java.base/share/native/libzip/zlib/zlib.h
 Provides: bundled(zlib) = 1.3.2
 %endif
@@ -987,10 +983,6 @@ sh %{SOURCE12} %{top_level_dir_name}
 pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 %patch -P1001 -p1
-# Add CA Enhancements patch
-%patch -P2001 -p1
-# Add CA certificate improvements
-%patch -P2002 -p1
 popd # openjdk
 
 echo "Generating %{alt_java_name} man page"
@@ -1243,7 +1235,7 @@ function buildjdk() {
     %{?dts_command} make LOG=trace \
       WARNINGS_ARE_ERRORS="-Wno-error" \
       CFLAGS_WARNINGS_ARE_ERRORS="-Wno-error" $maketargets ||\
-        ( pwd; find ${top_dir_abs_src_path} ${top_dir_abs_build_path} -name \"hs_err_pid*.log\" | xargs cat && false )
+       ( pwd; find ${top_dir_abs_src_path} ${top_dir_abs_build_path} -name "hs_err_pid*.log" | xargs cat && false )
     popd
 }
 

@@ -1,6 +1,6 @@
 Name:           waybar
 Version:        0.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -118,6 +118,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_mandir}/man5/%{name}-gps.5*
 
 %changelog
+* Thu Nov 19 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.16.0-2
+- Remove Nerd Fonts glyphs from default config (#2575620)
+
 * Thu Nov 05 2026 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.16.0-1
 - Update to 0.16.0 (#2387223)
 

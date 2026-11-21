@@ -3,19 +3,20 @@
 
 Summary:        ASN.1 encode/decode library
 Name:           perl-Convert-ASN1
-Version:        0.34
-Release:        8%{?dist}
+Version:        0.37
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-ASN1
 Source0:        https://cpan.metacpan.org/authors/id/T/TI/TIMLEGGE/Convert-ASN1-%{version}.tar.gz
 # Allow running tests from a read-only location,
 # <https://github.com/gbarr/perl-Convert-ASN1/pull/40>
-Patch0:         Convert-ASN1-0.27-Use-temporary-output-files-for-tests.patch
+Patch0:         Convert-ASN1-0.37-Use-temporary-output-files-for-tests.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -26,8 +27,9 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(POSIX)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Socket)
-BuildRequires:  perl(Time::Local)
+BuildRequires:  perl(Time::Local) >= 1.27
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 # Optional run-time:
@@ -35,21 +37,22 @@ BuildRequires:  perl(bytes)
 # Tests:
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::Socket)
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Math::BigInt) >= 1.997
 BuildRequires:  perl(Test::More) >= 0.90
 %if %{with perl_Convert_ASN1_enables_optional_test}
 # Optional tests:
 BuildRequires:  perl(Data::Dumper)
 %endif
-Suggests:       perl(bytes)
+Recommends:     perl(bytes)
 Requires:       perl(Carp)
 Requires:       perl(Encode)
 Requires:       perl(POSIX)
-Requires:       perl(Time::Local)
+Requires:       perl(Time::Local) >= 1.27
 Requires:       perl(utf8)
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Math::BigInt\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Math::BigInt|Test::More)\\)$
 
 %description
 Convert::ASN1 encodes and decodes ASN.1 data structures using BER/DER rules.
@@ -59,6 +62,7 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(Math::BigInt) >= 1.997
+Requires:       perl(Test::More) >= 0.90
 %if %{with perl_Convert_ASN1_enables_optional_test}
 # Optional tests:
 Requires:       perl(Data::Dumper)
@@ -87,6 +91,7 @@ mkdir -p %{buildroot}/%{_libexecdir}/%{name}
 cp -a t %{buildroot}/%{_libexecdir}/%{name}
 cat > %{buildroot}/%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
+unset YYDEBUG
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}/%{_libexecdir}/%{name}/test
@@ -100,13 +105,19 @@ make test
 %files
 %license LICENSE
 %doc ChangeLog OldChanges README.md examples/
-%{perl_vendorlib}/Convert/
-%{_mandir}/man3/Convert::ASN1*.3pm*
+%dir %{perl_vendorlib}/Convert/
+%{perl_vendorlib}/Convert/ASN1
+%{perl_vendorlib}/Convert/ASN1.pm
+%{perl_vendorlib}/Convert/ASN1.pod
+%{_mandir}/man3/Convert::ASN1.3pm*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 20 2026 Petr Pisar <ppisar@redhat.com> - 0.37-1
+- 0.37 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,20 +1,3 @@
-# Add generation of HMAC checksums of the final stripped binaries.
-# %%define with lazy expansion is used here intentionally, because
-# this needs to be expanded inside of a higher level macro that
-# gets expanded itself.
-%define __spec_install_post                      \
-%{?__debug_package:%{__debug_install_post}}      \
-%{__arch_install_post}                           \
-%{__os_install_post}                             \
-fipshmac %{buildroot}%{_bindir}/%{newname}          \\\
-  %{buildroot}%{_libexecdir}/%{newname}             \\\
-  %{buildroot}%{_datadir}/%{newname}/openssl.cnf    \
-c="%{buildroot}%{_datadir}/%{newname}/config.json"  \
-if [[ -f ${c} ]]; then                           \
-  fipshmac ${c}                                  \
-fi                                               \
-%{nil}
-
 # Always do out-of-source builds with CMake.
 %{?__cmake_in_source_build:%undefine __cmake_in_source_build}
 
@@ -58,6 +41,9 @@ Source0003:       %{rel_url}/%{newname}-%{version}.tar.gz.sha256
 Source0004:       https://joinup.ec.europa.eu/sites/default/files/custom-page/attachment/2020-03/EUPL-1.2%%20EN.txt#/EUPL-12_EN.txt
 Source1000:       gen_openssl_cnf.py
 
+# Fix application crashing on startup
+Patch00001:       https://raw.githubusercontent.com/flathub/de.bund.ausweisapp.ausweisapp2/refs/heads/master/vendor.patch
+
 # Downstream.
 Patch01000:       %{name}-1.24.1-use_Qt_TranslationsPath.patch
 
@@ -90,7 +76,6 @@ BuildRequires:    qt5-qtsvg-devel
 BuildRequires:    qt5-qtwebsockets-devel
 %endif
 BuildRequires:    %{_bindir}/sha256sum
-BuildRequires:    %{_bindir}/fipshmac
 
 # Lowercase package name.
 %global lc_name   %{lua:print(string.lower(rpm.expand("%{name}")))}
@@ -116,9 +101,6 @@ Requires:         qt5-qtquickcontrols2%{?_isa}
 
 # Brainpool ECC
 Requires:         openssl-libs%{?_isa}  >= 3.0.8-2
-
-# Needed for running fipscheck on application startup.
-# Requires:         fipscheck
 
 %if 0%{?qt6_build}
 # Needed for GUI elements to be rendered
@@ -184,12 +166,6 @@ install -pm 0644 %{SOURCE4} LICENSE.en.txt
 # Create the shell wrapper.
 cat << EOF > fedora_%{name}_wrapper.sh
 #!/bin/sh
-# /usr/bin/fipscheck                               \\
-#     %{_bindir}/%{newname}                         \\
-#     %{_libexecdir}/%{newname}                     \\
-#     %{_datadir}/%{newname}/config.json           \\
-#     %{_datadir}/%{newname}/openssl.cnf           \\
-# || exit \$?;
 OPENSSL_CONF=%{_datadir}/%{newname}/openssl.cnf  \\
 %{_libexecdir}/%{newname} "\$@";
 EOF
@@ -274,10 +250,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license AUTHORS
 %license LICENSE.en.txt
 %license LICENSE.txt
-%{_bindir}/.%{newname}.hmac
 %{_bindir}/%{newname}
 %{_datadir}/applications/com.governikus.%{lc_name}.desktop
-%{_libexecdir}/.%{newname}.hmac
 %{_libexecdir}/%{newname}
 %{_mandir}/man1/%{newname}.1*
 %{_metainfodir}/com.governikus.%{lc_name}.metainfo.xml

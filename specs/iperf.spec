@@ -1,12 +1,13 @@
 #%%global alphatag rc
 
 Name: iperf
-Version: 2.2.1
-Release: 5%{?alphatag:.%{alphatag}}%{?dist}
+Version: 2.2.2
+Release: 6%{?alphatag:.%{alphatag}}%{?dist}
 Summary: Measurement tool for TCP/UDP bandwidth performance
 License: BSD-3-Clause
 URL: http://sourceforge.net/projects/iperf2
 Source: http://sourceforge.net/projects/iperf2/files/%{name}-%{version}%{?alphatag:-%{alphatag}}.tar.gz
+ExcludeARch: %{ix86}
 BuildRequires: gcc-c++
 BuildRequires: make
 
@@ -20,7 +21,8 @@ jitter, datagram loss.
 
 %build
 %configure
-%{__make} %{?_smp_mflags}
+%make_build CFLAGS="%{optflags}" CXXFLAGS="%{optflags}" \
+	    LDFLAGS="%{?__global_ldflags}" %{?_smp_mflags}
 
 %install
 %{__rm} -rf %{buildroot}
@@ -32,6 +34,12 @@ jitter, datagram loss.
 %{_mandir}/man*/*
 
 %changelog
+* Fri Nov 20 2026 Gabriel Somlo <gsomlo@gmail.com> - 2.2.2-6
+- exclude failing i686 arch
+
+* Fri Nov 20 2026 Gabriel Somlo <gsomlo@gmail.com> - 2.2.2-5
+- update to 2.2.2 (#2572680)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

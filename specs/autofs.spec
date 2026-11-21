@@ -15,10 +15,11 @@
 Summary: A tool for automatically mounting and unmounting filesystems
 Name: autofs
 Version: 5.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 License: GPL-2.0-or-later
 Source: https://www.kernel.org/pub/linux/daemons/autofs/v5/autofs-%{version}.tar.gz
+Patch1: autofs-5.2.0-fix-map-type-check-when-reading-master-map.patch
 
 %if %{with systemd}
 BuildRequires: systemd-units
@@ -194,6 +195,9 @@ fi
 %dir /etc/auto.master.d
 
 %changelog
+* Wed Nov 11 2026 Ian Kent <ikent@redhat.com> - 1:5.2.0-2
+- fix map type check when reading master map.
+
 * Wed Nov 11 2026 Ian Kent <ikent@redhat.com> - 1:5.2.0-1
 - Update to upstream release 5.2.0.
 

@@ -16,6 +16,9 @@ Source:         %{pypi_source typing_extensions}
 # test_typing_extensions.LiteralTests.test_args is failing with python 3.14.7
 # https://github.com/python/typing_extensions/issues/784
 Patch:          https://github.com/python/typing_extensions/commit/79c903c7d9ec4cfa30b7ca38a795adc1c100b45a.patch
+# Skip the legacy asyncio coroutine test when its API is unavailable (Python 3.16+)
+# https://github.com/python/typing_extensions/issues/809
+Patch:          https://github.com/python/typing_extensions/commit/a2024556ab75799fbd2f41d1c2d114dd6372de12.patch
 
 BuildArch:      noarch
 

@@ -1,5 +1,5 @@
 Name:           vdr-epg-daemon
-Version:        1.4.2
+Version:        1.4.5
 Release:        1%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 License:        GPL-1.0-or-later AND GPL-2.0-only AND LicenseRef-Callaway-BSD
@@ -125,6 +125,9 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Fri Nov 20 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.4.5-1
+- Update to 1.4.5
+
 * Wed Nov 18 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.4.2-1
 - Update to 1.4.2
 

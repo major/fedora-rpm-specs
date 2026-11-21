@@ -21,7 +21,12 @@
 #
 
 %global upstreamname stinkytofu
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 10.2
+%else
 %global rocm_release 10.1
+%endif
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -33,7 +38,11 @@
 
 Name:           rocm-stinkytofu
 Version:        %{rocm_version}
+%if %{with preview}
+Release:        0%{?dist}
+%else
 Release:        1%{?dist}
+%endif
 Summary:        A LLVM-inspired pass-based IR optimizer for AMD GPU assembly kernels
 License:        MIT AND BSD-3-Clause
 # https://github.com/ROCm/rocm-libraries/issues/7864

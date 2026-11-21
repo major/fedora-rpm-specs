@@ -1,5 +1,5 @@
 Name:           noctalia
-Version:        5.5.0
+Version:        5.6.0
 Release:        %autorelease
 ExcludeArch:    %{ix86}
 Summary:        A sleek, customizable desktop shell crafted for Wayland
@@ -28,9 +28,6 @@ License:        Apache-2.0 AND MIT AND BSD-3-Clause AND HPND-sell-variant AND LG
 
 URL:            https://github.com/noctalia-dev/noctalia
 Source:         %{url}/archive/v%{version}/noctalia-%{version}.tar.gz
-# needed to make toplevel_thumbnail_capture test pass on s390x
-# https://github.com/noctalia-dev/noctalia/commit/12d96bd9d9c15a5488a9985336ca65d8eaddddf5
-Patch:          0001-test-capture-encode-thumbnail-test-pixels-as-little-endian-wl_shm-words.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -182,6 +179,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/dev.noctalia.Noctalia
 %files
 %license LICENSE*
 %{_bindir}/noctalia
+%{_libexecdir}/noctalia
 %{_datadir}/applications/dev.noctalia.Noctalia.desktop
 %{_datadir}/applications/dev.noctalia.Noctalia.Annotator.desktop
 %{_datadir}/icons/hicolor/scalable/apps/noctalia.svg

@@ -12,12 +12,15 @@ sha256sum:close()
 print(string.sub(hash, 0, 16))
 }
 
-Version: 3.8.13
+Version: 3.8.14
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
 Patch: gnutls-3.2.7-rpath.patch
 
 # follow https://gitlab.com/gnutls/gnutls/-/issues/1443
 Patch: gnutls-3.8.8-tests-ktls-skip-tls12-chachapoly.patch
+
+# revert test extension that made ktls fail
+Patch: gnutls-3.8.14-revert-test-key-update-fallthrough.patch
 
 %bcond_without bootstrap
 %bcond_without dane
@@ -406,7 +409,6 @@ autoreconf -fi
 %endif
 
 sed -i -e 's|sys_lib_dlsearch_path_spec="/lib /usr/lib|sys_lib_dlsearch_path_spec="/lib /usr/lib %{_libdir}|g' configure
-rm -f lib/minitasn1/*.c lib/minitasn1/*.h
 
 echo "SYSTEM=NORMAL" >> tests/system.prio
 

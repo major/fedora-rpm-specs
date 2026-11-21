@@ -20,7 +20,7 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        65.19
+Version:        65.21
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -30,11 +30,6 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 # zpaqfranz.cpp parts from zpaq:    LicenseRef-Fedora-Public-Domain
 #               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/306>
 #               <https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/728>
-# zpaqfranz.cpp parts from libtom/libtomcrypt:  LicenseRef-Fedora-Public-Domain OR WTFPL
-#                                               (this bundle)
-#                                   (relicensed to Unlicense later
-#                                   <https://github.com/libtom/libtomcrypt/commit/3630bee6fc0f73dd9c7923fd43f8ae15a2c0fb70>)
-# zpaqfranz.cpp parts from salsa20: LicenseRef-Fedora-Public-Domain
 # zpaqfranz.cpp parts from 7-zip:   LicenseRef-Fedora-Public-Domain
 # zpaqfranz.cpp parts from libdivsufsort-lite:  MIT
 # zpaqfranz.cpp parts from Embedded Artistry:   MIT
@@ -47,7 +42,6 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 # zpaqfranz.cpp parts from memcached: BSD-2-Clause
 # zpaqfranz.cpp parts from BLAKE3-team/BLAKE3:  CC0-1.0 OR Apache-2.0
 # zpaqfranz.cpp parts from Whirlpool:   LicenseRef-Fedora-Public-Domain
-# zpaqfranz.cpp parts from wernerd/ZRTPCPP Twofish: Ferguson-Twofish
 # zpaqfranz.cpp parts from google/highwayhash:  Apache-2.0
 # zpaqfranz.cpp parts from Bill-Gray/PDCursesMod: LicenseRef-Fedora-Public-Domain
 # zpaqfranz.cpp parts from noloader/SHA-Intrinsics: LicenseRef-Fedora-Public-Domain
@@ -61,6 +55,11 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 #       ZSFX/libzpaq.cpp using mingw
 ## Not used at build time and not in any binary package
 # man/zpaqfranz.1:      LicenseRef-Fedora-Public-Domain (built from man/zpaqfranz.pod)
+# zpaqfranz.cpp parts from libtom/libtomcrypt:  LicenseRef-Fedora-Public-Domain OR WTFPL
+#                                               (this bundle)
+#                                   (relicensed to Unlicense later
+#                                   <https://github.com/libtom/libtomcrypt/commit/3630bee6fc0f73dd9c7923fd43f8ae15a2c0fb70>)
+# zpaqfranz.cpp parts from salsa20: LicenseRef-Fedora-Public-Domain
 # zpaqfranz.cpp parts from cURL: curl
 # zpaqfranz.cpp parts claimed to be from libfuse (LGPL-2.1-only AND GPL-2-only)
 #       but there is no such code
@@ -70,7 +69,6 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 # zpaqfranz.cpp parts from Mbed TLS: Apache-2.0 OR GPL-2.0-or-later
 # zpaqfranz.cpp parts from Monocypher 4.0.2: BSD-2-Clause (OR CC0-1.0)
 #       Fedora does not recognize CC0-1.0 for a code.
-#       TODO: Extract license text when built without -DNOFRANZEN.
 #       XXX: Building with -DNOFRANZEN to disable this bundled
 #       cryptographical library
 #       <https://github.com/fcorbelli/zpaqfranz/issues/359>.
@@ -78,20 +76,17 @@ Summary:        Advanced multiversioned archiver with hardware acceleration
 #       (a subset and an old version of zpaqfranz.cpp)
 # ZSFX/LICENSE:     MIT text
 # ZSFX/zsfx.cpp:    MIT
-License:        MIT AND Apache-2.0 AND BSD-2-Clause AND Ferguson-Twofish AND (LicenseRef-Fedora-Public-Domain OR WTFPL) AND Unlicense AND Zlib AND LicenseRef-Fedora-Public-Domain
-SourceLicense:  %{license} AND curl AND (BSD-3-Clause OR GPL-2.0-only) AND (Apache-2.0 OR GPL-2.0-or-later)
+License:        MIT AND Apache-2.0 AND BSD-2-Clause AND Unlicense AND Zlib AND LicenseRef-Fedora-Public-Domain
+SourceLicense:  %{license} AND (LicenseRef-Fedora-Public-Domain OR WTFPL) AND curl AND (BSD-3-Clause OR GPL-2.0-only) AND (Apache-2.0 OR GPL-2.0-or-later)
 URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Unbundle curl.h and fix loading curl libary, probably not suitable for
 # the upstream.
-Patch0:         zpaqfranz-65.19-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
+Patch0:         zpaqfranz-65.21-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
 # Unbundle zstd, probably not suitable for the upstream.
-Patch1:         zpaqfranz-65.19-Unbundle-zstd.patch
+Patch1:         zpaqfranz-65.20-Unbundle-zstd.patch
 # Unbundle mbedtls, probably not suitable for the upstream.
 Patch2:         zpaqfranz-65.19-Unbundle-mbedtls.patch
-# Fix building with -DNOFRANZEN, proposed upstream,
-# <https://github.com/fcorbelli/zpaqfranz/pull/358>
-Patch3:         zpaqfranz-65.19-Fix-building-with-DNOFRANZEN.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
@@ -140,9 +135,9 @@ Recommends:     (mariadb or mysql)
 %description
 This is a Swiss army knife for backup and disaster recovery with deduplicated
 snapshots. It efficiently keeps backups, without a need to ever prune. Handles
-millions of files and terabytes of data. Non-Latin support. Backups with full
-encryption. Data integrity check with CRC32 and XXHASH or SHA-1, SHA-2, SHA-3,
-MD5, XXH3, or BLAKE3. Multithread support. Specific ZFS handling functions.
+millions of files and terabytes of data. Non-Latin support. Data integrity
+check with CRC32 and XXHASH or SHA-1, SHA-2, SHA-3, MD5, XXH3, or BLAKE3.
+Multithread support. Specific ZFS handling functions.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
@@ -163,24 +158,26 @@ sed -n -e '/^Credits and copyrights and licenses/,/^   _____ _____/ p' \
 %build
 # Don't use Makefile: It does not recognize s390x, strips executables.
 %{build_cxx} %{optflags} \
+    -DNOAES \
+%ifarch s390x
+    -DBIG \
+%endif
+%ifarch x86_64
+    -DHWSHA2 \
+%endif
     -DIPV6 \
-    -Dunix \
 %if %{with smtp}
     $(pkg-config --cflags mbedcrypto mbedtls mbedx509) \
 %else
     -DNOEMAIL \
 %endif
+    -DNOFRANZEN \
 %if %{without jit}
     -DNOJIT \
 %endif
-%ifarch x86_64
-    -DHWSHA2 \
-%endif
-%ifarch s390x
-    -DBIG \
-%endif
-    -DNOFRANZEN \
     -DSFTP \
+    -Dunix \
+    -DNOUPDATE \
 %if %{with fuse}
     -DZPAQMOUNT \
     $(pkg-config --cflags fuse3) \
@@ -220,6 +217,14 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Fri Nov 20 2026 Petr Pisar <ppisar@redhat.com> - 1:65.21-1
+- 65.21 bump
+
+* Fri Nov 20 2026 Petr Pisar <ppisar@redhat.com> - 1:65.20-1
+- 65.20 bump
+- AES encryption and scrypt key derivation disabled
+- "update" subcommand disabled
+
 * Mon Nov 09 2026 Petr Pisar <ppisar@redhat.com> - 1:65.19-1
 - 65.19 bump
 - "franzen" subcommands disabled

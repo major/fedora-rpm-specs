@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An expression evaluator library for Python
 
 License:        MIT
@@ -47,7 +47,8 @@ eval() or other unsafe or needlessly complex linguistics.
 
 
 %check
-%{__python3} -Werror -m unittest
+# don't use -Werror here to workaround https://bugzilla.redhat.com/show_bug.cgi?id=2578803
+%{__python3} -m unittest
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}
@@ -56,6 +57,9 @@ eval() or other unsafe or needlessly complex linguistics.
 
 
 %changelog
+* Fri Nov 20 2026 Dan Horák <dan[at]danny.cz> - 1.0.8-2
+- add workaround for Python 3.16+ (rhbz#2578803)
+
 * Sat Sep 12 2026 Dan Horák <dan[at]danny.cz> - 1.0.8-1
 - updated to 1.0.8 (rhbz#2532602)
 

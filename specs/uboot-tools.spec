@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2027.01
-Release:  0.1%{?candidate:.%{candidate}}%{?dist}
+Release:  0.2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -48,7 +48,7 @@ Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
 # Fix AllWinner
 Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
 # RPi
-Patch20:  Fix-NVMe-not-only-on-Raspberry-Pi-5.patch
+Patch20:  fix-NVMe-on-Raspberry-Pi.patch
 Patch21:  raspberrypi-Add-quirk-for-RPi5-2Gb-rev-1.0.patch
 Patch22:  rpi-copy-chosen-bootloader-partition-and-set-boot_partition.patch
 
@@ -316,6 +316,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Fri Nov 20 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2027.01-0.2.rc2
+- Update patches for RPi5 NVME boot, DTB loading
+
 * Tue Nov 17 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2027.01-0.1.rc2
 - Update to 2027.01 RC2
 

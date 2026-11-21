@@ -2,7 +2,7 @@
 %global so_version 3
 
 Name: htslib
-Version: 1.24
+Version: 1.25
 Release: 1%{?dist}
 Summary: C library for high-throughput sequencing data formats
 
@@ -117,6 +117,9 @@ make test
 
 
 %changelog
+* Fri Nov 20 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.25-1
+- Update to 1.25 (rhbz#2562003)
+
 * Fri Jul 17 2026 Rasmus Ory Nielsen <ron@ron.dk> - 1.24-1
 - Update to 1.24 (#2498588)
 

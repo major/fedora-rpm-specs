@@ -1,8 +1,8 @@
+%global source_version %%(echo "%version" | tr '~' '-')
+
 # https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_3
 %global sub_version                     1.0
 %global require_ibus_version            1.5.3
-%global have_default_layout             1
-%global have_bridge_hotkey              1
 %global with_python3                    1
 
 %if (0%{?fedora} > 33 || 0%{?rhel} > 8)
@@ -17,30 +17,34 @@
 %endif
 
 Name:           ibus-anthy
-Version:        1.5.18
+Version:        1.5.19~alpha4
 Release:        %autorelease
 Summary:        The Anthy engine for IBus input platform
 License:        GPL-2.0-or-later
 URL:            https://github.com/ibus/ibus/wiki
-Source0:        https://github.com/ibus/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
-Source1:        https://github.com/ibus/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz.sum#/%{name}.tar.gz.sum
+Source0:        https://github.com/ibus/%{name}/releases/download/%{source_version}/%{name}-%{source_version}.tar.xz
+Source1:        https://github.com/ibus/%{name}/releases/download/%{source_version}/%{name}-%{source_version}.tar.xz.sha256sum#/%{name}.tar.xz.sha256sum
 
 # Upstreamed patches.
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 Patch1:         %{name}-1938129-default-hiragana.patch
 
-BuildRequires:  anthy-unicode-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  gettext-devel
+BuildRequires:  gettext
 BuildRequires:  git
-BuildRequires:  glib2-devel
-BuildRequires:  gobject-introspection-devel
-BuildRequires:  ibus 
+# %%check requires gtk3, ibus-daemon, ps besides ibus-libs
+BuildRequires:  gtk3
+BuildRequires:  ibus
 BuildRequires:  libtool
-BuildRequires:  pkgconfig
+BuildRequires:  meson
+BuildRequires:  procps-ng
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
+BuildRequires:  pkgconfig(anthy-unicode)
+BuildRequires:  pkgconfig(glib-2.0)
+# gtk4 and pango requires gobject-introspection-devel
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
+BuildRequires:  pkgconfig(ibus-1.0)
 BuildRequires:  /usr/bin/appstream-util
 
 Requires:       ibus >= %{require_ibus_version}
@@ -89,36 +93,28 @@ the functionality of the installed %{name} package.
 
 
 %prep
-SAVED_SUM=$(grep sha512sum %SOURCE1 | awk '{print $2}')
-MY_SUM=$(sha512sum %SOURCE0 | awk '{print $1}')
+SAVED_SUM=$(cat %SOURCE1 | awk '{print $1}')
+MY_SUM=$(sha256sum %SOURCE0 | awk '{print $1}')
 if test x"$SAVED_SUM" != x"$MY_SUM" ; then
     abort
 fi
-%autosetup -S git
+%autosetup -S git -n %{name}-%{source_version}
 
 %build
-#autoreconf -f -i -v
-autoreconf -f -i -v
-%configure \
-%if %have_default_layout
-  --with-layout='default' \
-%endif
-%if %have_bridge_hotkey
-  --with-hotkeys \
-%endif
+%meson \
 %if %{with kasumi_unicode}
-  --with-kasumi-exec=/usr/bin/kasumi-unicode \
+  -Dkasumi-exec=/usr/bin/kasumi-unicode \
 %endif
-  --with-on-off-keys="'Zenkaku_Hankaku', 'Ctrl+space', 'Ctrl+J'" \
-  --enable-installed-tests \
-  --disable-static
-# make -C po update-gmo
-make %{?_smp_mflags}
+  -Don-off-keys="[ 'Zenkaku_Hankaku', 'Ctrl+space', 'Ctrl+J' ]" \
+  -Dinstall-tests=true \
+   %{nil}
 
-%install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
+%meson_build
 rm -f $RPM_BUILD_ROOT%{_libdir}/libanthygobject-%{sub_version}.la
 
+%meson_install
+
+rm $RPM_BUILD_ROOT%{_datadir}/ibus-anthy/icons/ibus-anthy.png
 
 %find_lang %{name}
 
@@ -128,7 +124,7 @@ desktop-file-validate \
 appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.xml
 export LANG=C.UTF-8
 locale
-make -C data check
+%meson_test
 
 %ldconfig_scriptlets libs
 
@@ -164,4 +160,3 @@ make -C data check
 
 %changelog
 %autochangelog
-

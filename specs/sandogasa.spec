@@ -1,6 +1,10 @@
 # build and test everything, not just shipped tools
 %bcond build_and_test_all 1
 
+# 19 statically linked tools with full debuginfo make find-debuginfo
+# and dwz take too long to run; line tables keep backtraces useful
+%global rustflags_debuginfo 1
+
 # not shipping dbranch as it's not that useful in Fedora
 %global tools %{shrink:
   cbspkg
@@ -19,10 +23,12 @@
   sandogasa-pkg-acl
   sandogasa-pkg-health
   sandogasa-report
+  specport
+  timebook
 }
 
 Name:           sandogasa
-Version:        0.28.2
+Version:        0.29.0
 Release:        %autorelease
 Summary:        A collection of Fedora and CentOS packaging tools
 
@@ -62,6 +68,8 @@ License:        %{shrink:
 
 URL:            https://github.com/slopfest/sandogasa
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# fixes the tests on s390x, where one took s390x for a foreign architecture
+Patch:          %{url}/commit/70eb7154cc70d1a2daf6a9ec2579d5fbb8f68e56.patch#/sandogasa-cbs-host-rpm-arch.patch
 
 # Only binary tools are shipped, no source-only -devel packages for other
 # packages to build against, so nothing needs them on i686. Since 0.28.1,
@@ -71,7 +79,15 @@ ExcludeArch:    %{ix86}
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  git-core
 
+# specport shows the changes it would make with diff, and reads a source
+# tarball with tar; neither is certain on a minimal system or container
+Requires:       diffutils
 Requires:       koji
+Requires:       tar
+# the tools' config commands keep tokens in the desktop keyring through
+# secret-tool (GNOME Keyring, or KWallet's Secret Service), and fall
+# back to their config files without it
+Recommends:     /usr/bin/secret-tool
 # ebranch check-update reads the licenses of bundled Go and Rust
 # dependencies with askalono
 Recommends:     askalono-cli

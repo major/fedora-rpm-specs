@@ -2,13 +2,14 @@
 
 Name: libuser
 Version: 0.64
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: LGPL-2.0-or-later
 URL: https://codeberg.org/libuser/libuser
 Source: libuser-%{version}.tar.gz
 # https://pagure.io/libuser/pull-request/71
 Patch: 0001-tests-use-crypt_r-with-Python-3.13.patch
 Patch1:  libuser-0.64-editlocation.patch
+Patch2:  libuser-0.64-precheckhash.patch
 
 BuildRequires: glib2-devel
 BuildRequires: linuxdoc-tools
@@ -131,6 +132,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Fri Nov 20 2026 Jakub Haruda <jharuda@redhat.com> - 0.64-22
+- Verify password hash format before creating an user
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.64-21
 - Rebuilt for Python 3.15.0b4 ABI change
 

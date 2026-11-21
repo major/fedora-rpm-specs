@@ -5,7 +5,7 @@
 %global crate zip
 
 Name:           rust-zip
-Version:        9.4.1
+Version:        9.8.1
 Release:        %autorelease
 Summary:        Library to support the reading and writing of zip files
 
@@ -28,6 +28,14 @@ Patch:          zip-fix-metadata-auto.diff
 # * Patch out the nt-time features; rust-nt-time not yet packaged
 # * Patch out the deflate-flate2-zlib-ng-compat feature, which requires
 #   flate2/zlib-ng-compat, not packaged.
+# * Patch out the zstd-rs feature, which would bring in zstd/rust-backend, “Use
+#   the libzstd-rs-sys Rust port instead of the C library. Experimental, see the
+#   readme.” See also https://github.com/trifectatechfoundation/libzstd-rs-sys.
+#   We are not interested in packaging a crate that is *not even at 0.0.1 yet*.
+# * Temporarily allow zstd 0.14.3; upstream wants 0.14.4, but this is for the
+#   rust-backend feature, which would only be needed for zip’s zstd-rs feature,
+#   which we have patched out. See
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2572927.
 Patch:          zip-fix-metadata.diff
 # * Downstream-only: patch out tests that would need omitted test files to
 #   compile
@@ -82,6 +90,18 @@ This package contains library source intended for building other packages which
 use the "_arbitrary" feature of the "%{crate}" crate.
 
 %files       -n %{name}+_arbitrary-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+_bsd_compatible_features-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+_bsd_compatible_features-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "_bsd_compatible_features" feature of the "%{crate}" crate.
+
+%files       -n %{name}+_bsd_compatible_features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+_bzip2_any-devel
@@ -178,6 +198,18 @@ This package contains library source intended for building other packages which
 use the "chrono" feature of the "%{crate}" crate.
 
 %files       -n %{name}+chrono-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+constant_time_eq-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+constant_time_eq-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "constant_time_eq" feature of the "%{crate}" crate.
+
+%files       -n %{name}+constant_time_eq-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+deflate-devel
@@ -370,6 +402,18 @@ This package contains library source intended for building other packages which
 use the "xz" feature of the "%{crate}" crate.
 
 %files       -n %{name}+xz-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zeroize-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zeroize-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zeroize" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zeroize-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+zstd-devel

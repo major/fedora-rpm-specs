@@ -24,7 +24,12 @@
 %global pkg_library_name %{upstreamname}
 %global pkg_library_version 1
 
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 10.2
+%else
 %global rocm_release 10.1
+%endif
 
 %global rocm_patch 0
 %global pkg_src therock-%{rocm_release}
@@ -49,7 +54,11 @@
 
 Name:       rocm-origami%{pkg_suffix}
 Version:    %{rocm_version}
+%if %{with preview}
+Release:    0%{?dist}
+%else
 Release:    1%{?dist}
+%endif
 Summary:    Analytical GEMM Solution Selection
 
 License:    MIT

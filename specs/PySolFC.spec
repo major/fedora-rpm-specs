@@ -2,7 +2,7 @@
 %global arcbase pysolfc
 
 Name:           PySolFC
-Version:        3.6.1
+Version:        3.7.0
 Release:        1%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPL-2.0-or-later
@@ -92,6 +92,9 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Fri Nov 20 2026 Shlomi Fish <shlomif@shlomifish.org> 3.7.0-1
+- New version 3.7.0
+
 * Wed Jul 22 2026 Shlomi Fish <shlomif@cpan.org> 3.6.1-1
 - New version 3.6.1
 

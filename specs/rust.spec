@@ -161,6 +161,10 @@ Patch8:         0001-Enable-SHSTK-by-default-on-x86_64-unknown-linux-gnu.patch
 # Ensure llvm worker threads have sufficient stack space. Backport of #163289.
 Patch9:         0001-Ensure-llvm-worker-threads-have-sufficient-stack-spa.patch
 
+# Allow unused dependencies reported by Cargo 1.100 (as stage0)
+# https://github.com/rust-lang/rust/pull/163483/changes/daa24324904fa6aa460a22de733068c8dcb0323d
+Patch10:        0001-adjust-for-new-Cargo-lints.patch
+
 ### RHEL-specific patches below ###
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
@@ -275,9 +279,16 @@ BuildRequires:  gnupg2
 BuildRequires:  gpgverify
 %endif
 
-BuildRequires:  make
+# Prefer clang when custom toolchains are supported (Fedora, RHEL >= 9)
+%if %defined toolchain
+%global toolchain clang
+BuildRequires:  clang%{?llvm_compat_version}
+%else
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+%endif
+
+BuildRequires:  make
 BuildRequires:  ncurses-devel
 # explicit curl-devel to avoid httpd24-curl (rhbz1540167)
 BuildRequires:  curl-devel
@@ -744,6 +755,7 @@ test "$(cut -d' ' -f1 ./version)" = "%{lua: print((rpm.expand('%version'):gsub('
 %patch -P7 -p1
 %patch -P8 -p1
 %patch -P9 -p1
+%patch -P10 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1

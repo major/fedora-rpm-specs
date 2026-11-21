@@ -1,6 +1,6 @@
 Name:		iodine
-Version:	0.9.0
-Release:	2%{?dist}
+Version:	0.9.1
+Release:	1%{?dist}
 Summary:	Solution to tunnel IPv4 data through a DNS server
 Summary(ru):	Решение для туннелирования IPv4 трафика через DNS сервер
 License:	ISC
@@ -23,6 +23,8 @@ BuildRequires:	meson
 BuildRequires:	gcc
 BuildRequires:	zlib-devel
 BuildRequires:	systemd-devel
+BuildRequires:	libselinux-devel
+BuildRequires:	libcap-ng-devel
 
 Requires:	%{name}-client = %{version}-%{release}
 Requires:	%{name}-server = %{version}-%{release}
@@ -140,6 +142,9 @@ install -Dp -m 0644 %{SOURCE8} %{buildroot}/%{_unitdir}/%{name}-server.service
 %{_unitdir}/%{name}-server.service
 
 %changelog
+* Fri Nov 20 2026 Gabriel L. Somlo <gsomlo@gmail.com> - 0.9.1-1
+- update to 0.9.1 (#2573653)
+
 * Fri Oct 30 2026 Gabriel L. Somlo <gsomlo@gmail.com> - 0.9.0-2
 - spec file cleanup
 

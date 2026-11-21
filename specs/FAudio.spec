@@ -1,6 +1,9 @@
+# TODO: extract to mono-srpm-macros?
+%global mono_arches %{ix86} x86_64 sparc sparcv9 ia64 %{arm} alpha s390x ppc ppc64 ppc64le
+
 Name:     FAudio
-Version:  25.05
-Release:  5%{?dist}
+Version:  26.11
+Release:  2%{?dist}
 Summary:  FNA is a reimplementation of the Microsoft XNA Game Studio 4.0 Refresh libraries
 
 License:  zlib
@@ -8,8 +11,14 @@ URL:      https://fna-xna.github.io/
 Source0:  https://github.com/FNA-XNA/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires: cmake
+BuildRequires: ninja-build
 BuildRequires: gcc
 BuildRequires: gcc-c++
+
+%ifarch %{mono_arches}
+BuildRequires: mono-core
+BuildRequires: mono-devel
+%endif
 
 BuildRequires: SDL3-devel
 
@@ -36,6 +45,25 @@ This is FAudio, an XAudio reimplementation that focuses solely on developing
 fully accurate DirectX Audio runtime libraries for the FNA project, including
 XAudio2, X3DAudio, XAPO, and XACT3.
 
+%ifarch %{mono_arches}
+%package csharp
+Summary:   %{summary}
+BuildArch: noarch
+%{lua:
+  local mono_arches = rpm.expand("%{mono_arches}")
+  local version = rpm.expand("%{version}")
+  local release = rpm.expand("%{release}")
+  for arch in string.gmatch(mono_arches, "[^ ]+") do
+    print("Requires: (libFAudio." .. arch .. " = " .. version .. "-" .. release .. " if mono-core." .. arch .. ")\n")
+  end
+}
+Requires:  (mingw32-%{name} = %{version}-%{release} if mingw32-wine-mono)
+Requires:  (mingw64-%{name} = %{version}-%{release} if mingw64-wine-mono)
+
+
+%description csharp
+This is FAudio#, a C# wrapper for FAudio, an XAudio reimplementation for FNA.
+%endif
 
 %package -n libFAudio-devel
 Summary:  Development files for the FAudio library
@@ -69,27 +97,51 @@ BuildArch:      noarch
 
 %prep
 %autosetup -p1
-mkdir ../mingw-build
-cp -rp . ../mingw-build
 
 
 %build
-%cmake
+%cmake -GNinja
 %cmake_build
 
-pushd ../mingw-build
-%mingw_cmake
-%mingw_make %{?_smp_mflags}
-popd
+%ifarch %{mono_arches}
+cp csharp/app.config %{_vpath_builddir}/FAudio-CS.dll.config
+# We don't have a bundled key, so borrow mono's.
+# This is intended usage, read rpms/mono's changelog for more info.
+mcs -unsafe -debug -keyfile:/etc/pki/mono/mono.snk -out:%{_vpath_builddir}/FAudio-CS.dll -target:library csharp/FAudio.cs
+%endif
+
+%mingw_cmake -GNinja
+%mingw_ninja
 
 
 %install
 %cmake_install
 
-pushd ../mingw-build
-%mingw_make_install
+%ifarch %{mono_arches}
+gacutil -i %{_vpath_builddir}/FAudio-CS.dll -package %{name} -root %{buildroot}%{_prefix}/lib
+mkdir -p %{buildroot}%{_datadir}/pkgconfig/
+cat <<'EOF' > %{buildroot}%{_datadir}/pkgconfig/FAudio-CS.pc
+prefix=%{_prefix}
+exec_prefix=%{_exec_prefix}
+libdir=%{_prefix}/lib
+
+Name: FAudio#
+Description: Mono bindings for FAudio, an XAudio reimplementation for FNA.
+Version: %{version}
+Libs: -r:${libdir}/mono/FAudio/FAudio-CS.dll
+EOF
+%endif
+
+%mingw_ninja_install
 %mingw_debug_install_post
+
+
+%check
+%ifarch %{mono_arches}
+pushd %{_vpath_builddir}
+mono-shlib-cop FAudio-CS.dll
 popd
+%endif
 
 
 %files -n libFAudio
@@ -110,6 +162,15 @@ popd
 %{_includedir}/FAPOFX.h
 %{_includedir}/FAudio.h
 %{_includedir}/FAudioFX.h
+
+
+%ifarch %{mono_arches}
+%files csharp
+%license LICENSE
+%{_monodir}/%{name}/
+%{_monogacdir}/FAudio-CS/
+%{_datadir}/pkgconfig/FAudio-CS.pc
+%endif
 
 
 %files -n mingw32-%{name}
@@ -145,6 +206,13 @@ popd
 
 
 %changelog
+* Thu Nov 19 2026 Zephyr Lykos <fedora@mochaa.ws> - 26.11-2
+- conditionally build FAudio-CS
+- depend on the correct native lib for corresponding mono-core
+
+* Tue Nov 17 2026 Zephyr Lykos <fedora@mochaa.ws> - 26.11-1
+- new version
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 25.05-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 %global sources_gpg 1
 
 %global sname ironicclient
@@ -6,7 +6,7 @@
 %global common_desc A python and command line client library for Ironic
 
 Name:           python-ironicclient
-Version:        6.3.0
+Version:        6.4.0
 Release:        %autorelease
 Summary:        Python client for Ironic
 

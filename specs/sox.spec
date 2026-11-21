@@ -1,16 +1,24 @@
 %global forgeurl    https://codeberg.org/sox_ng/sox_ng
-%global commit      a4a14b4f58ac2c08c4cc416a7cffe8a4c50a0b7d
+%global commit      6edd3b3ae204908101a8c1bd54903971e0393b4d
 
 Name:           sox
-Version:        14.8.1
+Version:        14.9.0
 Summary:        Audio processing utility
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-only AND BSD-3-Clause AND MIT
-Release:        %autorelease
 
+%if 0%{?buildtag:1}
 %forgemeta
+%global build_id %{lua:print((rpm.expand("%{buildtag}"):gsub("^%.copr", "")))}
+Release:        %autorelease -s %{build_id}
+%else
+Release:        %autorelease
+%forgemeta
+%endif
 
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+Patch0:         opus-format-security.patch
+Patch1:         sox-fix-curl-argv-overflow.patch
 
 BuildRequires:  bc
 BuildRequires:  gcc
@@ -33,6 +41,7 @@ BuildRequires:  libpng-devel
 BuildRequires:  libsndfile-devel
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  libvorbis-devel
+BuildRequires:  libopusenc-devel
 BuildRequires:  opusfile-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  speex-devel
@@ -55,7 +64,7 @@ Headers, libraries, pkg-config data and manual pages for developing software
 against SoX and SoX_ng.
 
 %prep
-%forgesetup
+%forgeautosetup -p1
 
 cp -p libdolbyb/COPYING COPYING.libdolbyb
 cp -p libebur128/COPYING COPYING.libebur128

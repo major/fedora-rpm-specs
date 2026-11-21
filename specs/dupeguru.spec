@@ -1,7 +1,7 @@
 %global         forgeurl0 https://github.com/carlbyington2/dupeguru
 %global         version0  4.3.1
-%global         date      20261106
-%global         commit    7a2c79ff790ccc7c0f8ec3181ef1eba411026e55
+%global         date      20261120
+%global         commit    c1af49cd9dc023567ebbcaa43cbe7f63612c4d61
 %forgemeta
 
 Summary:        GUI tool to find duplicate files by content
@@ -27,10 +27,6 @@ License:        GPL-3.0-only AND BSD-2-Clause AND BSD-3-Clause AND MIT AND Licen
 # remove the about box check for new releases - that should be done via dnf
 Patch0:         remove-check-for-updates.patch
 
-# change github issues references from arsenetar to carlbyington2 repo
-Patch1:         github-references-carlbyington2.patch
-
-
 # tools to build the project
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -45,10 +41,16 @@ BuildRequires:  python3-sphinx
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-defusedxml
 BuildRequires:  python3-mutagen
-BuildRequires:  python3-pyqt6
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-qt
 BuildRequires:  python3-semantic_version
 BuildRequires:  python3-send2trash
+# for %check section to run tests in dupeguru/qt
+BuildRequires:  libxkbcommon-x11
+BuildRequires:  xcb-util-cursor
+BuildRequires:  xcb-util-wm
+BuildRequires:  xcb-util-keysyms
+BuildRequires:  google-noto-sans-fonts
 
 # packages required at runtime
 # since we have icons
@@ -76,7 +78,7 @@ sed -i -e 's/__full_version__.*/__full_version__ = "%{version}-%{release}"/' $fn
 
 %build
 # create one source file
-make %{?_smp_mflags} dupeguru/qt/dg_rc.py RCC=pyside6-rcc
+make %{?_smp_mflags} dupeguru/qt/dg_rc.py
 # build the python code
 %pyproject_wheel
 # build the locale files
@@ -100,6 +102,7 @@ install -p -m 644 -D images/dgse_logo_128.png  %{buildroot}%{_datadir}/icons/hic
 install -p -m 755 -D run.py                    %{buildroot}%{_bindir}/%{name}
 install -p -m 644 -D README.md                 %{buildroot}%{_pkgdocdir}/README.md
 install -p -m 644    help/changelog            %{buildroot}%{_pkgdocdir}/changelog
+install -p -m 644    notes.txt                 %{buildroot}%{_pkgdocdir}/notes.txt
 ## symlinks since dupeguru wants locale and help in %%{python3_sitearch}/%%{name}
 ## but we want those in installed in %%{_datadir}/%%{name}
 ln -sf %{_datadir}/%{name}/locale  %{buildroot}%{python3_sitearch}/%{name}/locale
@@ -122,8 +125,9 @@ cat columns.lang core.lang ui.lang %{pyproject_files} | grep -v '\.c$' | sort >d
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/dupeguru.desktop
-%pytest dupeguru/core dupeguru/hscommon
 %pyproject_check_import
+export QT_QPA_PLATFORM=offscreen
+%pytest --import-mode=importlib %{buildroot}%{python3_sitearch}/dupeguru
 
 
 %files -f dupeguru.lang

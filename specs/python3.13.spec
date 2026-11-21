@@ -90,6 +90,9 @@ License: Python-2.0.1
 # Main interpreter loop optimization
 %bcond computed_gotos 1
 
+# Use the system libb2 for the blake2 module, CPython's bundled copy otherwise
+%bcond libb2 %{undefined rhel}
+
 # =====================
 # General global macros
 # =====================
@@ -283,7 +286,7 @@ BuildRequires: /usr/bin/dtrace
 # https://github.com/python/cpython/issues/146207
 BuildRequires: (openssl-devel < 1:4 or openssl3-devel)
 
-%if %{undefined rhel}
+%if %{with libb2}
 BuildRequires: libb2-devel
 %endif
 

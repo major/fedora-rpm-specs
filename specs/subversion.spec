@@ -61,6 +61,9 @@ Patch5: subversion-1.8.5-swigplWall.patch
 Patch6: subversion-1.15.0-testnomagic.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2255746
 Patch8: subversion-1.14.3-zlib-ng.patch
+# https://svn.apache.org/repos/asf/subversion/trunk@1933699
+# support ruby4.1
+Patch9: subversion-1.5.0-r1933699-support-ruby41.patch
 BuildRequires: make
 BuildRequires: libxcrypt-devel
 BuildRequires: autoconf, libtool, texinfo, which, gcc, gcc-c++

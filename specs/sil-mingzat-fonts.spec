@@ -1,6 +1,6 @@
-Version:        1.100
-Release:        11%{?dist}
-URL:            https://software.sil.org/mingzat/
+Version:        1.200
+Release:        1%{?dist}
+URL:            https://software.sil.org/Mingzat
 BuildRequires:  fonts-rpm-macros
 
 %global foundry         SIL
@@ -17,22 +17,21 @@ BuildRequires:  fonts-rpm-macros
 Mingzat is based on Jason Glavy's JG Lepcha font which was a custom-encoded
 font. The goal for this product was to provide a single Unicode-based font
 that would contain all Lepcha characters. In addition, there is provision for
-other Latin characters and symbols. This font makes use of state-of-the-art
-font technologies (Graphite and OpenType) to support the need for conjuncts
-and to position arbitrary combinations of Lepcha glyphs and combining marks
-optimally.}
+other Latin characters and symbols. This font makes use of OpenType to support
+the need for conjuncts and to position arbitrary combinations of Lepcha glyphs
+and combining marks optimally.}
 
 # Licenses
-# Mingzat-Regular.ttf:  OFL
-# OFL.txt:      OFL and OFL text
+# Mingzat-Regular.ttf:  OFL-1.1
+# OFL.txt:      OFL-1.1 and OFL-1.1 text
 # OFL-FAQ.txt:  No-modification. Handle it as an extension of OFL text so that
 #               we can distribute it.
 # org.fedoraproject.sil-mingzat-fonts.metainfo.xml: MIT # bug #2089366
 # README.txt:   OFL
 ## Not in any binary package
-# web/Mingzat-Regular.woff:         OFL
-# web/Mingzat-Regular.woff2:        OFL
-# web/Mingzat-webfont-example.css:  OFL
+# web/Mingzat-Regular.woff:         OFL-1.1
+# web/Mingzat-Regular.woff2:        OFL-1.1
+# web/Mingzat-webfont-example.css:  OFL-1.1
 Source0:    https://software.sil.org/downloads/r/mingzat/%{fontfamily}-%{version}.zip
 Source10:   65-sil-mingzat.conf
 
@@ -54,6 +53,9 @@ Source10:   65-sil-mingzat.conf
 %fontfiles
 
 %changelog
+* Fri Nov 20 2026 Petr Pisar <ppisar@redhat.com> - 1.200-1
+- 1.200 bump
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.100-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

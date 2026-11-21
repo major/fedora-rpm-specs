@@ -21,7 +21,12 @@
 #
 
 %global upstreamname primbench
+%bcond_with preview
+%if %{with preview}
+%global rocm_release 10.2
+%else
 %global rocm_release 10.1
+%endif
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -30,7 +35,11 @@
 
 Name:           rocm-primbench
 Version:        %{rocm_version}
+%if %{with preview}
+Release:        0%{?dist}
+%else
 Release:        1%{?dist}
+%endif
 Summary:        A single-header HIP benchmarking library
 # No toplevel license file
 # https://github.com/ROCm/rocm-libraries/issues/4580

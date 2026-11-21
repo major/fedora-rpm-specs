@@ -14,29 +14,29 @@
 # - Reset to 1 if the version changed
 # - Increase by 1 otherwise
 %global mscore_font_ver           2.003
-%global mscore_font_rel           48%{?dist}
+%global mscore_font_rel           49%{?dist}
 %global mscoretext_font_ver       1.0
-%global mscoretext_font_rel       48%{?dist}
+%global mscoretext_font_rel       49%{?dist}
 %global musescoreicon_font_ver    1.0
-%global musescoreicon_font_rel    48%{?dist}
+%global musescoreicon_font_rel    49%{?dist}
 %global mscorebc_font_ver         1.0
-%global mscorebc_font_rel         48%{?dist}
+%global mscorebc_font_rel         49%{?dist}
 %global mscoretabulature_font_ver 001.000
-%global mscoretabulature_font_rel 48%{?dist}
+%global mscoretabulature_font_rel 49%{?dist}
 %global musejazz_font_ver         1.0
-%global musejazz_font_rel         48%{?dist}
+%global musejazz_font_rel         49%{?dist}
 %global gootville_font_ver        1.3
-%global gootville_font_rel        48%{?dist}
+%global gootville_font_rel        49%{?dist}
 %global gootville_text_font_ver   1.2
-%global gootville_text_font_rel   48%{?dist}
+%global gootville_text_font_rel   49%{?dist}
 %global soundfont_ver             0.2.0
-%global soundfont_rel             48%{?dist}
+%global soundfont_rel             49%{?dist}
 
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
 # IMPORTANT: Change all the release numbers above, too!
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -237,6 +237,10 @@ Patch:          %{name}-CVE-2026-61714.patch
 # Fix build with Qt 6.12
 # https://github.com/musescore/muse_framework/pull/256
 Patch:          %{name}-fix-build-with-qt-6-12.patch
+# Fix MuseSampler refusal to run when invoked as "mscore"
+# See https://github.com/NixOS/nixpkgs/issues/318210#issuecomment-2351919536
+# and https://bugzilla.redhat.com/show_bug.cgi?id=2404987
+Patch:          %{name}-musesampler-init.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -759,6 +763,9 @@ EOF
 %fontfiles -z 9
 
 %changelog
+* Fri Nov 20 2026 Jerry James  <loganjerry@gmail.com> - 4.7.7-2
+- Fix MuseSampler refusing to run in some circumstances
+
 * Thu Nov 12 2026 Jerry James  <loganjerry@gmail.com> - 4.7.7-1
 - Version 4.7.7
 

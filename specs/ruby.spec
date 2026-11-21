@@ -1947,7 +1947,7 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 * Thu Nov 19 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.10-42
 - Update to Ruby 4.0.10
 - Fixes the following bugs in Regexp and String case conversion
-- Resolves: CGHSA-34m4-m9fh-gqp5 (VE-2026-132825)
+- Resolves: GHSA-34m4-m9fh-gqp5 (CVE-2026-132825)
 - Resolves: GHSA-7x2q-68qv-6p8x
 - Resolves: GHSA-87fm-7w84-j2px
 - Resolves: GHSA-wpqw-5qxg-m68r

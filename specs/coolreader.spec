@@ -2,17 +2,17 @@ Name:           coolreader
 Version:        3.2.59
 Release:        %autorelease
 Summary:        Cross platform open source e-book reader
-
-%global forgeurl https://github.com/buggins/coolreader
-%global tag cr%{version}
-%forgemeta
-
 License:        GPL-2.0-or-later
-URL:            %forgeurl
-Source0:        %forgesource
+URL:            https://github.com/buggins/coolreader
+Source0:        %{url}/archive/cr%{version}/%{name}-cr%{version}.tar.gz
 Source1:        cr3.appdata.xml
+# Fails to build with external libunibreak 8.0+
+# https://github.com/buggins/coolreader/issues/384
+Source2:        https://github.com/adah1972/libunibreak/releases/download/libunibreak_7_0/libunibreak-7.0.tar.gz
 # https://github.com/buggins/coolreader/pull/365
 Patch:          0001-Set-CMake-policy-version-lower-bound-to-3.5.patch
+# https://github.com/buggins/coolreader/pull/375 (merged)
+Patch:          0002-upgrade-local-unibreak-to-7.0.patch
 
 # libunibreak dropped i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -29,7 +29,7 @@ BuildRequires:  pkgconfig(fribidi)
 BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(libunibreak)
+#BuildRequires:  pkgconfig(libunibreak)
 BuildRequires:  pkgconfig(libutf8proc)
 BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(zlib)
@@ -39,6 +39,7 @@ BuildRequires:  libappstream-glib
 # Bundled software has been modified for use by coolreader
 Provides:       bundled(antiword) = 0.37
 Provides:       bundled(chmlib) = 0.38
+Provides:       bundled(libunibreak) = 7.0
 Provides:       bundled(qt5-qtbase-private)
 
 %description
@@ -48,19 +49,24 @@ HTML, EPUB, CHM, PDB, MOBI.
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -C -p1
+
+# use 48x48 icon
+cp -f cr3qt/src/icons/cr3.png cr3qt/src/desktop/cr3.png
+
+tar -xf %{SOURCE2} -C thirdparty/
+pushd thirdparty/libunibreak-7.0
+patch -p1 < ../../thirdparty_repo/patches/libunibreak/02-cmake-static.patch
+popd
 
 
 %build
-mkdir -p %{_vpath_builddir}
 %cmake \
   -DGUI=QT5 \
-  -DCMAKE_BUILD_TYPE=Release \
   -DMAX_IMAGE_SCALE_MUL=2 \
   -DDOC_DATA_COMPRESSION_LEVEL=3 \
   -DDOC_BUFFER_SIZE=0x1400000 \
-  -D CMAKE_INSTALL_PREFIX=/usr \
-  .
+  %{nil}
 
 %cmake_build
 

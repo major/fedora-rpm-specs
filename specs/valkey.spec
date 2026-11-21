@@ -5,16 +5,16 @@
 %bcond_with docs
 %endif
 # See https://github.com/valkey-io/valkey-doc/tags
-%global doc_version 9.1.3
+%global doc_version 9.2.0
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
 %global upstream_version 9.2.0
-%global upstream_prever rc2
+%dnl %global upstream_prever rc2
 
 Name:              valkey
 Version:           %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:           3%{?dist}
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # libvalkey: BSD-3-Clause
@@ -461,6 +461,9 @@ fi
 
 
 %changelog
+* Thu Nov 19 2026 Petr Khartskheav <pkhartsk@redhat.com> - 9.2.0-1
+- Valkey 9.2.0
+
 * Mon Nov  9 2026 Petr Khartskhaev <pkhartsk@redhat.com> - 9.2.0~rc2-3
 - update bundled dependencies and license information
 

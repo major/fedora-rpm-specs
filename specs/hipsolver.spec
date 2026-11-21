@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 10.1
+%global rocm_release 10.2
 %else
 %global rocm_release 10.1
 %endif
@@ -97,7 +97,9 @@ URL:            https://github.com/ROCm/rocm-libraries
 
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+%if %{without preview}
 Patch1:         0001-hipsolver-no-lapack-devel.patch
+%endif
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -199,6 +201,7 @@ Requires:       %{pkg_name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p3 -n %{upstreamname}
 
+%if %{without preview}
 # RHEL does not have lapack-devel
 # Patch from above takes are of cmake not requiring something not available
 %if 0%{?rhel}
@@ -207,6 +210,7 @@ sed -i -e 's@target_link_libraries(hipsolver PRIVATE lapack_libraries)@target_li
 %else
 # disable the patch's effect
 sed -i -e 's@if(FALSE) # for rhel@if(TRUE) # for rhel@' CMakeLists.txt
+%endif
 %endif
 
 

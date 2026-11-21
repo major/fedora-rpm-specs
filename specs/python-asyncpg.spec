@@ -111,11 +111,21 @@ export ASYNCPG_BUILD_CYTHON_ALWAYS=1
 %check -a
 %pyproject_verify_license
 
+%if v"0%{?python3_version}" >= v"3.16"
+# Python 3.16.0a2: TestConnectParams.test_connect_params fails
+# https://github.com/MagicStack/asyncpg/issues/1409
+# https://bugzilla.redhat.com/show_bug.cgi?id=2576594
+#
+# Due to https://github.com/python/cpython/pull/159122 for
+# https://github.com/python/cpython/issues/88037. Waiting for an upstream fix.
+x="${x-} --deselect=tests/test_connect.py::TestConnectParams::test_connect_params"
+%endif
+
 # See the “test” target in the Makefile:
-PYTHONASYNCIODEBUG=1 %pytest -k "${k-}"
-%pytest -k "${k-}"
+PYTHONASYNCIODEBUG=1 %pytest ${x-} -k "${k-}" -rs
+%pytest ${x-} -k "${k-}" -rs
 %if %{with uvloop}
-USE_UVLOOP=1 %pytest -k "${k-}"
+USE_UVLOOP=1 %pytest ${x-} -k "${k-}" -rs
 %endif
 
 

@@ -1,7 +1,7 @@
 Summary: The client for the Trivial File Transfer Protocol (TFTP)
 Name: tftp
 Version: 7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-4-Clause-UC
 URL: http://www.kernel.org/pub/software/network/tftp/
 
@@ -29,8 +29,9 @@ Patch: tftp-fedora-tftpboot.patch
 
 BuildRequires: bc
 BuildRequires: gcc
-BuildRequires: openpgpverify
+BuildRequires: libcap-devel
 BuildRequires: make
+BuildRequires: openpgpverify
 BuildRequires: readline-devel
 BuildRequires: systemd-rpm-macros
 
@@ -108,6 +109,9 @@ PCAP=0 tests/test-tftp.sh -q
 %{_unitdir}/tftp.socket
 
 %changelog
+* Fri Nov 20 2026 Lukáš Zaoral <lzaoral@redhat.com> - 7.2-2
+- enable libcap support (rhbz#2559530)
+
 * Fri Oct 23 2026 Lukáš Zaoral <lzaoral@redhat.com> - 7.2-1
 - rebase to 7.2 (rhbz#2537118)
 - sync with upstream systemd unit files

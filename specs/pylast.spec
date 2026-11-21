@@ -8,6 +8,8 @@ License:	Apache-2.0
 URL:		https://github.com/pylast/pylast
 VCS:		git:%{url}.git
 Source:		%{pypi_source %{pypi_name}}
+# Drop the Python 3.16 trove classifier unknown to f44's trove-classifiers (FTBFS).
+Patch0:		pylast-drop-py316-classifier.patch
 BuildArch:	noarch
 BuildSystem:	pyproject
 BuildOption(install):	-l %{pypi_name}

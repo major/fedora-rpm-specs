@@ -60,7 +60,7 @@
 
 Name:              nginx
 Epoch:             2
-Version:           1.30.6
+Version:           1.30.7
 Release:           %autorelease
 
 Summary:           A high performance web server and reverse proxy server
