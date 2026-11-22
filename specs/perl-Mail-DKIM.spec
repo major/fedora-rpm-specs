@@ -1,5 +1,5 @@
 Name:           perl-Mail-DKIM
-Version:        1.20261105
+Version:        1.20261116
 Release:        1%{?dist}
 Summary:        Sign and verify Internet mail with DKIM/DomainKey signatures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -71,6 +71,9 @@ chmod -x scripts/*.pl
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sun Nov 22 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.20261116-1
+- Update to 1.20261116
+
 * Sun Nov 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.20261105-1
 - Update to 1.20261105
 

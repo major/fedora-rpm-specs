@@ -1,7 +1,7 @@
 %global         maj 0
 
 Name:           zix
-Version:        0.8.0
+Version:        0.8.2
 Release:        %autorelease
 Summary:        A lightweight C library of portability wrappers and data structures
 
@@ -14,9 +14,6 @@ Source2:        https://drobilla.net/drobilla.gpg
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  meson
-BuildRequires:  doxygen
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinxygen
 BuildRequires:  gnupg2
 
 %description
@@ -37,7 +34,8 @@ Buildarch:      noarch
 
 %description    doc
 The %{name}-doc package contains documentation files for
-developing applications that use %{name}.
+developing applications that use %{name}. Actually
+it doesn't contain files, because of doc building errors.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -45,18 +43,11 @@ developing applications that use %{name}.
 
 %build
 # Do not build benchmarks
-%meson -Dbenchmarks=disabled
+%meson -Dbenchmarks=disabled -Ddocs=disabled
 %meson_build
 
 %install
 %meson_install
-# Delete duplicated sphinx docs
-rm -rf %{buildroot}%{_docdir}/%{name}-%{maj}/singlehtml
-# Delete sphinx buildinfo
-rm -f %{buildroot}%{_docdir}/%{name}-%{maj}/html/.buildinfo
-# Move devel docs to the right directory
-install -d %{buildroot}%{_docdir}/%{name}
-mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 
 %check
 %meson_test
@@ -73,7 +64,6 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 
 %files doc
 %license COPYING
-%doc %{_docdir}/%{name}/%{name}-%{maj}
 
 %changelog
 %autochangelog

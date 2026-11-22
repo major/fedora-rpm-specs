@@ -9,31 +9,28 @@
 m1n1 is the bootloader developed by the Asahi Linux project to bridge the Apple
 (XNU) boot ecosystem to the Linux boot ecosystem.}
 
-%global srcversion 1.9.9
+%global srcversion 2.0.1
 
 Name:           m1n1
 Version:        %(echo '%{srcversion}' | tr '-' '~')
 Release:        %autorelease
 Summary:        Bootloader and experimentation playground for Apple Silicon
 
-# m1n1 proper is MIT licensed, but it relies on a number of vendored projects
+# m1n1 proper is GPL 2.0 or latater licensed, but it relies on a number of
+# vendored projects
 # See the "License" section in README.md for the breakdown
 #
 # The following breakdown only covers the rust dependencies
 # MIT
 # MIT OR Apache-2.0
 # LICENSE.dependencies contains a full license breakdown of the rust dependencies
-License:        MIT AND CC0-1.0 AND OFL-1.1-RFN AND Zlib AND (BSD-2-Clause OR GPL-2.0-or-later) AND (BSD-3-Clause OR GPL-2.0-or-later) AND MIT AND (MIT OR Apache-2.0)
+License:        GPL-2.0-or-later AND CC0-1.0 AND OFL-1.1-RFN AND Zlib AND (BSD-2-Clause OR GPL-2.0-or-later) AND (BSD-3-Clause OR GPL-2.0-or-later) AND MIT AND (MIT OR Apache-2.0)
 URL:            https://github.com/AsahiLinux/m1n1
 Source:         %{url}/archive/v%{srcversion}/%{name}-%{srcversion}.tar.gz
 Source:         https://github.com/rafalh/rust-fatfs/archive/%{fatfs_commit}/rust-fatfs-%{fatfs_commit}.tar.gz
 # * Vendor git dependency rust-fatfs and ensure its dependencies are
 #   included as well.
-Patch:          m1n1-1.9.9-rust-deps.patch
-# https://github.com/AsahiLinux/m1n1/pull/703 "rust: Add workaround for rust 1.99.0 regression"
-Patch10:        pr-703-rust-1.99-workaround.patch
-# https://github.com/AsahiLinux/m1n1/pull/704 "display: Limit M1/M2 Sequoia DCP power-cycle to M1/M2"
-Patch11:        pr-704-display-m3-imac-fixes.patch
+Patch:          m1n1-2.0.1-rust-deps.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -78,7 +75,7 @@ Summary:        %{summary}
 # BSD-3-Clause
 # MIT
 # MIT OR Apache-2.0
-License:        MIT AND CC0-1.0 AND OFL-1.1-RFN AND Zlib AND (BSD-2-Clause OR GPL-2.0-or-later) AND BSD-3-Clause AND (BSD-3-Clause OR GPL-2.0-or-later) AND (Apache-2.0 OR MIT) AND MIT
+License:        GPL-2.0-or-later AND CC0-1.0 AND OFL-1.1-RFN AND Zlib AND (BSD-2-Clause OR GPL-2.0-or-later) AND BSD-3-Clause AND (BSD-3-Clause OR GPL-2.0-or-later) AND (Apache-2.0 OR MIT) AND MIT
 # LICENSE.dependencies contains a full license breakdown of the rust dependencies
 
 # This is vendored and statically linked into m1n1 when building for stage 1
@@ -91,7 +88,7 @@ Installer.
 
 %package        tools
 Summary:        Developer tools for m1n1
-License:        MIT
+License:        GPL-2.0-or-later
 Requires:       %{name} = %{version}-%{release}
 Requires:       python3
 Requires:       python3dist(construct)

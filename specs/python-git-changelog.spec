@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-git-changelog
-Version:        2.9.4
+Version:        2.12.0
 Release:        %autorelease
 Summary:        Automatic Changelog generator using Jinja2 templates
 License:        ISC
@@ -9,8 +9,10 @@ URL:            https://github.com/pawamoy/git-changelog
 Source:         %{url}/archive/%{version}/git-changelog-%{version}.tar.gz
 
 BuildArch:      noarch
+
 BuildSystem:    pyproject
-BuildOption(prep): -n git-changelog-%{version}
+BuildOption(install): -l git_changelog
+
 %if %{with check}
 BuildRequires:  python3dist(pytest)
 # griffe not packaged
@@ -19,18 +21,31 @@ BuildRequires:  python3dist(pytest)
 #BuildRequires:  python3dist(mkdocstrings)
 BuildRequires:  python3dist(pytest-gitconfig)
 %endif
-BuildOption(install): -l git_changelog
 BuildRequires:  git-core
 
 %global _description %{expand:
-git-changelog parses your commit messages to extract useful data that is then
-rendered using Jinja2 templates, for example to a changelog file formatted in
-Markdown.
+Automatic Changelog generator using Jinja2 templates. From git logs to change
+logs.
 
-Each Git tag will be treated as a version of your project. Each version contains
-a set of commits, and will be an entry in your changelog. Commits in each
-version will be grouped by sections, depending on the commit coonvention you
-follow.}
+Features:
+
+  • Jinja2 templates! You get full control over the rendering. Built-in Keep a
+    Changelog and Angular templates (also see Conventional Changelog).
+  • Commit styles/conventions parsing. Built-in Angular, Conventional Commit
+    and basic conventions.
+  • Git service/provider agnostic, plus references parsing (issues, commits,
+    etc.). Built-in GitHub, Gitlab and Bitbucket support.
+  • Understands SemVer and PEP 440 versioning schemes. Guesses next version
+    based on last commits.
+  • Parses Git trailers, allowing to reference issues, PRs, etc., in your
+    commit messages in a clean, provider-agnostic way.
+  • Template context injection, to furthermore customize how your changelog
+    will be rendered.
+
+Todo:
+
+  • Plugin architecture, to support more commit conventions and git services.
+  • Easy access to “Breaking Changes” in the templates.}
 
 %description %_description
 
@@ -49,12 +64,17 @@ git tag %{version}
 %if %{with check}
 # Requires griffe and mkdocstrings, both not packaged
 ignore="${ignore-} --ignore=tests/test_api.py"
-%pytest -v -rs ${ignore-}
+%if v"0%{?python3_version}" >= v"3.16"
+# bug: Python 3.16.0a2: `test_removing_credentials_from_remotes` fails
+# https://github.com/pawamoy/git-changelog/issues/148
+k="${k-}${k+ and }not test_removing_credentials_from_remotes"
+%endif
+%pytest -v -rs ${ignore-} -k "${k-}"
 %endif
 
 %files -n python3-git-changelog -f %{pyproject_files}
+%doc CHANGELOG.md
 %doc README.md
-%license LICENSE
 %{_bindir}/git-changelog
 
 %changelog

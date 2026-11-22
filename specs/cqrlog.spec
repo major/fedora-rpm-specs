@@ -1,5 +1,5 @@
 Name:		cqrlog
-Version:	3.3.0
+Version:	3.4.0
 Release:	1%{?dist}
 Summary:	An amateur radio contact logging program
 
@@ -97,6 +97,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Nov 21 2026 Steven A. Falco <stevenfalco@gmail.com> - 3.4.0-1
+- Update to 3.4.0
+
 * Sun Oct 25 2026 Steven A. Falco <stevenfalco@gmail.com> - 3.3.0-1
 - Update to 3.3.0
 

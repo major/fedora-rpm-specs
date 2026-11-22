@@ -1,5 +1,5 @@
 Name:           remind
-Version:        06.03.03
+Version:        06.03.07
 Release:        %autorelease
 Summary:        Sophisticated calendar and alarm program
 
@@ -13,6 +13,7 @@ URL:            https://dianne.skoll.ca/projects/remind/
 Source:         %url/download/%{name}-%{version}.tar.gz
 Source:         %url/download/%{name}-%{version}.tar.gz.sig
 Source:         685A5A5E511D30E2.gpg
+Source:         %{name}.rpmlintrc
 # stolen from Debian
 Patch:          use-system-libjsonparser.diff
 
@@ -51,7 +52,8 @@ License:        GPL-2.0-only
 BuildArch:      noarch
 
 %description    doc
-Documentation and information on how to use remind
+Documentation and information on how to use remind, a sophisticated calendar
+and alarm program
 
 %package        gui
 Summary:        GUI for remind, a sophisticated calendar and alarm program
@@ -88,6 +90,7 @@ Tools to convert the remind output to ps, pdf or html as well as example files.
 %autosetup -p1 -n %{name}-%{version}
 # Disable packlist and perllocal update
 sed -i 's|\$(PERL) Makefile.PL|\$(PERL) Makefile.PL NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"|g' rem2pdf/Makefile.top.in
+sed -i -e '1s|env -S ||' examples/*
 
 # json-parser is in fedora; remove bundled copies
 rm src/json.h

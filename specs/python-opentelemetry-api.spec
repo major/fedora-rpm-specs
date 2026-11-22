@@ -1,5 +1,5 @@
 Name:           python-opentelemetry-api
-Version:        1.44.0
+Version:        1.45.2
 Release:        %autorelease
 Summary:        OpenTelemetry Python API
 

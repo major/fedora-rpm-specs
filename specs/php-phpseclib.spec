@@ -3,12 +3,12 @@
 
 %global github_owner            phpseclib
 %global github_name             phpseclib
-%global github_commit           9717fd7aa3dc8f408f29d4a9815f5fe28a81287c
+%global github_commit           b848e11ad7610af49acefd5f7219a96d9b4e01c7
 %global github_short            %(c=%{github_commit}; echo ${c:0:7})
 %bcond_without                  tests
 
 Name:       php-%{composer_vendor}
-Version:    2.0.56
+Version:    2.0.57
 Release:    1%{?dist}
 Summary:    PHP Secure Communications Library
 License:    MIT
@@ -133,6 +133,12 @@ exit $ret
 
 
 %changelog
+* Sat Nov 21 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.57-1
+- Update to v2.0.57
+
+* Thu Nov 12 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.56-1
+- Update to v2.0.56
+
 * Sun Aug 09 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.0.55-1
 - Update to v2.0.55
 

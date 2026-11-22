@@ -16,7 +16,7 @@ BuildRequires: flex
 BuildRequires: gcc-c++
 BuildRequires: git-core
 # for gpg verification
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 BuildRequires: make
 BuildRequires: pkgconfig(libcurl)
 %if 0%{?fedora} || 0%{?rhel} >= 9
@@ -62,7 +62,7 @@ applications that use %{name}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n modsecurity-v%{version} -S git
 
 

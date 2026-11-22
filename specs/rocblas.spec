@@ -26,7 +26,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 10.1
+%global rocm_release 10.2
 %else
 %global rocm_release 10.1
 %endif
@@ -183,6 +183,14 @@ Release:        1%{?dist}
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Source1:        %{url}/releases/download/%{pkg_src}/tensile.tar.gz#/tensile-%{version}.tar.gz
 
+%if %{with preview}
+Patch1:         0001-tensile-improve-the-warning-for-asm-caps-mismatches.patch
+Patch2:         0002-tensile-add-generic-gpu-targets.patch
+Patch3:         0003-tensile-improve-fallback-name-to-handle-generics.patch
+Patch4:         0004-tensile-generic-arches-need-a-solution-index.patch
+Patch5:         0005-rocblas-add-rocblas_internal_get_generic_arch_name.patch
+Patch6:         0006-rocblas-generalize-finding-tensile-for-generics.patch
+%else
 Patch1:         0001-improve-the-warning-for-asm-caps-mismatches.patch
 Patch2:         0002-add-generic-gpu-targets.patch
 Patch3:         0003-improve-fallback-name-to-handle-generics.patch
@@ -190,6 +198,7 @@ Patch4:         0004-generic-arches-need-a-solution-index.patch
 Patch5:         0005-rocblas-add-rocblas_internal_get_generic_arch_name.patch
 Patch6:         0006-rocblas-generalize-finding-tensile-for-generics.patch
 Patch7:         0001-tensile-add-gfx1170.patch
+%endif
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -359,11 +368,18 @@ Requires:       diffutils
 
 tar xf %{SOURCE1}
 cd tensile
+%if %{with preview}
+%patch -P1 -p3
+%patch -P2 -p3
+%patch -P3 -p3
+%patch -P4 -p3
+%else
 %patch -P1 -p3
 %patch -P2 -p3
 %patch -P3 -p3
 %patch -P4 -p3
 %patch -P7 -p3
+%endif
 
 #Fix a few things:
 chmod 755 Tensile/Configs/miopen/convert_cfg.py

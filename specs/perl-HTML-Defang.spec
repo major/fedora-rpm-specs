@@ -1,10 +1,10 @@
 Name:           perl-HTML-Defang
-Version:        1.09
+Version:        1.10
 Release:        1%{?dist}
 Summary:        Cleans HTML and CSS of executable contents
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/HTML-Defang
+URL:            https://metacpan.org/dist/HTML-Defang
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROBM/HTML-Defang-%{version}.tar.gz
 BuildArch:      noarch
 
@@ -50,6 +50,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{_mandir}/man3/HTML*
 
 %changelog
+* Sun Nov 22 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.10-1
+- Update to 1.10
+
 * Sat Aug 08 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1.09-1
 - Update to 1.09
 

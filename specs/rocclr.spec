@@ -25,7 +25,7 @@
 %bcond_with preview
 %if %{with preview}
 %global rocm_major 10
-%global rocm_minor 1
+%global rocm_minor 2
 %else
 %global rocm_major 10
 %global rocm_minor 1
@@ -335,6 +335,12 @@ sed -i -e 's@add_subdirectory(packaging)@#add_subdirectory(packaging)@' opencl/C
 # cmake version
 sed -i -e 's@cmake_minimum_required(VERSION 3.3)@cmake_minimum_required(VERSION 3.5)@' hipamd/src/hiprtc/cmake/hiprtc-config.cmake.in
 
+%if %{with preview}
+# no hrr in fedora
+sed -i -e 's@add_subdirectory(hrr)@#add_subdirectory(hrr)@' hipamd/src/CMakeLists.txt
+sed -i -e 's@hip_capture_init()@//hip_capture_init()@' hipamd/src/hip_context.cpp
+%endif
+
 %build
 
 # So we can set HIP_COMMON_DIR
@@ -437,7 +443,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hip/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/libhiprtc.so.%{pkg_library_version}{,.*}
 %{pkg_prefix}/%{pkg_libdir}/libhiprtc-builtins.so.%{pkg_library_version}{,.*}
 %{pkg_prefix}/share/hip
+%if %{without preview}
 %{pkg_prefix}/bin/hrr-playback
+%endif
 
 %files -n rocm-hip%{pkg_suffix}-devel
 %{pkg_prefix}/%{pkg_libdir}/libamdhip64.so

@@ -31,10 +31,14 @@
 %global httpd24         1
 %endif
 
+%if 0%{?fedora} > 44
+%global py316           1
+%endif
+
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            67%{?dist}
+Release:            68%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:            LicenseRef-Callaway-BSD
 URL:                https://github.com/ganglia
@@ -62,6 +66,7 @@ Patch34:            0005-First-loop-might-contain-non-integer-input.patch
 Patch35:            0001-Fix-return-value-from-mod_python-init.patch
 Patch40:            ganglia-3.7.2-autoconf-python3.patch
 Patch50:            ganglia-3.7.2-pcre2.patch
+Patch51:            ganglia-3.7.2-py316.patch
 %if 0%{?systemd}
 BuildRequires:      systemd
 %endif
@@ -210,6 +215,9 @@ programmers can use to build scalable cluster or grid applications
 %endif
 %if 0%{?pcre2}
 %patch -P 50 -p1
+%endif
+%if 0%{?py316}
+%patch -P 51 -p1
 %endif
 # fix broken systemd support
 install -m 0644 %{SOURCE2} gmond/gmond.service.in
@@ -501,6 +509,9 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Sat Nov 21 2026 Terje Røsten <terjeros@gmail.com> - 3.7.2-68
+- Support Python 3.16
+
 * Mon Jul 27 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 3.7.2-67
 - Use sysusers on RHEL 11
 

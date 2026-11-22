@@ -5,7 +5,7 @@
 %global crate postcard
 
 Name:           rust-postcard
-Version:        1.1.3
+Version:        1.2.0
 Release:        %autorelease
 Summary:        No_std + serde compatible message library for Rust
 
@@ -13,6 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/postcard
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * Omit unused, benchmark-only dev-dependency on criterion
 # * Patch out features that would require embedded-io or defmt
 Patch:          postcard-fix-metadata.diff
 
@@ -85,6 +86,18 @@ use the "crc" feature of the "%{crate}" crate.
 %files       -n %{name}+crc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+enum-map-v3_0-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+enum-map-v3_0-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "enum-map-v3_0" feature of the "%{crate}" crate.
+
+%files       -n %{name}+enum-map-v3_0-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+experimental-derive-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -119,6 +132,18 @@ This package contains library source intended for building other packages which
 use the "heapless-cas" feature of the "%{crate}" crate.
 
 %files       -n %{name}+heapless-cas-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+heapless-v0_8-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+heapless-v0_8-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "heapless-v0_8" feature of the "%{crate}" crate.
+
+%files       -n %{name}+heapless-v0_8-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+nalgebra-v0_33-devel

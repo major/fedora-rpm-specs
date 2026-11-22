@@ -17,8 +17,8 @@
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.44.2
-Release:        2%{?dist}
+Version:        1.46.0
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -54,6 +54,7 @@ BuildRequires:  qt6-qtbase-devel
 %{?qtweb:BuildRequires:  qt6-qtwebengine-devel}
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  xapian-core-devel
+BuildRequires:  which
 BuildRequires:  zlib-devel
 Requires:       xdg-utils
 Recommends:     (recoll-krunner if kf6-krunner)
@@ -253,6 +254,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/gnome-shell/search-providers/org.recoll.Recoll.search-provider.ini
 
 %changelog
+* Sat Nov 21 2026 Terje Røsten <terjeros@gmail.com> - 1.46.0-1
+- 1.46.0
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.44.2-2
 - Rebuilt for libxml-2.5.4
 

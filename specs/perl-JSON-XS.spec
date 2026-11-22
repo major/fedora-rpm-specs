@@ -1,11 +1,11 @@
 Name:           perl-JSON-XS
 Summary:        JSON serializing/de-serializing, done correctly and fast
 Epoch:          1
-Version:        4.05
+Version:        4.06
 Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/JSON-XS
-Source0:        https://cpan.metacpan.org/modules/by-module/JSON/JSON-XS-%{version}.tar.gz
+URL:            https://metacpan.org/dist/JSON-XS
+Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/JSON-XS-%{version}.tar.gz
 # Build
 BuildRequires:  coreutils
 BuildRequires:  gcc
@@ -69,7 +69,7 @@ for F in t/*.t; do
 done
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1 </dev/null
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1 </dev/null
 %{make_build}
 
 %install
@@ -103,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Nov 22 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1:4.06-1
+- Update to 4.06
+
 * Sun Nov 15 2026 Emmanuel Seyman <emmanuel@seyman.fr> - 1:4.05-1
 - Update to 4.05
 

@@ -12,6 +12,10 @@ Source:         %forgesource
 
 BuildArch:      noarch
 
+# Test dependencies: see the “test” extra, which has unwanted linters etc.
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+BuildRequires:  %{py3_dist pytest}
+
 %global _description %{expand:
 Quantities is designed to handle arithmetic and conversions of physical
 quantities, which have a magnitude, dimensionality specified by various units,
@@ -33,7 +37,7 @@ Summary:    Support for physical quantities with units, based on numpy
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires -x test
+%pyproject_buildrequires
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
@@ -44,10 +48,11 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_save_files -l quantities
 
 %check
+%pyproject_check_import
 PY_IGNORE_IMPORTMISMATCH=1 %pytest
 
 %files -n python3-quantities -f %{pyproject_files}
-%doc CHANGES.txt README.rst
+%doc CHANGES.rst README.rst
 
 %changelog
 %autochangelog

@@ -5,8 +5,8 @@
 %endif
 
 Name:           setBfree
-Version:        0.8.13
-Release:        7%{?dist}
+Version:        0.8.17
+Release:        1%{?dist}
 Summary:        A DSP Tonewheel Organ emulator
 
 # Automatically converted from old format: GPLv2+ and GPLv3+ and ISC - review is highly recommended.
@@ -17,6 +17,8 @@ Source0:        https://github.com/pantherb/setBfree/archive/v%{version}.tar.gz#
 Source1:        %{name}.desktop
 Source2:        x42-whirl.desktop
 Source3:        %{name}.appdata.xml
+# Patch from upstream
+Patch0:         %{name}-plugin-buffer-overflow.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -123,6 +125,9 @@ install -p -m644 doc/jboverdrive.1 doc/setBfree.1 doc/setBfreeUI.1 doc/x42-whirl
 %license COPYING
 
 %changelog
+* Sat Nov 21 2026 Guido Aulisi <guido.aulisi@inps.it> - 0.8.17-1
+- Version 0.8.17
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.13-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

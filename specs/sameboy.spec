@@ -1,7 +1,7 @@
 
 Name:           sameboy
-Version:        1.0.2
-Release:        3%{?dist}
+Version:        1.0.5
+Release:        1%{?dist}
 Summary:        Game Boy and Game Boy Color emulator written in C
 
 License:        MIT
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/thumbnailers/sameboy.thumbnailer
 
 %changelog
+* Sat Nov 21 2026 Jan200101 <sentrycraft123@gmail.com> - 1.0.5-1
+- Update to 1.0.5
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
