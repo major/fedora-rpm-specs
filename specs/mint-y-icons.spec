@@ -1,11 +1,15 @@
+%global forgeurl https://github.com/linuxmint/mint-y-icons
+%global tag      %{version}
+
 Name:           mint-y-icons
-Version:        1.9.4
+Version:        1.9.8
 Release:        %autorelease
+%{forgemeta}
 Summary:        The Mint-Y icon theme
 
 License:        CC-BY-SA-4.0 AND GPL-3.0-or-later
-URL:            https://github.com/linuxmint/%{name}
-Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildArch:      noarch
 
@@ -18,7 +22,7 @@ Requires:       hicolor-icon-theme
 %{summary}.
 
 %prep
-%autosetup
+%forgeautosetup -p1
 
 %build
 

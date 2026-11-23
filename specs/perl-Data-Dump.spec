@@ -1,10 +1,11 @@
 Name:           perl-Data-Dump
-Version:        1.25
-Release:        15%{?dist}
+Version:        1.26
+Release:        1%{?dist}
 Summary:        Pretty printing of data structures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dump
 Source0:        https://cpan.metacpan.org/modules/by-module/Data/Data-Dump-%{version}.tar.gz
+Patch0:         Data-Dump-1.26-old-perl.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -15,19 +16,20 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(if)
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(subs)
 BuildRequires:  perl(Term::ANSIColor)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests only
-BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(vars)
 # Really optional
 Suggests:       perl(MIME::Base64)
 
@@ -39,6 +41,10 @@ arguments. The string is formatted for easy reading.
 
 %prep
 %setup -q -n Data-Dump-%{version}
+
+# Fix test to work with Perl versions older than 5.34
+# https://github.com/garu/data-dump/pull/4
+%patch -P0
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -59,6 +65,17 @@ make test
 %{_mandir}/man3/Data::Dump::Trace.3*
 
 %changelog
+* Sat Nov 21 2026 Paul Howarth <paul@city-fan.org> - 1.26-1
+- Update to 1.26 (rhbz#2579751)
+  - Quote sigils in regexp so eval'ing the dump doesn't interpolate
+    (CVE-2026-133443)
+  - Recognize modern regexp modifiers
+  - Fix test in cygwin
+  - Add parens to keys %%! call to avoid warning on perl 5.8
+  - Dump core booleans with !!1 and !!0 notation
+  - Don't use vars, use our
+- Add patch to fix test to work with Perl versions older than 5.34 (GH#4)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

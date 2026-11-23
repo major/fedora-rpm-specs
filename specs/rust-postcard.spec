@@ -86,18 +86,6 @@ use the "crc" feature of the "%{crate}" crate.
 %files       -n %{name}+crc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+enum-map-v3_0-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+enum-map-v3_0-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "enum-map-v3_0" feature of the "%{crate}" crate.
-
-%files       -n %{name}+enum-map-v3_0-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+experimental-derive-devel
 Summary:        %{summary}
 BuildArch:      noarch

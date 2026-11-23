@@ -32,10 +32,6 @@ Patch:          onefetch-fix-metadata-auto.diff
 #   https://github.com/Byron/gitoxide/discussions/900.
 # * Allow older rstest 0.26 for now (upstream wants 0.28):
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2529211
-# * Allow older rustix 1.1.5 for now (upstream wants 1.1.6). This was a routine
-#   version bump via renovate, https://github.com/o2sh/onefetch/pull/1910, not
-#   something that appears to have been required for a specific reason. See
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2561506.
 Patch:          onefetch-fix-metadata.diff
 # * Revert the source-code change for gix 0.86+
 # * This allows us to temporarily keep using gix 0.85.
@@ -68,6 +64,7 @@ Summary:        %{summary}
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-3-Clause
 # BSD-3-Clause OR Apache-2.0
 # MIT
 # MIT OR Apache-2.0

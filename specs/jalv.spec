@@ -1,6 +1,6 @@
 Name:       jalv
-Version:    1.8.0
-Release:    2%{?dist}
+Version:    1.10.0
+Release:    1%{?dist}
 Summary:    A simple but fully featured LV2 host for Jack
 
 License:    MIT
@@ -14,7 +14,7 @@ BuildRequires:  meson
 BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  gnupg2
-BuildRequires:  lilv-devel >= 0.26.0
+BuildRequires:  lilv-devel >= 0.28.0
 BuildRequires:  suil-devel >= 0.10.0
 BuildRequires:  serd-devel >= 0.30.2
 BuildRequires:  sord-devel >= 0.16.16
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_mandir}/man1/%{name}.gtk3.1.*
 
 %changelog
+* Sun Nov 22 2026 Guido Aulisi <guido.aulisi@inps.it> - 1.10.0-1
+- Update to 1.10.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

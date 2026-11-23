@@ -5,13 +5,16 @@
 %global crate zeroize
 
 Name:           rust-zeroize
-Version:        1.9.1
+Version:        1.9.2
 Release:        %autorelease
 Summary:        Securely clear secrets from memory
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/zeroize
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          zeroize-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -19,7 +22,8 @@ BuildRequires:  cargo-rpm-macros >= 24
 Securely clear secrets from memory with a simple trait built on stable
 Rust primitives which guarantee memory is zeroed using an operation will
 not be 'optimized away' by the compiler. Uses a portable pure Rust
-implementation that works everywhere, even WASM!.}
+implementation that works everywhere, even WASM, with `asm!`
+optimizations on select platforms.}
 
 %description %{_description}
 

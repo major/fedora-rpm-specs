@@ -49,7 +49,7 @@
 %endif
 
 Name:           webkitgtk
-Version:        2.54.2
+Version:        2.54.3
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -86,6 +86,9 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # Refreshed from keyservers (same keys, newer signatures):
 #   sq --home=none network keyserver search 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B --output webkitgtk-keys.gpg --overwrite
 Source2:        webkitgtk-keys.gpg
+
+# backport https://github.com/WebKit/WebKit/commit/b3aa62a to fix build errors
+Patch:          0001-gtk-WebKitWebViewBase.cpp-3849-23-error-no-viable-ov.patch
 
 # CMake: add missing ordering information to fix a potential race condition that
 #   can lead to build failures due to unresolvable #include's  

@@ -5,7 +5,7 @@
 %global crate uuid
 
 Name:           rust-uuid
-Version:        1.29.2
+Version:        1.29.3
 Release:        %autorelease
 Summary:        Library to generate and parse UUIDs
 
@@ -66,18 +66,6 @@ This package contains library source intended for building other packages which
 use the "arbitrary" feature of the "%{crate}" crate.
 
 %files       -n %{name}+arbitrary-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+atomic-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+atomic-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "atomic" feature of the "%{crate}" crate.
-
-%files       -n %{name}+atomic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bytemuck-devel

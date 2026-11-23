@@ -1,11 +1,11 @@
 Name:           python-opentelemetry-semantic-conventions
-Version:        0.65~b0
+Version:        0.66~b2
 Release:        %autorelease
 Summary:        OpenTelemetry Semantic Conventions
 
 License:        Apache-2.0
 URL:            https://github.com/open-telemetry/opentelemetry-python/tree/main/opentelemetry-semantic-conventions
-Source:         %{pypi_source opentelemetry_semantic_conventions 0.65b0}
+Source:         %{pypi_source opentelemetry_semantic_conventions 0.66b2}
 
 BuildArch:      noarch
 BuildRequires:  python3-pytest
@@ -26,7 +26,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n opentelemetry_semantic_conventions-0.65b0
+%autosetup -p1 -n opentelemetry_semantic_conventions-0.66b2
 
 
 %generate_buildrequires

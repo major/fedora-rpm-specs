@@ -5,7 +5,7 @@
 %global crate zcheapstr
 
 Name:           rust-zcheapstr
-Version:        1.2.0
+Version:        1.4.0
 Release:        %autorelease
 Summary:        Immutable, cheaply cloneable string type
 

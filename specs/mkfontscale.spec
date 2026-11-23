@@ -12,7 +12,7 @@ Source2:    gpgkey-3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2.gpg
 Patch0:     mkfontscale-examine-all-encodings.patch
 
 BuildRequires: gcc
-BuildRequires: gpgverify
+BuildRequires: openpgpverify
 BuildRequires: meson
 BuildRequires: pkgconfig(fontenc)
 BuildRequires: pkgconfig(freetype2)
@@ -29,7 +29,7 @@ legacy X11 font system.  It now includes the mkfontdir script previously
 distributed separately for compatibility with older X11 versions.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 %build

@@ -1,11 +1,10 @@
 Name: drbd
 Summary: DRBD user-land tools and scripts
-Version: 9.34.0
-Release: 3%{?dist}
+Version: 9.36.0
+Release: 1%{?dist}
 Source0: https://pkg.linbit.com/downloads/%{name}/utils/%{name}-utils-%{version}.tar.gz
 Patch0: drbd-utils-9.28.0-disable_xsltproc_network_read.patch
 Patch1: drbd-utils-9.15.0-make_configure-workaround.patch
-Patch2: 8bff85d40efa51b0d7ae27a452d73a61c28c85d1.patch
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 ExclusiveOS: linux
@@ -45,7 +44,6 @@ This is a virtual package, installing the full user-land suite.
 # Don't let xsltproc make network calls during build
 %patch -P 0 -p1
 %patch -P 1 -p1
-%patch -P 2 -p1
 
 %build
 %configure \
@@ -94,7 +92,8 @@ This packages includes the DRBD administration tools.
 # systemd-related stuff
 %attr(0644,root,root) %{_presetdir}/50-drbd.preset
 %attr(0644,root,root) %{_unitdir}/drbd.service
-%attr(0644,root,root) %{_unitdir}/drbd-graceful-shutdown.service
+%{_unitdir}/drbd-graceful-disconnect.service
+%{_unitdir}/drbd-graceful-down.service
 %attr(0644,root,root) %{_unitdir}/drbd-lvchange@.service
 %attr(0644,root,root) %{_unitdir}/drbd-promote@.service
 %attr(0644,root,root) %{_unitdir}/drbd-demote-or-escalate@.service
@@ -109,6 +108,7 @@ This packages includes the DRBD administration tools.
 # Yes, these paths are peculiar. Upstream is peculiar.
 # Be forewarned: rpmlint hates this stuff.
 %defattr(755,root,root,-)
+%dir %{_prefix}/lib/drbd/scripts
 %{_prefix}/lib/drbd/scripts/drbd
 %{_prefix}/lib/drbd/scripts/drbd-service-shim.sh
 %{_prefix}/lib/drbd/scripts/drbd-wait-promotable.sh
@@ -123,6 +123,8 @@ This packages includes the DRBD administration tools.
 %config(noreplace) %{_sysconfdir}/drbd.conf
 %dir %{_sysconfdir}/drbd.d
 %config(noreplace) %{_sysconfdir}/drbd.d/global_common.conf
+%dir %{_sysconfdir}/drbd.d/fence-peer
+%dir %{_sysconfdir}/drbd.d/fence-peer/peers
 %config(noreplace) %{_sysconfdir}/multipath/conf.d/drbd.conf
 %{_mandir}/man8/drbd*gz
 %{_mandir}/man5/drbd*gz
@@ -131,9 +133,11 @@ This packages includes the DRBD administration tools.
 %{_mandir}/man7/drbd*@.service.*
 %{_mandir}/man7/drbd*@.target.*
 %{_mandir}/man7/drbd.service.*
-%{_mandir}/man7/drbd-graceful-shutdown.service.*
+%{_mandir}/man7/drbd-graceful-disconnect.service.*
+%{_mandir}/man7/drbd-graceful-down.service.*
 %{_mandir}/man7/drbd-configured.target.*
 %doc scripts/drbd.conf.example
+%doc scripts/fence-peer
 %license COPYING
 %doc ChangeLog
 
@@ -240,13 +244,20 @@ fi
 
 
 %post utils
-%systemd_post drbd.service
+%systemd_post drbd.service drbd-configured.target
 
 %preun utils
-%systemd_preun drbd.service
+%systemd_preun drbd.service drbd-configured.target
+
+%postun utils
+%systemd_postun drbd.service
+%systemd_postun drbd.service drbd-configured.target
 
 
 %changelog
+* Sun Nov 22 2026 Peter Hanecak <hany@hany.sk> - 9.36.0-1
+- Upstream release of 9.36.0 (#2554585) possibly fixing also #2456191
+
 * Sat Aug 15 2026 Peter Hanecak <hany@hany.sk> - 9.34.0-3
 - Fix for #2456191 using 8bff85d commit from the upstream
 - Updated URL

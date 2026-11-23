@@ -9,6 +9,13 @@
 %define _lto_cflags %{nil}
 %global _default_patch_fuzz 2
 
+# define rust_target
+%ifarch ppc64le
+%global rust_target powerpc64le-unknown-linux-gnu
+%else
+%global rust_target %{_arch}-unknown-linux-gnu
+%endif
+
 # enable|disable system build flags
 %global system_build_flags 0
 
@@ -51,6 +58,11 @@
 
 # enable|disable system esbuild
 %global system_esbuild 1
+
+%global system_ninja 1
+%global ninja_version 1.13.2
+
+%global typescript_version 7.0.2
 
 # set nodejs_version
 %global nodejs_version v22.22.0
@@ -201,7 +213,7 @@
 %global bundledoubleconversion 0
 %global bundlelibXNVCtrl 0
 %global bundlelibusbx 0
-%global bundlelibsecret 0
+%global bundlelibsecret 1
 %global bundleopus 0
 %global bundlelcms2 0
 %global bundlesimdutf 1
@@ -268,7 +280,7 @@
 %endif
 
 Name:	chromium
-Version: 157.0.8103.78
+Version: 158.0.8127.36
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -337,21 +349,14 @@ Patch94: chromium-148-v8-sanitize-build-error.patch
 Patch96: chromium-142-crabbyavif-ftbfs-old-rust.patch
 
 # system ffmpeg
-# need for old ffmpeg 5.x on epel9
-Patch128: chromium-138-el9-ffmpeg-deprecated-apis.patch
-Patch129: chromium-el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE.patch
-Patch130: chromium-148-el9-ffmpeg-build-error.patch
 # disable the check
 Patch131: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch132: chromium-118-sigtrap_system_ffmpeg.patch
-# need for old ffmpeg 6.0/5.x on epel9 and fedora < 40
-Patch133: chromium-151-el9-ffmpeg-5.1.x.patch
-Patch134: chromium-151-el9-build-error-system-ffmpeg5.patch
 # revert, it causes build error: use of undeclared identifier 'AVFMT_FLAG_NOH264PARSE'
 Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
 # Workaround for youtube stop working
-Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
+Patch136: chromium-workaround-system-ffmpeg-whitelist.patch
 # fatal error: 'third_party/ffmpeg/libavutil/rational.h' file not found
 Patch137: chromium-147-system-ffmpeg.patch
 # Workaround for missing AVDynamicHDRSmpte2094App5 in system ffmpeg
@@ -385,38 +390,11 @@ Patch303: chromium-146-ftfs-llvm-octal-notation.patch
 # Workaround for clang++ crash with llvm-20 on el9/el10.1/f42, clang++: error: clang frontend command failed with exit code 139
 Patch304: chromium-146-llvm-crash.patch
 
-# disable memory tagging (epel8 on aarch64) due to new feature IFUNC-Resolver
-# it is not supported in old glibc < 2.30, error: fatal error: 'sys/ifunc.h' file not found
-Patch305: chromium-124-el8-arm64-memory_tagging.patch
-Patch306: chromium-127-el8-ifunc-header.patch
-
-# workaround for build error due to old atk version on el8
-Patch307: chromium-134-el8-atk-compiler-error.patch
-# Fix build errors due to old clang18 in el8
-Patch308: chromium-136-unsupport-clang-flags.patch
-Patch309: chromium-132-el8-unsupport-rustc-flags.patch
-
 # Fix rhbz#2387446, FTBFS with rust-1.89.0
 Patch310: chromium-139-rust-FTBFS-suppress-warnings.patch
 
 # enable fstack-protector-strong
 Patch311: chromium-123-fstack-protector-strong.patch
-
-# Fix FTBFS:
-# ERROR at //build/rust/crubit/BUILD.gn:12:5: 
-# Unable to load third_party/rust-toolchain/lib/third_party/crubit/support/rs_std/BUILD.gn
-# "$crubit_src_dir/support/rs_std:rs_std_cpp",
-# Patch from https://github.com/ungoogled-software/ungoogled-chromium/pull/4003
-Patch312: chromium-ftbfs-crubit.patch
-
-# Fix FTBFS:
-# ERROR Unresolved dependencies
-# Patch from https://github.com/ungoogled-software/ungoogled-chromium/pull/4003
-Patch313: chromium-ftbfs-private-verification-tokens.patch
-
-# old rust version causes build error on el8:
-# error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
-Patch314: chromium-136-rust-skrifa-build-error.patch
 
 # error with old rustc
 Patch315: chromium-145-rustc-ftbfs.patch
@@ -464,9 +442,6 @@ Patch357: chromium-134-type-mismatch-error.patch
 # set clang_lib path
 Patch358: chromium-rust-clanglib.patch
 
-# fix FTBFS with rustc 1.95
-Patch359: chromium-148-rust-1.95-bytemuck-ftbfs.patch
-
 # PowerPC64 LE support
 # Timothy Pearson's patchset
 # https://gitlab.raptorengineering.com/raptor-engineering-public/chromium/openpower-patches
@@ -505,6 +480,7 @@ Patch396: skia-vsx-instructions.patch
 Patch397: 0001-Implement-support-for-ppc64-on-Linux.patch
 Patch398: 0001-Implement-support-for-PPC64-on-Linux.patch
 Patch399: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
+Patch400: 0002-Add-pregenerated-config-for-libaom-on-ppc64.patch
 Patch401: fix-rustc.patch
 Patch402: fix-rust-linking.patch
 Patch403: fix-breakpad-compile.patch
@@ -578,11 +554,23 @@ BuildRequires: openssl-devel
 
 # License - Apache-2.0, https://github.com/microsoft/TypeScript?tab=Apache-2.0-1-ov-file
 # curl -fL https://github.com/microsoft/TypeScript/archive/refs/tags/v7.0.2.tar.gz -o TypeScript-7.0.2.tar.gz
-Source14: TypeScript-7.0.2.tar.gz
+Source14: TypeScript-%{typescript_version}.tar.gz
 # vendor archive created by create-typesctipt-archive.sh
-Source15: TypeScript-7.0.2-vendor-archive.tar.gz
+Source15: TypeScript-%{typescript_version}-vendor-archive.tar.gz
+
+Source20: rustc-1.100.0-src.tar.xz
+# crubut license - Apache-2.0
+# https://github.com/google/crubit
+Source22: crubit.tar.xz
+# Additional official Rust release source tarballs for EPEL 9 (1.97 -> 1.98 -> 1.99)
+Source24: https://static.rust-lang.org/dist/rustc-1.98.0-src.tar.xz
+Source25: https://static.rust-lang.org/dist/rustc-1.99.1-src.tar.xz
+# ninja License - Apache-2.0
+# https://github.com/ninja-build/ninja/archive/v1.13.2/ninja-1.13.2.tar.gz
+Source26: ninja-%{ninja_version}.tar.gz
 
 BuildRequires: golang
+BuildRequires: llvm-devel
 BuildRequires: clang
 BuildRequires: clang-tools-extra
 BuildRequires: llvm
@@ -1126,13 +1114,6 @@ Qt6 UI for chromium.
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
 
 %if ! %{bundleffmpegfree}
-%if 0%{?rhel} == 9
-%patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
-%patch -P129 -p1 -b .el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE
-%patch -P130 -p1 -b .el9-ffmpeg-build-error
-%patch -P133 -p1 -b .el9-ffmpeg-5.1.x
-%endif
-%patch -P134 -p1 -b .el9-ffmpeg-5.1.x
 %patch -P131 -p1 -b .prop-codecs
 %patch -P132 -p1 -b .sigtrap_system_ffmpeg
 %patch -P135 -p1 -b .disable-H.264-video-parser-during-demuxing
@@ -1147,12 +1128,6 @@ Qt6 UI for chromium.
 %patch -P141 -p1 -b .dma_buf_export_sync_file-conflict
 %endif
 
-%if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 2)
-%patch -P142 -p1 -b .rust-1.88-build-error
-%patch -P143 -p1 -b .rust-1.88-enable-unstable_features
-%patch -P144 -p1 -b .rust-1.88-undefined-symbol
-%endif
-
 %patch -P150 -p1 -b .qt6
 
 %patch -P300 -p1 -b .swiftshader-missing-include
@@ -1164,21 +1139,9 @@ Qt6 UI for chromium.
 %patch -P304 -p1 -b .llvm-crash
 %endif
 
-%if 0%{?rhel} == 8
-%ifarch aarch64
-%patch -P305 -p1 -b .el8-memory_tagging
-%patch -P306 -p1 -b .el8-ifunc-header
-%endif
-%patch -P307 -p1 -b .el8-atk-compiler-error
-%patch -P308 -p1 -b .unsupport-clang-flags
-%patch -P309 -p1 -b .el8-unsupport-rustc-flags
-%patch -P314 -p1 -b .rust-skrifa-build-error
-%endif
 %patch -P315 -p1 -b .rustc-ftbfs
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .fstack-protector-strong
-%patch -P312 -p1 -b .ftbfs-crubit
-%patch -P313 -p1 -b .ftbfs-private-verification-tokens
 
 %if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P354 -p1 -b .split-threshold-for-reg-with-hint
@@ -1212,8 +1175,6 @@ Qt6 UI for chromium.
 
 %patch -P358 -p1 -b .rust-clang_lib
 
-%patch -P359 -p1 -b .ftbfs-with-rustc-1.95
-
 %ifarch ppc64le
 %patch -P360 -p1 -b .add-ppc64-architecture-string
 %patch -P361 -p1 -b .0001-sandbox-Enable-seccomp_bpf-for-ppc64
@@ -1239,6 +1200,7 @@ Qt6 UI for chromium.
 %patch -P397 -p1 -b .0001-Implement-support-for-ppc64-on-Linux
 %patch -P398 -p1 -b .0001-Implement-support-for-PPC64-on-Linux
 %patch -P399 -p1 -b .0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-
+%patch -P400 -p1 -b .0002-Add-pregenerated-config-for-libaom-on-ppc64
 %patch -P401 -p1 -b .fix-rustc
 %patch -P402 -p1 -b .fix-rust-linking
 %patch -P403 -p1 -b .fix-breakpad-compile
@@ -1263,8 +1225,6 @@ Qt6 UI for chromium.
 %patch -P502 -p1 -b .flatpak-widevine
 %endif
 
-%patch -P521 -p1 -b .disable-ai
-
 # Upstream patches
 
 # Change shebang in all relevant files in this directory and all subdirectories
@@ -1279,6 +1239,9 @@ sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/d
 
 # bz#2265957, add correct platform
 sed -i "s/Linux x86_64/Linux %{_arch}/" components/embedder_support/user_agent_utils.cc
+
+# Allow build with system libraries
+sed -i 's/OFFICIAL_BUILD/GOOGLE_CHROME_BUILD/' tools/generate_shim_headers/generate_shim_headers.py
 
 # Add correct path for nodejs binary
 mkdir -p third_party/node/linux/node-linux-x64/bin
@@ -1305,15 +1268,16 @@ ln -sf ../../%{chromebuilddir}/gn buildtools/linux64/gn
 mkdir -p third_party/gperf/cipd/bin
 ln -fs $(which gperf) third_party/gperf/cipd/bin/gperf
 
-# Remove bundle rustc and replace it with system rustc
-mkdir -p third_party/rust-toolchain/bin/
-ln -fs $(which rustc) third_party/rust-toolchain/bin/rustc
-
-# remove bundle python3 and replace it with system one
-# fix FTBFS on aarch64, ppc64le
 # ERROR at //build/toolchain/concurrent_links.gni:156:19: Script returned non-zero exit code.
-%ifnarch x86_64
+mkdir -p third_party/cpython3/host/bin
 cp $(which python3) third_party/cpython3/host/bin/python3
+
+# Fix FTBFS due to old python3 (version 3.9.25) on epel9
+# /mojo/public/tools/bindings/generators/mojom_rust_generator.py", line 196, in <module>
+#    ) -> str | None:
+# TypeError: unsupported operand type(s) for |: 'type' and 'NoneType'
+%if 0%{?rhel} == 9
+sed -i '1i from __future__ import annotations' mojo/public/tools/bindings/generators/mojom_rust_generator.py
 %endif
 
 %if %{bundlelibusbx}
@@ -1329,10 +1293,30 @@ cp -a $(pkg-config --variable=includedir libusb-1.0)/libusb-1.0/libusb.h third_p
 ln -sf %{_includedir}/simdutf.h third_party/simdutf/simdutf.h
 %endif
 
-%build
+# Unpack official Rust 1.100.0 source (pre-vendored with .cargo/config.toml included)
+tar xf %{SOURCE20} -C %{_builddir}
 
-%if ! %{system_nodejs}
-# Build nodejs and Replace bundle binary
+# Unpack Crubit and its vendored crates into third_party/rust-toolchain/crubit/lib/third_party/crubit
+mkdir -p third_party/rust-toolchain/crubit/lib/third_party
+tar xf %{SOURCE22} -C third_party/rust-toolchain/crubit/lib/third_party
+
+# On EPEL 9, unpack the 1.98.0 and 1.99.0 source tarballs
+%if 0%{?rhel} == 9
+tar xf %{SOURCE24} -C %{_builddir}
+tar xf %{SOURCE25} -C %{_builddir}
+%endif
+
+%build
+# Bootstrap and replace old ninja on EL9
+%if 0%{?rhel} == 9
+tar xf %{SOURCE26} -C %{_builddir}
+pushd %{_builddir}/ninja-%{ninja_version}
+%set_build_flags
+%python3 configure.py --bootstrap --verbose
+popd
+export PATH="%{_builddir}/ninja-%{ninja_version}:$PATH"
+
+# Boostrap and Replace old nodejs om EL9
 export CXX=c++
 tar xf %{SOURCE12}
 pushd node-%{nodejs_version}
@@ -1345,15 +1329,184 @@ popd
 %endif
 
 # Build tsgo and replace bundle binary
-ver=7.0.2
-tar xf %{SOURCE14} && tar xf %{SOURCE15} -C TypeScript-$ver/tsc
-pushd TypeScript-$ver/tsc/internal/bundled/libs
+tar xf %{SOURCE14} && tar xf %{SOURCE15} -C TypeScript-%{typescript_version}/tsc
+pushd TypeScript-%{typescript_version}/tsc/internal/bundled/libs
 patch -p2 < ../../../../../third_party/typescript/linux-amd64/3pp/patches/typescript_native_preview.patch
 popd
-pushd TypeScript-$ver/tsc
+pushd TypeScript-%{typescript_version}/tsc
 go build  -o tsgo ./cmd/tsgo
 popd
-cp -a TypeScript-$ver/tsc/tsgo  third_party/typescript/linux-amd64/src/lib/tsc
+cp -a TypeScript-%{typescript_version}/tsc/tsgo  third_party/typescript/linux-amd64/src/lib/tsc
+
+# ==============================================================================
+# 0. Select or Bootstrap Stage 0 Rust & Cargo Toolcahin
+# ==============================================================================
+%if 0%{?rhel} == 9
+# Hop 1: System rustc (1.97) -> Stage 1 rustc + std/proc_macro (1.98.0)
+cat > %{_builddir}/bootstrap-1.98.toml << EOF
+change-id = 999999
+
+[llvm]
+download-ci-llvm = false
+link-shared = true
+
+[build]
+rustc = "/usr/bin/rustc"
+cargo = "/usr/bin/cargo"
+submodules = false
+locked-deps = true
+vendor = true
+extended = false
+tools = []
+docs = false
+compiler-docs = false
+optimized-compiler-builtins = false
+
+[rust]
+channel = "stable"
+debuginfo-level = 0
+deny-warnings = false
+
+[target.%{rust_target}]
+llvm-config = "/usr/bin/llvm-config"
+EOF
+
+pushd %{_builddir}/rustc-1.98.0-src
+python3 x.py build --stage 1 --config %{_builddir}/bootstrap-1.98.toml \
+    compiler/rustc library
+popd
+
+# Hop 2: Stage 1 rustc (1.98.0) -> Stage 1 rustc + library + cargo (1.99.1)
+cat > %{_builddir}/bootstrap-1.99.toml << EOF
+change-id = 999999
+
+[llvm]
+download-ci-llvm = false
+link-shared = true
+
+[build]
+rustc = "%{_builddir}/rustc-1.98.0-src/build/%{rust_target}/stage1/bin/rustc"
+cargo = "/usr/bin/cargo"
+submodules = false
+locked-deps = true
+vendor = true
+extended = false
+tools = []
+docs = false
+compiler-docs = false
+optimized-compiler-builtins = false
+
+[rust]
+channel = "stable"
+debuginfo-level = 0
+deny-warnings = false
+
+[target.%{rust_target}]
+llvm-config = "/usr/bin/llvm-config"
+EOF
+
+pushd %{_builddir}/rustc-1.99.1-src
+python3 x.py build --stage 1 --skip-stage0-validation --config %{_builddir}/bootstrap-1.99.toml \
+    compiler/rustc library cargo
+
+cp -f build/%{rust_target}/stage1-tools-bin/cargo build/%{rust_target}/stage1/bin/cargo
+popd
+
+STAGE0_RUSTC="%{_builddir}/rustc-1.99.1-src/build/%{rust_target}/stage1/bin/rustc"
+STAGE0_CARGO="%{_builddir}/rustc-1.99.1-src/build/%{rust_target}/stage1/bin/cargo"
+%else
+# Fedora already provides Rust & Cargo 1.100+
+STAGE0_RUSTC="/usr/bin/rustc"
+STAGE0_CARGO="/usr/bin/cargo"
+%endif
+
+# ==============================================================================
+# 1. Configure rustc-1.100.0-src as a Nightly-Enabled Stage 2 Toolchain
+# ==============================================================================
+pushd %{_builddir}/rustc-1.100.0-src
+
+cat > %{_builddir}/bootstrap-final.toml << EOF
+change-id = 999999
+
+[llvm]
+download-ci-llvm = false
+link-shared = true
+
+[build]
+rustc = "${STAGE0_RUSTC}"
+cargo = "${STAGE0_CARGO}"
+submodules = false
+locked-deps = true
+vendor = true
+build-stage = 2
+docs = false
+compiler-docs = false
+extended = false
+tools = []
+optimized-compiler-builtins = false
+
+[rust]
+channel = "nightly"
+debuginfo-level = 0
+dist-src = false
+deny-warnings = false
+
+[target.%{rust_target}]
+llvm-config = "/usr/bin/llvm-config"
+EOF
+
+# ==============================================================================
+# 2. Build and Install the Pristine Stage 2 Sysroot via Official Tarballs
+# ==============================================================================
+python3 x.py dist --stage 2 --skip-stage0-validation \
+    --config %{_builddir}/bootstrap-final.toml \
+    rust-std rustc rustc-dev
+
+mkdir -p %{_builddir}/rust-sysroot
+for tarball in build/dist/*.tar.xz; do
+    tar xf "$tarball" -C build/dist/
+done
+
+for installer in build/dist/*/install.sh; do
+    bash "$installer" --prefix=%{_builddir}/rust-sysroot --disable-ldconfig
+done
+popd
+
+# ==============================================================================
+# 3. Patch & Compile Crubit (cc_bindings_from_rs)
+# ==============================================================================
+CHROMIUM_ROOT="$(pwd)"
+pushd third_party/rust-toolchain/crubit/lib/third_party/crubit
+export RUSTC="%{_builddir}/rust-sysroot/bin/rustc"
+RUSTC_BOOTSTRAP=1 \
+RUSTFLAGS="-Clink-args=-Wl,-z,origin -Clink-args=-Wl,-rpath,\$ORIGIN/../lib" \
+${STAGE0_CARGO} build --offline --locked --release -p cc_bindings_from_rs --bin cc_bindings_from_rs
+
+mkdir -p "${CHROMIUM_ROOT}/third_party/rust-toolchain/crubit/bin"
+cp -a target/release/cc_bindings_from_rs "${CHROMIUM_ROOT}/third_party/rust-toolchain/crubit/bin/"
+popd
+
+# ==============================================================================
+# 4. Stage Sysroot & Shared Libraries Before Chromium GN Build
+# ==============================================================================
+# Link system rustfmt and libclang into the custom sysroot for Chromium's bindgen actions
+ln -sf /usr/bin/rustfmt %{_builddir}/rust-sysroot/bin/rustfmt
+mkdir -p %{_builddir}/rust-sysroot/lib64
+ln -sf /usr/lib64/libclang.so* %{_builddir}/rust-sysroot/lib64/
+
+# Populate third_party/rust-toolchain with rustc + rustfmt + libclang + stdlib
+cp -an %{_builddir}/rust-sysroot/* third_party/rust-toolchain/
+
+# Stage shared libraries for Crubit ($ORIGIN/../lib -> third_party/rust-toolchain/crubit/lib)
+mkdir -p third_party/rust-toolchain/crubit/lib
+cp -a %{_builddir}/rust-sysroot/lib/*.so* third_party/rust-toolchain/crubit/lib/
+cp -an %{_builddir}/rust-sysroot/lib/rustlib/%{rust_target}/lib/libstd-*.so \
+       third_party/rust-toolchain/crubit/lib/
+
+# Ensure GN does not fail if libprofiler_builtins was not built
+if ! ls third_party/rust-toolchain/lib/rustlib/%{rust_target}/lib/libprofiler_builtins-*.rlib >/dev/null 2>&1; then
+    sed -i '/"profiler_builtins",/d' build/rust/std/BUILD.gn
+fi
 
 # reduce warnings
 FLAGS=' -Wno-deprecated-declarations -Wno-unknown-warning-option -Wno-unused-command-line-argument'
@@ -1398,10 +1551,10 @@ export RUSTC_BOOTSTRAP=1
 
 # set rustc version
 # Fix error: multiple input filenames provided, caused by rustc_wrapper
-rustc_version="$(rustc -V | cut -d' ' -f-2 | sed 's/ /-/')"
+rustc_version="$($RUSTC -V | cut -d' ' -f-2 | sed 's/ /-/')"
 # set rust bindgen root
 rust_bindgen_root="$(which bindgen | sed 's#/s\?bin/.*##')"
-rust_sysroot_absolute="$(rustc --print sysroot)"
+rust_sysroot_absolute="$($RUSTC --print sysroot)"
 
 # set clang version
 clang_version="$(clang --version | sed -n 's/clang version //p' | cut -d. -f1)"
@@ -1452,7 +1605,8 @@ CHROMIUM_CORE_GN_DEFINES+=' use_lld=true'
 CHROMIUM_CORE_GN_DEFINES+=" rust_sysroot_absolute=\"$rust_sysroot_absolute\""
 CHROMIUM_CORE_GN_DEFINES+=" rust_bindgen_root=\"$rust_bindgen_root\""
 CHROMIUM_CORE_GN_DEFINES+=" rustc_version=\"$rustc_version\""
-
+CHROMIUM_CORE_GN_DEFINES+=" added_rust_stdlib_libs=[\"addr2line\",\"adler2\",\"gimli\",\"miniz_oxide\"]"
+CHROMIUM_CORE_GN_DEFINES+=" rust_crubit_root=\"//third_party/rust-toolchain/crubit/\""
 CHROMIUM_CORE_GN_DEFINES+=' use_sysroot=false'
 
 %ifarch aarch64
@@ -1956,6 +2110,213 @@ fi
 %endif
 
 %changelog
+* Sat Nov 21 2026 Than Ngo <than@redhat.com> - 158.0.8127.36-1
+- Update to 158.0.8127.36, include 204 security fixes
+  * CVE-2026-121101: Missing authorization in DevTools
+  * CVE-2026-130904: Incorrect authorization in SiteSettings
+  * CVE-2026-130905: UI misrepresentation in SVG
+  * CVE-2026-130906: Incorrect authorization in DevTools
+  * CVE-2026-130907: Use after free in Autofill
+  * CVE-2026-130908: Missing authorization in Passwords
+  * CVE-2026-130909: Use after free in Extensions
+  * CVE-2026-130910: Protection mechanism failure in ANGLE
+  * CVE-2026-130911: Race condition in DevTools
+  * CVE-2026-130912: Improper state validation in Network
+  * CVE-2026-130913: Incorrect reference resolution in Mobile
+  * CVE-2026-130914: Uninitialized resource in ANGLE
+  * CVE-2026-130915: Use after free in CSS
+  * CVE-2026-130916: Missing authorization in DevTools
+  * CVE-2026-130917: Use after free in Browser
+  * CVE-2026-130918: Use after free in Views
+  * CVE-2026-130919: Race condition in Printing
+  * CVE-2026-130920: Information leak in Payments
+  * CVE-2026-130921: Nonce reuse in WebRTC
+  * CVE-2026-130922: UI misrepresentation in UI
+  * CVE-2026-130923: Out of bounds write in V8
+  * CVE-2026-130924: Incorrect authorization in WebAppInstalls
+  * CVE-2026-130925: Race condition in Downloads
+  * CVE-2026-130926: Confused deputy in Sync
+  * CVE-2026-130927: Incorrect authorization in DevTools
+  * CVE-2026-130928: Code injection in Mobile
+  * CVE-2026-130929: Use after free in Chromoting
+  * CVE-2026-130930: Use after free in Ozone
+  * CVE-2026-130931: Incorrect authorization in Extensions
+  * CVE-2026-130932: Improper resource exposure in Core
+  * CVE-2026-130933: Information leak in Paint
+  * CVE-2026-130934: Incorrect authorization in Autofill
+  * CVE-2026-130935: Information leak in Referrer
+  * CVE-2026-130936: Information leak in Media
+  * CVE-2026-130937: Incorrect authorization in Navigation
+  * CVE-2026-130938: Use after free in Accessibility
+  * CVE-2026-130939: Missing authorization in LocalNetworkAccess
+  * CVE-2026-130940: Improper state validation in GPU
+  * CVE-2026-130941: Incorrect authorization in HTML
+  * CVE-2026-130942: Observable discrepancy in Extensions
+  * CVE-2026-130943: Use after free in Chromecast
+  * CVE-2026-130944: Use after free in Omnibox
+  * CVE-2026-130945: Use after free in VR
+  * CVE-2026-130946: Incorrect authorization in PerformanceAPIs
+  * CVE-2026-130947: Integer overflow in Autofill
+  * CVE-2026-130948: Use after free in Omnibox
+  * CVE-2026-130949: UI misrepresentation in Passwords
+  * CVE-2026-130950: Type confusion in V8
+  * CVE-2026-130951: Use after free in Plugins
+  * CVE-2026-130952: Uninitialized resource in Network
+  * CVE-2026-130953: Incorrect authorization in Core
+  * CVE-2026-130954: Incorrect reference resolution in ANGLE
+  * CVE-2026-130955: UI misrepresentation in Mobile
+  * CVE-2026-130956: Improper input validation in WebAppInstalls
+  * CVE-2026-130957: Improper state validation in Performance
+  * CVE-2026-130958: Uninitialized resource in WebRTC
+  * CVE-2026-130959: Missing authorization in FileSystem
+  * CVE-2026-130960: Use after free in Session
+  * CVE-2026-130961: Incorrect authorization in Media
+  * CVE-2026-130962: Incomplete cleanup in Navigation
+  * CVE-2026-130963: Use after free in WebView
+  * CVE-2026-130964: Confused deputy in DevTools
+  * CVE-2026-130965: Uninitialized resource in Media
+  * CVE-2026-130966: Out of bounds read in Tint
+  * CVE-2026-130967: Incorrect authorization in DevTools
+  * CVE-2026-130968: Use after free in Views
+  * CVE-2026-130969: Incorrect authorization in Omnibox
+  * CVE-2026-130970: Uninitialized resource in GPU
+  * CVE-2026-130971: Out of bounds write in ANGLE
+  * CVE-2026-130972: Observable discrepancy in PictureInPicture
+  * CVE-2026-130973: Incorrect authorization in Sensor
+  * CVE-2026-130974: Use after free in UserEducation
+  * CVE-2026-130975: Use after free in WebAudio
+  * CVE-2026-130976: Use after free in PDFium
+  * CVE-2026-130977: Uninitialized resource in Dawn
+  * CVE-2026-130978: Incorrect authorization in Media
+  * CVE-2026-130979: Use after free in Forms
+  * CVE-2026-130980: Use after free in Layout
+  * CVE-2026-130981: Information leak in Enterprise
+  * CVE-2026-130982: Incorrect authorization in Omnibox
+  * CVE-2026-130983: Incorrect authorization in DevTools
+  * CVE-2026-130984: Incorrect authorization in Canvas
+  * CVE-2026-130985: Improper input validation in DOMStorage
+  * CVE-2026-130986: Incorrect authorization in Sync
+  * CVE-2026-130987: Race condition in Downloads
+  * CVE-2026-130988: Out of bounds read in V8
+  * CVE-2026-130989: Missing authorization in Paint
+  * CVE-2026-130990: Missing authorization in PersistentCache
+  * CVE-2026-130991: Uninitialized resource in Media
+  * CVE-2026-130992: Incorrect authorization in Views
+  * CVE-2026-130993: Use after free in Script
+  * CVE-2026-130994: Use after free in WebGL
+  * CVE-2026-130995: UI misrepresentation in Autofill
+  * CVE-2026-130996: Out of bounds write in ANGLE
+  * CVE-2026-130997: Incomplete cleanup in Autofill
+  * CVE-2026-130998: Improper input validation in Parser
+  * CVE-2026-130999: Use after free in Downloads
+  * CVE-2026-131000: Improper input validation in WebAppInstalls
+  * CVE-2026-131001: Buffer overflow in Video
+  * CVE-2026-131002: Uninitialized resource in GPU
+  * CVE-2026-131003: Confused deputy in TabModel
+  * CVE-2026-131004: Use after free in FedCM
+  * CVE-2026-131005: Use after free in DevTools
+  * CVE-2026-131006: Race condition in CredentialProvider
+  * CVE-2026-131007: Uninitialized resource in GPU
+  * CVE-2026-131008: Use after free in GarbageCollection
+  * CVE-2026-131009: UI misrepresentation in Passwords
+  * CVE-2026-131010: Use after free in Extensions
+  * CVE-2026-131011: Use of uninitialized variable in Speech
+  * CVE-2026-131012: Missing authorization in Services
+  * CVE-2026-131013: Buffer overflow in Skia
+  * CVE-2026-131014: Confused deputy in Grid
+  * CVE-2026-131015: Missing authorization in Mobile
+  * CVE-2026-131016: Incorrect authorization in DevTools
+  * CVE-2026-131017: Information leak in Editing
+  * CVE-2026-131018: Confused deputy in DevTools
+  * CVE-2026-131019: Information leak in ANGLE
+  * CVE-2026-131020: Use after free in WebView
+  * CVE-2026-131021: Use after free in Accessibility
+  * CVE-2026-131022: Use after free in DOM
+  * CVE-2026-131023: Race condition in Core
+  * CVE-2026-131024: Incorrect authorization in iOSWeb
+  * CVE-2026-131025: Out of bounds read in ANGLE
+  * CVE-2026-131026: Information leak in Media
+  * CVE-2026-131027: Observable discrepancy in Browser
+  * CVE-2026-131028: Incorrect authorization in WebAppInstalls
+  * CVE-2026-131029: Improper input validation in Extensions
+  * CVE-2026-131030: Privilege elevation in Sandbox
+  * CVE-2026-131031: Out of bounds write in GPU
+  * CVE-2026-131032: Confused deputy in UI
+  * CVE-2026-131033: Missing authorization in Extensions
+  * CVE-2026-131034: Incorrect authorization in SurfaceCapture
+  * CVE-2026-131035: Out of bounds read in Media
+  * CVE-2026-131036: UI misrepresentation in Autofill
+  * CVE-2026-131037: Improper authentication request restriction in Chromoting
+  * CVE-2026-131038: Missing authorization in Editing
+  * CVE-2026-131039: Use after free in Mojo
+  * CVE-2026-131040: Incorrect authorization in Extensions
+  * CVE-2026-131041: Improper input validation in Editing
+  * CVE-2026-131042: Use after free in V8
+  * CVE-2026-131043: Use after free in HID
+  * CVE-2026-131044: Use after free in Payments
+  * CVE-2026-131045: Incorrect authorization in PerformanceAPIs
+  * CVE-2026-131046: Improper input validation in ChromeDriver
+  * CVE-2026-131047: Race condition in ServiceManager
+  * CVE-2026-131048: Incorrect authorization in GetUserMedia
+  * CVE-2026-131049: Use after free in SignIn
+  * CVE-2026-131050: Use after free in Mojo
+  * CVE-2026-131051: Incorrect authorization in UI
+  * CVE-2026-131052: Race condition in UI
+  * CVE-2026-131053: Missing authorization in Layout
+  * CVE-2026-131054: Out of bounds write in ANGLE
+  * CVE-2026-131055: Improper output encoding in Editing
+  * CVE-2026-131056: Use after free in WebAppInstalls
+  * CVE-2026-131057: Out of bounds read in ANGLE
+  * CVE-2026-131058: UI misrepresentation in WebAppInstalls
+  * CVE-2026-131059: Use after free in Autofill
+  * CVE-2026-131060: Buffer overflow in Media
+  * CVE-2026-131061: Buffer overflow in Color
+  * CVE-2026-131062: Improper synchronization in ScreenCapture
+  * CVE-2026-131063: Use after free in CameraCapture
+  * CVE-2026-131064: Incorrect authorization in WebAppInstalls
+  * CVE-2026-131065: Use after free in Autofill
+  * CVE-2026-131066: Uninitialized resource in Dawn
+  * CVE-2026-131067: Missing authorization in Autofill
+  * CVE-2026-131068: Use after free in DOM
+  * CVE-2026-131069: Information leak in WebGL
+  * CVE-2026-131070: Information leak in DOM
+  * CVE-2026-131071: Confused deputy in Mobile
+  * CVE-2026-131072: Incorrect authorization in HID
+  * CVE-2026-131073: Incorrect authorization in Passwords
+  * CVE-2026-131074: Use after free in DeviceBoundSessionCredentials
+  * CVE-2026-131075: Improper input validation in DevTools
+  * CVE-2026-131076: Uninitialized resource in GPU
+  * CVE-2026-131077: Out of bounds write in Tint
+  * CVE-2026-131078: Use after free in Proxy
+  * CVE-2026-131079: Use after free in Bindings
+  * CVE-2026-131080: UI misrepresentation in Chromium
+  * CVE-2026-131081: Incorrect authorization in Media
+  * CVE-2026-131082: Use after free in CSS
+  * CVE-2026-131083: Uninitialized resource in GPU
+  * CVE-2026-131084: Use after free in XML
+  * CVE-2026-131085: Clickjacking in PermissionElement
+  * CVE-2026-131086: Uninitialized resource in WebRTC
+  * CVE-2026-131087: Type confusion in V8
+  * CVE-2026-131088: Improper input validation in WebAppInstalls
+  * CVE-2026-131089: Buffer overflow in CrashReporting
+  * CVE-2026-131090: Use after free in Geometry
+  * CVE-2026-131091: Missing authorization in Autofill
+  * CVE-2026-131092: Use after free in Mojo
+  * CVE-2026-131093: Use after free in FedCM
+  * CVE-2026-131094: Incorrect authorization in WebUI
+  * CVE-2026-131095: Information leak in Workers
+  * CVE-2026-131096: Missing authorization in Editing
+  * CVE-2026-131097: Missing authorization in V8
+  * CVE-2026-131098: Out of bounds read in V8
+  * CVE-2026-131099: Out of bounds read in ANGLE
+  * CVE-2026-131100: Use after free in Loader
+  * CVE-2026-131101: Out of bounds read in Editing
+  * CVE-2026-131102: UI misrepresentation in FileSystem
+  * CVE-2026-131103: Uninitialized resource in GPU
+  * CVE-2026-131104: Out of bounds read in Tint
+  * CVE-2026-131105: Incorrect authorization in Glic
+  * CVE-2026-131106: Buffer overflow in Partition
+
 * Thu Nov 12 2026 Than Ngo <than@redhat.com> - 157.0.8103.78-1
 - Update to 157.0.8103.78, include 83 security fixes
   * CVE-2026-126885: Use after free in ServiceWorker

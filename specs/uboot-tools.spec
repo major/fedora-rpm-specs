@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2027.01
-Release:  0.2%{?candidate:.%{candidate}}%{?dist}
+Release:  0.3%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -35,15 +35,17 @@ Patch5:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 Patch6:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Enable UEFI HTTPS boot for all Fedora firmware
 Patch7:   uefi-enable-https-boot-by-default.patch
+# Fix some LTO builds
+Patch8:   0001-Makefile-Move-PLATFORM_LIBS-outside-the-the-whole-ar.patch
 
 # Device improvments
 # USB-PD improvements
 Patch10:  USB-PD-TCPM-improvements.patch
 # Rockchips improvements
 Patch11:  rockchip-Enable-preboot-start-for-pci-usb.patch
-Patch13:  rockchip-rk356x-Stop-overriding-sdhci-mmc-aliases.patch
+Patch12:  rockchip-rk356x-Stop-overriding-sdhci-mmc-aliases.patch
 # Jetson fixes
-Patch14:  p3450-fix-board.patch
+Patch14:  jetson-nano-Disable-some-unused-bits.patch
 Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
 # Fix AllWinner
 Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
@@ -316,6 +318,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Sun Nov 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2027.01-0.3.rc2
+- Fix Jetson Nano build, re-enable
+
 * Fri Nov 20 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2027.01-0.2.rc2
 - Update patches for RPi5 NVME boot, DTB loading
 

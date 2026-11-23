@@ -1,5 +1,5 @@
 Name:		fatrace
-Version:	0.19.1
+Version:	0.20.0
 Release:	%autorelease
 Summary:	Reports file access events from all running processes
 
@@ -27,6 +27,9 @@ export PREFIX=%{_prefix}
 make install DESTDIR=%{buildroot}
 # move /sbin to /bin
 mv %{buildroot}%{_prefix}/sbin %{buildroot}%{_bindir}
+
+%check
+make check
 
 %files
 %doc COPYING

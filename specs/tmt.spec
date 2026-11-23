@@ -1,5 +1,5 @@
 Name:           tmt
-Version:        1.80.0
+Version:        1.81.0
 Release:        %autorelease
 Summary:        Test Management Tool
 
@@ -174,7 +174,6 @@ package to have all available plugins ready for testing.
 %pyproject_buildrequires
 
 %build
-export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 # Build the man files

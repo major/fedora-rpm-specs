@@ -1,6 +1,6 @@
 Name:           perl-Mail-SPF
-Version:        3.20260331
-Release:        2%{?dist}
+Version:        3.20261105
+Release:        1%{?dist}
 Summary:        Object-oriented implementation of Sender Policy Framework
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Mail-SPF
@@ -20,6 +20,8 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Error)
 BuildRequires:  perl(Net::DNS) >= 0.62
+BuildRequires:  perl(Net::DNS::DomainName)
+BuildRequires:  perl(Net::DNS::Packet)
 BuildRequires:  perl(Net::DNS::Resolver)
 BuildRequires:  perl(NetAddr::IP) >= 4
 BuildRequires:  perl(overload)
@@ -115,6 +117,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 20 2026 Michal Josef Špaček <mspacek@redhat.com> - 3.20261105-1
+- 3.20261105 bump (rhbz#2568013)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.20260331-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

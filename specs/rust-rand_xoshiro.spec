@@ -5,7 +5,7 @@
 %global crate rand_xoshiro
 
 Name:           rust-rand_xoshiro
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Xoshiro, xoroshiro and splitmix64 random number generators
 

@@ -2,8 +2,8 @@
 %global _hardened_build 1
 
 Name:       cryptobone
-Version:    2.2
-Release:    4%{?dist}
+Version:    2.3
+Release:    1%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD-3-Clause and Sleepycat and OpenSSL
@@ -15,6 +15,7 @@ Source2:    Senderek-Web-Security-codesigning-key.asc
 ExclusiveArch: x86_64 ppc64le aarch64 riscv64
 
 BuildRequires: libbsd-devel
+BuildRequires: libb64-devel
 BuildRequires: gcc
 BuildRequires: openpgpverify
 BuildRequires: desktop-file-utils
@@ -54,7 +55,7 @@ to this task, or a Beagle Bone or a Raspberry Pi.  (https://crypto-bone.com)
 
 
 %prep
-# source code signature check with sqv 
+# source code signature check with sqv
 %{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %setup 
@@ -198,6 +199,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Sun Nov 22 2026 Ralf Senderek <innovation@senderek.ie> - 2.3-1
+- Add new base64functions using libb64-devel
+
 * Fri Nov 13 2026 Ralf Senderek <innovation@senderek.ie> 2.2-4 
 - Update Codesigning key self signature with SHA256, use openpgpverify
 

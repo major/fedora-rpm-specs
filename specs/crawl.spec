@@ -13,8 +13,8 @@
 
 Name:          crawl
 Summary:       Roguelike dungeon exploration game
-Version:       0.34.1
-Release:       %autorelease
+Version:       0.35
+Release:       %autorelease -p -e b1
 # Main license : GPLv2+
 # 2-clause BSD: all contributions by Steve Noonan and Jesse Luehrs
 # Public Domain|CC0: most of tiles, perlin.cc, perlin.h
@@ -25,7 +25,7 @@ Release:       %autorelease
 ## This program can be redistribute under GPLv2+ license; MIT and BSD are GPL compatible.
 License:       GPL-2.0-or-later AND Apache-2.0 AND BSD-2-Clause AND CC0-1.0
 URL:           https://crawl.develz.org/
-Source0:       https://github.com/%{name}/%{name}/archive/%{name}/%{name}-%{version}.tar.gz
+Source0:       https://github.com/%{name}/%{name}/archive/%{name}/%{name}-%{version}-b1.tar.gz
 Source1:       https://github.com/%{name}/%{name}-lua/archive/refs/heads/%{name}-lua-lua5.4.tar.gz
 
 ## These patches fix installation paths
@@ -115,7 +115,7 @@ run from, making each game unique and challenging.
 ####################
 
 %prep
-%autosetup -n %{name}-%{version} -N
+%autosetup -n %{name}-%{version}-b1 -N
 
 %if %{with bundled_lua}
 tar -xvf %{SOURCE1}

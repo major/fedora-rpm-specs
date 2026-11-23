@@ -48,6 +48,7 @@ sed -i -e 's/\r//g' README.txt CHANGES.txt
 %build
 ./autogen.sh
 %configure --disable-dependency-tracking \
+           --disable-stb-image \
            --disable-jpg-shared \
            --disable-png-shared \
            --disable-tif-shared \

@@ -97,6 +97,10 @@ Patch:          0002-drop-incompatible-cargo-flags-from-setuptools_rust.patch
 # * revert to building maturin with setuptools instead of bootstrapping maturin
 Patch:          0003-revert-to-using-setuptools-for-non-maturin-bootstrap.patch
 
+# * update cargo-cyclonedx from 0.5.9 to 0.5.10 (from
+#   https://github.com/PyO3/maturin/pull/3360, without changes to Cargo.lock)
+Patch:          0004-Update-cargo-cyclonedx-from-0.5.9-to-0.5.10-3360.patch
+
 BuildRequires:  cargo-rpm-macros >= 24
 
 # Some sdist tests expect to see .gitignore files in the sdist, which only

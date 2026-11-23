@@ -5,7 +5,7 @@
 %global crate auto_enums
 
 Name:           rust-auto_enums
-Version:        0.8.10
+Version:        0.8.11
 Release:        %autorelease
 Summary:        Library for to allow multiple return types by automatically generated enum
 
@@ -171,6 +171,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde_core-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde_core-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde_core" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde_core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

@@ -40,7 +40,7 @@
 Name:		root
 Version:	6.40.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3545,6 +3545,9 @@ fi
 %endif
 
 %changelog
+* Sun Nov 22 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.04-8
+- Rebuilt for xrootd 6 (EPEL 9)
+
 * Sat Oct 31 2026 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.40.04-7
 - Rebuild for pythia8 8.3.18 (again)
 

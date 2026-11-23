@@ -5,7 +5,7 @@
 %global crate regex
 
 Name:           rust-regex
-Version:        1.13.1
+Version:        1.13.2
 Release:        %autorelease
 Summary:        Implementation of regular expressions for Rust
 
@@ -306,13 +306,6 @@ use the "use_std" feature of the "%{crate}" crate.
 %autosetup -n %{crate}-%{version} -p1
 # Fuzz tests are not included in the crate.
 sed -r -i 's@^mod fuzz;@// &@' tests/lib.rs
-# Neither are the contents of testdata/fowler/.
-# We believe this to be a mistake:
-# - regex 1.12.3: non-fuzzing test data accidentally excluded
-#   https://github.com/rust-lang/regex/issues/1333
-# - fix glob typo in workspace.package.include setting
-#   https://github.com/rust-lang/regex/pull/1335
-sed -r -i 's@^([[:blank:]]*)(load!\("fowler/)@\1// \2@' tests/lib.rs
 %cargo_prep
 
 %generate_buildrequires

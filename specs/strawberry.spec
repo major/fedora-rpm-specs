@@ -12,7 +12,7 @@
 %global giturl https://github.com/strawberrymusicplayer/strawberry
 
 Name:           strawberry
-Version:        1.2.28
+Version:        1.2.31
 Release:        %autorelease
 Summary:        Audio player and music collection organizer
 
@@ -31,7 +31,25 @@ Summary:        Audio player and music collection organizer
 #   everything else
 License:        Apache-2.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
 URL:            https://www.strawberrymusicplayer.org/
-Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
+# Use the official release tarball to pick up the bundled API credentials.
+# These credentials are intentionally not present in git, only in the release
+# tarball in obfuscated form (encrypted with a non-secret key), to make them
+# harder to find by bots (presumably). They are, however, provided by the
+# author intentionally for use by distributions.
+#
+# See also:
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/XCTZGIUBCKKV7DAED3FVGFCZ4VUSWUUR/
+#
+# IMPORTANT: When rebasing to a new upstream version, verify the contents of
+# this tarball against the GitHub one by running:
+#
+# ./verify-tarball-against-github.sh
+#
+# The only difference it should show is the added API secrets. It may also
+# show some unimportant files intentionally missing from the official release
+# tarball (such as .clang-format or .github/...) - in that case edit the
+# script to exclude them from the diff.
+Source:         %{giturl}/releases/download/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -55,14 +73,17 @@ BuildRequires:  pkgconfig(icu-uc)
 BuildRequires:  pkgconfig(icu-i18n)
 BuildRequires:  pkgconfig(libcdio)
 BuildRequires:  pkgconfig(libchromaprint)
+BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  pkgconfig(libebur128)
 BuildRequires:  pkgconfig(libmtp)
 BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libsecret-1)
 %if %{with streamtagreader}
 BuildRequires:  pkgconfig(libsparsehash)
 %endif
 BuildRequires:  pkgconfig(sqlite3) >= 3.9
 BuildRequires:  pkgconfig(taglib) >= 1.12
+BuildRequires:  pkgconfig(uchardet)
 %if %{with gpod}
 BuildRequires:  pkgconfig(libgpod-1.0)
 %endif

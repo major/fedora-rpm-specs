@@ -1,13 +1,18 @@
+%global forgeurl https://github.com/xapp-project/xapp-symbolic-icons
+%global tag      %{version}
+
 Name:           xapp-symbolic-icons
-Version:        1.1.0
-Release:        2%{?dist}
+Version:        1.1.2
+Release:        %autorelease
+%{forgemeta}
 Summary:        A set of symbolic icons which replaces the GNOME-specific Adwaita set
 License:        CC0-1.0 AND CC-BY-SA-4.0 AND LGPL-3.0-only AND MIT
-URL:            https://github.com/xapp-project/xapp-symbolic-icons
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildArch:      noarch
-BuildRequires:  meson
+
+BuildSystem:    meson
 Requires:       hicolor-icon-theme
 
 %description
@@ -16,14 +21,7 @@ All provided icons are prefixed with xsi-.
 Icon names loosely follow the Adwaita names.
 
 %prep
-%autosetup -p1
-
-%build
-%meson
-%meson_build
-
-%install
-%meson_install
+%forgeautosetup -p1
 
 %transfiletriggerin -- %{_datadir}/icons/hicolor
 gtk-update-icon-cache --force %{_datadir}/icons/hicolor &>/dev/null || :
@@ -39,24 +37,4 @@ gtk-update-icon-cache --force %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/xapp/
 
 %changelog
-* Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Sat May 23 2026 Leigh Scott <leigh123linux@gmail.com> - 1.1.0-1
-- Update to 1.1.0
-
-* Wed Feb 11 2026 Leigh Scott <leigh123linux@gmail.com> - 1.0.9-1
-- Update to 1.0.9
-
-* Sat Jan 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Sat Jan 10 2026 Leigh Scott <leigh123linux@gmail.com> - 1.0.8-1
-- Update to 1.0.8
-
-* Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 1.0.6-1
-- Update to 1.0.6
-
-* Thu Nov 27 2025 Leigh Scott <leigh123linux@gmail.com> - 1.0.5-1
-- Update to 1.0.5
-
+%autochangelog

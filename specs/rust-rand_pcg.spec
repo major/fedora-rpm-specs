@@ -5,7 +5,7 @@
 %global crate rand_pcg
 
 Name:           rust-rand_pcg
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Selected PCG random number generators
 

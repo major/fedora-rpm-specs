@@ -1,6 +1,6 @@
 Name:           labwc-tweaks
-Version:        0.1.0
-Release:        3%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 Summary:        GUI configuration app for labwc
 
 License:        GPL-2.0-only and BSD-3-Clause
@@ -27,10 +27,12 @@ labwc-tweaks is a GUI configuration application for the labwc wayland
 compositor
 
 %prep
-%autosetup -n %{name}-%{version} -S git_am
+%autosetup -C -S git_am
+
+%conf
+%cmake
 
 %build
-%cmake
 %cmake_build
 
 
@@ -51,6 +53,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/labwc_tweaks.desktop
 
 
 %changelog
+* Mon Nov 23 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 0.2.0-1
+- Update to 0.2.0
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.1.0-3
 - Rebuilt for libxml-2.5.4
 

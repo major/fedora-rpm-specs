@@ -14,7 +14,7 @@
 %bcond readline 0
 
 Name:           nix
-Version:        2.35.6
+Version:        2.36.0
 Release:        %autorelease
 Summary:        A purely functional package manager
 

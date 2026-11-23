@@ -1,7 +1,7 @@
 %global         pypi_name mycli
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
-Version:        2.31.0
+Version:        2.32.0
 Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -35,7 +35,6 @@ syntax highlighting.
 
 %prep
 %autosetup -p1
-sed -i -e 's/ ~=.*"/"/' pyproject.toml
 
 %build
 %pyproject_wheel
@@ -58,6 +57,9 @@ sed -i -e 's/ ~=.*"/"/' pyproject.toml
 %exclude %{python3_sitelib}/mycli_test
 
 %changelog
+* Sun Nov 22 2026 Terje Røsten <terjeros@gmail.com> - 2.32.0-1
+- 2.32.0
+
 * Sat Nov 14 2026 Terje Røsten <terjeros@gmail.com> - 2.31.0-1
 - 2.31.0
 

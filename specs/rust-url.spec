@@ -5,7 +5,7 @@
 %global crate url
 
 Name:           rust-url
-Version:        2.5.8
+Version:        2.5.9
 Release:        %autorelease
 Summary:        URL library for Rust, based on the WHATWG URL Standard
 

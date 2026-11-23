@@ -5,7 +5,7 @@
 %global crate cyclonedx-bom
 
 Name:           rust-cyclonedx-bom
-Version:        0.8.1
+Version:        0.9.0
 Release:        %autorelease
 Summary:        CycloneDX Software Bill of Materials Library
 
@@ -53,8 +53,10 @@ use the "default" feature of the "%{crate}" crate.
 # Snapshots with XML data have a trivial case difference:
 # -<?xml version="1.0" encoding="utf-8"?>
 # +<?xml version="1.0" encoding="UTF-8"?>
+# It’s not obvious why this happens, but the difference is harmless.
 find src/specs/ -type f -name '*.snap' -print -exec \
-    sed -r -i 's/^(<\?xml .*encoding=")utf-8"/\1UTF-8"/' '{}' '+'
+    sed --regexp-extended --in-place \
+    's/^(<\?xml .*encoding=")utf-8"/\1UTF-8"/' '{}' '+'
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -72,8 +74,12 @@ find src/specs/ -type f -name '*.snap' -print -exec \
 %{cargo_test -- -- --exact %{shrink:
     --skip specs::common::bom::v1_4::test::it_should_serialize_a_complex_example_to_xml
     --skip specs::common::bom::v1_5::test::it_should_serialize_a_complex_example_to_xml
+    --skip specs::common::bom::v1_6::test::it_should_serialize_a_complex_example_to_xml
+    --skip specs::common::bom::v1_7::test::it_should_serialize_a_complex_example_to_xml
     --skip specs::common::vulnerability::v1_4::test::it_should_write_xml_full
     --skip specs::common::vulnerability::v1_5::test::it_should_write_xml_full
+    --skip specs::common::vulnerability::v1_6::test::it_should_write_xml_full
+    --skip specs::common::vulnerability::v1_7::test::it_should_write_xml_full
     --skip specs::common::vulnerability_target::test::it_should_write_xml_full
     --skip specs::common::vulnerability_target::test::write_xml_versions_defined
 }}

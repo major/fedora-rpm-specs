@@ -7,7 +7,7 @@ Version:        0.11.2
 Release:        %autorelease
 Summary:        Keep your application settings in sync
 
-License:        GPL-3.0-only
+License:        GPL-3.0-or-later
 URL:            https://github.com/lra/mackup
 # pypi_source does not have license and tests
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz

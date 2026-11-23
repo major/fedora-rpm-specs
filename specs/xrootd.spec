@@ -8,6 +8,9 @@
 %global ceph 0
 %endif
 
+# Needed for EPEL 8
+%undefine __cmake_in_source_build
+
 Name:		xrootd
 Epoch:		1
 Version:	6.2.1
@@ -280,6 +283,11 @@ rm -r vendor/googletest
 rm -r vendor/picojson
 %endif
 
+%if %{?rhel}%{!?rhel:0} == 8
+# These tests require a newer gmock than the one in EPEL 8
+sed '/add_subdirectory(unit)/d' -i tests/CMakeLists.txt
+%endif
+
 %build
 %cmake \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -415,7 +423,7 @@ done
 
 touch testfile
 if ( setfattr -n user.testattr -v testvalue testfile ) ; then
-    %ctest -- -E \
+    excluded=\
 XRootD::badredir\|\
 %ifarch %{ix86} %{arm}
 XRootD::posix\|\
@@ -424,6 +432,7 @@ XrdCl::tpc-http-timeout\|\
 %endif
 XrdCl::FileSystemTest.PlugInTest\|\
 XrdCl::FileTest.PlugInTest
+    %ctest -- -E "${excluded}"
 else
     echo "Extended file attributes not supported by file system"
     echo "*** NOT RUNNING TESTS ***"

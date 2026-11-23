@@ -1,13 +1,16 @@
+%global forgeurl https://github.com/linuxmint/mint-themes
+%global tag      %{version}
+
 Name:           mint-themes
 Epoch:          1
-Version:        2.4.1
+Version:        2.4.5
 Release:        %autorelease
+%{forgemeta}
 Summary:        Mint themes
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://github.com/linuxmint/%{name}
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 Patch0:         switch_to_sassc.patch
 
 BuildArch:      noarch
@@ -57,7 +60,7 @@ Collection of the best themes available for Cinnamon
 
 
 %prep
-%autosetup -p1
+%forgeautosetup -p1
 
 %build
 make

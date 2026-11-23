@@ -1,7 +1,7 @@
 %global srcname pretty-yaml
 
 Name:          python-%{srcname}
-Version:       26.2.1
+Version:       26.7.0
 Release:       %autorelease
 Summary:       A module to produce a bit more pretty and human-readable YAML-serialized data
 

@@ -1,7 +1,7 @@
 %global pypi_name pytest-django
 
 Name:           python-%{pypi_name}
-Version:        4.12.0
+Version:        4.14.0
 Release:        %autorelease
 Summary:        A Django plugin for pytest
 

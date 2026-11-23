@@ -1,6 +1,12 @@
+# GCC 11 LTO turns the unversioned pthread_cond_timedwait alias into a local
+# symbol, so the wrapper is not used on aarch64 and ppc64le.
+%if 0%{?rhel} == 9
+%global _lto_cflags %{nil}
+%endif
+
 Name:       libfaketime
 Version:    0.9.14
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Manipulate system time per process for testing purposes
 # COPYING:                  GPLv2 text
 # man/faketime.1:           "GNU General Public License, see COPYING"
@@ -76,6 +82,9 @@ rm -fr %{buildroot}/%{_docdir}/faketime
 %{_mandir}/man1/faketime.1*
 
 %changelog
+* Sun Nov 22 2026 Simone Caronni <negativo17@gmail.com> - 0.9.14-2
+- Disable LTO on EL 9.
+
 * Thu Nov 19 2026 Petr Pisar <ppisar@redhat.com> - 0.9.14-1
 - 0.9.14 bump
 

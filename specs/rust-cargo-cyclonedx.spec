@@ -4,7 +4,7 @@
 %global crate cargo-cyclonedx
 
 Name:           rust-cargo-cyclonedx
-Version:        0.5.9
+Version:        0.5.10
 Release:        %autorelease
 Summary:        CycloneDX Software Bill of Materials (SBOM) for Rust Crates
 
@@ -12,23 +12,17 @@ License:        Apache-2.0 AND MIT
 URL:            https://crates.io/crates/cargo-cyclonedx
 Source:         %{crates_source}
 # * Account for MIT license from cargo-bom project
+# * https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/897
 # * Since cargo-cyclonedx was “derived from” cargo-bom, which is MIT-licensed,
 #   adjust its license from “Apache-2.0” to “Apache-2.0 AND MIT” and put the
 #   cargo-bom acknowledgement and license text in a new LICENSE-MIT file.
-# * This is downstream-only while we wait for upstream to pursue a possible
-#   relicensing of any vestiges of cargo-bom that may remain in cargo-cyclonedx.
-#   If that does not bear fruit, then this could be offered upstream. See
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/issues/864 and the
-#   discussion therein.
+# * See also https://github.com/CycloneDX/cyclonedx-rust-cargo/issues/864 and
+#   the discussion therein.
 Source10:       LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
-# * Update a few cargo-cyclonedx dependencies across SemVer boundaries:
-#   - Update cargo-lock dependency from v10 to v11
-#   - Update env_logger dependency from v0.10 to v0.11
-#   - Update validator dependency from v0.19 to v0.20
-#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/862
-# * Further update validator to 0.21; not offered upstream for MSRV reasons
-# * Adjust license to “Apache-2.0 AND MIT”; see comment for Source10
+# * Update validator to 0.21; not offered upstream for MSRV reasons
+# * Adjust license to “Apache-2.0 AND MIT”:
+#   https://github.com/CycloneDX/cyclonedx-rust-cargo/pull/897
 Patch:          cargo-cyclonedx-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -117,8 +111,11 @@ use the "default" feature of the "%{crate}" crate.
 %check
 # * A few tests require fixtures that are not included in published crates
 %{cargo_test -- -- --exact %{shrink:
+    --skip tests::package_license_file_is_inherited_by_all_cargo_targets
+    --skip tests::package_license_is_inherited_by_all_cargo_targets
     --skip tests::parse_toml_only_normal
     --skip tests::parse_toml_with_excluded
+    --skip tests::workspace_license_is_inherited_by_all_cargo_targets
 }}
 %endif
 

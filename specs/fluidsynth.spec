@@ -1,7 +1,7 @@
 
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
-Version:      2.6.1
+Version:      2.6.3
 Release:      1%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
@@ -128,6 +128,10 @@ install -Dm 644 %{__cmake_builddir}/fluidsynth.service %{buildroot}%{_userunitdi
 
 
 %changelog
+* Sat Oct 10 2026 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.6.3-1
+- Update to 2.6.3
+- Fix CVE-2026-111123
+
 * Sat Oct 10 2026 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.6.1-1
 - Update to 2.6.1
 
