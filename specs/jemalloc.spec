@@ -1,19 +1,21 @@
 %global forgeurl https://github.com/jemalloc/jemalloc
+%global tag_commit 7a34f18502e7b222724097cdcd499b437d189acc
 
 Name:           jemalloc
 Version:        5.4.0
 
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        General-purpose scalable concurrent malloc implementation
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        BSD-2-Clause
 URL:            https://jemalloc.net/
 VCS:            git:%{forgeurl}
-Source0:	%{forgeurl}/archive/refs/tags/%{version}.tar.gz
+Source0:        %{forgeurl}/archive/refs/tags/%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  /usr/bin/xsltproc
+BuildRequires:  docbook-style-xsl
 BuildRequires:  perl-generators
 %ifarch %{valgrind_arches}
 BuildRequires:  valgrind-devel
@@ -86,7 +88,12 @@ echo "What kernel version and config is this?"
 uname -a
 
 autoreconf -vfi
-%configure %{?disable_thp} %{?lg_page} --enable-prof
+echo "%{version}-0-g%{tag_commit}" > VERSION
+%configure \
+    --with-version=VERSION \
+    %{?disable_thp} \
+    %{?lg_page} \
+    --enable-prof
 
 # https://github.com/jemalloc/jemalloc/issues/2753
 %ifarch s390x
@@ -131,6 +138,10 @@ find %{buildroot}%{_libdir}/ -name '*.a' -exec rm -vf {} ';'
 %ldconfig_scriptlets
 
 %changelog
+* Mon Nov 23 2026 Jashank Jeremy <fedora@jashankj.space> - 5.4.0-4
+- Provide the version number to the build.
+- Ensure documentation builds work, by providing DocBook XSL.
+
 * Tue Oct 06 2026 Timothée Ravier <tim@siosm.fr> - 5.4.0-3
 - Split jeprof into a subpackage (fedora#2543810)
 - Use make macros: https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro

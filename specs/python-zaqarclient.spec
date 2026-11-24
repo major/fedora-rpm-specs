@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 
 %global sname zaqarclient
 
@@ -7,7 +7,7 @@
 Python client to Zaqar messaging service API v1}
 
 Name:           python-zaqarclient
-Version:        4.7.0
+Version:        4.8.0
 Release:        %autorelease
 Summary:        Client Library for OpenStack Zaqar Queueing API
 

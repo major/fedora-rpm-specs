@@ -5,7 +5,7 @@
 %global crate reqsign-core
 
 Name:           rust-reqsign-core
-Version:        3.3.3
+Version:        3.3.4
 Release:        %autorelease
 Summary:        Signing API requests without effort
 

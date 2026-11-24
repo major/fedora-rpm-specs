@@ -167,13 +167,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc3.261120g65e4fd942f72.30
+%define pkgrelease 0.rc4.33
 %define kversion 7
-%define tarfile_release 7.4-rc3-406-g65e4fd942f72
+%define tarfile_release 7.4-rc4
 # This is needed to do merge window version magic
 %define patchlevel 4
 # The Release tag, including the configurable %%{?dist} tag
-%define specrelease 0.rc3.261120g65e4fd942f72.30%{?buildid}%{?dist}
+%define specrelease 0.rc4.33%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -4612,9 +4612,19 @@ fi\
 #
 #
 %changelog
-* Fri Nov 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.65e4fd942f72.30]
+* Mon Nov 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc4.33]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Mon Nov 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc4.32]
+- Linux v7.4.0-0.rc4
+
+* Sun Nov 22 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.4843f6873f7c.31]
+- Linux v7.4.0-0.rc3.4843f6873f7c
+
+* Sat Nov 21 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.c44104f3642d.30]
+- redhat/configs: enable NVIDIA GB10 (Jiri Benc)
+- Linux v7.4.0-0.rc3.c44104f3642d
 
 * Fri Nov 20 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc3.65e4fd942f72.29]
 - redhat/configs: Enable USB device/xDCI Device ID Support (Dennis Chen) [RHEL-288093]

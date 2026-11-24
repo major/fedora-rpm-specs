@@ -3,7 +3,7 @@
 
 Name:          sbsigntools
 Version:       0.9.5
-Release:       16%{?dist}
+Release:       17%{?dist}
 Summary:       Signing utility for UEFI secure boot
 # Most source code is GPL-3.0-or-later, except:
 # LicenseRef-Fedora-Public-Domain:
@@ -45,6 +45,8 @@ Patch3:        %{name}-no-openssl-engines.patch
 Patch4:        %{name}-binutils.patch
 # remove unused variable
 Patch5:        %{name}-unused-var.patch
+# fix intermediate certificate verification
+Patch6:        https://git.kernel.org/pub/scm/linux/kernel/git/jejb/sbsigntools.git/patch/?id=db731f0c4dd75e112e2abdfbe9443065742e58c3#/%{name}-intermediate-cert-verify.patch
 # same as gnu-efi
 ExclusiveArch: x86_64 aarch64 %{arm} %{ix86} riscv64
 BuildRequires: make
@@ -87,6 +89,7 @@ Tools to add signatures to EFI binaries and Drivers.
 %patch -p 1 -P 3
 %patch -p 1 -P 4
 %patch -p 1 -P 5
+%patch -p 1 -P 6
 
 %build
 ./autogen.sh
@@ -118,6 +121,9 @@ make check
 %{_mandir}/man1/sbverify.1.*
 
 %changelog
+* Sat Nov 21 2026 Dominik Mierzejewski <dominik@greysector.net> - 0.9.5-17
+- Fix intermediate certificate verification in sbverify (resolves rhbz#2578941)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

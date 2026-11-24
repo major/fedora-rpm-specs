@@ -5,7 +5,7 @@
 %global crate reqsign-aws-v4
 
 Name:           rust-reqsign-aws-v4
-Version:        3.4.0
+Version:        3.5.0
 Release:        %autorelease
 Summary:        AWS SigV4 signing implementation for reqsign
 
@@ -20,7 +20,7 @@ Source:         %{crates_source}
 Patch:          reqsign-aws-v4-fix-metadata.diff
 # * Downstream-only: avoid dev-dependencies on aws-sigv4 and
 #   aws-credential-types
-Patch10:        reqsign-aws-v4-3.3.0-unwanted-dev-deps.patch
+Patch10:        reqsign-aws-v4-3.5.0-unwanted-dev-deps.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

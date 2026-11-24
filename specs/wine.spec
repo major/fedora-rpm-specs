@@ -46,7 +46,7 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        11.21
+Version:        11.22
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -1085,7 +1085,7 @@ rm -f %{_bindir}/wine-preloader
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/dxgi.dll \
   'wine-dxgi(x86-32)' %{_libdir}/wine/i386-windows/wine-dxgi.dll 10
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/d3d8.dll \
-  'wine-dxgi(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d8.dll 10
+  'wine-d3d8(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d8.dll 10
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/d3d9.dll \
   'wine-d3d9(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d9.dll 10
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/d3d10.dll \
@@ -1297,6 +1297,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/browseui.dll
 %{_libdir}/wine/%{winepedirs}/bthprops.cpl
 %{_libdir}/wine/%{winepedirs}/cabinet.dll
+%{_libdir}/wine/%{winepedirs}/capabilityaccessmanagerclient.dll
 %{_libdir}/wine/%{winepedirs}/cards.dll
 %{_libdir}/wine/%{winepedirs}/cdosys.dll
 %{_libdir}/wine/%{winepedirs}/cfgmgr32.dll
@@ -2341,6 +2342,9 @@ fi
 %endif
 
 %changelog
+* Mon Nov 23 2026 Michael Cronenworth <mike@cchtml.com> - 11.22-1
+- version update
+
 * Thu Nov 05 2026 Michael Cronenworth <mike@cchtml.com> - 11.21-1
 - version update
 

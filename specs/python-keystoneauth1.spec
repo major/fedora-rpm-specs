@@ -11,7 +11,7 @@ new clients.}
 %global with_doc 1
 
 Name:       python-%{pypi_name}
-Version:    5.18.1
+Version:    5.19.0
 Release:    %autorelease
 Summary:    Authentication Library for OpenStack Clients
 License:    Apache-2.0
@@ -76,6 +76,7 @@ sed -i '/sphinx-build/ s/-W//' tox.ini
 %pyproject_patch_dependency flake8-docstrings:ignore
 %pyproject_patch_dependency flake8-import-order:ignore
 %pyproject_patch_dependency bandit:ignore
+%pyproject_patch_dependency osprofiler:ignore
 
 
 %generate_buildrequires

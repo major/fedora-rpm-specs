@@ -3,11 +3,6 @@
 
 %bcond ctest 1
 
-# While we formerly had a dr_libs-devel metapackage that brought in everything,
-# this isn’t really useful. Upstream treats these as separate libraries, and we
-# should too. We drop the metapackage beginning with F46.
-%bcond devel_metapackage %{defined fc45}
-
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall
 # collection is not, and there are no releases. These libraries follow the
@@ -28,12 +23,12 @@ License:        Unlicense OR MIT-0
 
 %global dr_flac_version 0.13.4^%{snapinfo}
 %global dr_mp3_version 0.7.4^%{snapinfo}
-%global dr_wav_version 0.14.6^%{snapinfo}
 
 Source:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 
 BuildSystem:    cmake
 BuildOption(conf): -DDR_LIBS_BUILD_TESTS:BOOL=%{with ctest}
+BuildOption(conf): -DDR_LIBS_NO_WAV:BOOL=ON
 
 BuildRequires:  gcc-c++
 
@@ -49,34 +44,6 @@ BuildRequires:  pkgconfig(libmpg123)
 
 %description
 %{summary}.
-
-
-%if %{with devel_metapackage}
-%package devel
-Summary:        Development files for dr_libs
-
-BuildArch:      noarch
-
-# Dependent packages should prefer to BuildRequire the -static packages for the
-# specific dr_libs libraries they use.
-Provides:       dr_libs-static = %{version}-%{release}
-
-Requires:       dr_flac-devel = %{dr_flac_version}-%{release}
-Requires:       dr_flac-static = %{dr_flac_version}-%{release}
-Requires:       dr_mp3-devel = %{dr_mp3_version}-%{release}
-Requires:       dr_mp3-static = %{dr_mp3_version}-%{release}
-Requires:       dr_wav-devel = %{dr_wav_version}-%{release}
-Requires:       dr_wav-static = %{dr_wav_version}-%{release}
-
-Obsoletes:      dr_libs-doc < 0^20260302.fa931f3-4
-
-%description devel
-The dr_libs-devel package contains libraries and header files for developing
-applications that use dr_libs.
-
-This is a metapackage that requires the -devel packages for all dr_libs
-libraries.
-%endif
 
 
 %package -n dr_flac-devel
@@ -103,23 +70,11 @@ Provides:       dr_mp3-static = %{dr_mp3_version}-%{release}
 MP3 audio decoder. Based off minimp3 (https://github.com/lieff/minimp3).
 
 
-%package -n dr_wav-devel
-Summary:        WAV audio loader and writer
-Version:        %{dr_wav_version}
-
-BuildArch:      noarch
-
-Provides:       dr_wav-static = %{dr_wav_version}-%{release}
-
-%description -n dr_wav-devel
-WAV audio loader and writer.
-
-
 %install
 # There are no install targets in CMakeLists.txt, so %%cmake_install would do
 # nothing. We install manually instead:
 install -D --preserve-timestamps --mode=0644 \
-    --target='%{buildroot}%{_includedir}' dr_*.h
+    --target='%{buildroot}%{_includedir}' dr_flac.h dr_mp3.h
 
 
 %check -p
@@ -133,14 +88,7 @@ do
 done <<'EOF'
 %(printf '%s\n' '%{dr_flac_version}' | sed --regexp-extended 's/[~^].*//') dr_flac.h
 %(printf '%s\n' '%{dr_mp3_version}' | sed --regexp-extended 's/[~^].*//') dr_mp3.h
-%(printf '%s\n' '%{dr_wav_version}' | sed --regexp-extended 's/[~^].*//') dr_wav.h
 EOF
-
-
-%if %{with devel_metapackage}
-%files devel
-# Empty metapackage
-%endif
 
 
 %files -n dr_flac-devel
@@ -153,12 +101,6 @@ EOF
 %license LICENSE
 %doc README.md
 %{_includedir}/dr_mp3.h
-
-
-%files -n dr_wav-devel
-%license LICENSE
-%doc README.md
-%{_includedir}/dr_wav.h
 
 
 %changelog

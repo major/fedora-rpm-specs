@@ -1,11 +1,10 @@
 Name:           perl-Data-Dump
-Version:        1.26
+Version:        1.27
 Release:        1%{?dist}
 Summary:        Pretty printing of data structures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dump
 Source0:        https://cpan.metacpan.org/modules/by-module/Data/Data-Dump-%{version}.tar.gz
-Patch0:         Data-Dump-1.26-old-perl.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -42,10 +41,6 @@ arguments. The string is formatted for easy reading.
 %prep
 %setup -q -n Data-Dump-%{version}
 
-# Fix test to work with Perl versions older than 5.34
-# https://github.com/garu/data-dump/pull/4
-%patch -P0
-
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
@@ -65,6 +60,10 @@ make test
 %{_mandir}/man3/Data::Dump::Trace.3*
 
 %changelog
+* Mon Nov 23 2026 Paul Howarth <paul@city-fan.org> - 1.27-1
+- Update to 1.27 (rhbz#2581663)
+  - Skip some regexp tests in older perls
+
 * Sat Nov 21 2026 Paul Howarth <paul@city-fan.org> - 1.26-1
 - Update to 1.26 (rhbz#2579751)
   - Quote sigils in regexp so eval'ing the dump doesn't interpolate

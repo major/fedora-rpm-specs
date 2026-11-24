@@ -20,6 +20,13 @@ CycloneDX Software Bill of Materials Library.}
 
 %description %{_description}
 
+%if 0%{?__isa_bits} == 32
+# Avoid memory (address-space) exhaustion on 32-bit architectures when
+# compiling the iri-string crate for the tests. Even level 1 is too much.
+# https://doc.rust-lang.org/rustc/codegen-options/index.html#debuginfo
+%global rustflags_debuginfo 0
+%endif
+
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch

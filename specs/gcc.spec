@@ -1627,14 +1627,18 @@ CONFIGURE_OPTS_NATIVE="\
 %endif
 %endif
 %ifarch ppc64le
-%if 0%{?rhel} >= 9
+%if 0%{?rhel} >= 11
+	--with-cpu-32=power10 --with-tune-32=power11 --with-cpu-64=power10 --with-tune-64=power11 \
+%else
 %if 0%{?rhel} >= 10
 	--with-cpu-32=power9 --with-tune-32=power10 --with-cpu-64=power9 --with-tune-64=power10 \
 %else
+%if 0%{?rhel} >= 9
 	--with-cpu-32=power9 --with-tune-32=power9 --with-cpu-64=power9 --with-tune-64=power9 \
-%endif
 %else
 	--with-cpu-32=power8 --with-tune-32=power8 --with-cpu-64=power8 --with-tune-64=power8 \
+%endif
+%endif
 %endif
 %endif
 %ifarch ppc

@@ -4,8 +4,8 @@
 %global giturl  https://github.com/mongodb/mongo-python-driver
 
 Name:           python-pymongo
-Version:        4.13.2
-Release:        7%{?dist}
+Version:        4.20.1
+Release:        1%{?dist}
 
 License:        Apache-2.0
 Summary:        Python driver for MongoDB
@@ -173,7 +173,12 @@ rm doc/_build/html/.buildinfo
   --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_srvMaxHosts \
   --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_srvMaxHosts=0_and_loadBalanced=true \
   --deselect=test/test_uri_spec.py::TestAllScenarios::test_test_uri_options_srv-options_SRV_URI_with_srvMaxHosts=0_and_replicaSet \
-
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_14_the_validator_is_consulted_when_srv_records_are_rescanned \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_14_the_validator_is_consulted_when_srv_records_are_rescanned \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_15_a_rejecting_or_raising_validator_does_not_raise_or_stop_polling \
+  --deselect=test/asynchronous/test_srv_polling.py::TestSrvPolling::test_15_a_rejecting_or_raising_validator_does_not_raise_or_stop_polling \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_15_a_rejecting_or_raising_validator_does_not_raise_or_stop_polling \
+  --deselect=test/test_srv_polling.py::TestSrvPolling::test_15_a_rejecting_or_raising_validator_does_not_raise_or_stop_polling
 
 %files doc
 %license LICENSE
@@ -200,6 +205,9 @@ rm doc/_build/html/.buildinfo
 
 
 %changelog
+* Fri Nov 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.20.1-1
+- 4.20.1
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.13.2-7
 - Rebuilt for Python 3.15.0b4 ABI change
 

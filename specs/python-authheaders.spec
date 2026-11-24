@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.16.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A library wrapping email authentication header verification and generation
 
 # Licensing described in LICENSE file
@@ -14,6 +14,10 @@ License:        MIT and ZPL-2.1
 URL:            https://github.com/ValiMail/authentication-headers
 Source0:        %{pypi_source}
 BuildArch:      noarch
+
+# Patch to fix problem with check_dmarc checks
+# see https://bugzilla.redhat.com/show_bug.cgi?id=2552050
+Patch:          https://patch-diff.githubusercontent.com/raw/ValiMail/authentication-headers/pull/37.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
@@ -32,7 +36,7 @@ Requires:       publicsuffix-list
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 # Remove bundled publicsuffix data
 rm -f %{pypi_name}/public_suffix_list.txt
 # Use public suffix data from installed RPM
@@ -73,6 +77,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} help2man --no-info \
 %{_mandir}/man1/dmarc-policy-find.1*
 
 %changelog
+* Mon Nov 23 2026 Kevin Fenzi <kevin@scrye.com> - 0.16.3-10
+- Add patch to fix spf_result.smtp_mailfrom parsing issues. Fixes rhbz#2552050
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

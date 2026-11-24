@@ -1,5 +1,5 @@
 Name:       ibus-table
-Version:    1.19.0
+Version:    1.19.1
 Release:    %autorelease
 Summary:    The Table engine for IBus platform
 License:    LGPL-2.1-or-later

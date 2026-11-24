@@ -5,13 +5,16 @@
 %global crate xxhash-rust
 
 Name:           rust-xxhash-rust
-Version:        0.8.19
+Version:        0.8.21
 Release:        %autorelease
 Summary:        Implementation of xxhash
 
 License:        BSL-1.0
 URL:            https://crates.io/crates/xxhash-rust
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop feature for tests that allocate multiple GiB of data
+Patch:          xxhash-rust-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

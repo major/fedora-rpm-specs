@@ -3,7 +3,7 @@
 
 Name: lprint
 Version: 1.3.1
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: A Label Printer Application
 
 License: Apache-2.0
@@ -80,40 +80,36 @@ cat > %{buildroot}%{_libexecdir}/%{name}/posttrans.sh << 'SCRIPT'
 # upgrade script for adding new options into existing lprint.conf
 # runs once on upgrade via lprint-conf-upgrade.service
 
-conf=/etc/lprint.conf
+conf="/etc/lprint.conf"
 
-if test ! -f "$conf"
+if test ! -f \$conf
 then
   exit 0
 fi
 
-# add auth-service if missing
-if ! grep -q "^auth-service=" "$conf"
+# remove auth-service
+if grep -q "^auth-service=cups" \$conf
 then
-  echo "" >> "$conf"
-  echo "# use PAM for cups" >> "$conf"
-  echo "auth-service=cups" >> "$conf"
+  sed -i '/auth-service=cups/d' \$conf
 fi
 
-# add auth-group if missing
-if ! grep -q "^auth-group=" "$conf"
+# remove auth-group
+if grep -q "^auth-group=root" \$conf
 then
-  echo "" >> "$conf"
-  echo "# set auth group for root to authenticate when adding printer" >> "$conf"
-  echo "auth-group=root" >> "$conf"
+  sed -i '/auth-group=root/d' \$conf
 fi
 
 # add listen-hostname if missing
-if ! grep -q "^listen-hostname=" "$conf"
+if ! grep -q "^listen-hostname=" \$conf
 then
-  echo "" >> "$conf"
-  echo "# listen only on localhost" >> "$conf"
-  echo "listen-hostname=localhost" >> "$conf"
+  echo "" >> \$conf
+  echo "# listen only on localhost" >> \$conf
+  echo "listen-hostname=localhost" >> \$conf
 fi
 
 # mark as upgraded so lprint-conf-upgrade.service won't run again
-echo "" >> "$conf"
-echo "# added in version 1.3.1-14" >> "$conf"
+echo "" >> \$conf
+echo "# added in version 1.3.1-15" >> \$conf
 
 exit 0
 SCRIPT
@@ -222,6 +218,9 @@ fi
 
 
 %changelog
+* Mon Nov 23 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-15
+- fix the upgrade script, remove auth options
+
 * Fri Sep 04 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-14
 - Added more default options
 

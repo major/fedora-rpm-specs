@@ -17,14 +17,14 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 4
+%global baserelease 1
 %global mod_procfs_version 0.3
 %global mod_proxy_version 0.9.7
 %global mod_vroot_version 0.9.12
 
 Summary:		Flexible, stable and highly-configurable FTP server
 Name:			proftpd
-Version:		1.3.9e
+Version:		1.3.9f
 Release:		%{?prever:0.}%{baserelease}%{?prever:.%{prever}}%{?dist}
 License:		GPL-2.0-or-later
 URL:			http://www.proftpd.org/
@@ -45,11 +45,11 @@ Source12:		http://github.com/Castaglia/proftpd-mod_procfs/archive/v%{mod_procfs_
 Patch1:			proftpd-1.3.8-shellbang.patch
 Patch2:			mod_proxy-certificate.patch
 Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
-Patch6:			https://github.com/proftpd/proftpd/commit/933abc9a.patch
-Patch7:			proftpd-1.3.9e-gh2095.patch
-Patch8:			proftpd-1.3.9e-gh2374.patch
-Patch9:			https://github.com/proftpd/proftpd/commit/549f8174.patch
-Patch10:		https://github.com/proftpd/proftpd/commit/58c9a9cb.patch
+Patch9:			https://github.com/proftpd/proftpd/commit/2f687819.patch
+Patch10:		https://github.com/proftpd/proftpd/commit/d1fd858b.patch
+Patch11:		https://github.com/proftpd/proftpd/commit/44088468.patch
+Patch12:		https://github.com/Castaglia/proftpd-mod_proxy/commit/d16026d5.patch
+Patch13:		https://github.com/proftpd/proftpd/commit/18535936.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -234,25 +234,18 @@ mv contrib/README contrib/README.contrib
 # If we're running the full test suite, include the mod_vroot test
 %patch -P 3 -p1 -b .test_vroot
 
-# Fix regression in the handling of private keys formatted using the OpenSSH-specific
-# private key format, and which are not passphrase-protected
-# https://github.com/proftpd/proftpd/issues/2411
-%patch -P6 -p1 -b .gh2411
+# ProFTPD modules use OpenSSL 4.x custom providers that collide with defaults, causing segfaults
+# https://github.com/proftpd/proftpd/issues/2484
+%patch -P9 -p1 -b .gh2484.1
+%patch -P10 -p1 -b .gh2484.2
+%patch -P11 -p1 -b .gh2484.3
+cd contrib/mod_proxy
+%patch -P12 -p1 -b .gh2484.4
+cd -
 
-# <Limit READ> configurations were not honored by SITE COPY as they should be
-# https://github.com/proftpd/proftpd/issues/2095
-%patch -P7 -p1 -b .gh2095
-
-# Fix write restriction bypass via symlink following in mod_copy (CVE-2026-119364)
-# https://github.com/proftpd/proftpd/issues/2374
-%patch -P8 -p1 -b .gh2374
-
-# Backport a fix from glibc glob(3) for handling unbalanced brace expansions
-# https://github.com/proftpd/proftpd/issues/2473
-%patch -P9 -p1 -b .gh2473
-
-# Further fixes from glibc glob(3)
-%patch -P10 -p1 -b .glob
+# Address Auth API error mishandling/mismatch allowing for inadvertent authentication bypass
+# https://github.com/proftpd/proftpd/issues/2497
+%patch -P13 -p1 -b .gh2497
 
 # Tweak logrotate script for systemd compatibility (#802178)
 sed -i -e '/killall/s/test.*/systemctl try-reload-or-restart proftpd.service/' \
@@ -493,6 +486,30 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Mon Nov 23 2026 Paul Howarth <paul@city-fan.org> - 1.3.9f-1
+- Update to 1.3.9f
+  - Fix mod_sftp regression with handling of OpenSSH-specific private key
+    format leading to unexpected passphrase prompting on startup (GH#2411)
+  - FTPS data transfers over TLSv1.3 failed with older OpenSSL 1.x versions
+    (GH#2416)
+  - <Limit WRITE> configurations were not honored for symlinks by SITE COPY as
+    they should be (GH#2374)
+  - Use of pwrite(2) for O_APPEND SFTP WRITE requests is not portable (GH#2432)
+  - Fix segfault after SSH key exchange when SFTPCompression is configured in
+    <Global> context; this was a regression caused by GH#2366 (GH#2445)
+  - SFTP OPEN request with CREAT|EXCL flags on an existing file succeeded
+    unexpectedly when HiddenStores configured (GH#2456)
+  - Unexpected mod_xfer module load order lead to SIGSEGV if session was
+    terminated during a file transfer (GH#2360)
+  - Stack overflow possible with bundled glob(3) brace expansion implementation
+    (GH#2473)
+
+* Sun Nov 22 2026 Paul Howarth <paul@city-fan.org> - 1.3.9e-5
+- ProFTPD modules used OpenSSL 4.x custom providers that collide with defaults,
+  causing segfaults (GH#2484)
+- Address Auth API error mishandling/mismatch allowing for inadvertent
+  authentication bypass (GH#2497)
+
 * Thu Nov 19 2026 Paul Howarth <paul@city-fan.org> - 1.3.9e-4
 - Backport a fix from glibc glob(3) for handling unbalanced brace expansions,
   which could have lead to a stack overflow (GH#2473)

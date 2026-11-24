@@ -1,5 +1,5 @@
 %global ver_maj 26
-%global ver_min 01
+%global ver_min 06
 %global ver_rel 0
 
 Name:           lzma-sdk

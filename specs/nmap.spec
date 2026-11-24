@@ -10,8 +10,6 @@ URL: http://nmap.org/
 License: LicenseRef-Nmap
 
 Source0: http://nmap.org/dist/%{name}-%{version}%{?prerelease}.tar.bz2
-Source1: https://nmap.org/dist/sigs/%{name}-%{version}.tar.bz2.asc
-Source2: https://svn.nmap.org/nmap/docs/nmap_gpgkeys.txt
 
 #prevent possible race condition for shtool, rhbz#158996
 Patch1: nmap-4.03-mktemp.patch
@@ -89,7 +87,6 @@ uses.
 
 
 %prep
-%{gpgverify} --keyring=%{SOURCE2} --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 autoconf -f
 

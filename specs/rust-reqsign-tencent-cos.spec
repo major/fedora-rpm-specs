@@ -5,7 +5,7 @@
 %global crate reqsign-tencent-cos
 
 Name:           rust-reqsign-tencent-cos
-Version:        3.0.8
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Tencent Cloud COS signing implementation for reqsign
 

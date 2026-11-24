@@ -14,7 +14,7 @@
 %global httpd_pkg_cache_dir /var/cache/httpd/mod_auth_openidc
 
 Name:		mod_auth_openidc
-Version:	2.4.20.3
+Version:	2.4.20.5
 Release:	%autorelease
 Summary:	OpenID Connect auth module for Apache HTTP Server
 
@@ -57,7 +57,6 @@ autoreconf -vfi
 
 %{make_build}
 
-# (jhrozek): temporarily disable make check to work around a FTBFS issue
 %check
 export MODULES_DIR=%{_httpd_moddir}
 export APXS2_OPTS='-S LIBEXECDIR=${MODULES_DIR}'

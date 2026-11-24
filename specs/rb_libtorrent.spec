@@ -1,8 +1,8 @@
 %global git_url https://github.com/arvidn/libtorrent
  
 Name:		rb_libtorrent
-Version:	2.0.11
-Release:	9%{?dist}
+Version:	2.0.16
+Release:	1%{?dist}
 Summary:	A C++ BitTorrent library aiming to be the best alternative
 
 # Most of the code is BSD-3-Clause
@@ -17,10 +17,6 @@ Source0:	%{git_url}/releases/download/v%{version}/libtorrent-rasterbar-%{version
 Source1:	%{name}-README-renames.Fedora
 Source2:	%{name}-COPYING.Boost
 Source3:	%{name}-COPYING.zlib
-
-# Add support for OpenSSL 4.0
-# https://github.com/arvidn/libtorrent/pull/8270
-Patch0:		%{git_url}/pull/8270.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -186,6 +182,9 @@ install -p -m 0644 %{SOURCE1} ./README-renames.Fedora
 %{python3_sitearch}/libtorrent.cpython-*.so
 
 %changelog
+* Mon Nov 23 2026 Michael Cronenworth <mike@cchtml.com> - 2.0.16-1
+- Upgrade to 2.0.16
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 2.0.11-9
 - Rebuilt for Python 3.15.0b4 ABI change
 

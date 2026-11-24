@@ -12,6 +12,7 @@ Summary: The daemon sharing settings from CINNAMON to GTK+/KDE applications
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND MIT
 URL:     %{forgeurl}
 Source0: %{forgesource}
+Patch0:  %{forgeurl}/pull/485.patch#/remove_gk_dbus.patch
 
 ExcludeArch:    %{ix86}
 

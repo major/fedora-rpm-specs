@@ -2,7 +2,7 @@
 %bcond_without perl_Attean_enables_optional_test
 
 Name:           perl-Attean
-Version:        0.040
+Version:        0.041
 Release:        1%{?dist}
 Summary:        Semantic web framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -41,11 +41,13 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Exporter::Tiny) >= 1
 BuildRequires:  perl(File::Slurp)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(HTTP::Message::PSGI)
 BuildRequires:  perl(HTTP::Negotiate)
 BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(HTTP::Response)
+BuildRequires:  perl(HTTP::Status)
 BuildRequires:  perl(I18N::LangTags)
 BuildRequires:  perl(IRI) >= 0.015
 BuildRequires:  perl(JSON)
@@ -54,7 +56,7 @@ BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Math::Cartesian::Product) >= 1.008
 BuildRequires:  perl(Module::Load::Conditional)
 BuildRequires:  perl(Module::Pluggable)
-BuildRequires:  perl(Moo) >= 2.000002
+BuildRequires:  perl(Moo) >= 2.005005
 BuildRequires:  perl(Moo::Role)
 BuildRequires:  perl(MooX::Log::Any)
 BuildRequires:  perl(namespace::clean)
@@ -97,7 +99,6 @@ BuildRequires:  perl(XML::Simple)
 # Tests:
 BuildRequires:  perl(feature)
 BuildRequires:  perl(File::Glob)
-BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::LWP::UserAgent)
 BuildRequires:  perl(Test::More) >= 0.88
@@ -112,7 +113,7 @@ Requires:       perl(Exporter::Tiny) >= 1
 Requires:       perl(IRI) >= 0.015
 Requires:       perl(List::Util) >= 1.56
 Requires:       perl(Math::Cartesian::Product) >= 1.008
-Requires:       perl(Moo) >= 2.000002
+Requires:       perl(Moo) >= 2.005005
 Requires:       perl(MooX::Log::Any)
 Requires:       perl(Role::Tiny) >= 2.000003
 Requires:       perl(sort)
@@ -158,7 +159,7 @@ Requires:       perl(Attean::API::UnionScopeVariablesPlan)
 Requires:       perl(Attean::Plan::Exists)
 Requires:       perl(Attean::QueryPlanner)
 Requires:       perl(AtteanX::API::JoinRotatingPlanner)
-Requires:       perl(Moo)
+Requires:       perl(Moo) >= 2.005005
 %if %{with perl_Attean_enables_optional_test}
 Requires:       perl(RDF::Trine)
 %endif
@@ -222,6 +223,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 23 2026 Petr Pisar <ppisar@redhat.com> - 0.041-1
+- 0.041 bump
+
 * Tue Oct 27 2026 Petr Pisar <ppisar@redhat.com> - 0.040-1
 - 0.040 bump
 

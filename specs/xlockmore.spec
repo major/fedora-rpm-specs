@@ -1,6 +1,6 @@
 Summary: Screen lock and screen saver
 Name: xlockmore
-Version: 5.90
+Version: 5.91
 Release: %autorelease
 License: xlock AND HPND AND HPND-sell-variant AND SGI-OpenGL AND X11 AND (GPL-2.0-or-later OR MIT)
 URL: http://sillycycle.com/xlockmore.html

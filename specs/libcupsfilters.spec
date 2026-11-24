@@ -1,42 +1,22 @@
 %global _hardened_build 1
 
-%global upstream_version 2.2.1
+%global commit 3bf18925e58adffe008a155733708e26481640fc
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global commitdate 20261118
 
 %bcond jpegxl %{undefined rhel}
 
 Name: libcupsfilters
 Epoch: 1
-Version: 2.2.1
-Release: 8%{?dist}
+Version: 2.2.1^%{commitdate}.%{shortcommit}
+Release: 1%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
 License: Apache-2.0 WITH LLVM-exception
 URL: https://github.com/OpenPrinting/libcupsfilters
-Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/OpenPrinting/libcupsfilters/pull/208
-Patch001: 0001-pclmtoraster.c-Fix-getting-MediaBox-from-input.patch
-Patch002: 0001-pclmtoraster.c-Fix-processing-image-in-PCLm.patch
-# https://github.com/OpenPrinting/libcupsfilters/pull/167/commits/a9acdb22cc898076bf6c5d9d20474274ed123458
-Patch003: 0001-Fix-printing-error-pdfio-output-Missing-Root-object..patch
-# https://github.com/OpenPrinting/libcupsfilters/pull/228
-Patch004: 0001-Honor-data-copies-in-cfFilterPDFToPDF.patch
-# fix scaling
-# https://github.com/OpenPrinting/libcupsfilters/pull/238/
-Patch005: 0001-pdftopdf-assume-print-scaling-auto-by-default.-Fixes.patch
-# fix output order and booklet printing
-# https://github.com/OpenPrinting/libcupsfilters/commit/cb82339e748b6c1b0509060526dbd52e74968829
-Patch006: 0001-Fix-minor-errors-this-caused-issue-239.-240.patch
-# https://github.com/OpenPrinting/libcupsfilters/commit/318cd5b581d4261700add229ad23513cd30a0275
-Patch007: 0001-ghostscript-serialize-raster-integer-parameters-as-s.patch
-# https://github.com/OpenPrinting/libcupsfilters/commit/d3043e3c8b32d73c80f98b7c5d59613a9d844d69
-Patch008: 0001-pdftopdf-keep-annotations-without-an-appearance-from.patch
-# https://github.com/OpenPrinting/libcupsfilters/commit/b13e63e80d9c094bc4484dcbc7efd000f21308db
-Patch009: 0001-libcupsfilters.pc-Add-pdfio-as-public-Requires-dep.patch
-# https://github.com/OpenPrinting/libcupsfilters/commit/ce65eb7455b5
-Patch010: 0001-bannertopdf-preserve-indirect-page-resources-when-ad.patch
+Source0: %{URL}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -130,7 +110,7 @@ Development files for OpenPrinting cupsfilters library.
 
 
 %prep
-%autosetup -S git -n %{name}-%{upstream_version}
+%autosetup -S git -n %{name}-%{commit}
 
 
 %build
@@ -222,6 +202,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Wed Nov 18 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1^%{commitdate}.%{shortcommit}-1
+- migrate to latest upstream git snapshot (fedora#2579625, fedora#2573692, fedora#2573573, fedora#2573434, fedora#2568640)
+
 * Wed Nov 11 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-8
 - fix copying of indirect page resources in PDF (fixes printing test page)
 

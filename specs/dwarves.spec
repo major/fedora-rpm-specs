@@ -3,12 +3,13 @@
 
 Name: dwarves
 Version: 1.32
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-only
 Summary: Debugging Information Manipulation Tools (pahole & friends)
 URL: http://acmel.wordpress.com
 Source: http://fedorapeople.org/~acme/dwarves/%{name}-%{version}.tar.xz
 Source: http://fedorapeople.org/~acme/dwarves/%{name}-%{version}.tar.sign
+Patch:  0001-libbpf-include-add-128-bit-integer-types.patch
 Requires: %{libname}%{libver} = %{version}-%{release}
 BuildRequires: gcc
 BuildRequires: cmake >= 2.8.12
@@ -65,7 +66,7 @@ Requires: %{libname}%{libver} = %{version}-%{release}
 Debugging information processing library development files.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release .
@@ -133,6 +134,9 @@ rm -Rf %{buildroot}
 %{_libdir}/%{libname}_reorganize.so
 
 %changelog
+* Fri Nov 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.32-2
+- Fix libbpf header for kernel 7.3 on aarch64
+
 * Sat Sep 12 2026 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.32-1
 - Regression tests: from 6 in v1.31 to 74
 - New coverage work, 16 csets

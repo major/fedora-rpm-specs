@@ -224,7 +224,7 @@ BuildRequires:  pkgconfig(libnghttp2)
 BuildRequires:  pkgconfig(jemalloc)
 %endif
 %if 0%{?fedora}
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 %endif
 BuildRequires:  pkgconfig(libuv)
 %if %{with UNITTEST}
@@ -420,7 +420,7 @@ in HTML and PDF format.
 # no signatures for git snapshots
 %if 0%{?fedora} && 0%{?!git_date:1}
 # RHEL does not yet support this verification
-%{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE4}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
 %endif
 %autosetup -n %{upname}-%{git_commit} -p1
 

@@ -1,18 +1,22 @@
 Name:           cr2rpm
-Version:        0.2.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Generate RPM spec files from Crystal shard manifests
 
 License:        GPL-3.0-or-later
-URL:            https://codeberg.org/fedora-crystal/cr2rpm
+URL:            https://forge.fedoraproject.org/crystal/cr2rpm
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:         0001-drop-shebang-from-main.patch
 
 BuildArch:      noarch
 
+BuildRequires:  crystal-rpm-macros
+BuildRequires:  git-core
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+
+Recommends:     crystal-rpm-macros
+Recommends:     git-core
 
 %description
 cr2rpm is a command-line tool designed for Fedora packagers to inspect Crystal
@@ -22,7 +26,7 @@ mock chain build sequences.
 
 
 %prep
-%autosetup -n %{name} -p1
+%autosetup -n %{name}
 
 
 %generate_buildrequires

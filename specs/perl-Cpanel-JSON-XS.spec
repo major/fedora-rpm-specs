@@ -7,7 +7,7 @@
 
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
-Version:	4.82
+Version:	4.83
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
@@ -165,6 +165,26 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Mon Nov 23 2026 Paul Howarth <paul@city-fan.org> - 4.83-1
+- Update to 4.83
+  - Security fixes:
+    - decode: free the temporary encoding name when the input starts with a
+      UTF-16 or UTF-32 BOM (leak of a scalar per call, successful or not,
+      CVE-2026-134876)
+    - decode: With allow_tags free the enclosing arrays and hashes when a THAW
+      method dies (leak, CVE-2026-134877)
+    - decode: free the key of every enclosing object member when a
+      filter_json_object or filter_json_single_key_object callback dies or a
+      THAW method dies (leak, CVE-2026-134878)
+    - encode: encode_stringify freed neither its string copy nor the overloaded
+      object when encode_str croaked on malformed UTF-8, e.g. with
+      allow_stringify (leak, CVE-2026-134879)
+  - encode: No signed overflow negating IV_MIN with JSON_TYPE_INT, and no read
+    of uninitialized memory when checking short formatted numbers and bignum
+    strings for inf and nan
+  - utf8_range: Cast byte constants to char for _mm_set1_epi8
+    (clang -Wconstant-conversion)
+
 * Mon Nov 16 2026 Paul Howarth <paul@city-fan.org> - 4.82-1
 - Update to 4.82
   - Security fixes:

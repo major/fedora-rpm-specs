@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 %global with_doc 1
 
 %global cname neutron
@@ -10,7 +10,7 @@ Client library and command line utility for interacting with the OpenStack
 Neutron API.}
 
 Name:       python-neutronclient
-Version:    14.0.0
+Version:    14.1.0
 Release:    %autorelease
 Summary:    Python API and CLI for OpenStack Neutron
 

@@ -3,7 +3,7 @@
 %global __provides_exclude_from ^%{vdr_libdir}/.*\\.so.*$
 
 Name:           vdr-epg2vdr
-Version:        1.2.21
+Version:        1.2.23
 Release:        1%{?dist}
 Summary:        A plugin to retrieve EPG data from a mysql database into VDR
 
@@ -60,6 +60,9 @@ chmod 0755 %{buildroot}/%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 %{vdr_libdir}/libvdr-%{sname}.so.%{vdr_apiversion}
 
 %changelog
+* Mon Nov 23 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.23-1
+- Update to 1.2.23
+
 * Fri Nov 20 2026 Martin Gansser <martinkg@fedoraproject.org> - 1.2.21-1
 - Update to 1.2.21
 

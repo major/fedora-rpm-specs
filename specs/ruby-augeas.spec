@@ -8,6 +8,9 @@ Summary:        Ruby bindings for Augeas
 License:        LGPL-2.1-or-later
 URL:            https://augeas.net
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/hercules-team/ruby-augeas/pull/23
+# Use TypedData API needed for ruby4.1
+Patch0:        ruby-augeas-pr23-TypedData-API.patch
 
 BuildRequires:  augeas-devel >= 1.0.0
 BuildRequires:  gcc

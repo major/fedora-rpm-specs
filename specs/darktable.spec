@@ -97,7 +97,7 @@ Provides: bundled(libraw)
 # to be compliant to "Architecture Build Failures" paragraph of Fedora Packaging Guidelines 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_architecture_build_failures
 # =============
-ExcludeArch: armv7hl i686 s390x
+ExcludeArch: %{arm32} %{ix86} s390x
 
 
 %description

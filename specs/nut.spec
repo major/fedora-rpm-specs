@@ -13,12 +13,12 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
 Source4: libs.sh
-Patch2: nut-2.8.0-piddir-owner.patch
+Patch2: nut-2.8.4-piddir-owner.patch
 
 #quick fix. TODO: fix it properly
 Patch9: nut-2.6.5-rmpidf.patch
@@ -139,7 +139,7 @@ necessary to develop NUT client applications.
 
 %prep
 %setup -q
-#patch -P 2 -p1 -b .piddir-owner
+%patch -P 2 -p1 -b .piddir-owner
 %patch -P 9 -p1 -b .rmpidf
 #patch -P 15 -p1
 %patch -P 16 -p2 -b .rhinoname
@@ -460,9 +460,9 @@ fi
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upssched.conf
 %{_tmpfilesdir}/nut-common-tmpfiles.conf
 %dir %attr(750,nut,nut) %{_localstatedir}/lib/ups
-# upsmon.pid is written as root, so root needs access for now
+# upsmon.pid is written as root, so root needs access to avoid need for SELinux dac_override
 %dir %attr(770,root,dialout) %{piddir}
-%attr(644,nut,nut) %verify(not size mtime md5) /run/%{name}/upsmon.pid
+%attr(644,root,root) %verify(not size mtime md5) %{piddir}/upsmon.pid
 %{_bindir}/upsc
 %{_bindir}/upscmd
 %{_bindir}/upslog
@@ -540,6 +540,10 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Mon Nov 23 2026 Charles R. Anderson <cra@alum.wpi.edu> - 2.8.5-10
+- regenerate nut-2.8.4-piddir-owner.patch
+- create /run/nut and /run/nut/upsmon.pid with owner root
+
 * Wed Oct 07 2026 Michal Hlavinka <mhlavink@redhat.com> - 2.8.5-9
 - fix nut monitor spin CPU after upsd closed connection (rhbz#2539831)
 

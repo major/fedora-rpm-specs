@@ -2,19 +2,22 @@ Name:		coan
 Version:	6.0.1
 Release:	%autorelease
 Summary:	A command line tool for simplifying the pre-processor conditionals in source code
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
-URL:		http://coan2.sourceforge.net/
-Source0:	http://downloads.sourceforge.net/coan2/%{name}-%{version}.tar.gz
+License:	BSD-3-Clause
+URL:		https://coan2.sourceforge.net/
+Source0:	https://downloads.sourceforge.net/coan2/%{name}-%{version}.tar.gz
 # https://sourceforge.net/p/coan2/bugs/92/
-Patch0:         expression_parser.patch
+Patch0:	expression_parser.patch
 # https://sourceforge.net/p/coan2/bugs/95/
-Patch1:         coan-autoconf-c99.patch
-BuildRequires:  gcc-c++
-BuildRequires:  make
-BuildRequires:  perl-podlators
-BuildRequires:  perl-Pod-Html
-BuildRequires:  autoconf automake
+Patch1:	coan-autoconf-c99.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2581961
+# https://sourceforge.net/p/coan2/bugs/98/
+Patch2:	coan-gcc17-fstream.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	gcc-c++
+BuildRequires:	make
+BuildRequires:	perl-Pod-Html
+BuildRequires:	perl-podlators
 
 # removed python2 dependencies and asked upstream to port tests to python3
 # https://sourceforge.net/p/coan2/bugs/93/
@@ -50,22 +53,15 @@ for i in AUTHORS LICENSE.BSD README ChangeLog ; do
 done
 
 %build
-export CXXFLAGS="-std=c++14 -Wno-deprecated -Wno-deprecated-declarations -fpermissive $RPM_OPT_FLAGS"
+export CXXFLAGS="%{build_cxxflags} -std=c++14 -Wno-deprecated -Wno-deprecated-declarations -fpermissive"
 autoreconf -vi
 %configure
 %make_build
 
-# disabling all checks it's broken again on rawhide :(
-# some tests are broken in armv7hl and ppc64le - disable until upstream
-# fixes the issue upstream bug report:
-#     https://sourceforge.net/p/coan2/bugs/83/
-# so for now we'll just allow the tests to fail
-#
-# %ifnarch %{arm} ppc64le
-# make check || (for f in test_coan/*.log ; do cat ${f} ; done ; false)
-# %else
-# make check || (for f in test_coan/*.log ; do cat ${f} ; done ; true)
-# %endif
+# The upstream test harness uses Python 2 syntax and cannot run with Fedora's
+# Python 3. Upstream port request: https://sourceforge.net/p/coan2/bugs/93/
+# The suite also has reported failures on armv7hl and ppc64le:
+# https://sourceforge.net/p/coan2/bugs/83/
 
 
 %install

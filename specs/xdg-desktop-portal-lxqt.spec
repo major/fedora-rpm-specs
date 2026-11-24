@@ -9,6 +9,7 @@ Source0:       https://github.com/lxqt/%{name}/releases/download/%{version}/%{na
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
+BuildRequires: systemd-rpm-macros
 
 BuildRequires: cmake(lxqt2-build-tools)
 BuildRequires: cmake(Qt6Core) >= 6.10.0

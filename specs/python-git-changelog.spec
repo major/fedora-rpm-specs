@@ -8,6 +8,15 @@ License:        ISC
 URL:            https://github.com/pawamoy/git-changelog
 Source:         %{url}/archive/%{version}/git-changelog-%{version}.tar.gz
 
+# tests: Fix remote URL (/ instead of :)
+# https://github.com/pawamoy/git-changelog/commit/ba7609d33e01066e40b1e8f9c55e950e0bdb7c76
+#
+# Fixes:
+#
+# bug: Python 3.16.0a2: `test_removing_credentials_from_remotes` fails
+# https://github.com/pawamoy/git-changelog/issues/148
+Patch:          %{url}/commit/ba7609d33e01066e40b1e8f9c55e950e0bdb7c76.patch
+
 BuildArch:      noarch
 
 BuildSystem:    pyproject
@@ -64,11 +73,6 @@ git tag %{version}
 %if %{with check}
 # Requires griffe and mkdocstrings, both not packaged
 ignore="${ignore-} --ignore=tests/test_api.py"
-%if v"0%{?python3_version}" >= v"3.16"
-# bug: Python 3.16.0a2: `test_removing_credentials_from_remotes` fails
-# https://github.com/pawamoy/git-changelog/issues/148
-k="${k-}${k+ and }not test_removing_credentials_from_remotes"
-%endif
 %pytest -v -rs ${ignore-} -k "${k-}"
 %endif
 

@@ -274,7 +274,7 @@ and printing their data.
 
 %if 0%{?_build_minimal}
 %package minimal
-Summary: A GNU source-level debugger for C, C++, Fortran, Go and other languages (minimal version)
+Summary: A minimal version of GDB (the GNU source-level debugger)
 # gdb-add-index is shared with gdb-headless and it must be from same version
 Conflicts: %{name}-headless < %{version}-%{release}
 Conflicts: %{name}-headless > %{version}-%{release}

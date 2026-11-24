@@ -211,7 +211,7 @@ Provides: mariadb%{majorversion}%{?1:-%{1}}%{?_isa} = %{sameevr}\
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          4%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          Fast and robust SQL database server
@@ -233,8 +233,8 @@ Source11:         mysql.service.in
 Source12:         mariadb-prepare-db-dir.sh
 Source14:         mariadb-check-socket.sh
 Source15:         mariadb-scripts-common.sh
-Source16:         mariadb-check-upgrade.sh
 Source18:         mysql@.service.in
+Source19:         mariadb-check-homedir.sh
 Source50:         rh-skipped-tests-base.list
 Source51:         rh-skipped-tests-arm.list
 Source52:         rh-skipped-tests-s390.list
@@ -934,12 +934,12 @@ cat %{SOURCE54} | tee -a mysql-test/unstable-tests
 %endif
 
 cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
-   %{SOURCE14} %{SOURCE15} %{SOURCE16} %{SOURCE18} %{SOURCE70} scripts
+   %{SOURCE14} %{SOURCE15} %{SOURCE18} %{SOURCE19} %{SOURCE70} scripts
 
 # Create a sysusers.d config file
 # We no longer enforce the hardcoded UID/GID 27.
 cat > support-files/%{majorname}.sysusers.conf << EOF
-u mysql 27 'MariaDB and MySQL Server' %{dbdatadir} -
+u mysql 27 'MariaDB and MySQL Server' / -
 EOF
 
 %if %{with galera}
@@ -1125,8 +1125,8 @@ install -D -p -m 644 %{_vpath_builddir}/scripts/mysql@.service %{buildroot}%{_un
 # helper scripts for service starting
 install -p -m 755 %{_vpath_builddir}/scripts/mariadb-prepare-db-dir %{buildroot}%{_libexecdir}/mariadb-prepare-db-dir
 install -p -m 755 %{_vpath_builddir}/scripts/mariadb-check-socket %{buildroot}%{_libexecdir}/mariadb-check-socket
-install -p -m 755 %{_vpath_builddir}/scripts/mariadb-check-upgrade %{buildroot}%{_libexecdir}/mariadb-check-upgrade
 install -p -m 644 %{_vpath_builddir}/scripts/mariadb-scripts-common %{buildroot}%{_libexecdir}/mariadb-scripts-common
+install -p -m 755 %{SOURCE19} %{buildroot}%{_libexecdir}/mariadb-check-homedir
 
 # Install downstream version of tmpfiles
 install -D -p -m 0644 %{_vpath_builddir}/scripts/mariadb.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{majorname}.conf
@@ -1180,7 +1180,6 @@ ln -s %{_libexecdir}/mariadbd %{buildroot}%{_sbindir}/mariadbd
 
 # copy additional docs into build tree so %%doc will find them
 install -p -m 0644 %{SOURCE6} %{basename:%{SOURCE6}}
-install -p -m 0644 %{SOURCE16} %{basename:%{SOURCE16}}
 
 %if %{with galera}
 # install the clustercheck script
@@ -1424,6 +1423,19 @@ rm %{buildroot}%{_mandir}/man1/mbstream.1*
 
 %post -n %{pkgname}-server
 %systemd_post %{daemon_name}.service
+
+# If the package update was across major MariaDB versions warn user to run 'mariadb-upgrade'
+datadir=$(%{_bindir}/my_print_defaults --mysqld 2>/dev/null | sed -n 's/^--datadir=//p' | tail -1)
+if [ -z "$datadir" ]; then datadir="%{dbdatadir}"; fi
+for file in "$datadir/mariadb_upgrade_info" "$datadir/mysql_upgrade_info"; do
+    [ -f "$file" ] || continue
+    found_version=$(sed -n '1s/^\([0-9]*\.[0-9]*\).*/\1/p' "$file")
+    if [ -n "$found_version" ] && [ "$found_version" != "%{majorversion}" ]; then
+        echo "WARNING: The datadir at $datadir needs to be upgraded." >&2
+        echo "After starting the service, run 'mariadb-upgrade'." >&2
+    fi
+    break
+done
 
 %preun -n %{pkgname}-server
 %systemd_preun %{daemon_name}.service
@@ -1691,7 +1703,7 @@ fi
 
 %{_libexecdir}/mariadb-prepare-db-dir
 %{_libexecdir}/mariadb-check-socket
-%{_libexecdir}/mariadb-check-upgrade
+%{_libexecdir}/mariadb-check-homedir
 %{_libexecdir}/mariadb-scripts-common
 
 # Remember to also update the mariadb.tmpfiles.d.in file when updating these permissions
@@ -1865,6 +1877,16 @@ fi
 %endif
 
 %changelog
+* Mon Nov 23 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.4-4
+- Move upgrade check from ExecStartPost to RPM %%post (rhbz#2468654)
+
+* Mon Nov 23 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.4-3
+- Change mysql user HOME from '/var/lib/mysql' to '/' (CVE-2026-107814)
+- Add 'mariadb-check-homedir' startup warning for existing unsafe HOME
+
+* Mon Nov 23 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.4-2
+- Align service files with upstream MDEV-40629 / CVE-2026-107818 fix
+
 * Wed Nov 18 2026 Michal Schorm <mschorm@redhat.com> - 3:12.3.4-1
 - Rebase to 12.3.4
 

@@ -18,7 +18,7 @@
 %global crate utf8_iter
 
 Name:           rust-utf8_iter
-Version:        1.0.4
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Iterator by char over potentially-invalid UTF-8 in &[u8]
 

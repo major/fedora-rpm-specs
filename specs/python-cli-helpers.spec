@@ -2,7 +2,7 @@
 
 Summary:        Python helpers for common CLI tasks
 Name:           python-cli-helpers
-Version:        2.15.3
+Version:        2.15.4
 Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -55,6 +55,9 @@ PYTHONPATH=build/lib/ py.test-3
 %doc AUTHORS CHANGELOG README.rst
 
 %changelog
+* Mon Nov 23 2026 Terje Røsten <terjeros@gmail.com> - 2.15.4-1
+- 2.15.4
+
 * Sun Nov 01 2026 Terje Røsten <terjeros@gmail.com> - 2.15.3-1
 - 2.15.3
 

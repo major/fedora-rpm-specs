@@ -22,11 +22,13 @@ BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(zlib)
 
 BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xcursor)
+%if %{undefined rhel}
 BuildRequires: pkgconfig(xi)
 BuildRequires: pkgconfig(xorg-libinput)
+BuildRequires: pkgconfig(libudev)
+%endif
 BuildRequires: pkgconfig(x11)
 
 Obsoletes:     %{name}-l10n < %{version}-%{release}
@@ -40,7 +42,7 @@ Provides:      %{name}-l10n = %{version}-%{release}
 %autosetup -S git_am
 
 %conf
-%cmake
+%cmake %{?rhel:-DWITH_TOUCHPAD=OFF}
 
 %build
 %cmake_build

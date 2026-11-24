@@ -7,11 +7,12 @@
 
 Name:               fcoe-utils
 Version:            1.0.34
-Release:            16.git%{shortcommit0}%{?dist}
+Release:            17.git%{shortcommit0}%{?dist}
 Summary:            Fibre Channel over Ethernet utilities
 License:            GPL-2.0-only
 URL:                http://www.open-fcoe.org
 Source0:            https://github.com/openSUSE/fcoe-utils/archive/%{commit0}.tar.gz#/%{name}-%{version}-%{shortcommit0}.tar.gz
+Patch0:             0001-include-add-u128-to-linux-types.h.patch
 ExcludeArch:        ppc s390
 BuildRequires:      autoconf
 BuildRequires:      automake
@@ -81,6 +82,9 @@ done
 %{_libexecdir}/fcoe/
 
 %changelog
+* Fri Nov 06 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 1.0.34-17.git5e78a2d
+- Fix build on aarch64 with kernel 7.3
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.34-16.git5e78a2d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

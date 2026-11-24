@@ -1,7 +1,7 @@
 %global project beetbrainz
 %global goipath codeberg.org/gbcox/%{project}
 %global forgeurl https://codeberg.org/gbcox/%{project}/
-%global commit ea5fc82d1c142aaaf95a5902a66c647bee3d1503
+%global commit d68689ad1b090c9e4eac5f44bf99d9104a919842
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global golicenses LICENSE.md
@@ -12,11 +12,18 @@
 the gap between your media server playback and your MusicBrainz
 scrobbling via ListenBrainz.}
 
+Version:        1.13.2
+
+%if 0%{?buildtag:1}
 %gometa
+%global build_id %{lua:print((rpm.expand("%{buildtag}"):gsub("^%.copr", "")))}
+Release:        %autorelease -s %{build_id}
+%else
+Release:        %autorelease
+%gometa
+%endif
 
 Name:           %{goname}
-Version:        1.13.1
-Release:        %autorelease
 Summary:        Provides webhook integration for ListenBrainz scrobbling with %{project}
 License:        GPL-3.0-or-later
 URL:            %{gourl}

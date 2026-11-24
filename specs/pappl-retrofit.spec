@@ -13,7 +13,7 @@
 
 Name: pappl-retrofit
 Version: 1.0b3
-Release: 1%{?dist}
+Release: 2%{?dist}
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
@@ -150,24 +150,24 @@ cat > %{buildroot}%{_libexecdir}/legacy-printer-app/posttrans.sh << EOF
 # upgrade script for adding new options into existing legacy-printer-app.conf
 # runs once on upgrade via legacy-printer-app-conf-upgrade.service
 
-conf=/etc/legacy-printer-app.conf
+conf="/etc/legacy-printer-app.conf"
 
-if test ! -f "$conf"
+if test ! -f \$conf
 then
   exit 0
 fi
 
 # add listen-hostname if missing
-if ! grep -q "^listen-hostname=" "$conf"
+if ! grep -q "^listen-hostname=" \$conf
 then
-  echo "" >> "$conf"
-  echo "# listen on localhost by default" >> "$conf"
-  echo "listen-hostname=localhost" >> "$conf"
+  echo "" >> \$conf
+  echo "# listen on localhost by default" >> \$conf
+  echo "listen-hostname=localhost" >> \$conf
 fi
 
 # mark as upgraded so legacy-printer-app-conf-upgrade.service won't run again
-echo "" >> "$conf"
-echo "# added in version %{version}-%{release}" >> "$conf"
+echo "" >> \$conf
+echo "# added in version %{version}-%{release}" >> \$conf
 
 exit 0
 EOF
@@ -255,6 +255,9 @@ fi
 
 
 %changelog
+* Mon Nov 23 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.0b3-2
+- fix the upgrade script (fedora#2579837)
+
 * Thu Nov 12 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.0b3-1
 - 1.0b3 (fedora#2571734)
 

@@ -4,7 +4,7 @@
 %global crate zlink-codegen
 
 Name:           rust-zlink-codegen
-Version:        0.7.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Utility to generate zlink code from varlink IDL files
 
@@ -21,13 +21,8 @@ Utility to generate zlink code from varlink IDL files.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-License:        %{shrink:
-                    (Apache-2.0 OR BSL-1.0) AND
-                    (Apache-2.0 OR MIT) AND
-                    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-                    MIT AND
-                    (Unlicense OR MIT)
-                }
+# the crates linked into the executables, as %%cargo_license_summary reports them (filled in by rust-deps)
+License:        MIT AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (MIT OR Unlicense)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

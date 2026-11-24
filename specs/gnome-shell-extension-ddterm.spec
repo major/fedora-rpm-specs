@@ -1,5 +1,5 @@
 Name:           gnome-shell-extension-ddterm
-Version:        64.0.0
+Version:        64.1.0
 Release:        %autorelease
 Summary:        Drop-down terminal extension for GNOME Shell with tabs
 URL:            https://github.com/ddterm/gnome-shell-extension-ddterm
@@ -16,9 +16,9 @@ License:        GPL-3.0-or-later AND CC0-1.0 AND MIT
 Source0:        %{url}/archive/v%{version}/ddterm-%{version}.tar.gz
 # meson subproject pulled in via subprojects/gjs-typelib-installer.wrap;
 # bundled as a separate source so the build doesn't need network access
-%global gjs_ti_commit e6e5802db1578dea38494ffc4b63580138ccf749
+%global gjs_ti_commit e4fc83b02edd40b2b58795be479c62d58301df41
 %global gjs_ti_shortcommit %{sub %{gjs_ti_commit} 1 7}
-%global gjs_ti_commitdate 20260916
+%global gjs_ti_commitdate 20261027
 Source1:        https://github.com/ddterm/gjs-typelib-installer/archive/%{gjs_ti_commit}/gjs-typelib-installer-%{gjs_ti_shortcommit}.tar.gz
 
 BuildArch:      noarch
@@ -45,10 +45,12 @@ Requires:       /usr/bin/gjs
 # typelibs the ddterm app needs at runtime (see meson.build's gjs-typelib-installer
 # subproject call); also BuildRequires'd so gjs-typelib-installer (see Source1)
 # doesn't try to fetch them itself during %%check
+BuildRequires:  glib2
 BuildRequires:  gtk3
 BuildRequires:  libhandy
 BuildRequires:  pango
 BuildRequires:  vte291
+Requires:       glib2
 Requires:       gtk3
 Requires:       libhandy
 Requires:       pango
@@ -57,7 +59,7 @@ Requires:       vte291
 Recommends:     gnome-extensions-app
 Provides:       ddterm = %{version}-%{release}
 # gjs-typelib-installer has no upstream releases/versions, so use a git snapshot
-Provides:       bundled(gjs-typelib-installer) = 0~%{gjs_ti_commitdate}git%{gjs_ti_shortcommit}
+Provides:       bundled(gjs-typelib-installer) = 0~%{gjs_ti_commitdate}.%{gjs_ti_shortcommit}
 
 %global uuid    ddterm@amezin.github.com
 
@@ -77,10 +79,11 @@ Distinguishing features:
 %prep
 %autosetup -p1 -a1
 grep -qF "revision = %{gjs_ti_commit}" subprojects/gjs-typelib-installer.wrap || \
-    { echo "error: %%gjs_ti_commit out of sync with subprojects/gjs-typelib-installer.wrap" >&2; exit 1; }
+    { echo "error: %%gjs_ti_commit out of sync with subprojects/gjs-typelib-installer.wrap" >&2; \
+      grep -F "revision = " subprojects/gjs-typelib-installer.wrap >&2; exit 1; }
 mv gjs-typelib-installer-%{gjs_ti_commit} subprojects/gjs-typelib-installer
-tr -d ' \n' < meson.build | grep -qF "'typelibs':['Gtk-3.0','Gdk-3.0','Pango-1.0','Vte-2.91','Handy-1',]," || \
-    { echo "error: meson.build's gjs-typelib-installer 'typelibs' list changed; update the gtk3/pango/vte291/libhandy Requires accordingly" >&2; exit 1; }
+tr -d ' \n' < meson.build | grep -qF "'typelibs':['GLibUnix-2.0','Gtk-3.0','Gdk-3.0','Pango-1.0','Vte-2.91','Handy-1',]," || \
+    { echo "error: meson.build's gjs-typelib-installer 'typelibs' list changed; update the glib2/gtk3/pango/vte291/libhandy Requires accordingly" >&2; exit 1; }
 
 
 %conf

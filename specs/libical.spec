@@ -2,7 +2,7 @@
 
 Summary:	Reference implementation of the iCalendar data type and serialization format
 Name:		libical
-Version:	4.0.7
+Version:	4.0.8
 Release:	%{autorelease}
 License:	LGPL-2.1-only OR MPL-2.0
 URL:		https://libical.github.io/libical/

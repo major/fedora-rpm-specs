@@ -546,6 +546,21 @@ tomcli set Cargo.toml append workspace.dependencies.rustls.features ring
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
 
+# secret-service
+#   wanted: 5.0.0
+#   currently packaged: 6.0.0
+#   Downstream-only for now, since upstream has automated dependency
+#   maintenance via renovate, and the one-week cooldown has not yet expired, so
+#   there is not yet a PR to link.
+tomcli set Cargo.toml str workspace.dependencies.secret-service.version 6.0.0
+tomcli set Cargo.toml lists replace \
+    workspace.dependencies.secret-service.features \
+    rt-tokio-crypto-rust crypto-rust
+cfg="target_os = \"linux\",target_os = \"freebsd\", target_os = \"openbsd\""
+tomcli set crates/uv-keyring/Cargo.toml lists replace \
+    "target.'cfg(any(${cfg}))'.dependencies.secret-service.features" \
+    rt-tokio-crypto-rust crypto-rust
+
 %cargo_prep
 
 

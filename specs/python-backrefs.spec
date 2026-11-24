@@ -2,7 +2,7 @@
 %global pypi_name backrefs
 
 Name:           python-%{pypi_name}
-Version:        8.3
+Version:        8.3.1
 Release:        1%{?dist}
 Summary:        A wrapper around re and regex that adds additional back references
 
@@ -62,6 +62,9 @@ py.test-3
 %doc README.md
 
 %changelog
+* Mon Nov 23 2026 Parag Nemade <pnemade AT redhat DOT com> - 8.3.1-1
+- Update to 8.3.1 version (#2578253)
+
 * Tue Nov 17 2026 Parag Nemade <pnemade AT redhat DOT com> - 8.3-1
 - Update to 8.3 version (#2571744)
 

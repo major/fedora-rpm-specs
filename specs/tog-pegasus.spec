@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -115,6 +115,9 @@ Patch32:        pegasus-2.14.1-post-quantum.patch
 Patch33:        pegasus-2.14.1-openssl-4.0-fix.patch
 # fix buffer overflows in sample CMPI providers (CWE-120)
 Patch34:        pegasus-2.14.4-sample-provider-buffer-overflows.patch
+# 35: bound listener destination host name, it was copied into a fixed size
+#  stack buffer with strcpy and no length check
+Patch35:        pegasus-2.14.1-fix-destination-hostname-overflow.patch
 
 BuildRequires:  libstdc++, pam-devel
 BuildRequires:  openssl, openssl-devel
@@ -142,6 +145,7 @@ sources.
 %package devel
 Summary:        The OpenPegasus Software Development Kit
 Requires:       tog-pegasus >= %{epoch}:%{version}-%{release}
+Requires:       make
 
 %description devel
 The OpenPegasus WBEM Services for Linux SDK is the developer's kit for the
@@ -278,6 +282,7 @@ yes | pegasus/mak/CreateDmtfSchema 238 %{_builddir}/cim_schema_2.38.0-MOFs.zip c
 %patch -P32 -p0 -b .post-quantum
 %patch -P33 -p0 -b .openssl-4.0-fix
 %patch -P34 -p0 -b .sample-provider-buffer-overflows
+%patch -P35 -p0 -b .fix-destination-hostname-overflow
 
 
 %build
@@ -578,6 +583,11 @@ fi
 
 
 %changelog
+* Mon Nov 23 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.4-4
+- Fix stack buffer overflow on listener destination host name
+- Make tog-pegasus-devel require make, it ships the samples Makefile and
+  runs make in %%preun
+
 * Mon Oct 26 2026 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.4-3
 - Don't ship debug files in tog-pegasus-libs
   Resolves: #2537159

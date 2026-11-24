@@ -39,6 +39,15 @@ License:        %{upstream_license}
 URL:            https://github.com/pydantic/pydantic
 Source:         %{pypi_source pydantic_core}
 
+# Fix flaky `test_exceptions_and_markers_report_python_references()` test
+# https://github.com/pydantic/pydantic/commit/4daf8820cf999b6df217f0797bdcf9bef734898b
+#
+# Fixes:
+#
+# Test test_exceptions_and_markers_report_python_references may pass unexpectedly
+# https://github.com/pydantic/pydantic/issues/14345
+Patch:          pydantic-core-2.50.5-pr-14383.patch
+
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  tomcli
 
@@ -148,10 +157,6 @@ ignore="${ignore-} --ignore=tests/test_docstrings.py"
 
 # Due to patching out the pytest-timeout dependency:
 warningsfilter="${warningsfilter-} -W ignore::pytest.PytestUnknownMarkWarning"
-
-# Test test_exceptions_and_markers_report_python_references may pass unexpectedly
-# https://github.com/pydantic/pydantic/issues/14345
-k="${k-}${k+ and }not test_exceptions_and_markers_report_python_references"
 
 %pytest ${warningsfilter-} ${ignore-} -k "${k-}" -rs
 %endif

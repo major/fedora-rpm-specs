@@ -18,7 +18,7 @@
 
 # https://github.com/gohugoio/hugo
 %global goipath         github.com/gohugoio/hugo
-Version:                0.170.0
+Version:                0.170.1
 
 %gometa -L -f
 

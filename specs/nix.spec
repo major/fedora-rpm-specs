@@ -38,6 +38,7 @@ Patch8:         nix-2.35-disable-clang-tidy.patch
 # https://github.com/NixOS/nix/pull/16577
 Patch9:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/16577.patch
 
+ExcludeArch:    %{ix86}
 # https://nixos.org/manual/nix/unstable/installation/prerequisites-source
 # missing aws-cpp-sdk-s3 aws-c-auth aws-c-s3
 #BuildRequires:  aws-c-common
@@ -47,9 +48,7 @@ BuildRequires:  bzip2-devel
 # boost-1.87 is available in F44
 BuildRequires:  boost-devel >= 1.87
 BuildRequires:  brotli-devel
-%ifarch x86_64 aarch64 ppc64le
 BuildRequires:  busybox
-%endif
 # needed for toml11
 BuildRequires:  cmake
 %if %{with docs}

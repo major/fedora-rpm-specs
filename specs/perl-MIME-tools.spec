@@ -1,6 +1,6 @@
 Summary:	Modules for parsing and creating MIME entities in Perl
 Name:		perl-MIME-tools
-Version:	5.522
+Version:	5.523
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MIME-tools
@@ -17,6 +17,7 @@ BuildRequires:	perl(inc::Module::Install)
 BuildRequires:	perl(Pod::Man)
 BuildRequires:	sed
 # ================ Module Runtime ====================
+BuildRequires:	gzip
 BuildRequires:	perl-MailTools		>= 1.50
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Convert::BinHex)
@@ -45,8 +46,10 @@ BuildRequires:	perl(Test::Deep)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
+BuildRequires:	perl(Time::HiRes)
 BuildRequires:	perl(warnings)
 # ================ Dependencies ======================
+Requires:	gzip
 Requires:	perl(Convert::BinHex)
 
 # Currently fails a couple of kwalitee tests
@@ -137,6 +140,12 @@ TEST_POD_COVERAGE=0 make test
 %{_mandir}/man3/MIME::Words.3*
 
 %changelog
+* Mon Nov 23 2026 Paul Howarth <paul@city-fan.org> - 5.523-1
+- Update to 5.523
+  - Fix quadratic-time-complexity operation in MIME parameter parsing that
+    could result in a DoS
+- Explicitly require gzip for gzip compression support
+
 * Wed Oct 28 2026 Paul Howarth <paul@city-fan.org> - 5.522-1
 - Update to 5.522
   - parse_params: Flag a parameter list that could not be parsed

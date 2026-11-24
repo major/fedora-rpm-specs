@@ -1,12 +1,12 @@
 %global vectortiledate 20250505
 %global vectortilecommit 5a0cfbb6b909ae945f4a9e40777772a2b1c8fe9b
-%global testcommit be28538869c7055246e80bcea1afe6032d5f6edf
-%global visualcommit 29cb2dd71074417a46716749babd256337bfc0fd
+%global testcommit 57823ac672985ef5fd37c884f73e3f8f8e77f2d9
+%global visualcommit 69be796b12b9de0ea7aa457084dd4e517f001e33
 
 %global vectortileshortcommit %(c=%{vectortilecommit}; echo ${c:0:7})
 
 Name:      mapnik
-Version:   4.3.2
+Version:   4.4.0
 Release:   %autorelease
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only
@@ -23,8 +23,6 @@ Patch:     mapnik-system-sparsehash.patch
 Patch:     mapnik-system-catch.patch
 # Allow some minor differences in the visual tests
 Patch:     mapnik-visual-compare.patch
-# Add C to cmake languages for proj 9.9.0
-Patch:     mapnik-languages.patch
 
 # Exclude big endian architectures as mapnik does not support them
 # https://github.com/mapnik/mapnik/issues/2313

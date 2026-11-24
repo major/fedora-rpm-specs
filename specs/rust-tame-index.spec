@@ -5,16 +5,13 @@
 %global crate tame-index
 
 Name:           rust-tame-index
-Version:        0.26.3
+Version:        0.27.2
 Release:        %autorelease
 Summary:        Access to local and remote cargo registry indices
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/tame-index
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * remove unused benchmark-only tiny-bench dev-dependency
-Patch:          tame-index-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -53,18 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+local-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+local-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "local" feature of the "%{crate}" crate.
-
-%files       -n %{name}+local-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+local-builder-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -75,18 +60,6 @@ This package contains library source intended for building other packages which
 use the "local-builder" feature of the "%{crate}" crate.
 
 %files       -n %{name}+local-builder-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+sparse-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+sparse-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "sparse" feature of the "%{crate}" crate.
-
-%files       -n %{name}+sparse-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -104,15 +77,7 @@ use the "sparse" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip tests that require a cargo cache directory
-# * skip tests that require internet connectivity
-%{cargo_test -- -- --exact %{shrink:
-    --skip serializes_current_cargo_cache
-    --skip parses_current_cargo_cache
-    --skip can_take_shared_lock
-    --skip wait_lock_times_out
-    --skip waits_lock
-}}
+%cargo_test
 %endif
 
 %changelog

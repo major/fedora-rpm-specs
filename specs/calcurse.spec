@@ -1,5 +1,5 @@
 Name:           calcurse
-Version:        4.9.0
+Version:        4.9.1
 Release:        1%{?dist}
 Summary:        Text-based personal organizer
 
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 
 
 %changelog
+* Mon Nov 23 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.9.1-1
+- 4.9.1
+
 * Tue Nov 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.9.0-1
 - 4.9.0
 

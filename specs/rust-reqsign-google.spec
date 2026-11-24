@@ -5,7 +5,7 @@
 %global crate reqsign-google
 
 Name:           rust-reqsign-google
-Version:        3.3.0
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Google Cloud Platform signing implementation for reqsign
 

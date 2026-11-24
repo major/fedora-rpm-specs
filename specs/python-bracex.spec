@@ -2,7 +2,7 @@
 %global pypi_name bracex
 
 Name:           python-%{pypi_name}
-Version:        3.2.3
+Version:        3.2.4
 Release:        1%{?dist}
 Summary:        Bash style brace expander
 
@@ -48,6 +48,9 @@ Brace expanding is used to generate arbitrary strings.
 %doc README.md
 
 %changelog
+* Mon Nov 23 2026 Parag Nemade <pnemade AT redhat DOT com> - 3.2.4-1
+- Update to 3.2.4 version (#2578279)
+
 * Tue Nov 17 2026 Parag Nemade <pnemade AT redhat DOT com> - 3.2.3-1
 - Update to 3.2.3 version (#2573608)
 

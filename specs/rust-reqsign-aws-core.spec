@@ -5,7 +5,7 @@
 %global crate reqsign-aws-core
 
 Name:           rust-reqsign-aws-core
-Version:        3.3.0
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Shared AWS credential and request canonicalization support for reqsign
 

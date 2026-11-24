@@ -5,7 +5,7 @@
 %global crate rsa
 
 Name:           rust-rsa
-Version:        0.9.10
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Pure Rust RSA implementation
 
@@ -13,8 +13,9 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/rsa
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * allow hex-literals 1.0:
-#   https://github.com/RustCrypto/RSA/commit/c8955c92c7c680245a7928bf97f52af16a0b6be2
+# * Omit the wycheproof test, which requires files from the workspace
+# * Allow older rstest 0.26–0.27 for now:
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2529211
 Patch:          rsa-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -53,6 +54,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+encoding-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+encoding-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "encoding" feature of the "%{crate}" crate.
+
+%files       -n %{name}+encoding-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+getrandom-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -77,16 +90,16 @@ use the "hazmat" feature of the "%{crate}" crate.
 %files       -n %{name}+hazmat-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pem-devel
+%package     -n %{name}+pkcs1v15-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+pem-devel %{_description}
+%description -n %{name}+pkcs1v15-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pem" feature of the "%{crate}" crate.
+use the "pkcs1v15" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pem-devel
+%files       -n %{name}+pkcs1v15-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pkcs5-devel
@@ -125,18 +138,6 @@ use the "sha1" feature of the "%{crate}" crate.
 %files       -n %{name}+sha1-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+sha2-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+sha2-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "sha2" feature of the "%{crate}" crate.
-
-%files       -n %{name}+sha2-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -147,18 +148,6 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+u64_digit-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+u64_digit-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "u64_digit" feature of the "%{crate}" crate.
-
-%files       -n %{name}+u64_digit-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

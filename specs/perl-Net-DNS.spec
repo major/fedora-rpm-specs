@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
-Version:       1.57
-Release:       2%{?dist}
+Version:       1.58
+Release:       1%{?dist}
 Summary:       DNS resolver modules for Perl
 License:       MIT
 URL:           https://www.net-dns.org
@@ -52,6 +52,7 @@ BuildRequires: perl(overload)
 # PerlIO is optional
 # Scalar::Util is optional
 BuildRequires: perl(Socket) >= 1.81
+BuildRequires: perl(Time::HiRes)
 BuildRequires: perl(Time::Local)
 # Win32::IPHelper is not needed
 # Win32::TieRegistry is not needed
@@ -72,6 +73,7 @@ Requires:      perl(MIME::Base64) >= 2.13
 # Prefer Net::LibIDN2 over Net::LibIDN, both are optional
 Suggests:      perl(Net::LibIDN2) >= 1
 Suggests:      perl(Scalar::Util) >= 1.25
+Requires:      perl(Time::HiRes)
 
 %{?perl_default_filter}
 
@@ -182,6 +184,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 23 2026 Jitka Plesnikova <jplesnik@redhat.com> - 1.58-1
+- 1.58 bump (rhbz#2578198)
+- Fix CVE-2026-101340 (Query ID predictable from a short sequence of observations)
+
 * Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 1.57-2
 - Verify upstream source signatures with openpgpverify
 

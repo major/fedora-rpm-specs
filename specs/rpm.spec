@@ -39,7 +39,7 @@
 
 %global rpmver 6.1.0
 #global snapver rc1
-%global baserelease 2
+%global baserelease 3
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -135,6 +135,7 @@ rpm-4.20-sysusers.patch
 0001-Revert-Add-a-deprecation-warning-for-clamp_mtime_to_.patch
 
 # Patches already upstream:
+0001-Update-the-FSF-postal-address-in-various-places.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -256,7 +257,7 @@ This package contains API documentation for developing applications
 that will manipulate RPM packages and databases.
 
 %package cron
-Summary: Create daily logs of installed packages.
+Summary: Create daily logs of installed packages
 BuildArch: noarch
 Requires: crontabs logrotate rpm = %{version}-%{release}
 
@@ -411,7 +412,7 @@ install -m 644 scripts/rpm.log ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d/rpm
 mkdir -p $RPM_BUILD_ROOT/usr/lib/sysimage/rpm
 cd _build
 
-# init an empty database for %ghost'ing for all supported backends
+# init an empty database for %%ghost'ing for all supported backends
 for be in %{?with_ndb:ndb} %{?with_sqlite:sqlite}; do
     mkdir ${be}
     tools/rpmdb --rcfile rpmrc --define "_db_backend ${be}" --dbpath=${PWD}/${be} --initdb
@@ -427,6 +428,10 @@ ln -s ../../bin/find-debuginfo $RPM_BUILD_ROOT/usr/lib/rpm/find-debuginfo.sh
 rm -f $RPM_BUILD_ROOT/%{rpmhome}/{perldeps.pl,perl.*,pythond*}
 rm -f $RPM_BUILD_ROOT/%{_fileattrsdir}/{perl*,python*}
 rm -rf $RPM_BUILD_ROOT/var/tmp
+# Packaged in rpm-cron
+rm -f $RPM_BUILD_ROOT/%{rpmhome}/{rpm.daily,rpm.log}
+# INSTALL is not relevant in an rpm, COPYING is a license and packaged as such
+rm -f $RPM_BUILD_ROOT/%{_defaultdocdir}/rpm/{INSTALL,COPYING}
 
 %pre
 # Symlink all rpmdb files to the new location if we're still using /var/lib/rpm
@@ -451,8 +456,6 @@ fi
 %license COPYING
 %doc CREDITS docs/manual/[a-z]*
 %doc %{_defaultdocdir}/rpm/CONTRIBUTING.md
-%doc %{_defaultdocdir}/rpm/COPYING
-%doc %{_defaultdocdir}/rpm/INSTALL
 %doc %{_defaultdocdir}/rpm/README
 
 %{_unitdir}/rpmdb-rebuild.service
@@ -500,8 +503,6 @@ fi
 %{rpmhome}/rpmrc
 
 %{rpmhome}/rpmdb_*
-%{rpmhome}/rpm.daily
-%{rpmhome}/rpm.log
 %{rpmhome}/rpm.supp
 %{rpmhome}/rpm2cpio.sh
 %{rpmhome}/tgpg
@@ -645,41 +646,45 @@ fi
 %files cron
 %{_sysconfdir}/cron.daily/rpm
 %config(noreplace) %{_sysconfdir}/logrotate.d/rpm
+%ghost %attr(0644,root,root) /var/log/rpmpkgs
 
 %files apidocs
 %license COPYING
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Thu Nov 19 2026 Panu Matilainen <pmatilai@redhat.com> - 6.1.0-3
+- Various minor packaging tweaks pointed out by rpmlint
+
 * Thu Nov 19 2026 Panu Matilainen <pmatilai@redhat.com> - 6.1.0-2
 - Make default package format switchable with a bcond
 
-* Thu Aug 20 2026 Michal Domonkos <mdomonko@redhat.com - 6.1.0-1
+* Thu Aug 20 2026 Michal Domonkos <mdomonko@redhat.com> - 6.1.0-1
 - Rebase to 6.1.0 (https://rpm.org/releases/6.1.0)
 
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 6.0.92-2
 - Rebuilt for Python 3.15.0b4 ABI change
 
-* Mon Jul 20 2026 Michal Domonkos <mdomonko@redhat.com - 6.0.92-1
+* Mon Jul 20 2026 Michal Domonkos <mdomonko@redhat.com> - 6.0.92-1
 - Rebase to 6.1 rc2 (https://fedoraproject.org/wiki/Changes/RPM-6.1)
 
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.91-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
-* Thu Jun 25 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.91-3
+* Thu Jun 25 2026 Panu Matilainen <pmatilai@redhat.com> - 6.0.91-3
 - Revert file trigger refactor for further investigation (#2492628)
 - Fix a silly thinko causing a %%define regression (#2492483)
 
-* Wed Jun 24 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.91-2
+* Wed Jun 24 2026 Panu Matilainen <pmatilai@redhat.com> - 6.0.91-2
 - Fix rubygem rpmuncompress -x regression (#2492128)
 
-* Mon Jun 22 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.91-1
+* Mon Jun 22 2026 Panu Matilainen <pmatilai@redhat.com> - 6.0.91-1
 - Rebase to 6.1 rc1 (https://fedoraproject.org/wiki/Changes/RPM-6.1)
 
 * Wed Jun 03 2026 Python Maint <python-maint@redhat.com> - 6.0.1-6
 - Rebuilt for Python 3.15
 
-* Mon Feb 16 2026 Panu Matilainen <pmatilai@redhat.com - 6.0.1-5
+* Mon Feb 16 2026 Panu Matilainen <pmatilai@redhat.com> - 6.0.1-5
 - Enable enforcing signature checking by default, make it easy to flip back
   https://fedoraproject.org/wiki/Changes/Enforcing_signature_checking_by_default
 
@@ -877,7 +882,7 @@ fi
 
 * Tue Aug 22 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.92-3
 - Fix regression on uncompressing 7zip compressed sources (#2229984)
-- Fix a conflict with pre-existing scl-utils %_root_prefix macro (#2233454)
+- Fix a conflict with pre-existing scl-utils %%_root_prefix macro (#2233454)
 
 * Mon Aug 21 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.92-2
 - Behave more consistently when target %%optflags are not defined (#2231727)
@@ -921,7 +926,7 @@ fi
 - Revert %%_smp_build_ncpus macro changing to parametric (#2210347)
 
 * Thu May 25 2023 Florian Festi <ffesti@redhat.com> - 4.18.90-8
-- Set %_sharedstatedir to /var/lib (#2209989)
+- Set %%_sharedstatedir to /var/lib (#2209989)
 
 * Thu May 25 2023 Florian Festi <ffesti@redhat.com> - 4.18.90-7
 - Remove compat links for old so name of the libraries

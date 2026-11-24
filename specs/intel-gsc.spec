@@ -1,7 +1,7 @@
 %global short_name igsc
 
 Name:    intel-gsc
-Version: 1.3.1
+Version: 1.3.2
 Release: %autorelease
 Summary: Intel Graphics System Controller Firmware Update Library (IGSC FUL)
 

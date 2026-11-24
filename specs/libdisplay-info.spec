@@ -4,7 +4,7 @@
 
 Name:           libdisplay-info
 Version:        0.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        EDID and DisplayID library
 
 # Main license: MIT
@@ -14,10 +14,10 @@ URL:            https://gitlab.freedesktop.org/emersion/libdisplay-info
 Source0:        %{url}/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz
 Source1:        %{url}/-/releases/%{version}/downloads/%{name}-%{version}.tar.xz.sig
 # 0FDE7BE0E88F5E48: emersion <contact@emersion.fr>
-Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
+Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48#/gpgkey-0FDE7BE0E88F5E48.asc
 
 BuildRequires:  gcc
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  meson >= 0.57
 BuildRequires:  pkgconfig(hwdata)
 
@@ -41,7 +41,7 @@ developing applications that use %{name}.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 
@@ -74,6 +74,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Nov 04 2026 Jakub Jelen <jjelen@redhat.com> - 0.3.0-3
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

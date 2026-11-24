@@ -5,7 +5,7 @@
 %global crate build_html
 
 Name:           rust-build_html
-Version:        2.8.0
+Version:        2.9.0
 Release:        %autorelease
 Summary:        Library for basic server-side rendering written in pure rust
 

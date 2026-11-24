@@ -1,6 +1,11 @@
 # header-only library
 %global debug_package %{nil}
 
+%if 0%{?el8}
+# EL8's %%cmake builds in-source by default, which upstream refuses
+%undefine __cmake_in_source_build
+%endif
+
 Name:           simpleini
 Version:        4.25
 Release:        %autorelease
@@ -11,7 +16,12 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
+%if 0%{?el8}
+# EL8's gtest 1.8.0 ships no CMake config; CMake's FindGTest module finds it
+BuildRequires:  gtest-devel
+%else
 BuildRequires:  cmake(GTest)
+%endif
 
 %description
 simpleini is a cross-platform library that provides a simple API to read and

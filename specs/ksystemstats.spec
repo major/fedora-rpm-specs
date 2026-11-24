@@ -1,6 +1,6 @@
 Name:    ksystemstats
 Version: 6.8.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KSystemStats is a daemon that collects statistics about the running system.
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -69,10 +69,13 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_userunitdir}/plasma-ksystemstats.service
 %{_qt6_plugindir}/ksystemstats/
 %{_kf6_datadir}/qlogging-categories6/ksystemstats.categories
-%{_libexecdir}/ksystemstats_xe_helper
 %caps(cap_perfmon=ep) %{_libexecdir}/ksystemstats_intel_helper
+%caps(cap_perfmon=ep) %{_libexecdir}/ksystemstats_xe_helper
 
 %changelog
+* Mon Nov 23 2026 Dave Vasilevsky <dave@vasilevsky.ca> - 6.8.3-2
+- Grant CAP_PERFMON to the Xe GPU helper (rhbz#2567175)
+
 * Thu Nov 12 2026 Steve Cossette <farchord@gmail.com> - 6.8.3-1
 - 6.8.3
 

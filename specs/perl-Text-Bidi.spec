@@ -5,7 +5,7 @@
 %define debug_package %{nil}
 
 Name:           perl-Text-Bidi
-Version:        3.02
+Version:        3.03
 Release:        1%{?dist}
 Summary:        Unicode bidirectional algorithm using libfribidi
 # LICENSE:          GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -177,6 +177,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 23 2026 Petr Pisar <ppisar@redhat.com> - 3.03-1
+- 3.03 bump
+
 * Thu Nov 19 2026 Petr Pisar <ppisar@redhat.com> - 3.02-1
 - 3.02 bump
 

@@ -1300,8 +1300,8 @@ tar xf %{SOURCE20} -C %{_builddir}
 mkdir -p third_party/rust-toolchain/crubit/lib/third_party
 tar xf %{SOURCE22} -C third_party/rust-toolchain/crubit/lib/third_party
 
-# On EPEL 9, unpack the 1.98.0 and 1.99.0 source tarballs
-%if 0%{?rhel} == 9
+# On EPEL 9/10.3, unpack the 1.98.0 and 1.99.0 source tarballs
+%if 0%{?rhel} == 9 || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 4)
 tar xf %{SOURCE24} -C %{_builddir}
 tar xf %{SOURCE25} -C %{_builddir}
 %endif
@@ -1341,7 +1341,7 @@ cp -a TypeScript-%{typescript_version}/tsc/tsgo  third_party/typescript/linux-am
 # ==============================================================================
 # 0. Select or Bootstrap Stage 0 Rust & Cargo Toolcahin
 # ==============================================================================
-%if 0%{?rhel} == 9
+%if 0%{?rhel} == 9 || (0%{?rhel} == 10 && 0%{?rhel_minor_version} < 4)
 # Hop 1: System rustc (1.97) -> Stage 1 rustc + std/proc_macro (1.98.0)
 cat > %{_builddir}/bootstrap-1.98.toml << EOF
 change-id = 999999

@@ -5,7 +5,7 @@
 %global crate reqsign-azure-storage
 
 Name:           rust-reqsign-azure-storage
-Version:        3.3.1
+Version:        3.3.2
 Release:        %autorelease
 Summary:        Azure Storage signing implementation for reqsign
 

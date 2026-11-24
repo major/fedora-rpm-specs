@@ -2,7 +2,7 @@
 %global pnpm_major_version 12
 
 Name:           nodejs-%{pkgname}%{pnpm_major_version}
-Version:        12.17.0
+Version:        12.23.0
 Release:        %autorelease
 Summary:        Fast, disk space efficient package manager
 
@@ -21,13 +21,6 @@ Source0:        https://github.com/pnpm/pnpm/archive/refs/tags/v%{version}/%{nam
 #
 # Regenerate with: ./generate-vendor-tarball.sh {version}
 Source1:        pnpm-%{version}-vendor.tar.xz
-# pnpm-config depends on pnpr-registry (PolyForm Shield, non-free) only for
-# Python package pattern matching. Replace it with a small local equivalent.
-# generate-vendor-tarball.sh applies the same patch.
-Patch0:         pnpm-config-drop-pnpr-registry.patch
-# zip < 9.0.0 is affected by CVE-2026-115907 and CVE-2026-115908. Drop once
-# upstream depends on zip >= 9. generate-vendor-tarball.sh applies it too.
-Patch1:         pnpm-bump-zip-crate.patch
 
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros
@@ -102,7 +95,6 @@ Conflicts:      pnpm
 # server-side registry component, which is licensed under the (non-free)
 # PolyForm Shield 1.0.0 license. It is only ever a dev-dependency of the CLI
 # (used by its test suite), never a normal build dependency, so we delete it.
-# The one exception, pnpr-registry in pnpm-config, is patched out by Patch0.
 rm -rf pnpr pnpm/crates/napi
 sed -i '/^pnpr[-a-zA-Z]* = { path = "pnpr\//d; /^pnpm-napi = { path = "pnpm\/crates\/napi" }$/d' Cargo.toml
 sed -i 's/members = \["pnpm\/crates\/\*", "pnpm\/tasks\/\*", "pnpr\/crates\/\*"\]/members = ["pnpm\/crates\/*"]/' Cargo.toml
@@ -110,6 +102,10 @@ sed -i '/^pnpr\(-fixtures\)\? = { workspace = true }$/d' pnpm/crates/cli/Cargo.t
 # The libsql [patch.crates-io] entry only applies to pnpr's storage backend,
 # so nothing left in the workspace uses libsql and cargo rejects the patch.
 sed -i '/^libsql = { git = /d' Cargo.toml
+# Upstream denies `unused_workspace_dependencies`. Dropping pnpr, napi and
+# pnpm/tasks/* above leaves ~24 workspace dependencies that only they used, so
+# cargo refuses to parse the workspace. Downgrade the lint.
+sed -i 's/^unused_workspace_dependencies = "deny"$/unused_workspace_dependencies = "allow"/' Cargo.toml
 
 # Upstream's own [profile.release] sets `lto = "fat"`, which %%cargo_prep's
 # generated [profile.rpm] (inherits = "release") does not override. Combined
@@ -121,10 +117,13 @@ sed -i '/^lto = "fat"$/d' Cargo.toml
 
 %cargo_prep -v vendor
 
-# Upstream ships a patched `tar` crate in vendor/tar (see [patch.crates-io] in
-# Cargo.toml). Cargo's directory source treats every subdirectory of vendor/
-# as a vendored crate and insists on a checksum file for it.
-echo '{"files":{},"package":null}' > vendor/tar/.cargo-checksum.json
+# Upstream ships patched `tar` and `deno_task_shell` crates in vendor/ (see
+# [patch.crates-io] in Cargo.toml). Cargo's directory source treats every
+# subdirectory of vendor/ as a vendored crate and insists on a checksum file
+# for it.
+for crate in tar deno_task_shell; do
+    echo '{"files":{},"package":null}' > vendor/${crate}/.cargo-checksum.json
+done
 
 # %%cargo_prep only redirects crates-io to the vendor directory. pnpm also
 # pins a few git dependencies (forks of libsql, node-semver-rs and dashmap),
@@ -162,9 +161,12 @@ install -Dpm 0755 target/rpm/pnpm %{buildroot}%{_bindir}/pnpm%{pnpm_major_versio
 
 # pn/pnpx/pnx are upstream's own tiny `sh` shims that just exec the `pnpm`
 # binary next to them (injecting `dlx` for pnpx/pnx); point them at our
-# versioned binary name instead of the unversioned one they assume.
+# versioned binary name instead of the unversioned one they assume. Upstream
+# ships them shebang-less (npm's install.js may put the native binary at the
+# same path), and brp-mangle-shebangs strips the executable bit from a
+# shebang-less file, so add one.
 for shim in pn pnpx pnx; do
-    sed 's|/pnpm"|/pnpm%{pnpm_major_version}"|' pnpm/npm/pnpm/${shim} > %{buildroot}%{_bindir}/${shim}%{pnpm_major_version}
+    sed -e '1i #!/bin/sh' -e 's|/pnpm"|/pnpm%{pnpm_major_version}"|' pnpm/npm/pnpm/${shim} > %{buildroot}%{_bindir}/${shim}%{pnpm_major_version}
     chmod 0755 %{buildroot}%{_bindir}/${shim}%{pnpm_major_version}
 done
 

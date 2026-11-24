@@ -40,7 +40,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -51,7 +51,9 @@ Epoch: 2
 # resolution: take it as OPUBL-1.0, the license won't be added to allowed license list, but if a project uses it for documentation
 # and don't use license options mentioned in the OPUBL 1.0 license text (which both are the case for Vim), the license is allowed
 License: Vim AND LGPL-2.1-or-later AND MIT AND GPL-1.0-only AND (GPL-2.0-only OR Vim) AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND GPL-2.0-or-later AND GPL-3.0-or-later AND OPUBL-1.0 AND Apache-2.0 WITH Swift-exception
-Source0: ftp://ftp.vim.org/pub/vim/unix/vim-%{baseversion}-%{patchlevel}.tar.bz2
+# created by script vim-update.sh - it takes current HEAD of upstream branch master, create archive by
+# 'make unixall' and name the archive by current base version and patch level from src/version.c
+Source0: vim-%{baseversion}-%{patchlevel}.tar.bz2
 Source1: virc
 Source2: vimrc
 Source3: gvim16.png
@@ -187,6 +189,7 @@ multiple windows, multi-level undo, block highlighting and more.
 
 %package common
 Summary: The common files needed by any version of the VIM editor
+BuildArch: noarch
 # move evim manpage to common - remove the conflict after C11S is branched
 Conflicts: %{name}-X11 < 2:9.1.1706-2
 # shared files between common and minimal
@@ -716,7 +719,7 @@ SentUpstream: 2014-05-22
     </p>
   </description>
   <releases>
-    <release version="%{version}" date="%(date +%F -r %{SOURCE0})" />
+    <release version="%{version}" date="%(test -f %{SOURCE0} && date +%%F -r %{SOURCE0} || date +%%F)" />
   </releases>
   <screenshots>
     <screenshot type="default">
@@ -1012,7 +1015,6 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 %dir %{_datadir}/%{name}/vimfiles/spell
 %dir %{_datadir}/%{name}/vimfiles/syntax
 %dir %{_datadir}/%{name}/vimfiles/tutor
-%dir %{_sysconfdir}/profile.d
 
 %if %{with gui}
 %files X11
@@ -1066,6 +1068,10 @@ install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-def
 
 
 %changelog
+* Mon Nov 23 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.1302-3
+- fix vi->vim alias on systems which have /usr/sbin earlier in PATH (fedora#2577396)
+- fix errors reported by rpmlint
+
 * Mon Nov 09 2026 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.2.1302-2
 - switch back to GTK 3
 

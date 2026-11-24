@@ -1,6 +1,6 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.46.2
+Version: 1.46.3
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
@@ -86,21 +86,21 @@ Provides: bundled(php-psr-http-client) = 1.0.3
 Provides: bundled(php-psr-http-factory) = 1.1.0
 Provides: bundled(php-psr-http-message) = 2.0
 Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
-Provides: bundled(php-spomky-labs-cbor-php) = 3.2.2
+Provides: bundled(php-spomky-labs-cbor-php) = 3.4.2
 Provides: bundled(php-spomky-labs-pki-framework) = 1.4.1
-Provides: bundled(php-symfony-clock) = 7.4.8
+Provides: bundled(php-symfony-clock) = 7.4.21
 Provides: bundled(php-symfony-deprecation-contracts) = 3.6.0
 Provides: bundled(php-symfony-polyfill-php84) = 1.37.0
 Provides: bundled(php-symfony-polyfill-php85) = 1.37.0
-Provides: bundled(php-symfony-property-access) = 7.4.8
-Provides: bundled(php-symfony-property-info) = 7.4.8
+Provides: bundled(php-symfony-property-access) = 7.4.23
+Provides: bundled(php-symfony-property-info) = 7.4.23
 Provides: bundled(php-symfony-serializer) = 7.4.10
-Provides: bundled(php-symfony-string) = 7.4.11
-Provides: bundled(php-symfony-type-info) = 7.4.9
-Provides: bundled(php-symfony-uid) = 7.4.9
-Provides: bundled(php-symfony-yaml) = 7.4.12
-Provides: bundled(php-web-auth-cose-lib) = 4.5.2
-Provides: bundled(php-web-auth-webauthn-lib) = 5.3.2
+Provides: bundled(php-symfony-string) = 7.4.22
+Provides: bundled(php-symfony-type-info) = 7.4.23
+Provides: bundled(php-symfony-uid) = 7.4.21
+Provides: bundled(php-symfony-yaml) = 7.4.23
+Provides: bundled(php-web-auth-cose-lib) = 4.8.2
+Provides: bundled(php-web-auth-webauthn-lib) = 5.3.14
 Provides: bundled(php-wikimedia-at-ease) = 3.0.0
 Provides: bundled(php-wikimedia-common-passwords) = 0.5.1
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.1.0
@@ -280,6 +280,9 @@ cd tests/phpunit
 
 
 %changelog
+* Mon Nov 23 2026 Michael Cronenworth <mike@cchtml.com> - 1.46.3-1
+- Update to 1.46.3
+
 * Fri Oct 02 2026 Michael Cronenworth <mike@cchtml.com> - 1.46.2-1
 - Update to 1.46.2
 

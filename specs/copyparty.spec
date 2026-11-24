@@ -22,7 +22,7 @@
 # [3]: https://docs.fedoraproject.org/en-US/packaging-guidelines/Web_Assets/#_css
 
 Name:           copyparty
-Version:        1.20.26
+Version:        1.20.27
 Release:        1%{?dist}
 Summary:        Portable file server with many supported protocols
 
@@ -126,6 +126,9 @@ rm -rf copyparty/stolen/dnslib
 %{_bindir}/partyfuse
 
 %changelog
+* Mon Nov 23 2026 Simon de Vlieger <cmdr@supakeen.com> - 1.20.27-1
+- Update to 1.20.27
+
 * Sat Oct 31 2026 Simon de Vlieger <cmdr@supakeen.com> - 1.20.26-1
 - Update to 1.20.26
 

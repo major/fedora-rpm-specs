@@ -1,5 +1,5 @@
 Name:           python-litellm-proxy-extras
-Version:        0.4.103
+Version:        0.4.120
 Release:        %autorelease
 Summary:        Additional files for the LiteLLM Proxy
 
@@ -30,6 +30,8 @@ Summary:        %{summary}
 
 %prep -a
 %pyproject_patch_dependency uv_build:ignore
+%pyproject_patch_dependency psycopg-binary:ignore
+
 
 %check
 %pyproject_check_import

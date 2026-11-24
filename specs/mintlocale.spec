@@ -2,13 +2,13 @@
 
 Name:           mintlocale
 Version:        1.6.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Language selection tool
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        http://packages.linuxmint.com/pool/main/m/%{name}/%{name}_%{version}.tar.xz
-Patch0:         0001-fedora.patch
+Patch0:         0001-fedora-changes.patch
 
 BuildArch:      noarch
 
@@ -32,6 +32,7 @@ Language selection tool for Cinnamon.
 
 %prep
 %autosetup -p1 -n %{name}
+rm -rf usr/share/icons/hicolor/*/apps/mintlocale-im.png
 
 
 %build
@@ -65,6 +66,9 @@ chmod -c 0755 %{buildroot}%{_mintlibdir}/mintlocale/mintlocale.py
 
 
 %changelog
+* Mon Nov 23 2026 Leigh Scott <leigh123linux@gmail.com> - 1.6.7-2
+- Redo fedora patch
+
 * Wed Sep 16 2026 Leigh Scott <leigh123linux@gmail.com> - 1.6.7-1
 - Update to 1.6.7
 

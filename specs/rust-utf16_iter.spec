@@ -18,7 +18,7 @@
 %global crate utf16_iter
 
 Name:           rust-utf16_iter
-Version:        1.0.5
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Iterator by char over potentially-invalid UTF-16 in &[u16]
 

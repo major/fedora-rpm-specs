@@ -6,7 +6,7 @@
 %global crate secret-service
 
 Name:           rust-secret-service
-Version:        5.2.0
+Version:        6.0.0
 Release:        %autorelease
 Summary:        Library to interface with Secret Service API
 
@@ -78,40 +78,16 @@ use the "crypto-rust" feature of the "%{crate}" crate.
 %files       -n %{name}+crypto-rust-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rt-async-io-devel
+%package     -n %{name}+rt-default-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rt-async-io-devel %{_description}
+%description -n %{name}+rt-default-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rt-async-io" feature of the "%{crate}" crate.
+use the "rt-default" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rt-async-io-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rt-async-io-crypto-openssl-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rt-async-io-crypto-openssl-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rt-async-io-crypto-openssl" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rt-async-io-crypto-openssl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rt-async-io-crypto-rust-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rt-async-io-crypto-rust-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rt-async-io-crypto-rust" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rt-async-io-crypto-rust-devel
+%files       -n %{name}+rt-default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+rt-tokio-devel
@@ -126,30 +102,6 @@ use the "rt-tokio" feature of the "%{crate}" crate.
 %files       -n %{name}+rt-tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rt-tokio-crypto-openssl-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rt-tokio-crypto-openssl-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rt-tokio-crypto-openssl" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rt-tokio-crypto-openssl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rt-tokio-crypto-rust-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rt-tokio-crypto-rust-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rt-tokio-crypto-rust" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rt-tokio-crypto-rust-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
@@ -160,17 +112,17 @@ sed -r -i 's@^([[:blank:]]*)(#\[test_with::)@\1//\2@' \
 
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f rt-tokio-crypto-rust
+%cargo_generate_buildrequires -f crypto-rust
 
 %build
-%cargo_build -f rt-tokio-crypto-rust
+%cargo_build -f crypto-rust
 
 %install
-%cargo_install -f rt-tokio-crypto-rust
+%cargo_install -f crypto-rust
 
 %if %{with check}
 %check
-%cargo_test -f rt-tokio-crypto-rust
+%cargo_test -f crypto-rust
 %endif
 
 %changelog

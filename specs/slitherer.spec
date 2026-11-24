@@ -7,7 +7,7 @@
 
 Name:           slitherer
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Simple QtWebView based runner for web applications
 
 License:        MPL-2.0 and BSD-3-Clause
@@ -42,8 +42,8 @@ Requires:      qt6-qtwebengine%{?_isa} >= 6.10.1-5
 Summary:        Simple QtWebView based runner for Anaconda installer Web UI
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       anaconda-webui
-# Only Fedora Workstation doesn't want this by default
-Supplements:    (anaconda-webui unless fedora-release-workstation)
+# Only Fedora Workstation and the netinstall ISO don't want this by default
+Supplements:    (anaconda-webui unless (fedora-release-identity-workstation or fedora-release-identity-basic or fedora-release-identity-server))
 # Cf. https://fedoraproject.org/wiki/Changes/Anaconda_WebUI_Opener
 Provides:       anaconda-webui-opener
 Conflicts:      anaconda-webui-opener
@@ -79,8 +79,9 @@ cat > %{buildroot}%{_bindir}/anaconda-webui-opener <<ANACONDA_EOF
 export SLITHERER_DESKTOP_ID="liveinst"
 export SLITHERER_WINDOW_ICON_NAME="org.fedoraproject.AnacondaInstaller"
 
-exec slitherer-anaconda $@
+exec slitherer-anaconda "$@"
 ANACONDA_EOF
+chmod +x %{buildroot}%{_bindir}/anaconda-webui-opener
 
 
 %files
@@ -94,6 +95,12 @@ ANACONDA_EOF
 
 
 %changelog
+* Mon Nov 23 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git20261117.3ff2c1b-3
+- Adjust webui-opener supplements to exclude Workstation and installer images
+
+* Mon Nov 23 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git20261117.3ff2c1b-2
+- Fix the anaconda-webui-opener script and mark as executable
+
 * Tue Nov 17 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git20261117.4f45c18-1
 - Bump to new git snapshot
 - Add anaconda-webui-opener subpackage

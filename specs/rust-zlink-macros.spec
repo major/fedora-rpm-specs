@@ -5,7 +5,7 @@
 %global crate zlink-macros
 
 Name:           rust-zlink-macros
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Macros providing the high-level zlink API
 

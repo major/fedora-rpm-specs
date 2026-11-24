@@ -5,13 +5,21 @@
 %global crate zlink
 
 Name:           rust-zlink
-Version:        0.7.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        Async Varlink API
 
 License:        MIT
 URL:            https://crates.io/crates/zlink
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Drop the zoter dev-dependency: it is not packaged
+# * Drop the handover feature: it enables zlink-core/handover, which needs the
+#   unpackaged zoter
+# * Declare the dropped features as expected cfg values
+#   (lints.rust.unexpected_cfgs), so rustc does not warn about the code that
+#   still tests them
+Patch:          zlink-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -32,7 +40,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -153,6 +160,18 @@ This package contains library source intended for building other packages which
 use the "tracing" feature of the "%{crate}" crate.
 
 %files       -n %{name}+tracing-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zruntime-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zruntime-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zruntime" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zruntime-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

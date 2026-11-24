@@ -5,21 +5,13 @@
 %global crate krates
 
 Name:           rust-krates
-Version:        0.21.3
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Create graphs of crates gathered from cargo metadata
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/krates
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Unpin petgraph:
-#   https://github.com/EmbarkStudios/krates/pull/107#issuecomment-4829415963
-# * Unpin indexmap, pinned upstream to deduplicate hashbrown versions in the
-#   dependency tree; see https://github.com/EmbarkStudios/krates/pull/114,
-#   https://github.com/petgraph/petgraph/pull/991. Note that we can’t respect
-#   version pins like this downstream.
-Patch:          krates-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

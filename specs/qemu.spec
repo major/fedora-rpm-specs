@@ -4,12 +4,24 @@
 # the qemu test suite is historically flakey
 %bcond_without check
 
+# EL9 lacks the documentation dependencies for Python 3.12.
+%if 0%{?rhel} == 9
+%bcond_with docs
+%else
+%bcond_without docs
+%endif
+
 %global libfdt_version 1.6.0
 %global libseccomp_version 2.4.0
 %global libusbx_version 1.0.23
 %global meson_version 1.6.0
 %global usbredir_version 0.7.1
 %global ipxe_version 20200823-5.git4bd064de
+
+%global build_python python3
+%if 0%{?rhel} == 9
+%global build_python python3.12
+%endif
 
 %global have_vmsr_helper 0
 %global have_memlock_limits 0
@@ -450,7 +462,11 @@ Patch: 0001-disable-busted-tests.patch
 Patch: 0002-TEMPORARY-increase-test-timeout.patch
 
 BuildRequires: gnupg2
+# EL9 uses the Meson wheel bundled with QEMU.
+%if 0%{?rhel} != 9
 BuildRequires: meson >= %{meson_version}
+%endif
+BuildRequires: ninja-build
 BuildRequires: bison
 BuildRequires: flex
 BuildRequires: zlib-devel
@@ -459,13 +475,13 @@ BuildRequires: gnutls-devel
 BuildRequires: libselinux-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: libaio-devel
-BuildRequires: python3-devel >= 3.12
-BuildRequires: python3-setuptools
-BuildRequires: python3-pip
+BuildRequires: %{build_python}-devel >= 3.12
+BuildRequires: %{build_python}-setuptools
+BuildRequires: %{build_python}-pip
 %if %{defined fedora}
 BuildRequires: python3-qemu-qmp
 %endif
-BuildRequires: python3-wheel
+BuildRequires: %{build_python}-wheel
 %if %{have_block_iscsi}
 BuildRequires: libiscsi-devel
 %endif
@@ -474,8 +490,10 @@ BuildRequires: libusbx-devel >= %{libusbx_version}
 %if %{have_usbredir}
 BuildRequires: usbredir-devel >= %{usbredir_version}
 %endif
+%if %{with docs}
 BuildRequires: python3-sphinx
 BuildRequires: python3-sphinx_rtd_theme
+%endif
 BuildRequires: libseccomp-devel >= %{libseccomp_version}
 # For network block driver
 BuildRequires: libcurl-devel
@@ -625,10 +643,6 @@ BuildRequires: libxdp-devel
 %if %{have_rutabaga_gfx}
 BuildRequires: rutabaga-gfx-ffi-devel
 %endif
-%if 0%{?rhel} && 0%{?rhel} <= 9
-# Builds on centos-stream 9 require python-tomli
-BuildRequires: python-tomli
-%endif
 %if %{have_qatzip}
 # --enable-qatzip
 BuildRequires: qatzip-devel
@@ -697,11 +711,13 @@ the KVM hypervisor.
 This package provides documentation and auxiliary programs used with %{name}.
 
 
+%if %{with docs}
 %package docs
 Summary: %{name} documentation
 BuildArch: noarch
 %description docs
 %{name}-docs provides documentation files regarding %{name}.
+%endif
 
 
 %package -n qemu-img
@@ -1576,6 +1592,10 @@ mkdir -p %{static_builddir}
 
 
 %build
+%if 0%{?rhel} == 9
+export PYTHON=%{_bindir}/%{build_python}
+%endif
+
 # Linux supports CLI upto 128kb, but meson stops using
 # inline ARGV at 16kb, hiding useful info from the logs.
 # Tell it to use inline ARGV more, leaving 4kb slack
@@ -1801,7 +1821,9 @@ run_configure \
   --enable-dbus-display \
 %endif
   --enable-debug-info \
+%if %{with docs}
   --enable-docs \
+%endif
   --enable-passt \
 %if %{have_fdt}
   --enable-fdt=system \
@@ -1967,14 +1989,16 @@ run_configure \
 %make_build qemu-io
 %make_build qemu-nbd
 %make_build storage-daemon/qemu-storage-daemon
+%make_build qga/qemu-ga
 
+%if %{with docs}
 %make_build docs/qemu-img.1
 %make_build docs/qemu-nbd.8
 %make_build docs/qemu-storage-daemon.1
 %make_build docs/qemu-storage-daemon-qmp-ref.7
 
-%make_build qga/qemu-ga
 %make_build docs/qemu-ga.8
+%endif
 # endif tools_only
 %endif
 
@@ -2028,6 +2052,7 @@ install -D -p -m 0755 qemu-io %{buildroot}%{_bindir}/qemu-io
 install -D -p -m 0755 qemu-nbd %{buildroot}%{_bindir}/qemu-nbd
 install -D -p -m 0755 storage-daemon/qemu-storage-daemon %{buildroot}%{_bindir}/qemu-storage-daemon
 
+%if %{with docs}
 mkdir -p %{buildroot}%{_mandir}/man1/
 mkdir -p %{buildroot}%{_mandir}/man7/
 mkdir -p %{buildroot}%{_mandir}/man8/
@@ -2037,6 +2062,7 @@ install -D -p -m 644 docs/qemu-nbd.8* %{buildroot}%{_mandir}/man8
 install -D -p -m 644 docs/qemu-storage-daemon.1* %{buildroot}%{_mandir}/man1
 install -D -p -m 644 docs/qemu-storage-daemon-qmp-ref.7* %{buildroot}%{_mandir}/man7
 install -D -p -m 644 docs/qemu-ga.8* %{buildroot}%{_mandir}/man8
+%endif
 popd
 # endif tools_only
 %endif
@@ -2066,7 +2092,9 @@ install -D -p -m 0644 %{modprobe_kvm_conf} %{buildroot}%{_sysconfdir}/modprobe.d
 %endif
 
 # Copy some static data into place
+%if %{with docs}
 install -D -p -m 0644 -t %{buildroot}%{qemudocdir} README.rst COPYING COPYING.LIB LICENSE docs/interop/qmp-spec.rst
+%endif
 install -D -p -m 0644 qemu.sasl %{buildroot}%{_sysconfdir}/sasl2/%{name}.conf
 
 install -m 0644 scripts/dump-guest-memory.py %{buildroot}%{_datadir}/%{name}
@@ -2113,8 +2141,10 @@ popd
 chmod +x %{buildroot}%{_libdir}/%{name}/*.so
 
 # Remove docs we don't care about
+%if %{with docs}
 find %{buildroot}%{qemudocdir} -name .buildinfo -delete
 rm -rf %{buildroot}%{qemudocdir}/specs
+%endif
 
 
 # Provided by package openbios
@@ -2139,14 +2169,18 @@ rm -rf %{buildroot}%{_datadir}/%{name}/firmware
 %find_lang %{name}
 
 # Generate qemu-system-* man pages
+%if %{with docs}
 chmod -x %{buildroot}%{_mandir}/man1/*
 for emu in %{buildroot}%{_bindir}/qemu-system-*; do
     ln -sf qemu.1.gz %{buildroot}%{_mandir}/man1/$(basename $emu).1.gz
  done
+%endif
 
 # Install kvm specific source bits, and qemu-kvm manpage
 %if %{need_qemu_kvm}
+%if %{with docs}
 ln -sf qemu.1.gz %{buildroot}%{_mandir}/man1/qemu-kvm.1.gz
+%endif
 ln -sf qemu-system-x86_64 %{buildroot}%{_bindir}/qemu-kvm
    %endif
 
@@ -2405,10 +2439,10 @@ popd
 %{_bindir}/qemu-io
 %{_bindir}/qemu-nbd
 %{_bindir}/qemu-storage-daemon
-%{_mandir}/man1/qemu-img.1*
-%{_mandir}/man8/qemu-nbd.8*
-%{_mandir}/man1/qemu-storage-daemon.1*
-%{_mandir}/man7/qemu-storage-daemon-qmp-ref.7*
+%{?with_docs:%{_mandir}/man1/qemu-img.1*}
+%{?with_docs:%{_mandir}/man8/qemu-nbd.8*}
+%{?with_docs:%{_mandir}/man1/qemu-storage-daemon.1*}
+%{?with_docs:%{_mandir}/man7/qemu-storage-daemon-qmp-ref.7*}
 
 %{_datadir}/systemtap/tapset/qemu-img.stp
 %{_datadir}/systemtap/tapset/qemu-img-log.stp
@@ -2427,7 +2461,7 @@ popd
 %files -n qemu-guest-agent
 %doc COPYING README.rst
 %{_bindir}/qemu-ga
-%{_mandir}/man8/qemu-ga.8*
+%{?with_docs:%{_mandir}/man8/qemu-ga.8*}
 %{_unitdir}/qemu-guest-agent.service
 %{_udevrulesdir}/99-qemu-guest-agent.rules
 %config(noreplace) %{_sysconfdir}/sysconfig/qemu-ga
@@ -2445,7 +2479,7 @@ popd
 %{_bindir}/qemu-pr-helper
 %{_unitdir}/qemu-pr-helper.service
 %{_unitdir}/qemu-pr-helper.socket
-%{_mandir}/man8/qemu-pr-helper.8*
+%{?with_docs:%{_mandir}/man8/qemu-pr-helper.8*}
 
 
 %files tools
@@ -2461,13 +2495,15 @@ popd
 %{_datadir}/%{name}/tracetool/format/*.py*
 %{_datadir}/%{name}/dump-guest-memory.py*
 %{_datadir}/%{name}/trace-events-all
-%{_mandir}/man1/qemu-trace-stap.1*
+%{?with_docs:%{_mandir}/man1/qemu-trace-stap.1*}
 # Fedora specific
 %{_bindir}/elf2dmp
 
 
+%if %{with docs}
 %files docs
 %doc %{qemudocdir}
+%endif
 
 
 %files common -f %{name}.lang
@@ -2479,12 +2515,12 @@ popd
 %{_datadir}/%{name}/keymaps/
 %attr(4755, -, -) %{_libexecdir}/qemu-bridge-helper
 %dir %{_libdir}/%{name}/
-%{_mandir}/man1/%{name}.1*
-%{_mandir}/man1/qemu-vnc.1*
-%{_mandir}/man7/qemu-block-drivers.7*
-%{_mandir}/man7/qemu-cpu-models.7*
-%{_mandir}/man7/qemu-ga-ref.7*
-%{_mandir}/man7/qemu-qmp-ref.7*
+%{?with_docs:%{_mandir}/man1/%{name}.1*}
+%{?with_docs:%{_mandir}/man1/qemu-vnc.1*}
+%{?with_docs:%{_mandir}/man7/qemu-block-drivers.7*}
+%{?with_docs:%{_mandir}/man7/qemu-cpu-models.7*}
+%{?with_docs:%{_mandir}/man7/qemu-ga-ref.7*}
+%{?with_docs:%{_mandir}/man7/qemu-qmp-ref.7*}
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/bridge.conf
 %if %{have_kvm}
@@ -3033,7 +3069,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-aarch64.stp
 %{_datadir}/systemtap/tapset/qemu-system-aarch64-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-aarch64-simpletrace.stp
-%{_mandir}/man1/qemu-system-aarch64.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-aarch64.1*}
 
 
 %files system-alpha
@@ -3042,7 +3078,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-alpha.stp
 %{_datadir}/systemtap/tapset/qemu-system-alpha-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-alpha-simpletrace.stp
-%{_mandir}/man1/qemu-system-alpha.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-alpha.1*}
 %{_datadir}/%{name}/palcode-clipper
 
 
@@ -3055,7 +3091,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-arm.stp
 %{_datadir}/systemtap/tapset/qemu-system-arm-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-arm-simpletrace.stp
-%{_mandir}/man1/qemu-system-arm.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-arm.1*}
 
 
 %files system-avr
@@ -3064,7 +3100,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-avr.stp
 %{_datadir}/systemtap/tapset/qemu-system-avr-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-avr-simpletrace.stp
-%{_mandir}/man1/qemu-system-avr.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-avr.1*}
 
 
 %files system-hppa
@@ -3073,7 +3109,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-hppa.stp
 %{_datadir}/systemtap/tapset/qemu-system-hppa-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-hppa-simpletrace.stp
-%{_mandir}/man1/qemu-system-hppa.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-hppa.1*}
 %{_datadir}/%{name}/hppa-firmware.img
 %{_datadir}/%{name}/hppa-firmware64.img
 
@@ -3087,7 +3123,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-hexagon.stp
 %{_datadir}/systemtap/tapset/qemu-system-hexagon-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-hexagon-simpletrace.stp
-%{_mandir}/man1/qemu-system-hexagon.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-hexagon.1*}
 
 
 %files system-loongarch64
@@ -3096,7 +3132,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-loongarch64.stp
 %{_datadir}/systemtap/tapset/qemu-system-loongarch64-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-loongarch64-simpletrace.stp
-%{_mandir}/man1/qemu-system-loongarch64.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-loongarch64.1*}
 
 
 %files system-m68k
@@ -3105,7 +3141,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-m68k.stp
 %{_datadir}/systemtap/tapset/qemu-system-m68k-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-m68k-simpletrace.stp
-%{_mandir}/man1/qemu-system-m68k.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-m68k.1*}
 
 
 %files system-microblaze
@@ -3114,7 +3150,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-microblaze.stp
 %{_datadir}/systemtap/tapset/qemu-system-microblaze-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-microblaze-simpletrace.stp
-%{_mandir}/man1/qemu-system-microblaze.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-microblaze.1*}
 %{_datadir}/%{name}/dtb/petalogix*.dtb
 
 
@@ -3128,8 +3164,8 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-mipsel.stp
 %{_datadir}/systemtap/tapset/qemu-system-mipsel-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-mipsel-simpletrace.stp
-%{_mandir}/man1/qemu-system-mips.1*
-%{_mandir}/man1/qemu-system-mipsel.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-mips.1*}
+%{?with_docs:%{_mandir}/man1/qemu-system-mipsel.1*}
 
 %{_bindir}/qemu-system-mips64
 %{_bindir}/qemu-system-mips64el
@@ -3139,8 +3175,8 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-mips64el.stp
 %{_datadir}/systemtap/tapset/qemu-system-mips64el-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-mips64el-simpletrace.stp
-%{_mandir}/man1/qemu-system-mips64el.1*
-%{_mandir}/man1/qemu-system-mips64.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-mips64el.1*}
+%{?with_docs:%{_mandir}/man1/qemu-system-mips64.1*}
 
 
 %files system-or1k
@@ -3149,7 +3185,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-or1k.stp
 %{_datadir}/systemtap/tapset/qemu-system-or1k-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-or1k-simpletrace.stp
-%{_mandir}/man1/qemu-system-or1k.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-or1k.1*}
 
 
 %files system-ppc
@@ -3158,13 +3194,13 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-ppc.stp
 %{_datadir}/systemtap/tapset/qemu-system-ppc-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-ppc-simpletrace.stp
-%{_mandir}/man1/qemu-system-ppc.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-ppc.1*}
 
 %{_bindir}/qemu-system-ppc64
 %{_datadir}/systemtap/tapset/qemu-system-ppc64.stp
 %{_datadir}/systemtap/tapset/qemu-system-ppc64-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-ppc64-simpletrace.stp
-%{_mandir}/man1/qemu-system-ppc64.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-ppc64.1*}
 %{_datadir}/%{name}/dtb/bamboo.dtb
 %{_datadir}/%{name}/dtb/canyonlands.dtb
 %{_datadir}/%{name}/dtb/pegasos1.dtb
@@ -3187,7 +3223,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-riscv32.stp
 %{_datadir}/systemtap/tapset/qemu-system-riscv32-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-riscv32-simpletrace.stp
-%{_mandir}/man1/qemu-system-riscv*.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-riscv*.1*}
 %{_datadir}/systemtap/tapset/qemu-system-riscv64.stp
 %{_datadir}/systemtap/tapset/qemu-system-riscv64-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-riscv64-simpletrace.stp
@@ -3200,7 +3236,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-rx.stp
 %{_datadir}/systemtap/tapset/qemu-system-rx-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-rx-simpletrace.stp
-%{_mandir}/man1/qemu-system-rx.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-rx.1*}
 
 
 %files system-s390x
@@ -3209,7 +3245,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-s390x.stp
 %{_datadir}/systemtap/tapset/qemu-system-s390x-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-s390x-simpletrace.stp
-%{_mandir}/man1/qemu-system-s390x.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-s390x.1*}
 %{_datadir}/%{name}/s390-ccw.img
 
 
@@ -3223,8 +3259,8 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-sh4eb.stp
 %{_datadir}/systemtap/tapset/qemu-system-sh4eb-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-sh4eb-simpletrace.stp
-%{_mandir}/man1/qemu-system-sh4.1*
-%{_mandir}/man1/qemu-system-sh4eb.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-sh4.1*}
+%{?with_docs:%{_mandir}/man1/qemu-system-sh4eb.1*}
 
 
 %files system-sparc
@@ -3233,7 +3269,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-sparc.stp
 %{_datadir}/systemtap/tapset/qemu-system-sparc-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-sparc-simpletrace.stp
-%{_mandir}/man1/qemu-system-sparc.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-sparc.1*}
 %{_datadir}/%{name}/QEMU,tcx.bin
 %{_datadir}/%{name}/QEMU,cgthree.bin
 
@@ -3241,7 +3277,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-sparc64.stp
 %{_datadir}/systemtap/tapset/qemu-system-sparc64-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-sparc64-simpletrace.stp
-%{_mandir}/man1/qemu-system-sparc64.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-sparc64.1*}
 
 
 %files system-tricore
@@ -3250,7 +3286,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-tricore.stp
 %{_datadir}/systemtap/tapset/qemu-system-tricore-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-tricore-simpletrace.stp
-%{_mandir}/man1/qemu-system-tricore.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-tricore.1*}
 
 
 %files system-x86
@@ -3259,7 +3295,7 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-i386.stp
 %{_datadir}/systemtap/tapset/qemu-system-i386-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-i386-simpletrace.stp
-%{_mandir}/man1/qemu-system-i386.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-i386.1*}
 %{_datadir}/%{name}/kvmvapic.bin
 %{_datadir}/%{name}/linuxboot_dma.bin
 %{_datadir}/%{name}/multiboot_dma.bin
@@ -3269,10 +3305,10 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-x86_64.stp
 %{_datadir}/systemtap/tapset/qemu-system-x86_64-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-x86_64-simpletrace.stp
-%{_mandir}/man1/qemu-system-x86_64.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-x86_64.1*}
 %if %{need_qemu_kvm}
 %{_bindir}/qemu-kvm
-%{_mandir}/man1/qemu-kvm.1*
+%{?with_docs:%{_mandir}/man1/qemu-kvm.1*}
 %endif
 %if %{have_vmsr_helper}
 %{_bindir}/qemu-vmsr-helper
@@ -3291,8 +3327,8 @@ popd
 %{_datadir}/systemtap/tapset/qemu-system-xtensaeb.stp
 %{_datadir}/systemtap/tapset/qemu-system-xtensaeb-log.stp
 %{_datadir}/systemtap/tapset/qemu-system-xtensaeb-simpletrace.stp
-%{_mandir}/man1/qemu-system-xtensa.1*
-%{_mandir}/man1/qemu-system-xtensaeb.1*
+%{?with_docs:%{_mandir}/man1/qemu-system-xtensa.1*}
+%{?with_docs:%{_mandir}/man1/qemu-system-xtensaeb.1*}
 # endif !tools_only
 %endif
 

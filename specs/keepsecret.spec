@@ -1,6 +1,6 @@
 Name:           keepsecret
 Version:        26.08.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client for a Secret Service compatible provider
 
 License:        BSD-2-Clause AND BSD-3-Clause AND CC-BY-4.0 AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -39,6 +39,7 @@ Requires:       qt6qml(org.kde.kirigamiaddons.formcard)
 Requires:       qt6qml(org.kde.config)
 Requires:       qt6qml(org.kde.coreaddons)
 Requires:       qt6qml(org.kde.kirigami)
+Requires:       qt6qml(org.kde.kirigami.actioncollection)
 Requires:       qt6qml(org.kde.kitemmodels)
 Requires:       hicolor-icon-theme
 
@@ -73,6 +74,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.keepsecre
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.keepsecret.svg
 
 %changelog
+* Mon Nov 23 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 26.08.3-2
+- Add missing kirigami-app-components dependency
+
 * Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
 - 26.08.3
 
