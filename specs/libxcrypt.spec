@@ -135,7 +135,11 @@
 
 
 # Macros for shorthand.
-%global _fipsdir %{_libdir}/fipscheck
+%define sha512hmac() \
+        dir=`dirname %1` && \
+        file=`basename %1` && \
+        openssl sha512 -hmac FIPS-FTW-RHT2009 -hex %1 \\\
+        | cut -f2 -d' ' > $dir/.$file.hmac
 
 
 # Add generation of HMAC checksums of the final stripped
@@ -146,25 +150,20 @@
 %{__arch_install_post}                      \
 %{__os_install_post}                        \
 libdir="%{buildroot}%{_libdir}"             \
-fipsdir="$libdir/fipscheck"                 \
-mkdir -p $fipsdir                           \
-fipshmac -d $fipsdir                        \\\
-  $libdir/libcrypt.so.%{sov}                \
-ln -s libcrypt.so.%{sov}.hmac               \\\
-  $fipsdir/libcrypt.so.%{soc}.hmac          \
+%sha512hmac $libdir/libcrypt.so.%{sov}      \
+ln -s .libcrypt.so.%{sov}.hmac              \\\
+  $libdir/.libcrypt.so.%{soc}.hmac          \
 if [[ %{with staticlib} == 1 ]]; then       \
-  fipshmac -d $fipsdir                      \\\
-    $libdir/libcrypt.a                      \
+  %sha512hmac $libdir/libcrypt.a            \
   if [[ %{without new_api} == 1 ]]; then    \
     ln -s .libcrypt.a.hmac                  \\\
-      $fipsdir/libxcrypt.a.hmac             \
+      $libdir/.libxcrypt.a.hmac             \
   fi                                        \
 fi                                          \
 if [[ %{with compat_pkg} == 1 ]]; then      \
-  fipshmac -d $fipsdir                      \\\
-    $libdir/libcrypt.so.%{csov}             \
-  ln -s libcrypt.so.%{csov}.hmac            \\\
-    $fipsdir/libcrypt.so.%{csoc}.hmac       \
+  %sha512hmac $libdir/libcrypt.so.%{csov}   \
+  ln -s .libcrypt.so.%{csov}.hmac           \\\
+    $libdir/.libcrypt.so.%{csoc}.hmac       \
 fi                                          \
 %{nil}
 
@@ -176,7 +175,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.5.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -197,7 +196,6 @@ Patch3000:      %{url}/commit/ba67911314f5.patch#/%{name}-%{version}-Make-crypt-
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
-BuildRequires:  fipscheck
 BuildRequires:  gcc
 %if %{without bootstrap}
 BuildRequires:  gnupg2
@@ -207,6 +205,7 @@ BuildRequires:  glibc-devel                  >= %{glibc_minver}
 %endif
 BuildRequires:  libtool
 BuildRequires:  make
+BuildRequires:  openssl
 BuildRequires:  perl(:VERSION)               >= %{perl_minver}
 BuildRequires:  perl(Class::Struct)
 BuildRequires:  perl(Cwd)
@@ -480,7 +479,6 @@ done
 
 
 %files
-%dir %{_fipsdir}
 %doc %dir %{_pkgdocdir}
 %doc %{_pkgdocdir}/NEWS
 %doc %{_pkgdocdir}/README
@@ -492,8 +490,8 @@ done
 %endif
 %doc %{_pkgdocdir}/THANKS
 %license AUTHORS COPYING.LIB LICENSING
-%{_fipsdir}/libcrypt.so.%{soc}.hmac
-%{_fipsdir}/libcrypt.so.%{sov}.hmac
+%{_libdir}/.libcrypt.so.%{soc}.hmac
+%{_libdir}/.libcrypt.so.%{sov}.hmac
 %{_libdir}/libcrypt.so.%{soc}
 %{_libdir}/libcrypt.so.%{sov}
 %{_mandir}/man5/crypt.5*
@@ -501,12 +499,11 @@ done
 
 %if %{with compat_pkg}
 %files          compat
-%dir %{_fipsdir}
 %if %{with enosys_stubs}
 %doc %{_pkgdocdir}/README.posix
 %endif
-%{_fipsdir}/libcrypt.so.%{csoc}.hmac
-%{_fipsdir}/libcrypt.so.%{csov}.hmac
+%{_libdir}/.libcrypt.so.%{csoc}.hmac
+%{_libdir}/.libcrypt.so.%{csov}.hmac
 %{_libdir}/libcrypt.so.%{csoc}
 %{_libdir}/libcrypt.so.%{csov}
 %endif
@@ -538,11 +535,10 @@ done
 
 %if %{with staticlib}
 %files          static
-%dir %{_fipsdir}
 %doc %{_pkgdocdir}/README.static
-%{_fipsdir}/libcrypt.a.hmac
+%{_libdir}/.libcrypt.a.hmac
 %if %{without new_api}
-%{_fipsdir}/libxcrypt.a.hmac
+%{_libdir}/.libxcrypt.a.hmac
 %endif
 %{_libdir}/libcrypt.a
 %if %{without new_api}
@@ -552,6 +548,9 @@ done
 
 
 %changelog
+* Thu Nov 19 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 4.5.2-5
+- Generate FIPS HMAC with openssl
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

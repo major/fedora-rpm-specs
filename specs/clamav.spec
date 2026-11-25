@@ -19,7 +19,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.4.7
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPL-2.0-only}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -103,12 +103,6 @@ BuildRequires:  curl-devel
 BuildRequires:  git-core
 BuildRequires:  gmp-devel
 BuildRequires:  json-c-devel
-%if ! (0%{?fedora} > 40 || 0%{?rhel} > 9)
-BuildRequires:  libprelude-devel
-# libprelude-config --libs brings in gnutls, pcre
-# https://bugzilla.redhat.com/show_bug.cgi?id=1830473
-BuildRequires:  gnutls-devel
-%endif
 BuildRequires:  libxml2-devel
 BuildRequires:  ncurses-devel
 %if 0%{?fedora} > 44 || 0%{?rhel} > 10
@@ -665,6 +659,9 @@ done
 
 
 %changelog
+* Sun Nov 22 2026 Sai Harsha Suryadevara <ssuryad@amazon.com> - 1.4.7-2
+- Drop the libprelude build dependency, the CMake build has no prelude option
+
 * Fri Nov 20 2026 Gwyn Ciesla <gwync@protonmail.com> - 1.4.7-1
 - Update to 1.4.7
 

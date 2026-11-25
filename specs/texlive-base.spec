@@ -32,7 +32,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 113%{?dist}
+Release: 114%{?dist}
 Epoch: 12
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -402,121 +402,122 @@ Source356: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typeoutf
 Source357: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typeoutfileinfo.tar.xz
 Source358: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ulqda.doc.tar.xz
 Source359: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ulqda.tar.xz
-Source360: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uplatex.doc.tar.xz
-Source361: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uptex.doc.tar.xz
-Source362: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urlbst.doc.tar.xz
-Source363: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urlbst.tar.xz
-Source364: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/velthuis.doc.tar.xz
-Source365: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/velthuis.tar.xz
-Source366: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vlna.doc.tar.xz
-Source367: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vpe.doc.tar.xz
-Source368: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vpe.tar.xz
-Source369: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/web.doc.tar.xz
-Source370: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/web.tar.xz
-Source371: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/webquiz.doc.tar.xz
-Source372: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/webquiz.tar.xz
-Source373: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordcount.doc.tar.xz
-Source374: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordcount.tar.xz
-Source375: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvi.doc.tar.xz
-Source376: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvi.tar.xz
-Source377: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex.doc.tar.xz
-Source378: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex.tar.xz
-Source379: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindex.doc.tar.xz
-Source380: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindex.tar.xz
-Source381: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindy.doc.tar.xz
-Source382: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindy.tar.xz
-Source383: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xmltex.doc.tar.xz
-Source384: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xmltex.tar.xz
-Source385: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpdfopen.doc.tar.xz
-Source386: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yplan.doc.tar.xz
-Source387: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yplan.tar.xz
-Source388: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optex.tar.xz
-Source389: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optex.doc.tar.xz
+Source360: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uplatex.tar.xz
+Source361: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uplatex.doc.tar.xz
+Source362: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/uptex.doc.tar.xz
+Source363: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urlbst.doc.tar.xz
+Source364: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/urlbst.tar.xz
+Source365: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/velthuis.doc.tar.xz
+Source366: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/velthuis.tar.xz
+Source367: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vlna.doc.tar.xz
+Source368: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vpe.doc.tar.xz
+Source369: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/vpe.tar.xz
+Source370: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/web.doc.tar.xz
+Source371: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/web.tar.xz
+Source372: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/webquiz.doc.tar.xz
+Source373: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/webquiz.tar.xz
+Source374: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordcount.doc.tar.xz
+Source375: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/wordcount.tar.xz
+Source376: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvi.doc.tar.xz
+Source377: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvi.tar.xz
+Source378: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex.doc.tar.xz
+Source379: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xetex.tar.xz
+Source380: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindex.doc.tar.xz
+Source381: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindex.tar.xz
+Source382: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindy.doc.tar.xz
+Source383: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xindy.tar.xz
+Source384: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xmltex.doc.tar.xz
+Source385: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xmltex.tar.xz
+Source386: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xpdfopen.doc.tar.xz
+Source387: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yplan.doc.tar.xz
+Source388: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/yplan.tar.xz
+Source389: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optex.tar.xz
+Source390: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optex.doc.tar.xz
 # 2021
-Source390: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/albatross.tar.xz
-Source391: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/albatross.doc.tar.xz
-Source392: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/git-latexdiff.tar.xz
-Source393: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/git-latexdiff.doc.tar.xz
-Source394: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyperxmp.tar.xz
-Source395: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyperxmp.doc.tar.xz
-Source396: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/light-latex-make.tar.xz
-Source397: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/light-latex-make.doc.tar.xz
-Source398: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spix.tar.xz
-Source399: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spix.doc.tar.xz
-Source400: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikztosvg.tar.xz
-Source401: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikztosvg.doc.tar.xz
-Source402: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xml2pmx.tar.xz
-Source403: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xml2pmx.doc.tar.xz
-Source404: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luajittex.doc.tar.xz
-Source405: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdftosrc.doc.tar.xz
+Source391: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/albatross.tar.xz
+Source392: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/albatross.doc.tar.xz
+Source393: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/git-latexdiff.tar.xz
+Source394: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/git-latexdiff.doc.tar.xz
+Source395: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyperxmp.tar.xz
+Source396: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hyperxmp.doc.tar.xz
+Source397: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/light-latex-make.tar.xz
+Source398: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/light-latex-make.doc.tar.xz
+Source399: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spix.tar.xz
+Source400: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/spix.doc.tar.xz
+Source401: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikztosvg.tar.xz
+Source402: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/tikztosvg.doc.tar.xz
+Source403: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xml2pmx.tar.xz
+Source404: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xml2pmx.doc.tar.xz
+Source405: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luajittex.doc.tar.xz
+Source406: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pdftosrc.doc.tar.xz
 # 2022
-Source406: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citation-style-language.tar.xz
-Source407: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citation-style-language.doc.tar.xz
-Source408: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitex.tar.xz
-Source409: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitex.doc.tar.xz
-Source410: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luafindfont.doc.tar.xz
-Source411: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optexcount.tar.xz
-Source412: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optexcount.doc.tar.xz
-Source413: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlogfilter.doc.tar.xz
-Source414: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlogsieve.doc.tar.xz
-Source415: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlogsieve.tar.xz
+Source407: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citation-style-language.tar.xz
+Source408: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/citation-style-language.doc.tar.xz
+Source409: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitex.tar.xz
+Source410: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/hitex.doc.tar.xz
+Source411: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/luafindfont.doc.tar.xz
+Source412: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optexcount.tar.xz
+Source413: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/optexcount.doc.tar.xz
+Source414: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlogfilter.doc.tar.xz
+Source415: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlogsieve.doc.tar.xz
+Source416: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texlogsieve.tar.xz
 # 2023
-Source416: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/digestif.tar.xz
-Source417: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/digestif.doc.tar.xz
-Source418: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibcop.tar.xz
-Source419: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibcop.doc.tar.xz
-Source420: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pagelayout.tar.xz
-Source421: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pagelayout.doc.tar.xz
-Source422: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.tar.xz
-Source423: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.doc.tar.xz
-Source424: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upmendex.doc.tar.xz
-Source425: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.source.tar.xz
+Source417: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/digestif.tar.xz
+Source418: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/digestif.doc.tar.xz
+Source419: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibcop.tar.xz
+Source420: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibcop.doc.tar.xz
+Source421: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pagelayout.tar.xz
+Source422: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/pagelayout.doc.tar.xz
+Source423: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.tar.xz
+Source424: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.doc.tar.xz
+Source425: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/upmendex.doc.tar.xz
+Source426: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texaccents.source.tar.xz
 # 2025
-Source426: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/aomart.tar.xz
-Source427: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/aomart.doc.tar.xz
+Source427: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/aomart.tar.xz
+Source428: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/aomart.doc.tar.xz
 # We don't unpack this because we have the perl files from separate packaging
 # SourceNNN: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtexperllibs.tar.xz
-Source428: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtexperllibs.doc.tar.xz
-Source429: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bookshelf.tar.xz
-Source430: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bookshelf.doc.tar.xz
-Source431: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/context-legacy.tar.xz
-Source432: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/context-legacy.doc.tar.xz
-Source433: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/easydtx.tar.xz
-Source434: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/easydtx.doc.tar.xz
-Source435: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eolang.tar.xz
-Source436: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eolang.doc.tar.xz
-Source437: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/expltools.tar.xz
-Source438: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/expltools.doc.tar.xz
-Source439: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/extractbb.tar.xz
-Source440: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/extractbb.doc.tar.xz
-Source441: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/l3sys-query.tar.xz
-Source442: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/l3sys-query.doc.tar.xz
-Source443: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/markdown.tar.xz
-Source444: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/markdown.doc.tar.xz
-Source445: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/memoize.tar.xz
-Source446: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/memoize.doc.tar.xz
-Source447: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minted.tar.xz
-Source448: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minted.doc.tar.xz
-Source449: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ppmcheckpdf.tar.xz
-Source450: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ppmcheckpdf.doc.tar.xz
-Source451: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexshebang.tar.xz
-Source452: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexshebang.doc.tar.xz
-Source453: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sqltex.tar.xz
-Source454: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sqltex.doc.tar.xz
-Source455: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texblend.tar.xz
-Source456: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texblend.doc.tar.xz
-Source457: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texfindpkg.tar.xz
-Source458: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texfindpkg.doc.tar.xz
-Source459: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typog.tar.xz
-Source460: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typog.doc.tar.xz
+Source429: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bibtexperllibs.doc.tar.xz
+Source430: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bookshelf.tar.xz
+Source431: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/bookshelf.doc.tar.xz
+Source432: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/context-legacy.tar.xz
+Source433: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/context-legacy.doc.tar.xz
+Source434: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/easydtx.tar.xz
+Source435: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/easydtx.doc.tar.xz
+Source436: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eolang.tar.xz
+Source437: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/eolang.doc.tar.xz
+Source438: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/expltools.tar.xz
+Source439: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/expltools.doc.tar.xz
+Source440: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/extractbb.tar.xz
+Source441: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/extractbb.doc.tar.xz
+Source442: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/l3sys-query.tar.xz
+Source443: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/l3sys-query.doc.tar.xz
+Source444: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/markdown.tar.xz
+Source445: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/markdown.doc.tar.xz
+Source446: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/memoize.tar.xz
+Source447: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/memoize.doc.tar.xz
+Source448: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minted.tar.xz
+Source449: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/minted.doc.tar.xz
+Source450: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ppmcheckpdf.tar.xz
+Source451: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/ppmcheckpdf.doc.tar.xz
+Source452: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexshebang.tar.xz
+Source453: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexshebang.doc.tar.xz
+Source454: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sqltex.tar.xz
+Source455: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/sqltex.doc.tar.xz
+Source456: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texblend.tar.xz
+Source457: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texblend.doc.tar.xz
+Source458: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texfindpkg.tar.xz
+Source459: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/texfindpkg.doc.tar.xz
+Source460: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typog.tar.xz
+Source461: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/typog.doc.tar.xz
 # 2026
 # runtexfile and show-pdf-tags came from collection-binextra
-Source461: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexfile.tar.xz
-Source462: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexfile.doc.tar.xz
-Source463: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/show-pdf-tags.tar.xz
-Source464: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/show-pdf-tags.doc.tar.xz
-Source465: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvipsk.tar.xz
-Source466: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvipsk.doc.tar.xz
+Source462: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexfile.tar.xz
+Source463: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/runtexfile.doc.tar.xz
+Source464: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/show-pdf-tags.tar.xz
+Source465: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/show-pdf-tags.doc.tar.xz
+Source466: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvipsk.tar.xz
+Source467: https://ctan.math.illinois.edu/systems/texlive/tlnet/archive/xdvipsk.doc.tar.xz
 
 
 Patch1: tl-kpfix.patch
@@ -6539,6 +6540,40 @@ such as interview transcripts and field notes by providing the
 LaTeX user with macros which are used to markup textual
 information -- for example, in-depth interviews.
 
+%package -n %{shortname}-uplatex
+Summary: pLaTeX2e and miscellaneous macros for upTeX
+Version: svn80015
+License: BSD-3-Clause
+Requires: texlive-base texlive-kpathsea
+Requires: texlive-babel
+Requires: texlive-cm
+Requires: texlive-firstaid
+Requires: texlive-hyphen-base
+Requires: texlive-knuth-lib
+Requires: texlive-l3kernel
+Requires: texlive-l3kernel-dev
+Requires: texlive-latex
+Requires: texlive-latex-base-dev
+Requires: texlive-latex-firstaid-dev
+Requires: texlive-latex-fonts
+Requires: texlive-platex
+Requires: texlive-tex-ini-files
+Requires: texlive-unicode-data
+Requires: texlive-uptex
+Requires: texlive-uptex-fonts
+Provides: tex-uplatex = %{epoch}:%{source_date}-%{release}
+Provides: tex-uplatex-bin = %{epoch}:%{source_date}-%{release}
+Provides: tex-uplatex-doc = %{epoch}:%{source_date}-%{release}
+Provides: texlive-uplatex-bin = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-uplatex-bin < 7:20170520
+Provides: texlive-uplatex-doc = %{epoch}:%{source_date}-%{release}
+Obsoletes: texlive-uplatex-doc < 7:20170520
+
+%description -n %{shortname}-uplatex
+The bundle provides pLaTeX2e macros for upTeX by Takuji Tanaka.
+This is a community edition syncing with platex. The bundle
+depends on platex.
+
 %package -n %{shortname}-upmendex
 Summary: Multilingual index processor
 Version: svn74401
@@ -6568,15 +6603,8 @@ Provides: texlive-uplatex = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex-bin = %{epoch}:%{source_date}-%{release}
 Provides: tex-uptex-doc = %{epoch}:%{source_date}-%{release}
-Provides: tex-uplatex = %{epoch}:%{source_date}-%{release}
-Provides: tex-uplatex-bin = %{epoch}:%{source_date}-%{release}
-Provides: tex-uplatex-doc = %{epoch}:%{source_date}-%{release}
 Provides: texlive-uptex-bin = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-uptex-bin < 7:20170520
-Provides: texlive-uplatex-bin = %{epoch}:%{source_date}-%{release}
-Obsoletes: texlive-uplatex-bin < 7:20170520
-Provides: texlive-uplatex-doc = %{epoch}:%{source_date}-%{release}
-Obsoletes: texlive-uplatex-doc < 7:20170520
 Provides: texlive-uptex-doc = %{epoch}:%{source_date}-%{release}
 Obsoletes: texlive-uptex-doc < 7:20170520
 License: BSD-3-Clause
@@ -9900,6 +9928,15 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_texmf_main}/tex/latex/ulqda/
 %doc %{_texmf_main}/doc/latex/ulqda/
 
+%files -n %{shortname}-uplatex
+%doc %{_texmf_main}/doc/uplatex/
+%{_bindir}/uplatex
+%{_bindir}/uplatex-dev
+%{_mandir}/man1/uplatex-dev.1*
+%{_mandir}/man1/uplatex.1*
+%{_texmf_main}/tex/uplatex/
+%{fmtutil_cnf_d}/uplatex
+
 %files -n %{shortname}-upmendex
 %license bsd.txt
 %{_bindir}/upmendex
@@ -9908,14 +9945,11 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 
 %files -n %{shortname}-uptex
 %license other-free.txt
-%doc %{_texmf_main}/doc/uplatex/
 %{_bindir}/euptex
 %{_bindir}/r-upmpost
 %{_bindir}/upbibtex
 %{_bindir}/updvitomp
 %{_bindir}/updvitype
-%{_bindir}/uplatex
-%{_bindir}/uplatex-dev
 %{_bindir}/upmpost
 %{_bindir}/uppltotf
 %{_bindir}/uptex
@@ -9923,12 +9957,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %{_bindir}/wovp2ovf
 %{_mandir}/man1/euptex.1*
 %{_mandir}/man1/upbibtex.1*
-%{_mandir}/man1/uplatex-dev.1*
-%{_mandir}/man1/uplatex.1*
 %{_mandir}/man1/uppltotf.1*
 %{_mandir}/man1/uptex.1*
 %{_mandir}/man1/uptftopl.1*
-%{fmtutil_cnf_d}/uplatex
 %{fmtutil_cnf_d}/uptex
 
 %files -n %{shortname}-urlbst
@@ -10072,6 +10103,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texmf_main}/doc/latex/yplan/
 
 %changelog
+* Tue Nov 24 2026 Tom Callaway <spot@fedoraproject.org> - 13:202603011-114
+- split uplatex into its own subpackage, include config file (bz2568839)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 12:20260301-113
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

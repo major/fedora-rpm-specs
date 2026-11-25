@@ -5,13 +5,21 @@
 %global crate heapless
 
 Name:           rust-heapless
-Version:        0.9.3
+Version:        0.9.4
 Release:        %autorelease
 Summary:        Static friendly data structures that don't require dynamic memory allocation
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/heapless
 Source:         %{crates_source}
+# * Downstream patch: avoid an LLVM error by not compiling a few tests that were
+#   added in
+#   https://github.com/rust-embedded/heapless/commit/61debf627ebfe38dfb265ba63c94f83f692396a7
+# * https://bugzilla.redhat.com/show_bug.cgi?id=2581232
+# * https://github.com/rust-lang/rust/issues/166416
+# * https://github.com/rust-lang/rust/issues/90805
+# * https://github.com/rust-lang/rust/issues/34127
+Patch10:        heapless-0.9.4-invalid-subrange-count.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -1,4 +1,4 @@
-%global base_version 3.16
+%global base_version 3.17
 
 # Run optional test
 %if ! (0%{?rhel})
@@ -12,7 +12,7 @@
 %bcond_without perl_libnet_enables_ssl
 
 Name:           perl-libnet
-Version:        3.16
+Version:        3.17
 Release:        1%{?dist}
 Summary:        Perl clients for various network protocols
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,9 +24,11 @@ Patch0:         libnet-3.09-Normalize-Changes-encoding.patch
 Patch1:         libnet-3.08-Do-not-create-Net-libnet.cfg.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Getopt::Std not used because of Do-not-create-Net-libnet.cfg.patch
 # IO::File not used because of Do-not-create-Net-libnet.cfg.patch
@@ -64,6 +66,7 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::File)
+BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(Test::More)
 %if %{with perl_libnet_enables_optional_test}
 # Optional tests:
@@ -99,10 +102,24 @@ This is a collection of Perl modules which provides a simple and
 consistent programming interface (API) to the client side of various
 protocols used in the internet community.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n libnet-%{base_version}
 %patch -P0 -p1
 %patch -P1 -p1
+# Help generators to recognize Perl scripts
+for F in $(find t/ -name '*.t'); do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 </dev/null
@@ -111,6 +128,18 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 </dev/null
 %install
 %{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/changes.t
+rm %{buildroot}%{_libexecdir}/%{name}/t/critic.t
+rm %{buildroot}%{_libexecdir}/%{name}/t/pod*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+# XXX Not run network tests in t/external/*.t
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
@@ -131,7 +160,15 @@ make test
 %{perl_vendorlib}/Net/libnetFAQ.pod
 %{_mandir}/man3/Net::*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Tue Nov 24 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.17-1
+- 3.17 bump (rhbz#2580692)
+- Fix CVE-2026-40558 (Net::FTP::pasv() followed the server-supplied IP address in the 227 reply)
+- Package tests
+
 * Tue Oct 27 2026 Jitka Plesnikova <jplesnik@redhat.com> - 3.16-1
 - 3.16 bump (rhbz#2560316)
 - Fix CVE-2026-93469 (unbounded response buffering in Net::Cmd)

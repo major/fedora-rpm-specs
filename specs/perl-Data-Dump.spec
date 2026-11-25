@@ -1,5 +1,5 @@
 Name:           perl-Data-Dump
-Version:        1.27
+Version:        1.28
 Release:        1%{?dist}
 Summary:        Pretty printing of data structures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -60,6 +60,10 @@ make test
 %{_mandir}/man3/Data::Dump::Trace.3*
 
 %changelog
+* Tue Nov 24 2026 Paul Howarth <paul@city-fan.org> - 1.28-1
+- Update to 1.28 (rhbz#2582337)
+  - Fix regex tests in older perls
+
 * Mon Nov 23 2026 Paul Howarth <paul@city-fan.org> - 1.27-1
 - Update to 1.27 (rhbz#2581663)
   - Skip some regexp tests in older perls

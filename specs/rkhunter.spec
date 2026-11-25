@@ -3,7 +3,7 @@
 
 Name:           rkhunter
 Version:        1.4.6
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        A host-based tool to scan for rootkits, backdoors and local exploits
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -107,6 +107,9 @@ EOF
 %{_mandir}/man8/*
 
 %changelog
+* Tue Nov 24 2026 Kevin Fenzi <kevin@scrye.com> - 1.4.6-34
+- Move cron to use /run/lock instead of old /var/lock/subsys. Fixes rhbz#2545864
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -1,6 +1,8 @@
+%global tinyexrv 3.4.0
+
 Name:           asymptote
 Version:        3.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Descriptive vector graphics language
 
 # LGPL-3.0-or-later: the project as a whole
@@ -38,6 +40,9 @@ URL:            https://asymptote.sourceforge.io/
 Source0:        https://download.sourceforge.net/sourceforge/asymptote/asymptote-%{version}.src.tgz
 Source1:        io.github.vectorgraphics.asymptote.desktop
 Source2:        io.github.vectorgraphics.asymptote.metainfo.xml
+# Need current tinyexr for security fixes
+Source3:        https://github.com/syoyo/tinyexr/archive/refs/tags/v%{tinyexrv}.tar.gz
+
 Patch0:         asymptote-2.84-settings.patch
 # This doesn't need to go upstream. We put the info file in the topdir, not a subdir, so we need this fix.
 Patch1:         asymptote-2.73-info-path-fix.patch
@@ -46,9 +51,11 @@ Patch2:         asymptote-3.13-flexiblas.patch
 # Unbundle glew
 Patch3:         asymptote-3.16-unbundle-glew.patch
 # Fix gc linking
-Patch4:		asymptote-3.16-gc-link-fix.patch
+Patch4:         asymptote-3.16-gc-link-fix.patch
 # Fix 32bit architectures (why???)
-Patch5:		asymptote-3.16-vulkan-32bit-handles.patch
+Patch5:         asymptote-3.16-vulkan-32bit-handles.patch
+# Adjust for tinyexr 3.4.0
+Patch6:         asymptote-tinyexr-%{tinyexrv}.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  bison, flex
@@ -103,7 +110,7 @@ Recommends:     evince, xdg-utils
 
 Provides:       bundled(LspCpp) = 1.0.0
 Provides:       bundled(gl-matrix) = 2.4.0
-Provides:       bundled(tinyexr) = 1.0.1
+Provides:       bundled(tinyexr) = %{tinyexrv}
 
 %global texpkgdir   %{_texmf}/tex/latex/%{name}
 
@@ -121,6 +128,7 @@ that LaTeX does for scientific text.
 %patch -P3 -p1 -b .glew
 %patch -P4 -p1 -b .gcfix
 %patch -P5 -p1 -b .32bit
+%patch -P6 -p1 -b .tinyexr-%{tinyexrv}
 sed -i 's/\r//' doc/CAD1.asy
 
 # Make sure the bundled glew cannot be used
@@ -136,6 +144,11 @@ for f in GUI/*.py; do
     rm $f.orig
   fi
 done
+
+# replace tinyexr bundle
+mv tinyexr tinyexr.old
+tar xf %{SOURCE3}
+mv tinyexr-%{tinyexrv} tinyexr
 
 %build
 export CPPFLAGS='-I%{_includedir}/eigen3 -I%{_includedir}/tirpc'
@@ -221,6 +234,9 @@ fi
 %{_emacs_sitelispdir}/%{name}/
 
 %changelog
+* Tue Nov 24 2026 Tom Callaway <spot@fedoraproject.org> - 3.16-2
+- update bundled copy of tinyexr to 3.4.0
+
 * Mon Nov 16 2026 Tom Callaway <spot@fedoraproject.org> - 3.16-1
 - update to 3.16
 

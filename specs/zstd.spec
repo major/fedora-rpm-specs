@@ -17,15 +17,15 @@
 %bcond gtest %[ !0%{?rhel} ]
 
 Name:           zstd
-Version:        1.5.7
-Release:        6%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Zstd compression library
 
 License:        BSD-3-Clause OR GPL-2.0-only
 URL:            https://github.com/facebook/zstd
 Source0:        https://github.com/facebook/zstd/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-Patch1:         man-pages-1.5.7.patch
+Patch1:         zstd-1.6.0-s390x-ddict-tests.patch
 
 BuildRequires:  cmake
 BuildRequires:  make
@@ -69,27 +69,24 @@ Header files for Zstd library.
 Static variant of the Zstd library.
 
 %prep
-%setup -q
+%autosetup -p1
 find -name .gitignore -delete
-%patch 1 -p1
 
 %build
+export ASMFLAGS="%{build_cflags}"
 %if !%{with asm}
 export CPPFLAGS=-DZSTD_DISABLE_ASM
 %endif
 %global _vpath_srcdir build/cmake
-%global _vpath_builddir build/shared
-%cmake %{?with_pzstd:-DZSTD_BUILD_CONTRIB=ON} -DZSTD_BUILD_STATIC=NO -DZSTD_PROGRAMS_LINK_SHARED=YES
-%cmake_build
-%global _vpath_builddir build/static
-%cmake %{?with_pzstd:-DZSTD_BUILD_CONTRIB=ON} -DZSTD_BUILD_SHARED=NO -DBUILD_TESTING=YES
+%ifarch x86_64
+# Fail the shared library link if an input lacks IBT or SHSTK.
+%global cet_check -DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS -Wl,-z,cet-report=error"
+%endif
+%cmake %{?with_pzstd:-DZSTD_BUILD_CONTRIB=ON} \
+    -DZSTD_PROGRAMS_LINK_SHARED=YES -DBUILD_TESTING=YES %{?cet_check}
 %cmake_build
 
 %install
-%global _vpath_builddir build/static
-%cmake_install
-# Install shared second so that cmake config files reference the shared library
-%global _vpath_builddir build/shared
 %cmake_install
 %if %{with pzstd}
 install -D -m644 programs/%{name}.1 %{buildroot}%{_mandir}/man1/p%{name}.1
@@ -98,7 +95,8 @@ install -D -m644 programs/%{name}.1 %{buildroot}%{_mandir}/man1/p%{name}.1
 %check
 execstack %{_vpath_builddir}/lib/libzstd.so.1
 
-%global _vpath_builddir build/static
+# Run the build-tree zstd against the matching shared library.
+export LD_LIBRARY_PATH="$PWD/%{_vpath_builddir}/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 %ctest --verbose
 %if %{with pzstd} && %{with gtest}
 # No pzstd tests with the cmake build at the moment
@@ -139,13 +137,21 @@ make PZSTD_CXX_STD=-std=c++17 -C contrib/pzstd tests check
 %{_libdir}/pkgconfig/libzstd.pc
 %{_libdir}/libzstd.so
 %{_libdir}/cmake/zstd/
+%exclude %{_libdir}/cmake/zstd/zstdTargets_static*.cmake
 
 %files -n lib%{name}-static
 %{_libdir}/libzstd.a
+%{_libdir}/cmake/zstd/zstdTargets_static*.cmake
 
 %ldconfig_scriptlets -n lib%{name}
 
 %changelog
+* Tue Nov 24 2026 Pádraig Brady <P@draigBrady.com> - 1.6.0-1
+- latest upstream (rhbz#2582942)
+
+* Sun Nov 22 2026 Rajeev Shrestha <rajeev.shrestha@usm.edu> - 1.5.7-7
+- Pass build flags to the assembler so libzstd keeps IBT/SHSTK markings (rhbz#2581510)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

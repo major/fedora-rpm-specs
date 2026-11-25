@@ -1,7 +1,7 @@
 %global apiversion 0.1
 
 Name: libetonyek
-Version: 0.1.14
+Version: 0.1.15
 Release: %autorelease
 Summary: A library for import of Apple iWork documents
 

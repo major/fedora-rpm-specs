@@ -5,7 +5,7 @@
 %global crate async-rs
 
 Name:           rust-async-rs
-Version:        0.8.11
+Version:        0.8.14
 Release:        %autorelease
 Summary:        Async runtime abstraction
 

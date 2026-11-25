@@ -134,6 +134,18 @@ use the "heapless-v0_8" feature of the "%{crate}" crate.
 %files       -n %{name}+heapless-v0_8-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+heapless-v0_9-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+heapless-v0_9-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "heapless-v0_9" feature of the "%{crate}" crate.
+
+%files       -n %{name}+heapless-v0_9-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+nalgebra-v0_33-devel
 Summary:        %{summary}
 BuildArch:      noarch

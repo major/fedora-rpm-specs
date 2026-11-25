@@ -15,7 +15,7 @@
 Name:           compat-gpgme124
 Summary:        GnuPG Made Easy - high level crypto API
 Version:        1.24.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
 License:        LGPL-2.1-or-later AND MIT
@@ -36,6 +36,9 @@ Patch1004:      0002-setup_py_extra_opts.patch
 ## temporary downstream fixes
 # Skip lang/qt/tests/t-remarks on gnupg 2.4+
 Patch3001:      1001-qt-skip-test-remarks-for-gnupg2-2.4.patch
+# https://github.com/gpg/gpgme/commit/14499348b966cd7b3d72afee15a5cd51cdd0a727.diff
+# for <2.3.0, rhbz#2581988
+Patch3002:      gpgme-1.24-14499348.patch
 
 
 BuildRequires:  make
@@ -323,6 +326,9 @@ popd
 %endif
 
 %changelog
+* Tue Nov 24 2026 Michal Hlavinka <mhlavink@redhat.com> - 1.24.3-14
+- fix CVE-2026-129975: double free in read_status() via crafted signature
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

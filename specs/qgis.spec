@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        4.2.3
-Release:        2%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -19,8 +19,6 @@ Source3:        %{name}-server-README.fedora
 
 # Fix QGIS Server prefix calculation
 Patch0:         %{name}-serverprefix.patch
-# Pass --offline to yarn, plus replace deprecated md4 with sha256 in webpack sources
-Patch1:         %{name}-yarn-offline.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -79,6 +77,7 @@ BuildRequires:  spatialindex2.0-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  %{_bindir}/npm
+BuildRequires:  wayland-protocols-devel
 
 # Enable for tests
 #BuildRequires:  xorg-x11-server-Xvfb
@@ -163,7 +162,7 @@ gzip ChangeLog
 
 
 %build
-pushd resources/server/src/landingpage/
+pushd src/server/services/landingpage/webapp/
 tar xf %{SOURCE1}
 tar xf corepack.tgz
 
@@ -206,6 +205,7 @@ popd
       -D WITH_3D:BOOL=TRUE \
       -D WITH_QSPATIALITE:BOOL=TRUE \
       -D WITH_SERVER_LANDINGPAGE_WEBAPP=ON \
+      -D YARN_INSTALL_OPT="--immutable --immutable-cache" \
       -G Ninja
 
 %cmake_build
@@ -250,7 +250,7 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %files -f %{name}.lang
-%license COPYING resources/server/src/landingpage/%{name}-%{version}-vendor-licenses.txt
+%license COPYING src/server/services/landingpage/webapp/%{name}-%{version}-vendor-licenses.txt
 %doc BUGS NEWS.md README.md Exception_to_GPL_for_Qt.txt ChangeLog.gz
 # QGIS shows the following files in the GUI, including the license text
 %doc %{_datadir}/%{name}/doc/
@@ -322,6 +322,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Tue Nov 24 2026 Sandro Mani <manisandro@gmail.com> - 4.4.0-1
+- Update to 4.4.0
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 4.2.3-2
 - Rebuild (qt6)
 

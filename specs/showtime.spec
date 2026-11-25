@@ -1,11 +1,8 @@
-%global glib2_version 2.79.0
-%global gtk4_version 4.15.0
-%global libadwaita_version 1.6~beta
-%global blueprint_compiler_version 0.18
+%global gtk4_version 4.18.0
+%global libadwaita_version 1.8~alpha
 
 Name:           showtime
-Version:        50.0
-
+Version:        50.1.1
 Release:        %autorelease
 Summary:        Modern video player built using GTK4
 
@@ -13,27 +10,23 @@ License:        GPL-3.0-or-later
 URL:            https://apps.gnome.org/Showtime/
 Source0:        https://download.gnome.org/sources/%{name}/%{gnome_major_version}/%{name}-%{gnome_tarball_version}.tar.xz
 
-Patch0: 0001-play-Use-GstPlay-s-missing-plugin-details-instead-of.patch
-
 %gnome_check_version
 
 BuildArch:      noarch
 
+BuildRequires:  blueprint-compiler >= 0.17
 BuildRequires:  desktop-file-utils
-BuildRequires:  gcc
 BuildRequires:  gettext
+BuildRequires:  libappstream-glib
 BuildRequires:  meson
-BuildRequires:  blueprint-compiler >= %{blueprint_compiler_version}
 BuildRequires:  python3-devel
-BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
-BuildRequires:  pkgconfig(gnome-desktop-4)
+
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
-BuildRequires:  desktop-file-utils
-BuildRequires:  libappstream-glib
 
 Requires:       gtk4 >= %{gtk4_version}
 Requires:       libadwaita >= %{libadwaita_version}
+
 Requires:       python3
 Requires:       hicolor-icon-theme
 Requires:       gstreamer1-plugins-base

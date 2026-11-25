@@ -1632,6 +1632,9 @@ cd llvm/utils/lit
 %global cfg_file_content_flang %{gcc_triple}
 
 %ifarch ppc64le
+%if 0%{?rhel} >= 11
+%global cfg_file_content %{cfg_file_content} -mcpu=power10 -mtune=power11
+%else
 %if 0%{?rhel} >= 10
 %global cfg_file_content %{cfg_file_content} -mcpu=power9 -mtune=power10
 %else
@@ -1640,6 +1643,7 @@ cd llvm/utils/lit
 %else
 # Fedora, RHEL 8
 %global cfg_file_content %{cfg_file_content} -mcpu=power8 -mtune=power8
+%endif
 %endif
 %endif
 %endif

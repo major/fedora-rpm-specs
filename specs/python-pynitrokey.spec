@@ -1,5 +1,5 @@
 Name:           python-pynitrokey
-Version:        0.14.0
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Python client for Nitrokey devices
 
@@ -48,6 +48,8 @@ Provides:       nitropy
 %pyproject_patch_dependency click:drop_lower
 %endif
 
+%pyproject_patch_dependency nethsm:drop_lower
+
 %generate_buildrequires
 %pyproject_buildrequires -x pcsc
 
@@ -63,8 +65,7 @@ Provides:       nitropy
 
 %check
 %pyproject_check_import
-%pytest
-
+# The upstream test suite is very dependant on Docker so we can't run it
 
 %files -n python3-pynitrokey -f %{pyproject_files}
 %{_bindir}/nitropy

@@ -1,6 +1,6 @@
 Name:           perl-PDF-API2
-Version:        2.048
-Release:        3%{?dist}
+Version:        2.049
+Release:        1%{?dist}
 Summary:        Perl module for creation and modification of PDF files
 # lib/PDF/API2.pm:  LGPL-2.1-or-later
 # lib/PDF/API2/Resource/XObject/Image/PNM.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -17,7 +17,8 @@ Source0:        https://cpan.metacpan.org/authors/id/S/SS/SSIMMS/PDF-API2-%{vers
 Source1:        COPYING-PDF_API2_Basic_PDF-Martin_Hosken
 Patch1:         font-location.patch
 # Fix inserting LZW-compressed 8-bit TIFF images, bug #1378895, CPAN RT#118047
-Patch2:         PDF-API2-2.033-Use-libtiff-to-decode-image-data-in-TIFF-fixing-RT-1.patch
+# https://github.com/ssimms/pdfapi2/issues/30
+Patch2:         PDF-API2-2.049-Use-libtiff-to-decode-image-data-in-TIFF-fixing-RT-1.patch
 
 BuildArch:      noarch
 BuildRequires:  coreutils
@@ -162,6 +163,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 24 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.049-1
+- 2.049 bump (rhbz#2579791)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.048-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

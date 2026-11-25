@@ -1,5 +1,5 @@
 Name:		sigscheme
-Version:	1.0.0
+Version:	1.0.1
 Release:	%autorelease
 License:	BSD-3-Clause
 URL:		https://github.com/uim/sigscheme
@@ -49,7 +49,7 @@ make check
 
 %files
 %license COPYING
-%doc AUTHORS NEWS QALog README RELNOTE TODO
+%doc AUTHORS NEWS.md QALog README.md TODO
 %doc doc/*.html doc/*.txt
 %{_bindir}/sscm
 %{_libdir}/libsscm.so.4*
@@ -57,7 +57,7 @@ make check
 
 %files devel
 %license COPYING
-%doc AUTHORS NEWS QALog README RELNOTE TODO
+%doc AUTHORS NEWS.md QALog README.md TODO
 %{_includedir}/sigscheme
 %{_libdir}/libsscm.so
 %{_libdir}/pkgconfig/sigscheme.pc

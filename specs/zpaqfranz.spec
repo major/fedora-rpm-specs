@@ -20,7 +20,7 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        65.21
+Version:        65.23
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -84,9 +84,9 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # the upstream.
 Patch0:         zpaqfranz-65.21-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
 # Unbundle zstd, probably not suitable for the upstream.
-Patch1:         zpaqfranz-65.20-Unbundle-zstd.patch
+Patch1:         zpaqfranz-65.23-Unbundle-zstd.patch
 # Unbundle mbedtls, probably not suitable for the upstream.
-Patch2:         zpaqfranz-65.19-Unbundle-mbedtls.patch
+Patch2:         zpaqfranz-65.23-Unbundle-mbedtls.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
@@ -217,6 +217,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Tue Nov 24 2026 Petr Pisar <ppisar@redhat.com> - 1:65.23-1
+- 65.23 bump
+
 * Fri Nov 20 2026 Petr Pisar <ppisar@redhat.com> - 1:65.21-1
 - 65.21 bump
 

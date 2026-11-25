@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.3
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -124,7 +124,7 @@ local langpacks_package_list = {
  { lang="ar", fclang="", langname="Arabic", default={
                 sans="google-noto-sans-arabic-vf-fonts",
                 serif="google-noto-naskh-arabic-vf-fonts",
-                mono="" },
+                mono="cascadia-mono-fonts" },
    recommends={ "google-noto-sans-arabic-ui-vf-fonts",
                 "paktype-naqsh-fonts",
                 "paktype-tehreer-fonts",
@@ -391,7 +391,7 @@ local langpacks_package_list = {
  { lang="fa", fclang="", langname="Persian", default={
                 sans="vazirmatn-vf-fonts",
                 serif="google-noto-naskh-arabic-vf-fonts",
-                mono="" },
+                mono="cascadia-mono-fonts" },
    recommends={ "google-noto-naskh-arabic-vf-fonts"
               },
    inputmethod="",
@@ -465,7 +465,7 @@ local langpacks_package_list = {
  { lang="he", fclang="", langname="Hebrew", default={
                 sans="google-noto-sans-hebrew-vf-fonts",
                 serif="google-noto-serif-hebrew-vf-fonts",
-                mono="" },
+                mono="cascadia-mono-fonts" },
    recommends={ "culmus-aharoni-clm-fonts",
                 "culmus-caladings-clm-fonts",
                 "culmus-david-clm-fonts",
@@ -1158,7 +1158,7 @@ local langpacks_package_list = {
  { lang="ur", fclang="", langname="Urdu", default={
                 sans="paktype-naskh-basic-fonts",
                 serif="google-noto-naskh-arabic-vf-fonts",
-                mono="" },
+                mono="cascadia-mono-fonts" },
    recommends={ "nafees-nastaleeq-fonts",
                 "nafees-web-naskh-fonts",
               },
@@ -1775,6 +1775,10 @@ DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.default-fo
 DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.langpacks-fonts.xml
 
 %changelog
+* Wed Oct 21 2026 Akira TAGOH <tagoh@redhat.com> - 4.3-5
+- langpacks-fonts-ar, langpacks-fonts-he, langpacks-fonts-ur: Add cascadia-mono-fonts as default monospace.
+  Relates: https://bugzilla.redhat.com/show_bug.cgi?id=2547637
+
 * Tue Oct 06 2026 Parag Nemade <panemade AT redhat DOT com> - 4.3-4
 - langpacks-fonts-ar: add google-noto-sans-arabic-ui-vf-fonts to Recommends
   Resolves: rhbz#2453024

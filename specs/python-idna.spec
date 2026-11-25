@@ -11,6 +11,14 @@ Summary:        Internationalized Domain Names in Applications (IDNA)
 License:        BSD-3-Clause
 URL:            https://github.com/kjd/idna
 Source:         https://pypi.io/packages/source/i/%{srcname}/%{srcname}-%{version}.tar.gz
+
+# Classify a non-canonical "fake" A-label such as xn---bbk as non_canonical_alabel
+# rather than invalid_alabel. Python 3.16 made the punycode decoder reject a
+# leading delimiter outright (https://github.com/python/cpython/issues/161090),
+# which changed the error code and broke the test suite (rhbz#2576582).
+# Proposed upstream.
+Patch:          https://github.com/kjd/idna/pull/288.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

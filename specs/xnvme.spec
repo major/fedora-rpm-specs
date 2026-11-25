@@ -1,23 +1,25 @@
 Name:           xnvme
-Version:        0.7.5
-Release:        7%{?dist}
+Version:        0.8.1
+Release:        1%{?dist}
 Summary:        Unified API and tools for traditional and emerging I/O interfaces
 
 License:        BSD-3-Clause
 URL:            https://github.com/xnvme/xnvme
 Source:         %{url}/releases/download/v%{version}/xnvme-%{version}.tar.gz
 
-# Remove rpath from binaries
-Patch1: 0001-remove-rpath.patch
-
-# The package makes 64 bit assumptions so exclude 32 bit i686.
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
+# Upstream builds and tests only x86_64 and aarch64; the uPCIe backend has
+# memory barriers for those alone, and xnvme cmd-admin assumes little-endian
+# These exclusions are permanent:
+# ppc64le: https://bugzilla.redhat.com/2583445 (WONTFIX)
+# s390x:   https://bugzilla.redhat.com/2583444 (WONTFIX)
+ExclusiveArch:  x86_64 aarch64
 
 BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  libaio-devel
 BuildRequires:  liburing-devel
+BuildRequires:  pkgconfig(systemd)
+BuildRequires:  systemd-rpm-macros
 
 %description
 %{summary}.
@@ -50,7 +52,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %autosetup -p1
 
 %build
-%meson -Dforce_completions=true -Dwith-libvfn=disabled -Dwith-isal=disabled -Dwith-spdk=disabled -Dexamples=false -Dtests=false
+%meson -Dforce_completions=true -Dwith-libvfn=disabled -Dwith-isal=disabled -Dwith-spdk=disabled -Dwith-cuda=disabled -Dwith-hip=disabled -Dwith-cuse=enabled -Dsystemd=enabled -Dexamples=false -Dtests=false
 %meson_build
 
 %install
@@ -58,6 +60,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %check
 %meson_test --num-processes 1
+
+%post tools
+%systemd_post xnvme-homi@.service xnvme-qublk@.service
+
+%preun tools
+%systemd_preun xnvme-homi@.service xnvme-qublk@.service
 
 %files
 %license LICENSE
@@ -72,33 +80,24 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{_libdir}/lib%{name}.a
 
 %files tools
-%{_bindir}/kvs
-%{_bindir}/lblk
-%{_bindir}/xdd
 %{_bindir}/%{name}
-%{_bindir}/%{name}-driver
-%{_bindir}/%{name}_file
-%{_bindir}/zoned
-%{_mandir}/man1/kvs.1*
-%{_mandir}/man1/kvs-*.1*
-%{_mandir}/man1/lblk.1*
-%{_mandir}/man1/lblk-*.1*
-%{_mandir}/man1/xdd.1*
-%{_mandir}/man1/xdd-*.1*
+%{_libexecdir}/%{name}/
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/%{name}-*.1*
-%{_mandir}/man1/%{name}_file.1*
-%{_mandir}/man1/%{name}_file-*.1*
-%{_mandir}/man1/zoned.1*
-%{_mandir}/man1/zoned-*.1*
-%{bash_completions_dir}/kvs-completions
-%{bash_completions_dir}/lblk-completions
-%{bash_completions_dir}/xdd-completions
-%{bash_completions_dir}/%{name}-completions
-%{bash_completions_dir}/%{name}_file-completions
-%{bash_completions_dir}/zoned-completions
+%{bash_completions_dir}/%{name}
+%{_unitdir}/%{name}-homi@.service
+%{_unitdir}/%{name}-qublk@.service
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/homi.conf.example
+%config(noreplace) %{_sysconfdir}/%{name}/qublk.conf.example
 
 %changelog
+* Tue Nov 24 2026 Karl B. Torp <k.torp@samsung.com> - 0.8.1-1
+- Bump to v0.8.1
+- Drop the rpath patch; upstream omits the rpath for a /usr prefix
+- Package the xnvme front-end, its libexec programs and the homi/qublk systemd units
+- Build only for x86_64 and aarch64, the architectures upstream supports
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

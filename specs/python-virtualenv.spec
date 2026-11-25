@@ -2,7 +2,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-virtualenv
-Version:        21.14.8
+Version:        21.15.6
 Release:        %autorelease
 Summary:        Tool to create isolated Python environments
 
@@ -114,18 +114,41 @@ sed -i 's/filelock>=3.24.2/filelock>=3.12.2/' pyproject.toml
 # - test_download_*
 # - test_can_build_c_extensions
 # - test_create_distutils_cfg
-# Uses disabled functionalities around bundled wheels:
+# Uses disabled functionalities around bundled/embedded wheels:
+# (these all need the --pip embed seeder or the embedded wheels which we remove)
 # - test_wheel_*
 # - test_embed_wheel_*
-# - test_seed_link_via_app_data
 # - test_base_bootstrap_via_pip_invoke
 # - test_acquire.py (whole file)
 # - test_bundle.py (whole file)
+# - test_creator_replaces_generated_file_links (uses --pip embed)
+# In tests/unit/seed/embed/test_bootstrap_link_via_app_data.py,
+# only the embed-wheel cases:
+# - test_seed_link_via_app_data (indexes the now-empty BUNDLE_SUPPORT)
+# - test_console_script_preserves_interpreter_path
+# - test_pip_launcher_record_matches_contents
+# - test_seed_image_build_direct_call, test_seed_image_build_replaces_leftovers
+# - test_seed_metadata_* (cleanup/keeps_reseeding/unlinks_symlink)
+# - test_symlink_seed_* (compiles/reports_compilation_failure)
+# In tests/unit/seed/embed/test_pip_invoke.py, only the embed-wheel cases:
+# - test_pip_invoke_uses_selected_wheel, test_pip_invoke_freeze_uses_version_pin
+# - test_pip_reseed_installs_local_package, test_pip_reseed_keeps_*,
+#   test_pip_reseed_replaces_*, test_pip_reseed_removes_previous_version_metadata,
+#   test_pip_reseed_reports_process_failure
 # Uses disabled functionalities around automatic updates:
 # - test_periodic_update.py (whole file)
 # We don't run the tests in an active virtual environment
 # https://github.com/pypa/virtualenv/issues/2939#issuecomment-3384554583
 # - test_py_info_cache_clear
+# Fedora specifics (like unbundled discovery) make these fail:
+# - test_module_entry_from_target_install builds a self-contained copy of
+#   virtualenv plus its dependencies from each distribution's metadata and runs
+#   it; in the Fedora build root the copy can't import its deps (the child dies
+#   with "ModuleNotFoundError: No module named 'platformdirs'").
+# - test_module_entry_removes_implicit_directory expects "python -m virtualenv"
+#   to strip the implicit sys.path[0]; the Fedora pytest entry point runs under a
+#   "-P" (safe path) shebang, so sys.flags.safe_path is True and virtualenv
+#   intentionally keeps sys.path[0] in that case.
 PIP_CERT=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
 %pytest -vv -k "not test_bundle and \
                 not test_acquire and \
@@ -136,9 +159,25 @@ PIP_CERT=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
                 not test_download_ and \
                 not test_can_build_c_extensions and \
                 not test_base_bootstrap_via_pip_invoke and \
-                not test_seed_link_via_app_data and \
                 not test_py_info_cache_clear and \
-                not test_create_distutils_cfg"
+                not test_create_distutils_cfg and \
+                not test_creator_replaces_generated_file_links and \
+                not test_seed_link_via_app_data and \
+                not test_console_script_preserves_interpreter_path and \
+                not test_pip_launcher_record_matches_contents and \
+                not test_seed_image_build_direct_call and \
+                not test_seed_image_build_replaces_leftovers and \
+                not test_seed_metadata_ and \
+                not test_symlink_seed_ and \
+                not test_pip_invoke_uses_selected_wheel and \
+                not test_pip_invoke_freeze_uses_version_pin and \
+                not test_pip_reseed_installs_local_package and \
+                not test_pip_reseed_keeps_ and \
+                not test_pip_reseed_replaces_ and \
+                not test_pip_reseed_removes_previous_version_metadata and \
+                not test_pip_reseed_reports_process_failure and \
+                not test_module_entry_from_target_install and \
+                not test_module_entry_removes_implicit_directory"
 %endif
 
 %files -n python3-virtualenv -f %{pyproject_files}

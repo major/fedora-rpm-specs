@@ -1,13 +1,12 @@
 Name:           perl-Bit-Vector
-Version:        7.4
-Release:        42%{?dist}
+Version:        7.5
+Release:        1%{?dist}
 Summary:        Efficient bit vector, set of integers and "big int" math library
 # Outdated FSF address reported, rt#85827
 # Clarified by a private mail from the author:
 License:        ( GPL-2.0-or-later OR Artistic-1.0-Perl ) AND LGPL-2.0-or-later
 URL:            https://metacpan.org/release/Bit-Vector
-Source0:        https://cpan.metacpan.org/authors/id/S/ST/STBEY/Bit-Vector-%{version}.tar.gz
-Patch0:         0001-Fix-bool-detection.patch
+Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/Bit-Vector-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -52,8 +51,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Bit-Vector-%{version} 
-%patch -P0 -p1
+%setup -q -n Bit-Vector-%{version}
 chmod -c 644 examples/*.pl
 perl -MConfig -pi -e 's|^#!.*perl\b|$Config{startperl}|' \
     examples/{benchmk{1,2,3},primes,SetObject}.pl
@@ -98,12 +96,15 @@ make test
 %doc CHANGES.txt CREDITS.txt README.txt examples/
 %{perl_vendorarch}/Bit/
 %{perl_vendorarch}/auto/Bit/
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/Bit::Vector*.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 24 2026 Jitka Plesnikova <jplesnik@redhat.com> - 7.5-1
+- 7.5 bump (rhbz#2580684)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 7.4-42
 - Perl 5.44 rebuild
 

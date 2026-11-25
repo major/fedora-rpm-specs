@@ -16,12 +16,13 @@
 %global debug_package %{nil}
 %endif
 
-# edk2-stable202608
-%define GITDATE        20260812
-%define GITCOMMIT      2970e5699ba6
+# edk2-stable202611
+%define GITDATE        20261117
+%define GITCOMMIT      556dcfb466e9
 %define TOOLCHAIN      GCC
 
-%define PLATFORMS_COMMIT f8dbb5c60330
+%define PLATFORMS_COMMIT 4db2845d1442
+%define LIBTL_COMMIT   25d25c59332a
 
 %define OPENSSL_VER    3.5.9
 
@@ -83,6 +84,7 @@ Source2: https://github.com/openssl/openssl/releases/download/openssl-%{OPENSSL_
 Source4: edk2-platforms-%{PLATFORMS_COMMIT}.tar.xz
 Source5: jansson-2.13.1.tar.bz2
 Source6: dtc-1.7.0.tar.xz
+Source7: libtl-25d25c59332a.tar.xz
 Source8: 31_uefi-shell
 Source9: README.experimental
 
@@ -142,17 +144,16 @@ Patch0013: 0013-OvmfPkg-PlatformDxe-register-page-fault-handler-for-.patch
 Patch0014: 0014-OvmfPkg-PlatformDxe-add-check-for-1g-page-support.patch
 Patch0015: 0015-Revert-OvmfPkg-X86QemuLoadImageLib-flip-default-for-.patch
 Patch0016: 0016-OvmfPkg-PlatformDxe-proper-addr-masking.patch
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
-%endif
-Patch0017: 0017-NetworkPkg-UefiPxeBcDxe-Fix-ICMP-buffer-overflow-in-.patch
-Patch0018: 0018-pqc-CryptoPkg-OpensslLib-enable-CMS-API.patch
-Patch0019: 0019-pqc-CryptoPkg-OpensslLib-update-generated-files.patch
-Patch0020: 0020-pqc-CryptoPkg-OpensslLib-add-ml-dsa-to-uefi-provider.patch
-Patch0021: 0021-pqc-doug-CryptoPkg-OpensslLib-switch-Pkcs7Verify-to-.patch
-Patch0022: 0022-pqc-doug-CryptoPkg-OpensslLib-switch-AuthenticodeVer.patch
-Patch0023: 0023-pqc-SecurityPkg-AuthVariableLib-factor-out-certifica.patch
-Patch0024: 0024-pqc-SecurityPkg-AuthVariableLib-accept-ml-dsa-certif.patch
-Patch0025: 0025-OvmfPkg-QemuKernelLoaderFsDxe-do-not-error-out-on-Ge.patch
+Patch0017: 0017-pqc-CryptoPkg-OpensslLib-enable-CMS-API.patch
+Patch0018: 0018-pqc-CryptoPkg-OpensslLib-update-generated-files.patch
+Patch0019: 0019-pqc-CryptoPkg-OpensslLib-add-ml-dsa-to-uefi-provider.patch
+Patch0020: 0020-pqc-doug-CryptoPkg-OpensslLib-switch-Pkcs7Verify-to-.patch
+Patch0021: 0021-pqc-doug-CryptoPkg-OpensslLib-switch-AuthenticodeVer.patch
+Patch0022: 0022-pqc-SecurityPkg-AuthVariableLib-factor-out-certifica.patch
+Patch0023: 0023-pqc-SecurityPkg-AuthVariableLib-accept-ml-dsa-certif.patch
+Patch0024: 0024-SecurityPkg-AuthVariableLib-add-CheckSignatureListFo.patch
+Patch0025: 0025-SecurityPkg-AuthVariableLib-move-SigList-SignatureSi.patch
+Patch0026: 0026-SecurityPkg-AuthVariableLib-verify-the-signature-cou.patch
 
 
 # needed by %prep
@@ -394,6 +395,7 @@ cp -a -- %{SOURCE1} .
 tar -xf %{SOURCE2} --strip-components=1 --directory CryptoPkg/Library/OpensslLib/openssl
 tar -xf %{SOURCE5} --strip-components=1 --directory RedfishPkg/Library/JsonLib/jansson
 tar -xf %{SOURCE6} --strip-components=1 --directory MdePkg/Library/BaseFdtLib/libfdt
+tar -xf %{SOURCE7} --strip-components=1 --directory MdePkg/Library/ArmTransferListLib/libtl
 # include paths pointing to unused submodules
 mkdir -p MdePkg/Library/MipiSysTLib/mipisyst/library/include
 mkdir -p CryptoPkg/Library/MbedTlsLib/mbedtls/include

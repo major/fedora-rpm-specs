@@ -1,6 +1,6 @@
 Name:      robotfindskitten
-Version:   2.8284271.702
-Release:   17%{?dist}
+Version:   3.0000000.726
+Release:   1%{?dist}
 Summary:   A game/zen simulation. You are robot. Your job is to find kitten.
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -9,8 +9,16 @@ URL:       http://robotfindskitten.org
 Source0:   https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0:    robotfindskitten-2.8284271.702-maybe-uninitialized.patch
 
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
+BuildRequires: libtool
 BuildRequires: make
-BuildRequires: ncurses-devel glibc-devel texinfo autoconf automake libtool
+BuildRequires: ncurses-devel
+BuildRequires: texinfo
+
+Requires: hicolor-icon-theme
 
 %description
 In this game, you are robot (#). Your job is to find kitten. This task
@@ -22,30 +30,47 @@ ends when robotfindskitten.
 %autosetup -p1
 autoreconf -i
 
+# Fix metainfo file not passing validation
+sed -e 's/<icon type="stock">/<icon>/' -i share/org.%{name}.%{name}.metainfo.xml
+
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
-make -C nki install DESTDIR=$RPM_BUILD_ROOT
+%make_install
+%make_install -C nki install
 install -d $RPM_BUILD_ROOT/%{_bindir}
 ln -sf ../games/robotfindskitten $RPM_BUILD_ROOT/%{_bindir}/robotfindskitten
 # make install creates this, but we don't need it
 rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 
+
+%check
+desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_metainfodir}/org.%{name}.%{name}.metainfo.xml
+
+
 %files
-%doc AUTHORS BUGS ChangeLog COPYING NEWS README
+%doc AUTHORS BUGS ChangeLog NEWS README.md
+%license COPYING LICENSES/GPL-2.0-or-later.txt
 %{_bindir}/robotfindskitten
 %{_prefix}/games/robotfindskitten
+%{_datadir}/applications/robotfindskitten.desktop
 %{_datadir}/games/robotfindskitten/
+%{_datadir}/icons/hicolor/512x512/apps/robotfindskitten.png
+%{_datadir}/icons/hicolor/scalable/apps/robotfindskitten.svg
 %{_datadir}/info/robotfindskitten.info*
 %{_datadir}/man/man6/robotfindskitten.6*
+%{_metainfodir}/org.robotfindskitten.robotfindskitten.metainfo.xml
+
 
 %changelog
+* Tue Nov 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0000000.726-1
+- Update to v3.0000000.726
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.8284271.702-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

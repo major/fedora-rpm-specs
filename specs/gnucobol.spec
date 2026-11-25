@@ -3,7 +3,7 @@
 
 Name:           gnucobol
 Version:        3.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        COBOL compiler
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GFDL-1.3-only AND FSFAP AND GPL-2.0-or-later AND LGPL-3.0-or-later
@@ -11,7 +11,9 @@ License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GFDL-1.3-only AND FSF
 URL:            https://www.gnu.org/software/gnucobol/
 Source0:        https://ftp.gnu.org/gnu/gnucobol/gnucobol-%{version}.tar.gz
 Source1:        https://ftp.gnu.org/gnu/gnucobol/gnucobol-%{version}.tar.gz.sig
-Source2:        https://ftp.gnu.org/gnu/gnu-keyring.gpg
+# The key(s) that sign releases, from keyservers:
+#   sq --home=none network keyserver search B9459D0CA8A740B323235CDF13E96B53C005604E --output gnucobol-keyring.pgp --overwrite
+Source2:        gnucobol-keyring.pgp
 Source3:        https://www.itl.nist.gov/div897/ctg/suites/newcob.val.Z
 Source4:        http://downloads.sourceforge.net/%{name}/contrib/esql/%{name}-sql-3.0.tar.gz
 
@@ -23,7 +25,7 @@ BuildRequires:  gmp-devel
 BuildRequires:  readline-devel
 BuildRequires:  libdb-devel
 BuildRequires:  gettext
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  perl-interpreter
 BuildRequires:  libxml2-devel
 BuildRequires:  json-c-devel
@@ -59,7 +61,7 @@ License:        LGPL-3.0-or-later
 ESQL for GnuCOBOL
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p0
 cp %{SOURCE3} tests/cobol85/
 
@@ -125,6 +127,9 @@ make test CFLAGS="%optflags -O"
 %{_libdir}/libocsql.so*
 
 %changelog
+* Fri Nov 06 2026 Jakub Jelen <jjelen@redhat.com> - 3.2-13
+- Verify upstream source signatures with openpgpverify
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.2-12
 - Rebuilt for libxml-2.5.4
 

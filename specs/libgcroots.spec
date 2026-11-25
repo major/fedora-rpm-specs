@@ -1,5 +1,5 @@
 Name:		libgcroots
-Version:	0.3.6
+Version:	0.3.9
 Release:	%autorelease
 License:	Boehm-GC
 URL:		https://github.com/uim/libgcroots
@@ -41,6 +41,7 @@ make %{?_smp_mflags}
 
 %install
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+rm $RPM_BUILD_ROOT%{_docdir}/libgcroots/COPYING
 
 # Remove unnecessary files
 rm $RPM_BUILD_ROOT%{_libdir}/*.la
@@ -48,12 +49,12 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %ldconfig_scriptlets
 
 %files
-%doc README
+%doc README.md
 %license COPYING
 %{_libdir}/libgcroots.so.0*
 
 %files devel
-%doc README
+%doc README.md
 %license COPYING
 %{_includedir}/gcroots.h
 %{_libdir}/libgcroots.so

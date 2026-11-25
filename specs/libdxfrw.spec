@@ -5,7 +5,7 @@
 
 Name:		libdxfrw
 Version:	1.1.0
-Release:	0.13.rc1%{?dist}
+Release:	0.14.rc1%{?dist}
 Summary:	Library to read/write DXF files
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -50,43 +50,25 @@ Patch9:		4dc3d5fa4b328873af07be05d7b67e5846628eb7.patch
 # Header cleanup
 # https://github.com/LibreCAD/LibreCAD/commit/1603a1ac5ef804b50b8fb583662c0bdcbf9ec72c
 Patch10:	1603a1ac5ef804b50b8fb583662c0bdcbf9ec72c.patch
+# MText: RTL bidi support backport
+Patch11:	1a8202f1dc39c52d20ca49e697de9cc2c2d4fb0c.patch
+# drw_entities: static analysis fixes
+Patch12:	03fa108ab2fd74ab7b070daf5b36b29eb0428536.patch
+# Backport a bounded hyperbola entity, drawing action and spline conversion
+Patch13:	1eeda16c23f738fd934d467e90582f86e4d77794.patch
+# 2.2.1: preserve entity visibility independently of frozen layers
+Patch14:	fb40d56d42d96866af25aed56b1f60a627e43a49.patch
+# 2.2.1: Fix undefined behavior found with sanitizers
+Patch15:	d11a8d909ede733aa5fa3b20da17bbb5aeb2f21e.patch
+# 2.2.1: Fix defects identified by static analysis
+Patch16:	a536057a928aa051b6339d51f6764ff5c386c92f.patch
+# 2.2.1: Let a hidden layer be current, and open DWG/DXF layers with their lock, current layer and off state
+Patch17:	8477afa53995841d84d209eaa3516c98e3830052.patch
+# Bound R2004 DWG page decoding
+Patch18:	17ba2b273b89cc9c8b6fcf71882e327ccf1eebf6.patch
+# NOT UPSTREAM: Properly init buffer var
+Patch19:	libdxfrw-dwgbuffer-uninit.patch
 
-
-# All of these patches are committed but not in the LibreCAD 2.2 branch, 3.0 work?
-
-# Merging qt6
-# https://github.com/LibreCAD/LibreCAD/commit/ab3e44e28b282e3c4d304db37264d0c6e2142ad8
-Patch11:	ab3e44e28b282e3c4d304db37264d0c6e2142ad8.patch
-# Compiler warnings
-# https://github.com/LibreCAD/LibreCAD/commit/7cf1408247e1c03aba86ddebd951d1e413c26fa3
-Patch12:	7cf1408247e1c03aba86ddebd951d1e413c26fa3.patch
-# Improved preview on actions, copy/paste, shortcuts etc.
-# https://github.com/LibreCAD/LibreCAD/commit/05c0f3bd865aae21f453965a504d215a63a02782
-Patch13:	05c0f3bd865aae21f453965a504d215a63a02782.patch
-# Rendering performance (#1922)
-# https://github.com/LibreCAD/LibreCAD/commit/8b3cf9caf984dff07df2c83f685c9bd7a175df67
-Patch14:	8b3cf9caf984dff07df2c83f685c9bd7a175df67.patch
-# Views and actions (#1958)
-# https://github.com/LibreCAD/LibreCAD/commit/a46f1967474e7a39cf82e45464000373503fabbe
-Patch15:	a46f1967474e7a39cf82e45464000373503fabbe.patch
-# Arcs and splines (#1967)
-# https://github.com/LibreCAD/LibreCAD/commit/7838da61f71baf93c722c05f7c4c80f802cd06a1
-Patch16:	7838da61f71baf93c722c05f7c4c80f802cd06a1.patch
-# fixed a compiler warning
-# https://github.com/LibreCAD/LibreCAD/commit/3c55e604ea9622bfaac33bbd83ebab3b26293e27
-Patch17:	3c55e604ea9622bfaac33bbd83ebab3b26293e27.patch
-# User Coordinates, Angles Basis, Angles format for input, etc.
-# https://github.com/LibreCAD/LibreCAD/commit/c42f4f644f22a90a7e5d8cc0892f4e630737abc6
-Patch18:	c42f4f644f22a90a7e5d8cc0892f4e630737abc6.patch
-# Ordinate Dimensions (#2131)
-# https://github.com/LibreCAD/LibreCAD/commit/944e6340fe5a1e17a4e44d9de25c78131bfb4cb5
-Patch19:	944e6340fe5a1e17a4e44d9de25c78131bfb4cb5.patch
-# MText: fixed a division by zero (for libdxfrw this is just a newline cleanup)
-# https://github.com/LibreCAD/LibreCAD/commit/5abf92a84416d82978a1bff94736ec7cdc709ad4
-Patch20:	5abf92a84416d82978a1bff94736ec7cdc709ad4.patch
-# static-analysis warnings
-# https://github.com/LibreCAD/LibreCAD/commit/3f16299c1c7a6fec9ff8fc85ce989cbe3bcb9659
-Patch21:	3f16299c1c7a6fec9ff8fc85ce989cbe3bcb9659.patch
 
 %description
 libdxfrw is a free C++ library to read and write DXF files in both formats,
@@ -112,20 +94,15 @@ Development files for libdxfrw.
 %patch -P8 -p1 -b .d7b5b0a30bc096ec7a6802a2806258f9e6e39fea
 %patch -P9 -p1 -b .4dc3d5fa4b328873af07be05d7b67e5846628eb7
 %patch -P10 -p1 -b .1603a1ac5ef804b50b8fb583662c0bdcbf9ec72c
-# LibreCAD 3?
-%if 0
-%patch -P11 -p1 -b .ab3e44e28b282e3c4d304db37264d0c6e2142ad8
-%patch -P12 -p1 -b .7cf1408247e1c03aba86ddebd951d1e413c26fa3
-%patch -P13 -p1 -b .05c0f3bd865aae21f453965a504d215a63a02782
-%patch -P14 -p1 -b .8b3cf9caf984dff07df2c83f685c9bd7a175df67
-%patch -P15 -p1 -b .a46f1967474e7a39cf82e45464000373503fabbe
-%patch -P16 -p1 -b .7838da61f71baf93c722c05f7c4c80f802cd06a1
-%patch -P17 -p1 -b .3c55e604ea9622bfaac33bbd83ebab3b26293e27
-%patch -P18 -p1 -b .c42f4f644f22a90a7e5d8cc0892f4e630737abc6
-%patch -P19 -p1 -b .944e6340fe5a1e17a4e44d9de25c78131bfb4cb5
-%patch -P20 -p1 -b .5abf92a84416d82978a1bff94736ec7cdc709ad4
-%patch -P21 -p1 -b .3f16299c1c7a6fec9ff8fc85ce989cbe3bcb9659
-%endif
+%patch -P11 -p1 -b .1a8202f1dc39c52d20ca49e697de9cc2c2d4fb0c
+%patch -P12 -p1 -b .03fa108ab2fd74ab7b070daf5b36b29eb0428536
+%patch -P13 -p1 -b .1eeda16c23f738fd934d467e90582f86e4d77794
+%patch -P14 -p1 -b .fb40d56d42d96866af25aed56b1f60a627e43a49
+%patch -P15 -p1 -b .d11a8d909ede733aa5fa3b20da17bbb5aeb2f21e
+%patch -P16 -p1 -b .a536057a928aa051b6339d51f6764ff5c386c92f
+%patch -P17 -p1 -b .8477afa53995841d84d209eaa3516c98e3830052
+%patch -P18 -p1 -b .17ba2b273b89cc9c8b6fcf71882e327ccf1eebf6
+%patch -P19 -p1 -b .dwgbuffer-uninit
 
 %build
 export CXXFLAGS="%{optflags} -Wno-error=unused-parameter -Wno-error=return-type"
@@ -167,6 +144,9 @@ export CXXFLAGS="%{optflags} -Wno-error=unused-parameter -Wno-error=return-type"
 %{_libdir}/pkgconfig/libdxfrw.pc
 
 %changelog
+* Tue Nov 24 2026 Tom Callaway <spot@fedoraproject.org> - 1.1.0-0.14.rc1
+- apply more fixes from the 2.2.1 LibreCAD git tree
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.13.rc1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

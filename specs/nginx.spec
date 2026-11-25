@@ -38,7 +38,9 @@
 
 # kTLS requires OpenSSL 3.0 (default in F36+ and EL9+, available in EPEL8)
 %if 0%{?fedora} >= 36 || 0%{?rhel} >= 9 || 0%{?epel} >= 8
-%global with_ktls 1
+%bcond_without ktls
+%else
+%bcond_with ktls
 %endif
 
 # Build against OpenSSL 3 on EL8
@@ -357,7 +359,7 @@ if ! ./configure \
     --with-http_xslt_module=dynamic \
     --with-mail=dynamic \
     --with-mail_ssl_module \
-%if 0%{?with_ktls}
+%if %{with ktls}
     --with-openssl-opt=enable-ktls \
 %endif
 %if %{without engine}

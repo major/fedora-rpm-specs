@@ -5,16 +5,17 @@
 %global crate tcp-stream
 
 Name:           rust-tcp-stream
-Version:        0.34.14
+Version:        0.34.19
 Release:        %autorelease
 Summary:        Std::net::TcpStream on steroids
 
 License:        BSD-2-Clause
 URL:            https://crates.io/crates/tcp-stream
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          tcp-stream-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Remove rustls from the default feature set (not allowed) and replace with
-#   openssl
+# * Remove rustls from the default feature set and replace with openssl
 Patch:          tcp-stream-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -97,6 +98,102 @@ This package contains library source intended for building other packages which
 use the "openssl-futures" feature of the "%{crate}" crate.
 
 %files       -n %{name}+openssl-futures-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls--aws_lc_rs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls--aws_lc_rs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls--aws_lc_rs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls--aws_lc_rs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls--ring-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls--ring-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls--ring" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls--ring-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-futures-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-futures-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-futures" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-futures-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-native-certs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-native-certs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-native-certs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-native-certs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-platform-verifier-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-platform-verifier-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-platform-verifier" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-platform-verifier-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-webpki-root-certs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-webpki-root-certs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-webpki-root-certs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-webpki-root-certs-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rustls-webpki-roots-certs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rustls-webpki-roots-certs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rustls-webpki-roots-certs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rustls-webpki-roots-certs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+smol-devel

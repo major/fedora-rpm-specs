@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        7.003
+Version:        7.004
 Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
@@ -129,6 +129,14 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Tue Nov 24 2026 Paul Howarth <paul@city-fan.org> - 7.004-1
+- Update to 7.004 (rhbz#2583631)
+  - Update bundled zstd to 1.6.0, including upstream security fixes
+  - Update bundled miniz to 3.1.2
+  - Clarify checksum helper arguments, defaults and return values
+  - Document the helpers as exportable functions after the methods
+  - Explain when changes to defaults affect functions and objects
+
 * Sun Nov 15 2026 Paul Howarth <paul@city-fan.org> - 7.003-1
 - Update to 7.003 (rhbz#2573647)
   - Restore compilation on Perl builds without a U64 typedef, including

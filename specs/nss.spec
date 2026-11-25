@@ -739,7 +739,7 @@ do
 done
 
 # Copy the binaries we ship as unsupported
-for file in bltest dbtool ecperf fbectest fipstest shlibsign atob btoa derdump listsuites ocspclnt pp selfserv signtool strsclnt symkeyutil tstclnt vfyserv vfychain
+for file in bltest dbtool ecperf fbectest fipstest shlibsign atob btoa derdump listsuites ocspclnt pp selfserv strsclnt symkeyutil tstclnt vfyserv vfychain
 do
   install -p -m 755 dist/${LOBJDIR}/bin/$file $RPM_BUILD_ROOT/%{unsupported_tools_directory}
 done
@@ -786,7 +786,7 @@ for f in %{configFiles}; do
    install -c -m 644 ${f}.1 $RPM_BUILD_ROOT%{_mandir}/man1/${f}.1
 done
 # Copy the man pages for the nss tools
-for f in certutil cmsutil crlutil derdump modutil pk12util signtool signver ssltap vfychain vfyserv; do
+for f in certutil cmsutil crlutil derdump modutil pk12util signver ssltap vfychain vfyserv; do
   install -c -m 644 ./dist/docs/nroff/${f}.1 $RPM_BUILD_ROOT%{_mandir}/man1/${f}.1
 done
 %if %{defined rhel}
@@ -867,7 +867,6 @@ fi
 %{unsupported_tools_directory}/ocspclnt
 %{unsupported_tools_directory}/pp
 %{unsupported_tools_directory}/selfserv
-%{unsupported_tools_directory}/signtool
 %{unsupported_tools_directory}/strsclnt
 %{unsupported_tools_directory}/symkeyutil
 %{unsupported_tools_directory}/tstclnt
@@ -883,7 +882,6 @@ fi
 %doc %{_mandir}/man1/signver.1*
 # unsupported tools
 %doc %{_mandir}/man1/derdump.1*
-%doc %{_mandir}/man1/signtool.1*
 %if %{defined rhel}
 %doc %{_mandir}/man1/pp.1*
 %else
@@ -909,9 +907,6 @@ fi
 %{_includedir}/nss3/cryptohi.h
 %{_includedir}/nss3/cryptoht.h
 %{_includedir}/nss3/sechash.h
-%{_includedir}/nss3/jar-ds.h
-%{_includedir}/nss3/jar.h
-%{_includedir}/nss3/jarfile.h
 %{_includedir}/nss3/key.h
 %{_includedir}/nss3/keyhi.h
 %{_includedir}/nss3/keyt.h
@@ -1090,6 +1085,7 @@ fi
 %changelog
 * Thu Nov 19 2026 Krenželok František <fkrenzel@redhat.com> - 3.134.0-1
 - Update NSS to 3.134.0
+- remove signtool, jar-ds.sh, jar.h, jarfile.h
 
 * Thu Nov  5 2026 Krenželok František <fkrenzel@redhat.com> - 3.133.0-1
 - Update NSS to 3.133.0

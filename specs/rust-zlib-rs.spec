@@ -5,7 +5,7 @@
 %global crate zlib-rs
 
 Name:           rust-zlib-rs
-Version:        0.6.8
+Version:        0.6.9
 Release:        %autorelease
 Summary:        Memory-safe zlib implementation written in rust
 
@@ -64,6 +64,18 @@ This package contains library source intended for building other packages which
 use the "__internal-api" feature of the "%{crate}" crate.
 
 %files       -n %{name}+__internal-api-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+altivec-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+altivec-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "altivec" feature of the "%{crate}" crate.
+
+%files       -n %{name}+altivec-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+avx512-devel

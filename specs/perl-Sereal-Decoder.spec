@@ -2,7 +2,7 @@
 %bcond_without perl_Sereal_Decoder_enables_optional_test
 
 Name:           perl-Sereal-Decoder
-Version:        7.003
+Version:        7.004
 Release:        1%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
@@ -122,6 +122,20 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Tue Nov 24 2026 Paul Howarth <paul@city-fan.org> - 7.004-1
+- Update to 7.004 (rhbz#2583632)
+  - Update bundled zstd to 1.6.0, including upstream security fixes
+  - Update bundled miniz to 3.1.2, including guards against inflate infinite
+    loops on invalid Huffman codes
+  - Add invalid-Huffman regression tests that check packet rejection and
+    decoder reuse; accept decompression errors from older external miniz
+    libraries without requiring a particular error code
+  - Correct the documented default key order for validate_sereal_checksum() and
+    the interaction between no_bless_objects and no_thaw_objects
+  - Clarify checksum helper arguments, defaults and return values
+  - Document the helpers as exportable functions after the methods
+  - Explain when changes to defaults affect functions and objects
+
 * Sun Nov 15 2026 Paul Howarth <paul@city-fan.org> - 7.003-1
 - Update to 7.003 (rhbz#2573648)
   - Correct a false native long-double declaration test failure on older x86

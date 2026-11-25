@@ -1,5 +1,5 @@
 Name:           accel-ppp
-Version:        1.14.0
+Version:        1.15.0
 Release:        %autorelease
 Summary:        High-performance VPN and broadband protocol server
 License:        GPL-2.0-Only OR GPL-2.0-Or-Later OR MIT

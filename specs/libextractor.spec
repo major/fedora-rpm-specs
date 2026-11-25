@@ -31,14 +31,16 @@ License:        GPL-3.0-or-later AND GPL-2.0-or-later AND GFDL-1.3-or-later AND 
 URL:            https://www.gnu.org/software/libextractor
 Source:         https://ftp.gnu.org/gnu/libextractor/%{name}-%{version}.tar.gz
 Source:         https://ftp.gnu.org/gnu/libextractor/%{name}-%{version}.tar.gz.sig
-Source:         https://ftp.gnu.org/gnu/gnu-keyring.gpg
+# The key(s) that sign releases, from keyservers:
+#   sq --home=none network keyserver search D8423BCB326C7907033929C7939E6BE1E29FC3CC --output libextractor-keyring.pgp --overwrite
+Source:         libextractor-keyring.pgp
 Source:         README.fedora
 
 BuildRequires:  gcc
 ## exiv2 config check uses g++
 BuildRequires:  gcc-c++
 BuildRequires:  gettext-devel
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig(bzip2)
@@ -145,7 +147,7 @@ introduce additional dependencies.
 #pluginpkg      gstreamer  -B gstreamer-devel,libgsf-gnome-devel,libgsf-devel,gtk
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 cp -aR %{SOURCE3} .
 rm -rfv README.debian

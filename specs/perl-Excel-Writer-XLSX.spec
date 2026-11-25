@@ -1,6 +1,6 @@
 Name:           perl-Excel-Writer-XLSX
-Version:        1.15
-Release:        3%{?dist}
+Version:        1.16
+Release:        1%{?dist}
 Summary:        Create a new file in the Excel 2007+ XLSX format
 # LICENSE_Artistic_Perl:    Artistic-1.0-Perl text
 # LICENSE_GPL_1.0:          GPL-1.0 text
@@ -28,6 +28,7 @@ BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Temp) >= 0.19
+BuildRequires:  perl(FileHandle)
 # Getopt::Long not used at tests
 BuildRequires:  perl(IO::File) >= 1.14
 BuildRequires:  perl(List::Util)
@@ -122,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Nov 24 2026 Petr Pisar <ppisar@redhat.com> - 1.16-1
+- 1.16 bump
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

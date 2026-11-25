@@ -141,6 +141,7 @@ Source24:       sysusers.generate-pre.sh
 Source25:       98-default-mac-none.link
 
 Source26:       systemd-user
+Source27:       10-oomd-app-slice-swap-defaults.conf
 
 %if 0%{?fedora} < 40 && 0%{?rhel} < 10
 # Work-around for dracut issue: run generators directly when we are in initrd
@@ -1191,6 +1192,7 @@ install -Dm0644 %{SOURCE13} %{buildroot}%{_prefix}/lib/systemd/.abignore
 install -Dm0644 -t %{buildroot}%{_prefix}/lib/systemd/oomd.conf.d/ %{SOURCE14}
 install -Dm0644 -t %{buildroot}%{system_unit_dir}/system.slice.d/ %{SOURCE15}
 install -Dm0644 -t %{buildroot}%{user_unit_dir}/slice.d/ %{SOURCE15}
+install -Dm0644 -t %{buildroot}%{user_unit_dir}/app.slice.d/ %{SOURCE27}
 %if 0%{?fedora}
 # https://fedoraproject.org/wiki/Changes/Shorter_Shutdown_Timer
 install -Dm0644 -t %{buildroot}%{system_unit_dir}/service.d/ %{SOURCE16}

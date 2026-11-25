@@ -5,7 +5,7 @@
 %global crate parking_lot
 
 Name:           rust-parking_lot
-Version:        0.12.5
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Efficient implementations of standard synchronization primitives
 
@@ -36,6 +36,7 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/ci/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -71,30 +72,6 @@ This package contains library source intended for building other packages which
 use the "deadlock_detection" feature of the "%{crate}" crate.
 
 %files       -n %{name}+deadlock_detection-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+hardware-lock-elision-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+hardware-lock-elision-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "hardware-lock-elision" feature of the "%{crate}" crate.
-
-%files       -n %{name}+hardware-lock-elision-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+nightly-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+nightly-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "nightly" feature of the "%{crate}" crate.
-
-%files       -n %{name}+nightly-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+owning_ref-devel

@@ -3,7 +3,7 @@
 
 # https://github.com/decke/smtprelay
 %global goipath         github.com/decke/smtprelay
-Version:                1.13.3
+Version:                1.14.0
 
 %gometa -L -f
 
@@ -25,8 +25,6 @@ Source4:        smtprelay.sysusers
 BuildRequires:  go-vendor-tools
 BuildRequires:  systemd-rpm-macros
 %{?sysusers_requires_compat}
-
-BuildRequires:  go-vendor-tools
 
 %description
 Simple Golang SMTP relay/proxy server.

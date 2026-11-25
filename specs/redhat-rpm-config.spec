@@ -53,6 +53,7 @@ Source155: macros.ldconfig
 Source156: macros.vpath
 Source157: macros.shell-completions
 Source158: macros.rpmautospec
+Source159: macros.ml
 
 # Build policy scripts
 # this comes from https://github.com/rpm-software-management/rpm/pull/344
@@ -147,6 +148,12 @@ Conflicts: gcc < 8.0.1-0.22
 # Replaced by macros.rpmautospec shipped by us
 Obsoletes: rpmautospec-rpm-macros < 0.6.3-2
 
+# RHEL 10 has no multilib architectures, but Fedora does
+%if 0%{?rhel}
+Obsoletes: multilib-rpm-config < 2
+Provides:  multilib-rpm-config = 1
+%endif
+
 Provides: system-rpm-config = %{version}-%{release}
 
 %global rrcdir /usr/lib/rpm/redhat
@@ -163,6 +170,10 @@ Red Hat specific rpm configuration files.
 # of source numbers in install section
 %setup -c -T
 cp -p %{sources} .
+%if ! 0%{?rhel}
+rm macros.ml
+%endif
+
 
 %install
 mkdir -p %{buildroot}%{rrcdir}
@@ -248,6 +259,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora common.lua
 %{_rpmconfigdir}/macros.d/macros.dwz
 %{_rpmconfigdir}/macros.d/macros.fedora-misc
 %{_rpmconfigdir}/macros.d/macros.ldconfig
+%if 0%{?rhel}
+%{_rpmconfigdir}/macros.d/macros.ml
+%endif
 %{_rpmconfigdir}/macros.d/macros.rpmautospec
 %{_rpmconfigdir}/macros.d/macros.shell-completions
 %{_rpmconfigdir}/macros.d/macros.vpath

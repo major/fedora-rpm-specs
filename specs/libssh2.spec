@@ -6,7 +6,7 @@
 
 Name:		libssh2
 Version:	1.11.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	A library implementing the SSH2 protocol
 License:	BSD-3-Clause
 URL:		https://www.libssh2.org/
@@ -22,7 +22,7 @@ Patch3:		2dae302-libssh2-1.11.1.patch
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	gcc
-BuildRequires:	gnupg2
+BuildRequires:	openpgpverify
 BuildRequires:	make
 BuildRequires:	openssl-devel > 1:1.0.2
 BuildRequires:	pkgconfig
@@ -63,7 +63,7 @@ The libssh2-docs package contains man pages and examples for
 developing applications that use libssh2.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 
 # CVE-2026-7598 libssh2: integer overflow via large username or password arguments
@@ -138,6 +138,9 @@ LC_ALL=en_US.UTF-8 make -C tests check
 %{_libdir}/pkgconfig/libssh2.pc
 
 %changelog
+* Mon Oct 12 2026 Jakub Jelen <jjelen@redhat.com> - 1.11.1-11
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

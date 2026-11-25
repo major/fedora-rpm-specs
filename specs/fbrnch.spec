@@ -3,16 +3,18 @@
 
 %{?haskell_setup}
 
+%global forgejo_ver 0.2.0
+
 %global coprapi copr-api-0.2.0
-%global forgejo forgejo-0.1.0
+%global forgejo forgejo-%{forgejo_ver}
 %global say say-0.1.0.1
 
 %global subpkgs %{coprapi} %{forgejo} %{say}
 
 Name:           fbrnch
-Version:        1.8.4
+Version:        1.8.5
 # can only be reset when all subpkgs bumped
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -124,9 +126,11 @@ BuildRequires:  ghc-unordered-containers-prof
 %endif
 # for missing dep 'forgejo':
 BuildRequires:  ghc-gitea-api-devel
+BuildRequires:  ghc-http-client-devel
 BuildRequires:  ghc-http-client-tls-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-gitea-api-prof
+BuildRequires:  ghc-http-client-prof
 BuildRequires:  ghc-http-client-tls-prof
 %endif
 # for missing dep 'say':
@@ -184,6 +188,15 @@ and many more commands.
 %ghc_lib_subpackage -l MIT %{say}
 %endif
 
+%package -n forgejo-tool
+Version: %{forgejo_ver}
+Summary: A gitea/forgejo query client
+License: BSD-3-Clause
+
+%description -n forgejo-tool
+A command line CLI tool for query a Forgejo or Gitea API.
+
+
 %global version %{main_version}
 
 
@@ -217,8 +230,6 @@ mkdir -p %{buildroot}%{_mandir}/man1/
 help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/%{name}.1
 # End cabal-rpm install
 
-echo %{_bindir}/forgejo >> %{forgejo}/ghc-forgejo.files
-
 
 %files
 # Begin cabal-rpm files:
@@ -230,6 +241,11 @@ echo %{_bindir}/forgejo >> %{forgejo}/ghc-forgejo.files
 %{zsh_completions_dir}/_%{name}
 %{_mandir}/man1/%{name}.1*
 # End cabal-rpm files
+
+
+%files -n forgejo-tool
+%license %{forgejo}/LICENSE
+%{_bindir}/forgejo-tool
 
 
 %changelog

@@ -14,6 +14,8 @@ Source0:        http://code.coreboot.org/p/seabios/downloads/get/%{name}-%{versi
 
 Patch0001:      0001-Workaround-for-a-win8.1-32-S4-resume-bug.patch
 Patch0003:      0003-vgabios-Reorder-video-modes-to-work-around-a-Windows.patch
+Patch0004:      0001-pciinit-ignore-nvme-for-64-bit-mmio-window.patch
+Patch0005:      0001-pci-map-ethernet-nics-below-4G.patch
 Patch0009:      0001-update-release-date.patch
 
 Source10:       config.vga-cirrus

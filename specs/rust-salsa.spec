@@ -5,7 +5,7 @@
 %global crate salsa
 
 Name:           rust-salsa
-Version:        0.28.5
+Version:        0.28.6
 Release:        %autorelease
 Summary:        Generic framework for on-demand, incrementalized computation
 
@@ -19,7 +19,7 @@ Patch:          salsa-fix-metadata-auto.diff
 # * Allow older test-log 0.2.19 for now; upstream pinned 0.2.21, but none of the
 #   changes are actually required. See
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2459446.
-# * Allow older trybuild 1.0.120 for now; upstream pinned 1.0.121, but none of
+# * Allow older trybuild 1.0.120 for now; upstream pinned 1.0.123, but none of
 #   the changes are actually required. See
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2529691.
 Patch:          salsa-fix-metadata.diff

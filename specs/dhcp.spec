@@ -96,7 +96,6 @@ BuildRequires: libcap-ng-devel
 BuildRequires: systemd systemd-devel
 # dhcp-sd_notify.patch
 BuildRequires: pkgconfig(libsystemd)
-BuildRequires: gnupg2
 %if ! 0%{?_module_build}
 BuildRequires: doxygen
 %endif

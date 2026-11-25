@@ -1,6 +1,6 @@
 Summary: Utility for setting up encrypted disks
 Name: cryptsetup
-Version: 2.8.8
+Version: 2.8.9
 Release: %autorelease
 License: GPL-2.0-or-later WITH cryptsetup-OpenSSL-exception AND LGPL-2.1-or-later WITH cryptsetup-OpenSSL-exception
 URL: https://gitlab.com/cryptsetup/cryptsetup
@@ -68,7 +68,7 @@ disk integrity protection using dm-integrity kernel module.
 rm -f man/*.8
 
 ./autogen.sh
-%configure --enable-fips --enable-pwquality --enable-asciidoc --enable-internal-sse-argon2
+%configure --enable-fips --enable-pwquality --enable-asciidoc --enable-internal-sse-argon2 --enable-enforce-opal-segment-digest
 %make_build
 
 %install

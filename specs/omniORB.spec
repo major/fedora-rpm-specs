@@ -8,8 +8,8 @@
 %bcond_without openssl
 
 Name:           omniORB
-Version:        4.3.4
-Release:        6%{?dist}
+Version:        4.3.5
+Release:        1%{?dist}
 Summary:        A robust high performance CORBA ORB for C++ and Python
 
 License:        LGPL-2.0-or-later
@@ -19,8 +19,6 @@ Source1:        omniORB-nameserver.init
 Source2:        omniORB-nameserver.logrotate
 Source3:        omniORB.cfg
 Source4:        omniNames.service
-# Fix build against openssl-4.x
-Patch0:         omniORB_openssl4.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -242,6 +240,9 @@ fi
 
 
 %changelog
+* Tue Nov 24 2026 Sandro Mani <manisandro@gmail.com> - 4.3.5-1
+- Update to 4.3.5
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 4.3.4-6
 - Rebuilt for Python 3.15.0b4 ABI change
 

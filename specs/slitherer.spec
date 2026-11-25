@@ -7,7 +7,7 @@
 
 Name:           slitherer
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple QtWebView based runner for web applications
 
 License:        MPL-2.0 and BSD-3-Clause
@@ -73,7 +73,7 @@ Provides:       %{name}-anaconda-webui-opener%{?_isa} = %{version}-%{release}
 
 # Anaconda launcher executables
 ln -sr %{buildroot}%{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-anaconda
-cat > %{buildroot}%{_bindir}/anaconda-webui-opener <<ANACONDA_EOF
+cat > %{buildroot}%{_bindir}/anaconda-webui-opener <<'ANACONDA_EOF'
 #!/bin/sh
 
 export SLITHERER_DESKTOP_ID="liveinst"
@@ -95,6 +95,9 @@ chmod +x %{buildroot}%{_bindir}/anaconda-webui-opener
 
 
 %changelog
+* Tue Nov 24 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git20261117.3ff2c1b-4
+- Fix the anaconda-webui-opener script to correctly export argv variable
+
 * Mon Nov 23 2026 Neal Gompa <ngompa@fedoraproject.org> - 0~git20261117.3ff2c1b-3
 - Adjust webui-opener supplements to exclude Workstation and installer images
 

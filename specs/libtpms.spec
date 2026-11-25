@@ -1,6 +1,6 @@
 Name:           libtpms
 Version:        0.10.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library providing Trusted Platform Module (TPM) functionality
 License:        BSD-3-Clause AND LicenseRef-TCGL
 
@@ -8,6 +8,8 @@ URL:            https://github.com/stefanberger/libtpms
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/v%{version}.tar.gz.asc#/%{name}-%{version}.tar.gz.asc
 # https://github.com/stefanberger.gpg
+# Refreshed from keyservers (same keys, newer signatures):
+#   sq --home=none network keyserver search B818B9CADF9089C2D5CEC66B75AD65802A0B4211 --output gpgkey-B818B9CADF9089C2D5CEC66B75AD65802A0B4211.asc --overwrite
 Source2:        gpgkey-B818B9CADF9089C2D5CEC66B75AD65802A0B4211.asc
 
 Patch0001:      0001-Fix-a-compilation-error-in-TPMLIB_GetPlaintext.patch
@@ -17,7 +19,7 @@ BuildRequires:  automake
 BuildRequires:  coreutils
 BuildRequires:  gawk
 BuildRequires:  gcc-c++
-BuildRequires:  gnupg2
+BuildRequires:  openpgpverify
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  openssl-devel
@@ -36,7 +38,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Libtpms header files and documentation.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -65,6 +67,9 @@ make check
 %{_mandir}/man3/TPM*
 
 %changelog
+* Wed Nov 11 2026 Jakub Jelen <jjelen@redhat.com> - 0.10.2-6
+- Verify upstream source signatures with openpgpverify
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

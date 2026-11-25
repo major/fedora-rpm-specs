@@ -4,7 +4,7 @@
 %global gcc_major 16
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 3
+%global gcc_release 4
 %global nvptx_tools_gitrev 212da2e781ed0f9423824e85eb04819958513f7a
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -5181,6 +5181,9 @@ end
 %endif
 
 %changelog
+* Tue Nov 24 2026 Yaakov Selkowitz <yselkowi@redhat.com> 16.2.1-4
+- Increase RHEL 11 ppc64le to POWER10 baseline, tune to POWER11
+
 * Thu Oct 29 2026 Jakub Jelinek <jakub@redhat.com> 16.2.1-3
 - update from releases/gcc-16 branch
   - PRs ada/114065, ada/120106, ada/125984, ada/126125, ada/126448,

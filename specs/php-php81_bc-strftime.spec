@@ -3,7 +3,7 @@
 
 Name: php-%{composer_vendor}-%{composer_project}
 
-Version: 0.7.7
+Version: 0.7.8
 Release: 1%{?dist}
 
 Summary: Backwards-compatible strftime() implementation
@@ -81,6 +81,9 @@ phpunit10 --bootstrap bootstrap.php
 
 
 %changelog
+* Tue Nov 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.8-1
+- Update to v0.7.8
+
 * Sat Oct 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.7-1
 - Update to v0.7.7
 - Drop Patch0 (fix tests for libicu 78 - merged upstream)

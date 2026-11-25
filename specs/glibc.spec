@@ -153,7 +153,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 8
+%global baserelease 9
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -1326,6 +1326,7 @@ inherit_flags.cc_main = string_to_array [[
 -mcpu=power8
 -mcpu=power9
 -mtune=generic
+-mtune=power11
 -mtune=power10
 -mtune=power8
 -mtune=power9
@@ -2480,6 +2481,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Nov 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.44.9000-9
+- Do not build POWER10 multilib on RHEL 11
+
 * Tue Nov 17 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-8
 - Auto-sync with upstream branch master,
   commit fcd0fc872fbbfaf6d0048957d037e28681af83a3:

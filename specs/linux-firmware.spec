@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20261019
+Version:	20261124
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Fedora-Firmware
@@ -599,6 +599,8 @@ end
 %{_firmwarepath}/intel/iwlwifi/iwlwifi-gl-c0*1??.ucode*
 %{_firmwarepath}/iwlwifi-sc-a0-*1??.ucode*
 %{_firmwarepath}/intel/iwlwifi/iwlwifi-sc-a0-*1??.ucode*
+%{_firmwarepath}/iwlwifi-sc2-a0-wh-b0-c1??.ucode*
+%{_firmwarepath}/intel/iwlwifi/iwlwifi-sc2-a0-wh-b0-c1??.ucode*
 
 %files -n iwlbluetooth-firmware
 %license LICENSES/LICENCE.ibt_firmware
@@ -762,6 +764,95 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Nov 24 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20261124-1
+- Update to 20261124
+- morsemicro: add 2.2.3 firmware for mm8108
+- cirrus: Add firmware for Cirrus CS35L57/CS42L45 SDCA codec for some Lenovo laptops
+- intel: Update ibt-00a0-01a1-pci.ddc for BE211 - Whale Peak2 (WhP2)
+- qcom: update ADSP firmware for sm8750 platform
+- qcom: update ADSP, CDSP firmware for eliza platform
+- qcom: update CDSP/qdsp6sw/LPAICP firmware for shikra platform
+- qcom: add SOCCP firmware for glymur platform
+- xe: Update NVL GSC to v108.0.0.1242
+- cirrus: cs35l57: Add firmware for Cirrus Amps for some Dell products
+- cirrus: cs42l45: Update CS42L45 SDCA codec firmware for Dell laptops
+- intel_vpu: Add NPU60xx firmware and update NPU37xx/40xx/50xx firmware
+- i915: Xe3p_LPD DMC v2.44
+- Update firmware for Intel BlazarI/BlazarU/BlazariFmp/BlazaruFmpArl/BlazaruHrpGfp core
+- Update firmware for Intel Magnetar/Solar/Scorpius/Scorpius2/ScorpiusGfp core
+- Bluetooth: btusb: Update Qualcomm WCN685x 2.0 firmware to 2.0.0-00634
+- Bluetooth: btusb: Update Qualcomm QCC2072 firmware to ORNE.1.1.0.c1-00038
+- amd_pmf: Update AMD PMF TA Firmware for 1AH_M80H
+- intel/ish: Link HP Panther Lake ISH firmware for ZBook 8 G2i 14
+- amdgpu: Add compatibility links for GC 11.7.0/11.7.1 IMU firmware
+- amdgpu: add various alternate-signed firmware
+- amdgpu: add various firmware
+- amdgpu: update pre-production firmware
+- amdgpu: DMCUB updates for various ASICs
+- brcm: add AP6356S NVRAM link for graperain g3568-v2
+- aic: Add AIC8800D80N Wi-Fi firmware and user configurations
+- Add firmware for awinic AW88399 SmartK AMP
+- cirrus: cs35l54: Add firmware for Cirrus Amps for an HP laptop
+- cirrus: cs35l57: Add firmware for Cirrus Amps for an ASUS laptop
+- whence: add missing links for cs35l56 firmware files
+- qca: QCA61x4 USB: Link 00000201 firmware to the 00000200 files
+- xe: Add GuC 70.83.0 for CRI and NVL-P
+- xe: Update GUC to v70.83.0 for DG2, MTL, LNL, BMG, PTL, NVL-S/U/H
+- i915: Update GUC to v70.83.0 for DG2, MTL
+- i915: Update GUC to v70.49.5 for TGL, ADL-P, DG1
+- Rename multiple amdgpu files to have _p suffix
+- qcom: add SOCCP firmware for nord platform
+- qca: QCA61x4 USB: Replace duplicate NVM files with links
+- qca: QCC2072: Replace duplicate firmware files with links
+- QCA: Update Bluetooth firmware for QCC2072 UART interface: 1.1.0-00355 to 1.1.0-00391
+- rtw89: 8852bt: update fw to v0.29.122.3
+- rtw89: 8852b: update fw to v0.29.29.19
+- iwlwifi: add Bz/Fm/Hr/Gf /cc/Qu/QuZ/Bz/Sc FW for core24.90-60 release
+- iwlwifi: update ty/So/Ma firmwares for core24.90-60 release
+- amd_pmf: Add AMD PMF TA Firmware v4 for 1AH_M80H
+- amd-sof: Add ACP 7.F SOF topology for RT721
+- amd-sof: Add ACP 7.F SOF firmware/topologies
+- cirrus: cs35l63: Firmware for Lenovo laptops with SSID 2369 and 236a
+- cirrus: cs35l57/cs42l45: Add CS42L45 SDCA/CS35L57 codec firmware for Lenovo laptops
+- cirrus: cs35l56/cs42l45: Update CS42L49 SDCA/CS35L56 codec firmware for Dell laptops
+- WHENCE: Link the Raspberry Pi 5B revD
+- Bluetooth: btusb: Add firmware for Qualcomm multi-subsystem QCC2072
+- cirrus: cs35l63/cs42l45: Add CS42L45 SDCA/CS35L63 codec firmware for Dell laptops
+- mediatek: mt8188: update SCP firmware to v2.0.30090
+- Update HPASS firmware for Qualcomm nord platform.
+- qcom: add QUPv3 firmware for eliza
+- realtek: rt1321: Add patch firmware of MCU for VA2
+- iwlwifi: add Sc2/Wh FW for core24.70-99 release
+- iwlwifi: add Sc2/Wh FW for core24.80-41 release
+- iwlwifi: update Sc/Wh FW for core102
+- qcom: Update the ThinkPad T14s G6 CDSP
+- Add Dell ISH firmware 582.7822.0 for Intel Nova Lake-H systems.
+- Update firmware file for Intel Scorpius2 core
+- intel-ipu6: Add firmware binary for IPU8
+- intel-ipu6: Support IPU 7 and later as well
+- rtw89: 8852c: update fw to v0.27.138.1
+- ath11k: QCA2066 hw2.1@nfa725: add to WLAN.HSP.1.1.c6-00302-QCAHSPSWPL_V1_V2_SILICONZ_LITE-1
+- ath11k: QCA2066 hw2.1: update board-2.bin
+- qcom: vpu: Update video firmware binary for Kaanapali
+- amdgpu: DMCUB updates for various ASICs
+- mediatek MT7922: update bluetooth firmware to 20261027203403
+- update firmware for MT7922 WiFi device
+- qcom: update Rubik Pi 3 ADSP firmware
+- xe: Add GSC 108.0.0.1211 for NVL
+- wilc1000: update WILC1000/WILC3000 firmware to v16.5.2
+- copy-firmware: allow partial installations
+- amdgpu: DMCUB updates for DCN42
+- nxpwifi: add firmware for IW610 WiFi device
+- QCA: Update Bluetooth QCA2066 firmware to 2.1.0-00680
+- WHENCE: fix version string for QCA2066 firmware
+- ath10k: WCN3990: hw1.0: update shikra/wlanmdsp.mbn to WLAN.HL.3.3.7.c5-00226
+- qcom: sync audioreach firmwares from v1.0.5 build
+- qcom: Add gpu firmwares for Nord chipset
+- contrib: detect the Bluetooth firmware format by its path
+- qcom:x1e80100: Support for Lenovo Yoga Slim7 Snapdragon platform CDSP
+- mediatek MT7925: update bluetooth firmware to 20261016233221
+- update firmware for MT7925 WiFi device
+
 * Mon Oct 19 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 20261019-1
 - Update to 20261019
 - rockchip: add PCIe3 PHY firmware for snps-pcie3

@@ -8,8 +8,8 @@
 
 Summary:   An enterprise-strength fax server
 Name:      hylafax+
-Version:   7.0.11
-Release:   8%{?dist}
+Version:   7.0.12
+Release:   1%{?dist}
 # Automatically converted from old format: libtiff and BSD with advertising - review is highly recommended.
 License:   libtiff AND LicenseRef-Callaway-BSD-with-advertising
 URL:       http://hylafax.sourceforge.net
@@ -27,7 +27,7 @@ Provides:    hylafax = %{version}-%{release}
 Requires:    %{name}-client%{?_isa} = %{version}-%{release}
 
 BuildRequires: libjpeg-devel, libtiff-devel, zlib-devel, pam-devel, openldap-devel, %{_bindir}/tiffcp
-BuildRequires: openssl-devel
+BuildRequires: openssl3-devel
 BuildRequires: gcc-c++
 BuildRequires: make
 BuildRequires: libxcrypt-devel
@@ -54,7 +54,7 @@ BuildRequires: ghostscript-fonts
 Requires: ghostscript-fonts
 %endif
 Requires:    ghostscript, gawk, sharutils, mailx, crontabs, %{_bindir}/tiffcp
-Requires:    openssl
+Requires:    openssl3
 Conflicts:   mgetty-sendfax
 Obsoletes:   hylafax < 5.5.2-1
 
@@ -429,6 +429,9 @@ fi
 %dir %{faxspool}/etc
 
 %changelog
+* Tue Nov 24 2026 Lee Howard <faxguy@howardsilvan.com> - 7.0.12-1
+- update to 7.0.12
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

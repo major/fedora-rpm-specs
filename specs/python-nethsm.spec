@@ -1,5 +1,5 @@
 Name:           python-nethsm
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Client-side Python SDK for NetHSM
 

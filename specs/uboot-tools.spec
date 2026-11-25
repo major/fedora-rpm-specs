@@ -1,4 +1,4 @@
-%global candidate rc2
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2027.01
-Release:  0.3%{?candidate:.%{candidate}}%{?dist}
+Release:  0.4%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -23,7 +23,6 @@ Source2:  riscv64-boards
 Source3:  x86_64-boards
 
 # Fedora patches to enable/disable features
-Patch1:   disable-VBE-by-default.patch
 Patch2:   enable-bootmenu-by-default.patch
 # This is now legacy, most devices use bootflow, we keep this for the laggards
 Patch3:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
@@ -36,7 +35,7 @@ Patch6:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Enable UEFI HTTPS boot for all Fedora firmware
 Patch7:   uefi-enable-https-boot-by-default.patch
 # Fix some LTO builds
-Patch8:   0001-Makefile-Move-PLATFORM_LIBS-outside-the-the-whole-ar.patch
+Patch8:   Makefile-Move-PLATFORM_LIBS-outside-the-the-whole-ar.patch
 
 # Device improvments
 # USB-PD improvements
@@ -318,6 +317,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Nov 24 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2027.01-0.4.rc3
+- Update to U-Boot 2027.01 RC3
+
 * Sun Nov 22 2026 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2027.01-0.3.rc2
 - Fix Jetson Nano build, re-enable
 

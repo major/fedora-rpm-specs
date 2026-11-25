@@ -1,5 +1,5 @@
 Name:		php-IDNA_Convert
-Version:	4.2.2
+Version:	5.0.0
 Release:	1%{?dist}
 Summary:	Provides conversion of internationalized strings to UTF8
 
@@ -40,6 +40,9 @@ cp -a idna-convert-%{version}/src/* %{buildroot}/%{_datadir}/php/IDNA_Convert/
 
 
 %changelog
+* Tue Nov 24 2026 Gwyn Ciesla <gwync@protonmail.com> - 5.0.0-1
+- 5.0.0
+
 * Thu Sep 24 2026 Gwyn Ciesla <gwync@protonmail.com> - 4.2.2-1
 - 4.2.2
 

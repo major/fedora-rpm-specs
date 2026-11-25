@@ -1,3 +1,6 @@
+# Pull in linuxconsoletools for inputattach, which sets up serial and bus mice
+%bcond inputattach 1
+
 Summary: A mouse server for the Linux console
 Name: gpm
 Version: 1.20.7
@@ -37,7 +40,9 @@ Requires(preun): info
 BuildRequires: sed gawk texinfo bison ncurses-devel autoconf automake libtool libcap-ng-devel
 BuildRequires: systemd-rpm-macros
 BuildRequires: make
+%if %{with inputattach}
 Requires: linuxconsoletools
+%endif
 Requires: %{name}-libs = %{version}-%{release}
 
 %description

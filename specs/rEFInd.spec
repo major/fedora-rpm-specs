@@ -27,7 +27,7 @@ Linux kernels that provide EFI stub support.
 
 Name:		rEFInd
 Version:	0.14.2
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	User friendly EFI boot manager
 License:	GPL-3.0-or-later
 
@@ -43,6 +43,8 @@ Patch1:		detect-efi-size.patch
 Patch2:		fix-aarch64-efi-build.patch
 # Replaces outdated objcopy target option
 Patch3:		fix-target-option.patch
+# Update LodePNG to a version not vulnerable to CVE-2026-112020
+Patch4:		update-lodepng.patch
 
 ExclusiveArch:  %{efi}
 # rEFInd doesn't work on 32-bit arm
@@ -173,6 +175,9 @@ echo "no need to install this update in the ESP."                       >> READM
 
 
 %changelog
+* Wed Oct 21 2026 Jan200101 <sentrycraft123@gmail.com> - 0.14.2-7
+- Update LodePNG to version 20261006
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -71,8 +71,7 @@ ln -sf %{name}.service %{buildroot}%{_unitdir}/%{goname}.service
 install -D -p -m 0644 %{S:5} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 
 %check
-# XXX: borken in copr builds?!?
-#%go_vendor_license_check -c %{S:2}
+%go_vendor_license_check -c %{S:2}
 %if %{with check}
 %gotest ./...
 %endif
