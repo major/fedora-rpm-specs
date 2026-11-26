@@ -1,15 +1,11 @@
 Name:           python-cron-converter
-Version:        2.0.2
+Version:        2.0.3
 Release:        %autorelease
 Summary:        Cron string parser and scheduler for Python
 
 License:        MIT
 URL:            https://github.com/Sonic0/cron-converter
 Source:         %{url}/archive/v%{version}/cron-converter-%{version}.tar.gz
-
-# test: make timezone checks deterministic across seasons
-# https://github.com/Sonic0/cron-converter/commit/5b72124772e6368dd92e3097a18c614ed06b1d54
-Patch:          %{url}/commit/5b72124772e6368dd92e3097a18c614ed06b1d54.patch
 
 BuildSystem:    pyproject
 BuildOption(install): --assert-license cron_converter

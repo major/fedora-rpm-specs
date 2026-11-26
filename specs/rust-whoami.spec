@@ -5,7 +5,7 @@
 %global crate whoami
 
 Name:           rust-whoami
-Version:        2.1.0
+Version:        2.1.3
 Release:        %autorelease
 Summary:        Rust library for getting information about the current user and environment
 

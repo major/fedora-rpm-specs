@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 
 %global pypi_name debtcollector
 %global with_doc 1
@@ -13,7 +13,7 @@ It is a collection of functions/decorators which is used to signal a user when
 * further customizing the emitted messages}
 
 Name:        python-%{pypi_name}
-Version:     3.1.0
+Version:     3.2.0
 Release:     %autorelease
 Summary:     A collection of Python deprecation patterns and strategies
 

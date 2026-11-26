@@ -1,7 +1,7 @@
 %global pypi_name openstackdocstheme
 
 Name:           python-%{pypi_name}
-Version:        3.6.0
+Version:        3.7.1
 Release:        %autorelease
 Summary:        OpenStack Docs Theme
 
@@ -13,8 +13,6 @@ Patch0001:      0001-Remove-all-Google-Analytics-tracking.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python3-sphinx
 BuildRequires:  git-core
 
 %global common_desc %{expand:
@@ -29,27 +27,30 @@ docs.openstack.org. Intended for use by OpenStack projects.}
 
 %package -n     python3-%{pypi_name}
 Summary:        OpenStack Docs Theme
-%{?python_provide:%python_provide python3-%{pypi_name}}
 Provides:       bundled(js-jquery)
-
-Requires: python3-sphinx >= 1.6.2
-Requires: python3-babel
 
 %description -n python3-%{pypi_name}
 %{common_desc}
 
 %package -n     python-%{pypi_name}-doc
-Summary:        openstackdocstheme documentation
+Summary:        Openstackdocstheme documentation
 %description -n python-%{pypi_name}-doc
 Documentation for openstackdocstheme
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -t
 
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1 -S git
+
+# Remove empty file
+rm openstackdocstheme/theme/openstackdocs/static/fonts/.gitkeep
+
+%pyproject_patch_dependency os-api-ref:ignore
+%pyproject_patch_dependency reno:ignore
+
 # Make sure there is no Google Analytics
 sed -i 's/analytics_tracking_code.*/analytics_tracking_code\ =/' openstackdocstheme/theme/openstackdocs/theme.conf
 # Prevent doc build warnings from causing a build failure
@@ -61,11 +62,14 @@ sed -i '/warning-is-error/d' setup.cfg
 export PYTHONPATH=.
 sphinx-build -b html doc/source doc/build/html
 # remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
+rm -rf doc/build/html/{.doctrees,.buildinfo}
 
 %install
 %pyproject_install
 %pyproject_save_files %{pypi_name}
+
+%check
+%tox -e %{default_toxenv}
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst

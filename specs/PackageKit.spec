@@ -10,6 +10,8 @@ URL:       http://www.freedesktop.org/software/PackageKit/
 Source0:   http://www.freedesktop.org/software/PackageKit/releases/%{name}-%{version}.tar.xz
 
 # Backports from upstream (1~500)
+## Honor canceling transcations properly with dnf5
+Patch0001:    https://github.com/PackageKit/PackageKit/pull/1049.patch
 
 # Patches proposed upstream (501~1000)
 

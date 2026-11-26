@@ -1,6 +1,6 @@
 Name:           perl-Text-Balanced
-Version:        2.07
-Release:        527%{?dist}
+Version:        2.08
+Release:        1%{?dist}
 Summary:        Extract delimited text sequences from strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-Balanced
@@ -22,6 +22,7 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.47
+BuildRequires:  perl(Time::HiRes)
 # Perl::MinimumVersion 1.20 not used
 # Pod::Simple 3.07 not used
 # Test::CPAN::Changes not used
@@ -86,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 25 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.08-1
+- 2.08 bump (rhbz#2580890)
+
 * Wed Jul 22 2026 Jitka Plesnikova <jplesnik@redhat.com> - 2.07-527
 - Increase release to favour standalone package
 

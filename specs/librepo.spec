@@ -30,13 +30,16 @@
 %global dnf_conflict 2.8.8
 
 Name:           librepo
-Version:        1.22.0
+Version:        1.22.1
 Release:        1%{?dist}
-Summary:        Repodata downloading library
+Summary:        Repository metadata downloading library
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/librepo
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
+# Maintainers keyring
+Source2:        rpm-software-management.pgp
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -50,6 +53,7 @@ BuildRequires:  pkgconfig(rpm) >= 4.18.0
 %endif
 BuildRequires:  libattr-devel
 BuildRequires:  libcurl-devel >= %{libcurl_version}
+BuildRequires:  openpgpverify
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libcrypto)
 %if %{need_selinux}
@@ -72,14 +76,14 @@ A library providing C and Python (libcURL like) API to downloading repository
 metadata.
 
 %package devel
-Summary:        Repodata downloading library
+Summary:        Developmental files for librepo library
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %if %{with zchunk}
 Requires:       zchunk-devel%{?_isa}
 %endif
 
 %description devel
-Development files for librepo.
+Files supporting developing C applications against the librepo library.
 
 %package -n python3-%{name}
 Summary:        Python 3 bindings for the librepo library
@@ -89,14 +93,13 @@ BuildRequires:  python3-gpg
 BuildRequires:  python3-pyxattr
 BuildRequires:  python3-requests
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-# Obsoletes Fedora 27 package
-Obsoletes:      platform-python-%{name} < %{version}-%{release}
 Conflicts:      python3-dnf < %{dnf_conflict}
 
 %description -n python3-%{name}
 Python 3 bindings for the librepo library.
 
 %prep
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -118,16 +121,11 @@ Python 3 bindings for the librepo library.
 %install
 %cmake_install
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-%else
 %ldconfig_scriptlets
-%endif
 
 %files
 %license COPYING
-%doc README.md
+%doc NEWS README.md
 %{_libdir}/%{name}.so.*
 
 %files devel
@@ -139,6 +137,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Wed Nov 25 2026 Petr Pisar <ppisar@redhat.com> - 1.22.1-1
+- Update to version 1.22.1
+
 * Mon Nov 02 2026 Packit <hello@packit.dev> - 1.22.0-1
 - Update to version 1.22.0
 

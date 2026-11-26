@@ -1,5 +1,5 @@
 Name:           robotraconteur
-Version:        1.2.9
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        Robot Raconteur is a communication framework for Robotics and Automation
 
@@ -127,6 +127,7 @@ find %{buildroot}%{_docdir} -name ".doctrees" -type d -exec rm -rf {} +
 %fdupes %{buildroot}%{_docdir}
 
 %check
+export LD_LIBRARY_PATH=%{_builddir}/%{?buildsubdir}/%{_vpath_builddir}/out/lib:$LD_LIBRARY_PATH
 %ctest -j1
 
 # Move files to match Fedora packaging guidelines if needed
@@ -162,6 +163,15 @@ find %{buildroot}%{_docdir} -name ".doctrees" -type d -exec rm -rf {} +
 %{_docdir}/python3-robotraconteur-doc/
 
 %changelog
+* Wed Nov 25 2026 John Wason <wason@wasontech.com> - 1.3.0-1
+- Update to upstream version 1.3.0 (security release)
+- Fixes GHSA-425j-4pc4-9rf5, GHSA-mgp3-vjcp-p65v, GHSA-m382-jpv5-65xp,
+  GHSA-3pqc-w4mg-24xc, GHSA-jq4p-r3m3-v763, GHSA-h28g-9r66-578q,
+  GHSA-48rm-6vg7-256j, GHSA-8v2r-442p-mf5w, GHSA-mp86-55qw-3rfh,
+  GHSA-44g6-g86g-6qgw, GHSA-rmhh-6xhr-cxw9, GHSA-665g-rjr5-4c4w,
+  GHSA-2w2j-6x2p-g7fq
+- Set LD_LIBRARY_PATH in %%check for the new in-tree RobotRaconteurGen tests
+
 * Sun Oct 18 2026 John Wason <wason@wasontech.com> - 1.2.9-1
 - Update to upstream version 1.2.9
 

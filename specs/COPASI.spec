@@ -1,4 +1,4 @@
-%global buildid    300
+%global buildid    311
 %global octpkg  COPASI
 
 %global with_python  1
@@ -31,7 +31,7 @@ ExcludeArch:   %{ix86}
 
 Name:  COPASI
 Summary: Biochemical network simulator
-Version: 4.46.%{buildid}
+Version: 4.48.%{buildid}
 Release: %autorelease
 
 ## Artistic 2.0 is main license
@@ -44,7 +44,7 @@ Release: %autorelease
 ## Any files with different licenses are not involved
 License: Artistic-2.0 AND GPL-3.0-or-later AND BSD-3-Clause
 URL:   http://copasi.org/
-Source0: https://github.com/copasi/COPASI/archive/Build-%{buildid}/%{name}-Build-%{buildid}.tar.gz
+Source0: https://github.com/copasi/COPASI/releases/download/Build-311/%{name}-%{version}-Source.tar.gz
 Source1: %{name}.appdata.xml
 
 %if 0%{?with_qwt6}
@@ -268,7 +268,7 @@ BuildArch: noarch
 COPASI HTML documentation and examples.
 
 %prep
-%autosetup -n %{name}-Build-%{buildid} -N
+%autosetup -n %{name}-%{version}-Source -N
 
 # This an old and obsolete license file
 rm -f license.txt

@@ -10,8 +10,8 @@
 
 Name:           libstatgrab
 Epoch:          1
-Version:        0.92.1
-Release:        18%{?dist}
+Version:        0.92.2
+Release:        1%{?dist}
 Summary:        A library that provides cross platform access to statistics of the system
 License:        LGPL-2.1-or-later
 URL:            https://github.com/libstatgrab/libstatgrab
@@ -22,10 +22,6 @@ Source1:        %{url}/releases/download/%{tag}/%{name}-%{version}.tar.gz.asc
 # thus we cope with pkgconfig manually.
 # See: https://github.com/libstatgrab/libstatgrab/pull/70
 Source2:        libstatgrab.pc.in
-
-# See https://github.com/libstatgrab/libstatgrab/pull/140
-# Drop if/when upstream accepts
-Patch0:         0001-Update-Licenses.patch
 
 
 BuildRequires:  autoconf
@@ -193,6 +189,9 @@ make check
 %{_mandir}/*/*statgrab*
 
 %changelog
+* Thu Nov 26 2026 Shawn W Dunn <sfalken@kalpadesktop.org> - 1:0.92.2-19
+- Update to 0.92.2
+
 * Fri Sep 18 2026 Martin Osvald <mosvald@redhat.com> - 1:0.92.1-18
 - Rebuilt for log4cplus 2.2.0.1
 

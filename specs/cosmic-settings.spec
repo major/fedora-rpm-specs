@@ -9,12 +9,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit f1d00fc06e18203e880771617657067c10c43321
-%global commitdatestring 2026-10-20 13:57:10 -0600
-%global cosmic_minver 1.11.0
+%global commit 33991c179a75e736b43488c6fc67af7604b5a3fa
+%global commitdatestring 2026-11-24 23:38:03 +0100
+%global cosmic_minver 1.12.0
 
 Name:           cosmic-settings
-Version: 1.11.0
+Version: 1.12.0
 Release:        %autorelease
 Summary:        Settings app for the COSMIC Desktop Environment
 
@@ -137,14 +137,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{_datadir}/cosmic/com.system76.CosmicTheme.Mode/v1/*
 %dir %{_datadir}/cosmic/com.system76.CosmicComp
 %{_datadir}/cosmic/com.system76.CosmicComp/v1/*
-%{_datadir}/icons/hicolor/scalable/status/illustration-appearance-dark-style-round.svg
-%{_datadir}/icons/hicolor/scalable/status/illustration-appearance-dark-style-slightly-round.svg
-%{_datadir}/icons/hicolor/scalable/status/illustration-appearance-dark-style-square.svg
-%{_datadir}/icons/hicolor/scalable/status/illustration-appearance-light-style-round.svg
-%{_datadir}/icons/hicolor/scalable/status/illustration-appearance-light-style-slightly-round.svg
-%{_datadir}/icons/hicolor/scalable/status/illustration-appearance-light-style-square.svg
-%{_datadir}/icons/hicolor/scalable/status/illustration-appearance-mode-dark.svg
-%{_datadir}/icons/hicolor/scalable/status/illustration-appearance-mode-light.svg
+%{_datadir}/icons/hicolor/scalable/status/illustration-appearance-*.svg
 %{_datadir}/icons/hicolor/scalable/status/illustration-accessibility-magnifier-applet.svg
 %{_datadir}/icons/hicolor/*/apps/com.system76.CosmicSettings.svg
 %{_datadir}/polkit-1/rules.d/cosmic-settings.rules

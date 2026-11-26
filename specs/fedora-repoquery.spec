@@ -7,7 +7,7 @@
 %bcond tests 0
 
 Name:           fedora-repoquery
-Version:        0.9.1
+Version:        1.0
 Release:        %autorelease
 Summary:        Fedora release repos package query tool
 
@@ -82,7 +82,7 @@ mkdir -p %{buildroot}%{fish_completions_dir}
 mkdir -p %{buildroot}%{zsh_completions_dir}
 %{buildroot}%{_bindir}/%{name} --bash-completion-script %{name} | sed s/filenames/default/ > %{buildroot}%{bash_completions_dir}/%{name}
 %{buildroot}%{_bindir}/%{name} --fish-completion-script %{name} > %{buildroot}%{fish_completions_dir}/%{name}
-%{buildroot}%{_bindir}/%{name} --zsh-completion-script %{name} | sed s/filenames/default/ > %{buildroot}%{zsh_completions_dir}/_%{name}
+%{buildroot}%{_bindir}/%{name} --zsh-completion-script %{name} > %{buildroot}%{zsh_completions_dir}/_%{name}
 
 mkdir -p %{buildroot}%{_mandir}/man1/
 help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/%{name}.1

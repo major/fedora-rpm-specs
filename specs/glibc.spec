@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.44.9000-369-gfcd0fc872f
+%global glibcsrcdir glibc-2.44.9000-404-g685fe0f800
 %global glibcversion 2.44.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -153,7 +153,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 9
+%global baserelease 10
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2481,6 +2481,45 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Nov 25 2026 Frédéric Bérat <fberat@redhat.com> - 2.44.9000-10
+- Auto-sync with upstream branch master,
+  commit 685fe0f8007a4d964ae39e69da8411045f8cf705:
+- stdio-common: don't truncate return value in __wprintf_buffer_as_file_overflow (bug 35044) (Andreas Schwab)
+- GLIBC-SA-2026-0030: update based on submitter feedback (Siddhesh Poyarekar)
+- posix: Fix double free after allocation failure in glob (BZ 34993) (Adhemerval Zanella)
+- elf: Bound note parsing in ldconfig PT_GNU_PROPERTY handling [BZ #34954] (JT Wang)
+- conform: add ISO23 data for time.h (Andreas Schwab)
+- conform: add ISO23 data for uchar.h (Andreas Schwab)
+- conform: add ISO23 data for math.h, tgmath.h (Andreas Schwab)
+- conform: add ISO23 data for float.h (Andreas Schwab)
+- conform: add ISO23 data for fenv.h (Andreas Schwab)
+- conform: don't expect macros for new C23 keywords (Andreas Schwab)
+- tests: elf: Fix flakiness of the tst-decorate-maps test (Yury Khrustalev)
+- malloc: Cleanup clear_memory (Wilco Dijkstra)
+- malloc: Improve realloc (Wilco Dijkstra)
+- iconvdata: IBM1390/IBM1399 encoders read past input bounds (bug 34914) (Andreas Schwab)
+- SECURITY.md: Document trusted and untrusted inputs (Adhemerval Zanella)
+- Makefiles: Fix make check warnings (Yury Khrustalev)
+- LoongArch: Remove unused stack space in _dl_runtime_profile (Deng Jianbo)
+- LoongArch: Fix LD_AUDIT in _dl_runtime_profile (Deng Jianbo)
+- hurd: Fix CEOL when <unistd.h> is not included before <sys/ioctl.h> (Samuel Thibault)
+- LoongArch: Remove deprecated v0/v1 register aliases (mengqinggang)
+- elf: Run tst-rtld-* and tst-nolink-libc-* tests through test-wrapper (Adhemerval Zanella)
+- powerpc: Fix stack buffer overflow in loader error messages (bug 34541) (Adhemerval Zanella)
+- advisories: Publish CVE-2026-126765 advisory (Adhemerval Zanella)
+- Makerules: fix configure regeneration in subdirs (Andreas Schwab)
+- locale: Fix buffer overflow for long wide strings (bug 34904) (Mathis Huron)
+- advisories: add first affected version for GLIBC-SA-2026-0015 (Rolf Eike Beer)
+- advisories: add first affected version for GLIBC-SA-2026-0016 (Rolf Eike Beer)
+- advisories: add more fix versions (Rolf Eike Beer)
+- sparc64: Check whether the compiler supports -fcall-used-g6 (Stian Halseth)
+- riscv: Terminate the frame-pointer chain at entry points [BZ #34950] (Tommy Chen)
+- Linux: Start misc/tst-sched_setattr-thread with SCHED_OTHER (Florian Schmaus)
+- Advisory for CVE-2026-124024 (Siddhesh Poyarekar)
+- Advisory for CVE-2026-121758 (Siddhesh Poyarekar)
+- Advisory for CVE-2026-121757 (Siddhesh Poyarekar)
+- iconv: ISO-2022-CN-EXT: fix SO handling without a designation (bug 34774) (JT Wang)
+
 * Wed Nov 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 2.44.9000-9
 - Do not build POWER10 multilib on RHEL 11
 

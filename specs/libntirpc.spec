@@ -2,7 +2,7 @@
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	15.7
+Version:	15.11
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
@@ -93,6 +93,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.15
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Wed Nov 25 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 15.11-1
+- ntirpc-15.11 GA (side tag f46-build-side-161844)
+
 * Fri Oct 2 2026 Kaleb S. KEITHLEY <kkeithle at redhat.com> 15.7-1
 - ntirpc-15.7 GA (side tag f46-build-side-154028)
 

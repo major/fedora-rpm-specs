@@ -4,7 +4,7 @@
 %global pypi_name prettytable
 
 Name:           python-%{pypi_name}
-Version:        3.10.0
+Version:        3.19.0
 Release:        %autorelease
 Summary:        Python library to display tabular data in tables
 

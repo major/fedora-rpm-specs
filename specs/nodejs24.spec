@@ -171,6 +171,9 @@ Source101:      nodejs.srpm.macros
 0001-npm-update-ip-address-to-10.7.4.patch
 # undici CVE fixes for the copy bundled in npm
 0001-npm-update-undici-to-6.29.1.patch
+# riscv64 SIGSEGV at startup: missing follow-up to V8 0b94a9fd23ba backported in 24.22.1 (nodejs/node#65753)
+# https://github.com/v8/v8/commit/ec2f506f97dfbb5fa19e4fe9103965a3c94690af
+0001-riscv-restore-runtime-call-argument-in-GenerateTail.patch
 
 %description
 Node.js is a platform built on Chrome's JavaScript runtime

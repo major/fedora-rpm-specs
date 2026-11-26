@@ -1,48 +1,51 @@
 Name:           perl-XML-SAX-Writer
 Version:        0.57
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        SAX2 Writer
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-SAX-Writer
 Source0:        https://cpan.metacpan.org/modules/by-module/XML/XML-SAX-Writer-%{version}.tar.gz
 BuildArch:      noarch
+# Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(blib)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Module
 BuildRequires:  perl(Encode) >= 2.12
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(IO::Handle)
-BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::More) >= 0.40
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XML::Filter::BufferText) >= 1.00
 BuildRequires:  perl(XML::NamespaceSupport) >= 1.00
 BuildRequires:  perl(XML::SAX::Exception) >= 1.01
+# Tests
+BuildRequires:  perl(blib)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IPC::Open3)
+BuildRequires:  perl(Test::More) >= 0.40
+# Dependencies
+# (no additional dependencies)
 
 %description
 A new XML Writer to match the SAX2 effort.
 
 %prep
 %setup -q -n XML-SAX-Writer-%{version}
-find -type f -exec chmod -x {} +
+
+# Remove bogus exec permissions
+find -type f -exec chmod -c -x {} \;
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -delete
-
-%{_fixperms} %{buildroot}/*
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -50,10 +53,18 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/XML/
+%{_mandir}/man3/XML::SAX::Writer.3*
+%{_mandir}/man3/XML::SAX::Writer::XML.3*
 
 %changelog
+* Wed Nov 25 2026 Paul Howarth <paul@city-fan.org> - 0.57-27
+- Spec tidy-up
+  - Classify buildreqs by usage
+  - Use %%{make_build} and %%{make_install}
+  - Fix permissions verbosely
+  - Make %%files list more explicit
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -7,6 +7,10 @@ License:        MIT
 URL:            https://github.com/aklajnert/pytest-subprocess
 Source0:        %{url}/archive/%{version}/pytest-subprocess-%{version}.tar.gz
 
+# Fix tests with Python 3.15.2+
+# Test-only changes taken from https://github.com/aklajnert/pytest-subprocess/commit/2207cd7c
+Patch:          2207cd7c-test_check_call.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

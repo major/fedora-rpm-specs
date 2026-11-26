@@ -7,6 +7,7 @@ SourceLicense:  MIT
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# 0BSD OR Apache-2.0
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
@@ -33,6 +34,7 @@ License:        %{shrink:
     AND (Apache-2.0 OR MIT) AND BSD-3-Clause AND
     AND Unicode-3.0
     AND Unicode-DFS-2016
+    AND (0BSD OR Apache-2.0)
     AND (0BSD OR MIT OR Apache-2.0)
     AND Apache-2.0
     AND (Apache-2.0 OR BSL-1.0)
@@ -73,7 +75,10 @@ Source:         https://github.com/nushell/nushell/archive/%{version}/%{name}-%{
 #  see also https://github.com/nushell/nushell/pull/17228, and
 #  https://github.com/nushell/nushell/pull/14513 for 0.20, and note
 #  that an accompanying source-code patch is required
-# bump rstest to 0.26: https://github.com/nushell/nushell/pull/16359
+# bump rstest to 0.26, allow through 0.29; see
+#  https://github.com/nushell/nushell/pull/16359 for 0.26,
+#  https://github.com/nushell/nushell/pull/19426 for 0.28,
+#  and note that dependabot will propose 0.29 in due course
 # drop rusqlite's bundled feature
 # downgrade shadow-rs from 0.35 to 0.8
 # bump titlecase from 2.0 to 3.0

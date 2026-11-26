@@ -5,7 +5,7 @@ Version:        0.23.0
 Release:        %autorelease
 Summary:        Python client for Prometheus
 
-License:        Apache-2.0
+License:        Apache-2.0 AND BSD-2-Clause
 URL:            https://github.com/prometheus/client_python
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 Patch0001:      0001-Remove-the-bundled-decorator-package.patch

@@ -12,8 +12,8 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.23.0
-Release: 3%{?dist}
+Version: 8.24.0~rc2
+Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -24,8 +24,6 @@ Source2: mykey.asc
 
 # Fedora-specific
 Patch0001: 0001-prevent-multilib-conflicts-on-the-curl-config-script.patch
-Patch0002: 0002-ci-setup-packit.patch
-Patch0003: 0003-conncache-poll-an-idle-connection-for-pending-input-.patch
 
 Provides: curl-full = %{version}-%{release}
 # do not fail when trying to install curl-minimal after drop
@@ -256,10 +254,13 @@ printf "582\n600\n601\n602\n603\n604\n605\n606\n607\n608\n" >>tests/data/DISABLE
 printf "609\n610\n611\n612\n613\n614\n615\n616\n617\n618\n" >>tests/data/DISABLED
 printf "619\n620\n621\n622\n623\n624\n625\n626\n627\n628\n" >>tests/data/DISABLED
 printf "629\n630\n631\n633\n634\n635\n636\n637\n638\n639\n" >>tests/data/DISABLED
-printf "640\n641\n642\n656\n664\n665\n" >>tests/data/DISABLED
+printf "640\n641\n642\n656\n664\n665\n694\n" >>tests/data/DISABLED
 printf "1446\n1459\n1583\n1725\n2004\n2007\n" >>tests/data/DISABLED
 printf "3021\n3022\n" >>tests/data/DISABLED
 %endif
+
+# temporarily disable test 3300 - https://github.com/curl/curl/pull/23869
+printf "3300\n" >>tests/data/DISABLED
 
 # test3026: avoid pthread_create() failure due to resource exhaustion on i386
 %ifarch %{ix86}
@@ -386,7 +387,7 @@ for size in minimal full; do (
     export LD_LIBRARY_PATH="${PWD}/lib/.libs"
 
     # tests that must run in serial to avoid intermittent failures under parallel execution
-    serial_tests="766 1399 1451 2402 2404 2500 2502 3300 3301 3231 3232"
+    serial_tests="766 1399 1451 2402 2404 2500 2502 3301 3231 3232"
     serial_excludes=$(for t in $serial_tests; do printf ' !%s' "$t"; done)
     # run the bulk of tests in parallel, excluding serial ones
     # cap at 64 jobs to avoid overwhelming system resources on high-CPU machines
@@ -466,6 +467,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed Nov 25 2026 Jan Macku <jamacku@redhat.com> - 8.24.0~rc2-1
+- new upstream release candidate
+
 * Tue Nov 03 2026 Jan Macku <jamacku@redhat.com> - 8.23.0-3
 - conncache: poll an idle connection for pending input on every reuse
 

@@ -1,7 +1,7 @@
 %global soversion 1
 
 Name: libexttextcat
-Version: 3.4.8
+Version: 3.4.9
 Release: %autorelease
 Summary: Text categorization library
 

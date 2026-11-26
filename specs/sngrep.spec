@@ -1,5 +1,5 @@
 Name:           sngrep
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Ncurses SIP Messages flow viewer
 License:        GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
@@ -8,9 +8,6 @@ VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/v%{version}.tar.gz.asc
 Source2:        69100FFB90E87A320DF8643CBEC39009E8321A61.gpg
-
-Patch0:         sngrep-0001.patch
-Patch1:         sngrep-0002.patch
 BuildRequires:  gcc
 BuildRequires:  openpgpverify
 BuildRequires:  pkgconfig(libcrypto)
@@ -39,6 +36,7 @@ cp -f README README.md
 %doc AUTHORS README.md
 %config %{_sysconfdir}/sngreprc
 %{_bindir}/%{name}
+%{_mandir}/man5/%{name}rc.5*
 %{_mandir}/man8/%{name}.8*
 
 %changelog

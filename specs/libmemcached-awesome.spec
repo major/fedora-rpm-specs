@@ -13,27 +13,23 @@
 
 %global libname              libmemcached
 
-%global gh_commit            92d18858b417309f6bdee6bce464a4f3d6a375fd
-%global gh_short             %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner             awesomized
 %global gh_project           libmemcached
+%global forgeurl             https://github.com/%{gh_owner}/%{gh_project}
+%global tag                  %{upstream_version}%{?upstream_prever:-%{upstream_prever}}
 
-%global upstream_version     1.1.4
+%global upstream_version     1.2.0
 #global upstream_prever      beta3
 
 Name:      %{libname}-awesome
 Summary:   Client library and command line tools for memcached server
 Version:   %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:   12%{?dist}
+Release:   1%{?dist}
 # SPDX:
 License:   BSD-3-Clause
-URL:       https://github.com/%{gh_owner}/%{gh_project}
-Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
-
-# Fix test with memcached 1.6.40
-Patch0:    162.patch
-# Fix docs with Sphinx 9
-Patch1:    159.patch
+%forgemeta
+URL:            %{forgeurl}
+Source0:        %{forgesource}
 
 BuildRequires: cmake >= 3.9
 # Cannot use Ninja generator because of "multiple rules generate docs/man"
@@ -112,7 +108,7 @@ memtouch    Touches a key
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%forgesetup
 
 # drop test hanging in mock
 # and requiring some memcached build options
@@ -122,9 +118,6 @@ rm test/tests/memcached/regression/lp_001-630-615.cpp
 rm test/tests/memcached/udp.cpp
 rm test/tests/memcached/regression/lp_000-583-031.cpp
 rm test/tests/memcached/regression/gh-php-memcached_0531.cpp
-
-%patch -P0 -p1
-%patch -P1 -p1
 
 
 %build
@@ -199,6 +192,9 @@ rm -r %{buildroot}%{_datadir}/doc/%{name}/
 
 
 %changelog
+* Wed Nov 25 2026 Remi Collet <remi@remirepo.net> - 1.2.0-1
+- update to 1.2.0
+
 * Tue Sep  1 2026 Remi Collet <remi@remirepo.net> - 1.1.4-12
 - fix FTBFS #2504281
 - add patch for Sphinx 9 from

@@ -28,7 +28,7 @@
 %global ver_minor    5
 
 Name:           %{pk_project}%{ver_major}
-Version:        11.5.57
+Version:        11.5.58
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -292,6 +292,9 @@ exit $ret
 
 
 %changelog
+* Sat Nov 14 2026 Remi Collet <remi@remirepo.net> - 11.5.58-1
+- update to 11.5.58
+
 * Tue Oct  6 2026 Remi Collet <remi@remirepo.net> - 11.5.57-1
 - update to 11.5.57
 - raise dependency on myclabs/deep-copy 1.14.0

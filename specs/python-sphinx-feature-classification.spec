@@ -7,7 +7,7 @@ say what is supported within their own repository.}
 
 
 Name:             python-sphinx-feature-classification
-Version:          2.1.0
+Version:          2.2.0
 Release:          %{autorelease}
 Summary:          Generate a matrix of pluggable drivers and their support to an API in Sphinx
 Source0:          %{pypi_source sphinx_feature_classification}

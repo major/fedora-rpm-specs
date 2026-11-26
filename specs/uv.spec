@@ -5,7 +5,7 @@
 %bcond other_python_versions %{undefined epel}
 
 Name:           uv
-Version:        0.13.9
+Version:        0.13.10
 # The uv package has a permanent exception to the Updates Policy in Fedora, so
 # it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -546,6 +546,7 @@ tomcli set Cargo.toml append workspace.dependencies.rustls.features ring
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
 
+%if %{undefined fc45} && %{undefined fc44} && %{undefined el10}
 # secret-service
 #   wanted: 5.0.0
 #   currently packaged: 6.0.0
@@ -560,6 +561,7 @@ cfg="target_os = \"linux\",target_os = \"freebsd\", target_os = \"openbsd\""
 tomcli set crates/uv-keyring/Cargo.toml lists replace \
     "target.'cfg(any(${cfg}))'.dependencies.secret-service.features" \
     rt-tokio-crypto-rust crypto-rust
+%endif
 
 %cargo_prep
 
@@ -629,6 +631,8 @@ skip="${skip-} --skip keyring::tests::fetch_url_with_password"
 %if %{without other_python_versions}
 # These tests require specific Python interpreter versions, which upstream
 # normally downloads, precompiled, into the build area.
+skip="${skip-} --skip proxy_index::proxy_index_sidecar_uses_proxy_cache_policy"
+skip="${skip-} --skip proxy_index::proxy_index_variant_metadata_uses_advertised_url_and_proxy_cache_policy"
 skip="${skip-} --skip version::self_version"
 skip="${skip-} --skip version::self_version_json"
 skip="${skip-} --skip version::self_version_short"

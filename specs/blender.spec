@@ -107,6 +107,10 @@ Patch1:         %{name}-hiprt-log-level-upstream.patch
 Patch2:         %{name}-ocio24-config.patch
 %endif
 
+# Fix build failure with oneTBB, which requires const comparator arguments
+# (upstream commit af82c3ca2d0f, landed after the 5.3.0 release).
+Patch3:         %{name}-onetbb-const-comparator-upstream.patch
+
 # versions.cmake pins the libraries used for Blender's official precompiled
 # dependency bundle. Those pins are tested versions, not general minimums for
 # system libraries. Version constraints below are limited to requirements that

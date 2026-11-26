@@ -249,6 +249,10 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Tue Nov 24 2026 Jens Petersen <petersen@redhat.com> - 1.8.5-44
+- https://hackage.haskell.org/package/fbrnch-1.8.5/changelog
+- https://hackage.haskell.org/package/forgejo-0.2.0/changelog
+
 * Mon Nov 23 2026 Jens Petersen <petersen@redhat.com> - 1.8.4-43
 - https://hackage.haskell.org/package/fbrnch-1.8.4/changelog
 - fedora-krb was packaged in Fedora

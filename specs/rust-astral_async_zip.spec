@@ -5,7 +5,7 @@
 %global crate astral_async_zip
 
 Name:           rust-astral_async_zip
-Version:        0.0.22
+Version:        0.0.24
 Release:        %autorelease
 Summary:        Asynchronous ZIP archive reading/writing crate
 
@@ -13,15 +13,11 @@ License:        MIT
 URL:            https://crates.io/crates/astral_async_zip
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Omit the actix-multipart example, allowing us to drop dev-dependencies on
-#   actix-multipart (not packaged), actix-web, derive_more, and uuid.
-# * Update zip dev-dependency to v9:
-#   https://github.com/astral-sh/rs-async-zip/pull/73. Requires an accompanying
-#   source-code patch.
+# * Remove a few dev-dependencies that are now unused. While
+#   https://github.com/astral-sh/rs-async-zip/pull/74 removed actix-related
+#   dev-dependencies, we ended up with unused dev-dependencies on anyhow,
+#   derive_more, and uuid as well.
 Patch:          astral_async_zip-fix-metadata.diff
-# * Source-code changes for updating zip dev-dependency to v9,
-#   https://github.com/astral-sh/rs-async-zip/pull/73.
-Patch10:        astral_async_zip-0.0.22-zip9.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

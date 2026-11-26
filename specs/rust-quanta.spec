@@ -15,11 +15,14 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          quanta-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Bump average dependency
+# * Remove average dev-dep. to avoid maintaining rust-average/rust-float-ord
 # * Bump prost-types dependency
 # * Remove flaky_tests from default feature
 # * Remove criterion dependency (benchmark only)
 Patch:          quanta-fix-metadata.diff
+# * Downstream patch: avoid a dev-dependency on the average crate
+# * Avoid maintaining rust-average and rust-float-ord packages.
+Patch10:        quanta-0.12.6-no-average-dev-dep.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

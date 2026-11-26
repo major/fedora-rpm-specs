@@ -8,12 +8,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 86c2639ba82f4d846c801abe84fcea8ae8e7d716
-%global commitdatestring 2026-10-20 14:35:08 -0400
-%global cosmic_minver 1.11.0
+%global commit 4111617b7345134abe67332a7baa5ef12538f412
+%global commitdatestring 2026-11-06 21:00:11 +0100
+%global cosmic_minver 1.12.0
 
 Name:           pop-launcher
-Version: 1.11.0
+Version: 1.12.0
 Epoch: 1
 Release:        %autorelease
 Summary:        Modular IPC-based desktop launcher service
@@ -32,7 +32,7 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 Source2:        vendor-config-%{version_no_tilde}.toml
 
 # See: https://github.com/pop-os/launcher/pull/242
-Patch0: https://patch-diff.githubusercontent.com/raw/pop-os/launcher/pull/242.patch
+Patch0: 242.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc

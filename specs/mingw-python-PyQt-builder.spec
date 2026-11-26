@@ -5,7 +5,7 @@
 
 Name:           mingw-python-%{pkg_name}
 Summary:        MinGW Python %{pkg_name}
-Version:        1.20.1
+Version:        1.21.0
 Release:        1%{?dist}
 BuildArch:      noarch
 
@@ -85,6 +85,9 @@ rm -rf pyqtbuild/bundle/dlls/
 
 
 %changelog
+* Wed Nov 25 2026 Sandro Mani <manisandro@gmail.com> - 1.21.0-1
+- Update to 1.21.0
+
 * Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 1.20.1-1
 - Update to 1.20.1
 

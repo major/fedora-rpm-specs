@@ -5,7 +5,7 @@
 %global crate hyper
 
 Name:           rust-hyper
-Version:        1.12.0
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Protective and efficient HTTP library for all
 
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/hyper
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop dev-dependencies for tests / examples not included in published crates
+# * relax pretty_env_logger dev-dependency to allow both v0.5 and v0.6
 Patch:          hyper-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

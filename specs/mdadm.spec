@@ -3,12 +3,12 @@
 
 Name:        mdadm
 Version:     4.6
-Release:     3%{?dist}
+Release:     4%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
-URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
+URL:         https://github.com/md-raid-utilities/mdadm
 License:     GPL-2.0-or-later
 
-Source:      https://git.kernel.org/pub/scm/utils/mdadm/mdadm.git/snapshot/%{name}-%{version}.tar.gz
+Source:      https://github.com/md-raid-utilities/mdadm/archive/refs/tags/%{name}-%{version}%{?subversion:-%{subversion}}.tar.gz
 Source1:     raid-check
 Source2:     mdadm-raid-check-sysconfig
 Source3:     mdmonitor.service
@@ -16,15 +16,13 @@ Source4:     mdadm.conf
 Source5:     mdadm_event.conf
 Source6:     raid-check.timer
 Source7:     raid-check.service
-Source8:     mdcheck
-Source10:    https://git.kernel.org/pub/scm/utils/mdadm/mdadm.git/snapshot/%{name}-%{version}.tar.asc
-Source11:    https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/9CE05640D703A136.asc
 
 # Fedora customization patches
 Patch:       mdadm-udev.patch
-Patch:       mdadm-2.5.2-static.patch
 Patch:       0001-Makefile-add-install-testsuite-target.patch
 Patch:       0002-tests-don-t-stop-running-arrays-when-check_env-refus.patch
+Patch:       0003-mdcheck-avoid-checking-arrays-without-metadata.patch
+Patch:       0004-mdcheck-read-UUID-from-sysfs-when-possible.patch
 
 BuildRequires:    make
 BuildRequires:    systemd-rpm-macros
@@ -49,11 +47,7 @@ file can be used to help with some common tasks.
 
 
 %prep
-# because the tarball is what is signed, not the compressed tarball
-# keyring should be one from https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys
-# which will vary depending on who did the release
-%{_bindir}/gzip -d -c %{SOURCE0} | %{gpgverify} --keyring='%{SOURCE11}' --signature='%{SOURCE10}' --data=-
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{name}-%{version}%{?subversion:-%{subversion}}
 
 
 %build
@@ -72,8 +66,6 @@ file can be used to help with some common tasks.
 install -Dp -m 755 %{SOURCE1} %{buildroot}%{_sbindir}/raid-check
 install -Dp -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/raid-check
 mkdir -p -m 710 %{buildroot}/run/%{name}
-mkdir -p -m 755 %{buildroot}%{_datadir}/%{name}
-install -Dp -m 755 %{SOURCE8} %{buildroot}%{_datadir}/%{name}/mdcheck
 
 # systemd
 install -Dm644 %{SOURCE3} %{buildroot}%{_unitdir}
@@ -151,6 +143,11 @@ as root on a machine where md arrays can be created.
 
 
 %changelog
+* Wed Nov 25 2026 Peter Rajnoha <prajnoha@redhat.com> - 4.6-4
+- Use the GitHub archive as the source tarball.
+- Install upstream mdcheck script instead of the stale Fedora copy.
+- Backport mdcheck fixes to skip arrays without metadata and read the UUID from sysfs.
+
 * Fri Nov 13 2026 Peter Rajnoha <prajnoha@redhat.com> - 4.6-3
 - Add mdadm-testsuite subpackage.
 

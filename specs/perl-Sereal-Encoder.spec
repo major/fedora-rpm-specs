@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        7.004
+Version:        7.005
 Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
@@ -129,6 +129,12 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Wed Nov 25 2026 Paul Howarth <paul@city-fan.org> - 7.005-1
+- Update to 7.005 (rhbz#2584329)
+  - Fix a false native long-double test failure on Intel macOS with older
+    Perls; use Config's myuname value to identify the CPU in the shared test
+  - Encoding behavior is unchanged
+
 * Tue Nov 24 2026 Paul Howarth <paul@city-fan.org> - 7.004-1
 - Update to 7.004 (rhbz#2583631)
   - Update bundled zstd to 1.6.0, including upstream security fixes

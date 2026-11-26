@@ -28,7 +28,7 @@
 %global ver_minor    5
 
 Name:           %{pk_project}%{ver_major}
-Version:        12.5.43
+Version:        12.5.45
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
@@ -60,7 +60,7 @@ BuildRequires:  (php-composer(sebastian/global-state) >= 8.0.3        with php-c
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
 BuildRequires:  (php-composer(sebastian/recursion-context) >= 7.0.1   with php-composer(sebastian/recursion-context) < 8)
 BuildRequires:  (php-composer(sebastian/type) >= 6.0.4                with php-composer(sebastian/type) < 7)
-BuildRequires:  (php-composer(sebastian/version) >= 6.0.1             with php-composer(sebastian/version) < 7)
+BuildRequires:  (php-composer(sebastian/version) >= 6.0.2             with php-composer(sebastian/version) < 7)
 BuildRequires:  (php-composer(staabm/side-effects-detector) >= 1.0.5  with php-composer(staabm/side-effects-detector) < 2)
 BuildRequires:  php-dom
 BuildRequires:  php-json
@@ -96,7 +96,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/object-enumerator": "^7.0.0",
 #        "sebastian/recursion-context": "^7.0.1",
 #        "sebastian/type": "^6.0.4",
-#        "sebastian/version": "^6.0.1",
+#        "sebastian/version": "^6.0.2",
 #        "staabm/side-effects-detector": "^1.0.5"
 Requires:       php(language) >= 8.3
 Requires:       php-cli
@@ -122,7 +122,7 @@ Requires:       (php-composer(sebastian/global-state) >= 8.0.3        with php-c
 Requires:       (php-composer(sebastian/object-enumerator) >= 7.0.0   with php-composer(sebastian/object-enumerator) < 8)
 Requires:       (php-composer(sebastian/recursion-context) >= 7.0.1   with php-composer(sebastian/recursion-context) < 8)
 Requires:       (php-composer(sebastian/type) >= 6.0.4                with php-composer(sebastian/type) < 7)
-Requires:       (php-composer(sebastian/version) >= 6.0.1             with php-composer(sebastian/version) < 7)
+Requires:       (php-composer(sebastian/version) >= 6.0.2             with php-composer(sebastian/version) < 7)
 Requires:       (php-composer(staabm/side-effects-detector) >= 1.0.5  with php-composer(staabm/side-effects-detector) < 2)
 # recommends latest versions
 Recommends:     phpunit13
@@ -283,6 +283,9 @@ exit $ret
 
 
 %changelog
+* Sat Nov 21 2026 Remi Collet <remi@remirepo.net> - 12.5.45-1
+- update to 12.5.45
+
 * Tue Nov  3 2026 Remi Collet <remi@remirepo.net> - 12.5.43-1
 - update to 12.5.43
 

@@ -15,13 +15,15 @@
 %bcond datetime_tests %{undefined rhel}
 
 Name:           babel
-Version:        2.18.0
+Version:        2.19.0
 Release:        %autorelease
 Summary:        Tools for internationalizing Python applications
 
 License:        BSD-3-Clause
 URL:            https://babel.pocoo.org/
 Source:         %{pypi_source}
+# https://github.com/python-babel/babel/pull/1490
+Patch:          0001-Fix-required-hatchling-version.patch
 
 BuildArch:      noarch
 
@@ -37,6 +39,8 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-freezegun
 # The pytz tests are skipped when pytz is missing
 BuildRequires:  python3-pytz
+# The setuptools tests are skipped if setuptools is missing
+BuildRequires:  python3-setuptools
 %endif
 # build the documentation
 BuildRequires:  make
@@ -108,7 +112,7 @@ install -D -m 0644 built-docs/man/babel.1 %{buildroot}%{_mandir}/man1/pybabel.1
 
 %check
 export TZ=UTC
-%pyproject_check_import
+%pyproject_check_import %{?with_bootstrap:-e '*setuptools*'}
 %if %{without bootstrap}
 # The deselected doctests fail without pytz when run during Eastern Daylight Time
 # https://github.com/python-babel/babel/issues/988

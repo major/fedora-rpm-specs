@@ -193,8 +193,8 @@ popd
 %global _configure ../configure
 # Fixme: --disable-silent-rules or V=1 doesn't work in all parts of the build
 %global configure_opts --enable-shared --disable-static --disable-silent-rules --with-libunwind=yes %{?useroc:--with-libroctracer64=yes}
-# Workaround for #2493579
-export LIBBFD_EXTRA_LIBS=-lzstd
+# Workaround for #2493579 -- now failing for a different reason
+#export LIBBFD_EXTRA_LIBS=-lzstd
 
 cp /usr/lib/rpm/redhat/config.{sub,guess} build-config/
 
@@ -291,7 +291,6 @@ make -C serial check V=1
 %{_defaultdocdir}/scorep/ChangeLog
 %{_defaultdocdir}/scorep/OPEN_ISSUES
 %{_defaultdocdir}/scorep/CITATION.cff
-%exclude %{_defaultdocdir}/scorep/*.txt
 %exclude %{_defaultdocdir}/scorep/REUSE.toml
 %exclude %{_defaultdocdir}/scorep/README.LICENSES.md
 %exclude %{_defaultdocdir}/scorep/LICENSES
@@ -384,8 +383,9 @@ make -C serial check V=1
 %endif
 
 %changelog
-* Wed Sep  2 2026 Dave Love <loveshack@fedoraproject.org> - 10.1-2
+* Wed Nov 25 2026 Dave Love <loveshack@fedoraproject.org> - 10.1-2
 - Fix useroc usage
+- Remove libbfd workaround
 
 * Tue Aug 11 2026 Dave Love <loveshack@fedoraproject.org> - 10.1-1
 - Update to version 10.1 (resolves #2493585)

@@ -18,6 +18,8 @@ URL:            https://github.com/instagram/%{srcname}
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 # pytest 9 compatibility
 Patch:          https://github.com/Instagram/MonkeyType/pull/385.patch
+# asyncio.iscoroutinefunction removed in Python 3.16
+Patch:          asyncio-iscoroutinefunction-py316.patch
 
 BuildArch:      noarch
 

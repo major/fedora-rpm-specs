@@ -1,5 +1,5 @@
 Name:           python-passlib
-Version:        1.9.4
+Version:        1.9.5
 Release:        %autorelease
 Summary:        Comprehensive password hashing framework supporting over 20 schemes
 

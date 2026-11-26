@@ -1,8 +1,8 @@
 %define _hardened_build 1
 Summary: GUI for several command-line debuggers
 Name: ddd
-Version: 3.4.1
-Release: 9%{?dist}
+Version: 3.5.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: http://www.gnu.org/software/ddd/
 Source0: https://ftp.gnu.org/gnu/ddd/ddd-%{version}.tar.gz
@@ -22,6 +22,7 @@ BuildRequires: motif-devel, ncurses-devel, libXaw-devel
 BuildRequires: elfutils-libelf-devel, xterm 
 BuildRequires: desktop-file-utils, gdb, readline-devel, texinfo, autoconf, automake
 BuildRequires: make, libtool
+BuildRequires: tinyxml2-devel
 
 %description
 The Data Display Debugger (DDD) is a popular GUI for command-line
@@ -82,8 +83,14 @@ install -D -m 0644 %{SOURCE3} \
 %{_metainfodir}/org.gnu.ddd.metainfo.xml
 %{_infodir}/ddd*
 %{_mandir}/man1/ddd.1*
+%{_datadir}/ddd-%{version}/default.xml
+%{_datadir}/pixmaps/ddd.png
+
 
 %changelog
+* Wed Nov 25 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.5.0-1
+- 3.5.0
+
 * Thu Sep 10 2026 Gwyn Ciesla <gwync@protonmail.com> - 3.4.1-9
 - Motif rebuild
 

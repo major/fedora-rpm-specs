@@ -36,6 +36,10 @@ Source0:        https://github.com/libjxl/libjxl/archive/v%{version}/%{name}-%{v
 Source1:        third_party-%{version}.tar.gz
 Source2:        testdata-%{version}.tar.gz
 
+# -mrelax-all generates branches that RISC-V linker relaxation then breaks,
+# making every binary die at startup (SIGILL on hardware, SIGSEGV on qemu).
+Patch:          0001-cmake-Do-not-use-mrelax-all-with-clang-on-RISCV64-38.patch
+
 BuildRequires:  asciidoc
 BuildRequires:  cmake
 BuildRequires:  doxygen

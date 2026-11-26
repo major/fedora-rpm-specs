@@ -5,7 +5,7 @@
 %global crate ossl
 
 Name:           rust-ossl
-Version:        1.5.4
+Version:        1.5.5
 Release:        %autorelease
 Summary:        OpenSSL version 3+ bindings to modern EVP APIs
 

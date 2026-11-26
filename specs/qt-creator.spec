@@ -5,8 +5,8 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        20.0.1
-Release:        3%{?dist}
+Version:        21.0.0
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -14,15 +14,13 @@ ExcludeArch:    %{ix86}
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:            https://www.qt.io/ide/
-Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/20.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/21.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 Source1:        qt-creator-Fedora-privlibs
 
 # Fix leading whitespace in desktop file
 Patch1:         qt-creator_desktop.patch
 # Limit qmake names to avoid the rpm macro wrapper qmake-qt5.sh getting picked up (#1644989)
 Patch2:         qt-creator_qmake-names.patch
-# Fix debuginfod detection
-Patch3:         qt-creator-debuginfod.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -217,9 +215,13 @@ diff -u %{SOURCE1} $outfile
 %dir %{_defaultdocdir}/qtcreator/
 %doc %{_defaultdocdir}/qtcreator/qtcreator.qch
 %doc %{_defaultdocdir}/qtcreator/qtcreator-dev.qch
+%doc %{_defaultdocdir}/qtcreator/qtprofiler.qch
 
 
 %changelog
+* Wed Nov 25 2026 Sandro Mani <manisandro@gmail.com> - 21.0.0-1
+- Update to 21.0.0
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com>
 - Rebuild (qt6)
 

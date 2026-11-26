@@ -441,7 +441,8 @@ ExcludeArch: %{ix86} %{arm}
 
 Source0: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz
 Source1: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz.sig
-Source2: gpgkey-CEACC9E15534EBABB82D3FA03353C9CEF108B584.gpg
+# As referenced from https://www.qemu.org/download/
+Source2: https://keys.openpgp.org/vks/v1/by-fingerprint/CEACC9E15534EBABB82D3FA03353C9CEF108B584#/gpgkey-CEACC9E15534EBABB82D3FA03353C9CEF108B584.asc
 
 Source10: qemu-guest-agent.service
 Source11: 99-qemu-guest-agent.rules
@@ -462,6 +463,7 @@ Patch: 0001-disable-busted-tests.patch
 Patch: 0002-TEMPORARY-increase-test-timeout.patch
 
 BuildRequires: gnupg2
+BuildRequires: openpgpverify
 # EL9 uses the Meson wheel bundled with QEMU.
 %if 0%{?rhel} != 9
 BuildRequires: meson >= %{meson_version}
@@ -1580,7 +1582,7 @@ This package provides the QEMU system emulator for Xtensa boards.
 
 
 %prep
-gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 %autosetup -n qemu-%{version}%{?rcstr} -S git_am
 

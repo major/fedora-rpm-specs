@@ -8,7 +8,7 @@
 %bcond check 1
 
 Name:           ty
-Version:        0.0.109
+Version:        0.0.110
 # The ty package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -19,9 +19,9 @@ Summary:        Extremely fast Python type checker and language server
 
 # Regarding bundling ruff, see the comments at the beginning of the spec file.
 %global ruff_git https://github.com/astral-sh/ruff
-%global ruff_rev 429d86ea49e42fb01fa0c4208b4487b4b2b3610d
+%global ruff_rev 96c09ab6e37ce7608ae420cb8de243c1ee9b7d98
 %global ruff_baseversion 0.17.6
-%global ruff_snapdate 20261123
+%global ruff_snapdate 20261125
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
 %global typeshed_rev 2e4d4dcf657f82305709bbe3e86bca4d27d4dd46

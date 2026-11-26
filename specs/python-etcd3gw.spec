@@ -14,8 +14,8 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        2.7.0
-Release:        2%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        An etcd3 gateway Python client
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -106,8 +106,6 @@ py.test
 
 %if %{with python3}
 export PYTHON=%{__python3}
-# workaround for https://bugs.launchpad.net/testrepository/+bug/1229445
-rm -rf .testrepository/times.dbm
 py.test-3
 %endif
 
@@ -126,6 +124,9 @@ py.test-3
 
 
 %changelog
+* Wed Nov 25 2026 Steve Traylen <steve.traylen@cern.ch> - 2.8.0-1
+- New upstreeam version 2.8.0 (rhbz#2581825)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name: libreoffice-dictionaries
 Summary: LibreOffice hunspell dictionaries
-Version: 26.8.2.2
+Version: 26.8.3.1
 Release: 1%{?dist}
 Source0: https://github.com/LibreOffice/dictionaries/archive/refs/tags/libreoffice-%{version}.tar.gz
 URL: https://github.com/LibreOffice/dictionaries
@@ -390,6 +390,9 @@ done
 popd
 
 %changelog
+* Wed Nov 25 2026 Parag Nemade <pnemade AT redhat DOT com> - 26.8.3.1-1
+- Update to new upstream release 26.8.3.1
+
 * Mon Nov 02 2026 Parag Nemade <panemade AT redhat DOT com> - 26.8.2.2-1
 - Update to new upstream release 26.8.2.2
 

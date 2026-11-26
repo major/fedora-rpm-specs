@@ -38,7 +38,7 @@ BuildRequires:  openal-soft-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
 BuildRequires:  rapidjson-devel
-BuildRequires:  SFML-devel
+BuildRequires:  SFML2-devel
 # Enforce the the minimum EVR to contain fixes for all of:
 # CVE-2021-28021 CVE-2021-42715 CVE-2021-42716 CVE-2022-28041 CVE-2023-43898
 # CVE-2023-45661 CVE-2023-45662 CVE-2023-45663 CVE-2023-45664 CVE-2023-45666

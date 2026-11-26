@@ -12,7 +12,7 @@
 Name:           php-pecl-ssh2
 Summary:        Bindings for the libssh2 library
 License:        PHP-3.01
-Version:        1.6.0
+Version:        1.6.1
 Release:        1%{?dist}
 %forgemeta
 URL:            %{forgeurl}
@@ -94,6 +94,9 @@ install -Dpm644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %changelog
+* Wed Nov 25 2026 Remi Collet <remi@remirepo.net> - 1.6.1-1
+- update to 1.6.1
+
 * Wed Nov  4 2026 Remi Collet <remi@remirepo.net> - 1.6.0-1
 - update to 1.6.0
 - add pie virtual provides

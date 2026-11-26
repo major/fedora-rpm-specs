@@ -16,7 +16,7 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        3.2.5
+Version:        3.2.6
 Release:        1%{?dist}
 Summary:        Serialize PHP variables
 
@@ -118,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Wed Nov 25 2026 Remi Collet <remi@remirepo.net> - 3.2.6-1
+- update to 3.2.6
+
 * Tue Oct 27 2026 Remi Collet <remi@remirepo.net> - 3.2.5-1
 - update to 3.2.5
 

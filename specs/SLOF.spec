@@ -6,12 +6,16 @@
 # Disable debuginfo because it is of no use to us.
 %global debug_package %{nil}
 
+%if 0%{?fedora:1} || 0%{?epel:1}
 %define cross 1
 %define targetdir qemu
+%else
+%define targetdir qemu-kvm
+%endif
 
 Name:           SLOF
 Version:        %{gittagdate}
-Release:        11.git%{gittagcommit}%{?dist}
+Release:        12.git%{gittagcommit}%{?dist}
 Summary:        Slimline Open Firmware
 
 License:        BSD-3-Clause
@@ -61,6 +65,13 @@ export CROSS="powerpc64-linux-gnu-"
 export CROSS=""
 %endif
 
+%if 0%{?rhel:1}
+# Workaround for problems on the TPS machines.  They have a
+# environment variable called "RELEASE" which somehow confuses the
+# SLOF Makefiles which also use a variable named RELEASE.
+unset RELEASE
+%endif
+
 %make_build qemu V=2
 
 %install
@@ -76,6 +87,9 @@ install -c -m 0644 boot_rom.bin %{buildroot}%{_datadir}/%{targetdir}/slof.bin
 
 
 %changelog
+* Wed Nov 25 2026 Yaakov Selkowitz <yselkowi@redhat.com> - 20220719-12.git6b6c16b4
+- Adjust conditionals for RHEL build
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 20220719-11.git6b6c16b4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

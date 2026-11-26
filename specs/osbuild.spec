@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        194
+Version:        196
 %global         osbuild_initrd_version 0.2
 
 %forgemeta
@@ -489,6 +489,20 @@ fi
 %endif
 
 %changelog
+* Wed Nov 25 2026 Packit <hello@packit.dev> - 196-1
+Changes with 196
+----------------
+  - Update images dependency ref to latest (#2597)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - Update snapshots to 20261108 (#2596)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Anna Vítová
+  - sources: support basic auth for curl and librepo (HMS-11527) (#2595)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Loris Fauster
+  - test: private mounts for tests (#2605)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Alexander Larsson, Sanne Raymaekers
+
+— Somewhere on the Internet, 2026-11-25
+
 * Thu Oct 22 2026 Packit <hello@packit.dev> - 194-1
 Changes with 194
 ----------------

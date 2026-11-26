@@ -1,10 +1,10 @@
 Summary:   Portable Hardware Locality - portable abstraction of hierarchical architectures
 Name:      hwloc
-Version:   2.14.0
+Version:   2.16.0
 Release:   %autorelease
 License:   BSD-2-Clause
 URL:       http://www.open-mpi.org/projects/hwloc/
-Source0:   https://download.open-mpi.org/release/hwloc/v2.14/hwloc-%{version}.tar.bz2
+Source0:   https://download.open-mpi.org/release/hwloc/v2.16/hwloc-%{version}.tar.bz2
 Requires:  %{name}-libs%{?_isa} = %{version}-%{release}
 
 BuildRequires: gcc
@@ -138,7 +138,8 @@ LD_LIBRARY_PATH=$PWD/hwloc/.libs make check
 %{_mandir}/man1/%{name}*
 %{_mandir}/man1/lstopo-no-graphics*
 %ifarch %{ix86} x86_64
-%{_sbindir}/hwloc-dump-hwdata
+# hwloc-dump-hwdata lives in /usr/bin nowadays (sbin is merged into bin)
+# and is already covered by the /usr/bin/hwloc* glob above.
 %{_unitdir}/hwloc-dump-hwdata.service
 %endif
 

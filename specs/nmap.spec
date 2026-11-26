@@ -46,7 +46,6 @@ BuildRequires: lua-devel
 BuildRequires: openssl-devel
 BuildRequires: pcre2-devel
 BuildRequires: zlib-devel
-BuildRequires: gnupg2
 Requires: %{name}-ncat = %{epoch}:%{version}-%{release}
 
 Obsoletes: nmap-frontend < 7.70-1

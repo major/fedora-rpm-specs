@@ -25,6 +25,8 @@
 %bcond_with          liblzf
 %endif
 %bcond_without       valkey
+# not yet available in Fedora/EPEL
+%bcond_with          phpser
 
 %global pie_vend     phpredis
 %global pie_proj     phpredis
@@ -32,20 +34,20 @@
 # after 40-igbinary and 40-msgpack
 %global ini_name     50-%{pecl_name}.ini
 
-%global upstream_version 6.3.0
-#global upstream_prever  RC2
+%global upstream_version 6.4.0
+%global upstream_prever  RC1
 
 # Github forge
 %global gh_vend          %{pie_vend}
 %global gh_proj          %{pie_proj}
 %global forgeurl         https://github.com/%{gh_vend}/%{gh_proj}
-%global tag              %{version}
+%global tag              %{upstream_version}%{?upstream_prever}
 
 Name:          %{php_base}-pecl-redis6
 Summary:       PHP extension for interfacing with key-value stores
 License:       PHP-3.01
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:       4%{?dist}
+Release:       1%{?dist}
 %forgemeta
 URL:           %{forgeurl}
 Source0:       %{forgesource}
@@ -60,6 +62,9 @@ BuildRequires: %{php_base}-pecl-igbinary-devel
 %endif
 %if %{with msgpack}
 BuildRequires: %{php_base}-pecl-msgpack-devel >= 2.0.3
+%endif
+%if %{with phpser}
+BuildRequires: %{php_base}-iliaal-phpser-devel
 %endif
 %if %{with liblzf}
 BuildRequires: pkgconfig(liblzf)
@@ -83,11 +88,17 @@ Requires:      %{php_base}-pecl-igbinary%{?_isa}
 %if %{with msgpack}
 Requires:      %{php_base}-pecl-msgpack%{?_isa}
 %endif
+%if %{with phpser}
+Requires:      %{php_base}-iliaal-phpser%{?_isa}
+%endif
 
+# Extension
 Provides:      php-%{pecl_name}                 = %{version}
 Provides:      php-%{pecl_name}%{?_isa}         = %{version}
+# PECL
 Provides:      php-pecl(%{pecl_name})           = %{version}
 Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
+# PIE
 Provides:      php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:      php-%{pie_vend}-%{pie_proj}      = %{version}
 
@@ -184,6 +195,7 @@ extension = %{pecl_name}.so
 ;redis.pconnect.pool_poll_timeout = 0
 ;redis.pconnect.pool_pattern => ''
 ;redis.session.locking_enabled = 0
+;redis.session.lock_release_cmd = eval
 ;redis.session.lock_expire = 0
 ;redis.session.lock_retries = 100
 ;redis.session.lock_wait_time = 20000
@@ -203,6 +215,9 @@ peclconf() {
 %endif
 %if %{with msgpack}
     --enable-redis-msgpack \
+%endif
+%if %{with phpser}
+    --enable-redis-phpser \
 %endif
 %if %{with liblzf}
     --enable-redis-lzf \
@@ -234,7 +249,7 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 %check
 # simple module load test
 DEPS="--no-php-ini"
-for i in igbinary msgpack
+for i in igbinary msgpack phpser
 do  [ -f %{php_extdir}/${i}.so ] && DEPS="$DEPS --define extension=${i}.so"
 done
 
@@ -267,6 +282,7 @@ $SRV   \
     --dir       $PWD/data      \
     --pidfile   $pidfile
 
+sleep 2
 
 : Run the test Suite
 sed -e "s/6379/$port/" -i *.php
@@ -300,6 +316,10 @@ exit $ret
 
 
 %changelog
+* Wed Nov 25 2026 Remi Collet <remi@remirepo.net> - 6.4.0~RC1-1
+- update to 6.4.0RC1
+- add option for phpser (not yet available)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

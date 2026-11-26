@@ -1,6 +1,6 @@
 %global	gem_name	json
 
-%global	pkg_version_num		3.1.0
+%global	pkg_version_num		3.2.0
 %dnl		%global	pkg_version_alpha
 %global	gem_version()		%{pkg_version_num}%{?pkg_version_alpha:.%pkg_version_alpha}
 
@@ -135,6 +135,9 @@ popd
 
 
 %changelog
+* Wed Nov 25 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.2.0-1
+- 3.2.0
+
 * Wed Oct 14 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.1.0-1
 - 3.1.0
 

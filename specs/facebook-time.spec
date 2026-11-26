@@ -277,4 +277,45 @@ rm -f timestamp/timestamp_linux_test.go
 %{_bindir}/fbclock-daemon
 
 %changelog
-%autochangelog
+* Tue Nov 24 2026 Oleg Obleukhov <leoleovich@fedoraproject.org> - 0^20261124gitaabf135-1
+- Update to 20261124 snapshot (aabf135)
+
+* Fri Nov 13 2026 Oleg Obleukhov <leoleovich@fedoraproject.org> - 0^20261113git96bb740-1
+- Update to 20261113 snapshot (96bb740)
+
+* Fri Nov 13 2026 Oleg Obleukhov <leoleovich@fedoraproject.org> - 0^20261112git5266295-1
+- Update to 20261112 snapshot (5266295)
+
+* Wed Oct 28 2026 leoleovich <leoleovich@devvm67460.cln0.facebook.com> - 0^20260930gite432cb7-3
+- Update bundled yaml.v3 license path for go.yaml.in/yaml/v3
+
+* Wed Sep 30 2026 Oleg Obleukhov <leoleovich@fedoraproject.org> - 0^20260930gite432cb7-1
+- Build latest
+
+* Wed Sep 30 2026 Oleg Obleukhov <leoleovich@fedoraproject.org> - 0^20260703git5fa5c15-4
+- Drop fbclock-bin, replaced by ptpcheck fbclock
+
+* Mon Aug 10 2026 Yixin Wei <esoapw@fedoraproject.org> - 0^20260703git5fa5c15-3
+- Add sa53 subpackage
+
+* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0^20260703git5fa5c15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
+
+* Fri Jul 03 2026 Yixin Wei <esoapw@fedoraproject.org> - 0^20260703git5fa5c15-1
+- Build latest (20260703)
+
+* Tue Jun 16 2026 Yixin Wei <esoapw@fedoraproject.org> - 0^20260604git8522b16-2
+- Update bundled gopsutil license path/hash for v4 migration
+
+* Thu Jun 04 2026 Oleg Obleukhov <leoleovich@fedoraproject.org> - 0^20260604git8522b16-1
+- Build latest
+
+* Mon Feb 02 2026 Maxwell G <maxwell@gtmx.me> - 0^20260107gitdbb4529-5
+- Rebuild for https://fedoraproject.org/wiki/Changes/golang1.26
+
+* Wed Jan 21 2026 Pawel Zmarzly <pzmarzly0@gmail.com> - 0^20260107gitdbb4529-4
+- Import README from previous repo
+- Renaming package from gitlab-github-facebook-time to facebook-time
+
+* Wed Jan 21 2026 Pawel Zmarzly <pzmarzly0@gmail.com> - 0^20260107gitdbb4529-3
+- Initial package; Resolves: rhbz#2430862

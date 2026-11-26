@@ -36,7 +36,6 @@
   %bcond_with  OPENSSL_ENGINE
 %endif
 
-%{!?manext:%global     manext .gz}
 %{!?_pkgdocdir:%global _pkgdocdir %{_docdir}/%{name}-%{version}}
 %global        bind_dir          /var/named
 %global        chroot_prefix     %{bind_dir}/chroot
@@ -54,16 +53,6 @@
 ## The order of libs is important. See lib/Makefile.in for details
 %define bind_export_libs isc dns isccfg irs
 %{!?_export_dir:%global _export_dir /bind9-export/}
-
-%define major_ver() %{lua: \
-  local ver = rpm.expand("%{1}"); \
-  local s, e; \
-  s, e = string.find(ver, "^%d+[.]%d+"); \
-  if (s and e) then \
-    print(string.sub(ver, s, e)); \
-  end; \
-}
-
 # libisc-nosym requires to be linked with unresolved symbols
 # When libisc-nosym linking is fixed, it can be defined to 1
 # Visit https://bugzilla.redhat.com/show_bug.cgi?id=1540300
@@ -73,9 +62,6 @@
 # no more isc-config.sh and bind9-config
 # lib*.so.X versions of selected libraries no longer provided,
 # lib*-%%{version}-RH.so is provided as an internal implementation detail
-
-# priority of this srpm executables
-%global alternatives_prio 100
 
 # Upstream package name
 %global upname bind9
@@ -87,19 +73,28 @@
 %global lib_version 9.18.51
 
 # Epoch is intentionally missing from Provides to be lower than bind package
+%if "%{name}" != "%{upname}" && "%{name}" != "%{oldname}"
+# alternative version usually has higher version, do not provide epoch on compat symbols.
+# keeps the default bind package the preferred one on dnf install bind{,-utils}
+%global provide_epoch %{nil}
+%else
+# On regular version provide also epoch
+%global provide_epoch %{epoch}:
+%endif
+
 # Conflict with all packages not yet using alternatives
+# bind*-chroot should conflict always, not supporting alternatives
 %define upname_compat(as:) \
+Provides: %{upname}%{-s:-}%{-s*}-any = %{provide_epoch}%{version}-%{release} \
 %if "%{name}" != "%{upname}" \
-Provides: %{upname}%{-s:-}%{-s*} = %{?epoch:%{epoch}:}%{version}-%{release} \
+Provides: %{upname}%{-s:-}%{-s*} = %{provide_epoch}%{version}-%{release} \
 %endif \
 %if "%{name}" != "%{oldname}" \
-Provides: %{oldname}%{-s:-}%{-s*} = %{?epoch:%{epoch}:}%{version}-%{release} \
+Provides: %{oldname}%{-s:-}%{-s*} = %{provide_epoch}%{version}-%{release} \
 %endif \
-%if 0%{-a:1} \
-Provides: alternative(%{upname}%{-s:-}%{-s*}) = %{version}-%{release} \
-%endif \
-Conflicts: ((%{upname}%{-s:-}%{-s*} < %{epoch}:%{version}-%{release} or %{oldname}%{-s:-}%{-s*} < %{epoch}:%{version}-%{release}) unless alternative(%{upname}%{-s:-}%{-s*})) \
-# end of upname_compat. Conflict only with lower versions, not itself.
+Conflicts: %{upname}%{-s:-}%{-s*}  \
+Conflicts: %{oldname}%{-s:-}%{-s*} \
+# end of upname_compat. Conflict with other providers of the same symbols
 
 Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) server
 Name:     bind
@@ -144,12 +139,12 @@ Source25: named.conf.sample
 Source27: named.root.key
 Source35: bind.tmpfiles.d
 Source36: trusted-key.key
-Source37: named.service.in
-Source38: named-chroot.service.in
+Source37: named.service
+Source38: named-chroot.service
 Source41: setup-named-chroot.sh
 Source42: generate-rndc-key.sh
-Source44: named-chroot-setup.service.in
-Source46: named-setup-rndc.service.in
+Source44: named-chroot-setup.service
+Source46: named-setup-rndc.service
 Source48: setup-named-softhsm.sh
 Source49: named-chroot.files
 Source50: named.sysusers
@@ -179,15 +174,10 @@ Patch32: bind-9.18-partial-additional-records.patch
 Patch33: bind-9.18-dig-idn-input-always.patch
 # downstream only too
 Patch34: bind-9.18-dig-idn-input-always-test.patch
-# downstream only, https://redhat.atlassian.net/browse/IDM-6189
-Patch35: 0001-Use-variable-PROGRAM_SUFFIX-in-install-target.patch
-# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/12420
-Patch36: bind-9.20-tsig-keygen-suffix.patch
 # Downstream only, required on very long build paths.
 Patch37: bind-9.18-d-unittest-dnstap-relative.patch
 # Downstream only, do not use -E pkcs11 in keyfromlabel
 Patch38: bind-9.18-d-systest-keyfromlabel-noengine.patch
-
 
 %{?systemd_ordering}
 # https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
@@ -196,11 +186,9 @@ Requires:       coreutils
 Requires(post): shadow-utils
 Requires(post): glibc-common
 Requires(post): grep
-Requires(post):   alternatives
-Requires(postun): alternatives
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Recommends:     %{name}-utils %{name}-dnssec-utils
-%upname_compat -a
+%upname_compat
 Obsoletes:      %{name}-pkcs11 < 32:9.18.4-2
 
 BuildRequires:  gcc
@@ -298,9 +286,7 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # For compatibility with Debian package
 Provides: dnsutils = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-pkcs11-utils < 32:9.18.4-2
-Requires(post):   alternatives
-Requires(postun): alternatives
-%upname_compat -a -s utils
+%upname_compat -s utils
 
 %description utils
 Bind-utils contains a collection of utilities for querying DNS (Domain
@@ -318,9 +304,7 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Recommends: %{name}-utils
 Obsoletes: python3-%{name} < 32:9.18.0
 Obsoletes: %{name}-dnssec-doc < 32:9.18.4-2
-Requires(post):   alternatives
-Requires(postun): alternatives
-%upname_compat -a -s dnssec-utils
+%upname_compat -s dnssec-utils
 
 %description dnssec-utils
 %{name}-dnssec-utils contains a collection of utilities for editing
@@ -338,9 +322,7 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: pkgconfig(libcrypto) pkgconfig(libssl)
 Requires: pkgconfig(libxml-2.0)
 Requires: pkgconfig(libcap)
-Requires(post):   alternatives
-Requires(postun): alternatives
-%upname_compat -a -s devel
+%upname_compat -s devel
 %if %{with GSSTSIG}
 Requires: pkgconfig(krb5)
 %endif
@@ -369,14 +351,8 @@ Prefix:         %{chroot_prefix}
 # grep is required due to setup-named-chroot.sh script
 Requires:       grep
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-# chroot does not use alternatives (yet)
 %upname_compat -s chroot
-%if "%{name}" != "%{upname}" && "%{name}" != "%{oldname}"
-Conflicts:      %{upname}-chroot
-Conflicts:      %{upname}-sdb-chroot
-%endif
 %if "%{name}" != "%{oldname}"
-Conflicts:      %{oldname}-chroot
 Conflicts:      %{oldname}-sdb-chroot
 %endif
 
@@ -404,25 +380,13 @@ in HTML and PDF format.
 
 %endif
 
-# Extract major version 9.x
-%global mver %{major_ver %{version}}
-
-# customize include directory
-%global bind_include %{_includedir}/bind%{mver}
-
-# use this suffix for binaries
-%global program_suffix -9
-# preparation scripts directory
-%global bind_libexecdir %{_libexecdir}/%{name}
-
-
 %prep
 # no signatures for git snapshots
 %if 0%{?fedora} && 0%{?!git_date:1}
 # RHEL does not yet support this verification
 %{openpgpverify} --keyring='%{SOURCE4}' --signature='%{SOURCE2}' --data='%{SOURCE0}'
 %endif
-%autosetup -n %{upname}-%{git_commit} -p1
+%autosetup -n bind9-%{git_commit} -p1
 
 # Sparc and s390 arches need to use -fPIE
 %ifarch sparcv9 sparc64 s390 s390x
@@ -466,10 +430,9 @@ export LIBDIR_SUFFIX
   --localstatedir=%{_var} \
   --with-pic \
   --disable-static \
-  --includedir=%{bind_include} \
+  --includedir=%{_includedir}/bind9 \
   --with-tuning=large \
   --with-libidn2 \
-  --program-suffix=%{program_suffix} \
 %if %{with GEOIP2}
   --with-maxminddb \
 %endif
@@ -495,7 +458,7 @@ export LIBDIR_SUFFIX
 %endif
   --enable-fixed-rrset \
   --enable-full-report \
-  CPPFLAGS="$CPPFLAGS" PROGRAM_SUFFIX="%{program_suffix}" \
+  CPPFLAGS="$CPPFLAGS" \
 ;
 
 %if %{with DOCPDF}
@@ -506,26 +469,11 @@ fmtutil-user --listcfg || :
 fmtutil-user --missing || :
 %endif
 
-%make_build PROGRAM_SUFFIX="%{program_suffix}"
+%make_build
 
 %if %{with DOC}
   make doc
 %endif
-
-# Prepare unit files
-for SERVICEFILE in %{SOURCE37} %{SOURCE38} %{SOURCE44} %{SOURCE46}; do
-  NEWNAME="$(basename -- "$SERVICEFILE" .in)"
-  if ! echo "$NEWNAME" | grep -q -- -chroot; then
-    NEWNAME="$(echo "$NEWNAME" | sed -e "s,^named,%{name},")"
-  fi
-  sed -e "s|%%{program_suffix}|%{program_suffix}|g" \
-      -e "s|%%{name}|%{name}|g" \
-      -e "s|%%{bind_libexecdir}|%{bind_libexecdir}|g" \
-      -e "s|%%{_bindir}|%{_bindir}|g" \
-      -e "s|%%{_sbindir}|%{_sbindir}|g" \
-      "$SERVICEFILE" > "$NEWNAME"
-  touch -r "$SERVICEFILE" "$NEWNAME" # Set change time to time of template
-done
 
 %check
 %if %{with UNITTEST} || %{with SYSTEMTEST}
@@ -628,33 +576,31 @@ popd
 touch ${RPM_BUILD_ROOT}/%{chroot_prefix}%{_sysconfdir}/named.conf
 #end chroot
 
-%make_install PROGRAM_SUFFIX="%{program_suffix}"
-
-# Provide again bind's config.h
-mkdir -p ${RPM_BUILD_ROOT}%{bind_include}/bind9
-sed -e 's/PACKAGE_/BIND9_/' config.h > ${RPM_BUILD_ROOT}%{bind_include}/bind9/config.h
+%make_install
 
 # Remove unwanted files
 rm -f ${RPM_BUILD_ROOT}/etc/bind.keys
 
 # Systemd unit files
-mkdir -p "${RPM_BUILD_ROOT}%{_unitdir}"
-install -p -m 644 *.service "${RPM_BUILD_ROOT}%{_unitdir}"
+mkdir -p ${RPM_BUILD_ROOT}%{_unitdir}
+install -m 644 %{SOURCE37} ${RPM_BUILD_ROOT}%{_unitdir}
+install -m 644 %{SOURCE38} ${RPM_BUILD_ROOT}%{_unitdir}
+install -m 644 %{SOURCE44} ${RPM_BUILD_ROOT}%{_unitdir}
+install -m 644 %{SOURCE46} ${RPM_BUILD_ROOT}%{_unitdir}
 
 mkdir -p ${RPM_BUILD_ROOT}%{_sysusersdir}
-install -p -m 644 %{SOURCE50} ${RPM_BUILD_ROOT}%{_sysusersdir}/%{name}.conf
+install -m 644 %{SOURCE50} ${RPM_BUILD_ROOT}%{_sysusersdir}/named.conf
 
-mkdir -p ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}
-install -p -m 755 %{SOURCE41} ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/setup-named-chroot.sh
-install -p -m 755 %{SOURCE42} ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/generate-rndc-key.sh
-install -p -m 755 %{SOURCE48} ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/setup-named-softhsm.sh
+mkdir -p ${RPM_BUILD_ROOT}%{_libexecdir}
+install -m 755 %{SOURCE41} ${RPM_BUILD_ROOT}%{_libexecdir}/setup-named-chroot.sh
+install -m 755 %{SOURCE42} ${RPM_BUILD_ROOT}%{_libexecdir}/generate-rndc-key.sh
 
-mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d
-install -m 644 %{SOURCE3} ${RPM_BUILD_ROOT}%{_sysconfdir}/logrotate.d/named
+install -m 755 %{SOURCE48} ${RPM_BUILD_ROOT}%{_libexecdir}/setup-named-softhsm.sh
 
+install -m 644 %SOURCE3 ${RPM_BUILD_ROOT}/etc/logrotate.d/named
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig
-install -p -m 644 %{SOURCE1} ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig/named
-install -p -m 644 %{SOURCE49} ${RPM_BUILD_ROOT}%{_sysconfdir}/named-chroot.files
+install -m 644 %{SOURCE1} ${RPM_BUILD_ROOT}%{_sysconfdir}/sysconfig/named
+install -m 644 %{SOURCE49} ${RPM_BUILD_ROOT}%{_sysconfdir}/named-chroot.files
 
 %if "%{_sbindir}" != "%{_bindir}"
 # Compatibility with previous major versions, only for selected binaries
@@ -664,29 +610,19 @@ ln -s ../bin/{named-checkconf,named-checkzone,named-compilezone} %{buildroot}%{_
 # Remove libtool .la files:
 find ${RPM_BUILD_ROOT}/%{_libdir} -name '*.la' -exec '/bin/rm' '-f' '{}' ';';
 
-pushd ${RPM_BUILD_ROOT}/%{_libdir}
-  for LIB in isccc ns dns isc isccfg irs bind9; do
-    mv "lib${LIB}.so" "lib${LIB}%{program_suffix}.so"
-  done
-  for PLUGIN in bind/*.so; do
-    TARGET="$(echo "$PLUGIN" | sed -e "s/\.so$/%{program_suffix}&/")"
-    mv "${PLUGIN}" "${TARGET}"
-  done
-popd
-
 # 9.16.4 installs even manual pages for tools not generated
 %if %{without DNSTAP}
-rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/dnstap-read%{program_suffix}.1* || true
+rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/dnstap-read.1* || true
 %endif
 %if %{without LMDB}
-rm -f ${RPM_BUILD_ROOT}%{_mandir}/man8/named-nzd2nzf%{program_suffix}.8* || true
+rm -f ${RPM_BUILD_ROOT}%{_mandir}/man8/named-nzd2nzf.8* || true
 %endif
 
 pushd ${RPM_BUILD_ROOT}%{_mandir}/man8
-  ln -s ddns-confgen%{program_suffix}.8.gz tsig-keygen%{program_suffix}.8.gz
+ln -s ddns-confgen.8.gz tsig-keygen.8.gz
 popd
 pushd ${RPM_BUILD_ROOT}%{_mandir}/man1
-  ln -s named-checkzone%{program_suffix}.1.gz named-compilezone%{program_suffix}.1.gz
+ln -s named-checkzone.1.gz named-compilezone.1.gz
 popd
 
 %if %{with DOC}
@@ -709,6 +645,9 @@ done
 %if %{with DOCPDF}
 cp -p doc/arm/_build/latex/Bv9ARM.pdf ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %endif
+
+# Ghost config files:
+touch ${RPM_BUILD_ROOT}%{_localstatedir}/log/named.log
 
 # configuration files:
 install -m 640 %{SOURCE16} ${RPM_BUILD_ROOT}%{_sysconfdir}/named.conf
@@ -750,201 +689,11 @@ done
 :;
 
 mkdir -p ${RPM_BUILD_ROOT}%{_tmpfilesdir}
-install -p -m 644 %{SOURCE35} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/%{name}.conf
+install -p -m 644 %{SOURCE35} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/named.conf
 install -p -m 644 %{SOURCE51} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/%{name}-chroot.conf
 
-mkdir -p ${RPM_BUILD_ROOT}%{_includedir}/bind9
-
-%if %{with DNSTAP}
-  %global utils_bin1_dnstap  dnstap-read
-%endif
-%if %{with LMDB}
-  %global utils_bin1_lmdb    named-nzd2nzf
-%endif
-
-%global utils_bin1 dig host delv nslookup nsupdate arpaname nsec3hash named-{checkzone,compilezone} %{?utils_bin1_dnstap} %{?utils_bin1_lmdb}
-%global utils_bin8 ddns-confgen tsig-keygen
-%global main_bin8 named rndc{,-confgen}
-%global main_bin1 named{-journalprint,-checkconf,-rrchecker} mdig
-%global dnssec_utils_bin1 dnssec-{cds,dsfromkey,importkey,keyfromlabel,keygen,revoke,settime,signzone,verify}
-%global devel_lib lib{bind9,dns,irs,isc,isccc,isccfg,ns}
-%global main_man5 named.conf rndc.conf
-%global main_unit named.service named-setup-rndc.service
-%global main_lib filter-{a,aaaa}
-%global main_libexec generate-rndc-key.sh
-
-
-%define altfbin() \\\
-  --follower %{_bindir}/%{1} %{upname}-%{1} %{_bindir}/%{1}%{program_suffix}
-%define altfman() \\\
-  --follower %{_mandir}/man%{2}/%{1}.%{2}%{manext} %{upname}-%{1}.%{2} %{_mandir}/man%{2}/%{1}%{program_suffix}.%{2}%{manext}
-# {1} (_unitdir/)compat-service {2} new-version-specific-service
-%define altfunit() \\\
-  --follower %{_unitdir}/%{1} %{upname}-%{1} %{_unitdir}/%{2}
-
-# {1} (_bindir/)exec-name {2} man-category
-%define altfbinman() \\\
-  --follower %{_bindir}/%{1} %{upname}-%{1} %{_bindir}/%{1}%{program_suffix} \\\
-  --follower %{_mandir}/man%{2}/%{1}.%{2}%{manext} %{upname}-%{1}.%{2} %{_mandir}/man%{2}/%{1}%{program_suffix}.%{2}%{manext}
-
-%define altfsbin() \\\
-  --follower %{_sbindir}/%{1} %{upname}-%{1} %{_sbindir}/%{1}%{program_suffix}
-
-# {1} (_sbindir/)exec-name {2} man-category
-%define altfsbinman() \\\
-  --follower %{_sbindir}/%{1} %{upname}-%{1} %{_sbindir}/%{1}%{program_suffix} \\\
-  --follower %{_mandir}/man%{2}/%{1}.%{2}%{manext} %{upname}-%{1}.%{2} %{_mandir}/man%{2}/%{1}%{program_suffix}.%{2}%{manext}
-
-%define altflibexec() \\\
-  --follower %{_libexecdir}/%{1} %{upname}-%{1} %{_libexecdir}/%{name}/%{1}
-
-# This is for devel subpackage only, not plugins {1} (_libdir/)libname.so
-%define altflib() \\\
-  --follower %{_libdir}/%{1}.so %{upname}-%{1}.so %{_libdir}/%{1}%{program_suffix}.so
-
-# This is only for bind plugins, which have also man page
-%define altflibman() \\\
-  --follower %{_libdir}/bind/%{1}.so %{upname}-%{1}.so %{_libdir}/bind/%{1}%{program_suffix}.so \\\
-  --follower %{_mandir}/man%{2}/%{1}.%{2}%{manext} %{upname}-%{1}.%{2} %{_mandir}/man%{2}/%{1}%{program_suffix}.%{2}%{manext}
-
-%define altrmbinman() \
-    BINX="%{_bindir}/%{1}"; \
-    MANX="%{_mandir}/man%{2}/%{1}.%{2}%{?manext}"; \
-    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then \
-      rm -f -- "$BINX"; \
-    fi; \
-    if ! [ -L "$MANX" ] && [ -f "$MANX" ]; then \
-      rm -f -- "$MANX"; \
-    fi
-%define altrmsbinman() \
-    BINX="%{_sbindir}/%{1}"; \
-    MANX="%{_mandir}/man%{2}/%{1}.%{2}%{?manext}"; \
-    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then \
-      rm -f -- "$BINX"; \
-    fi; \
-    if ! [ -L "$MANX" ] && [ -f "$MANX" ]; then \
-      rm -f -- "$MANX"; \
-    fi
-
-%define altrmlibman() \
-    BINX="%{_libdir}/bind/%{1}.so"; \
-    MANX="%{_mandir}/man%{2}/%{1}.%{2}%{?manext}"; \
-    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then \
-      rm -f -- "$BINX"; \
-    fi; \
-    if ! [ -L "$MANX" ] && [ -f "$MANX" ]; then \
-      rm -f -- "$MANX"; \
-    fi
-
-%define altrmlibexec() \
-    BINX="%{_libexecdir}/%{1}"; \
-    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then \
-      rm -f -- "$BINX"; \
-    fi
-
-%define altrmman() \
-    MANX="%{_mandir}/man%{2}/%{1}.%{2}%{?manext}"; \
-    if ! [ -L "$MANX" ] && [ -f "$MANX" ]; then \
-      rm -f -- "$MANX"; \
-    fi
-
-%define altrmunit() \
-    UNITX="%{_unitdir}/%{1}" \
-    if ! [ -L "$UNITX" ] && [ -f "$UNITX" ]; then \
-      rm -f -- "$UNITX"; \
-    fi
-
-# now create separate install scripts for each supported subpackage
-mkdir -p ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/
-cat << 'EOF' > ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/alternatives-install-named.sh
-#!/bin/sh
-  ALTS=""
-  for BIN in %{main_bin1}; do
-    ALTS+="%{altfbinman $BIN 1}"
-    %{altrmbinman $BIN 1}
-  done
-  for BIN in %{main_bin8}; do
-    ALTS+="%{altfsbinman $BIN 8}"
-    %{altrmsbinman $BIN 8}
-  done
-  for MAN in %{main_man5}; do
-    %{altrmman $MAN 5}
-    ALTS+="%{altfman $MAN 5}"
-  done
-  for LIB in %{main_lib}; do
-    %{altrmlibman $LIB 8}
-    ALTS+="%{altflibman $LIB 8}"
-  done
-  for LIBEXEC in %{main_libexec}; do
-    %{altrmlibexec $LIBEXEC}
-    ALTS+="%{altflibexec $LIBEXEC}"
-  done
-  for UNIT in %{main_unit}; do
-    %{altrmunit $UNIT}
-  done
-  alternatives --install %{_sbindir}/named %{upname}-named %{_sbindir}/named%{program_suffix} %{alternatives_prio} \
-                      %{altfman named 8}                 \
-                      %{altfunit named.service %{name}.service} \
-                      %{altfunit named-setup-rndc.service %{name}-setup-rndc.service} \
-                      --initscript %{name} \
-                      ${ALTS}
-EOF
-
-cat << 'EOF' > ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/alternatives-install-utils.sh
-#!/bin/sh
-  ALTS=""
-  for BIN in %{utils_bin1}; do
-    %{altrmbinman ${BIN} 1}
-    [ "$BIN" != dig ] && ALTS+="%{altfbinman $BIN 1}"
-  done
-  for BIN in %{utils_bin8}; do
-    %{altrmsbinman ${BIN} 8}
-    ALTS+="%{altfbinman $BIN 8}"
-  done
-  alternatives --install %{_bindir}/dig %{upname}-utils-dig %{_bindir}/dig%{program_suffix} %{alternatives_prio} \
-  %{altfman dig 1}          \
-  ${ALTS}
-EOF
-
-cat << 'EOF' > ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/alternatives-install-dnssec-utils.sh
-#!/bin/sh
-  ALTS=""
-  for BIN in %{dnssec_utils_bin1}; do
-    BINX="%{_bindir}/${BIN}"
-    MANX="%{_mandir}/man1/${BIN}.1%{manext}"
-    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then
-      rm -f -- "$BINX"
-    fi
-    if ! [ -L "$MANX" ] && [ -f "$MANX" ]; then
-      rm -f -- "$MANX"
-    fi
-    [ "$BIN" != dnssec-verify ] && ALTS+="%{altfbinman $BIN 1}"
-  done
-  alternatives --install %{_bindir}/dnssec-verify %{upname}-dnssec-utils %{_bindir}/dnssec-verify%{program_suffix} %{alternatives_prio} \
-  %{altfman dnssec-verify 1}          \
-  $ALTS
-EOF
-
-cat << 'EOF' > ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/alternatives-install-devel.sh
-#!/bin/sh
-  ALTS=""
-  for BIN in %{devel_lib}; do
-    BINX="%{_libdir}/${BIN}.so"
-    if ! [ -L "$BINX" ] && [ -f "$BINX" ] && [ -x "$BINX" ]; then
-      rm -f -- "$BINX"
-    fi
-    ALTS+="%{altflib $BIN}"
-  done
-  alternatives --install %{_includedir}/bind9 %{upname}-devel %{bind_include} %{alternatives_prio} \
-    ${ALTS}
-EOF
-
-chmod a+x ${RPM_BUILD_ROOT}%{_libexecdir}/%{name}/alternatives-install-*.sh
-
-# end of install
-
 %post
-%{?ldconfig}
+%?ldconfig
 if [ "$1" -eq 1 ]; then
   # Initial installation
   [ -x /sbin/restorecon ] && /sbin/restorecon /etc/rndc.* /etc/named.* >/dev/null 2>&1 ;
@@ -967,64 +716,17 @@ else
     fi
   fi
 fi
-%if "%{program_suffix}" != ""
-  if [ $1 -gt 1 ]; then
-    alternatives --remove %{oldname}-named  %{_sbindir}/named-%{mver} 2>/dev/null || :
-  fi
-  %{_libexecdir}/%{name}/alternatives-install-named.sh
-%endif
-%systemd_post %{name}.service
+%systemd_post named.service
 :;
 
 %preun
 # Package removal, not upgrade
-%systemd_preun %{name}.service
+%systemd_preun named.service
 
 %postun
-%{?ldconfig}
+%?ldconfig
 # Package upgrade, not uninstall
-%systemd_postun_with_restart %{name}.service
-%if "%{program_suffix}" != ""
-if [ $1 -eq 0 ] ; then
-  alternatives --remove %{upname}-named %{_sbindir}/named%{program_suffix}
-fi
-%endif
-%end
-
-%post utils
-%if "%{program_suffix}" != ""
-  if [ $1 -gt 1 ] ; then
-    alternatives --remove %{oldname}-utils-dig %{_bindir}/dig-%{mver} 2>/dev/null || :
-  fi
-  %{_libexecdir}/%{name}/alternatives-install-utils.sh
-%endif
-%end
-
-%postun utils
-%if "%{program_suffix}" != ""
-if [ $1 -eq 0 ] ; then
-  alternatives --remove %{upname}-utils-dig %{_bindir}/dig%{program_suffix}
-fi
-%endif
-%end
-
-%post dnssec-utils
-%if "%{program_suffix}" != ""
-  if [ $1 -gt 1 ] ; then
-    alternatives --remove %{oldname}-dnssec-utils %{_bindir}/dnssec-verify-%{mver} 2>/dev/null || :
-  fi
-  %{_libexecdir}/%{name}/alternatives-install-dnssec-utils.sh
-%endif
-%end
-
-%postun dnssec-utils
-%if "%{program_suffix}" != ""
-if [ $1 -eq 0 ] ; then
-  alternatives --remove %{upname}-dnssec-utils %{_bindir}/dnssec-verify%{program_suffix}
-fi
-%endif
-%end
-
+%systemd_postun_with_restart named.service
 
 # Fix permissions on existing device files on upgrade
 %define chroot_fix_devices() \
@@ -1049,21 +751,34 @@ if [ -x %{_sbindir}/selinuxenabled ] && [ -x %{_sbindir}/getsebool ] && [ -x %{_
   fi
 fi
 
+# Remove alternatives entries if they are older than this package
+%global program_suffix -9
+%global mver 9.18
+%global alternative_removal_ver 32:9.18.51^git20261102.973d8646-40
 
-%post devel
-%if "%{program_suffix}" != ""
-  if [ $1 -gt 1 ] ; then
-    alternatives --remove %{oldname}-devel %{bind_include} 2>/dev/null || :
-  fi
-  %{_libexecdir}/%{name}/alternatives-install-devel.sh
-%endif
+# wanted  bind < %%{alternative_removal_ver}, but the package can be referred only once by triggerpostun
+%triggerpostun -- bind-libs < %{alternative_removal_ver}
+if [ -x %{_bindir}/alternatives ] && [ $1 -ge 1 ] && [ -L "%{_sysconfdir}/alternatives/bind9-named" ]; then
+  alternatives --remove bind-named  %{_sbindir}/named-%{mver} 2>/dev/null || :
+  alternatives --remove bind9-named %{_sbindir}/named%{program_suffix} 2>/dev/null|| :
+fi
 
-%postun devel
-%if "%{program_suffix}" != ""
-  if [ $1 -eq 0 ] ; then
-    alternatives --remove %{upname}-devel %{bind_include}
-  fi
-%endif
+%triggerpostun utils -- bind-utils < %{alternative_removal_ver}
+if [ -x %{_bindir}/alternatives ] && [ $1 -ge 1 ] && [ -L "%{_sysconfdir}/alternatives/bind9-utils-dig" ]; then
+  alternatives --remove bind-utils-dig %{_bindir}/dig-%{mver} 2>/dev/null || :
+  alternatives --remove bind9-utils-dig %{_bindir}/dig%{program_suffix}
+fi
+
+%triggerpostun dnssec-utils -- bind-dnssec-utils < %{alternative_removal_ver}
+if [ -x %{_bindir}/alternatives ] && [ $1 -ge 1 ] && [ -L "%{_sysconfdir}/alternatives/bind9-dnssec-utils" ]; then
+  alternatives --remove bind-dnssec-utils %{_bindir}/dnssec-verify%{mver} 2>/dev/null || :
+  alternatives --remove bind9-dnssec-utils %{_bindir}/dnssec-verify%{program_suffix} || :
+fi
+
+%triggerpostun devel -- bind-devel <  %{alternative_removal_ver}
+if [ -x %{_bindir}/alternatives ] && [ $1 -ge 1 ] && [ -L "%{_sysconfdir}/alternatives/bind9-devel" ]; then
+  alternatives --remove bind9-devel %{_includedir}/bind%{mver}
+fi
 %end
 
 %ldconfig_scriptlets libs
@@ -1093,65 +808,37 @@ fi;
 # TODO: Move from lib/bind to lib/named, as used by upstream
 # FIXME: current build targets filters into %%_libdir/bind again?
 %dir %{_libdir}/bind
-%{_libdir}/bind/filter-{a,aaaa}%{program_suffix}.so
+%{_libdir}/bind/filter*.so
 %dir %{_libdir}/named
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/named
 %config(noreplace) %attr(0644,root,named) %{_sysconfdir}/named.root.key
 %config(noreplace) %attr(0644,root,named) %{_sysconfdir}/named.ca
 %config(noreplace) %{_sysconfdir}/logrotate.d/named
-%{_tmpfilesdir}/%{name}.conf
-%{_unitdir}/%{name}.service
-%{_unitdir}/%{name}-setup-rndc.service
-%{_sysusersdir}/%{name}.conf
-%{_bindir}/named-journalprint%{program_suffix}
-%{_bindir}/named-checkconf%{program_suffix}
-%{_bindir}/named-rrchecker%{program_suffix}
-%{_bindir}/mdig%{program_suffix}
-%{_sbindir}/named%{program_suffix}
-%{_sbindir}/rndc%{program_suffix}
-%{_sbindir}/rndc-confgen%{program_suffix}
-%ghost %attr(0644,-,-) %{_unitdir}/named.service
-%ghost %attr(0644,-,-) %{_unitdir}/named-setup-rndc.service
-%ghost %attr(0755,-,-) %{_libdir}/bind/filter-a.so
-%ghost %attr(0755,-,-) %{_libdir}/bind/filter-aaaa.so
-%ghost %attr(0755,-,-) %{_bindir}/named-checkconf
-%ghost %attr(0755,-,-) %{_bindir}/named-journalprint
-%ghost %attr(0755,-,-) %{_bindir}/named-rrchecker
-%ghost %attr(0755,-,-) %{_bindir}/mdig
-%ghost %attr(0755,-,-) %{_sbindir}/named
-%ghost %attr(0755,-,-) %{_sbindir}/rndc
-%ghost %attr(0755,-,-) %{_sbindir}/rndc-confgen
+%{_tmpfilesdir}/named.conf
+%{_unitdir}/named.service
+%{_unitdir}/named-setup-rndc.service
+%{_sysusersdir}/named.conf
+%{_bindir}/named-journalprint
+%{_bindir}/named-checkconf
+%{_bindir}/named-rrchecker
+%{_bindir}/mdig
+%{_sbindir}/named
+%{_sbindir}/rndc*
 %if "%{_sbindir}" != "%{_bindir}"
-%{_sbindir}/named-checkconf%{program_suffix}
-%ghost %attr(0755,-,-) %{_sbindir}/named-checkconf
+%{_sbindir}/named-checkconf
 %endif
-%dir %{_libexecdir}/%{name}/
-%{_libexecdir}/%{name}/alternatives-install-named.sh
-%{_libexecdir}/%{name}/generate-rndc-key.sh
-%{_libexecdir}/%{name}/setup-named-softhsm.sh
-%ghost %attr(0755,-,-) %{_libexecdir}/generate-rndc-key.sh
-# man pages
-%{_mandir}/man1/mdig%{program_suffix}.1*
-%{_mandir}/man1/named-checkconf%{program_suffix}.1*
-%{_mandir}/man1/named-journalprint%{program_suffix}.1*
-%{_mandir}/man1/named-rrchecker%{program_suffix}.1*
-%{_mandir}/man5/named.conf%{program_suffix}.5*
-%{_mandir}/man5/rndc.conf%{program_suffix}.5*
-%{_mandir}/man8/rndc%{program_suffix}.8*
-%{_mandir}/man8/named%{program_suffix}.8*
-%{_mandir}/man8/rndc-confgen%{program_suffix}.8*
-%{_mandir}/man8/filter-{a,aaaa}%{program_suffix}.8*
-%ghost %attr(0644,-,-) %{_mandir}/man1/mdig.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/named-checkconf.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/named-journalprint.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/named-rrchecker.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man5/named.conf.5%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man5/rndc.conf.5%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man8/rndc.8%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man8/named.8%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man8/rndc-confgen.8%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man8/filter-a.8%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man8/filter-aaaa.8%{manext}
+%{_libexecdir}/generate-rndc-key.sh
+%{_libexecdir}/setup-named-softhsm.sh
+%{_mandir}/man1/mdig.1*
+%{_mandir}/man1/named-rrchecker.1*
+%{_mandir}/man5/named.conf.5*
+%{_mandir}/man5/rndc.conf.5*
+%{_mandir}/man8/rndc.8*
+%{_mandir}/man8/named.8*
+%{_mandir}/man1/named-checkconf.1*
+%{_mandir}/man8/rndc-confgen.8*
+%{_mandir}/man1/named-journalprint.1*
+%{_mandir}/man8/filter-*.8.gz
 %doc README.md named.conf.default
 %doc sample/
 
@@ -1166,7 +853,7 @@ fi;
 %dir %{_localstatedir}/named/slaves
 %dir %{_localstatedir}/named/data
 %dir %{_localstatedir}/named/dynamic
-%ghost %attr(0644,named,named) %{_localstatedir}/log/named.log
+%ghost %{_localstatedir}/log/named.log
 %defattr(0640,root,named,0750)
 %{_datadir}/named/
 %config %verify(not link) %{_localstatedir}/named/named.ca
@@ -1174,13 +861,13 @@ fi;
 %config %verify(not link) %{_localstatedir}/named/named.localhost
 %config %verify(not link) %{_localstatedir}/named/named.loopback
 %config %verify(not link) %{_localstatedir}/named/named.empty
-%ghost %attr(0640,root,named) %config(noreplace) %{_sysconfdir}/rndc.key
+%ghost %config(noreplace) %{_sysconfdir}/rndc.key
 # ^- rndc.key now created on first install only if it does not exist
-%ghost %attr(0640,root,named) %config(noreplace) %{_sysconfdir}/rndc.conf
+%ghost %config(noreplace) %{_sysconfdir}/rndc.conf
 # ^- The default rndc.conf which uses rndc.key is in named's default internal config -
 #    so rndc.conf is not necessary.
 %defattr(-,named,named,-)
-%dir %{_rundir}/named
+%dir /run/named
 
 %files libs
 %{_libdir}/libbind9-%{lib_version}*.so
@@ -1194,121 +881,69 @@ fi;
 %license COPYRIGHT
 
 %files utils
-%{_bindir}/arpaname%{program_suffix}
-%{_bindir}/delv%{program_suffix}
-%{_bindir}/dig%{program_suffix}
-%{_bindir}/host%{program_suffix}
-%{_bindir}/nsec3hash%{program_suffix}
-%{_bindir}/nslookup%{program_suffix}
-%{_bindir}/nsupdate%{program_suffix}
-%{_bindir}/named-checkzone%{program_suffix}
-%{_bindir}/named-compilezone%{program_suffix}
-%{_sbindir}/ddns-confgen%{program_suffix}
-%{_sbindir}/tsig-keygen%{program_suffix}
-%ghost %attr(0755,-,-) %{_bindir}/arpaname
-%ghost %attr(0755,-,-) %{_bindir}/delv
-%ghost %attr(0755,-,-) %{_bindir}/dig
-%ghost %attr(0755,-,-) %{_bindir}/host
-%ghost %attr(0755,-,-) %{_bindir}/nsec3hash
-%ghost %attr(0755,-,-) %{_bindir}/nslookup
-%ghost %attr(0755,-,-) %{_bindir}/nsupdate
-%ghost %attr(0755,-,-) %{_bindir}/named-checkzone
-%ghost %attr(0755,-,-) %{_bindir}/named-compilezone
-%ghost %attr(0755,-,-) %{_sbindir}/ddns-confgen
-%ghost %attr(0755,-,-) %{_sbindir}/tsig-keygen
+%{_bindir}/dig
+%{_bindir}/delv
+%{_bindir}/host
+%{_bindir}/nslookup
+%{_bindir}/nsupdate
+%{_bindir}/arpaname
+%{_sbindir}/ddns-confgen
+%{_sbindir}/tsig-keygen
+%{_bindir}/nsec3hash
+%{_bindir}/named-checkzone
+%{_bindir}/named-compilezone
 %if "%{_sbindir}" != "%{_bindir}"
 %{_sbindir}/named-checkzone
 %{_sbindir}/named-compilezone
 %endif
 %if %{with DNSTAP}
-%{_bindir}/dnstap-read%{program_suffix}
-%{_mandir}/man1/dnstap-read%{program_suffix}.1*
-%ghost %attr(0755,-,-) %{_bindir}/dnstap-read
-%ghost %attr(0644,-,-) %{_mandir}/man1/dnstap-read.1*
+%{_bindir}/dnstap-read
+%{_mandir}/man1/dnstap-read.1*
 %endif
 %if %{with LMDB}
-%{_bindir}/named-nzd2nzf%{program_suffix}
-%{_mandir}/man1/named-nzd2nzf%{program_suffix}.1*
-%ghost %attr(0755,-,-) %{_bindir}/named-nzd2nzf
-%ghost %attr(0644,-,-) %{_mandir}/man1/named-nzd2nzf.1*
+%{_bindir}/named-nzd2nzf
+%{_mandir}/man1/named-nzd2nzf.1*
 %endif
-%{_mandir}/man1/arpaname%{program_suffix}.1*
-%{_mandir}/man1/delv%{program_suffix}.1*
-%{_mandir}/man1/dig%{program_suffix}.1*
-%{_mandir}/man1/host%{program_suffix}.1*
-%{_mandir}/man1/nslookup%{program_suffix}.1*
-%{_mandir}/man1/nsupdate%{program_suffix}.1*
-%{_mandir}/man1/nsec3hash%{program_suffix}.1*
-%{_mandir}/man1/named-checkzone%{program_suffix}.1*
-%{_mandir}/man1/named-compilezone%{program_suffix}.1*
-%{_mandir}/man8/ddns-confgen%{program_suffix}.8*
-%{_mandir}/man8/tsig-keygen%{program_suffix}.8*
-%ghost %attr(0644,-,-) %{_mandir}/man1/arpaname.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/delv.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/dig.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/host.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/nslookup.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/nsupdate.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/nsec3hash.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/named-checkzone.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/named-compilezone.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man8/ddns-confgen.8%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man8/tsig-keygen.8%{manext}
+%{_mandir}/man1/host.1*
+%{_mandir}/man1/nsupdate.1*
+%{_mandir}/man1/dig.1*
+%{_mandir}/man1/delv.1*
+%{_mandir}/man1/nslookup.1*
+%{_mandir}/man1/arpaname.1*
+%{_mandir}/man8/ddns-confgen.8*
+%{_mandir}/man8/tsig-keygen.8*
+%{_mandir}/man1/nsec3hash.1*
+%{_mandir}/man1/named-checkzone.1*
+%{_mandir}/man1/named-compilezone.1*
 %{_sysconfdir}/trusted-key.key
-%dir %{_libexecdir}/%{name}/
-%{_libexecdir}/%{name}/alternatives-install-utils.sh
 
 %files dnssec-utils
-%{_bindir}/%{dnssec_utils_bin1}%{program_suffix}
-%{_mandir}/man1/%{dnssec_utils_bin1}%{program_suffix}.1*
-%dir %{_libexecdir}/%{name}/
-%{_libexecdir}/%{name}/alternatives-install-dnssec-utils.sh
-%ghost %attr(0755,-,-) %{_bindir}/dnssec-cds
-%ghost %attr(0755,-,-) %{_bindir}/dnssec-dsfromkey
-%ghost %attr(0755,-,-) %{_bindir}/dnssec-importkey
-%ghost %attr(0755,-,-) %{_bindir}/dnssec-keyfromlabel
-%ghost %attr(0755,-,-) %{_bindir}/dnssec-keygen
-%ghost %attr(0755,-,-) %{_bindir}/dnssec-revoke
-%ghost %attr(0755,-,-) %{_bindir}/dnssec-settime
-%ghost %attr(0755,-,-) %{_bindir}/dnssec-signzon
-%ghost %attr(0755,-,-) %{_bindir}/dnssec-verify
-%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-cds.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-dsfromkey.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-importkey.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-keyfromlabel.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-keygen.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-revoke.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-settime.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-signzon.1%{manext}
-%ghost %attr(0644,-,-) %{_mandir}/man1/dnssec-verify.1%{manext}
+%{_bindir}/dnssec*
+%{_mandir}/man1/dnssec*.1*
 
 %files devel
-%{_libdir}/%{devel_lib}%{program_suffix}.so
-%ghost %attr(0755,-,-) %{_includedir}/bind9
-%ghost %attr(0755,-,-) %{_libdir}/libbind9.so
-%ghost %attr(0755,-,-) %{_libdir}/libdns.so
-%ghost %attr(0755,-,-) %{_libdir}/libirs.so
-%ghost %attr(0755,-,-) %{_libdir}/libisc.so
-%ghost %attr(0755,-,-) %{_libdir}/libisccc.so
-%ghost %attr(0755,-,-) %{_libdir}/libisccfg.so
-%ghost %attr(0755,-,-) %{_libdir}/libns.so
-%dir %{bind_include}
-%dir %{_libexecdir}/%{name}/
-%{_libexecdir}/%{name}/alternatives-install-devel.sh
-%{bind_include}/bind9
-%{bind_include}/dns
-%{bind_include}/dst
-%{bind_include}/irs
-%{bind_include}/isc
-%{bind_include}/isccc
-%{bind_include}/isccfg
-%{bind_include}/ns
+%{_libdir}/libbind9.so
+%{_libdir}/libisccc.so
+%{_libdir}/libns.so
+%{_libdir}/libdns.so
+%{_libdir}/libirs.so
+%{_libdir}/libisc.so
+%{_libdir}/libisccfg.so
+%dir %{_includedir}/bind9
+%{_includedir}/bind9/bind9
+%{_includedir}/bind9/isccc
+%{_includedir}/bind9/ns
+%{_includedir}/bind9/dns
+%{_includedir}/bind9/dst
+%{_includedir}/bind9/irs
+%{_includedir}/bind9/isc
+%{_includedir}/bind9/isccfg
 
 %files chroot
 %config(noreplace) %{_sysconfdir}/named-chroot.files
 %{_unitdir}/named-chroot.service
 %{_unitdir}/named-chroot-setup.service
-%{_libexecdir}/%{name}/setup-named-chroot.sh
+%{_libexecdir}/setup-named-chroot.sh
 %{_tmpfilesdir}/%{name}-chroot.conf
 %defattr(0664,root,named,-)
 %ghost %dev(c,1,3) %verify(not mtime) %{chroot_prefix}/dev/null

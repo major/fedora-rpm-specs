@@ -5,7 +5,7 @@ Name:           python-pyliblo3
 %global snapinfo ^%{snapdate}git%{sub %{commit} 1 7}
 #Version:        0.16.2%%{snapinfo}
 Version:        0.16.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python bindings for the liblo Open Sound Control (OSC) library
 # Main code is LGPL-2.1-or-later
 License:        LGPL-2.1-or-later
@@ -64,6 +64,9 @@ chmod 644 NEWS README.md COPYING
 
 %build
 cython -I pyliblo3 pyliblo3/_liblo.pyx
+# PyEval_InitThreads() was removed in Python 3.16. It has been a no-op
+# since Python 3.7, so remove the obsolete call from Cython's generated C code.
+sed -i '/^[[:space:]]*PyEval_InitThreads();[[:space:]]*$/d' pyliblo3/_liblo.c
 %pyproject_wheel
 
 %install
@@ -89,6 +92,9 @@ cp -a scripts/dump_osc.1 scripts/send_osc.1 %{buildroot}%{_mandir}/man1/
 %doc examples/
 
 %changelog
+* Wed Nov 25 2026 Martin Gansser <martinkg@fedoraproject.org> - 0.16.3-12
+- Remove obsolete PyEval_InitThreads() call from generated C code for Python 3.16
+
 * Wed Jul 22 2026 Python Maint <python-maint@redhat.com> - 0.16.3-11
 - Rebuilt for Python 3.15.0b4 ABI change
 

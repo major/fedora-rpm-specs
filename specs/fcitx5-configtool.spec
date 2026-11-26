@@ -45,6 +45,7 @@ BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  cmake(Plasma)
 BuildRequires:  cmake(KF6Svg)
 BuildRequires:  cmake(KF6KCMUtils)
+BuildRequires:  cmake(KF6DBusAddons)
 # to display scalable icons
 Requires:       qt6-qtsvg
 # explicit requires on fcitx5-qt{5,6}-gui-wrapper

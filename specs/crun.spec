@@ -53,7 +53,7 @@ BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: gcc
 %if !%{defined copr_build}
-BuildRequires: gnupg2
+BuildRequires: openpgpverify
 %endif
 BuildRequires: git-core
 BuildRequires: gperf
@@ -107,7 +107,7 @@ Recommends: wasmedge
 
 %prep
 %if !%{defined copr_build}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %endif
 %autosetup -Sgit -n %{name}-%{version}
 

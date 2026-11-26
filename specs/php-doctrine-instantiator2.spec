@@ -9,8 +9,6 @@
 
 # bootstrap needed when rebuilding PHPUnit for new major version
 %global bootstrap    0
-%global gh_commit    23da848e1a2308728fe5fdddabf4be17ff9720c7
-%global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   instantiator
 %global major        2
@@ -21,13 +19,13 @@
 %endif
 
 Name:           php-doctrine-instantiator%{major}
-Version:        2.1.0
-Release:        3%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Instantiate objects in PHP without invoking their constructors, version %{major}
 
 License:        MIT
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        %{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{version}.tgz
 Source1:        makesrc.sh
 
 BuildArch:      noarch
@@ -38,7 +36,7 @@ BuildRequires:  php-phar
 BuildRequires:  php-pdo
 BuildRequires:  php-reflection
 BuildRequires:  php-spl
-%global phpunit %{_bindir}/phpunit10
+%global phpunit %{_bindir}/phpunit13
 BuildRequires:  %{phpunit}
 %endif
 
@@ -62,20 +60,20 @@ This package provides version %{major}.
 
 
 %prep
-%setup -q -n %{gh_project}-%{gh_commit}
+%setup -q -n %{gh_project}-%{version}
 
 
 %build
 : Generate a simple autoloader
 %{_bindir}/phpab \
-    --output src/Doctrine/Instantiator/autoload.php \
+    --output src/autoload.php \
     --template fedora \
-    src/Doctrine/Instantiator
+    src
 
 
 %install
-mkdir -p                         %{buildroot}%{_datadir}/php/Doctrine
-cp -pr src/Doctrine/Instantiator %{buildroot}%{_datadir}/php/Doctrine/Instantiator%{major}
+mkdir -p   %{buildroot}%{_datadir}/php/Doctrine
+cp -pr src %{buildroot}%{_datadir}/php/Doctrine/Instantiator%{major}
 
 
 %check
@@ -88,18 +86,18 @@ mkdir vendor
     tests
 cat << 'EOF' | tee -a vendor/autoload.php
 require "%{buildroot}%{_datadir}/php/Doctrine/Instantiator%{major}/autoload.php";
-Fedora\Autoloader\Autoload::addPsr0('DoctrineTest\\InstantiatorPerformance\\', dirname(__DIR__).'/tests');
-Fedora\Autoloader\Autoload::addPsr0('DoctrineTest\\InstantiatorTest\\', dirname(__DIR__).'/tests');
-Fedora\Autoloader\Autoload::addPsr0('DoctrineTest\\InstantiatorTestAsset\\', dirname(__DIR__).'/tests');
+Fedora\Autoloader\Autoload::addPsr4('DoctrineTest\\InstantiatorPerformance\\', dirname(__DIR__).'/tests/InstantiatorPerformance');
+Fedora\Autoloader\Autoload::addPsr4('DoctrineTest\\InstantiatorTest\\', dirname(__DIR__).'/tests/InstantiatorTest');
+Fedora\Autoloader\Autoload::addPsr4('DoctrineTest\\InstantiatorTestAsset\\', dirname(__DIR__).'/tests/InstantiatorTestAsset');
 EOF
 
 : Run test suite
 ret=0
-for cmdarg in "php %{phpunit}" php84 php85; do
+for cmdarg in "php %{phpunit}" php84 php85 php86; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d auto_prepend_file=vendor/autoload.php \
-      ${2:-%{_bindir}/phpunit10} || ret=1
+      ${2:-%{_bindir}/phpunit13} || ret=1
   fi
 done
 exit $ret
@@ -109,7 +107,6 @@ exit $ret
 
 
 %files
-# remirepo:1
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc *.md composer.json
@@ -118,6 +115,10 @@ exit $ret
 
 
 %changelog
+* Sat Nov 21 2026 Remi Collet <remi@remirepo.net> - 2.2.0-1
+- update to 2.2.0
+- switch to phpunit13
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

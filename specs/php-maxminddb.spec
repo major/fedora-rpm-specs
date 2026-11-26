@@ -32,7 +32,7 @@
 Name:          php-maxminddb
 Summary:       MaxMind DB Reader extension
 License:       Apache-2.0
-Version:       1.14.0
+Version:       1.15.0
 Release:       1%{?dist}
 URL:           https://github.com/%{gh_owner}/%{gh_project}
 
@@ -234,6 +234,9 @@ exit $ret
 
 
 %changelog
+* Wed Nov 25 2026 Remi Collet <remi@remirepo.net> - 1.15.0-1
+- update to 1.15.0
+
 * Fri Sep 11 2026 Remi Collet <remi@remirepo.net> - 1.14.0-1
 - update to 1.14.0
 - switch to phpunit9

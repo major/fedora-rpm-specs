@@ -10,8 +10,8 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        3.3.1
-Release:        2%{?dist}
+Version:        3.4.0
+Release:        1%{?dist}
 Summary:        Cross platform build tool
 # Fails to build on i686
 ExcludeArch:    i686
@@ -135,7 +135,7 @@ rm %{buildroot}%{_bindir}/clang-format-test
 %doc README.md
 %{_bindir}/%{name}*
 %{_libdir}/%{name}/
-%{_libdir}/libqbs*.so.3.3*
+%{_libdir}/libqbs*.so.3.4*
 %{_libexecdir}/qbs/
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1*
@@ -153,6 +153,9 @@ rm %{buildroot}%{_bindir}/clang-format-test
 
 
 %changelog
+* Wed Nov 25 2026 Sandro Mani <manisandro@gmail.com> - 1:3.4.0-1
+- Update to 3.4.0
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 1:3.3.1-2
 - Rebuild (qt6)
 

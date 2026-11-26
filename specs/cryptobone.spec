@@ -3,7 +3,7 @@
 
 Name:       cryptobone
 Version:    2.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Secure Communication Under Your Control      
 
 License:    BSD-3-Clause and Sleepycat and OpenSSL
@@ -15,7 +15,6 @@ Source2:    Senderek-Web-Security-codesigning-key.asc
 ExclusiveArch: x86_64 ppc64le aarch64 riscv64
 
 BuildRequires: libbsd-devel
-BuildRequires: libb64-devel
 BuildRequires: gcc
 BuildRequires: openpgpverify
 BuildRequires: desktop-file-utils
@@ -199,6 +198,9 @@ fi
 %doc       %{_docdir}/%{name}/README-cryptlib
 
 %changelog
+* Wed Nov 25 2026 Ralf Senderek <innovation@senderek.ie> - 2.3-2
+- Add custom base64functions built from scratch 
+
 * Sun Nov 22 2026 Ralf Senderek <innovation@senderek.ie> - 2.3-1
 - Add new base64functions using libb64-devel
 

@@ -20,6 +20,9 @@ Source2:        cutter-re.appdata.xml
 Patch0:         cutter-qt612-uic.patch
 # Fixed with help from LLMs
 Patch1:         cutter-fix-build-against-python-3.15.patch
+# Py_SetPythonHome() removed in Python 3.16, PyEval_InitThreads() in 3.13
+# https://bugzilla.redhat.com/show_bug.cgi?id=2584233
+Patch2:         cutter-fix-build-against-python-3.16.patch
 
 BuildRequires:  clang
 BuildRequires:  cmake

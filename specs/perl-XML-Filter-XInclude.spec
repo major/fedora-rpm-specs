@@ -1,22 +1,21 @@
 Name:           perl-XML-Filter-XInclude
 Version:        1.0
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        XInclude as a SAX Filter
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Filter-XInclude
 Source0:        https://cpan.metacpan.org/modules/by-module/XML/XML-Filter-XInclude-%{version}.tar.gz
 BuildArch:      noarch
+# Build:
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Cwd)
-# LWP::UserAgent not used at tests
+BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(vars)
@@ -25,6 +24,7 @@ BuildRequires:  perl(XML::SAX::Base)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(XML::SAX) >= 0.05
 BuildRequires:  perl(XML::SAX::Writer)
+# Dependencies:
 Requires:       perl(LWP::UserAgent)
 
 %description
@@ -35,28 +35,28 @@ It does NOT support XPointer.
 %setup -q -n XML-Filter-XInclude-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf %{buildroot}
-
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} %{buildroot}/*
+%{make_install}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
 %doc Changes README examples
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/XML/
+%{_mandir}/man3/XML::Filter::XInclude.3*
 
 %changelog
+* Wed Nov 25 2026 Paul Howarth <paul@city-fan.org> - 1.0-52
+- Spec tidy-up
+  - Use %%{make_build} and %%{make_install}
+  - Drop redundant buildroot cleaning from %%install section
+  - Fix permissions verbosely
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

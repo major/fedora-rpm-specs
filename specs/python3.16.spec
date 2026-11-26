@@ -484,12 +484,6 @@ Provides: python%{pybasever}%{?_isa} = %{version}-%{release}
 Recommends: %{_bindir}/python
 %endif
 
-# Python interpreter packages used to be named (or provide) name pythonXY (e.g.
-# python39). However, to align it with the executable names and to prepare for
-# Python 3.10, they were renamed to pythonX.Y (e.g. python3.9, python3.10). We
-# provide the previous names.
-Provides: python%{pyshortver} = %{version}-%{release}
-
 %if %{with main_python} || %{with python_abi_provides_for_alt_pythons}
 # Packages with Python modules in standard locations automatically
 # depend on python(abi). Provide that here.
@@ -632,12 +626,14 @@ Requires: tzdata
 # This breaks many things, including python -m venv.
 # We avoid this problem by requiring at least the same version of expat that
 # was used during the build time.
-# We also include release, in case pyxpat uses ABI that was backported
-# (e.g. XML_SetReparseDeferralEnabled was added in c9s expat 2.5.0-2).
 # Other subpackages (like -debug) also need this, but they all depend on -libs.
 # Since expat 2.7.4, the library has versioned symbols and this is no longer needed,
 # as the generated requirement will be in the form of libexpat.so.1(LIBEXPAT_2.7.2) etc.
-%global expat_version %(LANG=C rpm -q --qf '%%{version}-%%{release}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
+%global expat_version %(LANG=C rpm -q --qf '%%{version}' expat.%{_target_cpu} | sed 's/.*not installed/0/')
+# XML_SetReparseDeferralEnabled was added in c9s expat 2.5.0-2
+%if v"%{expat_version}" == v"2.5.0"
+%global expat_version 2.5.0-2
+%endif
 %if v"%{expat_version}" < v"2.7.4"
 Requires: expat%{?_isa} >= %{expat_version}
 %endif

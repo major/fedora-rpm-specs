@@ -6,7 +6,7 @@
 %global crate rangemap
 
 Name:           rust-rangemap
-Version:        1.8.0
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Map and set data structures whose keys are stored as ranges
 

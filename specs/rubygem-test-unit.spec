@@ -8,8 +8,8 @@ Name:		rubygem-%{gem_name}
 # 3.6.0 and above is for F-39+ only as 3.5.8 and above
 # changes default progress style
 # (For 3.5.8 and 3.5.9, F-38 and below reverted this change)
-Version:	3.7.8
-Release:	2%{?dist}
+Version:	3.7.9
+Release:	1%{?dist}
 # SPDX confirmed
 # lib/test/unit/diff.rb is under (BSD-2-Clause OR Ruby) AND Python-2.0.1
 # lib/test-unit.rb changed to BSD-2-Clause or Ruby (from 3.3.7)
@@ -83,6 +83,18 @@ popd
 pushd .%{gem_instdir}
 #rake test --trace
 ruby -Ilib ./test/run.rb
+
+# Ruby 4.1: test with Ruby::Box enabled
+cat > box_available_p.rb <<EOF
+#!/usr/bin/ruby
+rbver=Ruby::VERSION.split('.')
+exit  (rbver[0].to_i >= 4) && (rbver[1].to_i >= 1)
+EOF
+if $(ruby ./box_available_p.rb) ; then
+	export RUBY_BOX=1
+fi
+ruby -Ilib ./test/run.rb
+
 popd
 
 %files
@@ -103,6 +115,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Wed Nov 25 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.7.9-1
+- 3.7.9
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

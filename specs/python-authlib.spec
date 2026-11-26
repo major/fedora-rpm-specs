@@ -5,13 +5,16 @@
 %bcond tests_jose %{undefined rhel}
 
 Name:           python-authlib
-Version:        1.9.5
+Version:        1.9.10
 Release:        %autorelease
 Summary:        Build OAuth and OpenID Connect servers in Python
 
 License:        BSD-3-Clause
 URL:            https://github.com/authlib/authlib
 Source0:        %{url}/archive/v%{version}/authlib-%{version}.tar.gz
+
+BuildSystem:    pyproject
+BuildOption(install):  --assert-license authlib
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -27,40 +30,21 @@ Summary:        %{summary}
 
 %description -n python3-authlib %_description
 
-
-%prep
-%autosetup -p1 -n authlib-%{version}
-
-# Remove OAuth 1 tests, because they require support for SHA1.
-sed -i '/tests\.django\.test_oauth1/d' tests/django_settings.py
-rm -rf \
-  tests/django/test_oauth1 \
-  tests/flask/test_oauth1 \
-  tests/clients/test_requests/test_oauth1_session.py \
-  tests/clients/test_httpx/test_oauth1_client.py
-
-# Strip non-test/developer tools from pyproject.toml
-sed -i -E '/"(coverage|diff-cover|prek|scriv|tox-uv)/d' pyproject.toml
-
+%prep -a
+# Strip non-test/developer tools
+%pyproject_patch_dependency prek:ignore
+%pyproject_patch_dependency scriv:ignore
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -i 's/coverage run --source=authlib -p -m pytest/python3 -m pytest/' tox.ini
-
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-e %{toxenv}%{?with_tests_clients:,%{toxenv}-clients}%{?with_tests_flask:,%{toxenv}-flask}%{?with_tests_django:,%{toxenv}-django}%{?with_tests_jose:,%{toxenv}-jose}}
 
 
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files authlib
-
-
 %check
 %if %{with tests}
+# OAuth 1 tests require SHA1 support which is not available
+sed -i '/^\[tool\.pytest\.ini_options\]$/a addopts = "--ignore=tests/django/test_oauth1 --ignore=tests/flask/test_oauth1 --ignore=tests/clients/test_requests/test_oauth1_session.py --ignore=tests/clients/test_httpx/test_oauth1_client.py"' pyproject.toml
 %tox
 %endif
 # for import check, we exclude modules with optional dependencies:

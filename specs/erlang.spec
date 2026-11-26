@@ -67,8 +67,8 @@
 
 
 Name:		erlang
-Version:	27.3.4.19
-Release:	6%{?dist}
+Version:	27.3.4.20
+Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -1773,6 +1773,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Wed Nov 25 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.20-1
+- Ver. 27.3.4.20
+
 * Fri Nov 06 2026 Peter Lemenkov <lemenkov@gmail.com> - 27.3.4.19-6
 - Provide erlang(APP) = VSN for every OTP application, as erlang-rpm-macros
   does for other Erlang packages

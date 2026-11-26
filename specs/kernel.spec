@@ -167,13 +167,13 @@ Summary: The Linux kernel
 %define specrpmversion 7.4.0
 %define specversion 7.4.0
 %define patchversion 7.4
-%define pkgrelease 0.rc4.33
+%define pkgrelease 0.rc4.261125g4dce97c6c265.35
 %define kversion 7
-%define tarfile_release 7.4-rc4
+%define tarfile_release 7.4-rc4-260-g4dce97c6c265
 # This is needed to do merge window version magic
 %define patchlevel 4
 # The Release tag, including the configurable %%{?dist} tag
-%define specrelease 0.rc4.33%{?buildid}%{?dist}
+%define specrelease 0.rc4.261125g4dce97c6c265.35%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 7.4.0
 
@@ -4612,9 +4612,16 @@ fi\
 #
 #
 %changelog
-* Mon Nov 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc4.33]
+* Wed Nov 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc4.4dce97c6c265.35]
 - Reapply "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (Oleksii Baranov)
 - sched: move stack_canary to the start of the randomizable region (Scott Weaver)
+
+* Wed Nov 25 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc4.4dce97c6c265.34]
+- Linux v7.4.0-0.rc4.4dce97c6c265
+
+* Tue Nov 24 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc4.8d7fe9885c62.33]
+- Increase PPC64LE Baseline to Power10 (Justin M. Forbes)
+- Linux v7.4.0-0.rc4.8d7fe9885c62
 
 * Mon Nov 23 2026 Fedora Kernel Team <kernel-team@fedoraproject.org> [7.4.0-0.rc4.32]
 - Linux v7.4.0-0.rc4

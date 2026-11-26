@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal
-Version:        7.003
+Version:        7.004
 Release:        1%{?dist}
 Summary:        Fast, compact, powerful binary (de-)serialization
 # Makefile.PL defines LICENSE
@@ -101,6 +101,14 @@ make test
 %{_mandir}/man3/Sereal.3*
 
 %changelog
+* Tue Nov 24 2026 Paul Howarth <paul@city-fan.org> - 7.004-1
+- Update to 7.004 (rhbz#2583633)
+  - Update bundled zstd to 1.6.0, including upstream security fixes
+  - Update bundled miniz to 3.1.2, including malformed-input fixes
+  - Clarify checksum defaults and helper functions in all three manuals
+  - Correct the Decoder documentation for default key selection and the
+    interaction between no_bless_objects and no_thaw_objects
+
 * Sun Nov 15 2026 Paul Howarth <paul@city-fan.org> - 7.003-1
 - Update to 7.003 (rhbz#2573646)
   - Restore Encoder compilation on Perl builds without a U64 typedef and
