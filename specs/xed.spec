@@ -5,7 +5,7 @@
 %global tag      %{version}
 
 Name:		xed
-Version:	3.9.1
+Version:	3.9.3
 Release:	%autorelease
 %{forgemeta}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)

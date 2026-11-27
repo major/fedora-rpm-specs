@@ -18,13 +18,12 @@
 %global gh_vend    php
 %global gh_proj    pecl-mail-%{pecl_name}
 %global forgeurl   https://github.com/%{gh_vend}/%{gh_proj}
-%global tag        v%{version}
 
 Name:      php-pecl-%{pecl_name}
 Summary:   PHP PECL package for parsing and working with email messages
 License:   PHP-3.01
-Version:   3.2.0
-Release:   2%{?dist}
+Version:   3.2.1
+Release:   1%{?dist}
 %forgemeta
 URL:       %{forgeurl}
 Source0:   %{forgesource}
@@ -34,7 +33,6 @@ ExcludeArch:   %{ix86}
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: php-devel
-BuildRequires: php-pear
 # Required by phpize
 BuildRequires: autoconf, automake, libtool
 
@@ -59,10 +57,8 @@ It can deal with rfc822 and rfc2045 (MIME) compliant messages.
 %prep
 %forgesetup
 
-# Don't install/register tests
-sed -e 's/role="test"/role="src"/' \
-    -e '/LICENSE/s/role="doc"/role="src"/' \
-    -i package.xml
+# avoid re2c
+touch php_mailparse_rfc822.c
 
 extver=$(sed -n '/#define PHP_MAILPARSE_VERSION/{s/.* "//;s/".*$//;p}' php_mailparse.h)
 if test "x${extver}" != "x%{version}"; then
@@ -121,6 +117,9 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Thu Nov 26 2026 Remi Collet <remi@remirepo.net> - 3.2.1-1
+- update to 3.2.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

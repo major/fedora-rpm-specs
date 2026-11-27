@@ -1,5 +1,5 @@
 Name:           primecount
-Version:        9.0
+Version:        9.1
 Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 License:        BSD-2-Clause
@@ -97,6 +97,39 @@ libprimecount.
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Thu Nov 26 2026 Kim Walisch <walki@fedoraproject.org> - 9.1-1
+- Fix incorrect changelog formatting
+
+* Thu Nov 26 2026 Kim Walisch <walki@fedoraproject.org> - 9.1-0
+- ThreadPool.cpp: New thread pool designed for primecount, replaces OpenMP
+- ThreadPool.cpp: Prevent unloading libprimecount (e.g. dlclose(), FreeLibrary()) once the thread pool is used
+- pin_library.cmake: Check for dladdr() and dlopen() with RTLD_NODELETE
+- CMake: Remove WITH_OPENMP option, primecount is always multi-threaded
+- D.cpp: Tune threads, up to 1.5x faster, much faster for non-default alpha
+- AC_*.hpp: Extract AC workers with per-thread state and enable ARM SVE helper inlining
+- phi.cpp: Tune threads for Legendre and Meissel, up to 2.5x faster pi_legendre(x)
+- Phi0.cpp: Limit threads to sqrt(y) / 160, up to 2x faster Phi0(x, y)
+- S2_hard.cpp: Tune threads, up to 3.5x faster pi_deleglise_rivat(x) for large alpha
+- S2_easy.cpp: Limit threads to x^(1/3) / 500, up to 1.3x faster S2_easy(x, y)
+- P3.cpp: Increase number of threads, up to 1.5x faster P3(x, a)
+- FactorTable.hpp: Use sqrt(y) / 100 threads, up to 1.25x faster pi(x) for x ~ 1e15
+- FactorTable.hpp: Reuse the primes and PiTable of the caller, up to 2.5x faster initialization
+- FactorTable.hpp: Initialize the factor table in L2 cache sized segments, up to 2.5x faster
+- PiTable.cpp: Use sqrt(x) / 300 threads in get_primes(), up to 1.05x faster pi(x)
+- PiTable.cpp: Use sqrt(x) / 400 threads to initialize the PiTable, up to 1.03x faster pi(x)
+- AC_fastdivider.hpp: Use sqrt(primes) / 60 threads to initialize FastDivider, up to 1.05x faster pi(x)
+- doc/StatusS2-tuning.md: Remove OpenMP from the logging patch
+- nth_prime_sieve.cpp: Use nested parallel jobs instead of OpenMP tasks
+- nth_prime_sieve.cpp: Round up threads per segment, up to 1.2x faster sieving
+- Update to primesieve-12.18 library which fixes GCC < 14 crashes on ARM64 CPUs without ARM SVE
+- actions.lock: Lock GitHub Actions to exact commits to prevent supply chain attacks
+- test/StatusS2.cpp: Fix broken test on i586 OpenSUSE
+- LogarithmicIntegral.cpp: Use max() instead of infinity() for -ffast-math compatibility
+- RiemannR.cpp: Use max() instead of infinity() for -ffast-math compatibility
+- int128_t.hpp: Remove pstd::numeric_limits<T>::infinity()
+- util.cpp: Fix ambiguous log() and sqrt() calls with int128_t in strict C++14 builds
+- Windows build scripts: Use primecount-9.0 archives for README.txt
+
 * Sat Nov 07 2026 Kim Walisch <walki@fedoraproject.org> - 9.0-1
 - main.cpp: Avoid KMP_BLOCKTIME warnings with LLVM OpenMP before version 18
 - StatusS2.cpp: Tune the work model of D, S2_hard and LMO separately

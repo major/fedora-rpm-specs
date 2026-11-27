@@ -59,10 +59,13 @@
 Summary: Liberty Alliance Single Sign On
 Name: lasso
 Version: 2.9.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPL-2.0-or-later
 URL: https://lasso.entrouvert.org/
 Source0: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
+
+# https://dev.entrouvert.org/issues/123221
+Patch0: lasso-2.9.0-automake_1_20_support.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -167,6 +170,7 @@ library.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 # Remove any python script shebang lines (unless they refer to python3)
 sed -i -E -e '/^#![[:blank:]]*(\/usr\/bin\/env[[:blank:]]+python[^3]?\>)|(\/usr\/bin\/python[^3]?\>)/d' \
@@ -252,6 +256,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %endif
 
 %changelog
+* Thu Nov 26 2026 Xavier Bachelot <xavier@bachelot.org> - 2.9.0-12
+- Add patch for automake 1.20 support (RHBZ#2584722)
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.9.0-11
 - Rebuilt for libxml-2.5.4
 

@@ -1,8 +1,7 @@
 # Use clang by default.
 %bcond          gcc 0
 %bcond          hip %{undefined flatpak}
-%bcond          ninja 1
-#%%global               prerelease beta
+#%%global       prerelease beta
 Name:           oidn
 Version:        2.5.1
 Release:        %autorelease %{?prerelease: -p -e %{prerelease}}
@@ -17,7 +16,8 @@ Source0:        https://github.com/OpenImageDenoise/%{name}/releases/download/v%
 %endif
 
 %if %{with hip}
-# hipcc does not support some clang flags
+# Work around flags unsupported by hipcc. This currently affects all C++
+# targets; scope the workaround to the HIP external project when possible.
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong//' -e 's/-fcf-protection//' -e 's/-mtls-dialect=gnu2//' )
 %endif
 
@@ -25,6 +25,7 @@ Source0:        https://github.com/OpenImageDenoise/%{name}/releases/download/v%
 ExclusiveArch:  x86_64
 
 BuildRequires:  cmake >= 3.21
+BuildRequires:  cmake-rpm-macros
 # Enable HIP support
 %if %{with hip}
 BuildRequires:  hipcc
@@ -43,10 +44,7 @@ BuildRequires:  help2man
 BuildRequires:  cmake(ispcrt)
 BuildRequires:  ispc >= 1.30.0
 BuildRequires:  python3
-%if %{with ninja}
-BuildRequires:  ninja-build
-%endif
-BuildRequires:  pkgconfig(OpenImageIO) > 3.0
+BuildRequires:  pkgconfig(OpenImageIO)
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(tbb)
 
@@ -56,18 +54,17 @@ high-quality noise reduction filters for images rendered with ray tracing.
 
 %package        libs
 Summary:        Libraries for %{name}
-%if %{with hip}
-Recommends:     %{name}-libs-hip%{?_isa} = %{version}-%{release}
-%endif
 
 %description    libs
-The %{name}-libs package contains shared library for %{name}.
+The %{name}-libs package contains shared libraries for %{name}.
 
 # Enable HIP support
 %if %{with hip}
 %package        libs-hip
 Summary:        HIP backend for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+# Select the backend when OIDN and the HIP runtime are installed.
+Supplements:    (%{name}-libs%{?_isa} = %{version}-%{release} and rocm-hip%{?_isa})
 
 %description    libs-hip
 The %{name}-libs-hip package provides the AMD GPU noise reduction backend.
@@ -77,7 +74,7 @@ The %{name}-libs-hip package provides the AMD GPU noise reduction backend.
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%description devel
+%description    devel
 The %{name}-devel package contains libraries and header files for developing
 applications that use %{name}.
 
@@ -85,7 +82,7 @@ applications that use %{name}.
 Summary:        Documentation for %{name}
 BuildArch:      noarch
 
-%description docs
+%description    docs
 The %{name}-docs package contains documentation for %{name}.
 
 %prep
@@ -93,19 +90,17 @@ The %{name}-docs package contains documentation for %{name}.
 
 %build
 %cmake \
-%if %{with ninja}
-    -G Ninja \
-%endif
     -DOIDN_DEVICE_CPU=ON \
-    -DOIDN_DEVICE_HIP=%{?with_hip:ON}%{!?with_hip:OFF} \
 %if %{with hip}
+    -DOIDN_DEVICE_HIP=ON \
     -DROCM_PATH=%{_libdir} \
     -DOIDN_DEVICE_HIP_COMPILER=%{_bindir}/hipcc \
+%else
+    -DOIDN_DEVICE_HIP=OFF \
 %endif
     -DOIDN_APPS=ON \
     -DOIDN_APPS_OPENIMAGEIO=ON \
-    -DOIDN_INSTALL_DEPENDENCIES=OFF \
-    %{nil}
+    -DOIDN_INSTALL_DEPENDENCIES=OFF
 
 %cmake_build
 
@@ -134,12 +129,15 @@ do
   fi
 done
 
-# Remove duplicated documentation
+# Remove upstream-installed documentation; package it explicitly below.
 rm -rf %{buildroot}%{_docdir}/OpenImageDenoise
 
 %check
 # Run upstream tests on the CPU; builders do not need GPU access.
-OIDN_DEVICE_HIP=0 OIDN_DEVICE_SYCL=0 OIDN_DEVICE_CUDA=0 OIDN_DEVICE_METAL=0 \
+OIDN_DEVICE_HIP=0 \
+OIDN_DEVICE_SYCL=0 \
+OIDN_DEVICE_CUDA=0 \
+OIDN_DEVICE_METAL=0 \
 LD_LIBRARY_PATH="%{buildroot}%{_libdir}" \
     %{buildroot}%{_bindir}/oidnTest --device cpu
 
@@ -149,18 +147,19 @@ LD_LIBRARY_PATH="%{buildroot}%{_libdir}" \
 %{_mandir}/man1/%{name}{Denoise,Test,Benchmark}.1.gz
 
 %files libs
-%license LICENSE.txt
+%license LICENSE.txt third-party-programs.txt
 %{_libdir}/libOpenImageDenoise{,_core,_device_cpu}.so.2
 %{_libdir}/libOpenImageDenoise{,_core,_device_cpu}.so.%{version}
 
 %if %{with hip}
 %files libs-hip
+%license LICENSE.txt third-party-programs.txt
 %{_libdir}/libOpenImageDenoise_device_hip.so.%{version}
 %endif
 
 %files docs
 %license LICENSE.txt
-%doc README.md readme.pdf
+%doc README.md readme.pdf third-party-programs-DPCPP.txt third-party-programs-oneTBB.txt
 
 %files devel
 %doc README.md

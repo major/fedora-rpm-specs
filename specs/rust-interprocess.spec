@@ -8,7 +8,7 @@
 %global crate interprocess
 
 Name:           rust-interprocess
-Version:        2.4.8
+Version:        2.4.10
 Release:        %autorelease
 Summary:        Interprocess communication toolkit
 
@@ -18,7 +18,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          interprocess-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * un-pin backtrace and owo-colors dev-dependencies
+# * un-pin backtrace, owo-colors, tokio dev-dependencies
 Patch:          interprocess-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26

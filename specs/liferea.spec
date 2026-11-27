@@ -1,6 +1,6 @@
 Name:           liferea
 Epoch:          1
-Version:        2.0.3
+Version:        2.0.4
 Release:        1%{?dist}
 Summary:        An RSS/RDF feed reader
 
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Thu Nov 26 2026 Yanko Kaneti <yaneti@declera.com> - 1:2.0.4-1
+- Update to 2.0.4
+
 * Fri Oct 23 2026 Yanko Kaneti <yaneti@declera.com> - 1:2.0.3-1
 - Update to 2.0.3
 

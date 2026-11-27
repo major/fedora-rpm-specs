@@ -5,11 +5,11 @@
 %bcond_with docs
 %endif
 # See https://github.com/valkey-io/valkey-doc/tags
-%global doc_version 9.2.0
+%global doc_version 9.2.1
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
-%global upstream_version 9.2.0
+%global upstream_version 9.2.1
 %dnl %global upstream_prever rc2
 
 Name:              valkey
@@ -461,6 +461,9 @@ fi
 
 
 %changelog
+* Thu Nov 26 2026 Remi Collet <remi@remirepo.net> - 9.2.1-1
+- Valkey 9.2.1 - Released Wed 25 November 2026
+
 * Thu Nov 19 2026 Petr Khartskheav <pkhartsk@redhat.com> - 9.2.0-1
 - Valkey 9.2.0
 

@@ -5,8 +5,8 @@ Summary: Utility to detect and log scheduler pause
 Version: 20210719
 Release: 13%{?dist}
 License: ISC
-URL: https://github.com/jfriesse/spausedd
-Source0: https://github.com/jfriesse/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+URL: https://github.com/corosync/spausedd
+Source0: https://github.com/corosync/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 # VMGuestLib exists only for x86 architectures (for Fedora) and x86_64 (for RHEL)
 %if %{with vmguestlib}

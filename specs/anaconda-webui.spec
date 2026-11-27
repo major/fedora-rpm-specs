@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        91
+Version:        92
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -43,23 +43,21 @@ Requires: cockpit-networkmanager
 Requires: cockpit-bridge >= %{cockpitver}
 Requires: cockpit-ws >= %{cockpitver}
 Requires: anaconda-core  >= %{anacondacorever}
-Requires: python3-bugzilla
 # Firefox dependency needs to be specified there as cockpit web-view does not have a hard dependency on Firefox as
 # it can often fall back to a diferent browser. This does not work in the limited installer
 # environment, so we need to make sure Firefox is available. Exclude on RHEL, only Flatpak version will be there.
 %if ! 0%{?rhel}
 Requires: (slitherer if (%{webui_slitherer_spin_identities}) else firefox)
+Requires: python3-bugzilla
 %endif
-%if 0%{?fedora}
 Requires: system-logos
-%endif
 BuildRequires: desktop-file-utils
 
-Provides: bundled(npm(@patternfly/react-core)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.6.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.6.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.7.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.7.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(error-stack-parser)) = 2.1.4
 Provides: bundled(npm(file-selector)) = 2.1.2
@@ -76,9 +74,9 @@ Provides: bundled(npm(stack-generator)) = 2.0.10
 Provides: bundled(npm(stackframe)) = 1.3.4
 Provides: bundled(npm(stacktrace-gps)) = 3.1.2
 Provides: bundled(npm(stacktrace-js)) = 2.0.2
-Provides: bundled(npm(tabbable)) = 6.5.0
+Provides: bundled(npm(tabbable)) = 6.5.2
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
-Provides: bundled(npm(tslib)) = 2.8.1
+Provides: bundled(npm(tslib)) = 2.9.1
 
 %description
 Anaconda installer Web interface
@@ -162,6 +160,13 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Nov 26 2026 Packit <hello@packit.dev> - 92-1
+- Accept legacy single-word timezones
+- packaging: do not require python-bugzilla for RHEL / ELN
+- packaging: system logos are needed also for RHEL / ELN
+- storage: don't disable Next button on Reinstall scenario failures
+- storage: add partitioning scheme configuration modal
+
 * Wed Nov 04 2026 Katerina Koukiou <kkoukiou@redhat.com> - 91-1
  * Route Quit actions through the backend's default shutdown
  * storage: Handle missing reformatted mounts in home reuse

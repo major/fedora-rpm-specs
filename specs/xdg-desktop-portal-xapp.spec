@@ -2,7 +2,7 @@
 %global tag      %{version}
 
 Name:           xdg-desktop-portal-xapp
-Version:        1.2.2
+Version:        1.2.3
 Release:        %{autorelease}
 %{forgemeta}
 Summary:        Backend implementation for xdg-desktop-portal using Xapp

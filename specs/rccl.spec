@@ -108,6 +108,7 @@ License:        BSD-3-Clause AND MIT AND Apache-2.0
 URL:            https://github.com/ROCm/rocm-systems
 Source0:        %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+BuildRequires:  amdsmi%{pkg_suffix}-devel
 BuildRequires:  cmake
 BuildRequires:  hipify%{pkg_suffix}
 BuildRequires:  gcc-c++
@@ -119,7 +120,6 @@ BuildRequires:  rocm-core%{pkg_suffix}-devel
 BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
-BuildRequires:  rocm-smi%{pkg_suffix}-devel
 BuildRequires:  roctracer%{pkg_suffix}-devel
 
 %if %{with test}

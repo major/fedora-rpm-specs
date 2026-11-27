@@ -26,7 +26,7 @@ Obsoletes: claws-mail-plugin-gdata < 4.2.0-1
 
 Name:           claws-mail
 Version:        4.4.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Email client and news reader based on GTK+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -656,6 +656,9 @@ rm -f %{buildroot}%{_datadir}/icons/hicolor/icon-theme.cache
 
 
 %changelog
+* Thu Nov 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.4.0-11
+- Rebuild for libetpan 2
+
 * Thu Nov 05 2026 Michel Lind <salimma@fedoraproject.org> - 4.4.0-10
 - Backport upstream libical 4 support for the vCalendar plugin
   (claws-mail bug 4942 and follow-up fixes)

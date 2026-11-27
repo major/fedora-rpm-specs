@@ -23,7 +23,7 @@
 
 %bcond_with preview
 %if %{with preview}
-%global rocm_release 10.1
+%global rocm_release 10.2
 %else
 %global rocm_release 10.1
 %endif
@@ -151,6 +151,12 @@ Source2:        %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robi
 Source3:        %{url}/releases/download/%{pkg_src}/stinkytofu.tar.gz#/stinkytofu-%{version}.tar.gz
 Source4:        %{url}/releases/download/%{pkg_src}/origami.tar.gz#/origami-%{version}.tar.gz
 Source5:        %{url}/releases/download/%{pkg_src}/mxdatagenerator.tar.gz#/mxdatagenerator-%{version}.tar.gz
+%if %{with preview}
+Patch1: 0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
+Patch2: 0002-hipblaslt-find-origami-package.patch
+Patch3: 0003-hipblaslt-tensilelite-use-nanobind-tarball.patch
+Patch4: 0004-hipblaslt-cmake-compile-and-link-job-pools.patch
+%else
 # Remove yappi profiling dependency from tensilelite
 Patch1:         0001-hipblaslt-preview-tensilelit-remove-yappi-dependency.patch
 # Use find_package for origami instead of subdirectory fallback
@@ -161,6 +167,7 @@ Patch4:         0001-hipblaslt-preview-tensilelit-use-nanobind-tarball.patch
 Patch5:         0001-hipblaslt-preview-cmake-jobpools.patch
 # Simplify stinkytofu CMake integration with find_package
 Patch6:         0001-hipblaslt-preview-stinktofu.patch
+%endif
 
 BuildRequires:  amdsmi-devel
 BuildRequires:  chrpath
@@ -176,6 +183,7 @@ BuildRequires:  gcc-gfortran
 %endif
 BuildRequires:  hipblas%{pkg_suffix}-devel
 BuildRequires:  hipcc%{pkg_suffix}
+BuildRequires:  libomp-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  rocblas%{pkg_suffix}-devel
 BuildRequires:  rocminfo%{pkg_suffix}
@@ -188,7 +196,6 @@ BuildRequires:  rocm-llvm%{pkg_suffix}-devel
 BuildRequires:  rocm-origami%{pkg_suffix}-devel
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
-BuildRequires:  rocm-smi%{pkg_suffix}-devel
 BuildRequires:  zlib-devel
 
 # For tensilelite
@@ -272,6 +279,9 @@ algorithmic implementations and heuristics.
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       rocm-filesystem%{pkg_suffix}
+%if %{with preview}
+Requires:       rocm-origami%{pkg_suffix}-devel
+%endif
 Provides:       hipblaslt%{pkg_suffix}-devel = %{version}-%{release}
 
 %description devel
@@ -322,15 +332,22 @@ cp -ar robin-map-*/* ext/robin_map/
 cd ..
 tar czf nanobind.tar.gz nanobind
 cd ../..
+%if %{with preview}
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
+%patch 4 -p1
+%else
 %patch 1 -p1
 %patch 4 -p1
+%endif
 
 cd projects/hipblaslt
 
 # tensile path to tools need to change
-sed -i -e 's@globalParameters["ROCmPath"] = "/opt/rocm"@globalParameters["ROCmPath"] = "%{pkg_prefix}"@' tensilelite/Tensile/Common/GlobalParameters.py
-sed -i -e 's@DEFAULT_ROCM_BIN_PATH_POSIX = Path("/opt/rocm/bin")@DEFAULT_ROCM_BIN_PATH_POSIX = Path("%{pkg_prefix}/bin")@' tensilelite/Tensile/Toolchain/Validators.py
-sed -i -e 's@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("/opt/rocm/lib/llvm/bin")@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("%{rocmllvm_bindir}")@' tensilelite/Tensile/Toolchain/Validators.py
+sed -i -e 's@globalParameters["ROCmPath"] = "/opt/rocm"@globalParameters["ROCmPath"] = "%{pkg_prefix}"@' tensilelite/tensilelite/Common/GlobalParameters.py
+sed -i -e 's@DEFAULT_ROCM_BIN_PATH_POSIX = Path("/opt/rocm/bin")@DEFAULT_ROCM_BIN_PATH_POSIX = Path("%{pkg_prefix}/bin")@' tensilelite/tensilelite/Toolchain/Validators.py
+sed -i -e 's@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("/opt/rocm/lib/llvm/bin")@DEFAULT_ROCM_LLVM_BIN_PATH_POSIX = Path("%{rocmllvm_bindir}")@' tensilelite/tensilelite/Toolchain/Validators.py
 
 # As of 6.4, there is a long poll
 # compile_code_object.sh gfx90a,gfx1100,gfx1101,gfx1151,gfx1200,gfx1201 RelWithDebInfo sha1 hipblasltTransform.hsaco
@@ -432,6 +449,9 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %license projects/hipblaslt/LICENSE.md
 %{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so.1{,.*}
 %{pkg_prefix}/%{pkg_libdir}/hipblaslt/
+%if %{with preview}
+%{pkg_prefix}/%{pkg_libdir}/libtensile*.so.1{,.*}
+%endif
 
 %files devel
 %{pkg_prefix}/include/hipblaslt/
@@ -439,6 +459,13 @@ chrpath -r %{pkg_prefix}/%{pkg_libdir} %{buildroot}%{pkg_prefix}/%{pkg_libdir}/l
 %{pkg_prefix}/include/hipblaslt-version.h
 %{pkg_prefix}/%{pkg_libdir}/cmake/hipblaslt/
 %{pkg_prefix}/%{pkg_libdir}/libhipblaslt.so
+%if %{with preview}
+%{pkg_prefix}/include/Tensile
+%{pkg_prefix}/include/rocisa
+%{pkg_prefix}/include/tensilelitehost
+%{pkg_prefix}/%{pkg_libdir}/libtensile*.so
+%endif
+
 
 %if %{with test}
 %files test

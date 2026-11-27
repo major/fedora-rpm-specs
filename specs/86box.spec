@@ -1,5 +1,5 @@
 Name:		86box
-Version:	5.3
+Version:	6.0
 Release:	%autorelease
 Summary:	Classic PC emulator
 # The source tree contains files under various licenses.
@@ -46,7 +46,6 @@ Requires: hicolor-icon-theme
 Recommends: fluid-soundfont-gm
 Recommends: gamemode
 
-Patch1: 01-fallthrough-fix.patch
 Patch2: 02-png-module-fix.patch
 
 
@@ -59,6 +58,10 @@ Provides: bundled(resid-fp)
 Provides: bundled(ymfm)
 Provides: bundled(lzf)
 Provides: bundled(minitrace)
+
+# The code depends on __int128 support, which is not available on 32-bit platforms.
+# Also, https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %description
 86Box is a hypervisor and IBM PC system emulator that specializes in
@@ -88,7 +91,7 @@ It supports various models of PCs, graphics and sound cards, and CPUs.
 %cmake_install
 
 # install icons
-for i in 48 64 72 96 128 192 256 512; do
+for i in 16 20 24 32 40 48 64 72 128 256; do
   mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps
   cp -p src/unix/assets/${i}x${i}/net.86box.86Box.png %{buildroot}%{_datadir}/icons/hicolor/${i}x${i}/apps
 done

@@ -19,13 +19,13 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.5.8
+%global upstream_version  2.5.9
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 
 # Required versions from config.m4
-%global minimal_libmongo  2.5.9
-%global minimal_libcrypt  1.21.1
+%global minimal_libmongo  2.5.10
+%global minimal_libcrypt  1.21.2
 
 # Build dependencies
 %global system_libmongo   2.5
@@ -166,6 +166,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Nov 26 2026 Remi Collet <remi@remirepo.net> - 2.5.9-1
+- update to 2.5.9
+
 * Tue Nov 24 2026 Remi Collet <remi@remirepo.net> - 2.5.8-1
 - update to 2.5.8
 

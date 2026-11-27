@@ -100,7 +100,6 @@ BuildRequires:  rocm-hip%{pkg_suffix}-devel
 BuildRequires:  rocm-omp%{pkg_suffix}-devel
 BuildRequires:  rocm-rpm-macros%{pkg_suffix}
 BuildRequires:  rocm-runtime%{pkg_suffix}-devel
-BuildRequires:  rocm-smi%{pkg_suffix}-devel
 BuildRequires:  yaml-cpp-devel
 
 ExclusiveArch: x86_64
@@ -163,9 +162,9 @@ sed -i -e 's@--offload-arch=gfx1030@--offload-arch=gfx1030 --offload-arch=gfx103
 sed -i -e 's@GIT NAMES git@GIT NAMES git-not-going-to-find-me@' cmake_modules/utils.cmake
 
 # fix link of librvslib
-sed -i -e '/add_library/a target_link_libraries(${RVS_TARGET} -lrocm_smi64 -lhipblaslt -lhiprand -lrocrand -lrocblas -lyaml-cpp -lpci -lamd_smi -lamdhip64 -lhsa-runtime64 -lomp)' rvslib/CMakeLists.txt
+sed -i -e '/add_library/a target_link_libraries(${RVS_TARGET} -lhipblaslt -lhiprand -lrocrand -lrocblas -lyaml-cpp -lpci -lamd_smi -lamdhip64 -lhsa-runtime64 -lomp)' rvslib/CMakeLists.txt
 # Now the library path
-sed -i -e 's@-lrocm_smi64 @-L%{pkg_prefix}/%{pkg_libdir} -lrocm_smi64 @' rvslib/CMakeLists.txt
+sed -i -e 's@-lrocm_smi64 @-L%{pkg_prefix}/%{pkg_libdir} -lhipblaslt @' rvslib/CMakeLists.txt
 
 # for finding omp.h
 sed -i -e 's@${YAML_CPP_INCLUDE_DIR}@${YAML_CPP_INCLUDE_DIR} "%{pkg_llvm_prefix}/include" @' rvs/CMakeLists.txt

@@ -3,7 +3,7 @@
 
 Name:           mint-themes
 Epoch:          1
-Version:        2.4.5
+Version:        2.4.6
 Release:        %autorelease
 %{forgemeta}
 Summary:        Mint themes

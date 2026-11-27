@@ -6,15 +6,13 @@
 %global crate slog-extlog-derive
 
 Name:           rust-slog-extlog-derive
-Version:        8.1.0
+Version:        8.1.1
 Release:        %autorelease
 Summary:        Custom derive code for slog-extlog
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/slog-extlog-derive
 Source:         %{crates_source}
-# * https://github.com/slog-rs/extlog/issues/34
-Source2:        https://github.com/slog-rs/extlog/raw/refs/tags/8.1.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -52,7 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav '%{SOURCE2}' .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

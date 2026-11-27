@@ -4,7 +4,7 @@
 %global pypi_name jsonpatch
 
 Name:           python-%{pypi_name}
-Version:        1.47
+Version:        1.48
 Release:        %autorelease
 Summary:        Applying JSON Patches in Python
 

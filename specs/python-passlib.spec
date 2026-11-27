@@ -6,7 +6,7 @@ Summary:        Comprehensive password hashing framework supporting over 20 sche
 # license breakdown is described in LICENSE file
 License:        BSD-3-Clause AND Beerware AND UnixCrypt AND ISC
 URL:            https://github.com/notypecheck/passlib
-Source:         %pypi_source libpass
+Source:         %pypi_source passlib
 
 BuildArch:      noarch
 
@@ -41,42 +41,27 @@ BuildRequires:  python3-pytest
 
 
 %prep
-%autosetup -p1 -n libpass-%{version}
+%autosetup -p1 -n passlib-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -x bcrypt -x totp %{!?el9:-x argon2} 
+%pyproject_buildrequires -x bcrypt -x totp %{!?el9:-x argon2}
 
 
 %build
 %pyproject_wheel
-# This package was renamed from passlib to libpass and we want to provide the old distinfo
-# for packages that still need it.
-%global legacy_distinfo passlib-%{version}.dist-info
-mkdir %{legacy_distinfo}
-cat > %{legacy_distinfo}/METADATA << EOF
-Metadata-Version: 2.1
-Name: passlib
-Version: %{version}
-EOF
-echo rpm > %{legacy_distinfo}/INSTALLER
 
 
 %install
 %pyproject_install
 %pyproject_save_files -l passlib
 
-cp -a %{legacy_distinfo} %{buildroot}%{python3_sitelib}
-
 
 %check
 %pytest
 
-%{py3_test_envvars} %{python3} -c 'import importlib.metadata as im; assert im.version("passlib") == im.version("libpass") == "%{version}"'
-
 
 %files -n python3-passlib -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/%{legacy_distinfo}/
 
 
 %changelog

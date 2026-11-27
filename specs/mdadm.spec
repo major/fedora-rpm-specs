@@ -3,7 +3,7 @@
 
 Name:        mdadm
 Version:     4.6
-Release:     4%{?dist}
+Release:     5%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         https://github.com/md-raid-utilities/mdadm
 License:     GPL-2.0-or-later
@@ -29,8 +29,6 @@ BuildRequires:    systemd-rpm-macros
 BuildRequires:    binutils-devel
 BuildRequires:    gcc
 BuildRequires:    systemd-devel
-BuildRequires:    gnupg2
-BuildRequires:    mandoc
 %if %{with abrt}
 Requires:         libreport-filesystem
 %endif
@@ -52,7 +50,7 @@ file can be used to help with some common tasks.
 
 %build
 # CXFLAGS is NOT a typo, it's baked into the makefile, not to be confused with CXXFLAGS
-%make_build CXFLAGS="%{optflags} -std=gnu17 -Wno-error=unterminated-string-initialization" LDFLAGS="$RPM_LD_FLAGS" SYSCONFDIR="%{_sysconfdir}" mdadm mdmon raid6check raid6check.man
+%make_build CXFLAGS="%{optflags} -std=gnu17 -Wno-error=unterminated-string-initialization" LDFLAGS="$RPM_LD_FLAGS" SYSCONFDIR="%{_sysconfdir}" mdadm mdmon raid6check
 %if %{enable_testsuite}
 %make_build CXFLAGS="%{optflags} -std=gnu17 -Wno-error=unterminated-string-initialization" LDFLAGS="$RPM_LD_FLAGS" SYSCONFDIR="%{_sysconfdir}" swap_super
 %endif
@@ -84,7 +82,7 @@ install -Dm644 %{SOURCE5} %{buildroot}%{_sysconfdir}/libreport/events.d/%{name}_
 
 # raid6check
 install -Dm755 raid6check %{buildroot}/%{_sbindir}/raid6check
-install -Dm644 raid6check.man %{buildroot}/%{_mandir}/man8/raid6check.man
+install -Dm644 raid6check.8 %{buildroot}/%{_mandir}/man8/raid6check.8
 
 %post
 %systemd_post mdmonitor.service raid-check.timer
@@ -143,6 +141,10 @@ as root on a machine where md arrays can be created.
 
 
 %changelog
+* Thu Nov 26 2026 Peter Rajnoha <prajnoha@redhat.com> - 4.6-5
+- Install the raid6check.8 man page source instead of formatted text.
+- Drop the now unused mandoc and gnupg2 build dependencies.
+
 * Wed Nov 25 2026 Peter Rajnoha <prajnoha@redhat.com> - 4.6-4
 - Use the GitHub archive as the source tarball.
 - Install upstream mdcheck script instead of the stale Fedora copy.

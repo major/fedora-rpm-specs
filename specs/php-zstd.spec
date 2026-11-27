@@ -24,7 +24,7 @@
 Name:          php-%{pecl_name}
 Summary:       Zstandard extension
 License:       MIT
-Version:       0.19.0
+Version:       0.19.1
 Release:       1%{?dist}
 %forgemeta
 URL:           %{forgeurl}
@@ -154,6 +154,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Nov 26 2026 Remi Collet <remi@remirepo.net> - 0.19.1-1
+- update to 0.19.1 (no change)
+
 * Wed Nov 25 2026 Remi Collet <remi@remirepo.net> - 0.19.0-1
 - update to 0.19.0
 

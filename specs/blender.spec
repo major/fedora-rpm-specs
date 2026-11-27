@@ -127,6 +127,7 @@ BuildRequires:  cmake(Jolt)
 BuildRequires:  cmake(Ktx) >= 4.4.2
 %endif
 BuildRequires:  cmake >= 3.21
+BuildRequires:  cmake-rpm-macros
 BuildRequires:  desktop-file-utils
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++ >= 14
@@ -141,7 +142,6 @@ BuildRequires:  clang%{?llvm_compat}-devel >= 17
 %if %{with llvm}
 BuildRequires:  llvm%{?llvm_compat}-devel
 %endif
-BuildRequires:  ninja-build
 
 # System libraries
 BuildRequires:  mold
@@ -306,9 +306,6 @@ BuildRequires:  pkgconfig(oslcomp) >= 1.13.4
 %endif
 %if %{with oidn}
 BuildRequires:  cmake(OpenImageDenoise) >= 2.5.1
-%if %{with hip}
-BuildRequires:  oidn-libs-hip
-%endif
 %endif
 %if %{with opgl}
 BuildRequires:  openpgl-devel
@@ -411,9 +408,9 @@ BuildRequires:  pkgconfig(vpl)
 %endif
 
 Requires:       hicolor-icon-theme
-# HIP backend of OIDN
+# Optional HIP denoising backend, loaded at runtime by OIDN.
 %if %{with oidn} && %{with hip}
-Requires:       oidn-libs-hip%{?_isa}
+Recommends:     (oidn-libs-hip%{?_isa} if rocm-hip%{?_isa})
 %endif
 %if %{with hip} && %{with hiprt}
 # Cycles' Linux HIPRT availability check loads libamdhip64.so.

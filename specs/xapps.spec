@@ -2,7 +2,7 @@
 %global tag      %{version}
 
 Name:           xapps
-Version:        3.4.1
+Version:        3.4.3
 Release:        %{autorelease}
 %{forgemeta}
 Summary:        Common files for XApp desktop apps

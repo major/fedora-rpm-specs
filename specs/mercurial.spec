@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 7.2.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -20,14 +20,11 @@ Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://mercurial-scm.org/
 Source0: https://www.mercurial-scm.org/release/%{name}-%{upstreamversion}.tar.gz
-Source1: mercurial-site-start.el
 # Patch cargo metadata for dependency versions available in Fedora
 Patch0:  mercurial-rust-metadata.patch
 Patch1:  mercurial_without_TLSv1_2.patch
 
 BuildRequires: make
-BuildRequires: emacs-el
-BuildRequires: emacs-nox
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: pkgconfig
@@ -41,7 +38,6 @@ BuildRequires: rust-packaging
 %endif
 
 Provides: hg = %{version}-%{release}
-Requires: emacs-filesystem
 Provides: mercurial-rust = %{version}-%{release}
 Obsoletes: mercurial-rust < %{version}-%{release}
 
@@ -198,25 +194,11 @@ install -D -m 755 -pv rust/target/release/librusthg.so \
 install -D -m 755 contrib/hgk       %{buildroot}%{_libexecdir}/mercurial/hgk
 install -m 755 contrib/hg-ssh       %{buildroot}%{_bindir}
 
-mkdir -p %{buildroot}%{_emacs_sitelispdir}/mercurial
-
-pushd contrib
-for file in mercurial.el mq.el; do
-  #emacs -batch -l mercurial.el --no-site-file -f batch-byte-compile $file
-  %{_emacs_bytecompile} $file
-  install -p -m 644 $file ${file}c %{buildroot}%{_emacs_sitelispdir}/mercurial
-  rm ${file}c
-done
-popd
-
 pushd contrib/chg
 make install DESTDIR=%{buildroot} PREFIX=%{_prefix} MANDIR=%{_mandir}/man1
 popd
 
-
 mkdir -p %{buildroot}%{_sysconfdir}/mercurial/hgrc.d
-
-mkdir -p %{buildroot}%{_emacs_sitestartdir} && install -m644 %SOURCE1 %{buildroot}%{_emacs_sitestartdir}
 
 cat >hgk.rc <<EOF
 [extensions]
@@ -253,8 +235,6 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 %{python3_sitearch}/hgext/
 %{python3_sitearch}/hgext3rd/
 %{python3_sitearch}/hgdemandimport/
-%{_emacs_sitelispdir}/mercurial
-%{_emacs_sitestartdir}/*.el
 %{_bindir}/hg
 %{_bindir}/hg-ssh
 
@@ -280,6 +260,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Thu Nov 26 2026 Mads Kiilerich <mads@kiilerich.com> - 7.2.4-2
+- Drop obsolete Emacs support (rhbz#2545926)
+
 * Tue Aug 11 2026 Mads Kiilerich <mads@kiilerich.com> - 7.2.4-1
 - mercurial 7.2.4
 

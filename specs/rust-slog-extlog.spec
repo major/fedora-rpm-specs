@@ -5,7 +5,7 @@
 %global crate slog-extlog
 
 Name:           rust-slog-extlog
-Version:        8.1.0
+Version:        8.1.1
 Release:        %autorelease
 Summary:        Object-based logging and statistics tracking through logs
 
@@ -114,7 +114,8 @@ use the "tokio" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip an unreliable test that sometimes just allocates until OOM
+%cargo_test -- -- --exact --skip slog_test::tests::test_partial_write
 %endif
 
 %changelog

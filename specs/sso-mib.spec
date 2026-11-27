@@ -6,7 +6,7 @@
 %define soversion 0
 
 Name:           sso-mib
-Version:        0.9.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Tools and library for Single-Sign-On with CA for Entra via Himmelblau
 
@@ -24,7 +24,10 @@ BuildRequires:  pkgconfig(json-glib-1.0)
 %if %{with libjwt}
 BuildRequires:  pkgconfig(libjwt)
 %endif
+BuildRequires:  pkgconfig(libsasl2)
 BuildRequires:  pkgconfig(uuid)
+# for tests
+BuildRequires:  dbus-daemon
 
 %description
 Applications can link with this library to get Entra Conditional Access tokens
@@ -65,12 +68,22 @@ for authentication and Single-Sign-On from the Himmelblau stack.
 
 %package gch-smtp-o365
 Summary:        Git credential helper for SMTP on O365 via Himmelblau
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 License:        MIT
 Enhances:       git-core
 
 %description -n sso-mib-gch-smtp-o365
 This package contains a git send-email credential helper to authenticate SMTP
 on O365.
+
+%package sasl
+Summary:        Cyrus-SASL plugin for SSO with Entra via Himmelblau
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+License:        MIT
+Enhances:       cyrus-sasl
+
+%description -n sso-mib-sasl
+This package contains a Cyrus-SASL plugin to enable SSO with Entra via Himmelblau.
 
 %prep
 %autosetup -p1
@@ -107,10 +120,17 @@ install -Dpm0644 %SOURCE1 \
 %license LICENSES/GPL-2.0-only.txt
 %{_bindir}/sso-mib-tool
 %{_datadir}/bash-completion/completions/sso-mib-tool
+%{_mandir}/man1/sso-mib-tool.1*
 
 %files gch-smtp-o365
 %license LICENSES/MIT.txt
 %{_bindir}/sso-mib-gch-smtp-o365
+%{_mandir}/man1/sso-mib-gch-smtp-o365.1*
+
+%files sasl
+%license LICENSES/MIT.txt
+%{_libdir}/sasl2/libsso-mib-sasl-xoauth2.so
+%{_mandir}/man7/sso-mib-sasl-xoauth2.7*
 
 %changelog
 %autochangelog

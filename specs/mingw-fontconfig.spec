@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-fontconfig
-Version:        2.18.3
+Version:        2.18.4
 Release:        1%{?dist}
 Summary:        MinGW Windows Fontconfig library
 
@@ -133,6 +133,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Thu Nov 26 2026 Sandro Mani <manisandro@gmail.com> - 2.18.4-1
+- Update to 2.18.4
+
 * Sat Aug 08 2026 Sandro Mani <manisandro@gmail.com> - 2.18.3-1
 - Update to 2.18.3
 

@@ -18,7 +18,7 @@
 
 Name:           python-%{srcname}
 Version:        13.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -28,6 +28,10 @@ Source0:        https://github.com/python-pillow/Pillow/archive/%{version}/Pillo
 
 # MinGW build fixes
 Patch0:         pillow_mingw.patch
+
+# Remove HAVE_PROTOTYPES/STDC_HEADERS checks; the macros are no longer
+# defined in pyconfig.h since Python 3.16 (upstream #10324, e31af4a)
+Patch1:         pillow_have_prototypes.patch
 
 BuildRequires:  freetype-devel
 BuildRequires:  gcc
@@ -309,6 +313,10 @@ popd
 
 
 %changelog
+* Mon Nov 16 2026 Karolina Surma <ksurma@redhat.com> - 13.0.0-2
+- Remove HAVE_PROTOTYPES/STDC_HEADERS checks for Python 3.16
+  (upstream #10324, backported from e31af4a)
+
 * Fri Oct 16 2026 Sandro Mani <manisandro@gmail.com> - 13.0.0-1
 - Update to 13.0.0
 

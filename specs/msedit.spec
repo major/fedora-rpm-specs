@@ -26,6 +26,7 @@ License:        MIT AND (MIT OR Apache-2.0)
 URL:            https://github.com/microsoft/edit
 Source:         %{url}/archive/v%{version}/edit-%{version}.tar.gz
 Patch:          edit-fix-metadata.diff
+Patch:          edit-fix-oklab-endianness.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  desktop-file-utils

@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        5.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
 
@@ -19,6 +19,8 @@ Patch1:         python-flask-security-too_phonenumbers.patch
 Patch2:         python-flask-security-too_no-sqla-utils.patch
 # Relax dependency version requirement
 Patch3:         python-flask-security-too-deps.patch
+# Look for passlib instead of libpass
+Patch4:         python-flask-security-too_passlib.patch
 
 BuildRequires:  python3-devel
 
@@ -67,6 +69,9 @@ ln -sf pyproject-too.toml pyproject.toml
 
 
 %changelog
+* Fri Nov 27 2026 Sandro Mani <manisandro@gmail.com> - 5.8.2-2
+- Rebuild (passlib)
+
 * Fri Sep 18 2026 Sandro Mani <manisandro@gmail.com> - 5.8.2-1
 - Update to 5.8.2
 

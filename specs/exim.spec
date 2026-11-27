@@ -11,8 +11,8 @@
 
 Summary: The exim mail transfer agent
 Name: exim
-Version: 4.100.1
-Release: 2%{?dist}
+Version: 4.100.2
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -512,6 +512,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Thu Nov 26 2026 Jaroslav Škarvada <jskarvad@redhat.com> - 4.100.2-1
+- New version
+  Resolves: rhbz#2584145
+
 * Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 4.100.1-2
 - Verify upstream source signatures with openpgpverify
 

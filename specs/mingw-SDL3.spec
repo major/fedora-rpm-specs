@@ -2,7 +2,7 @@
 
 Name:           mingw-SDL3
 Version:        3.4.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows port of SDL3 cross-platform multimedia library
 
 License:        Zlib AND MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
@@ -18,6 +18,7 @@ BuildArch:      noarch
 BuildRequires:  cmake
 BuildRequires:  make
 BuildRequires:  dos2unix
+BuildRequires:  openpgpverify
 
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
@@ -84,7 +85,7 @@ device.
 
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%{openpgpverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n SDL3-%{version}
 
 
@@ -134,6 +135,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/licenses
 
 
 %changelog
+* Wed Nov 04 2026 Jakub Jelen <jjelen@redhat.com> - 3.4.20-2
+- Verify upstream source signatures with openpgpverify
+
 * Tue Nov 03 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.4.20-1
 - Update to v3.4.20
 

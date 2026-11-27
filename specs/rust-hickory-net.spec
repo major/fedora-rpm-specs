@@ -6,7 +6,7 @@
 %global crate hickory-net
 
 Name:           rust-hickory-net
-Version:        0.26.3
+Version:        0.26.4
 Release:        %autorelease
 Summary:        Hickory-net is a safe and secure low-level DNS library
 

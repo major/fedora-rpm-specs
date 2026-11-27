@@ -11,8 +11,7 @@ ExclusiveArch: %{qt6_qtwebengine_arches}
 %global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/OpenMS -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/OpenMS -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
-# This is a post-release re-code of the 3.5.0 version
-%global use_intermediate 1
+%global use_intermediate 0
 
 %if 0%{?use_intermediate}
 %global commit 91afebf7e1dc7a0ea078cafc3ccd393e633e9e1e
@@ -41,7 +40,7 @@ URL:       http://www.openms.de/
 %if 0%{?use_intermediate}
 Source0:   https://github.com/OpenMS/OpenMS/archive/%{commit}/OpenMS-%{commit}.tar.gz
 %else
-Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-release-%{version}.tar.gz
+Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-%{version}.tar.gz
 %endif
 
 ##TOPPView, TOPPAS, INIFileEditor .desktop and icon files
@@ -78,25 +77,24 @@ BuildRequires: desktop-file-utils
 BuildRequires: percolator
 BuildRequires: libappstream-glib
 BuildRequires: yaml-cpp-devel >= 0.8.0
+BuildRequires: libarrow-devel
+BuildRequires: libcurl-devel
+BuildRequires: libzip-devel
+BuildRequires: libzstd-devel
+BuildRequires: parquet-libs-devel
+BuildRequires: uv
 Requires:      qt6-qtdeclarative-devel%{?_isa}
-
 # Build documentation
 # Doxygen useful only on SVN versions  
 BuildRequires: doxygen, dos2unix, graphviz
 BuildRequires: texlive, texlive-a4wide, texlive-xtab
-
 # Xvfb is needed to run a virtual X server used by some tests
 BuildRequires: xorg-x11-server-Xvfb, gnuplot, gawk
-
 Requires: percolator%{?_isa}
 Requires: %{name}-data%{?_isa} = 2:%{version}-%{release}
 Requires: R-core%{?_isa}
-
 # Remove -O0 flag for tests compiling
 Patch0: %{name}-remove_testflag.patch
-
-Patch1: %{name}-3.5.0-bug7907.patch
-
 
 %description
 OpenMS is a C++ library for LC-MS data management and analyses.
@@ -162,9 +160,9 @@ The Utilities are divided into several subgroups:
 %package -n python3-openms
 Summary: Python wrapper for OpenMS
 %py_provides python3-%{name}
-
 BuildRequires: python3-setuptools
 BuildRequires: python3-devel
+BuildRequires: python3-nanobind >= 3.1
 BuildRequires: python3-numpy
 BuildRequires: python3-autowrap >= 0.23.0
 BuildRequires: python3-pip
@@ -209,14 +207,10 @@ HTML documentation of OpenMS.
 %if 0%{?use_intermediate}
 %autosetup -N -n OpenMS-%{commit}
 %else
-%autosetup -N -n OpenMS-release-%{version}
+%autosetup -N -n OpenMS-%{version}
 %endif
 
 %patch -P 0 -p1 -b .backup
-
-%ifarch %{power64}
-%patch -P 1 -p1 -b .backup
-%endif
 
 # Remove invalid tags
 sed -e 's| <project_group></project_group>||g' -i share/OpenMS/DESKTOP/*.appdata.xml
@@ -271,6 +265,8 @@ cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
 %else
  -DOPENMS_64BIT_ARCHITECTURE:BOOL=OFF \
 %endif
+ -DWITH_OPENTIMS:BOOL=OFF -DENABLE_OPENTIMS_TESTS:BOOL=OFF \
+ -DWITH_THERMO_RAW:BOOL=OFF \
 %if %{with check}
  -DBUILD_TESTING:BOOL=ON \
  -DBUILD_EXAMPLES:BOOL=OFF \
@@ -286,6 +282,7 @@ cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
  -DPYOPENMS=ON -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
  -DCYTHON_EXECUTABLE:FILEPATH=%{_bindir}/cython3 \
  -DPY_NUM_THREADS:STRING=2 -DPY_NUM_MODULES:STRING=4 \
+ -DPython_NumPy_INCLUDE_DIR=$(python3 -c "import numpy; print(numpy.get_include())") \
 %else
  -DPYOPENMS=OFF \
 %endif

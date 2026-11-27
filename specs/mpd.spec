@@ -14,21 +14,21 @@
 
 Name:           mpd
 Epoch:          1
-Version:        0.24.19
-Release:        2%{?dist}
+Version:        0.25
+Release:        1%{?dist}
 Summary:        Music player daemon
 
 License:        GPL-2.0-only AND BSD-2-Clause AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND BSD-2-Clause-Views
 URL:            https://www.musicpd.org/
-Source0:        %{url}/download/mpd/0.24/mpd-%{version}.tar.xz
-Source1:        %{url}/download/mpd/0.24/mpd-%{version}.tar.xz.sig
+Source0:        %{url}/download/mpd/0.25/mpd-%{version}.tar.xz
+Source1:        %{url}/download/mpd/0.25/mpd-%{version}.tar.xz.sig
 # http://pgp.mit.edu:11371/pks/lookup?op=get&search=0x236E8A58C6DB4512
 Source2:        gpgkey.asc
 Source3:        mpd.logrotate
 Source4:        mpd.tmpfiles.d
 Source5:        mpd.sysusers
 # Use Fedora specific patches for runtime log paths and settings
-Patch0:         mpd-0.24.14-mpdconf.patch
+Patch0:         mpd-0.25-mpdconf.patch
 
 BuildRequires:  firewalld-filesystem
 BuildRequires:  gcc-c++
@@ -135,9 +135,12 @@ retrieval, and playlist management can all be managed remotely.
        -Dpipe=true \
        -Dsystemd=enabled \
        -Dpcre=enabled \
+       -Dpsgplay=disabled \
        -Dsndio=disabled \
        -Dshine=disabled \
+       -Dtinyalsa=disabled \
        -Dtremor=disabled \
+       -Dvgmstream=disabled \
        -Dipv6=enabled \
        -Dsystemd_system_unit_dir=%{_unitdir} \
        -Dsystemd_user_unit_dir=%{_userunitdir} \
@@ -230,6 +233,9 @@ rm %{buildroot}%{_docdir}/mpd/COPYING
 %ghost %{mpd_statefile}
 
 %changelog
+* Thu Nov 26 2026 Leigh Scott <leigh123linux@gmail.com> - 1:0.25-1
+- Update to 0.25
+
 * Fri Nov 13 2026 Adrian Reber <adrian@lisas.de> - 1:0.24.19-2
 - Rebuilt for libcdio 2.4.0
 

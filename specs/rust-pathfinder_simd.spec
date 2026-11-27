@@ -5,7 +5,7 @@
 %global crate pathfinder_simd
 
 Name:           rust-pathfinder_simd
-Version:        0.5.6
+Version:        0.5.7
 Release:        %autorelease
 Summary:        Simple SIMD library
 

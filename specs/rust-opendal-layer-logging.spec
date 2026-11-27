@@ -5,7 +5,7 @@
 %global crate opendal-layer-logging
 
 Name:           rust-opendal-layer-logging
-Version:        0.59.1
+Version:        0.59.5
 Release:        %autorelease
 Summary:        Apache OpenDAL logging layer
 

@@ -1,5 +1,5 @@
 %global sources_gpg 1
-%global sources_gpg_sign 0x30566c450e41d7c91e442dfb231f942f608ddeff
+%global sources_gpg_sign 0x7f0f63951535b4d12d3fa55dece58d3984d688d7
 
 %global sname glanceclient
 %global with_doc 1
@@ -12,7 +12,7 @@ glanceclient module), and a command-line script (glance). Each implements
 
 Name:             python-glanceclient
 Epoch:            1
-Version:          4.13.0
+Version:          4.14.0
 Release:          %autorelease
 Summary:          Python API and CLI for OpenStack Glance
 
@@ -67,12 +67,10 @@ This package contains auto-generated documentation.
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 
-sed -i \
-    -e "/^hacking[[:space:]]*[><=]/d" \
-    -e "/^coverage[[:space:]]*[><=]/d" \
-    -e "/^reno[[:space:]]*[><=]/d" \
-    -e "/^tempest[[:space:]]*[><=]/d" \
-    test-requirements.txt doc/requirements.txt
+%pyproject_patch_dependency hacking:ignore
+%pyproject_patch_dependency coverage:ignore
+%pyproject_patch_dependency reno:ignore
+%pyproject_patch_dependency tempest:ignore
 
 
 %generate_buildrequires

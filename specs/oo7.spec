@@ -87,7 +87,7 @@ Service providing the Secret Service D-Bus API.
 %systemd_user_preun oo7-daemon.service
 
 %postun daemon
-%systemd_user_postun_with_restart oo7-daemon.service
+%systemd_user_postun_with_reload oo7-daemon.service
 
 %package     -n pam_oo7
 Summary:        oo7 PAM module

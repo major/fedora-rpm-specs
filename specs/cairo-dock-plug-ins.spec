@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	10
+%global	baserelease	11
 %dnl %global	alphatag		.rc9
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -45,6 +45,12 @@ Source1:		cairo-dock-plug-ins-create-fedora-tarball.sh
 # https://github.com/Cairo-Dock/cairo-dock-plug-ins/pull/132/
 # Support ical 4
 Patch0:		cairo-dock-plug-ins-pr132-support-ical-4.patch
+# https://github.com/Cairo-Dock/cairo-dock-plug-ins/pull/144
+# Fix linkage with ical 4
+Patch1:		cairo-dock-plug-ins-pr144-ical-4-linkage.patch
+# https://github.com/Cairo-Dock/cairo-dock-plug-ins/pull/146
+# Drop mail plugin for libetpan 2 for now
+Patch2:		cairo-dock-plug-ins-pr146-drop-mail-for-libetpan2.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	cmake
@@ -68,6 +74,9 @@ BuildRequires:	pkgconfig(libexif)
 BuildRequires:	pkgconfig(libgnome-menu-3.0)
 BuildRequires:	pkgconfig(libgnomeui-2.0)
 BuildRequires:	pkgconfig(libical)
+%if 0%{?fedora} >= 46
+BuildRequires:	pkgconfig(libicalss)
+%endif
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libxklavier)
 # BuildRequires:	pkgconfig(thunar-vfs-1)
@@ -209,6 +218,8 @@ binding for Cairo-Dock.
 %prep
 %setup -q -n cairo-dock-plugins-%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 %patch -P0 -p1 -b .ical_4
+%patch -P1 -p1 -b .ical_4_link
+%patch -P2 -p1 -b .etpan2
 
 ## permission
 # %%_fixperms cannot fix permissions completely here
@@ -422,6 +433,10 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Thu Nov 26 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-11
+- Fix linkage with ical 4
+- Drop mail for libetpan 2.x for now
+
 * Tue Nov 03 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.2-10
 - Rebuild for https://fedoraproject.org/wiki/Changes/Libical4
 

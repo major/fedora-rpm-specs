@@ -39,7 +39,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -110,13 +110,13 @@ Patch0046: 0046-support-authentication-indicators-in-GSSAPI.patch
 Patch0047: 0047-NIST-curves-hybrid-KEX-implementation.patch
 Patch0048: 0048-openssh-7.3p1-x11-max-displays.patch
 Patch0049: 0049-Fix-ssh-pkcs11-client-helper-termination.patch
-Patch0050: 0050-openssh-10.2p1-pam-auth.patch
 Patch0051: 0051-gssapi-s4u.patch
 Patch0052: 0052-openssh-10.2p1-pkcs11-uri.patch
 Patch0053: 0053-gssapi-tests.patch
 Patch0054: 0054-Implement-ML-DSA-signature-algorithms-per-draft-sflu.patch
 Patch0055: 0055-Use-golang.org-suffix-for-certificates.patch
 Patch0056: 0056-Fix-max_pk_ok-default-not-being-set-when-PubkeyAuthO.patch
+Patch0057: 0057-CVE-2026-106553.patch
 
 License: BSD-3-Clause AND BSD-2-Clause AND ISC AND SSH-OpenSSH AND ssh-keyscan AND snprintf AND LicenseRef-Fedora-Public-Domain AND X11-distribute-modifications-variant
 Requires: openssl-libs >= 1:3.5.0
@@ -518,13 +518,18 @@ test -f %{sysconfig_anaconda} && \
 %files askpass
 %attr(0644,root,root) %{_sysconfdir}/profile.d/gnome-ssh-askpass.*
 %attr(0755,root,root) %{_libexecdir}/openssh/gnome-ssh-askpass
-%{_libexecdir}/openssh/ssh-askpass
+%attr(0755,root,root) %{_libexecdir}/openssh/ssh-askpass
 %endif
 
 %files sk-dummy
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Thu Nov 26 2026 Zoltan Fridrich <zfridric@redhat.com> - 10.6p2-2
+- Remove duplicate release in ssh_gssapi_getclient()
+- Drop obsolete 0050-openssh-10.2p1-pam-auth.patch
+- CVE-2026-106553: Fix credentials persisting after GSSAPI authentication attempt failure
+
 * Fri Nov 13 2026 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.6p2-1
 - Rebasing OpenSSH to 10.6p2
 - Improve pure ML-DSA keys on ssh-keygen -A

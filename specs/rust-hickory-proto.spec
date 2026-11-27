@@ -5,7 +5,7 @@
 %global crate hickory-proto
 
 Name:           rust-hickory-proto
-Version:        0.26.3
+Version:        0.26.4
 Release:        %autorelease
 Summary:        Hickory-proto is a safe and secure low-level DNS library
 
@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/hickory-proto
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          hickory-proto-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * relax prefix-trie dependency to allow versions v0.8..=v0.10
+Patch:          hickory-proto-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

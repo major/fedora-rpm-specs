@@ -78,6 +78,8 @@ MinGW Windows GEOS library.
 
 %prep
 %autosetup -p1
+# increase global individual test timeout to account for slower builders
+sed -i -e 's/TIMEOUT 30/TIMEOUT 90/' tests/unit/CMakeLists.txt
 
 
 %build
@@ -165,6 +167,9 @@ rm -f %{buildroot}%{mingw64_bindir}/geos-config
 
 
 %changelog
+* Thu Nov 26 2026 Yanko Kaneti <yaneti@declera.com> - 3.15.1-2
+- Increase global individual test timeout
+
 * Tue Nov 24 2026 Sandro Mani <manisandro@gmail.com> - 3.15.1-1
 - Update to 3.15.1
 

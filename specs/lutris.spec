@@ -1,6 +1,6 @@
 %define debug_package %{nil}
 Name:           lutris
-Version:        0.5.22
+Version:        0.5.23
 Release:        %autorelease
 Summary:        Install and play any video game easily
 
@@ -8,10 +8,6 @@ Summary:        Install and play any video game easily
 License:        GPL-3.0-only
 URL:            http://%{name}.net
 Source0:        https://github.com/%{name}/%{name}/archive/refs/tags/v%{version}.tar.gz
-
-# Check for deprecated attributes in GnomeDesktop
-# https://github.com/lutris/lutris/pull/6833
-Patch0:         6833.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel

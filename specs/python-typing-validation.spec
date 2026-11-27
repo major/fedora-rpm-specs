@@ -1,5 +1,5 @@
 Name:           python-typing-validation
-Version:        2.2.1
+Version:        2.3.0
 Release:        %autorelease
 Summary:        A library to perform runtime validation of Python objects using type hints
 

@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal
-Version:        7.004
+Version:        7.005
 Release:        1%{?dist}
 Summary:        Fast, compact, powerful binary (de-)serialization
 # Makefile.PL defines LICENSE
@@ -101,6 +101,12 @@ make test
 %{_mandir}/man3/Sereal.3*
 
 %changelog
+* Wed Nov 25 2026 Paul Howarth <paul@city-fan.org> - 7.005-1
+- Update to 7.005 (rhbz#2584332)
+  - Fix a false native long-double test failure on Intel macOS with older
+    Perls
+  - Encoding and decoding behavior are unchanged
+
 * Tue Nov 24 2026 Paul Howarth <paul@city-fan.org> - 7.004-1
 - Update to 7.004 (rhbz#2583633)
   - Update bundled zstd to 1.6.0, including upstream security fixes

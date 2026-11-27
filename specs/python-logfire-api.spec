@@ -1,5 +1,5 @@
 Name:           python-logfire-api
-Version:        5.6.0
+Version:        6.0.1
 Release:        %autorelease
 Summary:        Shim for the Logfire SDK which does nothing unless Logfire is installed
 
@@ -18,7 +18,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 
-%global _description %{expand: 
+%global _description %{expand:
 Shim for the logfire SDK Python API which does
 nothing unless logfire is installed.
 
@@ -28,7 +28,7 @@ integration with Logfire.
 The package provides a clone of the Python API exposed by the logfire package
 which does nothing if the logfire package is not installed, but makes real
 calls when it is.
-}
+} 
 
 %description %_description
 

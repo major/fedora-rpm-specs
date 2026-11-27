@@ -3,9 +3,12 @@ Version:        0.2
 Release:        %autorelease
 Summary:        DFU tool for updating Nitrokeys firmware
 
-License:        GPL-2.0-or-later
+License:        GPL-2.0-only
 URL:            https://github.com/Nitrokey/nkdfu
 Source:         %{url}/archive/refs/tags/v%{version}.tar.gz
+
+# Update project metadata to support flit-core version 4+
+Patch:          https://github.com/Nitrokey/nkdfu/pull/2.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -35,7 +38,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files nkdfu -L
+%pyproject_save_files nkdfu -l
 
 
 %check
@@ -44,7 +47,6 @@ Summary:        %{summary}
 
 %files -n python3-nkdfu -f %{pyproject_files}
 %{_bindir}/nkdfu
-%license LICENSE
 %doc README.md
 
 %changelog

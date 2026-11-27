@@ -1,6 +1,6 @@
 %global pypi_name sgqlc
 Name:           python-%{pypi_name}
-Version:        18
+Version:        19
 Release:        %{autorelease}
 Summary:        Simple GraphQL Client
 
@@ -12,13 +12,13 @@ License:        ISC
 URL:            %forgeurl
 Source:         %forgesource
 
-Patch1:         0001-handle-None-arguments-in-codegen.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 # For tests
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytest-asyncio}
+BuildRequires:  %{py3_dist pytest-cov}
 BuildRequires:  %{py3_dist respx}
 
 %global _description %{expand:
@@ -38,14 +38,6 @@ Summary:        %{summary}
 
 %prep
 %forgeautosetup -p1
-
-# Disable coverage and doctest
-sed -r \
-    -e "s/--cov.* //g" \
-    -e "s/ --cov.*'/'/" \
-    -e "s/ --doctest.*'/'/" \
-    -e "s/graphql-core~=3.2.6/graphql-core>=3.2.6/" \
-    -i pyproject.toml
 
 
 %generate_buildrequires

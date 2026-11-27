@@ -1,7 +1,7 @@
 %global srcname prometheus_client
 
 Name:           python-%{srcname}
-Version:        0.23.0
+Version:        0.26.0
 Release:        %autorelease
 Summary:        Python client for Prometheus
 
@@ -26,7 +26,12 @@ BuildRequires:  python3-devel
 
 %prep
 %autosetup -p1 -n client_python-%{version}
-sed -i -e '1{/^#!/d}' prometheus_client/__init__.py
+# Remove shebang lines from non-executable modules (avoids rpmlint non-executable-script)
+sed -i -e '1{/^#!/d}' \
+    prometheus_client/__init__.py \
+    prometheus_client/bridge/graphite.py \
+    prometheus_client/openmetrics/exposition.py \
+    prometheus_client/openmetrics/parser.py
 
 %generate_buildrequires
 %pyproject_buildrequires -t

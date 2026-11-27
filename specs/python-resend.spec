@@ -1,5 +1,5 @@
 Name:           python-resend
-Version:        2.55.0
+Version:        2.56.0
 Release:        %autorelease
 Summary:        Resend Python SDK
 
@@ -12,7 +12,6 @@ BuildSystem:    pyproject
 BuildOption(install):  -l resend
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
 # required for even running generate_buildrequires 
 BuildRequires:  python3-typing-extensions
 BuildRequires:  python3-requests
@@ -30,9 +29,9 @@ Python API to the service.}
 
 %package -n     python3-resend
 Summary:        %{summary}
+Recommends:     python3-httpx >= 0.24.0
 
 %description -n python3-resend %_description
-Recommends:     python3-httpx >= 0.24.0
 
 %prep -a
 # contains deprecated feature
@@ -40,9 +39,6 @@ rm setup.cfg
 # OMG, this reads requirements.txt but that is not included in tarball
 sed -i '1,$s/^install_requires = open.*/install_requires = \[\]/' setup.py
 
-
-%check
-%pyproject_check_import
 
 %files -n python3-resend -f %{pyproject_files}
 

@@ -1,6 +1,6 @@
 Name:           folder-color-switcher
-Version:        1.7.1
-Release:        3%{?dist}
+Version:        1.7.3
+Release: %{autorelease}
 Summary:        Change a folder colour
 
 License:        GPL-3.0-only
@@ -63,54 +63,4 @@ done
 %{_datadir}/caja-python/extensions/*
 
 %changelog
-* Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
-
-* Fri Jan 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
-
-* Fri Jan 09 2026 Leigh Scott <leigh123linux@gmail.com> - 1.7.1-1
-- Update to 1.7.1
-
-* Fri Dec 12 2025 Leigh Scott <leigh123linux@gmail.com> - 1.6.9-1
-- Update to 1.6.9
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Jan 06 2025 Leigh Scott <leigh123linux@gmail.com> - 1.6.7-1
-- Update to 1.6.7
-
-* Fri Dec 06 2024 Leigh Scott <leigh123linux@gmail.com> - 1.6.6-1
-- Update to 1.6.6
-
-* Mon Nov 25 2024 Leigh Scott <leigh123linux@gmail.com> - 1.6.5-1
-- Update to 1.6.5
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jun 18 2024 Leigh Scott <leigh123linux@gmail.com> - 1.6.3-1
-- Update to 1.6.3
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Jan 04 2024 Leigh Scott <leigh123linux@gmail.com> - 1.6.2-1
-- Update to 1.6.2
-
-* Thu Dec 21 2023 Leigh Scott <leigh123linux@gmail.com> - 1.6.1-1
-- Update to 1.6.1
-
-* Sun Dec 03 2023 Leigh Scott <leigh123linux@gmail.com> - 1.6.0-1
-- Update to 1.6.0
-
-* Wed Jun 07 2023 Leigh Scott <leigh123linux@gmail.com> - 1.5.9-1
-- Initial build
-
+%autochangelog

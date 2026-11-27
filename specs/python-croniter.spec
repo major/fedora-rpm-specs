@@ -2,12 +2,12 @@
 %global pypi_name croniter
 
 Name:           python-%{pypi_name}
-Version:        6.2.4
+Version:        7.0.0
 Release:        %autorelease
 Summary:        Iteration for datetime object with cron like format
 
 License:        MIT
-URL:            https://github.com/kiorky/croniter
+URL:            https://github.com/pallets-eco/croniter
 Source0:        %{pypi_source}
 BuildArch:      noarch
 

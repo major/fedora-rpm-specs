@@ -3,8 +3,8 @@
 %global github_commit   6ffda60e1c91c591ebab41e18a4c5f1e58980f4e
 
 Name:           withlock
-Version:        0.5
-Release:        23%{?dist}
+Version:        0.6
+Release:        1%{?dist}
 Summary:        Locking wrapper script
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -48,6 +48,9 @@ gzip %{buildroot}%{_mandir}/man1/withlock.1
 %{_mandir}/man1/withlock.1*
 
 %changelog
+* Wed Nov 25 2026 Adam Williamson <adamwill@fedoraproject.org> - 0.6-1
+- New release 0.6
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

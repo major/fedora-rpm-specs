@@ -76,7 +76,7 @@ Version:        %{rocm_version}
 %if %{with preview}
 Release:        0%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm port of CUDA CUB library
 
@@ -181,7 +181,7 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %if %{with check}
     -DAMDGPU_TARGETS=${gpu} \
 %else
-    -DAMDGPU_TARGETS=${gpu_list} \
+    -DAMDGPU_TARGETS=%{gpu_list} \
 %endif
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DROCM_SYMLINK_LIBS=OFF
@@ -212,6 +212,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/hipcub/LICENSE.txt
 %endif
 
 %changelog
+* Thu Nov 26 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-2
+- Fix gpu_list
+
 * Sat Oct 10 2026 Tom Rix <Tom.Rix@amd.com> - 10.1.0-1
 - Update to 10.1
 

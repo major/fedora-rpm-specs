@@ -5,11 +5,11 @@
 %endif
 
 #global pre rc1
-%global podofo_resources_commit f3e6e289db3cb7fe0a1a21e65430f221fe598882
+%global podofo_resources_commit 0100d837838b321e1ba28657cae1153207717099
 
 Name:           podofo
-Version:        1.1.2
-Release:        3%{?dist}
+Version:        1.1.3
+Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
 License:        (LGPL-2.0-or-later or MPL-2.0) and MIT and Apache-2.0 and BSD-3-Clause and BSL-1.0
@@ -180,7 +180,7 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 %check
 %ifarch i686
-%ctest -E TestMaxObjectCount
+%ctest -E "TestMaxObjectCount|TestImageUndersizedStream"
 %endif
 %ifarch s390x
 %ctest -E TestBitsPerComponent1
@@ -193,8 +193,8 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %files
 %doc AUTHORS.md CHANGELOG.md README.md TODO.md
 %license COPYING.LGPL COPYING.MPL
-%{_libdir}/*.so.1.1.2
-%{_libdir}/*.so.4
+%{_libdir}/*.so.1.1.3
+%{_libdir}/*.so.5
 
 %files devel
 %doc html examples
@@ -223,6 +223,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Tue Nov 24 2026 Sandro Mani <manisandro@gmail.com> - 1.1.3-1
+- Update to 1.1.3
+
 * Thu Sep 24 2026 Sandro Mani <manisandro@gmail.com> - 1.1.2-3
 - Bump x2 to ensure rawhide newer than F45
 

@@ -2,7 +2,7 @@
 %global tag      %{version}
 
 Name:           python-xapp
-Version:        3.0.4
+Version:        3.0.6
 Release:        %{autorelease}
 %{forgemeta}
 Summary:        Python bindings for xapps

@@ -5,8 +5,8 @@
 
 Name:           mingw-python-%{mod_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        12.20.0
-Release:        2%{?dist}
+Version:        12.20.1
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -78,6 +78,9 @@ MinGW Python 3 %{pypi_name} library.
 
 
 %changelog
+* Wed Nov 25 2026 Sandro Mani <manisandro@gmail.com> - 12.20.1-1
+- Update to 12.20.1
+
 * Sat Oct 17 2026 Sandro Mani <manisandro@gmail.com> - 12.20.0-2
 - Rebuild
 

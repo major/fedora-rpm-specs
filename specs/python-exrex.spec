@@ -1,12 +1,11 @@
 Name:           python-exrex
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Irregular methods for regular expressions
 
 License:        AGPL-3.0-or-later
 URL:            https://github.com/asciimoo/exrex
 Source:         %{url}/archive/v%{version}/exrex-%{version}.tar.gz
-Patch:          https://patch-diff.githubusercontent.com/raw/asciimoo/exrex/pull/69.patch
 
 BuildArch:      noarch
 

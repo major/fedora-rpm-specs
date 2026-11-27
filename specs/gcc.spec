@@ -1721,7 +1721,8 @@ CONFIGURE_OPTS_NATIVE="\
 %endif
 %ifarch riscv64
 %if 0%{?rhel} >= 11
-	--with-arch=rva23u64 --with-abi=lp64d --with-multilib-list=lp64d \
+	--with-arch=rv64imafdcbv_zicsr_zicntr_zihpm_ziccif_ziccrse_ziccamoa_zicclsm_zic64b_za64rs_zihintpause_zba_zbb_zbs_zicbom_zicbop_zicboz_zfhmin_zkt_zvfhmin_zvbb_zvkt_zihintntl_zicond_zimop_zcmop_zcb_zfa_zawrs_supm \
+	--with-abi=lp64d --with-multilib-list=lp64d \
 %else
 	--with-arch=rv64gc --with-abi=lp64d --with-multilib-list=lp64d \
 %endif

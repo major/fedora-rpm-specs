@@ -2,7 +2,7 @@
 %global tag      %{version}
 
 Name:		lightdm-settings
-Version:	2.1.2
+Version:	2.1.3
 Release:	%autorelease
 %forgemeta
 Summary:	Configuration tool for the LightDM display manager

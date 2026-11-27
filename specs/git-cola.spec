@@ -1,5 +1,5 @@
 Name:           git-cola
-Version:        4.19.0
+Version:        4.20.0
 Release:        %autorelease
 Summary:        A sleek and powerful git GUI
 
@@ -19,7 +19,9 @@ BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  make
 
 # Test dependencies:
+BuildRequires:  python%{python3_pkgversion}dist(msgpack)
 BuildRequires:  python%{python3_pkgversion}dist(pytest)
+BuildRequires:  python%{python3_pkgversion}dist(websockets)
 BuildRequires:  python%{python3_pkgversion}-pyqt6
 BuildRequires:  python-unversioned-command
 
@@ -28,8 +30,10 @@ Requires:       git
 Requires:       hicolor-icon-theme
 Requires:       python%{python3_pkgversion}dist(qtpy)
 
+Recommends:     python%{python3_pkgversion}dist(msgpack)
 Recommends:     python%{python3_pkgversion}dist(notify2)
 Recommends:     python%{python3_pkgversion}dist(send2trash) >= 1.7.1
+Recommends:     python%{python3_pkgversion}dist(websockets)
 
 %ifarch %{qt6_qtwebengine_arches}
 Recommends:     python%{python3_pkgversion}-pyqt6-webengine

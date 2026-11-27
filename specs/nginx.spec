@@ -62,7 +62,7 @@
 
 Name:              nginx
 Epoch:             2
-Version:           1.30.7
+Version:           1.30.8
 Release:           %autorelease
 
 Summary:           A high performance web server and reverse proxy server
@@ -513,7 +513,7 @@ install -m 644 -p %{SOURCE20} %{buildroot}%{_tmpfilesdir}/nginx.conf
 # A reload is not sufficient here: https://blog.nginx.org/blog/nginx-dynamic-modules-how-they-work#upgradeMod
 %transfiletriggerin -- %{_sbindir}/nginx %{nginx_moduleconfdir} %{nginx_moduledir}
 if [ "${1:-0}" -ge 1 ]; then
-    test -f %{_sysconfdir}/nginx/rpm-disable-upgrade || /usr/bin/nginx-upgrade >/dev/null 2>&1 || :
+    test -f %{_sysconfdir}/nginx/rpm-disable-upgrade || /usr/bin/nginx-upgrade >/dev/null || :
 fi
 
 

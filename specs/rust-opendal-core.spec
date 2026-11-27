@@ -5,7 +5,7 @@
 %global crate opendal-core
 
 Name:           rust-opendal-core
-Version:        0.59.1
+Version:        0.59.5
 Release:        %autorelease
 Summary:        Apache OpenDAL: One Layer, All Storage
 
@@ -15,13 +15,13 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          opendal-core-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * chore(deps)!: update asyncband to 0.8.0 (#8523):
-#   https://github.com/apache/opendal/commit/74c0dc94a3458e4eefc1644210550b7320cadf9f
+# * Allow asyncband 0.8 besides 0.7: Rawhide ships 0.8.0, Fedora releases 0.7.4;
+#   upstream requires ^0.7.1
+# * Drop the logforth dev-dependency: it is not packaged in Fedora and is only
+#   used for debug logging in tests
 Patch:          opendal-core-fix-metadata.diff
 # * Remove logforth setup
 Patch2:         opendal-core-disable-logforth-in-test.patch
-# * Fix tests on i686, https://github.com/apache/opendal/pull/8274
-Patch3:         opendal-core-fix-tests-on-i686.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -42,8 +42,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/NOTICE
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

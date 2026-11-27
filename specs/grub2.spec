@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	88%{?dist}
+Release:	89%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -719,6 +719,9 @@ fi
 %endif
 
 %changelog
+* Wed Nov 25 2026 Josue Hernandez <josherna@redhat.com> - 2.12-89
+- tpm: include tpm module in aarch64 arch
+
 * Mon Oct 19 2026 Leo Sandoval <lsandova@redhat.com> - 2.12-88
 - ieee1275: use namespace instead of disk for PCIe NVMe boot paths
 

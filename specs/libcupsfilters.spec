@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
-%global commit 3bf18925e58adffe008a155733708e26481640fc
+%global commit c13d9e86ec065ddfb7f5103b27a96eaeb0211daf
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20261118
+%global commitdate 20261125
 
 %bcond jpegxl %{undefined rhel}
 
@@ -17,6 +17,8 @@ Summary: Library for developing printing filters
 License: Apache-2.0 WITH LLVM-exception
 URL: https://github.com/OpenPrinting/libcupsfilters
 Source0: %{URL}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+
+Patch001: 0001-pdftopdf-restore-print-scaling-auto-auto-fit-autopri.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -202,7 +204,14 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
-* Wed Nov 18 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1^%{commitdate}.%{shortcommit}-1
+* Thu Nov 26 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1^20261125.c13d9e8-1
+- rebase to newer snapshot - fixes dropping non-copiable pages
+
+* Wed Nov 25 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1^20261123.3f08cf9-1
+- rebase to the newer snapshot
+- re-introduce option autoprint to fix scaling issues (fedora#2582037)
+
+* Wed Nov 18 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1^20261118.3bf1892-1
 - migrate to latest upstream git snapshot (fedora#2579625, fedora#2573692, fedora#2573573, fedora#2573434, fedora#2568640)
 
 * Wed Nov 11 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.2.1-8

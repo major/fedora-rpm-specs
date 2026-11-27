@@ -1,6 +1,6 @@
 Name:           libetpan
-Version:        1.10.1
-Release:        3%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 # src/bsd/getopt.c BSD-4-Clause (not used)
@@ -10,18 +10,19 @@ License:        BSD-3-Clause AND BSD-3-Clause-Attribution AND BSD-4-Clause
 URL:            http://www.etpan.org/
 Source0:        https://github.com/dinhviethoa/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # system crypto policy (see rhbz#1179310)
-Patch10:        libetpan-1.9.2-cryptopolicy.patch
-# Upstream patches
-# https://github.com/dinhvh/libetpan/commit/d3c9bd49e681660bafce6fc193650f0de5ad908f
-Patch101:		libetpan-1.10.1-unittext-plaintext-rendering-fix-build.patch
-# https://github.com/dinhvh/libetpan/commit/0141aba7e56d0ae4450a94cc3e261567fbc47683
-Patch102:		libetpan-1.10.1-use-icu-for-japanese-conversion.patch
+Patch10:        libetpan-2.0.1-cryptopolicy.patch
 
 BuildRequires:  cyrus-sasl-devel
+BuildRequires:  curl-devel
 BuildRequires:  gnutls-devel
 BuildRequires:  libdb-devel < 5.4
 BuildRequires:  liblockfile-devel
 BuildRequires:  pkgconfig(icu-uc)
+BuildRequires:  pkgconfig(json-c)
+%ifnarch %{ix86}
+BuildRequires:  pkgconfig(librnp)
+%endif
+BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  zlib-devel
 
 BuildRequires:  autoconf
@@ -56,12 +57,9 @@ with %{name}.
 
 find . -name \*.gz -delete
 
-#%patch0 -b .libetpan-config-script
 sed -i.flags libetpan.pc.in \
     -e 's|-letpan@LIBSUFFIX@.*$|-letpan@LIBSUFFIX@|'
 %patch -P10 -p1 -b .crypto-policy
-%patch -P101 -p1 -b .plaintext
-%patch -P102 -p1 -b .jp_icu
 
 # 2013-08-05 F20 development, bz 992070: The configure scripts adds some
 # extra libs to the GnuTLS link options, which cause rebuilds to fail, since
@@ -70,10 +68,16 @@ sed -i.flags libetpan.pc.in \
 grep 'GNUTLSLIB="-lgnutls -lgcrypt -lgpg-error -lz"' configure.ac || exit -1
 sed -i '\@GNUTLSLIB=@s!-lgcrypt -lgpg-error -lz!!g' configure.ac
 
+sed -i.shared unittest/Makefile \
+	-e 's|-Werror | |' \
+	%{nil}
+
+iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv ChangeLog
+
+%conf
 env NOCONFIGURE=1 ./autogen.sh
 cp -p %{_bindir}/libtool .
 
-%build
 # Use poll instead of select on F40 and above (bug 2283446)
 %configure \
     --disable-static \
@@ -82,6 +86,7 @@ cp -p %{_bindir}/libtool .
     --with-poll=yes \
     %{nil}
 
+%build
 %make_build
 
 cd doc
@@ -92,31 +97,22 @@ make doc
 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/libetpan.{,l}a
 
-iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv ChangeLog
-
 %check
 # unittest
 export LD_LIBRARY_PATH=$(pwd)/src/.libs
+
 pushd unittest
-
-sed -i.shared Makefile \
-	-e 's|libetpan.a|libetpan.so|' \
-	-e 's|-liconv ||' \
-	-e 's|-Werror |-Werror -Wno-error=deprecated-declarations |' \
-	%{nil}
-
 # plaintext_rendering_test: needs TZ (PDT)
-# also, one test fails
 export TZ="America/Los_Angeles"
-pushd plaintext-rendering/data
-if [ ! -d input-fail ] ; then
-	true
-#	mkdir input-fail
-#	mv input/5231-emoji.eml input-fail/
-fi
-popd
 
-make
+# MAILPGP_TEST requires rnp
+%ifarch %{ix86}
+sed -i Makefile \
+    -e '\@^TEST_PROGRAMS@,\@^COMMON_TEST_SRCS@s|^.*MAILPGP_TEST.*$||' \
+    -e 's|\(./unittest/mailpgp/mailpgp_low_level_test\)|true \1|' \
+    %{nil}
+%endif
+
 make check
 
 popd
@@ -124,17 +120,23 @@ popd
 
 %files
 %license COPYRIGHT
-%doc ChangeLog NEWS
-%{_libdir}/%{name}.so.26{,.*}
+%doc ChangeLog
+%doc NEWS
+%{_libdir}/%{name}.so.27{,.*}
 
 %files devel
-%doc doc/API.html doc/README.html doc/DOCUMENTATION
+%doc doc/API.html
+%doc doc/README.html
+%doc doc/DOCUMENTATION
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/libetpan/
 %{_includedir}/libetpan.h
 %{_libdir}/%{name}.so
 
 %changelog
+* Tue Nov 24 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.1-1
+- 2.0.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -3,9 +3,9 @@
 %global pkgname libcharset
 
 Name:          mingw-%{pkgname}
-Version:       1.19
+Version:       1.19.1
 Summary:       MinGW Windows libcharset library
-Release:       2%{?dist}
+Release:       1%{?dist}
 
 BuildArch:     noarch
 License:       LGPL-2.0-or-later
@@ -78,6 +78,9 @@ find %{buildroot} -name *.la -delete
 
 
 %changelog
+* Thu Nov 26 2026 Sandro Mani <manisandro@gmail.com> - 1.19.1-1
+- Update to 1.19.1
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 
