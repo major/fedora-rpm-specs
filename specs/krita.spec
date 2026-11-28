@@ -7,8 +7,8 @@
 %global gmic_version 3.7.4.1
 
 Name:           krita
-Version:        6.0.4.1
-Release:        2%{?dist}
+Version:        6.0.5
+Release:        1%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -20,8 +20,6 @@ Source3:        https://github.com/arximboldi/lager/archive/v%{lager_version}/la
 Source4:        https://github.com/vanyossi/gmic/releases/download/v%{gmic_version}/gmic-%{gmic_version}.tar.gz
 
 ## upstream patches
-Patch0: krita-gmic-CVE-2026-42144.patch
-Patch1: krita-fix-invalid-widget-class-name.patch
 
 ## downstream patches
 #org.kde.krita.appdata.xml: failed to parse org.kde.krita.appdata.xml: Error on line 505 char 110: <caption> already set 'Atau' and tried to replace with ' yang aktif'
@@ -29,8 +27,6 @@ Patch1: krita-fix-invalid-widget-class-name.patch
 Patch: krita-6.0.2.1-appstream_validate.patch
 
 # upstream patches
-# https://github.com/KDE/krita/commit/3f5b2882017f4e12c9b021de0ea24e6dd2eb26dd
-Patch: krita-sip-abi-version.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -238,6 +234,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Fri Nov 27 2026 Steve Cossette <farchord@gmail.com> - 6.0.5-1
+- 6.0.5
+
 * Fri Oct 23 2026 Jan Grulich <jgrulich@redhat.com> - 6.0.4.1-2
 - Rebuild (qt6)
 

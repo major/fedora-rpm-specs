@@ -1,5 +1,5 @@
 Name:           tokodon 
-Version:        26.08.3
+Version:        26.11.90
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2 - review is highly recommended.
 License:        GPL-3.0-only AND CC0-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-LGPLv2+ AND GPL-3.0-or-later AND GPL-2.0-only
@@ -101,6 +101,12 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/dbus-1/services/org.kde.tokodon.service
 
 %changelog
+* Fri Nov 27 2026 Steve Cossette <farchord@gmail.com> - 26.11.90-1
+- 26.11.90
+
+* Sun Nov 15 2026 Steve Cossette <farchord@gmail.com> - 26.11.80-1
+- 26.11.80
+
 * Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
 - 26.08.3
 

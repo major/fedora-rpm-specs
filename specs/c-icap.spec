@@ -1,13 +1,23 @@
+# Development occurs on GitHub but the official distribution is on SourceForge
+%global     sf_download 1
+%if 0%{?sf_download}
+%global     full_version c_icap-%{version}
+%else
 %global     full_version C_ICAP_%{version}
+%endif
 
 Name:       c-icap
-Version:    0.6.5
+Version:    0.6.6
 Release:    1%{?dist}
 Summary:    An implementation of an ICAP server
 License:    LGPL-2.1-or-later and GPL-2.0-or-later
 URL:        http://%{name}.sourceforge.net/
 
+%if 0%{?sf_download}
+Source0:    https://downloads.sourceforge.net/%{name}/%{full_version}.tar.gz#/%{name}-%{version}.tar.gz
+%else
 Source0:    https://github.com/%{name}/%{name}-server/archive/%{full_version}.tar.gz#/%{name}-%{version}.tar.gz
+%endif
 Source1:    %{name}.logrotate
 Source3:    %{name}.tmpfiles.conf
 Source4:    %{name}.service
@@ -62,7 +72,11 @@ The c-icap-libs package contains all runtime libraries used by c-icap and the
 utilities.
 
 %prep
+%if 0%{?sf_download}
+%autosetup -p1 -n %{full_version}
+%else
 %autosetup -p1 -n c-icap-server-%{full_version}
+%endif
 
 # See RECONF
 echo "master-%{full_version}" > VERSION.m4
@@ -210,6 +224,10 @@ exit 0
 %{_libdir}/libicapapi.so.*
 
 %changelog
+* Fri Nov 27 2026 Frank Crawford <frank@crawford.emu.id.au> - 0.6.6-1
+- Update to 0.6.6 release.
+- Security fix for CVE-2026-136126.
+
 * Thu Aug 20 2026 Frank Crawford <frank@crawford.emu.id.au> - 0.6.5-1
 - Update to 0.6.5 release.
 

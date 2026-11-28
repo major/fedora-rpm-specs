@@ -133,6 +133,10 @@ use the "serde1" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
+# * net::tests::test_snmp(6) tests fail very consistently
+skip="${skip-} --skip net::tests::test_snmp"
+# * /proc/keys is inaccessible inside systemd-nspawn v260+
+skip="${skip-} --skip keyring::tests::test_keys"
 # * Some tests must be run serially:
 #   https://github.com/eminence/procfs/issues/322
 skip="${skip-} --skip _runsinglethread"

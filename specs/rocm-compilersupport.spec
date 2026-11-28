@@ -26,7 +26,7 @@
 %global rocm_release 10.2
 %global rocm_patch 0
 %else
-%global rocm_release 10.1
+%global rocm_release 10.2
 %global rocm_patch 0
 %endif
 
@@ -132,7 +132,7 @@ Version:        %{llvm_maj_ver}
 %if %{with preview}
 Release:        1000.rocm%{rocm_version}%{?dist}
 %else
-Release:        3.rocm%{rocm_version}%{?dist}
+Release:        4.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -801,7 +801,7 @@ sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0%{llvm_version_suffix}@libLLVMCore.a@' 
 # Remove libclang-cpp.so from link
 sed -i -e 's/[^ ]*libclang-cpp[^ ]*//g' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Add libraries to cover the removal
-sed -i -e 's@-lc -ldl@-lclangAST -lLLVMCore -lclangSema -lLLVMCodeGen -lLLVMAnalysis -lLLVMSupport -lclangCodeGen -lLLVMAMDGPUCodeGen -lclangBasic -lLLVMSelectionDAG -lLLVMMC -lclangStaticAnalyzerCore -lLLVMTransformUtils -lclangDriver -lLLVMGlobalISel -lclangStaticAnalyzerCheckers -lLLVMDebugInfoPDB -llldELF -lLLVMVectorize -lLLVMObject -lLLVMX86CodeGen -lLLVMAMDGPUUtils -lclangLex -lLLVMAsmPrinter -lLLVMDebugInfoCodeView -lclangParse -lLLVMipo -lLLVMSPIRVCodeGen -lLLVMOrcJIT -lLLVMDebugInfoDWARF -lclangFrontend -llldMachO -lLLVMX86Desc -lclangSerialization -lLLVMTargetParser -llldCOFF -lLLVMDebugInfoLogicalView -lclangAnalysis -lLLVMScalarOpts -llldWasm -lLLVMSandboxIR -lLLVMProfileData -lLLVMJITLink -lLLVMTableGen -lLLVMBinaryFormat -lLLVMInstCombine -lclangTidyBugproneModule -lLLVMCAS -lclangTidyUtils -lLLVMFrontendOpenMP -lclangASTMatchers -lLLVMTableGenCommon -lclangScalableStaticAnalysisCore -lLLVMAMDGPUDesc -lclangExtractAPI -lLLVMTextAPI -lclangAnalysisFlowSensitive -lclangFormat -lLLVMObjCopy -lLLVMDebugInfoGSYM -lclangTidy -lLLVMInstrumentation -lclangTidyModernizeModule -lLLVMOrcShared -lLLVMObjectYAML -lLLVMDWARFLinkerParallel -lLLVMMCA -lLLVMRuntimeDyld -lclangTidyReadabilityModule -llldCommon -lclangAnalysisLifetimeSafety -lclangDynamicASTMatchers -lLLVMUBAwareInterpreter -lLLVMMCParser -lLLVMOption -lclangTooling -lLLVMTarget -lclangAPINotes -lLLVMCoroutines -lLLVMPasses -lclangDoc -lLLVMDemangle -lLLVMLTO -lclangInterpreter -lLLVMSPIRVDesc -lLLVMCGData -lclangTransformer -lLLVMBitReader -lLLVMExecutionEngine -lclangScalableStaticAnalysisAnalyses -lclangTidyAbseilModule -lclangTidyCppCoreGuidelinesModule -lclangTidyMiscModule -lclangIndex -lclangDependencyScanning -lclangTidyPerformanceModule -lLLVMObjCARCOpts -lLLVMRemarks -lLLVMXRay -lclangToolingCore -lclangToolingRefactoring -lLLVMBitWriter -lclangIncludeCleaner -lclangToolingSyntax -lclangTidyAndroidModule -lLLVMFrontendHLSL -lLLVMMIRParser -lLLVMOrcTargetProcess -lclangRewrite -lruntimes_gtest -lLLVMAsmParser -lLLVMDWARFLinkerClassic -lLLVMHTTP -lLLVMFuzzMutate -lclangEdit -lclangInstallAPI -lclangRewriteFrontend -lclangStaticAnalyzerFrontend -lclangTidyGoogleModule -lLLVMCFIVerify -lLLVMDebugInfoMSF -lLLVMCoverage -lclangTidyLLVMModule -lclangTidyPortabilityModule -lLLVMABI -lLLVMSymbolize -lclangToolingInclusions -lfindAllSymbols -lLLVMDiff -lLLVMMCDisassembler -lLLVMWindowsDriver -lclangCrossTU -lLLVMDebugInfoDWARFLowLevel -lclangQuery -lclangTidyObjCModule -lLLVMDTLTO -lclangAnalysisFlowSensitiveModels -lLLVMTableGenBasic -lclangTidyFuchsiaModule -lclangToolingInclusionsStdlib -lclangOptions -lLLVMInterpreter -lLLVMLinker -lLLVMOptDriver -lclangSupport -lclangTidyAlteraModule -lLLVMBitstreamReader -lLLVMDebugInfoBTF -lLLVMInterfaceStub -lLLVMSPIRVAnalysis -lLLVMWindowsManifest -lclangIncludeFixer -lclangScalableStaticAnalysisSourceTransformation -lclangTidyLLVMLibcModule -lLLVMAMDGPUInfo -lLLVMCFGuard -lLLVMDWARFCFIChecker -lLLVMIRPrinter -lLLVMIRReader -lLLVMOrcDebugging -lLLVMSPIRVInfo -lclangReorderFields -lLLVMCodeGenTypes -lLLVMDWP -lLLVMFrontendAtomic -lLLVMFrontendDriver -lLLVMHipStdPar -lLLVMX86Info -lclangMove -lclangTidyBoostModule -lclangTidyConcurrencyModule -lclangTidyDarwinModule -lclangTidyMPIModule -lclangTidyOpenMPModule -lclangUnifiedSymbolResolution -lLLVMAggressiveInstCombine -lLLVMDWARFLinker -lLLVMFrontendOffloading -lLLVMSupportLSP -lclangDirectoryWatcher -lclangDocSupport -lclangScalableStaticAnalysisFrontend -lclangTidyLinuxKernelModule -lLLVMAMDGPUAsmParser -lLLVMDebuginfod -lLLVMFrontendDirective -lLLVMLibDriver -lLLVMPlugins -lLLVMTextAPIBinaryReader -lLLVMX86AsmParser -lclangFrontendTool -lclangTidyCERTModule -lLLVMAMDGPUDisassembler -lLLVMAMDGPUTargetMCA -lLLVMDlltoolDriver -lLLVMExtensions -lLLVMFileCheck -lLLVMFrontendOpenACC -lLLVMFuzzerCLI -lLLVMIREmbUtils -lLLVMLineEditor -lLLVMMCJIT -lLLVMMIREmbUtils -lLLVMTelemetry -lLLVMX86Disassembler -lLLVMX86TargetMCA -lclangApplyReplacements -lclangChangeNamespace -lclangIncludeFixerPlugin -lclangIndexSerialization -lclangScalableStaticAnalysisTool -lclangTidyMain -lclangTidyPlugin -lclangToolingASTDiff -lc -ldl@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@-lc -ldl@ -lc -ldl -lclangAST -lLLVMCore -lclangSema -lLLVMCodeGen -lLLVMAnalysis -lLLVMSupport -lclangCodeGen -lLLVMAMDGPUCodeGen -lclangBasic -lLLVMSelectionDAG -lLLVMMC -lclangStaticAnalyzerCore -lLLVMTransformUtils -lclangDriver -lLLVMGlobalISel -lclangStaticAnalyzerCheckers -lLLVMDebugInfoPDB -lLLVMVectorize -llldELF -lLLVMX86CodeGen -lLLVMObject -lLLVMAMDGPUUtils -lclangLex -lLLVMAsmPrinter -lLLVMDebugInfoCodeView -lclangParse -lLLVMipo -lLLVMSPIRVCodeGen -lLLVMOrcJIT -lclangFrontend -lLLVMDebugInfoDWARF -llldMachO -lLLVMX86Desc -lclangSerialization -lLLVMTargetParser -llldCOFF -lLLVMDebugInfoLogicalView -lclangAnalysis -lLLVMScalarOpts -llldWasm -lLLVMSandboxIR -lLLVMProfileData -lLLVMJITLink -lLLVMTableGen -lLLVMBinaryFormat -lLLVMInstCombine -lclangTidyBugproneModule -lLLVMCAS -lclangTidyUtils -lLLVMFrontendOpenMP -lclangScalableStaticAnalysisCore -lclangASTMatchers -lLLVMTableGenCommon -lLLVMAMDGPUDesc -lclangExtractAPI -lLLVMTextAPI -lclangAnalysisFlowSensitive -lclangFormat -lLLVMObjCopy -lLLVMDebugInfoGSYM -lclangTidy -lLLVMInstrumentation -lclangTidyModernizeModule -lLLVMPasses -lLLVMDWARFLinkerParallel -lLLVMObjectYAML -lLLVMMCA -lclangTidyReadabilityModule -lLLVMRuntimeDyld -llldCommon -lLLVMOrcShared -lclangAnalysisLifetimeSafety -lclangDynamicASTMatchers -lLLVMUBAwareInterpreter -lLLVMMCParser -lclangTooling -lLLVMOption -lLLVMTarget -lclangAPINotes -lLLVMCoroutines -lclangDoc -lLLVMDemangle -lLLVMLTO -lclangInterpreter -lLLVMSPIRVDesc -lLLVMCGData -lclangScalableStaticAnalysisAnalyses -lclangTransformer -lLLVMBitReader -lLLVMExecutionEngine -lclangTidyAbseilModule -lclangTidyCppCoreGuidelinesModule -lclangTidyMiscModule -lclangIndex -lclangDependencyScanning -lclangTidyPerformanceModule -lLLVMObjCARCOpts -lLLVMRemarks -lLLVMXRay -lclangToolingCore -lclangToolingRefactoring -lLLVMFrontendHLSL -lLLVMBitWriter -lLLVMMIRParser -lclangIncludeCleaner -lclangToolingSyntax -lclangTidyAndroidModule -lLLVMAsmParser -lLLVMABI -lLLVMOrcTargetProcess -lclangRewrite -lruntimes_gtest -lLLVMDWARFLinkerClassic -lLLVMHTTP -lclangEdit -lLLVMFuzzMutate -lclangInstallAPI -lclangRewriteFrontend -lclangStaticAnalyzerFrontend -lclangTidyGoogleModule -lLLVMCFIVerify -lLLVMDebugInfoMSF -lclangTidyLLVMModule -lclangTidyPortabilityModule -lclangToolingInclusions -lLLVMCoverage -lLLVMSymbolize -lfindAllSymbols -lLLVMDiff -lLLVMMCDisassembler -lLLVMWindowsDriver -lclangCrossTU -lLLVMDebugInfoDWARFLowLevel -lclangQuery -lclangTidyObjCModule -lLLVMDTLTO -lclangAnalysisFlowSensitiveModels -lLLVMTableGenBasic -lclangTidyFuchsiaModule -lclangToolingInclusionsStdlib -lclangCodeGenUtils -lclangOptions -lclangScalableStaticAnalysisSourceTransformation -lLLVMInterpreter -lLLVMLinker -lLLVMOptDriver -lclangSupport -lclangTidyAlteraModule -lLLVMBitstreamReader -lLLVMDebugInfoBTF -lLLVMInterfaceStub -lLLVMSPIRVAnalysis -lLLVMWindowsManifest -lclangIncludeFixer -lclangTidyLLVMLibcModule -lLLVMAMDGPUInfo -lLLVMCFGuard -lLLVMCodeGenTypes -lLLVMDWARFCFIChecker -lLLVMIRPrinter -lLLVMIRReader -lLLVMOrcDebugging -lLLVMSPIRVInfo -lclangReorderFields -lLLVMDWP -lLLVMFrontendAtomic -lLLVMFrontendDriver -lLLVMFrontendOffloading -lLLVMHipStdPar -lLLVMX86Info -lclangMove -lclangTidyBoostModule -lclangTidyConcurrencyModule -lclangTidyDarwinModule -lclangTidyMPIModule -lclangTidyOpenMPModule -lclangUnifiedSymbolResolution -lLLVMAggressiveInstCombine -lLLVMDWARFLinker -lLLVMLlcDriver -lLLVMSupportLSP -lclangDirectoryWatcher -lclangDocSupport -lclangScalableStaticAnalysisFrontend -lclangTidyLinuxKernelModule -lLLVMAMDGPUAsmParser -lLLVMDebuginfod -lLLVMFrontendDirective -lLLVMLibDriver -lLLVMPlugins -lLLVMTextAPIBinaryReader -lLLVMX86AsmParser -lclangFrontendTool -lclangTidyCERTModule -lLLVMAMDGPUDisassembler -lLLVMAMDGPUTargetMCA -lLLVMDlltoolDriver -lLLVMExtensions -lLLVMFileCheck -lLLVMFrontendOpenACC -lLLVMFuzzerCLI -lLLVMIREmbUtils -lLLVMLineEditor -lLLVMMCJIT -lLLVMMIREmbUtils -lLLVMTelemetry -lLLVMX86Disassembler -lLLVMX86TargetMCA -lclangApplyReplacements -lclangChangeNamespace -lclangIncludeFixerPlugin -lclangIndexSerialization -lclangScalableStaticAnalysisTool -lclangTidyMain -lclangTidyPlugin -lclangToolingASTDiff @' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 %endif
 
 %cmake_build -j ${JOBS}
@@ -928,11 +928,7 @@ rm -rf %{buildroot}%{bundle_prefix}/share/man/man1/scan-build.1
 rm -f %{buildroot}%{bundle_prefix}/bin/nvptx-arch
 
 # rocm-clang-analyzer.x86_64: E: non-executable-script /usr/lib64/rocm/llvm/share/scan-view/Reporter.py 644 /usr/bin/env python
-%if %{with preview}
 %py3_shebang_fix %{buildroot}%{bundle_prefix}/share/scan-view/
-%else
-sed -i -e 's@/usr/bin/env python@%{_bindir}/python3@' %{buildroot}%{bundle_prefix}/share/scan-view/*.py
-%endif
 chmod a+x %{buildroot}%{bundle_prefix}/share/scan-view/*.py
 
 # rocm-clang-devel.x86_64: E: zero-length /usr/lib64/rocm/llvm/include/clang/Basic/DiagnosticASTCompatIDs.inc
@@ -994,11 +990,7 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %dir %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/include/openmp_wrappers
 %dir %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/include/ppc_wrappers
 %dir %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib
-%if %{with preview}
 %dir %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/x86_64-redhat-linux-gnu
-%else
-%dir %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/linux
-%endif
 %dir %{bundle_prefix}/lib/cmake
 %dir %{bundle_prefix}/lib/cmake/clang
 %dir %{bundle_prefix}/lib/cmake/llvm
@@ -1058,13 +1050,8 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 %files -n %{rocm_clang_name}-runtime-devel
 %license clang/LICENSE.TXT
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/include/
-%if %{with preview}
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/x86_64-redhat-linux-gnu/clang_rt.*
 %{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/x86_64-redhat-linux-gnu/libclang_rt.*
-%else
-%{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/linux/clang_rt.*
-%{bundle_prefix}/lib/clang/%{llvm_maj_ver}/lib/linux/libclang_rt.*
-%endif
 
 %files -n %{rocm_clang_name}
 %license clang/LICENSE.TXT
@@ -1153,14 +1140,13 @@ rm %{buildroot}%{bundle_prefix}/lib/libear/ear.c
 
 %files -n %{rocm_omp_name}-devel
 %{bundle_prefix}/lib/cmake/openmp/
-%if %{with preview}
 %{bundle_prefix}/lib/x86_64-redhat-linux-gnu/cmake/openmp/
 %{bundle_prefix}/lib/x86_64-redhat-linux-gnu/libomp*.so
-%else
-%{bundle_prefix}/lib/libomp*.so
-%endif
 
 %changelog
+* Fri Nov 27 2026 Tom Rix <Tom.Rix@amd.com> - 24-4.rocm10.2.0
+- Update to 10.2
+
 * Mon Nov 9 2026 Tim Flink <tflink@fedoraproject.org> - 24-3.rocm10.1.0
 - update obsoletes for rocm-libcxx so that upgrades go smoothly
 

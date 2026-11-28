@@ -1,5 +1,5 @@
 Name:     skanpage
-Version:  26.08.3
+Version:  26.11.90
 Release:  1%{?dist}
 Summary:  Utility to scan images and multi-page documents
 License:  BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only
@@ -83,12 +83,18 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.%{name
 %{_bindir}/%{name}
 %{_datadir}/applications/org.kde.%{name}.desktop
 %{_metainfodir}/org.kde.%{name}.appdata.xml
-
 %{_kf6_datadir}/qlogging-categories6/%{name}.categories
 %{_kf6_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_kf6_datadir}/icons/hicolor/48x48/apps/%{name}.png
+%{_kf6_datadir}/config.kcfg/skanpage_config.kcfg
 
 %changelog
+* Fri Nov 27 2026 Steve Cossette <farchord@gmail.com> - 26.11.90-1
+- 26.11.90
+
+* Sun Nov 15 2026 Steve Cossette <farchord@gmail.com> - 26.11.80-1
+- 26.11.80
+
 * Sun Nov 08 2026 Steve Cossette <farchord@gmail.com> - 26.08.3-1
 - 26.08.3
 

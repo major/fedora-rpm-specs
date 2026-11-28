@@ -56,7 +56,7 @@ Summary:        %{summary}
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
-    MIT AND
+    MIT
     AND Apache-2.0
     AND Apache-2.0 WITH LLVM-exception
     AND BSD-3-Clause

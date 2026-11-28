@@ -1,7 +1,7 @@
 Name:			xmms2
 Summary: 		A modular audio framework and plugin architecture
 Version:		0.9.7
-Release:		10%{?dist}
+Release:		11%{?dist}
 License:		LGPL-2.1-or-later AND GPL-2.0-or-later AND BSD-3-Clause
 # We can't use the upstream source tarball as-is, because it includes an mp4 decoder.
 # Also, the ogg sample included is not under a FOSS license.
@@ -20,6 +20,9 @@ Patch3:			xmms2-0.9.3-gentoo-faad.patch
 Patch4:			xmms2-0.9.3-curl-buffer-overrun-fix.patch
 # Swap mind.in.a.box for free.music.and.free.beer
 Patch11:		xmms2-0.9.3-no-mind-in-a-box.patch
+# https://github.com/xmms2/xmms2-devel/pull/86
+# ruby: Use TypedData API needed for ruby4.1
+Patch12:			xmms2-0.9.7-pr86-ruby-TypedData-API.patch
 URL:			http://wiki.xmms2.xmms.se/
 BuildRequires:		git
 BuildRequires:		python3-devel
@@ -151,6 +154,7 @@ Ruby bindings for XMMS2.
 %patch -P3 -p1 -b .faad
 %patch -P4 -p1 -b .overrun
 %patch -P11 -p1 -b .nomind
+%patch -P12 -p1 -b .ruby41
 cp %{SOURCE2} .
 
 # This header doesn't need to be executable
@@ -227,6 +231,9 @@ install -m0755 %{SOURCE1} %{buildroot}%{_bindir}
 %{ruby_vendorarchdir}/xmmsclient_glib.so
 
 %changelog
+* Fri Nov 27 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.7-11
+- ruby: apply upstream fix to use TypedData API needed for ruby4.1
+
 * Wed Nov 11 2026 Adrian Reber <adrian@lisas.de> - 0.9.7-10
 - Rebuilt for libcdio 2.4.0
 

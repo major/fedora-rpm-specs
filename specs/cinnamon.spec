@@ -10,7 +10,7 @@
 %global muffin_version 6.8.1
 
 Name:    cinnamon
-Version: 6.8.3
+Version: 6.8.4
 Release: %{autorelease}
 %{forgemeta}
 Summary: Window management and application launching for Cinnamon

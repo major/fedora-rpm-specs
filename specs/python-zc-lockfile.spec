@@ -1,10 +1,10 @@
 Name:           python-zc-lockfile
-Version:        4.0
+Version:        4.1
 Release:        %autorelease
 Summary:        Basic Inter-Process Locks
 License:        ZPL-2.1
-URL:            https://pypi.io/project/zc.lockfile/
-Source0:        https://pypi.io/packages/source/z/zc.lockfile/zc.lockfile-%{version}.tar.gz
+URL:            https://pypi.org/project/zc.lockfile/
+Source0:        %{pypi_source zc_lockfile}
 
 BuildArch:      noarch
 
@@ -38,8 +38,8 @@ database files. The database files and lock file files are separate files.
 
 %prep
 %setup -q -n zc_lockfile-%{version}
-# Relax exact setuptools version pin from upstream
-sed -i 's/setuptools == 78.1.1/setuptools >= 78.1.1/' pyproject.toml tox.ini
+# Drop upstream's setuptools upper bound; Fedora ships newer setuptools
+sed -Ei 's/(setuptools >= [0-9.]+), *< *[0-9.]+/\1/' pyproject.toml tox.ini
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -56,7 +56,8 @@ sed -i 's/setuptools == 78.1.1/setuptools >= 78.1.1/' pyproject.toml tox.ini
 %tox
 
 %files -n python3-zc-lockfile -f %{pyproject_files}
-%doc src/zc/lockfile/*.txt
+%doc CHANGES.rst src/zc/lockfile/README.rst
+%license LICENSE.txt
 
 
 %changelog

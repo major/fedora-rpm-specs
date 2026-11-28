@@ -1,5 +1,5 @@
 Name:           python-ogr
-Version:        0.63.0
+Version:        0.63.1
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -47,6 +47,11 @@ One Git library to Rule!
 
 
 %changelog
+* Wed Nov 25 2026 Packit <hello@packit.dev> - 0.63.1-1
+- Status checks are now supported for the Forgejo client via `ForgejoPullRequest.get_statuses()` (#1018)
+- An error when listing files in Forgejo repositories with `pyforgejo` 2.0.0 has been fixed. (#1018)
+- Resolves: rhbz#2583976
+
 * Fri Sep 04 2026 Packit <hello@packit.dev> - 0.63.0-1
 - `ogr` now supports the `allow_maintainer_edit` option for PRs/MRs for GitHub, GitLab and Forgejo. (#1011, #1012)
 - A potential bug has been fixed in the GitHub implementation of `PullRequest.update_info()`. Previously, `None` values

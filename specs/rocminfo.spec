@@ -26,7 +26,7 @@
 %if %{with preview}
 %global rocm_release 10.2
 %else
-%global rocm_release 10.1
+%global rocm_release 10.2
 %endif
 
 %global rocm_patch 0
@@ -118,6 +118,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/*/*/License.txt
 %{pkg_prefix}/bin/rocminfo
 
 %changelog
+* Fri Nov 27 2026 Tom Rix <Tom.Rix@amd.com> - 10.2.0-1
+- Update to 10.2
+
 * Fri Oct 9 2026 Tom Rix <Tom.Rix@amd.com> - 10.1-1
 - Update to 10.1
 

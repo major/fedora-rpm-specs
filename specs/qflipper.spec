@@ -37,7 +37,7 @@ BuildRequires:  qt5-qtserialport-devel
 BuildRequires:  qt5-qtsvg-devel
 BuildRequires:  zlib-devel
 
-Requires:       systemd-udev
+Requires:       %{name}-udev = %{version}-%{release}
 
 # nanopb needs to be compiled in, and needs to match the one used in the
 # firmware on the device side
@@ -54,6 +54,15 @@ Features:
 * Backup and restore settings, progress and pairing data
 * Automatic self-update feature
 * Command line interface
+
+# These would ideally go into hwdb but that's complicated
+# https://github.com/systemd/systemd/pull/24869
+%package     udev
+Summary:     Udev integration for Flipper Zero
+Requires:    systemd-udev
+
+%description udev
+This package contains udev integration rules for Flipper Zero.
 
 %prep
 %autosetup -n %{srcname}-%{version} -b 1
@@ -99,6 +108,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{srcname}.desktop
 %{_datadir}/applications/%{srcname}.desktop
 %{_datadir}/icons/hicolor/512x512/apps/%{srcname}.png
 %{_metainfodir}/one.flipperzero.qflipper.metainfo.xml
+
+%files udev
+%license LICENSE
 %{_udevrulesdir}/42-flipperzero.rules
 
 %changelog

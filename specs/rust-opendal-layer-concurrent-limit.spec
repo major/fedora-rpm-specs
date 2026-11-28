@@ -5,7 +5,7 @@
 %global crate opendal-layer-concurrent-limit
 
 Name:           rust-opendal-layer-concurrent-limit
-Version:        0.59.1
+Version:        0.59.5
 Release:        %autorelease
 Summary:        Apache OpenDAL concurrent limit layer
 
@@ -13,9 +13,8 @@ License:        Apache-2.0
 URL:            https://crates.io/crates/opendal-layer-concurrent-limit
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * use asyncband 0.8 instead of the pinned ^0.6, with its semaphore feature:
-#   unlike 0.6, 0.7 and 0.8 gates the Semaphore type this crate uses behind an
-#   off-by-default feature
+# * Allow asyncband 0.8 besides 0.7: Rawhide ships 0.8.0, Fedora releases 0.7.4;
+#   upstream requires ^0.7.1
 # * enable opendal-core's executors-tokio feature for tests: it is off
 #   (default-features = false) but concurrent_chunked_read_with_http_limit needs
 #   an executor

@@ -2,7 +2,7 @@
 %global tag      %{version}
 
 Name:          muffin
-Version:       6.8.5
+Version:       6.8.6
 Release:       %{autorelease}
 %{forgemeta}
 Summary:       Window and compositing manager based on Clutter

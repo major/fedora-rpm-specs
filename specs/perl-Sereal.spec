@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal
-Version:        7.005
+Version:        7.008
 Release:        1%{?dist}
 Summary:        Fast, compact, powerful binary (de-)serialization
 # Makefile.PL defines LICENSE
@@ -59,6 +59,7 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::LongString)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Warn)
+BuildRequires:  perl(Thread::Semaphore)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Tie::Array)
@@ -101,6 +102,27 @@ make test
 %{_mandir}/man3/Sereal.3*
 
 %changelog
+* Fri Nov 27 2026 Paul Howarth <paul@city-fan.org> - 7.008-1
+- Update to 7.008 (rhbz#2585583)
+  - Improve Encoder and Decoder performance with faster scalar and varint
+    handling, more efficient string deduplication, and reuse of Zstd contexts;
+    reduce Encoder buffer allocation and retention
+  - Preserve compression, readonly and integer aliasing settings when
+    FREEZE/THAW callbacks reuse their encoder or decoder
+  - Fix empty UTF-8 validation and builds with assertions enabled; existing
+    wire formats and protocol compatibility are preserved
+
+* Fri Nov 27 2026 Paul Howarth <paul@city-fan.org> - 7.007-1
+- Update to 7.007 (rhbz#2585217)
+  - Fix Encoder and Decoder option lookup in cloned Perl threads, including
+    children that outlive their parent thread; preserve builds with older Perl
+    XS parsers
+  - Correct Encoder output buffer capacity reporting for Snappy, Zlib and Zstd
+    compression
+  - Fix bundled Zstd build races in Encoder and Decoder under parallel make,
+    including malformed archives and linker failures; preserve incremental
+    rebuilds and exclude stale or unrelated archive members
+
 * Wed Nov 25 2026 Paul Howarth <paul@city-fan.org> - 7.005-1
 - Update to 7.005 (rhbz#2584332)
   - Fix a false native long-double test failure on Intel macOS with older

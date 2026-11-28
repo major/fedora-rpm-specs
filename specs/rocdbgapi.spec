@@ -19,16 +19,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%bcond_with preview
-%if %{with preview}
-%global rocm_release 10.2
 %global upstreamname rocdbgapi
-%global pkg_src therock-%{rocm_release}
-%else
-%global rocm_release 7.2
-%global upstreamname ROCdbgapi
-%endif
 
+%bcond_with preview
+%global rocm_release 10.2
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -53,18 +47,13 @@ Version:    %{rocm_version}
 %if %{with preview}
 Release:    0%{?dist}
 %else
-Release:    5%{?dist}
+Release:    1%{?dist}
 %endif
 Summary:    AMD Debugger API
 
 License:    MIT
-%if %{with preview}
 URL:        https://github.com/ROCm/rocm-systems
-Source0:    %{url}/releases/download/%{pkg_src}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%else
-URL:        https://github.com/ROCm/%{upstreamname}
-Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-%endif
+Source0:    %{url}/releases/download/therock-%{rocm_release}/%{upstreamname}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 ExclusiveArch: x86_64
 
@@ -89,11 +78,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 
 %prep
-%if %{with preview}
 %autosetup -p3 -n %{upstreamname}
-%else
-%autosetup -p1 -n %{upstreamname}-rocm-%{version}
-%endif
 
 %build
 %cmake \
@@ -122,6 +107,9 @@ rm -f %{buildroot}%{pkg_prefix}/share/doc/rocm-dbgapi-asan/LICENSE.txt
 %{pkg_prefix}/%{pkg_libdir}/cmake/amd-dbgapi/
 
 %changelog
+* Fri Nov 27 2026 Tom Rix <Tom.Rix@amd.com> - 10.2.0-1
+- Update to 10.2
+
 * Tue Oct 13 2026 Tom Rix <Tom.Rix@amd.com> - 7.2.0-5
 - Rebuild for 10.1
 

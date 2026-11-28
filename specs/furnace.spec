@@ -25,6 +25,8 @@ Source0:        %{forgesource}
 # download adpcm bundled library from the specfic commit
 Source1:        https://github.com/superctr/adpcm/archive/ef7a217154badc3b99978ac481b268c8aab67bd8.tar.gz
 
+Patch0:         0000-rtmidi-6.1.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

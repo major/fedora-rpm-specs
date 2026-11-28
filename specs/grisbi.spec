@@ -1,27 +1,34 @@
 Name:		grisbi
-Version:	2.0.5
-Release:	12%{?dist}
+%global rtld_name org.grisbi.Grisbi
+
+Version:	3.92.1
+Release:	1%{?dist}
 Summary:	Personal finances manager
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://www.grisbi.org
-Source0:	http://downloads.sourceforge.net/project/grisbi/grisbi%20stable/2.0.x/%{version}/%{name}-%{version}.tar.bz2
-Source1:	%{name}.appdata.xml
+Source0:	http://downloads.sourceforge.net/project/grisbi/grisbi%20stable/3.0.x/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
-BuildRequires:	gtk3-devel
-BuildRequires:	libxml2-devel
-BuildRequires:	glib2-devel
-BuildRequires:	libgsf-devel
-BuildRequires:	gettext-devel
 BuildRequires:	desktop-file-utils
-BuildRequires:	libofx-devel >= 0.9.0
-BuildRequires:	openssl-devel
 BuildRequires:	intltool
 BuildRequires:	ImageMagick
 BuildRequires:	libappstream-glib
-BuildRequires: make
+BuildRequires:	meson
+
+BuildRequires:	gettext-devel
+BuildRequires:	glib2-devel
+BuildRequires:	gtk3-devel
+BuildRequires:	libgsf-devel
+BuildRequires:	libofx-devel >= 0.9.0
+BuildRequires:	libxml2-devel
+BuildRequires:	openssl-devel
+
+# goffice is not available on x86
+%ifnarch %{ix86}
+BuildRequires:	pkgconfig(libgoffice-0.10)
+%endif
 
 Requires:	xdg-utils
 
@@ -41,18 +48,12 @@ party, nice and easy user interface, user manual, QIF import/export.
 %setup -q
 
 %build
-# FIXME: package should not install help files into _pkgdocdir
-%configure --disable-silent-rules --docdir=%{_pkgdocdir}
-make %{?_smp_mflags}
+%meson
+%meson_build
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
-install -D -p -m 644 %{SOURCE1} %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
-
-desktop-file-install \
-  --dir %{buildroot}%{_datadir}/applications \
-  %{buildroot}%{_datadir}/applications/%{name}.desktop
+%meson_install
+mv %{buildroot}%{_metainfodir}/%{name}.metainfo.xml %{buildroot}%{_metainfodir}/%{rtld_name}.metainfo.xml
 
 for f in AUTHORS COPYING NEWS README ABOUT-NLS; do
     cp -p $f %{buildroot}%{_pkgdocdir}/$f
@@ -60,13 +61,16 @@ done
 
 %find_lang %{name}
 
+
 %check
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{rtld_name}.metainfo.xml
+
 
 %files -f %{name}.lang
 %doc %{_pkgdocdir}/
 %{_bindir}/*
-%{_datadir}/applications/*
+%{_datadir}/applications/%{rtld_name}.desktop
 %{_datadir}/mime-info/%{name}.*
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/pixmaps/*
@@ -74,11 +78,13 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 %{_datadir}/icons/hicolor/*/mimetypes/application-x-grisbi.*
 %{_datadir}/%{name}
 %{_mandir}/man1/%{name}.1.*
-%{_datadir}/appdata/%{name}.appdata.xml
-%{_datadir}/glib-2.0/schemas/org.gtk.grisbi.gschema.xml
+%{_metainfodir}/%{rtld_name}.metainfo.xml
 
 
 %changelog
+* Thu Nov 26 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.92.1-1
+- Update to v3.92.1
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.5-12
 - Rebuilt for libxml-2.5.4
 

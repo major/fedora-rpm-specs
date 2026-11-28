@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Net-CardDAVTalk
-Version:        0.13
+Version:        0.14
 Release:        1%{?dist}
 Summary:        CardDAV client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -28,7 +28,7 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(MIME::Base64)
-BuildRequires:  perl(Net::DAVTalk) >= 0.08
+BuildRequires:  perl(Net::DAVTalk) >= 0.26
 BuildRequires:  perl(Text::JSContact) => 0.01
 BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(XML::Spice) >= 0.04
@@ -41,7 +41,7 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 %endif
-Requires:       perl(Net::DAVTalk) >= 0.24
+Requires:       perl(Net::DAVTalk) >= 0.26
 Requires:       perl(Text::JSContact) >= 0.01
 Requires:       perl(XML::Spice) >= 0.04
 
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 27 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.14-1
+- 0.14 bump
+
 * Sat Oct 17 2026 Michal Josef Špaček <mspacek@redhat.com> - 0.13-1
 - 0.13 bump
 

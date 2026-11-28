@@ -13,8 +13,8 @@
 %global regenerate_xs 0
 
 Name:           mod_perl
-Version:        2.0.13
-Release:        15%{?dist}
+Version:        2.0.14
+Release:        1%{?dist}
 Summary:        An embedded Perl interpreter for the Apache HTTP Server
 # other files:                  ASL 2.0
 ## Not in binary packages
@@ -33,7 +33,6 @@ Source4:        perl.module.conf
 # Normalize documentation encoding
 Patch0:         mod_perl-2.0.12-Convert-documentation-to-UTF-8.patch
 Patch1:         mod_perl-2.0.4-inline.patch
-Patch2:         mod_perl-32bit-ftbs.patch
 
 BuildRequires:  lmdb-devel
 BuildRequires:  openldap-devel
@@ -298,14 +297,11 @@ fi
 %dir %{perl_vendorarch}/Apache/
 %{perl_vendorarch}/Apache/SizeLimit*
 %{perl_vendorarch}/Apache2/
-%exclude %{perl_vendorarch}/Apache2/Reload.pm
 %{perl_vendorarch}/Bundle/
 %{perl_vendorarch}/APR/
 %{perl_vendorarch}/ModPerl/
 %{perl_vendorarch}/*.pm
 %{_mandir}/man3/*.3*
-%exclude %{_mandir}/man3/Apache::Reload.3pm*
-%exclude %{_mandir}/man3/Apache2::Reload.3pm*
 
 %files devel -f devel.files
 %{_includedir}/httpd/*
@@ -323,6 +319,9 @@ fi
 %endif
 
 %changelog
+* Fri Nov 27 2026 Andrew Bauer <zonexpertconsulting@outlook.com> - 2.0.14-1
+- 2.0.14 Release RHBZ#2581361
+
 * Sat Oct 31 2026 Jakub Jelen <jjelen@redhat.com> - 2.0.13-15
 - Verify upstream source signatures with openpgpverify
 

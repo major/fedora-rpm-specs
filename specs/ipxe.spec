@@ -43,6 +43,7 @@ Source:  https://github.com/ipxe/ipxe/archive/%{commit}/ipxe-%{commit}.tar.gz
 # Sent upstream: http://lists.ipxe.org/pipermail/ipxe-devel/2015-November/004494.html
 Patch0001: 0001-build-customize-configuration.patch
 Patch0002: 0002-Use-spec-compliant-timeouts.patch
+Patch0003: 0001-Revert-virtio-Replace-the-virtio-core-and-network-de.patch
 
 %ifarch %{buildarches}
 BuildRequires: perl-interpreter

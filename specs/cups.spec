@@ -14,8 +14,8 @@
 Summary: CUPS printing system
 Name: cups
 Epoch: 1
-Version: 2.4.19
-Release: 4%{?dist}
+Version: 2.4.20
+Release: 1%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -78,10 +78,6 @@ Patch100: cups-lspp.patch
 %endif
 
 #### UPSTREAM PATCHES (starts with 1000) ####
-# https://github.com/OpenPrinting/cups/commit/3f2bdc293243
-Patch1000: 0001-Fix-filter-PPD-keyword-processing-Issue-1562.patch
-# https://github.com/OpenPrinting/cups/commit/de63068ba5a7
-Patch1001: 0001-Fixed-Coverity-issues.patch
 
 
 ##### Patches removed because IMHO they aren't no longer needed
@@ -309,8 +305,6 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %endif
 
 # UPSTREAM PATCHES
-%patch -P 1000 -p1 -b .fix-filter-ppd-keyword
-%patch -P 1001 -p1 -b .fix-coverity-issues
 
 
 # Log to the system journal by default (bug #1078781, bug #1519331).
@@ -801,6 +795,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Fri Nov 27 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.20-1
+- 2.4.20 (fedora#2545947)
+
 * Wed Jul 15 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

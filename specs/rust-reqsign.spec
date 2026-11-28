@@ -5,7 +5,7 @@
 %global crate reqsign
 
 Name:           rust-reqsign
-Version:        0.20.7
+Version:        0.20.9
 Release:        %autorelease
 Summary:        Signing HTTP requests for popular cloud services
 
@@ -167,6 +167,18 @@ This package contains library source intended for building other packages which
 use the "huaweicloud" feature of the "%{crate}" crate.
 
 %files       -n %{name}+huaweicloud-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+openstack-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+openstack-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "openstack" feature of the "%{crate}" crate.
+
+%files       -n %{name}+openstack-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+oracle-devel

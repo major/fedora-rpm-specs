@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.47.50
-Release: 31%{?dist}
+Release: 32%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -653,7 +653,7 @@ BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
 # ExcludeArch: ppc64le-%%{linux_system} ppc64le-%%{redhat_system}
 
 %description -n cross-binutils-ppc64le
-This package contains a PPC64LE cross targeted version of the binutils for
+<This package contains a PPC64LE cross targeted version of the binutils for
 use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 
 #----------------------------------------------------------------------------
@@ -788,9 +788,6 @@ if gcc %{optflags} -v --help 2>&1 | grep -q -- -Bsymbolic-functions; then
 sed -i -e 's/^libbfd_la_LDFLAGS = /&-Wl,-Bsymbolic-functions /' bfd/Makefile.{am,in}
 sed -i -e 's/^libopcodes_la_LDFLAGS = /&-Wl,-Bsymbolic-functions /' opcodes/Makefile.{am,in}
 fi
-
-# $PACKAGE is used for the gettext catalog name.
-sed -i -e 's/^ PACKAGE=/ PACKAGE=%{?cross}/' */configure
 
 # Undo the name change to run the testsuite.
 for tool in binutils gas ld
@@ -1710,7 +1707,26 @@ exit 0
 
 %license COPYING COPYING3 COPYING3.LIB COPYING.LIB
 %doc README
-%{_bindir}/[!l]*
+%{_bindir}/addr2line
+%{_bindir}/ar
+%{_bindir}/as
+%{_bindir}/c++filt
+%{_bindir}/elfedit
+%ifarch %{power64}
+%{_bindir}/embedspu
+%endif
+%{_bindir}/gprof
+# %%{_bindir}/ld
+# %%{_bindir}/ld.bfd
+%{_bindir}/nm
+%{_bindir}/objcopy
+%{_bindir}/objdump
+%{_bindir}/ranlib
+%{_bindir}/readelf
+%{_bindir}/size
+%{_bindir}/strings
+%{_bindir}/strip
+
 # %%verify(symlink) does not work for some reason, so using "owner" instead.
 %verify(owner) %{_bindir}/ld
 # %%verify(mtime) does not work, probably because of the alternatives command in the %%post stage, so using "not mtime" instead.  (#2277349)(RHEL-238406)
@@ -1731,13 +1747,14 @@ exit 0
 %if %{enable_shared}
 %dir %{_libdir}/bfd-plugins
 %{_libdir}/bfd-plugins/libdep.so
-
-%{_libdir}/lib*.so
-%{_libdir}/lib*.so.*
-%exclude %{_libdir}/libbfd.so
-%exclude %{_libdir}/libopcodes.so
-%exclude %{_libdir}/libctf.a
-%exclude %{_libdir}/libctf-nobfd.a
+%{_libdir}/libbfd-*.so
+%{_libdir}/libctf-nobfd.so
+%{_libdir}/libctf-nobfd.so.*
+%{_libdir}/libctf.so
+%{_libdir}/libctf.so.*
+%{_libdir}/libopcodes-*.so
+%{_libdir}/libsframe.so
+%{_libdir}/libsframe.so.*
 %endif
 
 %exclude %dir %{_exec_prefix}/lib/debug
@@ -1762,14 +1779,18 @@ exit 0
 %exclude %{_docdir}/gprofng/examples.tar.gz
 %exclude %{_infodir}/gprofng*
 %exclude %{_mandir}/man1/gprofng*
-%exclude %{_libdir}/libgprofng.*
 %endif
 
 #------------------------------------
 
 %files devel
 %{_prefix}/include/*
-%{_libdir}/lib*.a
+%{_libdir}/libbfd.a
+%{_libdir}/libiberty.a
+%{_libdir}/libopcodes.a
+%{_libdir}/libsframe.a
+%{_libdir}/libctf.a
+%{_libdir}/libctf-nobfd.a
 %{_libdir}/libbfd.so
 %{_libdir}/libopcodes.so
 %if %{with crossbuilds}
@@ -1777,18 +1798,12 @@ exit 0
 %{_libdir}/bfd-plugins/libdep.a
 %endif
 
-%if %{enable_shared}
-%if %{with crossbuild}
-%else
-%exclude %{_libdir}/lib*.la
-%endif
-%endif
-
 #------------------------------------
 
 %if %{with gold}
 %files gold
-%{_bindir}/%{?cross}ld.gold
+%{_bindir}/ld.gold
+%{_bindir}/dwp
 %endif
 
 #------------------------------------
@@ -1849,6 +1864,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Nov 26 2026 Davide Bolcioni <dbolcioni@gmail.com> - 2.47.50-32
+- Fix dangling build-id symlinks by explicitly listing files rather than using regexps.  (#2479661)
+
 * Thu Nov 19 2026 Nick Clifton <nickc@redhat.com> - 2.47.50-31
 - Rebase to commit 7d157b544f4
 

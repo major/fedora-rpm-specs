@@ -18,7 +18,7 @@
 
 Name:           zstd
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Zstd compression library
 
 License:        BSD-3-Clause OR GPL-2.0-only
@@ -44,6 +44,8 @@ BuildRequires:  zlib-devel
 %endif
 BuildRequires:  execstack
 
+Requires:       lib%{name}%{?_isa} = %{version}-%{release}
+
 %description
 Zstd, short for Zstandard, is a fast lossless compression algorithm,
 targeting real-time compression scenarios at zlib-level compression ratio.
@@ -60,7 +62,7 @@ Requires:       lib%{name}%{?_isa} = %{version}-%{release}
 
 %package -n lib%{name}-static
 Summary:        Static variant of the Zstd library
-Requires:       lib%{name}-devel = %{version}-%{release}
+Requires:       lib%{name}-devel%{?_isa} = %{version}-%{release}
 
 %description -n lib%{name}-devel
 Header files for Zstd library.
@@ -146,6 +148,9 @@ make PZSTD_CXX_STD=-std=c++17 -C contrib/pzstd tests check
 %ldconfig_scriptlets -n lib%{name}
 
 %changelog
+* Fri Nov 27 2026 Pádraig Brady <P@draigBrady.com> - 1.6.0-2
+- Tighten sub-package dependencies
+
 * Tue Nov 24 2026 Pádraig Brady <P@draigBrady.com> - 1.6.0-1
 - latest upstream (rhbz#2582942)
 

@@ -4,7 +4,7 @@
 %global pypi_name mdit-py-plugins
 
 Name:           python-%{pypi_name}
-Version:        0.6.1
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Collection of plugins for markdown-it-py
 
@@ -17,6 +17,7 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-timeout)
 %if %{without bootstrap}
 BuildRequires:  python3dist(pytest-regressions)
 %endif

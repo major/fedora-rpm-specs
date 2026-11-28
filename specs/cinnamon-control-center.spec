@@ -10,7 +10,7 @@
 
 Summary: Utilities to configure the Cinnamon desktop
 Name:    cinnamon-control-center
-Version: 6.8.0
+Version: 6.8.1
 Release: %{autorelease}
 %{forgemeta}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT

@@ -7,8 +7,20 @@
 %global system_unit_dir %{pkgdir}/system
 %global user_unit_dir %{pkgdir}/user
 
+# Build from git main
+%bcond upstream  0
+
+# Build with OBS-specific quirks
+%bcond obs       0
+
+# SUSE does not define __isa_bits, and we only support 64bit architectures in OBS
+%if %{with obs}
+%{!?__isa_bits: %global __isa_bits 64}
+%endif
+
 %bcond bzip2     1
 %bcond gnutls    1
+%bcond rust      %[ 0%{?__isa_bits} == 64 ]     # disabled on i686
 %bcond lz4       1
 %bcond xz        1
 %bcond zlib      1
@@ -33,12 +45,6 @@
 
 # Build docs on 64-bit architectures only
 %bcond docs      %[%{?__isa_bits} >= 64]
-
-# Build from git main
-%bcond upstream  0
-
-# Build with OBS-specific quirks
-%bcond obs       0
 
 # When bootstrap, libcryptsetup is disabled
 # but auto-features causes many options to be turned on
@@ -85,7 +91,7 @@ Url:            https://systemd.io
 # But don't do that on OBS, otherwise the version subst fails, and will be
 # like 257-123-gabcd257.1 instead of 257-123-gabcd
 %if %{without obs}
-Version:        %{?version_override}%{!?version_override:262.2}
+Version:        %{?version_override}%{!?version_override:263~rc1}
 %else
 Version:        %{?version_override}%{!?version_override:%(cat meson.version)}
 %endif
@@ -161,9 +167,6 @@ Patch:          30846.patch
 # We can drop this after SELinux policy is updated to handle the transition.
 Patch:          0001-core-create-userdb-root-directory-with-correct-label.patch
 
-# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2415701
-Patch:          0002-machined-continue-without-resolve.hook-socket.patch
-
 %endif
 
 %ifarch %{ix86} x86_64 aarch64 riscv64 loongarch64
@@ -173,6 +176,10 @@ Patch:          0002-machined-continue-without-resolve.hook-socket.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  clang
+%if %{with rust}
+BuildRequires:  bindgen-cli
+BuildRequires:  rustc
+%endif
 BuildRequires:  coreutils
 BuildRequires:  rpmdevtools
 BuildRequires:  libmount-devel
@@ -849,6 +856,7 @@ main systemd package and is meant for use in exitrds.
 
 %define status %{shrink:
        '**'
+       rust=%{?with_rust}%{!?with_rust:0}
        bzip2=%{?with_bzip2}%{!?with_bzip2:0}
        gnutls=%{?with_gnutls}%{!?with_gnutls:0}
        lz4=%{?with_lz4}%{!?with_lz4:0}
@@ -940,6 +948,7 @@ CONFIGURE_OPTS=(
         -Dvmlinux-h-path="$VMLINUX_H_PATH"
         -Dapparmor=disabled
         -Dpolkit=enabled
+        -Drust=%[%{with rust}?"enabled":"disabled"]
         -Dxz=%[%{with xz}?"enabled":"disabled"]
         -Dzlib=%[%{with zlib}?"enabled":"disabled"]
         -Dbzip2=%[%{with bzip2}?"enabled":"disabled"]

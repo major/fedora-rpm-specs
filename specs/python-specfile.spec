@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.41.1
+%global base_version 0.42.1
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -81,6 +81,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Mon Nov 23 2026 Packit <hello@packit.dev> - 0.42.1-1
+- Updated `plans/git_reference.py` to match the current state of TMT metadata. (#550)
+
 * Mon Jul 20 2026 Packit <hello@packit.dev> - 0.41.1-1
 - Sanitize multi-pipe shell expansion. (#542)
 

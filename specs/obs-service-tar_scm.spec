@@ -1,12 +1,14 @@
 %define service tar_scm
 
 Name:           obs-service-%{service}
-Version:        0.10.41
-Release:        8%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        An OBS source service: checkout or update a tarball from svn/git/hg
 License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# https://github.com/openSUSE/obs-service-tar_scm/pull/562
+Patch0:         0001-Exclude-sockets-from-copytree.patch
 
 BuildRequires:  make
 BuildRequires:  glibc-langpack-en
@@ -134,6 +136,9 @@ make test3
 %{_prefix}/lib/obs/service/snapcraft*
 
 %changelog
+* Mon Sep 07 2026 Dan Čermák <dan.cermak@posteo.net> - 0.13.0-1
+- Update to 0.13.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.41-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %bcond_without perl_Sereal_Decoder_enables_optional_test
 
 Name:           perl-Sereal-Decoder
-Version:        7.005
+Version:        7.008
 Release:        1%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
@@ -61,6 +61,7 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::LongString)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Warn)
+BuildRequires:  perl(Thread::Semaphore)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(utf8)
 %if %{with perl_Sereal_Decoder_enables_optional_test}
@@ -122,6 +123,31 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Fri Nov 27 2026 Paul Howarth <paul@city-fan.org> - 7.008-1
+- Update to 7.008 (rhbz#2585584)
+  - Speed up small-varint decoding and arrays of untracked scalar values;
+    reduce temporary allocations and stack usage while preserving recursion
+    limits, aliasing and readonly options
+  - Reuse Zstd decompression contexts on reusable decoders instead of
+    allocating a context for each packet
+  - Preserve readonly and integer aliasing options when THAW callbacks reuse
+    the decoder
+  - Avoid calling is_utf8_string() with zero-length inputs when validating
+    empty UTF-8 strings and hash keys
+  - Keep Zstd regression coverage active with older or absent Encoders by using
+    stored packets for Decoder tests
+
+* Fri Nov 27 2026 Paul Howarth <paul@city-fan.org> - 7.007-1
+- Update to 7.007 (rhbz#2585216)
+  - Fix option lookup in cloned Perl threads, including children that outlive
+    their parent thread; give each interpreter its own option lookup data;
+    preserve builds with older Perl XS parsers
+  - Fix bundled Zstd build races under parallel make that can cause malformed
+    archives and linker failures; build the archive once before linking while
+    preserving incremental rebuilds
+  - Exclude the archive itself and unrelated object files from its inputs;
+    replace existing archives to remove stale members
+
 * Wed Nov 25 2026 Paul Howarth <paul@city-fan.org> - 7.005-1
 - Update to 7.005 (rhbz#2584330)
   - Fix a false native long-double test failure on Intel macOS with older

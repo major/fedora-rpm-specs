@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        7.005
+Version:        7.008
 Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
@@ -71,6 +71,7 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::LongString)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Warn)
+BuildRequires:  perl(Thread::Semaphore)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Tie::Array)
@@ -129,6 +130,35 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Fri Nov 27 2026 Paul Howarth <paul@city-fan.org> - 7.008-1
+- Update to 7.008 (rhbz#2585582)
+  - Speed up scalar, string and small-varint encoding, and reduce stack usage
+    by keeping larger helpers out of the hot path
+  - Reduce allocation overhead for dedupe_strings and aliased_dedupe_strings
+    with a single C string table; preserve binary/UTF-8 distinctions and
+    reference tracking
+  - Reuse Zstd compression contexts on reusable encoders for payloads up to
+    512 KiB, avoiding repeated context allocation
+  - Improve buffer growth and container preallocation; limit retained buffers
+    on reusable encoders to 1 MiB after large payloads, and strengthen buffer
+    size and overflow checks
+  - Preserve compression levels when FREEZE callbacks reuse the encoder
+  - Fix builds with assertions enabled on Perl 5.36 and later
+
+* Fri Nov 27 2026 Paul Howarth <paul@city-fan.org> - 7.007-1
+- Update to 7.007 (rhbz#2585215)
+  - Fix option lookup in cloned Perl threads, including children that outlive
+    their parent thread; give each interpreter its own option lookup data;
+    preserve builds with older Perl XS parsers
+  - Pass the actual remaining output buffer capacity to Snappy, Zlib and Zstd
+    after writing packet headers and length prefixes; add round-trip coverage
+    across supported compression formats and protocol versions
+  - Fix bundled Zstd build races under parallel make that can cause malformed
+    archives and linker failures; build the archive once before linking while
+    preserving incremental rebuilds
+  - Exclude the archive itself and unrelated object files from its inputs;
+    replace existing archives to remove stale members
+
 * Wed Nov 25 2026 Paul Howarth <paul@city-fan.org> - 7.005-1
 - Update to 7.005 (rhbz#2584329)
   - Fix a false native long-double test failure on Intel macOS with older

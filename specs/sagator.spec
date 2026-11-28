@@ -9,19 +9,14 @@
 %global install_sepolicy 0
 %global sepolicy %{_datadir}/%{name}/selinux/%{name}.pp
 
-%if 0%{?fedora} >= 28 || 0%{?rhel} >= 8
 %global python_version python3
-%else
-%global python_version python2
-%endif
 
 Summary:   Antivirus/anti-spam gateway for smtp server
 Name:      sagator
 Version:   2.0.3
-Release:   0.beta3%{?dist}.9
-Source:    http://www.salstar.sk/pub/antivir/snapshots/unstable/sagator-%{version}-0.beta3.tar.bz2
+Release:   1%{?dist}
+Source:    http://www.salstar.sk/pub/antivir/snapshots/sagator-%{version}.tar.bz2
 URL:       http://www.salstar.sk/sagator/
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:   GPL-2.0-or-later
 BuildArch: noarch
 BuildRequires: %{python_version}-devel, ed, gettext
@@ -67,12 +62,12 @@ Features:
 %package core
 Summary:        Antivirus/anti-spam gateway for smtp server, core files
 Requires:       sed
+BuildRequires:  clamav-devel >= %{CLAMAV_VERSION}
 %if 0%{?suse_version}
-BuildRequires: aaa_base, python-xml, clamav >= %{CLAMAV_VERSION}
+BuildRequires:  aaa_base, python-xml
 Requires:       aaa_base, smtp_daemon
 %else
-Requires:       server(smtp)
-BuildRequires:  clamav-devel >= %{CLAMAV_VERSION}
+Requires:       server(smtp), shadow-utils
 Requires:       clamav-lib >= %{CLAMAV_VERSION}
 %endif
 BuildRequires:  systemd
@@ -124,7 +119,12 @@ make %{?_smp_mflags}
 
 %install
 rm -rf %{buildroot}
-make DESTDIR=%{buildroot} PREFIX=%{_prefix} SBINDIR=%{buildroot}%{_sbindir} install
+make \
+	DESTDIR=%{buildroot} \
+	BINDIR=%{buildroot}%{_bindir} \
+	SBINDIR=%{buildroot}%{_sbindir} \
+	PREFIX=%{_prefix} \
+	install
 rm -f %{buildroot}%{_datadir}/sagator/etc/sgconf.py* \
   scripts/mkchroot.sh scripts/graphs/*.in
 touch %{buildroot}%{_datadir}/%{name}/etc/sgconf.py_
@@ -135,7 +135,6 @@ cp -arf scripts/db %{buildroot}%{_datadir}/%{name}/
 %find_lang %{name}
 
 install -m0644 -D sagator.sysusers.conf %{buildroot}%{_sysusersdir}/sagator.conf
-
 
 %post core
 touch %{_var}/lib/sagator-mkchroot
@@ -222,6 +221,9 @@ touch %{_var}/lib/sagator-mkchroot
 %endif
 
 %changelog
+* Fri Nov 27 2026 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.0.3-1
+- Update to upstream.
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-0.beta3.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

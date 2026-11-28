@@ -2526,18 +2526,7 @@ rm -rfv %{buildroot}%{install_libdir}/cmake/flang
 # Remove runtime development headers (see https://github.com/llvm/llvm-project/pull/165610)
 rm -rfv %{buildroot}%{install_includedir}/flang-rt
 
-rm -v %{buildroot}%{install_libdir}/libFIRAnalysis.a \
-      %{buildroot}%{install_libdir}/libFIRBuilder.a \
-      %{buildroot}%{install_libdir}/libFIRCodeGen.a \
-      %{buildroot}%{install_libdir}/libFIRCodeGenDialect.a \
-      %{buildroot}%{install_libdir}/libFIRDialect.a \
-      %{buildroot}%{install_libdir}/libFIRDialectSupport.a \
-      %{buildroot}%{install_libdir}/libFIROpenACCSupport.a \
-      %{buildroot}%{install_libdir}/libFIROpenMPSupport.a \
-      %{buildroot}%{install_libdir}/libFIRSupport.a \
-      %{buildroot}%{install_libdir}/libFIRTestAnalysis.a \
-      %{buildroot}%{install_libdir}/libFIRTestOpenACCInterfaces.a \
-      %{buildroot}%{install_libdir}/libFIRTransforms.a \
+rm -v %{buildroot}%{install_libdir}/libFIR*.a \
       %{buildroot}%{install_libdir}/libflangFrontend.a \
       %{buildroot}%{install_libdir}/libflangFrontendTool.a \
       %{buildroot}%{install_libdir}/libflangPasses.a \
@@ -2553,8 +2542,6 @@ rm -v %{buildroot}%{install_libdir}/libFIRAnalysis.a \
       %{buildroot}%{install_libdir}/libCUFDialect.a \
       %{buildroot}%{install_libdir}/libFortranDecimal.a \
       %{buildroot}%{install_libdir}/libFortranUtils.a \
-      %{buildroot}%{install_libdir}/libFIROpenACCAnalysis.a \
-      %{buildroot}%{install_libdir}/libFIROpenACCTransforms.a \
       %{buildroot}%{install_libdir}/libMIFDialect.a
 
 

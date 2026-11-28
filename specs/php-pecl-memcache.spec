@@ -23,14 +23,11 @@
 Name:         php-pecl-memcache
 Summary:      Extension to work with the Memcached caching daemon
 License:      PHP-3.01
-Version:      8.2
-Release:      15%{?dist}
+Version:      8.6
+Release:      1%{?dist}
 %forgemeta
 URL:          %{forgeurl}
 Source0:      %{forgesource}
-
-Patch0:       118.patch
-Patch1:       120.patch
 
 ExcludeArch:   %{ix86}
 
@@ -70,9 +67,6 @@ Memcache can be used as a PHP session handler.
 %prep 
 %forgesetup
 
-%patch -P0 -p1 -b .pr118
-%patch -P1 -p1 -b .pr120
-
 extver=$(sed -n '/#define PHP_MEMCACHE_VERSION/{s/.* "//;s/".*$//;p}' src/php_memcache.h)
 if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
    : Error: Upstream version is now ${extver}, expecting %{version}%{?prever:-%{prever}}
@@ -109,6 +103,8 @@ extension=%{pecl_name}.so
 ;memcache.session_redundancy=2
 ;  Lock Timeout
 ;memcache.lock_timeout = 15
+;  API used for select, poll or select (default)
+;memcache.select_api = select
 
 ;memcache.prefix_host_key = Off
 ;memcache.prefix_host_key_remove_www = On
@@ -161,6 +157,7 @@ install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 rm tests/040.phpt
 rm tests/056.phpt
 rm tests/100c.phpt
+echo all > tests/CONFLICTS
 
 : Configuration for tests
 sed -e "s:/var/run/memcached/memcached.sock:$PWD/memcached.sock:" \
@@ -190,6 +187,7 @@ exit $ret
 
 %files
 %license LICENSE
+%doc composer.json
 %doc CREDITS
 %doc README
 
@@ -198,6 +196,9 @@ exit $ret
 
 
 %changelog
+* Fri Nov 27 2026 Remi Collet <remi@remirepo.net> - 8.6-1
+- update to 8.6
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

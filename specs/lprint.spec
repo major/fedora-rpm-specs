@@ -2,8 +2,8 @@
 %global _hardened_build 1
 
 Name: lprint
-Version: 1.3.1
-Release: 15%{?dist}
+Version: 1.4.0
+Release: 2%{?dist}
 Summary: A Label Printer Application
 
 License: Apache-2.0
@@ -13,11 +13,7 @@ Source1: lprint.conf
 
 
 # UPSTREAM PATCHES
-# fix putting state file into correct place
-# https://github.com/michaelrsweet/lprint/commit/648bc20171
-Patch001: 0001-Update-state-filename-to-current-PAPPL-standard-rena.patch
-# https://github.com/michaelrsweet/lprint/pull/151
-Patch002: 0001-lprint.c-Enable-TLS-support-in-Web-UI.patch
+
 
 # uses CUPS API for arrays, options, rastering, HTTP, IPP support
 BuildRequires: pkgconfig(cups) >= 2.4.0
@@ -218,6 +214,12 @@ fi
 
 
 %changelog
+* Fri Nov 27 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.0-2
+- attach right bug (fedora#2486557)
+
+* Fri Nov 27 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.4.0-1
+- 1.4.0 (fedora#2486557)
+
 * Mon Nov 23 2026 Zdenek Dohnal <zdohnal@redhat.com> - 1.3.1-15
 - fix the upgrade script, remove auth options
 

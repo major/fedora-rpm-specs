@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/jacoco/jacoco
-Version:        0.8.15
+Version:        0.8.16
 %forgemeta
 
 Name:           jacoco

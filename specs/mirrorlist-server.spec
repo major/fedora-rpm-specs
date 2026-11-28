@@ -1,23 +1,21 @@
 Name:           mirrorlist-server
-Version:        3.1.1
+Version:        3.1.2
 Release:        %autorelease
 Summary:        Mirrorlist Server
 
 SourceLicense:  MIT
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # ISC
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
 License:        %{shrink:
-    MIT AND
-    ISC AND
-    Unicode-DFS-2016 AND
-    (Apache-2.0 OR MIT) AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (Unlicense OR MIT)
+    MIT
+    AND ISC
+    AND Unicode-DFS-2016
+    AND (Apache-2.0 OR MIT)
+    AND (Unlicense OR MIT)
 }
 # LICENSE.dependencies contains a full license breakdown
 
@@ -27,6 +25,7 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch:          0001-set-license-in-crate-metadata.patch
 # https://github.com/adrianreber/mirrorlist-server/pull/336
 Patch:          0002-Relax-ipnetwork-dependency-to-allow-both-v0.20-and-v.patch
+Patch:          0003-Relax-dns-lookup-dependency-to-allow-both-v3-and-v4.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 

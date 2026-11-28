@@ -29,7 +29,7 @@
 %global rocm_patch 0
 %global pkg_library_version 27
 %else
-%global rocm_release 10.1
+%global rocm_release 10.2
 %global rocm_patch 0
 %global pkg_library_version 27
 %endif

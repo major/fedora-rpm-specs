@@ -1,5 +1,5 @@
 Name:		libcue
-Version:	2.4.2
+Version:	2.4.4
 Release:	%autorelease
 Summary:	Cue sheet parser library
 # Files libcue/rem.{c,h} contains a BSD-2-Clause header
@@ -7,8 +7,6 @@ License:	GPL-2.0-only AND BSD-2-Clause
 URL:		https://github.com/lipnitsk/%{name}
 VCS:		git:%{url}.git
 Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/lipnitsk/libcue/pull/90
-Patch:		libcue-0001-Reject-out-of-range-numbers-on-ILP32-too.patch
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	flex

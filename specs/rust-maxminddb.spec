@@ -2,20 +2,20 @@
 %bcond check 1
 %global debug_package %{nil}
 
+%global testdata_commit b532ae5dbdbdb04a9588a631af0030e01cbcdcd0
+%global testdata_short  %{sub %{testdata_commit} 1 7}
+
 %global crate maxminddb
 
-%global testdata_commit 40d0b4ff0ffdad191e83bd8045b780dd052650e0
-%global testdata_short  %(c=%{testdata_commit}; echo ${c:0:7})
-
 Name:           rust-maxminddb
-Version:        0.28.1
+Version:        0.32.0
 Release:        %autorelease
 Summary:        Library for reading MaxMind DB format used by GeoIP2 and GeoLite2
 
 License:        ISC
 URL:            https://crates.io/crates/maxminddb
-Source0:        %{crates_source}
-Source1:        https://github.com/maxmind/MaxMind-DB/archive/%{testdata_commit}/test-data-%{testdata_short}.tar.gz
+Source:         %{crates_source}
+Source2:        https://github.com/maxmind/MaxMind-DB/archive/%{testdata_commit}/test-data-%{testdata_short}.tar.gz
 # Manually created patch for downstream crate metadata changes
 # * relax ipnetwork dependency to allow both v0.20 and v0.21
 # * drop unused, benchmark-only criterion dev-dependency
@@ -79,18 +79,6 @@ use the "mmap" feature of the "%{crate}" crate.
 %files       -n %{name}+mmap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+simdutf8-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+simdutf8-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "simdutf8" feature of the "%{crate}" crate.
-
-%files       -n %{name}+simdutf8-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+unsafe-str-decode-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -104,8 +92,7 @@ use the "unsafe-str-decode" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version} -p1 -a1
-mv MaxMind-DB-%{testdata_commit} test-data
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
@@ -119,6 +106,9 @@ mv MaxMind-DB-%{testdata_commit} test-data
 
 %if %{with check}
 %check
+# unpack test data
+tar -xzvf %{S:2}
+mv MaxMind-DB-%{testdata_commit} test-data
 %cargo_test
 %endif
 

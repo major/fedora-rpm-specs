@@ -5,7 +5,7 @@
 %global crate opendal-layer-timeout
 
 Name:           rust-opendal-layer-timeout
-Version:        0.59.1
+Version:        0.59.5
 Release:        %autorelease
 Summary:        Apache OpenDAL timeout layer
 

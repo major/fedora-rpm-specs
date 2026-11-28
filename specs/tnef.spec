@@ -1,15 +1,6 @@
-%if (0%{?el5} || 0%{?el6})
-%global builddolphin 0
-%else
-%global builddolphin 1
-%endif
-
-#global commit #githash for non releases.
-#global shortcommit #(c=#{commit}; echo ${c:0:7})
-
 Name:      tnef
-Version:   1.4.18
-Release:   18%{?dist}
+Version:   1.5.0
+Release:   1%{?dist}
 Summary:   Extract files from email attachments like WINMAIL.DAT
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -21,19 +12,16 @@ License:   GPL-2.0-or-later
 URL:       https://github.com/verdammelt/tnef
 # For git hub release archives:
 Source0:   https://github.com/verdammelt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-# For git hub tags:
-#S#ource0:   https://github.com/verdammelt/%#{name}/archive/%#{commit}/%#{name}-%#{commit}.tar.gz
 Source1:   vnd.ms-tnef.desktop
 Source2:   tnef-extract.desktop
 Source3:   tnefextract.desktop
 Source4:   tnef.sh
 
-# Backport from upstream: https://github.com/verdammelt/tnef/commit/86bfa75cfacbe71c8d5282fa0065981b4544c5ad
-Patch0:    0000-too-many-arguments.patch
-
-BuildRequires: make
-BuildRequires: automake autoconf
+BuildRequires: automake
+BuildRequires: autoconf
 BuildRequires: desktop-file-utils
+BuildRequires: make
+BuildRequires: gcc
 
 
 %description
@@ -56,7 +44,6 @@ Requires: nautilus
 Provides a right-click extract menu item for Nautilus to extract TNEF files.
 
 
-%if 0%{builddolphin}
 %package dolphin
 Summary: Provides TNEF extract extension for KDE's Dolphin file manager
 
@@ -68,7 +55,6 @@ Requires: kf5-filesystem
 
 %description dolphin
 Provides a right-click extract menu item for Dolphin to extract TNEF files.
-%endif
 
 
 %prep
@@ -79,7 +65,6 @@ Provides a right-click extract menu item for Dolphin to extract TNEF files.
 autoreconf -vfi
 %configure
 %make_build
-chmod a-x THANKS
 
 
 %install
@@ -88,23 +73,15 @@ chmod a-x THANKS
 mkdir -p %{buildroot}/%{_datadir}/mimelnk/application/
 desktop-file-install                                  \
     --dir=%{buildroot}%{_datadir}/mimelnk/application \
-%if 0%{?el5}
-    --vendor="" \
-%endif
     %{SOURCE1}
 
 mkdir -p %{buildroot}/%{_datadir}/applications/
 desktop-file-install                           \
     --dir=%{buildroot}%{_datadir}/applications \
-%if 0%{?el5}
-    --vendor="" \
-%endif
     %{SOURCE2}
 
-%if 0%{builddolphin}
 mkdir -p %{buildroot}%{_kf5_datadir}/kservices5 
 cp %{SOURCE3} %{buildroot}%{_kf5_datadir}/kservices5
-%endif
 
 install -p -m 755 %{SOURCE4} \
         %{buildroot}%{_bindir}/
@@ -126,13 +103,14 @@ make check DESTDIR=%{buildroot}
 %{_datadir}/mimelnk/application/vnd.ms-tnef.desktop
 
 
-%if 0%{builddolphin}
 %files dolphin
 %{_kf5_datadir}/kservices5/tnefextract.desktop
-%endif
 
 
 %changelog
+* Fri Nov 27 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.5.0-1
+- Update to v1.5.0 (fixes CVE-2026-103678, CVE-2026-103680, CVE-2026-137726, CVE-2026-137727, CVE-2026-137728)
+
 * Fri Jul 17 2026 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.18-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

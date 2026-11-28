@@ -12,7 +12,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           flatpak
-Version:        1.19.2
+Version:        1.19.4
 Release:        %autorelease
 Summary:        Application deployment framework for desktop apps
 
@@ -35,6 +35,7 @@ BuildRequires:  pkgconfig(appstream) >= %{appstream_version}
 BuildRequires:  pkgconfig(dconf)
 BuildRequires:  pkgconfig(fuse3)
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
+BuildRequires:  pkgconfig(gi-docgen)
 BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.40.0
 BuildRequires:  pkgconfig(gpgme) >= %{gpgme_version}
@@ -59,7 +60,6 @@ BuildRequires:  bubblewrap >= %{bubblewrap_version}
 BuildRequires:  docbook-dtds
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext-devel
-BuildRequires:  gtk-doc
 BuildRequires:  libcap-devel
 BuildRequires:  meson
 BuildRequires:  python3-pyparsing
@@ -261,7 +261,7 @@ fi
 
 %files devel
 %{_datadir}/gir-1.0/Flatpak-1.0.gir
-%{_datadir}/gtk-doc/
+%{_datadir}/doc/Flatpak-1.0/
 %{_includedir}/%{name}/
 %{_libdir}/libflatpak.so
 %{_libdir}/pkgconfig/%{name}.pc

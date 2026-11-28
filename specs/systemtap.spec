@@ -129,7 +129,7 @@ f /var/log/stap-server/log 0644 stap-server stap-server -
 
 Name: systemtap
 # PRERELEASE
-Version: 5.6
+Version: 5.7~pre17957858g0413bcc3
 Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
@@ -165,7 +165,7 @@ Release: 1%{?release_override}%{?dist}
 Summary: Programmable system-wide instrumentation system
 License: GPL-2.0-or-later
 URL: https://sourceware.org/systemtap/
-Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
+Source: %{name}-%{version}.tar.gz
 
 # Build*
 BuildRequires: make
@@ -828,7 +828,7 @@ done
 # setuptools may install classic egg-info or PEP 376 dist-info; package whichever exists
 : > helpersdt-metadata.files
 find %{buildroot}%{python3_sitearch} -mindepth 1 -maxdepth 1 \
-  \( -name 'HelperSDT-*.egg-info' -o -name 'helpersdt-*.dist-info' \) \
+  \( -iname 'HelperSDT-*.egg-info' -o -iname 'helpersdt-*.dist-info' \) \
   -printf '%%p\n' | sed "s|^%{buildroot}||" >> helpersdt-metadata.files
 %endif
 
@@ -1298,6 +1298,14 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Fri Nov 27 2026 Frank Ch. Eigler <fche@redhat.com> - 5.7-17957858g0413bcc3
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
+* Fri Nov 27 2026 Frank Ch. Eigler <fche@redhat.com> - 5.7-17957848ga14c7c3c
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
 * Thu Sep 17 2026 Frank Ch. Eigler <fche@redhat.com> - 5.6-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases

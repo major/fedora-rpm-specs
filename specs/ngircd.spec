@@ -1,6 +1,6 @@
 Name:           ngircd
-Version:        28
-Release:        2%{?dist}
+Version:        29
+Release:        1%{?dist}
 Summary:        Next Generation IRC Daemon
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -99,6 +99,10 @@ make check
 %{_sysusersdir}/ngircd.conf
 
 %changelog
+* Fri Nov 27 2026 Kevin Fenzi <kevin@scrye.com> - 29-1
+- Update to 29. Fixes rhbz#2585599
+- A number of security issues were fixed. Upgrade advised.
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

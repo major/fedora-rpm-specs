@@ -21,7 +21,7 @@
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 # Sync with native 'gcc' package
@@ -41,6 +41,9 @@ Source0:        %{srcdir}.tar.xz
 Patch0:         0020-libgomp-Don-t-hard-code-MS-printf-attributes.patch
 # Add missing stdlib.h include
 Patch1:         mingw-gcc_include-stdlib.patch
+# Backport fix for CVE-2026-125709
+# https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=68b1b9056c70acb31f2964963b51c480ff820602
+Patch2:         CVE-2026-125709.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -1002,6 +1005,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Fri Nov 27 2026 Sandro Mani <manisandro@gmail.com> - 16.2.1-3
+- Backport fix for CVE-2026-125709
+
 * Fri Nov 13 2026 Sandro Mani <manisandro@gmail.com> - 16.2.1-2
 - Update to 16.2.1 (snapshot 20261029)
 

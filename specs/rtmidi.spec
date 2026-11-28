@@ -1,10 +1,10 @@
 Name:       rtmidi
-Version:    6.0.0
-Release:    2%{?dist}
+Version:    6.1.0
+Release:    1%{?dist}
 Summary:    Library for realtime MIDI input/output (ALSA support)
 License:    MIT
 URL:        https://caml.music.mcgill.ca/~gary/rtmidi/index.html
-Source0:    https://caml.music.mcgill.ca/~gary/rtmidi/release/rtmidi-%{version}.tar.gz
+Source0:    https://github.com/thestk/rtmidi/archive/%{version}/rtmidi-%{version}.tar.gz
 BuildRequires:  alsa-lib-devel
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -40,8 +40,9 @@ Development headers and libraries for rtmidi.
 
 %prep
 %setup -q
+autoreconf -vif
 
-sed -i.orig -e 's/\/lib/\/%{_lib}/' Makefile.in rtmidi.pc.in
+sed -i.orig -e 's/\/lib/\/%{_lib}/' rtmidi.pc.in
 # fix end of line
 dos2unix doc/release.txt doc/doxygen/tutorial.txt
 
@@ -73,6 +74,9 @@ rm %{buildroot}%{_libdir}/lib%{name}.{a,la}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Nov 18 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.1.0-1
+- Update to v6.1.0
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

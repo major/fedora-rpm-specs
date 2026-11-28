@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        RPM macros and dependency generators for Crystal packaging
 
 License:        GPL-3.0-or-later
-URL:            https://codeberg.org/fedora-crystal/crystal-rpm-macros
+URL:            https://forge.fedoraproject.org/crystal/crystal-rpm-macros
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch

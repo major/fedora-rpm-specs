@@ -36,6 +36,8 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
+%pyproject_patch_dependency pytest-rerunfailures:drop_upper
+
 %generate_buildrequires
 %pyproject_buildrequires -p -x test%{?with_bootstrap:-no-images}
 

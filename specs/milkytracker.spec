@@ -2,7 +2,7 @@ Name:           milkytracker
 %global rtld_name org.milkytracker.MilkyTracker
 
 Version:        1.06
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Module tracker software for creating music
 
 License:        GPL-3.0-or-later AND BSD-3-Clause
@@ -14,6 +14,10 @@ Patch1:         milkytracker-1.06-no-cmp0004.patch
 
 # Milkytracker 1.06's CMakeLists.txt set "1.05.01" as the version
 Patch2:         milkytracker-1.06-VER_FULL.patch
+
+# Fix building with rtmidi-6.1.
+# https://github.com/milkytracker/MilkyTracker/pull/423
+Patch3:         milkytracker-1.06-rtmidi-6.1.patch
 
 BuildRequires:  SDL2-devel
 BuildRequires:  cmake
@@ -78,6 +82,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rtld_na
 
 
 %changelog
+* Tue Nov 24 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.06-2
+- Rebuilt for rtmidi-6.1.0
+
 * Mon Sep 21 2026 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.06-1
 - Update to v1.06
 

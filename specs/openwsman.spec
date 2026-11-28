@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.8.1
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -58,6 +58,7 @@ Patch11:	openwsman-2.8.1-rdoc-6_16.patch
 # Replace removed Python 2 C API macros with Python 3 equivalents
 # for compatibility with SWIG 4.5.0
 Patch12:	openwsman-swig45.patch
+Patch13:	openwsman-2.8.1-rdoc-8_1.patch
 BuildRequires:	make
 BuildRequires:	swig
 BuildRequires:	libcurl-devel libxml2-devel pam-devel sblim-sfcc-devel
@@ -424,6 +425,9 @@ fi
 %endif
 
 %changelog
+* Mon Nov 23 2026 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.1-23
+- Support RDoc 8.1 and above (for Ruby 4.1)
+
 * Thu Sep 10 2026 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.8.1-22
 - Rebuilt for libxml-2.5.4
 

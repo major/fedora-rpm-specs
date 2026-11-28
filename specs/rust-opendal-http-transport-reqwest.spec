@@ -5,7 +5,7 @@
 %global crate opendal-http-transport-reqwest
 
 Name:           rust-opendal-http-transport-reqwest
-Version:        0.59.1
+Version:        0.59.5
 Release:        %autorelease
 Summary:        Apache OpenDAL reqwest HTTP transport implementation
 
@@ -32,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %license %{crate_instdir}/NOTICE
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

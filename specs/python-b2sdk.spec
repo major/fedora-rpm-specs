@@ -1,8 +1,8 @@
 %bcond tests    %{defined fedora}
 
 Name:           python-b2sdk
-Version:        2.10.2
-Release:        3%{?dist}
+Version:        2.13.5
+Release:        1%{?dist}
 Summary:        Backblaze B2 SDK
 
 License:        MIT
@@ -12,8 +12,7 @@ BuildArch:      noarch
 # PyPI tarball is missing tests
 Source:         %{url}/archive/v%{version}/b2sdk-%{version}.tar.gz
 
-# https://github.com/Backblaze/b2-sdk-python/pull/560
-Patch:          0001-Fix-test_dir_without_exec_permission-on-Python-3.14.patch
+Patch:          0001-Preserve-PYTHONPATH-in-sdkharness-tests.patch
 
 %global _description %{expand:
 Python library and a few handy utilities for easy access to all of the
@@ -42,15 +41,17 @@ BuildRequires:  python3-responses
 
 %prep
 %autosetup -p 1 -n b2-sdk-python-%{version}
+# Fedora's certifi uses the system CA bundle regardless of its version.
+sed -i 's/"certifi>=2026.10.19"/"certifi"/' pyproject.toml
 
 
 %generate_buildrequires
-export PDM_BUILD_SCM_VERSION=%{version}
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_buildrequires
 
 
 %build
-export PDM_BUILD_SCM_VERSION=%{version}
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
 
@@ -73,6 +74,9 @@ export PDM_BUILD_SCM_VERSION=%{version}
 
 
 %changelog
+* Fri Nov 27 2026 Simon de Vlieger <cmdr@supakeen.com> - 2.13.5-1
+- Update to version 2.13.5 rhbz#2441809
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

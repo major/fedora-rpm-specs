@@ -2,7 +2,7 @@
 
 Name:           python-phyghtmap
 Version:        2.23
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Generate OSM contour lines from NASA SRTM data
 License:        GPL-2.0-or-later
 URL:            http://katze.tfiu.de/projects/phyghtmap/
@@ -15,6 +15,8 @@ Patch1:         0002-Fix_matplotlib_after_3_6_0.patch
 Patch2:         0003-Array_all_array_equal.patch
 # GDAL swapped coordinates in new versions: https://gis.stackexchange.com/questions/423635/phyghtmap-2-23-reversing-flipping-coordinates
 Patch3:         0004-New_gdal_swapped_coords.patch
+# Fix lat/long swapped in PDB files
+Patch4:         0005-Lat_lon_swapped.patch
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -74,6 +76,9 @@ install -Dpm 644 docs/%{modname}.1 %{buildroot}%{_mandir}/man1/%{modname}.1
 %{_mandir}/man1/%{modname}.1*
 
 %changelog
+* Fri Nov 27 2026 Federico Pellegrin <fede@evolware.org> - 2.23-24
+- Try to further fix package: swapped coordinates in PDB (rhbz#2469045)
+
 * Thu Jul 16 2026 Fedora Release Engineering <releng@fedoraproject.org> - 2.23-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_45_Mass_Rebuild
 

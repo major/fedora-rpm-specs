@@ -5,7 +5,7 @@
 %global crate opendal-layer-retry
 
 Name:           rust-opendal-layer-retry
-Version:        0.59.1
+Version:        0.59.5
 Release:        %autorelease
 Summary:        Apache OpenDAL retry layer
 
